@@ -39,13 +39,19 @@ public final class MapHelper {
 
 
     /* Creates icon overlay for current position */
-    public static ItemizedIconOverlay createMyLocationOverlay(Context context, Location currentBestLocation) {
+    public static ItemizedIconOverlay createMyLocationOverlay(Context context, Location currentBestLocation, boolean locationIsNew) {
 
         final GeoPoint position = new GeoPoint(currentBestLocation.getLatitude(), currentBestLocation.getLongitude());
         final ArrayList<OverlayItem> overlayItems = new ArrayList<>();
+        LogHelper.v(LOG_TAG, "Location is new? " + locationIsNew + " Provider: " + currentBestLocation.getProvider()); // TODO remove
 
         // create marker
-        Drawable newMarker = AppCompatDrawableManager.get().getDrawable(context, R.drawable.ic_my_loacation_dot_blue_24dp);
+        Drawable newMarker;
+        if (locationIsNew) {
+            newMarker = AppCompatDrawableManager.get().getDrawable(context, R.drawable.ic_my_location_dot_blue_24dp);
+        } else {
+            newMarker = AppCompatDrawableManager.get().getDrawable(context, R.drawable.ic_my_location_dot_grey_24dp);
+        }
         OverlayItem overlayItem = new OverlayItem(context.getString(R.string.marker_my_location_title), context.getString(R.string.marker_my_location_description), position);
         overlayItem.setMarker(newMarker);
         overlayItems.add(overlayItem);

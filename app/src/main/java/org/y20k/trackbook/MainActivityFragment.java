@@ -60,12 +60,11 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
     private Activity mActivity;
     private MapView mMapView;
     private IMapController mController;
-    private CompassOverlay mCompassOverlay = null;
     private LocationManager mLocationManager;
     private LocationListener mGPSListener;
     private LocationListener mNetworkListener;
-    private Location mCurrentBestLocation;
     private ItemizedIconOverlay mMyLocationOverlay;
+    private Location mCurrentBestLocation;
 
 
     /* Constructor (default) */
@@ -86,12 +85,26 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
         // acquire reference to Location Manager
         mLocationManager = (LocationManager) mActivity.getSystemService(Context.LOCATION_SERVICE);
 
-        // get last know location
-        List locationProviders = mLocationManager.getProviders(true);
-        if (locationProviders.size() > 0) {
-            mCurrentBestLocation = LocationHelper.determineLastKnownLocation(mLocationManager);
-        } else {
+        // check if location services are available
+        if (mLocationManager.getProviders(true).size() == 0) {
+            // ask user to turn on location services
             promptUserForLocation();
+        }
+
+        // CASE 1: get saved location if possible
+        if (savedInstanceState != null) {
+            Location savedLocation = savedInstanceState.getParcelable(INSTANCE_CURRENT_LOCATION);
+            // check if saved location is still current
+            if (LocationHelper.isNewLocation(savedLocation)) {
+                mCurrentBestLocation = savedLocation;
+            } else {
+                mCurrentBestLocation = null;
+            }
+        }
+
+        // CASE 2: get last known location if no saved location or saved location is too old
+        if (mCurrentBestLocation == null && mLocationManager.getProviders(true).size() > 0) {
+            mCurrentBestLocation = LocationHelper.determineLastKnownLocation(mLocationManager);
         }
 
     }
@@ -131,13 +144,13 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
         }
 
         // add compass to map
-        mCompassOverlay = new CompassOverlay(mActivity, new InternalCompassOrientationProvider(mActivity), mMapView);
-        mCompassOverlay.enableCompass();
-        mMapView.getOverlays().add(mCompassOverlay);
+        CompassOverlay compassOverlay = new CompassOverlay(mActivity, new InternalCompassOrientationProvider(mActivity), mMapView);
+        compassOverlay.enableCompass();
+        mMapView.getOverlays().add(compassOverlay);
 
         // mark user's location on map
         if (mCurrentBestLocation != null) {
-            mMyLocationOverlay = MapHelper.createMyLocationOverlay(mActivity, mCurrentBestLocation);
+            mMyLocationOverlay = MapHelper.createMyLocationOverlay(mActivity, mCurrentBestLocation, LocationHelper.isNewLocation(mCurrentBestLocation));
             mMapView.getOverlays().add(mMyLocationOverlay);
         }
 
@@ -205,7 +218,7 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
 
                 // mark user's new location on map and remove last marker
                 mMapView.getOverlays().remove(mMyLocationOverlay);
-                mMyLocationOverlay = MapHelper.createMyLocationOverlay(mActivity, mCurrentBestLocation);
+                mMyLocationOverlay = MapHelper.createMyLocationOverlay(mActivity, mCurrentBestLocation, LocationHelper.isNewLocation(mCurrentBestLocation));
                 mMapView.getOverlays().add(mMyLocationOverlay);
 
                 return true;
@@ -232,8 +245,11 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
     private void startFindingLocation() {
 
         // listener that responds to location updates
-        mGPSListener = createLocationsListener();
-        mNetworkListener = createLocationsListener();
+        mGPSListener = createLocationListener();
+        mNetworkListener = createLocationListener();
+
+        // inform user that Trackbook is getting location updates
+        Toast.makeText(mActivity, mActivity.getString(R.string.toast_message_acquiring_location), Toast.LENGTH_LONG).show();
 
         // start listener
         List locationProviders = mLocationManager.getProviders(true);
@@ -280,17 +296,17 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
 
 
     /* Creates listener for changes in location status */
-    private LocationListener createLocationsListener() {
+    private LocationListener createLocationListener() {
         return new LocationListener() {
             public void onLocationChanged(Location location) {
                 // check if the new location is better
                 if (LocationHelper.isBetterLocation(location, mCurrentBestLocation)) {
                     // save location
                     mCurrentBestLocation = location;
-
+                    LogHelper.v(LOG_TAG, "Location isBetterLocation(!): " + location.getProvider()); // TODO remove
                     // mark user's new location on map and remove last marker
                     mMapView.getOverlays().remove(mMyLocationOverlay);
-                    mMyLocationOverlay = MapHelper.createMyLocationOverlay(mActivity, mCurrentBestLocation);
+                    mMyLocationOverlay = MapHelper.createMyLocationOverlay(mActivity, mCurrentBestLocation, LocationHelper.isNewLocation(mCurrentBestLocation));
                     mMapView.getOverlays().add(mMyLocationOverlay);
                 }
             }

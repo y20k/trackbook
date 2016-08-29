@@ -37,8 +37,6 @@ import org.y20k.trackbook.helpers.TrackbookKeys;
  */
 public class TrackerService extends Service implements TrackbookKeys {
 
-    // TODO study this https://developer.android.com/guide/topics/location/strategies.html
-
     /* Define log tag */
     private static final String LOG_TAG = TrackerService.class.getSimpleName();
 
@@ -91,10 +89,11 @@ public class TrackerService extends Service implements TrackbookKeys {
                 }
             };
 
-
-            mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, mLocationListener);
-
-
+            try {
+                mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, mLocationListener);
+            } catch (SecurityException e) {
+                e.printStackTrace();
+            }
 
             mTimer = new CountDownTimer(CONSTANT_MAXIMAL_DURATION, CONSTANT_TRACKING_INTERVAL) {
                 @Override
@@ -113,7 +112,11 @@ public class TrackerService extends Service implements TrackbookKeys {
         // ACTION STOP
         else if (intent.getAction().equals(ACTION_STOP)) {
             // Remove the listener you previously added
-            mLocationManager.removeUpdates(mLocationListener);
+            try {
+                mLocationManager.removeUpdates(mLocationListener);
+            } catch (SecurityException e) {
+                e.printStackTrace();
+            }
             Log.v(LOG_TAG, "Service received command: STOP");
         }
 
@@ -136,7 +139,11 @@ public class TrackerService extends Service implements TrackbookKeys {
         Log.v(LOG_TAG, "onDestroy called.");
 
         // Remove the listener you previously added
-        mLocationManager.removeUpdates(mLocationListener);
+        try {
+            mLocationManager.removeUpdates(mLocationListener);
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        }
 
         // cancel notification
         stopForeground(true);

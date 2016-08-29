@@ -18,6 +18,7 @@ package org.y20k.trackbook.helpers;
 
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.SystemClock;
 
 import java.util.List;
 
@@ -27,8 +28,13 @@ import java.util.List;
  */
 public final class LocationHelper {
 
+    /* Define log tag */
+    private static final String LOG_TAG = LocationHelper.class.getSimpleName();
+
+
     /* Main class variables */
-    private static final int TWO_MINUTES = 1000 * 60 * 2;
+//    private static final int TWO_MINUTES = 1000 * 1000 * 60 * 2;
+    private static final long TWO_MINUTES = 2L * 60000000000L; // 5 minutes
 
 
     /* Determines last known location  */
@@ -64,12 +70,13 @@ public final class LocationHelper {
         }
 
         // return best estimate location
-        if (isBetterLocation(gpsLocation, networkLocation)) {
-            return gpsLocation;
-        } else {
+        if (isBetterLocation(networkLocation, gpsLocation)) {
+            LogHelper.v(LOG_TAG, "Best last known location came from: " + networkLocation.getProvider()); // TODO remove
             return networkLocation;
+        } else {
+            LogHelper.v(LOG_TAG, "Best last known location came from: " + gpsLocation.getProvider()); // TODO remove
+            return gpsLocation;
         }
-
     }
 
 
@@ -83,15 +90,17 @@ public final class LocationHelper {
         }
 
         // check whether the new location fix is newer or older
-        long timeDelta = location.getTime() - currentBestLocation.getTime();
+        long timeDelta = location.getElapsedRealtimeNanos() - currentBestLocation.getElapsedRealtimeNanos();
         boolean isSignificantlyNewer = timeDelta > TWO_MINUTES;
         boolean isSignificantlyOlder = timeDelta < -TWO_MINUTES;
         boolean isNewer = timeDelta > 0;
 
         // if it's been more than two minutes since the current location, use the new location because the user has likely moved
         if (isSignificantlyNewer) {
+            LogHelper.v(LOG_TAG, "Location isSignificantlyNewer: " + location.getProvider()); // TODO remove
             return true;
         } else if (isSignificantlyOlder) {
+            LogHelper.v(LOG_TAG, "Location isSignificantlyOlder: " + location.getProvider()); // TODO remove
             return false;
         }
 
@@ -102,18 +111,32 @@ public final class LocationHelper {
         boolean isSignificantlyLessAccurate = accuracyDelta > 200;
 
         // check if the old and new location are from the same provider
-        boolean isFromSameProvider = isSameProvider(location.getProvider(),
-                currentBestLocation.getProvider());
+        boolean isFromSameProvider = isSameProvider(location.getProvider(), currentBestLocation.getProvider());
 
         // determine location quality using a combination of timeliness and accuracy
         if (isMoreAccurate) {
+            LogHelper.v(LOG_TAG, "Location isMoreAccurate: " + location.getProvider()); // TODO remove
             return true;
         } else if (isNewer && !isLessAccurate) {
+            LogHelper.v(LOG_TAG, "Location isNewer && !isLessAccurate: " + location.getProvider()); // TODO remove
             return true;
         } else if (isNewer && !isSignificantlyLessAccurate && isFromSameProvider) {
+            LogHelper.v(LOG_TAG, "Location isNewer && !isSignificantlyLessAccurate && isFromSameProvider: " + location.getProvider()); // TODO remove
             return true;
         }
+        LogHelper.v(LOG_TAG, "Location is not better: " + location.getProvider()); // TODO remove
         return false;
+    }
+
+
+    /* Checks if given location is newer than two minutes */
+    public static boolean isNewLocation(Location location) {
+        if (location == null) {
+            return false;
+        } else {
+            long locationTime = SystemClock.elapsedRealtimeNanos() - location.getElapsedRealtimeNanos();
+            return locationTime < TWO_MINUTES;
+        }
     }
 
 

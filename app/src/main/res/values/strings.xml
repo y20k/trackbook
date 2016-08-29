@@ -14,6 +14,7 @@
     <string name="toast_message_permissions_granted">Permissions granted.</string>
     <string name="toast_message_unable_to_start_app">Unable to start Trackbook.</string>
     <string name="toast_message_location_offline">Location is turned off.</string>
+    <string name="toast_message_acquiring_location">Acquiring current location.</string>
     <string name="toast_message_my_location">My Location.</string>
 
     <!-- map markers -->

@@ -9,4 +9,8 @@
 
     <color name="trackbook_white">#FFFFFFFF</color>
 
+    <color name="trackbook_grey_light">#FF607d8b</color>
+
+    <color name="trackbook_grey">#FF455a64</color>
+
 </resources>
