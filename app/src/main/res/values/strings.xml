@@ -1,0 +1,36 @@
+<resources>
+    <!-- activities -->
+    <string name="app_name">Trackbook</string>
+
+    <!-- menu entries -->
+    <string name="menu_settings">Settings</string>
+    <string name="menu_my_location">My Location</string>
+
+    <!-- snackbar messages -->
+    <string name="snackbar_message_tracking_stopped">Tracking stopped</string>
+    <string name="snackbar_message_tracking_started">Tracking started</string>
+
+    <!-- toast messages -->
+    <string name="toast_message_permissions_granted">Permissions granted.</string>
+    <string name="toast_message_unable_to_start_app">Unable to start Trackbook.</string>
+    <string name="toast_message_location_offline">Location is turned off.</string>
+    <string name="toast_message_my_location">My Location.</string>
+
+    <!-- map markers -->
+    <string name="marker_my_location_title">My current location.</string>
+    <string name="marker_my_location_description">This marker represents the user\'s current location on the map.</string>
+
+    <!-- onboading layout -->
+    <string name="layout_onboading_h1_welcome">Welcome onboard</string>
+    <string name="layout_onboading_description_app_icon">Trackbook App Icon</string>
+    <string name="layout_onboading_h2_app_name">Trackbook</string>
+    <string name="layout_onboading_p_app_claim">Movement Recorder for Android</string>
+    <string name="layout_onboading_h2_request_permissions">Trackbook cannot work without these permissions:</string>
+    <string name="layout_onboading_h3_permission_location">LOCATION</string>
+    <string name="layout_onboading_p_permission_location">Maxime et commodi modi officiis at deleniti fugit. Magnam atque provident est et nulla incidunt. Beatae excepturi repudiandae aut facilis aperiam. Et totam qui doloremque. Asperiores est ut perspiciatis ducimus ut aut rerum minus. Voluptatem facilis qui minus corporis explicabo eos.</string>
+    <string name="layout_onboading_h3_permission_storage">STORAGE</string>
+    <string name="layout_onboading_p_permission_storage">Maxime et commodi modi officiis at deleniti fugit. Magnam atque provident est et nulla incidunt. Beatae excepturi repudiandae aut facilis aperiam. Et totam qui doloremque. Asperiores est ut perspiciatis ducimus ut aut rerum minus. Voluptatem facilis qui minus corporis explicabo eos.</string>
+    <string name="layout_onboading_button_okay">Got it!</string>
+
+
+</resources>

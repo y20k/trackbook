@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="trackbook_red">#FFE53935</color>
+    <color name="trackbook_red_dark">#FFB71C1C</color>
+
+    <color name="trackbook_gold">#FFE6BA64</color>
+    <color name="trackbook_blue">#FF2095F2</color>
+
+    <color name="trackbook_white">#FFFFFFFF</color>
+
+</resources>

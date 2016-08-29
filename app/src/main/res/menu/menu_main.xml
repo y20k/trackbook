@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="org.y20k.trackbook.MainActivity">
+
+    <item
+        android:id="@+id/action_my_location"
+        android:icon="@drawable/ic_my_location_white_24dp"
+        android:title="@string/menu_my_location"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="@string/menu_settings"
+        app:showAsAction="never" />
+
+</menu>
