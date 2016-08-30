@@ -17,7 +17,10 @@
 package org.y20k.trackbook;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationListener;
@@ -25,6 +28,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -58,6 +62,8 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
 
     /* Main class variables */
     private Activity mActivity;
+    private boolean mFirstStart;
+    private BroadcastReceiver mWayPointReceiver;
     private MapView mMapView;
     private IMapController mController;
     private LocationManager mLocationManager;
@@ -81,6 +87,17 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
 
         // action bar has options menu
         setHasOptionsMenu(true);
+
+        // restore first start state
+        mFirstStart = true;
+        if (savedInstanceState != null) {
+            mFirstStart = savedInstanceState.getBoolean(INSTANCE_FIRST_START, true);
+        }
+
+        // register broadcast receiver for new WayPoints
+        mWayPointReceiver = createNewWayPointReceiver();
+        IntentFilter newWayPointReceiverIntentFilter = new IntentFilter(ACTION_WAYPOINT_ADDED);
+        LocalBroadcastManager.getInstance(mActivity).registerReceiver(mWayPointReceiver, newWayPointReceiverIntentFilter);
 
         // acquire reference to Location Manager
         mLocationManager = (LocationManager) mActivity.getSystemService(Context.LOCATION_SERVICE);
@@ -180,8 +197,20 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
     public void onDestroyView(){
         super.onDestroyView();
 
+        // unregister broadcast receiver
+        LocalBroadcastManager.getInstance(mActivity).unregisterReceiver(mWayPointReceiver);
+
         // deactivate map
         mMapView.onDetach();
+    }
+
+
+    @Override
+    public void onDestroy() {
+        // reset first start state
+        mFirstStart = true;
+
+        super.onDestroy();
     }
 
 
@@ -233,6 +262,7 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         // save map position
+        outState.putBoolean(INSTANCE_FIRST_START, mFirstStart);
         outState.putDouble(INSTANCE_LATITUDE, mMapView.getMapCenter().getLatitude());
         outState.putDouble(INSTANCE_LONGITUDE, mMapView.getMapCenter().getLongitude());
         outState.putInt(INSTANCE_ZOOM_LEVEL, mMapView.getZoomLevel());
@@ -249,7 +279,10 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
         mNetworkListener = createLocationListener();
 
         // inform user that Trackbook is getting location updates
-        Toast.makeText(mActivity, mActivity.getString(R.string.toast_message_acquiring_location), Toast.LENGTH_LONG).show();
+        if (mFirstStart) {
+            Toast.makeText(mActivity, mActivity.getString(R.string.toast_message_acquiring_location), Toast.LENGTH_LONG).show();
+            mFirstStart = false;
+        }
 
         // start listener
         List locationProviders = mLocationManager.getProviders(true);
@@ -330,6 +363,20 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
     private void promptUserForLocation() {
         // TODO prompt user to turn on location
         Toast.makeText(mActivity, mActivity.getString(R.string.toast_message_location_offline), Toast.LENGTH_LONG).show();
+    }
+
+
+    /* Creates receiver for new WayPoints */
+    private BroadcastReceiver createNewWayPointReceiver () {
+        return new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                if (intent.hasExtra(EXTRA_WAYPOINT_LOCATION) && intent.hasExtra(EXTRA_WAYPOINT_IS_STOPOVER)) {
+                    // TODO draw location on map
+                    Toast.makeText(mActivity, "New WayPoint: " + intent.getParcelableExtra(EXTRA_WAYPOINT_LOCATION).toString(), Toast.LENGTH_LONG).show(); // TODO Remove
+                }
+            }
+        };
     }
 
 

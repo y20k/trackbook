@@ -25,8 +25,11 @@ public interface TrackbookKeys {
     /* ACTIONS */
     public static final String ACTION_START = "org.y20k.transistor.action.START";
     public static final String ACTION_STOP = "org.y20k.transistor.action.STOP";
+    public static final String ACTION_WAYPOINT_ADDED = "WAYPOINT_ADDED";
 
     /* EXTRAS */
+    public static final String EXTRA_WAYPOINT_LOCATION = "WAYPOINT_LOCATION";
+    public static final String EXTRA_WAYPOINT_IS_STOPOVER = "WAYPOINT_IS_STOPOVER";
 
     /* ARGS */
     public static final String ARG_PERMISSIONS_GRANTED = "ArgPermissionsGranted";
@@ -41,6 +44,7 @@ public interface TrackbookKeys {
     public static final String PREFS_SHOW_COMPASS = "showCompass";
 
     /* INSTANCE STATE */
+    public static final String INSTANCE_FIRST_START = "firstStart";
     public static final String INSTANCE_LATITUDE = "latitude";
     public static final String INSTANCE_LONGITUDE = "longitude";
     public static final String INSTANCE_ZOOM_LEVEL = "zoomLevel";

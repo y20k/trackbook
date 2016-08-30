@@ -29,6 +29,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import org.y20k.trackbook.core.Track;
+import org.y20k.trackbook.helpers.LocationHelper;
 import org.y20k.trackbook.helpers.TrackbookKeys;
 
 
@@ -45,11 +46,11 @@ public class TrackerService extends Service implements TrackbookKeys {
     private Track mTrack;
     private CountDownTimer mTimer;
     private LocationManager mLocationManager;
-    private LocationListener mLocationListener;
+    private LocationListener mGPSListener;
+    private LocationListener mNetworkListener;
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-//        return super.onStartCommand(intent, flags, startId);
 
         // checking for empty intent
         if (intent == null) {
@@ -64,33 +65,23 @@ public class TrackerService extends Service implements TrackbookKeys {
             Log.v(LOG_TAG, "Service received command: START");
 
             // create a new track
-            mTrack = new Track();
+            mTrack = new Track(getApplicationContext());
 
             // acquire reference to Location Manager
             mLocationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
-            // listener that responds to location updates
-            mLocationListener = new LocationListener() {
-                public void onLocationChanged(Location location) {
-                    // add new location to track
-                    mTrack.addWayPoint(location, false);
-                }
+            // listeners that responds to location updates
+            mGPSListener = createLocationListener();
+            mNetworkListener = createLocationListener();
 
-                public void onStatusChanged(String provider, int status, Bundle extras) {
-                    // TODO do something
-                }
-
-                public void onProviderEnabled(String provider) {
-                    // TODO do something
-                }
-
-                public void onProviderDisabled(String provider) {
-                    // TODO do something
-                }
-            };
-
+            // register location listeners and request updates
             try {
-                mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, mLocationListener);
+                mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, mGPSListener);
+            } catch (SecurityException e) {
+                e.printStackTrace();
+            }
+            try {
+                mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, mNetworkListener);
             } catch (SecurityException e) {
                 e.printStackTrace();
             }
@@ -111,9 +102,14 @@ public class TrackerService extends Service implements TrackbookKeys {
 
         // ACTION STOP
         else if (intent.getAction().equals(ACTION_STOP)) {
-            // Remove the listener you previously added
+            // remove listeners
             try {
-                mLocationManager.removeUpdates(mLocationListener);
+                mLocationManager.removeUpdates(mGPSListener);
+            } catch (SecurityException e) {
+                e.printStackTrace();
+            }
+            try {
+                mLocationManager.removeUpdates(mNetworkListener);
             } catch (SecurityException e) {
                 e.printStackTrace();
             }
@@ -136,17 +132,56 @@ public class TrackerService extends Service implements TrackbookKeys {
     public void onDestroy() {
         super.onDestroy();
 
-        Log.v(LOG_TAG, "onDestroy called.");
-
-        // Remove the listener you previously added
+        // remove listeners
         try {
-            mLocationManager.removeUpdates(mLocationListener);
+            mLocationManager.removeUpdates(mGPSListener);
         } catch (SecurityException e) {
             e.printStackTrace();
         }
+        try {
+            mLocationManager.removeUpdates(mNetworkListener);
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        }
+
+        Log.v(LOG_TAG, "onDestroy called.");
 
         // cancel notification
         stopForeground(true);
     }
 
+
+    /* Creates a location listener */
+    private LocationListener createLocationListener() {
+        return new LocationListener() {
+            public void onLocationChanged(Location location) {
+
+                // get number of tracked WayPoints
+                int trackSize = mTrack.getWayPoints().size();
+
+                if (trackSize >= 2) {
+                    Location lastWayPoint = mTrack.getWayPointLocation(trackSize-2);
+                    if (LocationHelper.isNewWayPoint(lastWayPoint, location)) {
+                        // add new location to track
+                        mTrack.addWayPoint(location);
+                    }
+                } else {
+                    // add first location to track
+                    mTrack.addWayPoint(location);
+                }
+            }
+
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+                // TODO do something
+            }
+
+            public void onProviderEnabled(String provider) {
+                // TODO do something
+            }
+
+            public void onProviderDisabled(String provider) {
+                // TODO do something
+            }
+        };
+    }
 }

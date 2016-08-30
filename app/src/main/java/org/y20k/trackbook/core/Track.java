@@ -16,13 +16,18 @@
 
 package org.y20k.trackbook.core;
 
+import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
-import android.util.Log;
+import android.support.v4.content.LocalBroadcastManager;
 
+import org.y20k.trackbook.helpers.LocationHelper;
+import org.y20k.trackbook.helpers.LogHelper;
 import org.y20k.trackbook.helpers.TrackbookKeys;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * Track class
@@ -34,48 +39,57 @@ public class Track implements TrackbookKeys {
 
 
     /* Main class variables */
-    private List mWayPoints;
+    private Context mContext;
+    private List<WayPoint> mWayPoints;
 
 
     /* Constructor */
-    public Track() {
+    public Track(Context context) {
+        mContext = context;
         mWayPoints = new ArrayList<WayPoint>();
     }
 
 
     /* Adds new waypoint */
-    public void addWayPoint(Location location, boolean isStopOver) {
+    public void addWayPoint(Location location) {
         // create new waypoint
-        WayPoint wayPoint = new WayPoint(location, isStopOver);
-
-        // TODO check if last waypoint is a stopover
-        if (CONSTANT_MINIMAL_STOP_TIME != CONSTANT_MINIMAL_STOP_TIME) {
-            wayPoint.isStopOver = true;
-        } else {
-            wayPoint.isStopOver = false;
-        }
+        WayPoint wayPoint = new WayPoint();
+        wayPoint.location = location;
+        wayPoint.isStopOver = LocationHelper.isStopOver(location);
 
         // add new waypoint to track
         mWayPoints.add(wayPoint);
 
-        // TODO remove debugging log
-        Log.v(LOG_TAG, "!!! new location: " +  wayPoint.location.toString());
+        // send local broadcast: new WayPoint added
+        Intent i = new Intent();
+        i.setAction(ACTION_WAYPOINT_ADDED);
+        i.putExtra(EXTRA_WAYPOINT_LOCATION, location);
+        i.putExtra(EXTRA_WAYPOINT_IS_STOPOVER, wayPoint.isStopOver);
+        LocalBroadcastManager.getInstance(mContext).sendBroadcast(i);
+
+        LogHelper.v(LOG_TAG, "!!! Waypoint No. " + mWayPoints.indexOf(wayPoint) + " Location: " + wayPoint.location.toString()); // TODO remove
+    }
+
+
+    /* Getter for mWayPoints */
+    public List<WayPoint> getWayPoints() {
+        return mWayPoints;
+    }
+
+
+    /* Getter for location of specific WayPoint */
+    public Location getWayPointLocation(int index) {
+        return mWayPoints.get(index).location;
     }
 
 
     /**
-     * Inner class: Defines data type WayPoint ***
+     * Inner class: Defines data type WayPoint
      */
     private class WayPoint {
 
         private Location location;
         private boolean isStopOver;
-
-        /* Constructor */
-        public WayPoint(Location location, boolean isStopOver) {
-            this.location = location;
-            this.isStopOver = isStopOver;
-        }
 
     }
     /**
