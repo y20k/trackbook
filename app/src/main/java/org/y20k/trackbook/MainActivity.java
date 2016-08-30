@@ -62,10 +62,14 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // set state of tracking
         mTracking = false;
-        mPermissionsGranted = false;
+        if (savedInstanceState != null) {
+            mTracking = savedInstanceState.getBoolean(INSTANCE_TRACKING_STARTED, false);
+        }
 
         // check permissions on Android 6 and higher
+        mPermissionsGranted = false;
         if (Build.VERSION.SDK_INT >= 23) {
             // check permissions
             mMissingPermissions = checkPermissions();
@@ -106,6 +110,22 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putBoolean(INSTANCE_TRACKING_STARTED, mTracking);
+        super.onSaveInstanceState(outState);
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // set state of FloatingActionButton
+        setFloatingActionButtonState();
     }
 
 
@@ -193,9 +213,6 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
             mFloatingActionButton.setImageResource(R.drawable.ic_fiber_manual_record_white_24dp);
             mTracking = false;
 
-            // re-start preliminary tracking
-            // startFindingLocation();
-
             // stop tracker service
             Intent intent = new Intent(this, TrackerService.class);
             intent.setAction(ACTION_STOP);
@@ -217,6 +234,16 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
             intent.setAction(ACTION_START);
             startService(intent);
             LogHelper.v(LOG_TAG, "Starting tracker service.");
+        }
+    }
+
+
+    /* Set state of FloatingActionButton */
+    private void setFloatingActionButtonState() {
+        if (mTracking) {
+            mFloatingActionButton.setImageResource(R.drawable.ic_fiber_manual_record_red_24dp);
+        } else {
+            mFloatingActionButton.setImageResource(R.drawable.ic_fiber_manual_record_white_24dp);
         }
     }
 

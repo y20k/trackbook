@@ -52,11 +52,12 @@ public class TrackerService extends Service implements TrackbookKeys {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
+        // acquire reference to Location Manager
+        mLocationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+
         // checking for empty intent
         if (intent == null) {
             Log.v(LOG_TAG, "Null-Intent received. Stopping self.");
-            // remove notification
-            stopForeground(true);
             stopSelf();
         }
 
@@ -67,25 +68,10 @@ public class TrackerService extends Service implements TrackbookKeys {
             // create a new track
             mTrack = new Track(getApplicationContext());
 
-            // acquire reference to Location Manager
-            mLocationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+            // create gps and network location listeners
+            createListeners();
 
-            // listeners that responds to location updates
-            mGPSListener = createLocationListener();
-            mNetworkListener = createLocationListener();
-
-            // register location listeners and request updates
-            try {
-                mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, mGPSListener);
-            } catch (SecurityException e) {
-                e.printStackTrace();
-            }
-            try {
-                mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, mNetworkListener);
-            } catch (SecurityException e) {
-                e.printStackTrace();
-            }
-
+            // set a timer to prevent endless tracking
             mTimer = new CountDownTimer(CONSTANT_MAXIMAL_DURATION, CONSTANT_TRACKING_INTERVAL) {
                 @Override
                 public void onTick(long l) {
@@ -102,18 +88,10 @@ public class TrackerService extends Service implements TrackbookKeys {
 
         // ACTION STOP
         else if (intent.getAction().equals(ACTION_STOP)) {
-            // remove listeners
-            try {
-                mLocationManager.removeUpdates(mGPSListener);
-            } catch (SecurityException e) {
-                e.printStackTrace();
-            }
-            try {
-                mLocationManager.removeUpdates(mNetworkListener);
-            } catch (SecurityException e) {
-                e.printStackTrace();
-            }
             Log.v(LOG_TAG, "Service received command: STOP");
+
+            // remove listeners
+            removeListeners();
         }
 
         // START_STICKY is used for services that are explicitly started and stopped as needed
@@ -130,24 +108,15 @@ public class TrackerService extends Service implements TrackbookKeys {
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
+        Log.v(LOG_TAG, "onDestroy called.");
 
         // remove listeners
-        try {
-            mLocationManager.removeUpdates(mGPSListener);
-        } catch (SecurityException e) {
-            e.printStackTrace();
-        }
-        try {
-            mLocationManager.removeUpdates(mNetworkListener);
-        } catch (SecurityException e) {
-            e.printStackTrace();
-        }
-
-        Log.v(LOG_TAG, "onDestroy called.");
+        removeListeners();
 
         // cancel notification
         stopForeground(true);
+
+        super.onDestroy();
     }
 
 
@@ -184,4 +153,56 @@ public class TrackerService extends Service implements TrackbookKeys {
             }
         };
     }
+
+
+    /* Creates gps and network location listeners */
+    private void createListeners() {
+        Log.v(LOG_TAG, "Setting up location listeners.");
+
+        // listeners that responds to location updates
+        mGPSListener = createLocationListener();
+        mNetworkListener = createLocationListener();
+
+        // register location listeners and request updates
+        try {
+            mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, mGPSListener);
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        }
+        try {
+            mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, mNetworkListener);
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    /* Removes gps and network location listeners */
+    private void removeListeners() {
+        Log.v(LOG_TAG, "Removing location listeners.");
+
+        // remove gps listener
+        if (mGPSListener != null) {
+            Log.v(LOG_TAG, "Removing GPS location listener.");
+            try {
+                mLocationManager.removeUpdates(mGPSListener);
+            } catch (SecurityException e) {
+                // catches permission problems
+                e.printStackTrace();
+            }
+        }
+
+        // remove network listener
+        if (mNetworkListener != null) {
+            Log.v(LOG_TAG, "Removing network location listener.");
+            try {
+                mLocationManager.removeUpdates(mNetworkListener);
+            } catch (SecurityException e) {
+                // catches permission problems
+                e.printStackTrace();
+            }
+        }
+
+    }
+
 }

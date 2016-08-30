@@ -49,6 +49,7 @@ public interface TrackbookKeys {
     public static final String INSTANCE_LONGITUDE = "longitude";
     public static final String INSTANCE_ZOOM_LEVEL = "zoomLevel";
     public static final String INSTANCE_CURRENT_LOCATION = "currentLocation";
+    public static final String INSTANCE_TRACKING_STARTED = "trackingStarted";
 
     /* RESULTS */
 
