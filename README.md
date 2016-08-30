@@ -12,7 +12,19 @@ Trackbook is free software. It is published under the [MIT open source license](
 
 Install Trackbook
 ------------------
-tbd
+Do not install. Trackbook does not do anythimg useful right now. See the Install Canary below? Wait until it flies. 
+
+
+            .---.
+           /   6_6
+           \_  (__\
+           //   \\
+          ((     ))
+    =======""===""===============
+             |||
+             |||
+             '|'
+
 
 How to use Trackbook
 ---------------------
