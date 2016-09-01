@@ -43,6 +43,7 @@ import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.ItemizedIconOverlay;
 import org.osmdroid.views.overlay.compass.CompassOverlay;
 import org.osmdroid.views.overlay.compass.InternalCompassOrientationProvider;
+import org.y20k.trackbook.core.Track;
 import org.y20k.trackbook.helpers.LocationHelper;
 import org.y20k.trackbook.helpers.LogHelper;
 import org.y20k.trackbook.helpers.MapHelper;
@@ -62,15 +63,18 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
 
     /* Main class variables */
     private Activity mActivity;
+    private Track mTrack;
     private boolean mFirstStart;
-    private BroadcastReceiver mWayPointReceiver;
+    private BroadcastReceiver mTrackUpdatedReceiver;
     private MapView mMapView;
     private IMapController mController;
     private LocationManager mLocationManager;
     private LocationListener mGPSListener;
     private LocationListener mNetworkListener;
     private ItemizedIconOverlay mMyLocationOverlay;
+    private ItemizedIconOverlay mTrackOverlay;
     private Location mCurrentBestLocation;
+    private boolean mTacking;
 
 
     /* Constructor (default) */
@@ -94,10 +98,16 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
             mFirstStart = savedInstanceState.getBoolean(INSTANCE_FIRST_START, true);
         }
 
+        // restore tracking state
+        mTacking = false;
+        if (savedInstanceState != null) {
+            mTacking = savedInstanceState.getBoolean(INSTANCE_TRACKING_STARTED, false);
+        }
+
         // register broadcast receiver for new WayPoints
-        mWayPointReceiver = createNewWayPointReceiver();
-        IntentFilter newWayPointReceiverIntentFilter = new IntentFilter(ACTION_WAYPOINT_ADDED);
-        LocalBroadcastManager.getInstance(mActivity).registerReceiver(mWayPointReceiver, newWayPointReceiverIntentFilter);
+        mTrackUpdatedReceiver = createTrackUpdatedReceiver();
+        IntentFilter trackUpdatedIntentFilter = new IntentFilter(ACTION_TRACK_UPDATED);
+        LocalBroadcastManager.getInstance(mActivity).registerReceiver(mTrackUpdatedReceiver, trackUpdatedIntentFilter);
 
         // acquire reference to Location Manager
         mLocationManager = (LocationManager) mActivity.getSystemService(Context.LOCATION_SERVICE);
@@ -160,6 +170,14 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
             mController.setZoom(16);
         }
 
+        // restore track
+        if (savedInstanceState != null) {
+            mTrack = savedInstanceState.getParcelable(INSTANCE_TRACK);
+        }
+        if (mTrack != null) {
+            drawTrackOverlay(mTrack);
+        }
+
         // add compass to map
         CompassOverlay compassOverlay = new CompassOverlay(mActivity, new InternalCompassOrientationProvider(mActivity), mMapView);
         compassOverlay.enableCompass();
@@ -167,7 +185,7 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
 
         // mark user's location on map
         if (mCurrentBestLocation != null) {
-            mMyLocationOverlay = MapHelper.createMyLocationOverlay(mActivity, mCurrentBestLocation, LocationHelper.isNewLocation(mCurrentBestLocation));
+            mMyLocationOverlay = MapHelper.createMyLocationOverlay(mActivity, mCurrentBestLocation, LocationHelper.isNewLocation(mCurrentBestLocation), mTacking);
             mMapView.getOverlays().add(mMyLocationOverlay);
         }
 
@@ -188,8 +206,8 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
     public void onPause() {
         super.onPause();
 
-        // disable location listener
-        stopFindingLocation();
+        // disable location listeners
+        LocationHelper.removeLocationListeners(mLocationManager, mGPSListener, mNetworkListener);
     }
 
 
@@ -198,7 +216,7 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
         super.onDestroyView();
 
         // unregister broadcast receiver
-        LocalBroadcastManager.getInstance(mActivity).unregisterReceiver(mWayPointReceiver);
+        LocalBroadcastManager.getInstance(mActivity).unregisterReceiver(mTrackUpdatedReceiver);
 
         // deactivate map
         mMapView.onDetach();
@@ -246,9 +264,7 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
                 mController.setCenter(position);
 
                 // mark user's new location on map and remove last marker
-                mMapView.getOverlays().remove(mMyLocationOverlay);
-                mMyLocationOverlay = MapHelper.createMyLocationOverlay(mActivity, mCurrentBestLocation, LocationHelper.isNewLocation(mCurrentBestLocation));
-                mMapView.getOverlays().add(mMyLocationOverlay);
+                updateMyLocationMarker();
 
                 return true;
 
@@ -267,64 +283,33 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
         outState.putDouble(INSTANCE_LONGITUDE, mMapView.getMapCenter().getLongitude());
         outState.putInt(INSTANCE_ZOOM_LEVEL, mMapView.getZoomLevel());
         outState.putParcelable(INSTANCE_CURRENT_LOCATION, mCurrentBestLocation);
+        outState.putParcelable(INSTANCE_TRACK, mTrack);
+        outState.putBoolean(INSTANCE_TRACKING_STARTED, mTacking);
         super.onSaveInstanceState(outState);
+    }
+
+
+    /* Sets tracking state */
+    public void setTrackingState (boolean trackingStarted) {
+        mTacking = trackingStarted;
+        updateMyLocationMarker();
     }
 
 
     /* Start finding location for map */
     private void startFindingLocation() {
-
-        // listener that responds to location updates
-        mGPSListener = createLocationListener();
-        mNetworkListener = createLocationListener();
-
-        // inform user that Trackbook is getting location updates
-        if (mFirstStart) {
-            Toast.makeText(mActivity, mActivity.getString(R.string.toast_message_acquiring_location), Toast.LENGTH_LONG).show();
-            mFirstStart = false;
-        }
-
-        // start listener
+        // create location listeners
         List locationProviders = mLocationManager.getProviders(true);
         if (locationProviders.contains(LocationManager.GPS_PROVIDER)) {
-            try {
-                // enable location listener (gps)
-                mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, mGPSListener);
-            } catch (SecurityException e) {
-                // catches permission problems
-                e.printStackTrace();
-            }
-        } else if (locationProviders.contains(LocationManager.NETWORK_PROVIDER)) {
-            try {
-                // enable location listener (network)
-                mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, mNetworkListener);
-            } catch (SecurityException e) {
-                // catches permission problems
-                e.printStackTrace();
-            }
+            mGPSListener = createLocationListener();
         }
-    }
 
-
-    /* Stops finding location for map */
-    private void stopFindingLocation() {
-        // disable location listeners
-        List locationProviders = mLocationManager.getProviders(true);
-        if (locationProviders.contains(LocationManager.GPS_PROVIDER)) {
-            try {
-                mLocationManager.removeUpdates(mGPSListener);
-            } catch (SecurityException e) {
-                // catches permission problems
-                e.printStackTrace();
-            }
-        } else if (locationProviders.contains(LocationManager.NETWORK_PROVIDER)) {
-            try {
-                mLocationManager.removeUpdates(mNetworkListener);
-            } catch (SecurityException e) {
-                // catches permission problems
-                e.printStackTrace();
-            }
+        if (locationProviders.contains(LocationManager.NETWORK_PROVIDER)) {
+            mNetworkListener = createLocationListener();
         }
+
+        // register listeners
+        LocationHelper.registerLocationListeners(mLocationManager, mGPSListener, mNetworkListener);
     }
 
 
@@ -338,9 +323,7 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
                     mCurrentBestLocation = location;
                     LogHelper.v(LOG_TAG, "Location isBetterLocation(!): " + location.getProvider()); // TODO remove
                     // mark user's new location on map and remove last marker
-                    mMapView.getOverlays().remove(mMyLocationOverlay);
-                    mMyLocationOverlay = MapHelper.createMyLocationOverlay(mActivity, mCurrentBestLocation, LocationHelper.isNewLocation(mCurrentBestLocation));
-                    mMapView.getOverlays().add(mMyLocationOverlay);
+                    updateMyLocationMarker();
                 }
             }
 
@@ -359,6 +342,22 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
     }
 
 
+    /* Updates marker for current user location  */
+    private void updateMyLocationMarker() {
+        mMapView.getOverlays().remove(mMyLocationOverlay);
+        mMyLocationOverlay = MapHelper.createMyLocationOverlay(mActivity, mCurrentBestLocation, LocationHelper.isNewLocation(mCurrentBestLocation),mTacking);
+        mMapView.getOverlays().add(mMyLocationOverlay);
+    }
+
+
+    /* Draws track onto overlay */
+    private void drawTrackOverlay(Track track) {
+        mMapView.getOverlays().remove(mTrackOverlay);
+        mTrackOverlay = MapHelper.createTrackOverlay(mActivity, track);
+        mMapView.getOverlays().add(mTrackOverlay);
+    }
+
+
     /* Prompts user to turn on location */
     private void promptUserForLocation() {
         // TODO prompt user to turn on location
@@ -367,13 +366,14 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
 
 
     /* Creates receiver for new WayPoints */
-    private BroadcastReceiver createNewWayPointReceiver () {
+    private BroadcastReceiver createTrackUpdatedReceiver() {
         return new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                if (intent.hasExtra(EXTRA_WAYPOINT_LOCATION) && intent.hasExtra(EXTRA_WAYPOINT_IS_STOPOVER)) {
-                    // TODO draw location on map
-                    Toast.makeText(mActivity, "New WayPoint: " + intent.getParcelableExtra(EXTRA_WAYPOINT_LOCATION).toString(), Toast.LENGTH_LONG).show(); // TODO Remove
+                if (intent.hasExtra(EXTRA_TRACK)) {
+                    mTrack = intent.getParcelableExtra(EXTRA_TRACK);
+                    drawTrackOverlay(mTrack);
+                    Toast.makeText(mActivity, "New WayPoint.", Toast.LENGTH_LONG).show(); // TODO Remove
                 }
             }
         };

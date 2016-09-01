@@ -17,9 +17,9 @@
 package org.y20k.trackbook.core;
 
 import android.content.Context;
-import android.content.Intent;
 import android.location.Location;
-import android.support.v4.content.LocalBroadcastManager;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import org.y20k.trackbook.helpers.LocationHelper;
 import org.y20k.trackbook.helpers.LogHelper;
@@ -32,7 +32,7 @@ import java.util.List;
 /**
  * Track class
  */
-public class Track implements TrackbookKeys {
+public class Track implements TrackbookKeys, Parcelable {
 
     /* Define log tag */
     private static final String LOG_TAG = Track.class.getSimpleName();
@@ -41,33 +41,58 @@ public class Track implements TrackbookKeys {
     /* Main class variables */
     private Context mContext;
     private List<WayPoint> mWayPoints;
+    private float mTrackLength;
 
 
     /* Constructor */
-    public Track(Context context) {
-        mContext = context;
+    public Track() {
         mWayPoints = new ArrayList<WayPoint>();
+        mTrackLength = 0;
+    }
+
+
+    /* Constructor used by CREATOR */
+    protected Track(Parcel in) {
+        mWayPoints = in.createTypedArrayList(WayPoint.CREATOR);
+        mTrackLength = in.readFloat();
+    }
+
+
+    /* CREATOR for Track object used to do parcel related operations */
+    public static final Creator<Track> CREATOR = new Creator<Track>() {
+        @Override
+        public Track createFromParcel(Parcel in) {
+            return new Track(in);
+        }
+
+        @Override
+        public Track[] newArray(int size) {
+            return new Track[size];
+        }
+    };
+
+
+    /* Set mContext needed by  */
+    public void setContext(Context context) {
+        mContext = context;
     }
 
 
     /* Adds new waypoint */
-    public void addWayPoint(Location location) {
+    public WayPoint addWayPoint(Location location) {
+        // add up distance
+        mTrackLength = addDistanceToTrack(location);
+
         // create new waypoint
-        WayPoint wayPoint = new WayPoint();
-        wayPoint.location = location;
-        wayPoint.isStopOver = LocationHelper.isStopOver(location);
+        WayPoint wayPoint = new WayPoint(location, LocationHelper.isStopOver(location), mTrackLength);
 
         // add new waypoint to track
         mWayPoints.add(wayPoint);
 
-        // send local broadcast: new WayPoint added
-        Intent i = new Intent();
-        i.setAction(ACTION_WAYPOINT_ADDED);
-        i.putExtra(EXTRA_WAYPOINT_LOCATION, location);
-        i.putExtra(EXTRA_WAYPOINT_IS_STOPOVER, wayPoint.isStopOver);
-        LocalBroadcastManager.getInstance(mContext).sendBroadcast(i);
+        // TODO remove log here
+        LogHelper.v(LOG_TAG, "Waypoint No. " + mWayPoints.indexOf(wayPoint) + " Location: " + wayPoint.getLocation().toString());
 
-        LogHelper.v(LOG_TAG, "!!! Waypoint No. " + mWayPoints.indexOf(wayPoint) + " Location: " + wayPoint.location.toString()); // TODO remove
+        return wayPoint;
     }
 
 
@@ -77,23 +102,45 @@ public class Track implements TrackbookKeys {
     }
 
 
+    /* Getter size of Track / number of WayPoints */
+    public int getSize() {
+        return mWayPoints.size();
+    }
+
+
     /* Getter for location of specific WayPoint */
     public Location getWayPointLocation(int index) {
-        return mWayPoints.get(index).location;
+        return mWayPoints.get(index).getLocation();
     }
 
 
-    /**
-     * Inner class: Defines data type WayPoint
-     */
-    private class WayPoint {
+    /* Adds distance to given location to length of track */
+    private float addDistanceToTrack(Location location) {
+        // get number of previously recorded waypoints
+        int wayPointCount = mWayPoints.size();
 
-        private Location location;
-        private boolean isStopOver;
+        // at least two data points are needed
+        if (wayPointCount >= 2) {
+            // add up distance
+            Location lastLocation = mWayPoints.get(wayPointCount-2).getLocation();
+            mTrackLength = mTrackLength + lastLocation.distanceTo(location);
+        }
 
+        return mTrackLength;
     }
-    /**
-     * End of inner class
-     */
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeTypedList(mWayPoints);
+        parcel.writeFloat(mTrackLength);
+    }
+
 
 }

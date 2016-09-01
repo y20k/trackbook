@@ -17,6 +17,7 @@
 package org.y20k.trackbook.helpers;
 
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.SystemClock;
 
@@ -147,7 +148,7 @@ public final class LocationHelper {
         long timeDifference = newLocation.getElapsedRealtimeNanos() - lastWayPoint.getElapsedRealtimeNanos();
 
         // distance is bigger than 10 meters and time difference bigger than 20 seconds
-        return distance > 10 && timeDifference > TWENTY_SECONDS;
+        return distance > 10 && timeDifference >= TWENTY_SECONDS;
     }
 
 
@@ -155,6 +156,69 @@ public final class LocationHelper {
     public static boolean isStopOver(Location location) {
         // TODO determine, if location is stopover
         return false;
+    }
+
+
+    /* Registers gps and network location listeners */
+    public static void registerLocationListeners(LocationManager locationManager, LocationListener gpsListener, LocationListener networkListener) {
+        LogHelper.v(LOG_TAG, "Registering location listeners.");
+
+        // get location providers
+        List locationProviders = locationManager.getProviders(true);
+
+        // got GPS location provider?
+        if (locationProviders.contains(LocationManager.GPS_PROVIDER) && gpsListener != null) {
+            try {
+                // register GPS location listener and request updates
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, gpsListener);
+            } catch (SecurityException e) {
+                // catches permission problems
+                e.printStackTrace();
+            }
+        }
+
+        // got network location provider?
+        if (locationProviders.contains(LocationManager.NETWORK_PROVIDER) && networkListener != null) {
+            try {
+                // register network location listener and request updates
+                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, networkListener);
+            } catch (SecurityException e) {
+                // catches permission problems
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    /* Removes gps and network location listeners */
+    public static void removeLocationListeners(LocationManager locationManager, LocationListener gpsListener, LocationListener networkListener) {
+        LogHelper.v(LOG_TAG, "Removing location listeners.");
+
+        // get location providers
+        List locationProviders = locationManager.getProviders(true);
+
+        // got GPS location provider?
+        if (locationProviders.contains(LocationManager.GPS_PROVIDER) && gpsListener != null) {
+            try {
+                // remove GPS listener
+                locationManager.removeUpdates(gpsListener);
+            } catch (SecurityException e) {
+                // catches permission problems
+                e.printStackTrace();
+            }
+        }
+
+        // got network location provider?
+        if (locationProviders.contains(LocationManager.NETWORK_PROVIDER) && networkListener != null) {
+            try {
+                // remove network listener
+                locationManager.removeUpdates(networkListener);
+            } catch (SecurityException e) {
+                // catches permission problems
+                e.printStackTrace();
+            }
+        }
+
     }
 
 

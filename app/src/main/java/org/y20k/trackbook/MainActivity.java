@@ -48,7 +48,7 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity implements TrackbookKeys {
 
     /* Define log tag */
-    private static final String LOG_TAG = MainActivityFragment.class.getSimpleName();
+    private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
 
     /* Main class variables */
@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     private boolean mPermissionsGranted;
     private List<String> mMissingPermissions;
     private FloatingActionButton mFloatingActionButton;
+    private MainActivityFragment mMainActivityFragment;
 
 
     @Override
@@ -124,8 +125,10 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     protected void onResume() {
         super.onResume();
 
-        // set state of FloatingActionButton
-        setFloatingActionButtonState();
+        // if not in onboarding mode: set state of FloatingActionButton
+        if (mFloatingActionButton != null) {
+            setFloatingActionButtonState();
+        }
     }
 
 
@@ -171,6 +174,9 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
             // show action bar
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
+
+            // get reference to fragment
+            mMainActivityFragment = (MainActivityFragment)getSupportFragmentManager().findFragmentById(R.id.content_main);
 
             // show the record button and attach listener
             mFloatingActionButton = (FloatingActionButton) findViewById(R.id.fab);
@@ -227,14 +233,15 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
             mFloatingActionButton.setImageResource(R.drawable.ic_fiber_manual_record_red_24dp);
             mTracking = true;
 
-            // TODO putParcelable lastLocation
-
             // start tracker service
             Intent intent = new Intent(this, TrackerService.class);
             intent.setAction(ACTION_START);
             startService(intent);
             LogHelper.v(LOG_TAG, "Starting tracker service.");
         }
+
+        // update tracking state in MainActivityFragment
+        mMainActivityFragment.setTrackingState(mTracking);
     }
 
 

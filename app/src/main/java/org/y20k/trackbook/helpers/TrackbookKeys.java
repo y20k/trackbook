@@ -25,11 +25,10 @@ public interface TrackbookKeys {
     /* ACTIONS */
     public static final String ACTION_START = "org.y20k.transistor.action.START";
     public static final String ACTION_STOP = "org.y20k.transistor.action.STOP";
-    public static final String ACTION_WAYPOINT_ADDED = "WAYPOINT_ADDED";
+    public static final String ACTION_TRACK_UPDATED = "TRACK_UPDATED";
 
     /* EXTRAS */
-    public static final String EXTRA_WAYPOINT_LOCATION = "WAYPOINT_LOCATION";
-    public static final String EXTRA_WAYPOINT_IS_STOPOVER = "WAYPOINT_IS_STOPOVER";
+    public static final String EXTRA_TRACK = "TRACK";
 
     /* ARGS */
     public static final String ARG_PERMISSIONS_GRANTED = "ArgPermissionsGranted";
@@ -50,13 +49,14 @@ public interface TrackbookKeys {
     public static final String INSTANCE_ZOOM_LEVEL = "zoomLevel";
     public static final String INSTANCE_CURRENT_LOCATION = "currentLocation";
     public static final String INSTANCE_TRACKING_STARTED = "trackingStarted";
+    public static final String INSTANCE_TRACK = "track";
 
     /* RESULTS */
 
     /* CONSTANTS */
     public static final int CONSTANT_MINIMAL_STOP_TIME = 300000; // equals 5 minutes
     public static final long CONSTANT_MAXIMAL_DURATION = 43200000; // equals 8 hours
-    public static final long CONSTANT_TRACKING_INTERVAL = 5000; // equals 5 seconds
+    public static final long CONSTANT_TRACKING_INTERVAL = 15000; // equals 15 seconds
 
     /* MISC */
     public static final int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;

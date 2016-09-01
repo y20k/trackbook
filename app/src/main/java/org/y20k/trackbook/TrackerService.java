@@ -26,11 +26,15 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
-import android.util.Log;
+import android.support.v4.content.LocalBroadcastManager;
 
 import org.y20k.trackbook.core.Track;
+import org.y20k.trackbook.core.WayPoint;
 import org.y20k.trackbook.helpers.LocationHelper;
+import org.y20k.trackbook.helpers.LogHelper;
 import org.y20k.trackbook.helpers.TrackbookKeys;
+
+import java.util.List;
 
 
 /**
@@ -46,8 +50,9 @@ public class TrackerService extends Service implements TrackbookKeys {
     private Track mTrack;
     private CountDownTimer mTimer;
     private LocationManager mLocationManager;
-    private LocationListener mGPSListener;
-    private LocationListener mNetworkListener;
+    private LocationListener mGPSListener = null;
+    private LocationListener mNetworkListener = null;
+    private Location mCurrentBestLocation;
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -57,25 +62,26 @@ public class TrackerService extends Service implements TrackbookKeys {
 
         // checking for empty intent
         if (intent == null) {
-            Log.v(LOG_TAG, "Null-Intent received. Stopping self.");
+            LogHelper.v(LOG_TAG, "Null-Intent received. Stopping self.");
             stopSelf();
         }
 
         // ACTION START
         else if (intent.getAction().equals(ACTION_START)) {
-            Log.v(LOG_TAG, "Service received command: START");
+            LogHelper.v(LOG_TAG, "Service received command: START");
 
             // create a new track
-            mTrack = new Track(getApplicationContext());
+            mTrack = new Track();
 
-            // create gps and network location listeners
-            createListeners();
+            // add first location to track
+            mCurrentBestLocation = LocationHelper.determineLastKnownLocation(mLocationManager);
+            addWayPointToTrack();
 
-            // set a timer to prevent endless tracking
+            // set timer to retrieve new locations and to prevent endless tracking
             mTimer = new CountDownTimer(CONSTANT_MAXIMAL_DURATION, CONSTANT_TRACKING_INTERVAL) {
                 @Override
                 public void onTick(long l) {
-                    // TODO
+                    addWayPointToTrack();
                 }
 
                 @Override
@@ -83,15 +89,22 @@ public class TrackerService extends Service implements TrackbookKeys {
                     // TODO
                 }
             };
+            mTimer.start();
+
+            // create gps and network location listeners
+            startFindingLocation();
 
         }
 
         // ACTION STOP
         else if (intent.getAction().equals(ACTION_STOP)) {
-            Log.v(LOG_TAG, "Service received command: STOP");
+            LogHelper.v(LOG_TAG, "Service received command: STOP");
+
+            // stop timer
+            mTimer.cancel();
 
             // remove listeners
-            removeListeners();
+            LocationHelper.removeLocationListeners(mLocationManager, mGPSListener, mNetworkListener);
         }
 
         // START_STICKY is used for services that are explicitly started and stopped as needed
@@ -108,10 +121,10 @@ public class TrackerService extends Service implements TrackbookKeys {
 
     @Override
     public void onDestroy() {
-        Log.v(LOG_TAG, "onDestroy called.");
+        LogHelper.v(LOG_TAG, "onDestroy called.");
 
         // remove listeners
-        removeListeners();
+        LocationHelper.removeLocationListeners(mLocationManager, mGPSListener, mNetworkListener);
 
         // cancel notification
         stopForeground(true);
@@ -120,23 +133,49 @@ public class TrackerService extends Service implements TrackbookKeys {
     }
 
 
+    /* Adds a new WayPoint to current track */
+    public void addWayPointToTrack() {
+
+        // create new WayPoint
+        WayPoint newWayPoint = null;
+
+        // get number of previously tracked WayPoints
+        int trackSize = mTrack.getWayPoints().size();
+
+        if (trackSize > 0) {
+            // get last waypoint and compare it to current location
+            Location lastWayPoint = mTrack.getWayPointLocation(trackSize-1);
+            if (LocationHelper.isNewWayPoint(lastWayPoint, mCurrentBestLocation)) {
+                LogHelper.v(LOG_TAG, "!!! Ding. " + mTrack.getSize());
+                // if new, add current best location to track
+                newWayPoint = mTrack.addWayPoint(mCurrentBestLocation);
+            }
+        } else {
+            // add first location to track
+            newWayPoint = mTrack.addWayPoint(mCurrentBestLocation);
+            LogHelper.v(LOG_TAG, "!!! Dong. " + mTrack.getSize());
+        }
+
+        // send local broadcast if new WayPoint added
+        if (newWayPoint != null) {
+            Intent i = new Intent();
+            i.setAction(ACTION_TRACK_UPDATED);
+            i.putExtra(EXTRA_TRACK, mTrack);
+            LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(i);
+        }
+
+    }
+
+
     /* Creates a location listener */
     private LocationListener createLocationListener() {
         return new LocationListener() {
             public void onLocationChanged(Location location) {
-
-                // get number of tracked WayPoints
-                int trackSize = mTrack.getWayPoints().size();
-
-                if (trackSize >= 2) {
-                    Location lastWayPoint = mTrack.getWayPointLocation(trackSize-2);
-                    if (LocationHelper.isNewWayPoint(lastWayPoint, location)) {
-                        // add new location to track
-                        mTrack.addWayPoint(location);
-                    }
-                } else {
-                    // add first location to track
-                    mTrack.addWayPoint(location);
+                // check if the new location is better
+                if (LocationHelper.isBetterLocation(location, mCurrentBestLocation)) {
+                    // save location
+                    mCurrentBestLocation = location;
+                    // TODO hand over mCurrentBestLocation to fragment
                 }
             }
 
@@ -156,53 +195,18 @@ public class TrackerService extends Service implements TrackbookKeys {
 
 
     /* Creates gps and network location listeners */
-    private void createListeners() {
-        Log.v(LOG_TAG, "Setting up location listeners.");
-
-        // listeners that responds to location updates
-        mGPSListener = createLocationListener();
-        mNetworkListener = createLocationListener();
+    private void startFindingLocation() {
+        LogHelper.v(LOG_TAG, "Setting up location listeners.");
 
         // register location listeners and request updates
-        try {
-            mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, mGPSListener);
-        } catch (SecurityException e) {
-            e.printStackTrace();
+        List locationProviders = mLocationManager.getProviders(true);
+        if (locationProviders.contains(LocationManager.GPS_PROVIDER)) {
+            mGPSListener = createLocationListener();
+        } else if (locationProviders.contains(LocationManager.NETWORK_PROVIDER)) {
+            mNetworkListener = createLocationListener();
         }
-        try {
-            mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, mNetworkListener);
-        } catch (SecurityException e) {
-            e.printStackTrace();
-        }
+        LocationHelper.registerLocationListeners(mLocationManager, mGPSListener, mNetworkListener);
     }
 
-
-    /* Removes gps and network location listeners */
-    private void removeListeners() {
-        Log.v(LOG_TAG, "Removing location listeners.");
-
-        // remove gps listener
-        if (mGPSListener != null) {
-            Log.v(LOG_TAG, "Removing GPS location listener.");
-            try {
-                mLocationManager.removeUpdates(mGPSListener);
-            } catch (SecurityException e) {
-                // catches permission problems
-                e.printStackTrace();
-            }
-        }
-
-        // remove network listener
-        if (mNetworkListener != null) {
-            Log.v(LOG_TAG, "Removing network location listener.");
-            try {
-                mLocationManager.removeUpdates(mNetworkListener);
-            } catch (SecurityException e) {
-                // catches permission problems
-                e.printStackTrace();
-            }
-        }
-
-    }
 
 }
