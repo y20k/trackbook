@@ -92,7 +92,7 @@ public final class MapHelper {
             // create marker
             Drawable newMarker;
             if (wayPoint.getIsStopOver()) {
-                newMarker = AppCompatDrawableManager.get().getDrawable(context, R.drawable.ic_my_location_crumb_blue_24dp);
+                newMarker = AppCompatDrawableManager.get().getDrawable(context, R.drawable.ic_my_location_crumb_grey_24dp);
             } else {
                 newMarker = AppCompatDrawableManager.get().getDrawable(context, R.drawable.ic_my_location_crumb_blue_24dp);
             }

@@ -35,6 +35,7 @@ public final class LocationHelper {
 
     /* Main class variables */
 //    private static final int TWO_MINUTES = 1000 * 1000 * 60 * 2;
+    private static final long FIVE_MINUTES = 5L * 60000000000L; // 2 minutes
     private static final long TWO_MINUTES = 2L * 60000000000L; // 2 minutes
     private static final long TWENTY_SECONDS = 20000000000L; // 20 seconds
 
@@ -142,10 +143,10 @@ public final class LocationHelper {
     }
 
 
-    /* Checks if given location is a new waypoint over */
-    public static boolean isNewWayPoint(Location lastWayPoint, Location newLocation) {
-        float distance = newLocation.distanceTo(lastWayPoint);
-        long timeDifference = newLocation.getElapsedRealtimeNanos() - lastWayPoint.getElapsedRealtimeNanos();
+    /* Checks if given location is a new waypoint */
+    public static boolean isNewWayPoint(Location lastLocation, Location newLocation) {
+        float distance = newLocation.distanceTo(lastLocation);
+        long timeDifference = newLocation.getElapsedRealtimeNanos() - lastLocation.getElapsedRealtimeNanos();
 
         // distance is bigger than 10 meters and time difference bigger than 20 seconds
         return distance > 10 && timeDifference >= TWENTY_SECONDS;
@@ -153,9 +154,9 @@ public final class LocationHelper {
 
 
     /* Checks if given location is a stop over */
-    public static boolean isStopOver(Location location) {
-        // TODO determine, if location is stopover
-        return false;
+    public static boolean isStopOver(Location lastLocation, Location newLocation) {
+        long timeDifference =  newLocation.getElapsedRealtimeNanos() - lastLocation.getElapsedRealtimeNanos();
+        return timeDifference >= FIVE_MINUTES;
     }
 
 

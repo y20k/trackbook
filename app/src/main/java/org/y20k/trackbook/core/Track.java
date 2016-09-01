@@ -83,8 +83,17 @@ public class Track implements TrackbookKeys, Parcelable {
         // add up distance
         mTrackLength = addDistanceToTrack(location);
 
+        boolean stopOver;
+        int wayPointCount = mWayPoints.size();
+        if (wayPointCount == 0) {
+            stopOver = false;
+        } else {
+            Location lastLocation = mWayPoints.get(wayPointCount - 1).getLocation();
+            stopOver = LocationHelper.isStopOver(lastLocation, location);
+        }
+
         // create new waypoint
-        WayPoint wayPoint = new WayPoint(location, LocationHelper.isStopOver(location), mTrackLength);
+        WayPoint wayPoint = new WayPoint(location, stopOver, mTrackLength);
 
         // add new waypoint to track
         mWayPoints.add(wayPoint);
@@ -120,13 +129,13 @@ public class Track implements TrackbookKeys, Parcelable {
         int wayPointCount = mWayPoints.size();
 
         // at least two data points are needed
-        if (wayPointCount >= 2) {
+        if (wayPointCount >= 1) {
             // add up distance
-            Location lastLocation = mWayPoints.get(wayPointCount-2).getLocation();
-            mTrackLength = mTrackLength + lastLocation.distanceTo(location);
+            Location lastLocation = mWayPoints.get(wayPointCount - 1).getLocation();
+            return mTrackLength + lastLocation.distanceTo(location);
         }
 
-        return mTrackLength;
+        return 0f;
     }
 
 

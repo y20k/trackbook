@@ -142,18 +142,19 @@ public class TrackerService extends Service implements TrackbookKeys {
         // get number of previously tracked WayPoints
         int trackSize = mTrack.getWayPoints().size();
 
-        if (trackSize > 0) {
-            // get last waypoint and compare it to current location
-            Location lastWayPoint = mTrack.getWayPointLocation(trackSize-1);
-            if (LocationHelper.isNewWayPoint(lastWayPoint, mCurrentBestLocation)) {
-                LogHelper.v(LOG_TAG, "!!! Ding. " + mTrack.getSize());
-                // if new, add current best location to track
-                newWayPoint = mTrack.addWayPoint(mCurrentBestLocation);
-            }
-        } else {
+        if (trackSize == 0) {
             // add first location to track
             newWayPoint = mTrack.addWayPoint(mCurrentBestLocation);
-            LogHelper.v(LOG_TAG, "!!! Dong. " + mTrack.getSize());
+            LogHelper.v(LOG_TAG, "mTrack.addWayPoint. Tracksize: " + trackSize); // TODO remove
+        } else {
+            // get last waypoint and compare it to current location
+            Location lastWayPoint = mTrack.getWayPointLocation(trackSize - 1);
+            if (LocationHelper.isNewWayPoint(lastWayPoint, mCurrentBestLocation)) {
+                // if new, add current best location to track
+                newWayPoint = mTrack.addWayPoint(mCurrentBestLocation);
+                LogHelper.v(LOG_TAG, "mTrack.addWayPoint. Tracksize: " + trackSize); // TODO remove
+            }
+
         }
 
         // send local broadcast if new WayPoint added
