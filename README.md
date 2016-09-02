@@ -14,7 +14,6 @@ Install Trackbook
 ------------------
 Do not install Trackbook. Trackbook does not do anythimg useful right now. See the Install Canary below? Wait until it flies. 
 
-
             .---.
            /   6_6
            \_  (__\
@@ -24,6 +23,10 @@ Do not install Trackbook. Trackbook does not do anythimg useful right now. See t
              |||
              |||
              '|'
+
+Developement screenshot(s)
+--------------------------
+[<img src="https://cloud.githubusercontent.com/assets/9103935/18204627/0f99c8c6-711e-11e6-9f5f-a8b7df1eb027.png" width="240">](https://cloud.githubusercontent.com/assets/9103935/18204627/0f99c8c6-711e-11e6-9f5f-a8b7df1eb027.png)
 
 
 How to use Trackbook
