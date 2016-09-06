@@ -3,8 +3,16 @@
     <string name="app_name">Trackbook</string>
 
     <!-- menu entries -->
-    <string name="menu_settings">Settings</string>
     <string name="menu_my_location">My Location</string>
+    <string name="menu_about">About</string>
+
+
+    <!-- notification -->
+    <string name="notification_title_trackbook_running">Trackbook running</string>
+    <string name="notification_title_trackbook_not_running">Trackbook not running</string>
+    <string name="notification_stop">Stop</string>
+    <string name="notification_content_duration">Duration</string>
+    <string name="notification_content_distance">Distance</string>
 
     <!-- snackbar messages -->
     <string name="snackbar_message_tracking_stopped">Tracking stopped</string>

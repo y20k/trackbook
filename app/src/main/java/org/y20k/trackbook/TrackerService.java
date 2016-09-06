@@ -32,6 +32,7 @@ import org.y20k.trackbook.core.Track;
 import org.y20k.trackbook.core.WayPoint;
 import org.y20k.trackbook.helpers.LocationHelper;
 import org.y20k.trackbook.helpers.LogHelper;
+import org.y20k.trackbook.helpers.NotificationHelper;
 import org.y20k.trackbook.helpers.TrackbookKeys;
 
 import java.util.List;
@@ -73,27 +74,40 @@ public class TrackerService extends Service implements TrackbookKeys {
             // create a new track
             mTrack = new Track();
 
-            // add first location to track
-            mCurrentBestLocation = LocationHelper.determineLastKnownLocation(mLocationManager);
+            // get last location
+            if (intent.hasExtra(EXTRA_LAST_LOCATION)) {
+                mCurrentBestLocation = intent.getParcelableExtra(EXTRA_LAST_LOCATION);
+            }
+            //  get last location - fallback
+            if (mCurrentBestLocation == null) {
+                mCurrentBestLocation = LocationHelper.determineLastKnownLocation(mLocationManager);
+            }
+
+            // add last location as waypoint to track
             addWayPointToTrack();
 
             // set timer to retrieve new locations and to prevent endless tracking
-            mTimer = new CountDownTimer(CONSTANT_MAXIMAL_DURATION, CONSTANT_TRACKING_INTERVAL) {
+            mTimer = new CountDownTimer(EIGHT_HOURS_IN_MILLISECONDS, FIFTEEN_SECONDS_IN_MILLISECONDS) {
                 @Override
-                public void onTick(long l) {
+                public void onTick(long millisUntilFinished) {
+                    // update track duration
+                    mTrack.setTrackDuration(EIGHT_HOURS_IN_MILLISECONDS - millisUntilFinished);
+                    // try to add WayPoint to Track
                     addWayPointToTrack();
+                    // update notification
+                    NotificationHelper.update(mTrack, true);
                 }
 
                 @Override
                 public void onFinish() {
-                    // TODO
+                    // remove listeners
+                    stopFindingLocation();
                 }
             };
             mTimer.start();
 
             // create gps and network location listeners
             startFindingLocation();
-
         }
 
         // ACTION STOP
@@ -104,7 +118,7 @@ public class TrackerService extends Service implements TrackbookKeys {
             mTimer.cancel();
 
             // remove listeners
-            LocationHelper.removeLocationListeners(mLocationManager, mGPSListener, mNetworkListener);
+            stopFindingLocation();
         }
 
         // START_STICKY is used for services that are explicitly started and stopped as needed
@@ -124,7 +138,7 @@ public class TrackerService extends Service implements TrackbookKeys {
         LogHelper.v(LOG_TAG, "onDestroy called.");
 
         // remove listeners
-        LocationHelper.removeLocationListeners(mLocationManager, mGPSListener, mNetworkListener);
+        stopFindingLocation();
 
         // cancel notification
         stopForeground(true);
@@ -162,6 +176,7 @@ public class TrackerService extends Service implements TrackbookKeys {
             Intent i = new Intent();
             i.setAction(ACTION_TRACK_UPDATED);
             i.putExtra(EXTRA_TRACK, mTrack);
+            i.putExtra(EXTRA_LAST_LOCATION, mCurrentBestLocation);
             LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(i);
         }
 
@@ -185,11 +200,11 @@ public class TrackerService extends Service implements TrackbookKeys {
             }
 
             public void onProviderEnabled(String provider) {
-                // TODO do something
+                LogHelper.v(LOG_TAG, "Location provider enabled: " +  provider);
             }
 
             public void onProviderDisabled(String provider) {
-                // TODO do something
+                LogHelper.v(LOG_TAG, "Location provider disabled: " +  provider);
             }
         };
     }
@@ -197,7 +212,9 @@ public class TrackerService extends Service implements TrackbookKeys {
 
     /* Creates gps and network location listeners */
     private void startFindingLocation() {
-        LogHelper.v(LOG_TAG, "Setting up location listeners.");
+        LogHelper.v(LOG_TAG, "startFindingLocation"); // TODO remove
+        // put up notification
+        NotificationHelper.show(this,mTrack);
 
         // register location listeners and request updates
         List locationProviders = mLocationManager.getProviders(true);
@@ -207,6 +224,26 @@ public class TrackerService extends Service implements TrackbookKeys {
             mNetworkListener = createLocationListener();
         }
         LocationHelper.registerLocationListeners(mLocationManager, mGPSListener, mNetworkListener);
+    }
+
+
+    /* Removes gps and network location listeners */
+    private void stopFindingLocation() {
+        LogHelper.v(LOG_TAG, "stopFindingLocation"); // TODO remove
+        // remove listeners
+        LocationHelper.removeLocationListeners(mLocationManager, mGPSListener, mNetworkListener);
+
+        // notify MainActivityFragment
+        Intent i = new Intent();
+        i.setAction(ACTION_TRACKING_STOPPED);
+        i.putExtra(EXTRA_TRACK, mTrack);
+        i.putExtra(EXTRA_LAST_LOCATION, mCurrentBestLocation);
+        LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(i);
+
+//        // cancel notification
+//        NotificationHelper.stop();
+        // change notification
+        NotificationHelper.update(mTrack, false);
     }
 
 

@@ -26,9 +26,11 @@ public interface TrackbookKeys {
     public static final String ACTION_START = "org.y20k.transistor.action.START";
     public static final String ACTION_STOP = "org.y20k.transistor.action.STOP";
     public static final String ACTION_TRACK_UPDATED = "TRACK_UPDATED";
+    public static final String ACTION_TRACKING_STOPPED = "TRACKING_STOPPED";
 
     /* EXTRAS */
     public static final String EXTRA_TRACK = "TRACK";
+    public static final String EXTRA_LAST_LOCATION = "LAST_LOCATION";
 
     /* ARGS */
     public static final String ARG_PERMISSIONS_GRANTED = "ArgPermissionsGranted";
@@ -48,21 +50,21 @@ public interface TrackbookKeys {
     public static final String INSTANCE_LONGITUDE = "longitude";
     public static final String INSTANCE_ZOOM_LEVEL = "zoomLevel";
     public static final String INSTANCE_CURRENT_LOCATION = "currentLocation";
-    public static final String INSTANCE_TRACKING_STARTED = "trackingStarted";
+    public static final String INSTANCE_TRACKING_STATE = "trackingState";
     public static final String INSTANCE_TRACK = "track";
 
     /* RESULTS */
 
     /* CONSTANTS */
-    public static final int CONSTANT_MINIMAL_STOP_TIME = 300000; // equals 5 minutes
-    public static final long CONSTANT_MAXIMAL_DURATION = 43200000; // equals 8 hours
-    public static final long CONSTANT_TRACKING_INTERVAL = 15000; // equals 15 seconds
+    public static final long EIGHT_HOURS_IN_MILLISECONDS = 43200000; // maximum tracking duration
+    public static final long FIFTEEN_SECONDS_IN_MILLISECONDS = 15000; // timer interval for tracking
+    public static final long FIVE_MINUTES_IN_NANOSECONDS = 5L * 60000000000L; // determines a stop over
+    public static final long TWO_MINUTES_IN_NANOSECONDS = 2L * 60000000000L; // defines an old location
+    public static final long TWELVE_SECONDS_IN_NANOSECONDS = 12000000000L; // defines a new location
+
 
     /* MISC */
     public static final int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
-    public static final int LOCATION_STATUS_OFFLINE = 0;
-    public static final int LOCATION_STATUS_OK = 1;
-    public static final int LOCATION_STATUS_GPS_ONLY = 2;
-    public static final int LOCATION_STATUS_NETWORK_ONLY = 3;
+    public static final int TRACKER_SERVICE_NOTIFICATION_ID = 1;
 
 }

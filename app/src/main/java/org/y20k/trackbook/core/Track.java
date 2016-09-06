@@ -16,7 +16,6 @@
 
 package org.y20k.trackbook.core;
 
-import android.content.Context;
 import android.location.Location;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -27,6 +26,7 @@ import org.y20k.trackbook.helpers.TrackbookKeys;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -39,9 +39,9 @@ public class Track implements TrackbookKeys, Parcelable {
 
 
     /* Main class variables */
-    private Context mContext;
     private List<WayPoint> mWayPoints;
     private float mTrackLength;
+    private long mTrackDuration;
 
 
     /* Constructor */
@@ -72,12 +72,6 @@ public class Track implements TrackbookKeys, Parcelable {
     };
 
 
-    /* Set mContext needed by  */
-    public void setContext(Context context) {
-        mContext = context;
-    }
-
-
     /* Adds new waypoint */
     public WayPoint addWayPoint(Location location) {
         // add up distance
@@ -105,6 +99,12 @@ public class Track implements TrackbookKeys, Parcelable {
     }
 
 
+    /* Setter for duration of track */
+    public void setTrackDuration(long trackDuration) {
+        mTrackDuration = trackDuration;
+    }
+
+
     /* Getter for mWayPoints */
     public List<WayPoint> getWayPoints() {
         return mWayPoints;
@@ -117,11 +117,24 @@ public class Track implements TrackbookKeys, Parcelable {
     }
 
 
+    /* Getter for duration of track */
+    public String getTrackDuration() {
+        return convertToReadableTime(mTrackDuration);
+    }
+
+
+    /* Getter for distance of track */
+    public String getTrackDistance() {
+        float trackDistance = mWayPoints.get(mWayPoints.size()-1).getDistanceToStartingPoint();
+
+        return String.format ("%.0f", trackDistance)  + "m";
+    }
+
+
     /* Getter for location of specific WayPoint */
     public Location getWayPointLocation(int index) {
         return mWayPoints.get(index).getLocation();
     }
-
 
     /* Adds distance to given location to length of track */
     private float addDistanceToTrack(Location location) {
@@ -136,6 +149,14 @@ public class Track implements TrackbookKeys, Parcelable {
         }
 
         return 0f;
+    }
+
+
+    /* Converts milliseconds to hh:mm:ss */
+    private String convertToReadableTime(long milliseconds) {
+        return String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(milliseconds),
+                TimeUnit.MILLISECONDS.toMinutes(milliseconds) % TimeUnit.HOURS.toMinutes(1),
+                TimeUnit.MILLISECONDS.toSeconds(milliseconds) % TimeUnit.MINUTES.toSeconds(1));
     }
 
 

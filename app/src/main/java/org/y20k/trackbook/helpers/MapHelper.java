@@ -21,6 +21,7 @@ import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.support.v7.widget.AppCompatDrawableManager;
 import android.text.format.DateFormat;
+import android.widget.Toast;
 
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.overlay.ItemizedIconOverlay;
@@ -42,17 +43,14 @@ public final class MapHelper {
     private static final String LOG_TAG = MapHelper.class.getSimpleName();
 
 
-    /* Creates icon overlay for current position */
-    public static ItemizedIconOverlay createMyLocationOverlay(Context context, Location currentBestLocation, boolean locationIsNew, boolean trackingStarted) {
+    /* Creates icon overlay for current position (used in MainActivity Fragment) */
+    public static ItemizedIconOverlay createMyLocationOverlay(Context context, Location currentBestLocation, boolean locationIsNew) {
 
         final ArrayList<OverlayItem> overlayItems = new ArrayList<>();
-        LogHelper.v(LOG_TAG, "Location is new? " + locationIsNew + " Provider: " + currentBestLocation.getProvider()); // TODO remove
 
         // create marker
         Drawable newMarker;
-        if (trackingStarted) {
-            newMarker = AppCompatDrawableManager.get().getDrawable(context, R.drawable.ic_my_location_dot_red_24dp);
-        } else if (locationIsNew) {
+        if (locationIsNew) {
             newMarker = AppCompatDrawableManager.get().getDrawable(context, R.drawable.ic_my_location_dot_blue_24dp);
         } else {
             newMarker = AppCompatDrawableManager.get().getDrawable(context, R.drawable.ic_my_location_dot_grey_24dp);
@@ -83,20 +81,62 @@ public final class MapHelper {
 
 
     /* Creates icon overlay for track */
-    public static ItemizedIconOverlay createTrackOverlay(Context context, Track track){
+    public static ItemizedIconOverlay createTrackOverlay(final Context context, Track track, boolean trackingActive){
 
+        WayPoint wayPoint;
+        boolean currentPosition;
+        final int trackSize = track.getSize();
         final List<WayPoint> wayPoints = track.getWayPoints();
         final ArrayList<OverlayItem> overlayItems = new ArrayList<>();
 
-        for (WayPoint wayPoint : wayPoints) {
+        for (int i = 0 ; i < track.getSize() ; i++) {
+            // get waypoint and check if it is current position
+            wayPoint = wayPoints.get(i);
+            currentPosition = i == trackSize - 1;
+
             // create marker
             Drawable newMarker;
-            if (wayPoint.getIsStopOver()) {
-                newMarker = AppCompatDrawableManager.get().getDrawable(context, R.drawable.ic_my_location_crumb_grey_24dp);
-            } else {
+
+            // CASE 1: Tracking active and waypoint is not current position
+            if (trackingActive && !currentPosition) {
+                if (wayPoint.getIsStopOver()) {
+                    // stop over marker
+                    newMarker = AppCompatDrawableManager.get().getDrawable(context, R.drawable.ic_my_location_crumb_grey_24dp);
+                } else {
+                    // default marker for this case
+                    newMarker = AppCompatDrawableManager.get().getDrawable(context, R.drawable.ic_my_location_crumb_red_24dp);
+                }
+            }
+
+            // CASE 2: Tracking active and waypoint is current position
+            else if (trackingActive && currentPosition) {
+                if (wayPoint.getIsStopOver()) {
+                    // stop over marker
+                    newMarker = AppCompatDrawableManager.get().getDrawable(context, R.drawable.ic_my_location_dot_grey_24dp);
+                } else {
+                    // default marker for this case
+                    newMarker = AppCompatDrawableManager.get().getDrawable(context, R.drawable.ic_my_location_dot_red_24dp);
+                }
+            }
+
+            // CASE 3: Tracking not active and waypoint is not current position
+            else if (!trackingActive && !currentPosition) {
+                if (wayPoint.getIsStopOver()) {
+                    // stop over marker
+                    newMarker = AppCompatDrawableManager.get().getDrawable(context, R.drawable.ic_my_location_crumb_grey_24dp);
+                } else {
+                    // default marker for this case
+                    newMarker = AppCompatDrawableManager.get().getDrawable(context, R.drawable.ic_my_location_crumb_blue_24dp);
+                }
+            }
+
+            // CASE 4: Tracking not active and waypoint is current position
+            else {
+                // default marker
                 newMarker = AppCompatDrawableManager.get().getDrawable(context, R.drawable.ic_my_location_crumb_blue_24dp);
             }
-            final String title = Float.toString(wayPoint.getDistanceToStartingPoint());
+
+            final String title = Float.toString(wayPoint.getDistanceToStartingPoint()) + " (" + wayPoint.getLocation().getProvider() + ")";
             final String description = DateFormat.getDateFormat(context).format(wayPoint.getLocation().getTime());
             final GeoPoint position = new GeoPoint(wayPoint.getLocation().getLatitude(), wayPoint.getLocation().getLongitude());
             OverlayItem overlayItem = new OverlayItem(title, description, position);
@@ -111,6 +151,7 @@ public final class MapHelper {
                 new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
                     @Override
                     public boolean onItemSingleTapUp(final int index, final OverlayItem item) {
+                        Toast.makeText(context, "Measured distance: " + item.getTitle(), Toast.LENGTH_LONG).show(); // TODO make string
                         LogHelper.v(LOG_TAG, "Tap on a track crumb icon detected. Measured distance: " + item.getTitle());
                         return true;
                     }
@@ -123,8 +164,6 @@ public final class MapHelper {
 
                 }, context);
     }
-
-
 
 
 }

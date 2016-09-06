@@ -18,13 +18,18 @@ package org.y20k.trackbook;
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -55,8 +60,10 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     private boolean mTracking;
     private boolean mPermissionsGranted;
     private List<String> mMissingPermissions;
+    private View mRootView;
     private FloatingActionButton mFloatingActionButton;
     private MainActivityFragment mMainActivityFragment;
+    private BroadcastReceiver mTrackingStoppedReceiver;
 
 
     @Override
@@ -66,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
         // set state of tracking
         mTracking = false;
         if (savedInstanceState != null) {
-            mTracking = savedInstanceState.getBoolean(INSTANCE_TRACKING_STARTED, false);
+            mTracking = savedInstanceState.getBoolean(INSTANCE_TRACKING_STATE, false);
         }
 
         // check permissions on Android 6 and higher
@@ -85,6 +92,11 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
         // set up main layout
         setupLayout();
 
+        // register broadcast receiver for stopped tracking
+        mTrackingStoppedReceiver = createTrackingStoppedReceiver();
+        IntentFilter trackingStoppedIntentFilter = new IntentFilter(ACTION_TRACKING_STOPPED);
+        LocalBroadcastManager.getInstance(this).registerReceiver(mTrackingStoppedReceiver, trackingStoppedIntentFilter);
+
     }
 
 
@@ -102,9 +114,9 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
         // handle action bar options menu selection
         switch (item.getItemId()) {
 
-            // CASE SETTINGS
-            case R.id.action_settings:
-                LogHelper.v(LOG_TAG, "Settings was selected");
+            // CASE ABOUT
+            case R.id.action_bar_about:
+                LogHelper.v(LOG_TAG, "About was selected"); // TODO remove
                 return true;
 
             // CASE DEFAULT
@@ -116,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putBoolean(INSTANCE_TRACKING_STARTED, mTracking);
+        outState.putBoolean(INSTANCE_TRACKING_STATE, mTracking);
         super.onSaveInstanceState(outState);
     }
 
@@ -129,6 +141,15 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
         if (mFloatingActionButton != null) {
             setFloatingActionButtonState();
         }
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        // disable  broadcast receiver
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mTrackingStoppedReceiver);
     }
 
 
@@ -213,31 +234,33 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     /* Handles tap on the record button */
     private void handleFloatingActionButtonClick(View view) {
         if (mTracking) {
+            // show snackbar
             Snackbar.make(view, R.string.snackbar_message_tracking_stopped, Snackbar.LENGTH_SHORT).setAction("Action", null).show();
 
             // change state
-            mFloatingActionButton.setImageResource(R.drawable.ic_fiber_manual_record_white_24dp);
-            mTracking = false;
+            // --> is handled by broadcast receiver
 
             // stop tracker service
             Intent intent = new Intent(this, TrackerService.class);
             intent.setAction(ACTION_STOP);
             startService(intent);
-            LogHelper.v(LOG_TAG, "Stopping tracker service.");
-
 
         } else {
+            // show snackbar
             Snackbar.make(view, R.string.snackbar_message_tracking_started, Snackbar.LENGTH_SHORT).setAction("Action", null).show();
 
             // change state
-            mFloatingActionButton.setImageResource(R.drawable.ic_fiber_manual_record_red_24dp);
             mTracking = true;
+            setFloatingActionButtonState();
+
+            // get last location from MainActivity Fragment
+            Location lastLocation = mMainActivityFragment.getCurrentBestLocation();
 
             // start tracker service
             Intent intent = new Intent(this, TrackerService.class);
             intent.setAction(ACTION_START);
+            intent.putExtra(EXTRA_LAST_LOCATION, lastLocation);
             startService(intent);
-            LogHelper.v(LOG_TAG, "Starting tracker service.");
         }
 
         // update tracking state in MainActivityFragment
@@ -272,6 +295,22 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
         }
 
         return permissions;
+    }
+
+
+    /* Creates receiver for stopped tracking */
+    private BroadcastReceiver createTrackingStoppedReceiver() {
+        return new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                // change state
+                mTracking = false;
+                setFloatingActionButtonState();
+
+                // pass tracking state to MainActivityFragment
+                mMainActivityFragment.setTrackingState(false);
+            }
+        };
     }
 
 }

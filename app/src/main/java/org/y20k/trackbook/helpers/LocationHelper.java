@@ -27,17 +27,10 @@ import java.util.List;
 /**
  * LocationHelper class
  */
-public final class LocationHelper {
+public final class LocationHelper implements TrackbookKeys {
 
     /* Define log tag */
     private static final String LOG_TAG = LocationHelper.class.getSimpleName();
-
-
-    /* Main class variables */
-//    private static final int TWO_MINUTES = 1000 * 1000 * 60 * 2;
-    private static final long FIVE_MINUTES = 5L * 60000000000L; // 2 minutes
-    private static final long TWO_MINUTES = 2L * 60000000000L; // 2 minutes
-    private static final long TWENTY_SECONDS = 20000000000L; // 20 seconds
 
 
     /* Determines last known location  */
@@ -72,13 +65,14 @@ public final class LocationHelper {
             }
         }
 
-        // return best estimate location
-        if (isBetterLocation(networkLocation, gpsLocation)) {
-            LogHelper.v(LOG_TAG, "Best last known location came from: " + networkLocation.getProvider()); // TODO remove
+        if (gpsLocation == null) {
             return networkLocation;
-        } else {
-            LogHelper.v(LOG_TAG, "Best last known location came from: " + gpsLocation.getProvider()); // TODO remove
+        } else if (networkLocation == null) {
             return gpsLocation;
+        } else if (isBetterLocation(gpsLocation, networkLocation)) {
+            return gpsLocation;
+        } else {
+            return networkLocation;
         }
     }
 
@@ -94,8 +88,8 @@ public final class LocationHelper {
 
         // check whether the new location fix is newer or older
         long timeDelta = location.getElapsedRealtimeNanos() - currentBestLocation.getElapsedRealtimeNanos();
-        boolean isSignificantlyNewer = timeDelta > TWO_MINUTES;
-        boolean isSignificantlyOlder = timeDelta < -TWO_MINUTES;
+        boolean isSignificantlyNewer = timeDelta > TWO_MINUTES_IN_NANOSECONDS;
+        boolean isSignificantlyOlder = timeDelta < -TWO_MINUTES_IN_NANOSECONDS;
         boolean isNewer = timeDelta > 0;
 
         // if it's been more than two minutes since the current location, use the new location because the user has likely moved
@@ -118,16 +112,12 @@ public final class LocationHelper {
 
         // determine location quality using a combination of timeliness and accuracy
         if (isMoreAccurate) {
-            LogHelper.v(LOG_TAG, "Location isMoreAccurate: " + location.getProvider()); // TODO remove
             return true;
         } else if (isNewer && !isLessAccurate) {
-            LogHelper.v(LOG_TAG, "Location isNewer && !isLessAccurate: " + location.getProvider()); // TODO remove
             return true;
         } else if (isNewer && !isSignificantlyLessAccurate && isFromSameProvider) {
-            LogHelper.v(LOG_TAG, "Location isNewer && !isSignificantlyLessAccurate && isFromSameProvider: " + location.getProvider()); // TODO remove
             return true;
         }
-        LogHelper.v(LOG_TAG, "Location is not better: " + location.getProvider()); // TODO remove
         return false;
     }
 
@@ -138,7 +128,7 @@ public final class LocationHelper {
             return false;
         } else {
             long locationTime = SystemClock.elapsedRealtimeNanos() - location.getElapsedRealtimeNanos();
-            return locationTime < TWO_MINUTES;
+            return locationTime < TWO_MINUTES_IN_NANOSECONDS;
         }
     }
 
@@ -148,15 +138,15 @@ public final class LocationHelper {
         float distance = newLocation.distanceTo(lastLocation);
         long timeDifference = newLocation.getElapsedRealtimeNanos() - lastLocation.getElapsedRealtimeNanos();
 
-        // distance is bigger than 10 meters and time difference bigger than 20 seconds
-        return distance > 10 && timeDifference >= TWENTY_SECONDS;
+        // distance is bigger than 10 meters and time difference bigger than 12 seconds
+        return distance > 10 && timeDifference >= TWELVE_SECONDS_IN_NANOSECONDS;
     }
 
 
     /* Checks if given location is a stop over */
     public static boolean isStopOver(Location lastLocation, Location newLocation) {
         long timeDifference =  newLocation.getElapsedRealtimeNanos() - lastLocation.getElapsedRealtimeNanos();
-        return timeDifference >= FIVE_MINUTES;
+        return timeDifference >= FIVE_MINUTES_IN_NANOSECONDS;
     }
 
 

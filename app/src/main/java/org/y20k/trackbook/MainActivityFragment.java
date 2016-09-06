@@ -74,7 +74,8 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
     private ItemizedIconOverlay mMyLocationOverlay;
     private ItemizedIconOverlay mTrackOverlay;
     private Location mCurrentBestLocation;
-    private boolean mTacking;
+    private boolean mTrackerServiceRunning;
+    private boolean mLocalTrackerRunning;
 
 
     /* Constructor (default) */
@@ -99,15 +100,10 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
         }
 
         // restore tracking state
-        mTacking = false;
+        mTrackerServiceRunning = false;
         if (savedInstanceState != null) {
-            mTacking = savedInstanceState.getBoolean(INSTANCE_TRACKING_STARTED, false);
+            mTrackerServiceRunning = savedInstanceState.getBoolean(INSTANCE_TRACKING_STATE, false);
         }
-
-        // register broadcast receiver for new WayPoints
-        mTrackUpdatedReceiver = createTrackUpdatedReceiver();
-        IntentFilter trackUpdatedIntentFilter = new IntentFilter(ACTION_TRACK_UPDATED);
-        LocalBroadcastManager.getInstance(mActivity).registerReceiver(mTrackUpdatedReceiver, trackUpdatedIntentFilter);
 
         // acquire reference to Location Manager
         mLocationManager = (LocationManager) mActivity.getSystemService(Context.LOCATION_SERVICE);
@@ -133,6 +129,11 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
         if (mCurrentBestLocation == null && mLocationManager.getProviders(true).size() > 0) {
             mCurrentBestLocation = LocationHelper.determineLastKnownLocation(mLocationManager);
         }
+
+        // register broadcast receiver for new WayPoints
+        mTrackUpdatedReceiver = createTrackUpdatedReceiver();
+        IntentFilter trackUpdatedIntentFilter = new IntentFilter(ACTION_TRACK_UPDATED);
+        LocalBroadcastManager.getInstance(mActivity).registerReceiver(mTrackUpdatedReceiver, trackUpdatedIntentFilter);
 
     }
 
@@ -165,7 +166,7 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
             mCurrentBestLocation = savedInstanceState.getParcelable(INSTANCE_CURRENT_LOCATION);
         } else if (mCurrentBestLocation != null) {
             // fallback or first run: set map to current position
-            GeoPoint position = new GeoPoint(mCurrentBestLocation.getLatitude(), mCurrentBestLocation.getLongitude());
+            GeoPoint position = convertToGeoPoint(mCurrentBestLocation);
             mController.setCenter(position);
             mController.setZoom(16);
         }
@@ -184,8 +185,8 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
         mMapView.getOverlays().add(compassOverlay);
 
         // mark user's location on map
-        if (mCurrentBestLocation != null) {
-            mMyLocationOverlay = MapHelper.createMyLocationOverlay(mActivity, mCurrentBestLocation, LocationHelper.isNewLocation(mCurrentBestLocation), mTacking);
+        if (mCurrentBestLocation != null && !mTrackerServiceRunning) {
+            mMyLocationOverlay = MapHelper.createMyLocationOverlay(mActivity, mCurrentBestLocation, LocationHelper.isNewLocation(mCurrentBestLocation));
             mMapView.getOverlays().add(mMyLocationOverlay);
         }
 
@@ -197,8 +198,21 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
     public void onResume() {
         super.onResume();
 
-        // start tracking position
-        startFindingLocation();
+        // start preliminary tracking - if no TrackerService is running
+        if (!mTrackerServiceRunning) {
+            startPreliminaryTracking();
+        }
+
+        // center map on current position - if TrackerService is running
+        if (mTrackerServiceRunning) {
+            mController.setCenter(convertToGeoPoint(mCurrentBestLocation));
+        }
+
+        // draw track on map - if available
+        if (mTrack != null) {
+            drawTrackOverlay(mTrack);
+        }
+
     }
 
 
@@ -206,17 +220,14 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
     public void onPause() {
         super.onPause();
 
-        // disable location listeners
-        LocationHelper.removeLocationListeners(mLocationManager, mGPSListener, mNetworkListener);
+        // disable preliminary location listeners
+        stopPreliminaryTracking();
     }
 
 
     @Override
     public void onDestroyView(){
         super.onDestroyView();
-
-        // unregister broadcast receiver
-        LocalBroadcastManager.getInstance(mActivity).unregisterReceiver(mTrackUpdatedReceiver);
 
         // deactivate map
         mMapView.onDetach();
@@ -227,6 +238,9 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
     public void onDestroy() {
         // reset first start state
         mFirstStart = true;
+
+        // disable  broadcast receivers
+        LocalBroadcastManager.getInstance(mActivity).unregisterReceiver(mTrackUpdatedReceiver);
 
         super.onDestroy();
     }
@@ -239,7 +253,7 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
         switch (item.getItemId()) {
 
             // CASE MY LOCATION
-            case R.id.action_my_location:
+            case R.id.action_bar_my_location:
 
                 Toast.makeText(mActivity, mActivity.getString(R.string.toast_message_my_location), Toast.LENGTH_LONG).show();
 
@@ -253,12 +267,11 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
                 GeoPoint position;
                 if (mCurrentBestLocation != null) {
                     // app has a current best estimate location
-                    position = new GeoPoint(mCurrentBestLocation.getLatitude(), mCurrentBestLocation.getLongitude());
                 } else {
                     // app does not have any location fix
                     mCurrentBestLocation = LocationHelper.determineLastKnownLocation(mLocationManager);
-                    position = new GeoPoint(mCurrentBestLocation.getLatitude(), mCurrentBestLocation.getLongitude());
                 }
+                position = convertToGeoPoint(mCurrentBestLocation);
 
                 // center map on current position
                 mController.setCenter(position);
@@ -284,32 +297,59 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
         outState.putInt(INSTANCE_ZOOM_LEVEL, mMapView.getZoomLevel());
         outState.putParcelable(INSTANCE_CURRENT_LOCATION, mCurrentBestLocation);
         outState.putParcelable(INSTANCE_TRACK, mTrack);
-        outState.putBoolean(INSTANCE_TRACKING_STARTED, mTacking);
+        outState.putBoolean(INSTANCE_TRACKING_STATE, mTrackerServiceRunning);
         super.onSaveInstanceState(outState);
     }
 
 
-    /* Sets tracking state */
-    public void setTrackingState (boolean trackingStarted) {
-        mTacking = trackingStarted;
+    /* Setter for tracking state */
+    public void setTrackingState (boolean trackingState) {
+        mTrackerServiceRunning = trackingState;
+
+        // turn on/off tracking for MainActivity Fragment - prevent double tracking
+        if (mTrackerServiceRunning) {
+            stopPreliminaryTracking();
+        } else if (!mLocalTrackerRunning){
+            startPreliminaryTracking();
+            if (mTrack != null) {
+                drawTrackOverlay(mTrack);
+            }
+        }
+
+        // update marker
         updateMyLocationMarker();
+        LogHelper.v(LOG_TAG, "TrackingState: " + trackingState);
     }
 
 
-    /* Start finding location for map */
-    private void startFindingLocation() {
+    /* Getter for current best location */
+    public Location getCurrentBestLocation() {
+        return mCurrentBestLocation;
+    }
+
+
+    /* Start preliminary tracking for map */
+    private void startPreliminaryTracking() {
+        mLocalTrackerRunning = true;
         // create location listeners
         List locationProviders = mLocationManager.getProviders(true);
         if (locationProviders.contains(LocationManager.GPS_PROVIDER)) {
             mGPSListener = createLocationListener();
         }
-
         if (locationProviders.contains(LocationManager.NETWORK_PROVIDER)) {
             mNetworkListener = createLocationListener();
         }
 
         // register listeners
         LocationHelper.registerLocationListeners(mLocationManager, mGPSListener, mNetworkListener);
+    }
+
+
+    /* Removes gps and network location listeners */
+    private void stopPreliminaryTracking() {
+        mLocalTrackerRunning = false;
+        // remove listeners
+        LocationHelper.removeLocationListeners(mLocationManager, mGPSListener, mNetworkListener);
     }
 
 
@@ -321,7 +361,6 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
                 if (LocationHelper.isBetterLocation(location, mCurrentBestLocation)) {
                     // save location
                     mCurrentBestLocation = location;
-                    LogHelper.v(LOG_TAG, "Location isBetterLocation(!): " + location.getProvider()); // TODO remove
                     // mark user's new location on map and remove last marker
                     updateMyLocationMarker();
                 }
@@ -345,15 +384,18 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
     /* Updates marker for current user location  */
     private void updateMyLocationMarker() {
         mMapView.getOverlays().remove(mMyLocationOverlay);
-        mMyLocationOverlay = MapHelper.createMyLocationOverlay(mActivity, mCurrentBestLocation, LocationHelper.isNewLocation(mCurrentBestLocation),mTacking);
-        mMapView.getOverlays().add(mMyLocationOverlay);
+        // only update while not tracking
+        if (!mTrackerServiceRunning) {
+            mMyLocationOverlay = MapHelper.createMyLocationOverlay(mActivity, mCurrentBestLocation, LocationHelper.isNewLocation(mCurrentBestLocation));
+            mMapView.getOverlays().add(mMyLocationOverlay);
+        }
     }
 
 
     /* Draws track onto overlay */
     private void drawTrackOverlay(Track track) {
         mMapView.getOverlays().remove(mTrackOverlay);
-        mTrackOverlay = MapHelper.createTrackOverlay(mActivity, track);
+        mTrackOverlay = MapHelper.createTrackOverlay(mActivity, track, mTrackerServiceRunning);
         mMapView.getOverlays().add(mTrackOverlay);
     }
 
@@ -370,13 +412,26 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
         return new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                if (intent.hasExtra(EXTRA_TRACK)) {
+                if (intent.hasExtra(EXTRA_TRACK) && intent.hasExtra(EXTRA_LAST_LOCATION)) {
+                    // draw track on map
                     mTrack = intent.getParcelableExtra(EXTRA_TRACK);
                     drawTrackOverlay(mTrack);
                     Toast.makeText(mActivity, "New WayPoint.", Toast.LENGTH_LONG).show(); // TODO Remove
+                    // center map over last location
+                    mCurrentBestLocation = intent.getParcelableExtra(EXTRA_LAST_LOCATION);
+                    mController.setCenter(convertToGeoPoint(mCurrentBestLocation));
+                    // clear intent
+                    intent.removeExtra(EXTRA_TRACK);
+                    intent.removeExtra(EXTRA_LAST_LOCATION);
                 }
             }
         };
+    }
+
+
+    /* Converts Location to GeoPoint */
+    private GeoPoint convertToGeoPoint (Location location) {
+        return new GeoPoint(location.getLatitude(), location.getLongitude());
     }
 
 
