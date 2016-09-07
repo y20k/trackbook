@@ -58,9 +58,9 @@
     <string name="infosheet_about_h3_internet">Permission INTERNET</string>
     <string name="infosheet_about_p_internet">Trackbook needs to download map data from Open Street Map servers and therefore needs access to the internet.</string>
     <string name="infosheet_about_h3_network">Permission ACCESS_WIFI_STATE and ACCESS_NETWORK_STATE</string>
-    <string name="infosheet_about_p_network">tbd</string>
+    <string name="infosheet_about_p_network">Trackbook uses to draw its main map. osmdroid needs to know the current state of your device’s connectivity. I am not sure why though. On the other hand: These permissions are not harmful in any way.</string>
     <string name="infosheet_about_h3_location">Permission ACCESS_COARSE_LOCATION and ACCESS_FINE_LOCATION</string>
-    <string name="infosheet_about_p_location">tbd</string>
+    <string name="infosheet_about_p_location">Trackbook needs accurate GPS location data to be able to record your movements. If the GPS data is not available or not accurate enough Trackbook uses location data from cell tower and WiFi triangulation.</string>
     <string name="infosheet_about_h3_external">Permission WRITE_EXTERNAL_STORAGE</string>
     <string name="infosheet_about_p_external">Trackbook uses osmdroid, which caches map tiles on Android\'s external storage. You can find the map cache in the osmdroid folder on the top level of the user-facing file system.</string>
 
