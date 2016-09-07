@@ -10,6 +10,7 @@
         android:visible="true"
         app:showAsAction="ifRoom" />
 
+
     <item
         android:id="@+id/action_bar_about"
         android:orderInCategory="100"

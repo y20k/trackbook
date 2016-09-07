@@ -31,6 +31,9 @@ public interface TrackbookKeys {
     /* EXTRAS */
     public static final String EXTRA_TRACK = "TRACK";
     public static final String EXTRA_LAST_LOCATION = "LAST_LOCATION";
+    public static final String EXTRA_TRACKING_STATE = "TRACKING_STATE";
+    public static final String EXTRA_INFOSHEET_TITLE = "EXTRA_INFOSHEET_TITLE";
+    public static final String EXTRA_INFOSHEET_CONTENT = "INFOSHEET_CONTENT";
 
     /* ARGS */
     public static final String ARG_PERMISSIONS_GRANTED = "ArgPermissionsGranted";
@@ -66,5 +69,6 @@ public interface TrackbookKeys {
     /* MISC */
     public static final int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
     public static final int TRACKER_SERVICE_NOTIFICATION_ID = 1;
+    public static final int INFOSHEET_CONTENT_ABOUT = 1;
 
 }

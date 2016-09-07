@@ -38,7 +38,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import org.y20k.trackbook.helpers.LogHelper;
 import org.y20k.trackbook.helpers.TrackbookKeys;
 
 import java.util.ArrayList;
@@ -57,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
 
 
     /* Main class variables */
-    private boolean mTracking;
+    private boolean mTrackerServiceRunning;
     private boolean mPermissionsGranted;
     private List<String> mMissingPermissions;
     private View mRootView;
@@ -71,9 +70,9 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
         super.onCreate(savedInstanceState);
 
         // set state of tracking
-        mTracking = false;
+        mTrackerServiceRunning = false;
         if (savedInstanceState != null) {
-            mTracking = savedInstanceState.getBoolean(INSTANCE_TRACKING_STATE, false);
+            mTrackerServiceRunning = savedInstanceState.getBoolean(INSTANCE_TRACKING_STATE, false);
         }
 
         // check permissions on Android 6 and higher
@@ -116,7 +115,13 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
 
             // CASE ABOUT
             case R.id.action_bar_about:
-                LogHelper.v(LOG_TAG, "About was selected"); // TODO remove
+                // get title
+                String aboutTitle = getString(R.string.header_about);
+                // put title and content into intent and start activity
+                Intent aboutIntent = new Intent(this, InfosheetActivity.class);
+                aboutIntent.putExtra(EXTRA_INFOSHEET_TITLE, aboutTitle);
+                aboutIntent.putExtra(EXTRA_INFOSHEET_CONTENT, INFOSHEET_CONTENT_ABOUT);
+                startActivity(aboutIntent);
                 return true;
 
             // CASE DEFAULT
@@ -128,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putBoolean(INSTANCE_TRACKING_STATE, mTracking);
+        outState.putBoolean(INSTANCE_TRACKING_STATE, mTrackerServiceRunning);
         super.onSaveInstanceState(outState);
     }
 
@@ -136,6 +141,12 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     @Override
     protected void onResume() {
         super.onResume();
+
+        Intent intent = getIntent();
+        if (intent.hasExtra(EXTRA_TRACKING_STATE)) {
+            mTrackerServiceRunning = intent.getBooleanExtra(EXTRA_TRACKING_STATE, false);
+            mMainActivityFragment.setTrackingState(mTrackerServiceRunning);
+        }
 
         // if not in onboarding mode: set state of FloatingActionButton
         if (mFloatingActionButton != null) {
@@ -233,7 +244,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
 
     /* Handles tap on the record button */
     private void handleFloatingActionButtonClick(View view) {
-        if (mTracking) {
+        if (mTrackerServiceRunning) {
             // show snackbar
             Snackbar.make(view, R.string.snackbar_message_tracking_stopped, Snackbar.LENGTH_SHORT).setAction("Action", null).show();
 
@@ -250,7 +261,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
             Snackbar.make(view, R.string.snackbar_message_tracking_started, Snackbar.LENGTH_SHORT).setAction("Action", null).show();
 
             // change state
-            mTracking = true;
+            mTrackerServiceRunning = true;
             setFloatingActionButtonState();
 
             // get last location from MainActivity Fragment
@@ -264,13 +275,13 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
         }
 
         // update tracking state in MainActivityFragment
-        mMainActivityFragment.setTrackingState(mTracking);
+        mMainActivityFragment.setTrackingState(mTrackerServiceRunning);
     }
 
 
     /* Set state of FloatingActionButton */
     private void setFloatingActionButtonState() {
-        if (mTracking) {
+        if (mTrackerServiceRunning) {
             mFloatingActionButton.setImageResource(R.drawable.ic_fiber_manual_record_red_24dp);
         } else {
             mFloatingActionButton.setImageResource(R.drawable.ic_fiber_manual_record_white_24dp);
@@ -304,7 +315,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
             @Override
             public void onReceive(Context context, Intent intent) {
                 // change state
-                mTracking = false;
+                mTrackerServiceRunning = false;
                 setFloatingActionButtonState();
 
                 // pass tracking state to MainActivityFragment

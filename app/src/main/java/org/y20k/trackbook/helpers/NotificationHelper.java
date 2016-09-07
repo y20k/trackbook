@@ -96,6 +96,10 @@ public class NotificationHelper implements TrackbookKeys {
 
         // explicit intent for notification tap
         Intent tapActionIntent = new Intent(mService, MainActivity.class);
+        tapActionIntent.setAction(Intent.ACTION_MAIN);
+        tapActionIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+        tapActionIntent.putExtra(EXTRA_TRACK, track);
+        tapActionIntent.putExtra(EXTRA_TRACKING_STATE, true);
 
         // explicit intent for stopping playback
         Intent stopActionIntent = new Intent(mService, TrackerService.class);

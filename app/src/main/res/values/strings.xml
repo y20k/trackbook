@@ -1,11 +1,14 @@
 <resources>
     <!-- activities -->
     <string name="app_name">Trackbook</string>
+    <string name="title_activity_infosheet">Info Sheet</string>
 
     <!-- menu entries -->
     <string name="menu_my_location">My Location</string>
     <string name="menu_about">About</string>
 
+    <!-- headers -->
+    <string name="header_about">About</string>
 
     <!-- notification -->
     <string name="notification_title_trackbook_running">Trackbook running</string>
@@ -23,7 +26,7 @@
     <string name="toast_message_unable_to_start_app">Unable to start Trackbook.</string>
     <string name="toast_message_location_offline">Location is turned off.</string>
     <string name="toast_message_acquiring_location">Acquiring current location.</string>
-    <string name="toast_message_my_location">My Location.</string>
+    <string name="toast_message_my_location">Last recorded location:</string>
 
     <!-- map markers -->
     <string name="marker_my_location_title">My current location.</string>
@@ -41,5 +44,23 @@
     <string name="layout_onboading_p_permission_storage">Maxime et commodi modi officiis at deleniti fugit. Magnam atque provident est et nulla incidunt. Beatae excepturi repudiandae aut facilis aperiam. Et totam qui doloremque. Asperiores est ut perspiciatis ducimus ut aut rerum minus. Voluptatem facilis qui minus corporis explicabo eos.</string>
     <string name="layout_onboading_button_okay">Got it!</string>
 
+    <!-- infosheet about -->
+    <string name="infosheet_about_h1_about">About Trackbook</string>
+    <string name="infosheet_about_h2_recorder">Movement recorder for Android</string>
+    <string name="infosheet_about_h3_version">Version 0.1 ("The Great Gig in the Sky")</string>
+    <string name="infosheet_about_p_bare">Trackbook is a bare bones app for recording your movements. Trackbook is great for hiking, vacation or workout. Once started it displays your movements on a map. You can save your recorded tracks and share them with friends.</string>
+    <string name="infosheet_about_p_free">Trackbook is free software. It is published under the MIT open source license. Trackbook uses osmdroid to display the map. osmdroid is also free software. It is published under the Apache License. Want to help? You can find the code on GitHub. GitHub is also a good place to file bugs or even to contribute, if you are interested.</string>
+    <string name="infosheet_about_p_github">https://github.com/y20k/trackbook</string>
+    <string name="infosheet_about_p_osmdroid">https://github.com/osmdroid/osmdroid</string>
+    <string name="infosheet_about_p_license">https://opensource.org/licenses/MIT</string>
+    <string name="infosheet_about_h2_permissions">Which Permissions does Trackbook need?</string>
+    <string name="infosheet_about_h3_internet">Permission INTERNET</string>
+    <string name="infosheet_about_p_internet">Trackbook needs to download map data from Open Street Map servers and therefore needs access to the internet.</string>
+    <string name="infosheet_about_h3_network">Permission ACCESS_WIFI_STATE and ACCESS_NETWORK_STATE</string>
+    <string name="infosheet_about_p_network">tbd</string>
+    <string name="infosheet_about_h3_location">Permission ACCESS_COARSE_LOCATION and ACCESS_FINE_LOCATION</string>
+    <string name="infosheet_about_p_location">tbd</string>
+    <string name="infosheet_about_h3_external">Permission WRITE_EXTERNAL_STORAGE</string>
+    <string name="infosheet_about_p_external">Trackbook uses osmdroid, which caches map tiles on Android\'s external storage. You can find the map cache in the osmdroid folder on the top level of the user-facing file system.</string>
 
 </resources>

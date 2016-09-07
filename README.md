@@ -43,16 +43,10 @@ Which Permissions does Trackbook need?
 ### Permission "INTERNET"
 Trackbook needs to download map data from Open Street Map servers and therefore needs access to the internet.
 
-### Permission "ACCESS_NETWORK_STATE"
-tbd
-
-### Permission "ACCESS_WIFI_STATE"
+### Permission "ACCESS_NETWORK_STATE" and "ACCESS_WIFI_STATE"
 tbd
             
-### Permission "ACCESS_COARSE_LOCATION"
-tbd
-
-### Permission "ACCESS_FINE_LOCATION"
+### Permission "ACCESS_COARSE_LOCATION" and "ACCESS_FINE_LOCATION"
 tbd
 
 ### Permission "WRITE_EXTERNAL_STORAGE"

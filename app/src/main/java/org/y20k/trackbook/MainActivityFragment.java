@@ -194,6 +194,7 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
     }
 
 
+
     @Override
     public void onResume() {
         super.onResume();
@@ -306,14 +307,22 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
     public void setTrackingState (boolean trackingState) {
         mTrackerServiceRunning = trackingState;
 
+        // got a new track (from notification)=
+        Intent intent = mActivity.getIntent();
+        if (intent.hasExtra(EXTRA_TRACK)) {
+            LogHelper.v(LOG_TAG, "ding !!!");
+            mTrack = intent.getParcelableExtra(EXTRA_TRACK);
+        }
+
         // turn on/off tracking for MainActivity Fragment - prevent double tracking
         if (mTrackerServiceRunning) {
             stopPreliminaryTracking();
         } else if (!mLocalTrackerRunning){
             startPreliminaryTracking();
-            if (mTrack != null) {
-                drawTrackOverlay(mTrack);
-            }
+        }
+
+        if (mTrack != null) {
+            drawTrackOverlay(mTrack);
         }
 
         // update marker

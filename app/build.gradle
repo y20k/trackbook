@@ -9,7 +9,7 @@ android {
         minSdkVersion 22
         targetSdkVersion 24
         versionCode 1
-        versionName "0.1 (The Great Gig in the Sky)"
+        versionName "0.1.0 (The Great Gig in the Sky)"
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
