@@ -32,6 +32,7 @@ public interface TrackbookKeys {
     public static final String EXTRA_TRACK = "TRACK";
     public static final String EXTRA_LAST_LOCATION = "LAST_LOCATION";
     public static final String EXTRA_TRACKING_STATE = "TRACKING_STATE";
+    public static final String EXTRA_CLEAR_MAP = "CLEAR_MAP";
     public static final String EXTRA_INFOSHEET_TITLE = "EXTRA_INFOSHEET_TITLE";
     public static final String EXTRA_INFOSHEET_CONTENT = "INFOSHEET_CONTENT";
 

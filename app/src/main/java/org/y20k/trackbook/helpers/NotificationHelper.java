@@ -94,27 +94,30 @@ public class NotificationHelper implements TrackbookKeys {
         String contentText = mService.getString(R.string.notification_content_distance) + ": " + track.getTrackDistance() + " | " +
                 mService.getString(R.string.notification_content_duration) + " : " +  track.getTrackDuration();
 
-        // explicit intent for notification tap
+        // CASE: NOTIFICATION TAP
         Intent tapActionIntent = new Intent(mService, MainActivity.class);
-        tapActionIntent.setAction(Intent.ACTION_MAIN);
-        tapActionIntent.addCategory(Intent.CATEGORY_LAUNCHER);
         tapActionIntent.putExtra(EXTRA_TRACK, track);
-        tapActionIntent.putExtra(EXTRA_TRACKING_STATE, true);
+        tapActionIntent.putExtra(EXTRA_TRACKING_STATE, tracking);
+        // artificial back stack for started Activity (https://developer.android.com/training/notify-user/navigation.html#DirectEntry)
+        TaskStackBuilder tapActionIntentBuilder = TaskStackBuilder.create(mService);
+        tapActionIntentBuilder.addParentStack(MainActivity.class);
+        tapActionIntentBuilder.addNextIntent(tapActionIntent);
+        // pending intent wrapper for notification tap
+        PendingIntent tapActionPendingIntent = tapActionIntentBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        // explicit intent for stopping playback
+        // CASE: NOTIFICATION SWIPE
+        Intent swipeActionIntent = new Intent(mService, MainActivity.class);
+        swipeActionIntent.putExtra(EXTRA_CLEAR_MAP, tracking);
+        // artificial back stack for started Activity (https://developer.android.com/training/notify-user/navigation.html#DirectEntry)
+        TaskStackBuilder swipeActionIntentBuilder = TaskStackBuilder.create(mService);
+        swipeActionIntentBuilder.addParentStack(MainActivity.class);
+        swipeActionIntentBuilder.addNextIntent(swipeActionIntent);
+        // pending intent wrapper for notification tap
+        PendingIntent swipeActionPendingIntent = swipeActionIntentBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        // CASE: NOTIFICATION BUTTON STOP
         Intent stopActionIntent = new Intent(mService, TrackerService.class);
         stopActionIntent.setAction(ACTION_STOP);
-
-        // artificial back stack for started Activity.
-        // -> navigating backward from the Activity leads to Home screen.
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(mService);
-//        // backstack: adds back stack for Intent (but not the Intent itself)
-//        stackBuilder.addParentStack(MainActivity.class);
-        // backstack: add explicit intent for notification tap
-        stackBuilder.addNextIntent(tapActionIntent);
-
-        // pending intent wrapper for notification tap
-        PendingIntent tapActionPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
         // pending intent wrapper for notification stop action
         PendingIntent stopActionPendingIntent = PendingIntent.getService(mService, 0, stopActionIntent, 0);
 
@@ -133,10 +136,10 @@ public class NotificationHelper implements TrackbookKeys {
             // third line of text - only appears in expanded view
             // builder.setSubText();
         } else {
+            builder.setDeleteIntent(swipeActionPendingIntent);
             builder.setContentTitle(mService.getString(R.string.notification_title_trackbook_not_running));
             builder.setContentText(contentText);
-            // third line of text - only appears in expanded view
-            // builder.setSubText();
+            builder.setSubText(mService.getString(R.string.notification_swipe_to_clear_map));
         }
 
         return builder;

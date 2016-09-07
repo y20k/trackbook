@@ -38,6 +38,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import org.y20k.trackbook.helpers.NotificationHelper;
 import org.y20k.trackbook.helpers.TrackbookKeys;
 
 import java.util.ArrayList;
@@ -148,6 +149,10 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
             mMainActivityFragment.setTrackingState(mTrackerServiceRunning);
         }
 
+        if (intent.hasExtra(EXTRA_CLEAR_MAP)) {
+            clearMap();
+        }
+
         // if not in onboarding mode: set state of FloatingActionButton
         if (mFloatingActionButton != null) {
             setFloatingActionButtonState();
@@ -218,6 +223,18 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
                     handleFloatingActionButtonClick(view);
                 }
             });
+            mFloatingActionButton.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    if (mTrackerServiceRunning) {
+                        return false;
+                    } else {
+                        clearMap();
+                        NotificationHelper.stop();
+                        return true;
+                    }
+                }
+            });
 
         } else {
             // point to the on main onboarding layout
@@ -286,6 +303,13 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
         } else {
             mFloatingActionButton.setImageResource(R.drawable.ic_fiber_manual_record_white_24dp);
         }
+    }
+
+
+
+    /* Removes track crumbs from map */
+    private void clearMap() {
+        Toast.makeText(this, "Clearing map", Toast.LENGTH_LONG).show(); // TODO remove
     }
 
 

@@ -14,6 +14,7 @@
     <string name="notification_title_trackbook_running">Trackbook running</string>
     <string name="notification_title_trackbook_not_running">Trackbook not running</string>
     <string name="notification_stop">Stop</string>
+    <string name="notification_swipe_to_clear_map">&#8230; swipe to clear map.</string>
     <string name="notification_content_duration">Duration</string>
     <string name="notification_content_distance">Distance</string>
 
