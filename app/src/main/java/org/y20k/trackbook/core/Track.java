@@ -26,7 +26,6 @@ import org.y20k.trackbook.helpers.TrackbookKeys;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -39,7 +38,7 @@ public class Track implements TrackbookKeys, Parcelable {
 
 
     /* Main class variables */
-    private List<WayPoint> mWayPoints;
+    private final List<WayPoint> mWayPoints;
     private float mTrackLength;
     private long mTrackDuration;
 
@@ -77,23 +76,25 @@ public class Track implements TrackbookKeys, Parcelable {
         // add up distance
         mTrackLength = addDistanceToTrack(location);
 
-        boolean stopOver;
         int wayPointCount = mWayPoints.size();
-        if (wayPointCount == 0) {
-            stopOver = false;
-        } else {
+
+        // determine if last waypoint was a stopover
+        boolean stopOver = false;
+        if (wayPointCount > 1) {
             Location lastLocation = mWayPoints.get(wayPointCount - 1).getLocation();
             stopOver = LocationHelper.isStopOver(lastLocation, location);
         }
+        if (stopOver) {
+            // mark last waypoint as stopover
+            LogHelper.v(LOG_TAG, "Last Location was a stop.");
+            mWayPoints.get(wayPointCount-1).setIsStopOver(true);
+        }
 
         // create new waypoint
-        WayPoint wayPoint = new WayPoint(location, stopOver, mTrackLength);
+        WayPoint wayPoint = new WayPoint(location, false, mTrackLength);
 
         // add new waypoint to track
         mWayPoints.add(wayPoint);
-
-        // TODO remove log here
-        LogHelper.v(LOG_TAG, "Waypoint No. " + mWayPoints.indexOf(wayPoint) + " Location: " + wayPoint.getLocation().toString());
 
         return wayPoint;
     }
@@ -119,7 +120,7 @@ public class Track implements TrackbookKeys, Parcelable {
 
     /* Getter for duration of track */
     public String getTrackDuration() {
-        return convertToReadableTime(mTrackDuration);
+        return LocationHelper.convertToReadableTime(mTrackDuration, true);
     }
 
 
@@ -149,14 +150,6 @@ public class Track implements TrackbookKeys, Parcelable {
         }
 
         return 0f;
-    }
-
-
-    /* Converts milliseconds to hh:mm:ss */
-    private String convertToReadableTime(long milliseconds) {
-        return String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(milliseconds),
-                TimeUnit.MILLISECONDS.toMinutes(milliseconds) % TimeUnit.HOURS.toMinutes(1),
-                TimeUnit.MILLISECONDS.toSeconds(milliseconds) % TimeUnit.MINUTES.toSeconds(1));
     }
 
 

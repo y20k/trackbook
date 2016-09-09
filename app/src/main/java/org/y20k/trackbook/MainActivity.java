@@ -144,13 +144,12 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
         super.onResume();
 
         Intent intent = getIntent();
-        if (intent.hasExtra(EXTRA_TRACKING_STATE)) {
+        String intentAction = intent.getAction();
+        if (intentAction != null && intentAction.contains(ACTION_SHOW_MAP) && intent.hasExtra(EXTRA_TRACKING_STATE)) {
             mTrackerServiceRunning = intent.getBooleanExtra(EXTRA_TRACKING_STATE, false);
             mMainActivityFragment.setTrackingState(mTrackerServiceRunning);
-        }
-
-        if (intent.hasExtra(EXTRA_CLEAR_MAP)) {
-            clearMap();
+            // prevent multiple reactions to intent
+            intent.setAction(ACTION_DEFAULT);
         }
 
         // if not in onboarding mode: set state of FloatingActionButton

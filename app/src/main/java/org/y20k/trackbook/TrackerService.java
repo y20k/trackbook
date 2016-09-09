@@ -148,7 +148,7 @@ public class TrackerService extends Service implements TrackbookKeys {
 
 
     /* Adds a new WayPoint to current track */
-    public void addWayPointToTrack() {
+    private void addWayPointToTrack() {
 
         // create new WayPoint
         WayPoint newWayPoint = null;
@@ -159,14 +159,12 @@ public class TrackerService extends Service implements TrackbookKeys {
         if (trackSize == 0) {
             // add first location to track
             newWayPoint = mTrack.addWayPoint(mCurrentBestLocation);
-            LogHelper.v(LOG_TAG, "mTrack.addWayPoint. Tracksize: " + trackSize); // TODO remove
         } else {
             // get last waypoint and compare it to current location
             Location lastWayPoint = mTrack.getWayPointLocation(trackSize - 1);
             if (LocationHelper.isNewWayPoint(lastWayPoint, mCurrentBestLocation)) {
                 // if new, add current best location to track
                 newWayPoint = mTrack.addWayPoint(mCurrentBestLocation);
-                LogHelper.v(LOG_TAG, "mTrack.addWayPoint. Tracksize: " + trackSize); // TODO remove
             }
 
         }
@@ -191,7 +189,6 @@ public class TrackerService extends Service implements TrackbookKeys {
                 if (LocationHelper.isBetterLocation(location, mCurrentBestLocation)) {
                     // save location
                     mCurrentBestLocation = location;
-                    // TODO hand over mCurrentBestLocation to fragment
                 }
             }
 
@@ -212,7 +209,6 @@ public class TrackerService extends Service implements TrackbookKeys {
 
     /* Creates gps and network location listeners */
     private void startFindingLocation() {
-        LogHelper.v(LOG_TAG, "startFindingLocation"); // TODO remove
         // put up notification
         NotificationHelper.show(this,mTrack);
 
@@ -229,7 +225,6 @@ public class TrackerService extends Service implements TrackbookKeys {
 
     /* Removes gps and network location listeners */
     private void stopFindingLocation() {
-        LogHelper.v(LOG_TAG, "stopFindingLocation"); // TODO remove
         // remove listeners
         LocationHelper.removeLocationListeners(mLocationManager, mGPSListener, mNetworkListener);
 

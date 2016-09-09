@@ -20,7 +20,6 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.support.v7.widget.AppCompatDrawableManager;
-import android.text.format.DateFormat;
 import android.widget.Toast;
 
 import org.osmdroid.util.GeoPoint;
@@ -44,7 +43,7 @@ public final class MapHelper {
 
 
     /* Creates icon overlay for current position (used in MainActivity Fragment) */
-    public static ItemizedIconOverlay createMyLocationOverlay(Context context, Location currentBestLocation, boolean locationIsNew) {
+    public static ItemizedIconOverlay createMyLocationOverlay(final Context context, Location currentBestLocation, boolean locationIsNew) {
 
         final ArrayList<OverlayItem> overlayItems = new ArrayList<>();
 
@@ -56,7 +55,7 @@ public final class MapHelper {
             newMarker = AppCompatDrawableManager.get().getDrawable(context, R.drawable.ic_my_location_dot_grey_24dp);
         }
         final GeoPoint position = new GeoPoint(currentBestLocation.getLatitude(), currentBestLocation.getLongitude());
-        OverlayItem overlayItem = new OverlayItem(context.getString(R.string.marker_my_location_title), context.getString(R.string.marker_my_location_description), position);
+        OverlayItem overlayItem = createOverlayItem(context, currentBestLocation);
         overlayItem.setMarker(newMarker);
 
         // add marker to list of overlay items
@@ -67,6 +66,7 @@ public final class MapHelper {
                 new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
                     @Override
                     public boolean onItemSingleTapUp(final int index, final OverlayItem item) {
+                        Toast.makeText(context, item.getTitle() + " | " + item.getSnippet(), Toast.LENGTH_LONG).show();
                         LogHelper.v(LOG_TAG, "Tap on the My Location dot icon detected.");
                         return true;
                     }
@@ -136,10 +136,8 @@ public final class MapHelper {
                 newMarker = AppCompatDrawableManager.get().getDrawable(context, R.drawable.ic_my_location_crumb_blue_24dp);
             }
 
-            final String title = Float.toString(wayPoint.getDistanceToStartingPoint()) + " (" + wayPoint.getLocation().getProvider() + ")";
-            final String description = DateFormat.getDateFormat(context).format(wayPoint.getLocation().getTime());
-            final GeoPoint position = new GeoPoint(wayPoint.getLocation().getLatitude(), wayPoint.getLocation().getLongitude());
-            OverlayItem overlayItem = new OverlayItem(title, description, position);
+            // create overlay item
+            OverlayItem overlayItem = createOverlayItem(context, wayPoint.getLocation());
             overlayItem.setMarker(newMarker);
 
             // add marker to list of overlay items
@@ -151,7 +149,7 @@ public final class MapHelper {
                 new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
                     @Override
                     public boolean onItemSingleTapUp(final int index, final OverlayItem item) {
-                        Toast.makeText(context, "Measured distance: " + item.getTitle(), Toast.LENGTH_LONG).show(); // TODO make string
+                        Toast.makeText(context, item.getTitle() + " | " + item.getSnippet(), Toast.LENGTH_LONG).show();
                         LogHelper.v(LOG_TAG, "Tap on a track crumb icon detected. Measured distance: " + item.getTitle());
                         return true;
                     }
@@ -165,5 +163,15 @@ public final class MapHelper {
                 }, context);
     }
 
+
+    /* Creates a marker overlay item */
+    private static OverlayItem createOverlayItem(Context context, Location location) {
+        // create content of overlay item
+        final String title = context.getString(R.string.marker_description_source) + ": " + location.getProvider();
+        final String description = context.getString(R.string.marker_description_accuracy) + ": " + location.getAccuracy();
+        final GeoPoint position = new GeoPoint(location.getLatitude(),location.getLongitude());
+
+        return new OverlayItem(title, description, position);
+    }
 
 }

@@ -5,12 +5,13 @@
     <color name="trackbook_red_dark">#FFB71C1C</color>
 
     <color name="trackbook_gold">#FFE6BA64</color>
+
     <color name="trackbook_blue">#FF2095F2</color>
+    <color name="trackbook_blue_dark">#FF12537F</color>
 
     <color name="trackbook_white">#FFFFFFFF</color>
 
     <color name="trackbook_grey_light">#FF607d8b</color>
-
     <color name="trackbook_grey">#FF455a64</color>
 
 </resources>

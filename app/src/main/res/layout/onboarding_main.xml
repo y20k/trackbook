@@ -8,15 +8,15 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/activity_horizontal_margin"
+        android:paddingStart="@dimen/activity_horizontal_margin"
+        android:paddingEnd="@dimen/activity_horizontal_margin"
         android:scrollbars="vertical">
-
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/layout_onboading_h1_welcome"
+            android:text="@string/layout_onboarding_h1_welcome"
             android:id="@+id/h1_welcome" />
 
         <LinearLayout

@@ -22,6 +22,7 @@ import android.location.LocationManager;
 import android.os.SystemClock;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -94,10 +95,8 @@ public final class LocationHelper implements TrackbookKeys {
 
         // if it's been more than two minutes since the current location, use the new location because the user has likely moved
         if (isSignificantlyNewer) {
-            LogHelper.v(LOG_TAG, "Location isSignificantlyNewer: " + location.getProvider()); // TODO remove
             return true;
         } else if (isSignificantlyOlder) {
-            LogHelper.v(LOG_TAG, "Location isSignificantlyOlder: " + location.getProvider()); // TODO remove
             return false;
         }
 
@@ -127,8 +126,8 @@ public final class LocationHelper implements TrackbookKeys {
         if (location == null) {
             return false;
         } else {
-            long locationTime = SystemClock.elapsedRealtimeNanos() - location.getElapsedRealtimeNanos();
-            return locationTime < TWO_MINUTES_IN_NANOSECONDS;
+            long locationAge = SystemClock.elapsedRealtimeNanos() - location.getElapsedRealtimeNanos();
+            return locationAge < TWO_MINUTES_IN_NANOSECONDS;
         }
     }
 
@@ -211,6 +210,26 @@ public final class LocationHelper implements TrackbookKeys {
         }
 
     }
+
+
+    /* Converts milliseconds to mm:ss or hh:mm:ss */
+    public static String convertToReadableTime(long milliseconds, boolean includeHours) {
+
+        if (includeHours) {
+            // format hh:mm:ss
+            return String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(milliseconds),
+                    TimeUnit.MILLISECONDS.toMinutes(milliseconds) % TimeUnit.HOURS.toMinutes(1),
+                    TimeUnit.MILLISECONDS.toSeconds(milliseconds) % TimeUnit.MINUTES.toSeconds(1));
+        } else if (TimeUnit.MILLISECONDS.toHours(milliseconds) < 1) {
+            // format mm:ss
+            return String.format("%02d:%02d", TimeUnit.MILLISECONDS.toMinutes(milliseconds) % TimeUnit.HOURS.toMinutes(1),
+                    TimeUnit.MILLISECONDS.toSeconds(milliseconds) % TimeUnit.MINUTES.toSeconds(1));
+        } else {
+            return null;
+        }
+
+    }
+
 
 
     /* Checks whether two location providers are the same */

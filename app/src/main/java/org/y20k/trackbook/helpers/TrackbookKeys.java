@@ -23,53 +23,55 @@ package org.y20k.trackbook.helpers;
 public interface TrackbookKeys {
 
     /* ACTIONS */
-    public static final String ACTION_START = "org.y20k.transistor.action.START";
-    public static final String ACTION_STOP = "org.y20k.transistor.action.STOP";
-    public static final String ACTION_TRACK_UPDATED = "TRACK_UPDATED";
-    public static final String ACTION_TRACKING_STOPPED = "TRACKING_STOPPED";
+    String ACTION_START = "org.y20k.transistor.action.START";
+    String ACTION_STOP = "org.y20k.transistor.action.STOP";
+    String ACTION_DEFAULT = "DEFAULT";
+    String ACTION_SHOW_MAP = "SHOW_MAP";
+    String ACTION_TRACK_UPDATED = "TRACK_UPDATED";
+    String ACTION_TRACKING_STOPPED = "TRACKING_STOPPED";
 
     /* EXTRAS */
-    public static final String EXTRA_TRACK = "TRACK";
-    public static final String EXTRA_LAST_LOCATION = "LAST_LOCATION";
-    public static final String EXTRA_TRACKING_STATE = "TRACKING_STATE";
-    public static final String EXTRA_CLEAR_MAP = "CLEAR_MAP";
-    public static final String EXTRA_INFOSHEET_TITLE = "EXTRA_INFOSHEET_TITLE";
-    public static final String EXTRA_INFOSHEET_CONTENT = "INFOSHEET_CONTENT";
+    String EXTRA_TRACK = "TRACK";
+    String EXTRA_LAST_LOCATION = "LAST_LOCATION";
+    String EXTRA_TRACKING_STATE = "TRACKING_STATE";
+    String EXTRA_CLEAR_MAP = "CLEAR_MAP";
+    String EXTRA_INFOSHEET_TITLE = "EXTRA_INFOSHEET_TITLE";
+    String EXTRA_INFOSHEET_CONTENT = "INFOSHEET_CONTENT";
 
     /* ARGS */
-    public static final String ARG_PERMISSIONS_GRANTED = "ArgPermissionsGranted";
+    String ARG_PERMISSIONS_GRANTED = "ArgPermissionsGranted";
 
     /* PREFS */
-    public static final String PREFS_NAME = "org.y20k.trackbook.prefs";
-    public static final String PREFS_TILE_SOURCE = "tilesource";
-    public static final String PREFS_LATITUDE = "latitude";
-    public static final String PREFS_LONGITUDE = "longitude";
-    public static final String PREFS_ZOOM_LEVEL = "zoomLevel";
-    public static final String PREFS_SHOW_LOCATION = "showLocation";
-    public static final String PREFS_SHOW_COMPASS = "showCompass";
+    String PREFS_NAME = "org.y20k.trackbook.prefs";
+    String PREFS_TILE_SOURCE = "tileSource";
+    String PREFS_LATITUDE = "latitude";
+    String PREFS_LONGITUDE = "longitude";
+    String PREFS_ZOOM_LEVEL = "zoomLevel";
+    String PREFS_SHOW_LOCATION = "showLocation";
+    String PREFS_SHOW_COMPASS = "showCompass";
 
     /* INSTANCE STATE */
-    public static final String INSTANCE_FIRST_START = "firstStart";
-    public static final String INSTANCE_LATITUDE = "latitude";
-    public static final String INSTANCE_LONGITUDE = "longitude";
-    public static final String INSTANCE_ZOOM_LEVEL = "zoomLevel";
-    public static final String INSTANCE_CURRENT_LOCATION = "currentLocation";
-    public static final String INSTANCE_TRACKING_STATE = "trackingState";
-    public static final String INSTANCE_TRACK = "track";
+    String INSTANCE_FIRST_START = "firstStart";
+    String INSTANCE_LATITUDE = "latitude";
+    String INSTANCE_LONGITUDE = "longitude";
+    String INSTANCE_ZOOM_LEVEL = "zoomLevel";
+    String INSTANCE_CURRENT_LOCATION = "currentLocation";
+    String INSTANCE_TRACKING_STATE = "trackingState";
+    String INSTANCE_TRACK = "track";
 
     /* RESULTS */
 
     /* CONSTANTS */
-    public static final long EIGHT_HOURS_IN_MILLISECONDS = 43200000; // maximum tracking duration
-    public static final long FIFTEEN_SECONDS_IN_MILLISECONDS = 15000; // timer interval for tracking
-    public static final long FIVE_MINUTES_IN_NANOSECONDS = 5L * 60000000000L; // determines a stop over
-    public static final long TWO_MINUTES_IN_NANOSECONDS = 2L * 60000000000L; // defines an old location
-    public static final long TWELVE_SECONDS_IN_NANOSECONDS = 12000000000L; // defines a new location
+    long EIGHT_HOURS_IN_MILLISECONDS = 43200000; // maximum tracking duration
+    long FIFTEEN_SECONDS_IN_MILLISECONDS = 15000; // timer interval for tracking
+    long FIVE_MINUTES_IN_NANOSECONDS = 5L * 60000000000L; // determines a stop over
+    long TWO_MINUTES_IN_NANOSECONDS = 2L * 60000000000L; // defines an old location
+    long TWELVE_SECONDS_IN_NANOSECONDS = 12000000000L; // defines a new location
 
 
     /* MISC */
-    public static final int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
-    public static final int TRACKER_SERVICE_NOTIFICATION_ID = 1;
-    public static final int INFOSHEET_CONTENT_ABOUT = 1;
+    int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
+    int TRACKER_SERVICE_NOTIFICATION_ID = 1;
+    int INFOSHEET_CONTENT_ABOUT = 1;
 
 }

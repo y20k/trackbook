@@ -26,6 +26,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
@@ -256,7 +257,6 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
             // CASE MY LOCATION
             case R.id.action_bar_my_location:
 
-                Toast.makeText(mActivity, mActivity.getString(R.string.toast_message_my_location), Toast.LENGTH_LONG).show();
 
                 if (mLocationManager.getProviders(true).size() == 0) {
                     // location services are off - ask user to turn them on
@@ -279,6 +279,16 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
 
                 // mark user's new location on map and remove last marker
                 updateMyLocationMarker();
+
+                // inform user about location quality
+                String locationInfo;
+                long locationAge =  (SystemClock.elapsedRealtimeNanos() - mCurrentBestLocation.getElapsedRealtimeNanos()) / 1000000;
+                String locationAgeString = LocationHelper.convertToReadableTime(locationAge, false);
+                if (locationAgeString == null) {
+                    locationAgeString = mActivity.getString(R.string.toast_message_last_location_age_one_hour);
+                }
+                locationInfo = " " + locationAgeString + " | " + mCurrentBestLocation.getProvider();
+                Toast.makeText(mActivity, mActivity.getString(R.string.toast_message_last_location) + locationInfo, Toast.LENGTH_LONG).show();
 
                 return true;
 
@@ -307,10 +317,9 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
     public void setTrackingState (boolean trackingState) {
         mTrackerServiceRunning = trackingState;
 
-        // got a new track (from notification)=
+        // got a new track (from notification)
         Intent intent = mActivity.getIntent();
-        if (intent.hasExtra(EXTRA_TRACK)) {
-            LogHelper.v(LOG_TAG, "ding !!!");
+        if (intent != null && intent.hasExtra(EXTRA_TRACK)) {
             mTrack = intent.getParcelableExtra(EXTRA_TRACK);
         }
 
@@ -425,7 +434,6 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
                     // draw track on map
                     mTrack = intent.getParcelableExtra(EXTRA_TRACK);
                     drawTrackOverlay(mTrack);
-                    Toast.makeText(mActivity, "New WayPoint.", Toast.LENGTH_LONG).show(); // TODO Remove
                     // center map over last location
                     mCurrentBestLocation = intent.getParcelableExtra(EXTRA_LAST_LOCATION);
                     mController.setCenter(convertToGeoPoint(mCurrentBestLocation));
