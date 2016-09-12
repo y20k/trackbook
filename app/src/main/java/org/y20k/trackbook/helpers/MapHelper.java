@@ -90,14 +90,14 @@ public final class MapHelper {
         final ArrayList<OverlayItem> overlayItems = new ArrayList<>();
 
         for (int i = 0 ; i < track.getSize() ; i++) {
-            // get waypoint and check if it is current position
+            // get WayPoint and check if it is current position
             wayPoint = wayPoints.get(i);
             currentPosition = i == trackSize - 1;
 
             // create marker
             Drawable newMarker;
 
-            // CASE 1: Tracking active and waypoint is not current position
+            // CASE 1: Tracking active and WayPoint is not current position
             if (trackingActive && !currentPosition) {
                 if (wayPoint.getIsStopOver()) {
                     // stop over marker
@@ -108,7 +108,7 @@ public final class MapHelper {
                 }
             }
 
-            // CASE 2: Tracking active and waypoint is current position
+            // CASE 2: Tracking active and WayPoint is current position
             else if (trackingActive && currentPosition) {
                 if (wayPoint.getIsStopOver()) {
                     // stop over marker
@@ -119,7 +119,7 @@ public final class MapHelper {
                 }
             }
 
-            // CASE 3: Tracking not active and waypoint is not current position
+            // CASE 3: Tracking not active and WayPoint is not current position
             else if (!trackingActive && !currentPosition) {
                 if (wayPoint.getIsStopOver()) {
                     // stop over marker
@@ -130,7 +130,7 @@ public final class MapHelper {
                 }
             }
 
-            // CASE 4: Tracking not active and waypoint is current position
+            // CASE 4: Tracking not active and WayPoint is current position
             else {
                 // default marker
                 newMarker = AppCompatDrawableManager.get().getDrawable(context, R.drawable.ic_my_location_crumb_blue_24dp);

@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/trackbook_icon"
                 android:background="@mipmap/ic_launcher"
-                android:contentDescription="@string/layout_onboading_description_app_icon"
+                android:contentDescription="@string/layout_onboarding_description_app_icon"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
                 android:layout_gravity="center_vertical" />
 
@@ -45,14 +45,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="@string/layout_onboading_h2_app_name"
+                    android:text="@string/layout_onboarding_h2_app_name"
                     android:id="@+id/h2_app_name" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="@string/layout_onboading_p_app_claim"
+                    android:text="@string/layout_onboarding_p_app_claim"
                     android:id="@+id/p_app_claim" />
 
             </LinearLayout>
@@ -63,7 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/layout_onboading_h2_request_permissions"
+            android:text="@string/layout_onboarding_h2_request_permissions"
             android:id="@+id/h2_request_permissions"
             android:layout_marginTop="@dimen/activity_vertical_margin"/>
 
@@ -72,14 +72,14 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textStyle="bold"
-            android:text="@string/layout_onboading_h3_permission_location"
+            android:text="@string/layout_onboarding_h3_permission_location"
             android:id="@+id/h3_permission_location"
             android:layout_marginTop="@dimen/activity_vertical_margin"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="@string/layout_onboading_p_permission_location"
+            android:text="@string/layout_onboarding_p_permission_location"
             android:id="@+id/p_permission_location" />
 
         <TextView
@@ -87,14 +87,14 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textStyle="bold"
-            android:text="@string/layout_onboading_h3_permission_storage"
+            android:text="@string/layout_onboarding_h3_permission_storage"
             android:id="@+id/h3_permission_storage"
             android:layout_marginTop="@dimen/activity_vertical_margin" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="@string/layout_onboading_p_permission_storage"
+            android:text="@string/layout_onboarding_p_permission_storage"
             android:id="@+id/p_permission_storage" />
 
         <Button
@@ -102,7 +102,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/trackbook_blue"
             android:textColor="@color/trackbook_white"
-            android:text="@string/layout_onboading_button_okay"
+            android:text="@string/layout_onboarding_button_okay"
             android:id="@+id/button_okay"
             android:layout_gravity="end"
             android:layout_marginTop="@dimen/activity_vertical_margin"/>

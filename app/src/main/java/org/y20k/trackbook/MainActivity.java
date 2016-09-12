@@ -26,6 +26,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
@@ -38,6 +39,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import org.y20k.trackbook.helpers.LogHelper;
 import org.y20k.trackbook.helpers.NotificationHelper;
 import org.y20k.trackbook.helpers.TrackbookKeys;
 
@@ -60,7 +62,6 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     private boolean mTrackerServiceRunning;
     private boolean mPermissionsGranted;
     private List<String> mMissingPermissions;
-    private View mRootView;
     private FloatingActionButton mFloatingActionButton;
     private MainActivityFragment mMainActivityFragment;
     private BroadcastReceiver mTrackingStoppedReceiver;
@@ -143,14 +144,8 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     protected void onResume() {
         super.onResume();
 
-        Intent intent = getIntent();
-        String intentAction = intent.getAction();
-        if (intentAction != null && intentAction.contains(ACTION_SHOW_MAP) && intent.hasExtra(EXTRA_TRACKING_STATE)) {
-            mTrackerServiceRunning = intent.getBooleanExtra(EXTRA_TRACKING_STATE, false);
-            mMainActivityFragment.setTrackingState(mTrackerServiceRunning);
-            // prevent multiple reactions to intent
-            intent.setAction(ACTION_DEFAULT);
-        }
+        // handle new intents - onNewIntent does not seem to work
+        handleIncomingIntent();
 
         // if not in onboarding mode: set state of FloatingActionButton
         if (mFloatingActionButton != null) {
@@ -169,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
 
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
             case REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS:	{
                 Map<String, Integer> perms = new HashMap<>();
@@ -219,16 +214,18 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
             mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    // onClick: start / stop tracking
                     handleFloatingActionButtonClick(view);
                 }
             });
             mFloatingActionButton.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    if (mTrackerServiceRunning) {
+                    // onLongClick: clear map
+                    if (mTrackerServiceRunning || mMainActivityFragment == null) {
                         return false;
                     } else {
-                        clearMap();
+                        mMainActivityFragment.clearMap();
                         NotificationHelper.stop();
                         return true;
                     }
@@ -305,10 +302,30 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     }
 
 
+    /* Handles new incoming intents */
+    private void handleIncomingIntent() {
+        Intent intent = getIntent();
+        String intentAction = intent.getAction();
 
-    /* Removes track crumbs from map */
-    private void clearMap() {
-        Toast.makeText(this, "Clearing map", Toast.LENGTH_LONG).show(); // TODO remove
+        switch (intentAction) {
+            case ACTION_SHOW_MAP:
+                if (intent.hasExtra(EXTRA_TRACKING_STATE) && mMainActivityFragment != null) {
+                    mTrackerServiceRunning = intent.getBooleanExtra(EXTRA_TRACKING_STATE, false);
+                    mMainActivityFragment.setTrackingState(mTrackerServiceRunning);
+                    // prevent multiple reactions to intent
+                    intent.setAction(ACTION_DEFAULT);
+                } else if (intent.hasExtra(EXTRA_CLEAR_MAP) && mMainActivityFragment != null) {
+                    mMainActivityFragment.clearMap();
+                    // prevent multiple reactions to intent
+                    intent.setAction(ACTION_DEFAULT);
+                }
+                break;
+
+            default:
+                // log
+                LogHelper.v(LOG_TAG, "Intent received. Doing nothing. Type of ACTION: " +  intentAction);
+                break;
+        }
     }
 
 

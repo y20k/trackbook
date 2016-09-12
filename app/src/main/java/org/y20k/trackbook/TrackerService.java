@@ -83,7 +83,7 @@ public class TrackerService extends Service implements TrackbookKeys {
                 mCurrentBestLocation = LocationHelper.determineLastKnownLocation(mLocationManager);
             }
 
-            // add last location as waypoint to track
+            // add last location as WayPoint to track
             addWayPointToTrack();
 
             // set timer to retrieve new locations and to prevent endless tracking
@@ -106,6 +106,9 @@ public class TrackerService extends Service implements TrackbookKeys {
             };
             mTimer.start();
 
+            // put up notification
+            NotificationHelper.show(this,mTrack);
+
             // create gps and network location listeners
             startFindingLocation();
         }
@@ -116,6 +119,9 @@ public class TrackerService extends Service implements TrackbookKeys {
 
             // stop timer
             mTimer.cancel();
+
+            // change notification
+            NotificationHelper.update(mTrack, false);
 
             // remove listeners
             stopFindingLocation();
@@ -160,7 +166,7 @@ public class TrackerService extends Service implements TrackbookKeys {
             // add first location to track
             newWayPoint = mTrack.addWayPoint(mCurrentBestLocation);
         } else {
-            // get last waypoint and compare it to current location
+            // get last WayPoint and compare it to current location
             Location lastWayPoint = mTrack.getWayPointLocation(trackSize - 1);
             if (LocationHelper.isNewWayPoint(lastWayPoint, mCurrentBestLocation)) {
                 // if new, add current best location to track
@@ -209,8 +215,6 @@ public class TrackerService extends Service implements TrackbookKeys {
 
     /* Creates gps and network location listeners */
     private void startFindingLocation() {
-        // put up notification
-        NotificationHelper.show(this,mTrack);
 
         // register location listeners and request updates
         List locationProviders = mLocationManager.getProviders(true);
@@ -235,10 +239,6 @@ public class TrackerService extends Service implements TrackbookKeys {
         i.putExtra(EXTRA_LAST_LOCATION, mCurrentBestLocation);
         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(i);
 
-//        // cancel notification
-//        NotificationHelper.stop();
-        // change notification
-        NotificationHelper.update(mTrack, false);
     }
 
 

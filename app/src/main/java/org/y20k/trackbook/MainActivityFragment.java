@@ -30,7 +30,6 @@ import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -77,6 +76,7 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
     private Location mCurrentBestLocation;
     private boolean mTrackerServiceRunning;
     private boolean mLocalTrackerRunning;
+    private boolean mFragmentVisible;
 
 
     /* Constructor (default) */
@@ -144,9 +144,6 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
         // create basic map
         mMapView = new MapView(inflater.getContext());
 
-        // get display metrics
-        final DisplayMetrics dm = mActivity.getResources().getDisplayMetrics();
-
         // get map controller
         mController = mMapView.getController();
 
@@ -170,6 +167,12 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
             GeoPoint position = convertToGeoPoint(mCurrentBestLocation);
             mController.setCenter(position);
             mController.setZoom(16);
+        }
+
+        // inform user that new/better location is on its way
+        if (mFirstStart && !mTrackerServiceRunning) {
+            Toast.makeText(mActivity, mActivity.getString(R.string.toast_message_acquiring_location), Toast.LENGTH_LONG).show();
+            mFirstStart = false;
         }
 
         // restore track
@@ -200,8 +203,11 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
     public void onResume() {
         super.onResume();
 
+        // set visibility
+        mFragmentVisible = true;
+
         // start preliminary tracking - if no TrackerService is running
-        if (!mTrackerServiceRunning) {
+        if (!mTrackerServiceRunning && mFragmentVisible) {
             startPreliminaryTracking();
         }
 
@@ -221,6 +227,9 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
     @Override
     public void onPause() {
         super.onPause();
+
+        // set visibility
+        mFragmentVisible = false;
 
         // disable preliminary location listeners
         stopPreliminaryTracking();
@@ -266,9 +275,7 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
 
                 // get current position
                 GeoPoint position;
-                if (mCurrentBestLocation != null) {
-                    // app has a current best estimate location
-                } else {
+                if (mCurrentBestLocation == null) {
                     // app does not have any location fix
                     mCurrentBestLocation = LocationHelper.determineLastKnownLocation(mLocationManager);
                 }
@@ -343,6 +350,15 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
     /* Getter for current best location */
     public Location getCurrentBestLocation() {
         return mCurrentBestLocation;
+    }
+
+
+    /* Removes track crumbs from map */
+    public void clearMap() {
+        if (mTrackOverlay != null) {
+            Toast.makeText(mActivity, mActivity.getString(R.string.toast_message_clear_map), Toast.LENGTH_LONG).show();
+            mMapView.getOverlays().remove(mTrackOverlay);
+        }
     }
 
 
@@ -438,8 +454,7 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
                     mCurrentBestLocation = intent.getParcelableExtra(EXTRA_LAST_LOCATION);
                     mController.setCenter(convertToGeoPoint(mCurrentBestLocation));
                     // clear intent
-                    intent.removeExtra(EXTRA_TRACK);
-                    intent.removeExtra(EXTRA_LAST_LOCATION);
+                    intent.setAction(ACTION_DEFAULT);
                 }
             }
         };

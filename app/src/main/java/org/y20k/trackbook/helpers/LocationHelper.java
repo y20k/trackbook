@@ -22,6 +22,7 @@ import android.location.LocationManager;
 import android.os.SystemClock;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 
@@ -132,7 +133,7 @@ public final class LocationHelper implements TrackbookKeys {
     }
 
 
-    /* Checks if given location is a new waypoint */
+    /* Checks if given location is a new WayPoint */
     public static boolean isNewWayPoint(Location lastLocation, Location newLocation) {
         float distance = newLocation.distanceTo(lastLocation);
         long timeDifference = newLocation.getElapsedRealtimeNanos() - lastLocation.getElapsedRealtimeNanos();
@@ -217,12 +218,12 @@ public final class LocationHelper implements TrackbookKeys {
 
         if (includeHours) {
             // format hh:mm:ss
-            return String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(milliseconds),
+            return String.format(Locale.ENGLISH, "%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(milliseconds),
                     TimeUnit.MILLISECONDS.toMinutes(milliseconds) % TimeUnit.HOURS.toMinutes(1),
                     TimeUnit.MILLISECONDS.toSeconds(milliseconds) % TimeUnit.MINUTES.toSeconds(1));
         } else if (TimeUnit.MILLISECONDS.toHours(milliseconds) < 1) {
             // format mm:ss
-            return String.format("%02d:%02d", TimeUnit.MILLISECONDS.toMinutes(milliseconds) % TimeUnit.HOURS.toMinutes(1),
+            return String.format(Locale.ENGLISH, "%02d:%02d", TimeUnit.MILLISECONDS.toMinutes(milliseconds) % TimeUnit.HOURS.toMinutes(1),
                     TimeUnit.MILLISECONDS.toSeconds(milliseconds) % TimeUnit.MINUTES.toSeconds(1));
         } else {
             return null;

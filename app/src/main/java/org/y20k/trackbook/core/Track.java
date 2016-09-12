@@ -1,7 +1,7 @@
 /**
  * Track.java
  * Implements the Track class
- * A Track stores a list of waypoints
+ * A Track stores a list of WayPoints
  *
  * This file is part of
  * TRACKBOOK - Movement Recorder for Android
@@ -26,6 +26,7 @@ import org.y20k.trackbook.helpers.TrackbookKeys;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 
 /**
@@ -71,29 +72,29 @@ public class Track implements TrackbookKeys, Parcelable {
     };
 
 
-    /* Adds new waypoint */
+    /* Adds new WayPoint */
     public WayPoint addWayPoint(Location location) {
         // add up distance
         mTrackLength = addDistanceToTrack(location);
 
         int wayPointCount = mWayPoints.size();
 
-        // determine if last waypoint was a stopover
+        // determine if last WayPoint was a stopover
         boolean stopOver = false;
         if (wayPointCount > 1) {
             Location lastLocation = mWayPoints.get(wayPointCount - 1).getLocation();
             stopOver = LocationHelper.isStopOver(lastLocation, location);
         }
         if (stopOver) {
-            // mark last waypoint as stopover
+            // mark last WayPoint as stopover
             LogHelper.v(LOG_TAG, "Last Location was a stop.");
             mWayPoints.get(wayPointCount-1).setIsStopOver(true);
         }
 
-        // create new waypoint
+        // create new WayPoint
         WayPoint wayPoint = new WayPoint(location, false, mTrackLength);
 
-        // add new waypoint to track
+        // add new WayPoint to track
         mWayPoints.add(wayPoint);
 
         return wayPoint;
@@ -128,7 +129,7 @@ public class Track implements TrackbookKeys, Parcelable {
     public String getTrackDistance() {
         float trackDistance = mWayPoints.get(mWayPoints.size()-1).getDistanceToStartingPoint();
 
-        return String.format ("%.0f", trackDistance)  + "m";
+        return String.format (Locale.ENGLISH, "%.0f", trackDistance)  + "m";
     }
 
 
@@ -139,7 +140,7 @@ public class Track implements TrackbookKeys, Parcelable {
 
     /* Adds distance to given location to length of track */
     private float addDistanceToTrack(Location location) {
-        // get number of previously recorded waypoints
+        // get number of previously recorded WayPoints
         int wayPointCount = mWayPoints.size();
 
         // at least two data points are needed
