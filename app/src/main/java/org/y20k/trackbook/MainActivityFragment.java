@@ -321,7 +321,7 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
 
 
     /* Setter for tracking state */
-    public void setTrackingState (boolean trackingState) {
+    public void setTrackingState(boolean trackingState) {
         mTrackerServiceRunning = trackingState;
 
         // got a new track (from notification)
@@ -333,7 +333,7 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
         // turn on/off tracking for MainActivity Fragment - prevent double tracking
         if (mTrackerServiceRunning) {
             stopPreliminaryTracking();
-        } else if (!mLocalTrackerRunning){
+        } else if (!mLocalTrackerRunning && mFragmentVisible) {
             startPreliminaryTracking();
         }
 

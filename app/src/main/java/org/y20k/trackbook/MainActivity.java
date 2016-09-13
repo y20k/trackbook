@@ -9,7 +9,7 @@
  * Copyright (c) 2016 - Y20K.org
  * Licensed under the MIT-License
  * http://opensource.org/licenses/MIT
- * 
+ *
  * Trackbook uses osmdroid - OpenStreetMap-Tools for Android
  * https://github.com/osmdroid/osmdroid
  */

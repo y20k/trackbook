@@ -40,6 +40,11 @@ public interface TrackbookKeys {
 
     /* ARGS */
     String ARG_PERMISSIONS_GRANTED = "ArgPermissionsGranted";
+    String ARG_TRACKING_STATE = "ArgTrackingState";
+    String ARG_TRACK = "ArgTrack";
+
+    /* TAGS */
+    String TAG_MAIN_ACTIVITY_FRAGMENT = "TagMainActivityFragment";
 
     /* PREFS */
     String PREFS_NAME = "org.y20k.trackbook.prefs";
