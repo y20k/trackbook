@@ -78,5 +78,7 @@ public interface TrackbookKeys {
     int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
     int TRACKER_SERVICE_NOTIFICATION_ID = 1;
     int INFOSHEET_CONTENT_ABOUT = 1;
+    int METRIC = 1;
+    int IMPERIAL = 2;
 
 }

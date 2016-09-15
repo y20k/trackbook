@@ -25,6 +25,7 @@ import org.y20k.trackbook.helpers.LogHelper;
 import org.y20k.trackbook.helpers.TrackbookKeys;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -41,13 +42,17 @@ public class Track implements TrackbookKeys, Parcelable {
     /* Main class variables */
     private final List<WayPoint> mWayPoints;
     private float mTrackLength;
-    private long mTrackDuration;
+    private long mDuration;
+    private float mStepCount;
+    private int mUnitSystem;
 
 
     /* Constructor */
     public Track() {
         mWayPoints = new ArrayList<WayPoint>();
         mTrackLength = 0;
+        mStepCount = 0;
+        mUnitSystem = getUnitSystem(Locale.getDefault());
     }
 
 
@@ -55,6 +60,8 @@ public class Track implements TrackbookKeys, Parcelable {
     protected Track(Parcel in) {
         mWayPoints = in.createTypedArrayList(WayPoint.CREATOR);
         mTrackLength = in.readFloat();
+        mStepCount = in.readFloat();
+        mUnitSystem = in.readInt();
     }
 
 
@@ -102,10 +109,15 @@ public class Track implements TrackbookKeys, Parcelable {
 
 
     /* Setter for duration of track */
-    public void setTrackDuration(long trackDuration) {
-        mTrackDuration = trackDuration;
+    public void setDuration(long duration) {
+        mDuration = duration;
     }
 
+
+    /* Setter for step count of track */
+    public void setStepCount(float stepCount) {
+        mStepCount = stepCount;
+    }
 
     /* Getter for mWayPoints */
     public List<WayPoint> getWayPoints() {
@@ -121,15 +133,25 @@ public class Track implements TrackbookKeys, Parcelable {
 
     /* Getter for duration of track */
     public String getTrackDuration() {
-        return LocationHelper.convertToReadableTime(mTrackDuration, true);
+        return LocationHelper.convertToReadableTime(mDuration, true);
     }
 
 
     /* Getter for distance of track */
     public String getTrackDistance() {
-        float trackDistance = mWayPoints.get(mWayPoints.size()-1).getDistanceToStartingPoint();
+        float trackDistance;
+        String unit;
 
-        return String.format (Locale.ENGLISH, "%.0f", trackDistance)  + "m";
+        if (mUnitSystem == IMPERIAL) {
+            // get track distance and convert to feet
+            trackDistance = mWayPoints.get(mWayPoints.size()-1).getDistanceToStartingPoint() * 3.28084f;
+            unit = "ft";
+        } else {
+            // get track distance
+            trackDistance = mWayPoints.get(mWayPoints.size()-1).getDistanceToStartingPoint();
+            unit = "m";
+        }
+        return String.format (Locale.ENGLISH, "%.0f", trackDistance) + unit;
     }
 
 
@@ -164,6 +186,22 @@ public class Track implements TrackbookKeys, Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeTypedList(mWayPoints);
         parcel.writeFloat(mTrackLength);
+        parcel.writeFloat(mStepCount);
+        parcel.writeInt(mUnitSystem);
+    }
+
+
+    /* Determines which unit system the device is using (metric or imperial) */
+    private int getUnitSystem(Locale locale) {
+        // America (US), Liberia (LR), Myanmar(MM) use the imperial system
+        List<String> imperialSystemCountries = Arrays.asList("US", "LR", "MM");
+        String countryCode = locale.getCountry();
+
+        if (imperialSystemCountries.contains(countryCode)){
+            return IMPERIAL;
+        } else {
+            return METRIC;
+        }
     }
 
 

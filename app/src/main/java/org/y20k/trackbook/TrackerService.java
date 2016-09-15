@@ -19,6 +19,10 @@ package org.y20k.trackbook;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -41,7 +45,7 @@ import java.util.List;
 /**
  * TrackerService class
  */
-public class TrackerService extends Service implements TrackbookKeys {
+public class TrackerService extends Service implements TrackbookKeys, SensorEventListener {
 
     /* Define log tag */
     private static final String LOG_TAG = TrackerService.class.getSimpleName();
@@ -51,6 +55,8 @@ public class TrackerService extends Service implements TrackbookKeys {
     private Track mTrack;
     private CountDownTimer mTimer;
     private LocationManager mLocationManager;
+    private SensorManager mSensorManager;
+    private float mStepCountOffset;
     private LocationListener mGPSListener = null;
     private LocationListener mNetworkListener = null;
     private Location mCurrentBestLocation;
@@ -60,6 +66,9 @@ public class TrackerService extends Service implements TrackbookKeys {
 
         // acquire reference to Location Manager
         mLocationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+
+        // acquire reference to Sensor Manager
+        mSensorManager = (SensorManager) this.getSystemService(Context.SENSOR_SERVICE);
 
         // checking for empty intent
         if (intent == null) {
@@ -91,7 +100,7 @@ public class TrackerService extends Service implements TrackbookKeys {
                 @Override
                 public void onTick(long millisUntilFinished) {
                     // update track duration
-                    mTrack.setTrackDuration(EIGHT_HOURS_IN_MILLISECONDS - millisUntilFinished);
+                    mTrack.setDuration(EIGHT_HOURS_IN_MILLISECONDS - millisUntilFinished);
                     // try to add WayPoint to Track
                     addWayPointToTrack();
                     // update notification
@@ -106,11 +115,22 @@ public class TrackerService extends Service implements TrackbookKeys {
             };
             mTimer.start();
 
+            // initialize step counter
+            mStepCountOffset = 0;
+            Sensor stepCounter = mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+            if (stepCounter != null) {
+                mSensorManager.registerListener(this, stepCounter, SensorManager.SENSOR_DELAY_UI);
+            } else {
+                LogHelper.v(LOG_TAG, "Pedometer Sensor not available");
+                mTrack.setStepCount(-1);
+            }
+
             // put up notification
             NotificationHelper.show(this,mTrack);
 
             // create gps and network location listeners
             startFindingLocation();
+
         }
 
         // ACTION STOP
@@ -125,6 +145,7 @@ public class TrackerService extends Service implements TrackbookKeys {
 
             // remove listeners
             stopFindingLocation();
+            mSensorManager.unregisterListener(this);
         }
 
         // START_STICKY is used for services that are explicitly started and stopped as needed
@@ -145,11 +166,33 @@ public class TrackerService extends Service implements TrackbookKeys {
 
         // remove listeners
         stopFindingLocation();
+        mSensorManager.unregisterListener(this);
 
         // cancel notification
         stopForeground(true);
 
         super.onDestroy();
+    }
+
+
+    @Override
+    public void onSensorChanged(SensorEvent sensorEvent) {
+        // save the step count offset / previously recorded steps
+        if (mStepCountOffset == 0) {
+            mStepCountOffset = sensorEvent.values[0] - 1;
+        }
+
+        // calculate step count
+        float stepCount = sensorEvent.values[0] - mStepCountOffset;
+
+        // set step count in track
+        mTrack.setStepCount(stepCount);
+    }
+
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int i) {
+
     }
 
 
@@ -240,6 +283,5 @@ public class TrackerService extends Service implements TrackbookKeys {
         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(i);
 
     }
-
 
 }
