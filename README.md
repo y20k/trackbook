@@ -12,9 +12,11 @@ Trackbook is free software. It is published under the [MIT open source license](
 
 Install Trackbook
 -----------------
-Version 0.9 is the first release of Trackbook. It is not completely finished yet, but you can install it. Watch the install canary... It finally flies(*). For now you can install it via Google Play or grab a Release APK here on [GitHub](https://github.com/y20k/trackbook/releases). Stay tuned for an [F-Droid release](https://f-droid.org/forums/topic/trackbook-movement-recorder-for-android/).
+Version 0.9 is the first release of Trackbook. It is not completely finished yet, but you can install it. Watch the install canary... It finally flies(*). You install it via Google Play and F-Droid - or you can go and grab the latest APK on [GitHub](https://github.com/y20k/trackbook/releases).
 
 [<img src="https://play.google.com/intl/de_de/badges/images/generic/en_badge_web_generic.png" width="192">](https://play.google.com/store/apps/details?id=org.y20k.trackbook)
+
+[<img src="https://cloud.githubusercontent.com/assets/9103935/14702535/45f6326a-07ab-11e6-9256-469c1dd51c22.png" width="192">](https://f-droid.org/repository/browse/?fdid=org.y20k.trackbook)
 
                      .--.
                     /   6\_
