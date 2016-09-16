@@ -275,7 +275,7 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
         // remove listeners
         LocationHelper.removeLocationListeners(mLocationManager, mGPSListener, mNetworkListener);
 
-        // notify MainActivityFragment
+        // notify MainActivityMapFragment
         Intent i = new Intent();
         i.setAction(ACTION_TRACKING_STOPPED);
         i.putExtra(EXTRA_TRACK, mTrack);

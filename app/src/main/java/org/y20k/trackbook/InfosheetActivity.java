@@ -41,7 +41,7 @@ public final class InfosheetActivity extends AppCompatActivity implements Trackb
 
         // set activity view
         if (intent.hasExtra(EXTRA_INFOSHEET_CONTENT) && intent.getIntExtra(EXTRA_INFOSHEET_CONTENT, -1) == INFOSHEET_CONTENT_ABOUT) {
-            setContentView(R.layout.fragment_infosheet_about);
+            setContentView(R.layout.activity_infosheet_about);
         }
 
     }

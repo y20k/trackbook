@@ -1,5 +1,5 @@
 /**
- * MainActivityFragment.java
+ * MainActivityMapFragment.java
  * Implements the main fragment of the main activity
  * This fragment displays a map using osmdroid
  *
@@ -53,12 +53,12 @@ import java.util.List;
 
 
 /**
- * MainActivityFragment class
+ * MainActivityMapFragment class
  */
-public class MainActivityFragment extends Fragment implements TrackbookKeys {
+public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
 
     /* Define log tag */
-    private static final String LOG_TAG = MainActivityFragment.class.getSimpleName();
+    private static final String LOG_TAG = MainActivityMapFragment.class.getSimpleName();
 
 
     /* Main class variables */
@@ -80,7 +80,7 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
 
 
     /* Constructor (default) */
-    public MainActivityFragment() {
+    public MainActivityMapFragment() {
     }
 
 
@@ -247,6 +247,8 @@ public class MainActivityFragment extends Fragment implements TrackbookKeys {
 
     @Override
     public void onDestroy() {
+        LogHelper.v(LOG_TAG, "onDestroy called.");
+
         // reset first start state
         mFirstStart = true;
 
