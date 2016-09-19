@@ -16,10 +16,12 @@
 
 package org.y20k.trackbook.helpers;
 
+import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.SystemClock;
+import android.provider.Settings;
 
 import java.util.List;
 import java.util.Locale;
@@ -162,6 +164,7 @@ public final class LocationHelper implements TrackbookKeys {
             try {
                 // register GPS location listener and request updates
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, gpsListener);
+                LogHelper.v(LOG_TAG, "Registering gps listener.");
             } catch (SecurityException e) {
                 // catches permission problems
                 e.printStackTrace();
@@ -173,6 +176,7 @@ public final class LocationHelper implements TrackbookKeys {
             try {
                 // register network location listener and request updates
                 locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, networkListener);
+                LogHelper.v(LOG_TAG, "Registering network listener.");
             } catch (SecurityException e) {
                 // catches permission problems
                 e.printStackTrace();
@@ -186,13 +190,14 @@ public final class LocationHelper implements TrackbookKeys {
         LogHelper.v(LOG_TAG, "Removing location listeners.");
 
         // get location providers
-        List locationProviders = locationManager.getProviders(true);
+        List locationProviders = locationManager.getAllProviders();
 
         // got GPS location provider?
         if (locationProviders.contains(LocationManager.GPS_PROVIDER) && gpsListener != null) {
             try {
                 // remove GPS listener
                 locationManager.removeUpdates(gpsListener);
+                LogHelper.v(LOG_TAG, "Removing gps listener.");
             } catch (SecurityException e) {
                 // catches permission problems
                 e.printStackTrace();
@@ -204,6 +209,7 @@ public final class LocationHelper implements TrackbookKeys {
             try {
                 // remove network listener
                 locationManager.removeUpdates(networkListener);
+                LogHelper.v(LOG_TAG, "Removing network listener.");
             } catch (SecurityException e) {
                 // catches permission problems
                 e.printStackTrace();
@@ -231,6 +237,17 @@ public final class LocationHelper implements TrackbookKeys {
 
     }
 
+
+    /* Check if any location provider is enabled */
+    public static boolean checkLocationSystemSetting(Context context) {
+        int locationSettingState = 0;
+        try {
+            locationSettingState = Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE);
+        } catch (Settings.SettingNotFoundException e) {
+            e.printStackTrace();
+        }
+        return locationSettingState != Settings.Secure.LOCATION_MODE_OFF;
+    }
 
 
     /* Checks whether two location providers are the same */

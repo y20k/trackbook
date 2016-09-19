@@ -26,6 +26,8 @@ import org.y20k.trackbook.helpers.TrackbookKeys;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -45,6 +47,8 @@ public class Track implements TrackbookKeys, Parcelable {
     private long mDuration;
     private float mStepCount;
     private int mUnitSystem;
+    private Date mRecordingStart;
+    private Date mRecordingEnd;
 
 
     /* Constructor */
@@ -53,6 +57,8 @@ public class Track implements TrackbookKeys, Parcelable {
         mTrackLength = 0;
         mStepCount = 0;
         mUnitSystem = getUnitSystem(Locale.getDefault());
+        mRecordingStart = GregorianCalendar.getInstance().getTime();
+        mRecordingEnd = mRecordingStart;
     }
 
 
@@ -62,6 +68,8 @@ public class Track implements TrackbookKeys, Parcelable {
         mTrackLength = in.readFloat();
         mStepCount = in.readFloat();
         mUnitSystem = in.readInt();
+        mRecordingStart = new Date(in.readLong());
+        mRecordingEnd = new Date(in.readLong());
     }
 
 
@@ -108,6 +116,12 @@ public class Track implements TrackbookKeys, Parcelable {
     }
 
 
+    /* Setter for end time and date of recording */
+    public void setRecordingEnd (Date recordingEnd) {
+        mRecordingEnd = recordingEnd;
+    }
+
+
     /* Setter for duration of track */
     public void setDuration(long duration) {
         mDuration = duration;
@@ -118,6 +132,7 @@ public class Track implements TrackbookKeys, Parcelable {
     public void setStepCount(float stepCount) {
         mStepCount = stepCount;
     }
+
 
     /* Getter for mWayPoints */
     public List<WayPoint> getWayPoints() {
@@ -188,6 +203,8 @@ public class Track implements TrackbookKeys, Parcelable {
         parcel.writeFloat(mTrackLength);
         parcel.writeFloat(mStepCount);
         parcel.writeInt(mUnitSystem);
+        parcel.writeLong(mRecordingStart.getTime());
+        parcel.writeLong(mRecordingEnd.getTime());
     }
 
 

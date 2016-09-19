@@ -80,5 +80,6 @@ public interface TrackbookKeys {
     int INFOSHEET_CONTENT_ABOUT = 1;
     int METRIC = 1;
     int IMPERIAL = 2;
-
+    double DEFAULT_LATITUDE = 49.41667; // latitude Nordkapp, Norway
+    double DEFAULT_LONGITUDE = 8.67201; // longitude Nordkapp, Norway
 }

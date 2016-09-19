@@ -43,16 +43,19 @@ To stop your recording press the big blue button again or use the stop button in
 ### Distance and duration
 Peek into Trackbook's notification to see the distance and duration of your current recording.
 
+### How do you measure the distance?
+Trackbook calculates the distance between markers and adds them up.
+
 ### Clear the map
 You can clear the map by either long-pressing the big blue button or dismissing the notification.
 
 Which Permissions does Trackbook need?
 --------------------------------------
 ### Permission "INTERNET"
-Trackbook needs to download map data from Open Street Map servers and therefore needs access to the internet.
+Trackbook needs to download map data from OpenStreetMap servers and therefore needs access to the internet.
 
 ### Permission "ACCESS_NETWORK_STATE" and "ACCESS_WIFI_STATE"
-Trackbook uses [osmdroid](https://github.com/osmdroid/osmdroid/) to draw its main map. osmdroid needs to know the current state of your device’s connectivity - see [Prerequisites](https://github.com/osmdroid/osmdroid/wiki/Prerequisites). I am not sure why though. On the other hand: These permissions are not harmful in any way.
+Trackbook uses [osmdroid](https://github.com/osmdroid/osmdroid/) to draw its maps. osmdroid needs to know the current state of your device’s connectivity - see [Prerequisites](https://github.com/osmdroid/osmdroid/wiki/Prerequisites).
 
 ### Permission "ACCESS_COARSE_LOCATION" and "ACCESS_FINE_LOCATION"
 Trackbook needs accurate GPS location data to be able to record your movements. If the GPS data is not available or not accurate enough Trackbook uses location data from cell tower and WiFi triangulation.

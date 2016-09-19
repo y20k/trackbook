@@ -22,12 +22,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.database.ContentObserver;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
@@ -65,7 +68,9 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
     private Activity mActivity;
     private Track mTrack;
     private boolean mFirstStart;
+    private Snackbar mLocationOffBar;
     private BroadcastReceiver mTrackUpdatedReceiver;
+    private SettingsContentObserver mSettingsContentObserver;
     private MapView mMapView;
     private IMapController mController;
     private LocationManager mLocationManager;
@@ -76,6 +81,7 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
     private Location mCurrentBestLocation;
     private boolean mTrackerServiceRunning;
     private boolean mLocalTrackerRunning;
+    private boolean mLocationSystemSetting;
     private boolean mFragmentVisible;
 
 
@@ -109,12 +115,6 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
         // acquire reference to Location Manager
         mLocationManager = (LocationManager) mActivity.getSystemService(Context.LOCATION_SERVICE);
 
-        // check if location services are available
-        if (mLocationManager.getProviders(true).size() == 0) {
-            // ask user to turn on location services
-            promptUserForLocation();
-        }
-
         // CASE 1: get saved location if possible
         if (savedInstanceState != null) {
             Location savedLocation = savedInstanceState.getParcelable(INSTANCE_CURRENT_LOCATION);
@@ -131,11 +131,23 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
             mCurrentBestLocation = LocationHelper.determineLastKnownLocation(mLocationManager);
         }
 
+        // CASE 3: location services are available but unable to get location - this should not happen
+        if (mCurrentBestLocation == null) {
+            mCurrentBestLocation = new Location(LocationManager.NETWORK_PROVIDER);
+            mCurrentBestLocation.setLatitude(DEFAULT_LATITUDE);
+            mCurrentBestLocation.setLongitude(DEFAULT_LONGITUDE);
+        }
+
+        // get state of location system setting
+        mLocationSystemSetting = LocationHelper.checkLocationSystemSetting(mActivity);
+
+        // create content observer for changes in System Settings
+        mSettingsContentObserver = new SettingsContentObserver( new Handler());
+
         // register broadcast receiver for new WayPoints
         mTrackUpdatedReceiver = createTrackUpdatedReceiver();
         IntentFilter trackUpdatedIntentFilter = new IntentFilter(ACTION_TRACK_UPDATED);
         LocalBroadcastManager.getInstance(mActivity).registerReceiver(mTrackUpdatedReceiver, trackUpdatedIntentFilter);
-
     }
 
 
@@ -157,7 +169,7 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
         // initiate map state
         if (savedInstanceState != null) {
             // restore saved instance of map
-            GeoPoint position = new GeoPoint(savedInstanceState.getDouble(INSTANCE_LATITUDE), savedInstanceState.getDouble(INSTANCE_LONGITUDE));
+            GeoPoint position = new GeoPoint(savedInstanceState.getDouble(INSTANCE_LATITUDE, DEFAULT_LATITUDE), savedInstanceState.getDouble(INSTANCE_LONGITUDE, DEFAULT_LONGITUDE));
             mController.setCenter(position);
             mController.setZoom(savedInstanceState.getInt(INSTANCE_ZOOM_LEVEL, 16));
             // restore current location
@@ -198,18 +210,12 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
     }
 
 
-
     @Override
     public void onResume() {
         super.onResume();
 
         // set visibility
         mFragmentVisible = true;
-
-        // start preliminary tracking - if no TrackerService is running
-        if (!mTrackerServiceRunning && mFragmentVisible) {
-            startPreliminaryTracking();
-        }
 
         // center map on current position - if TrackerService is running
         if (mTrackerServiceRunning) {
@@ -221,6 +227,16 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
             drawTrackOverlay(mTrack);
         }
 
+        // show/hide the location off notification bar
+        toggleLocationOffBar();
+
+        // start preliminary tracking - if no TrackerService is running
+        if (!mTrackerServiceRunning && mFragmentVisible) {
+            startPreliminaryTracking();
+        }
+
+        // register content observer for changes in System Settings
+        mActivity.getContentResolver().registerContentObserver(android.provider.Settings.Secure.CONTENT_URI, true, mSettingsContentObserver );
     }
 
 
@@ -233,6 +249,9 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
 
         // disable preliminary location listeners
         stopPreliminaryTracking();
+
+        // disable content observer for changes in System Settings
+        mActivity.getContentResolver().unregisterContentObserver(mSettingsContentObserver);
     }
 
 
@@ -268,11 +287,10 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
             // CASE MY LOCATION
             case R.id.action_bar_my_location:
 
-
-                if (mLocationManager.getProviders(true).size() == 0) {
-                    // location services are off - ask user to turn them on
-                    promptUserForLocation();
-                    return true;
+                // do nothing if location setting is off
+                if (toggleLocationOffBar()) {
+                    stopPreliminaryTracking();
+                    return false;
                 }
 
                 // get current position
@@ -310,7 +328,6 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        // save map position
         outState.putBoolean(INSTANCE_FIRST_START, mFirstStart);
         outState.putDouble(INSTANCE_LATITUDE, mMapView.getMapCenter().getLatitude());
         outState.putDouble(INSTANCE_LONGITUDE, mMapView.getMapCenter().getLongitude());
@@ -366,26 +383,32 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
 
     /* Start preliminary tracking for map */
     private void startPreliminaryTracking() {
-        mLocalTrackerRunning = true;
-        // create location listeners
-        List locationProviders = mLocationManager.getProviders(true);
-        if (locationProviders.contains(LocationManager.GPS_PROVIDER)) {
-            mGPSListener = createLocationListener();
+        if (mLocationSystemSetting && !mLocalTrackerRunning) {
+            // create location listeners
+            List locationProviders = mLocationManager.getAllProviders();
+            if (locationProviders.contains(LocationManager.GPS_PROVIDER)) {
+                mGPSListener = createLocationListener();
+                mLocalTrackerRunning = true;
+            }
+            if (locationProviders.contains(LocationManager.NETWORK_PROVIDER)) {
+                mNetworkListener = createLocationListener();
+                mLocalTrackerRunning = true;
+            }
+            // register listeners
+            LocationHelper.registerLocationListeners(mLocationManager, mGPSListener, mNetworkListener);
+            LogHelper.v(LOG_TAG, "Starting preliminary tracking.");
         }
-        if (locationProviders.contains(LocationManager.NETWORK_PROVIDER)) {
-            mNetworkListener = createLocationListener();
-        }
-
-        // register listeners
-        LocationHelper.registerLocationListeners(mLocationManager, mGPSListener, mNetworkListener);
     }
 
 
     /* Removes gps and network location listeners */
     private void stopPreliminaryTracking() {
-        mLocalTrackerRunning = false;
-        // remove listeners
-        LocationHelper.removeLocationListeners(mLocationManager, mGPSListener, mNetworkListener);
+        if (mLocalTrackerRunning) {
+            mLocalTrackerRunning = false;
+            // remove listeners
+            LocationHelper.removeLocationListeners(mLocationManager, mGPSListener, mNetworkListener);
+            LogHelper.v(LOG_TAG, "Stopping preliminary tracking.");
+        }
     }
 
 
@@ -403,7 +426,7 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
             }
 
             public void onStatusChanged(String provider, int status, Bundle extras) {
-                // TODO do something
+                LogHelper.v(LOG_TAG, "Location provider status change: " +  provider + " | " + status);
             }
 
             public void onProviderEnabled(String provider) {
@@ -436,10 +459,28 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
     }
 
 
-    /* Prompts user to turn on location */
-    private void promptUserForLocation() {
-        // TODO prompt user to turn on location
-        Toast.makeText(mActivity, mActivity.getString(R.string.toast_message_location_offline), Toast.LENGTH_LONG).show();
+    /* Toggles snackbar indicating that location setting is off */
+    private boolean toggleLocationOffBar() {
+        // create snackbar indicator for location setting off
+        if (mLocationOffBar == null) {
+            mLocationOffBar = Snackbar.make(mMapView, R.string.snackbar_message_location_offline, Snackbar.LENGTH_INDEFINITE).setAction("Action", null);
+        }
+
+        // get state of location system setting
+        mLocationSystemSetting = LocationHelper.checkLocationSystemSetting(mActivity);
+
+        // show snackbar if necessary
+        if (!mLocationSystemSetting)  {
+            // show snackbar
+            mLocationOffBar.show();
+            return true;
+
+        } else {
+            // hide snackbar
+            mLocationOffBar.dismiss();
+            return false;
+        }
+
     }
 
 
@@ -465,7 +506,11 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
 
     /* Converts Location to GeoPoint */
     private GeoPoint convertToGeoPoint (Location location) {
-        return new GeoPoint(location.getLatitude(), location.getLongitude());
+        if (location != null) {
+            return new GeoPoint(location.getLatitude(), location.getLongitude());
+        } else {
+            return new GeoPoint(DEFAULT_LATITUDE, DEFAULT_LONGITUDE);
+        }
     }
 
 
@@ -483,5 +528,44 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
         int zoom = settings.getInt(PREFS_ZOOM_LEVEL, 16);
     }
+
+
+    /**
+     * Inner class: SettingsContentObserver is a custom ContentObserver for changes in Android Settings
+     */
+    public class SettingsContentObserver extends ContentObserver {
+
+        public SettingsContentObserver(Handler handler) {
+            super(handler);
+        }
+
+        @Override
+        public boolean deliverSelfNotifications() {
+            return super.deliverSelfNotifications();
+        }
+
+        @Override
+        public void onChange(boolean selfChange) {
+            super.onChange(selfChange);
+            LogHelper.v(LOG_TAG, "System Setting change detected.");
+
+            // check if location setting was changed
+            boolean previousLocationSystemSetting = mLocationSystemSetting;
+            mLocationSystemSetting = LocationHelper.checkLocationSystemSetting(mActivity);
+            if (previousLocationSystemSetting != mLocationSystemSetting) {
+                LogHelper.v(LOG_TAG, "Location Setting change detected.");
+                toggleLocationOffBar();
+            }
+
+            // start / stop perliminary tracking
+            if (!mLocationSystemSetting) {
+                stopPreliminaryTracking();
+            } else if (!mTrackerServiceRunning && mFragmentVisible) {
+                startPreliminaryTracking();
+            }
+        }
+
+    }
+
 
 }
