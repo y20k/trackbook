@@ -1,42 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- activities -->
     <string name="app_name">Trackbook</string> <!-- please do not translate app_name - transcription into different alphabet types is fine though -->
-    <string name="header_about">Über</string>
-    <string name="infosheet_about_h1_about">Über Trackbook</string>
-    <string name="infosheet_about_h2_permissions">Welche Berechtigungen benötigt Trackbook</string>
-    <string name="infosheet_about_h2_recorder">Bewegungsrekorder für Android</string>
-    <string name="infosheet_about_h3_external">Berechtigung WRITE_EXTERNAL_STORAGE</string>
-    <string name="infosheet_about_h3_internet">Berechtigung INTERNET</string>
-    <string name="infosheet_about_h3_location">Berechtigung ACCESS_COARSE_LOCATION und ACCESS_FINE_LOCATION</string>
-    <string name="infosheet_about_h3_network">Berechtigung ACCESS_WIFI_STATE and ACCESS_NETWORK_STATE</string>
-    <string name="infosheet_about_h3_version">Version 0.9 ("The Great Gig in the Sky")</string>
-    <string name="infosheet_about_p_github">https://github.com/y20k/trackbook</string>
-    <string name="infosheet_about_p_license">https://opensource.org/licenses/MIT</string>
-    <string name="infosheet_about_p_osmdroid">https://github.com/osmdroid/osmdroid</string>
-    <string name="layout_onboarding_button_okay">Alles klar!</string>
-    <string name="layout_onboarding_description_app_icon">Trackbook App Icon</string>
-    <string name="layout_onboarding_h1_welcome">Hallo</string>
-    <string name="layout_onboarding_h2_app_name">Trackbook</string>
-    <string name="layout_onboarding_h2_request_permissions">Trackbook kann ohne die folgenden Berechtigungen nicht starten:</string>
-    <string name="layout_onboarding_p_app_claim">Bewegungsrekorder für Android</string>
-    <string name="menu_about">Über</string>
-    <string name="marker_description_accuracy">Genauigkeit</string>
-    <string name="marker_description_source">Quelle</string>
+    <string name="title_activity_infosheet">Infosheet</string>
+
+    <!-- menu entries -->
     <string name="menu_my_location">Mein Standort</string>
-    <string name="notification_content_distance">Entfernung</string>
-    <string name="notification_content_duration">Dauer</string>
-    <string name="notification_stop">Stopp</string>
-    <string name="notification_swipe_to_clear_map"><![CDATA[&#8230 Ausblenden um Kartenansicht zurückzusetzen]]></string>
+    <string name="menu_about">Über</string>
+
+    <!-- headers -->
+    <string name="header_about">Über</string>
+
+    <!-- tabs -->
+    <string name="tab_map">KARTE</string>
+    <string name="tab_last_track">LETZTE AUFZEICHNUNG</string>
+
+    <!-- notification -->
     <string name="notification_title_trackbook_not_running">Trackbook ist aktiv</string>
     <string name="notification_title_trackbook_running">Trackbook ist inaktiv</string>
-    <string name="snackbar_message_tracking_started">Tracking wurde aktiviert</string>
+    <string name="notification_stop">Stopp</string>
+    <string name="notification_swipe_to_clear_map">AUSBLENDEN um Kartenansicht zurückzusetzen</string>
+    <string name="notification_content_duration">Dauer</string>
+    <string name="notification_content_distance">Entfernung</string>
+
+    <!-- snackbar messages -->
     <string name="snackbar_message_tracking_stopped">Tracking wurde deaktiviert</string>
-    <string name="title_activity_infosheet">Infosheet</string>
-    <string name="toast_message_acquiring_location">Suche aktuelle Position</string>
-    <string name="toast_message_clear_map">Kartenansicht wird zurück gesetzt</string>
-    <string name="toast_message_last_location">Letzte Position</string>
-    <string name="toast_message_last_location_age_one_hour">über eine Stunde</string>
-    <string name="toast_message_location_offline">Standortdienste sind deaktiviert</string>
-    <string name="toast_message_permissions_granted">Berechtigungen erteilt</string>
+    <string name="snackbar_message_tracking_started">Tracking wurde aktiviert</string>
+    <string name="snackbar_message_location_offline">Standortdienste sind deaktiviert. Trackbook kann nicht aufzeichnen.</string>
+
+    <!-- toast messages -->
+    <string name="toast_message_permissions_granted">Berechtigungen erteilt.</string>
     <string name="toast_message_unable_to_start_app">Trackbook kann nicht starten.</string>
+    <string name="toast_message_location_offline">Standortdienste sind deaktiviert. Trackbook kann nicht aufzeichnen.</string>
+    <string name="toast_message_acquiring_location">Suche aktuellen Standort.</string>
+    <string name="toast_message_last_location">Letzte Position:</string>
+    <string name="toast_message_clear_map">Kartenansicht wird zurückgesetzt</string>
+    <string name="toast_message_last_location_age_one_hour">über eine Stunde</string>
+
+    <!-- map markers -->
+    <string name="marker_description_source">Quelle</string>
+    <string name="marker_description_accuracy">Genauigkeit</string>
+
+    <!-- onboarding layout -->
+    <string name="layout_onboarding_h1_welcome">Hallo</string>
+    <string name="layout_onboarding_description_app_icon">Trackbook App Icon</string>
+    <string name="layout_onboarding_h2_app_name">Trackbook</string>
+    <string name="layout_onboarding_p_app_claim">Bewegungsrekorder für Android</string>
+    <string name="layout_onboarding_h2_request_permissions">Trackbook kann ohne die folgenden Berechtigungen nicht starten:</string>
+    <string name="layout_onboarding_h3_permission_location">STANDORT</string>
+    <string name="layout_onboarding_p_permission_location">Trackbook benötigt präzise GPS Informationen, um Bewegungen aufzeichnen zu können. Wenn GPS nicht verfügbar ist, oder wenn die GPS-Daten zu ungenau sind, nutzt Trackbook zur Ortung Mobilfunk- und WLAN-Triangulation.</string>
+    <string name="layout_onboarding_h3_permission_storage">SPEICHER</string>
+    <string name="layout_onboarding_p_permission_storage">Trackbook nutzt osmdroid; osmdroid speichert Kartendaten im Externen Speicher von Android. Der Karten-Cache befindet sich im Ordner osmdroid auf der obersten Ebene des für Nutzer sichtbaren Dateisystems.</string>
+    <string name="layout_onboarding_button_okay">Alles klar!</string>
+
+    <!-- infosheet about -->
+    <string name="infosheet_about_h1_about">Über Trackbook</string>
+    <string name="infosheet_about_h2_recorder">Bewegungsrekorder für Android</string>
+    <string name="infosheet_about_h3_version">Version 0.9 ("The Great Gig in the Sky")</string>
+    <string name="infosheet_about_p_bare">Trackbook ist eine minimalistische App, um Standort-Bewegungen aufzuzeichnen. Trackbook eignet sich für Wandern, Urlaub und Sport. Im Aufnahmemodus werden Deine Bewegungen auf einer Karte nachgezeichnet. Die Kartendaten stammen von OpenStreetMap (OSM).</string>
+    <string name="infosheet_about_p_free">Trackbook ist Freie Software. Der Quellcode befindet sich auf GitHub. GitHub ist auch ein guter Ort, um Bugs zu melden oder um sich bei Interesse an der Weiterentwicklung zu beteiligen. Trackbook ist unter der MIT Open Source Lizenz veröffentlicht. Trackbook nutzt osmdroid um die Karten darstellen. osmdroid ist ebenfalls freie Software und ist unter der Apache Lizenz veröffentlicht.</string>
+    <string name="infosheet_about_p_github">https://github.com/y20k/trackbook</string>
+    <string name="infosheet_about_p_osmdroid">https://github.com/osmdroid/osmdroid</string>
+    <string name="infosheet_about_p_license">https://opensource.org/licenses/MIT</string>
+    <string name="infosheet_about_h2_permissions">Welche Berechtigungen benötigt Trackbook?</string>
+    <string name="infosheet_about_h3_internet">Berechtigung INTERNET</string>
+    <string name="infosheet_about_p_internet">Trackbook lädt Kartendaten OpenStreetMap Servern und benötigt daher Zugang zum Internet.</string>
+    <string name="infosheet_about_h3_location">Berechtigung ACCESS_COARSE_LOCATION und ACCESS_FINE_LOCATION</string>
+    <string name="infosheet_about_p_location">Trackbook benötigt präzise GPS Informationen, um Bewegungen aufzeichnen zu können. Wenn GPS nicht verfügbar ist, oder wenn die GPS-Daten zu ungenau sind, nutzt Trackbook zur Ortung Mobilfunk- und WLAN-Triangulation.</string>
+    <string name="infosheet_about_h3_network">Berechtigung ACCESS_WIFI_STATE and ACCESS_NETWORK_STATE</string>
+    <string name="infosheet_about_p_network">Trackbook nutzt osmdroid für die Kartendarstellung. osmdroid benötigt Informationen über den aktuellen Netzwerkstatus Deines Geräts.</string>
+    <string name="infosheet_about_h3_external">Berechtigung WRITE_EXTERNAL_STORAGE</string>
+    <string name="infosheet_about_p_external">Trackbook nutzt osmdroid. osmdroid speichert Kartendaten im Externen Speicher von Android. Der Karten-Cache befindet sich im Ordner osmdroid auf der obersten Ebene des für Nutzer sichtbaren Dateisystems.</string>
+
 </resources>
