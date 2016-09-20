@@ -26,35 +26,37 @@
             android:layout_height="wrap_content"
             android:text="@string/infosheet_about_h2_recorder"
             android:textAppearance="@android:style/TextAppearance.Medium"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_marginTop="4dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/infosheet_about_h3_version"
             android:textAppearance="@android:style/TextAppearance.Small"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_marginTop="8dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/infosheet_about_p_bare"
             android:textAppearance="@android:style/TextAppearance.Small"
-            android:layout_marginTop="4dp" />
+            android:layout_marginTop="8dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/infosheet_about_p_free"
             android:textAppearance="@android:style/TextAppearance.Small"
-            android:layout_marginTop="2dp" />
+            android:layout_marginTop="4dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/infosheet_about_p_github"
             android:textAppearance="@android:style/TextAppearance.Small"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="8dp"
             android:autoLink="web" />
 
         <TextView
@@ -76,7 +78,7 @@
             android:layout_height="wrap_content"
             android:text="@string/infosheet_about_h2_permissions"
             android:textAppearance="@android:style/TextAppearance.Medium"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:textStyle="bold" />
 
         <TextView
@@ -85,12 +87,13 @@
             android:text="@string/infosheet_about_h3_internet"
             android:textAppearance="@android:style/TextAppearance.Small"
             android:textStyle="bold"
-            android:layout_marginTop="2dp" />
+            android:layout_marginTop="4dp" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/infosheet_about_p_internet"
-            android:textAppearance="@android:style/TextAppearance.Small" />
+            android:textAppearance="@android:style/TextAppearance.Small"
+            android:layout_marginTop="2dp" />
 
         <TextView
             android:layout_width="match_parent"
@@ -98,12 +101,13 @@
             android:text="@string/infosheet_about_h3_network"
             android:textAppearance="@android:style/TextAppearance.Small"
             android:textStyle="bold"
-            android:layout_marginTop="2dp" />
+            android:layout_marginTop="8dp" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/infosheet_about_p_network"
-            android:textAppearance="@android:style/TextAppearance.Small" />
+            android:textAppearance="@android:style/TextAppearance.Small"
+            android:layout_marginTop="2dp" />
 
         <TextView
             android:layout_width="match_parent"
@@ -111,12 +115,13 @@
             android:text="@string/infosheet_about_h3_location"
             android:textAppearance="@android:style/TextAppearance.Small"
             android:textStyle="bold"
-            android:layout_marginEnd="2dp" />
+            android:layout_marginTop="8dp" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/infosheet_about_p_location"
-            android:textAppearance="@android:style/TextAppearance.Small" />
+            android:textAppearance="@android:style/TextAppearance.Small"
+            android:layout_marginTop="2dp" />
 
         <TextView
             android:layout_width="match_parent"
@@ -124,12 +129,13 @@
             android:text="@string/infosheet_about_h3_external"
             android:textAppearance="@android:style/TextAppearance.Small"
             android:textStyle="bold"
-            android:layout_marginTop="2dp" />
+            android:layout_marginTop="8dp" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/infosheet_about_p_external"
-            android:textAppearance="@android:style/TextAppearance.Small" />
+            android:textAppearance="@android:style/TextAppearance.Small"
+            android:layout_marginTop="2dp" />
 
     </LinearLayout>
 

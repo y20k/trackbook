@@ -6,10 +6,10 @@
 
     <!-- menu entries -->
     <string name="menu_my_location">Mein Standort</string>
-    <string name="menu_about">Über</string>
+    <string name="menu_about">Über Trackbook</string>
 
     <!-- headers -->
-    <string name="header_about">Über</string>
+    <string name="header_about">Über Trackbook</string>
 
     <!-- tabs -->
     <string name="tab_map">KARTE</string>
@@ -19,13 +19,13 @@
     <string name="notification_title_trackbook_not_running">Trackbook ist aktiv</string>
     <string name="notification_title_trackbook_running">Trackbook ist inaktiv</string>
     <string name="notification_stop">Stopp</string>
-    <string name="notification_swipe_to_clear_map">AUSBLENDEN um Kartenansicht zurückzusetzen</string>
+    <string name="notification_swipe_to_clear_map">(Ausblenden setzt Kartenansicht zurück)</string>
     <string name="notification_content_duration">Dauer</string>
     <string name="notification_content_distance">Entfernung</string>
 
     <!-- snackbar messages -->
-    <string name="snackbar_message_tracking_stopped">Tracking wurde deaktiviert</string>
-    <string name="snackbar_message_tracking_started">Tracking wurde aktiviert</string>
+    <string name="snackbar_message_tracking_stopped">Tracking deaktiviert</string>
+    <string name="snackbar_message_tracking_started">Tracking aktiviert</string>
     <string name="snackbar_message_location_offline">Standortdienste sind deaktiviert. Trackbook kann nicht aufzeichnen.</string>
 
     <!-- toast messages -->

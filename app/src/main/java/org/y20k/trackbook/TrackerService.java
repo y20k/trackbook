@@ -83,12 +83,6 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
         // create content observer for changes in System Settings
         mSettingsContentObserver = new SettingsContentObserver( new Handler());
 
-        // checking for empty intent
-        if (intent == null) {
-            LogHelper.v(LOG_TAG, "Null-Intent received. Stopping self.");
-            stopSelf();
-        }
-
         // check if user did turn off location in device settings
         if (!mLocationSystemSetting) {
             LogHelper.v(LOG_TAG, "Location Setting is turned off.");
@@ -97,11 +91,16 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
             return START_STICKY;
         }
 
+        // checking for empty intent
+        if (intent == null) {
+            LogHelper.v(LOG_TAG, "Null-Intent received. Stopping self.");
+            stopSelf();
+        }
 
         // ACTION START
         else if (intent.getAction().equals(ACTION_START) && mLocationSystemSetting) {
             startTracking(intent);
-       }
+        }
 
         // ACTION STOP
         else if (intent.getAction().equals(ACTION_STOP) || !mLocationSystemSetting) {

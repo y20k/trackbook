@@ -70,8 +70,6 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     private FloatingActionButton mFloatingActionButton;
     private MainActivityMapFragment mMainActivityMapFragment;
     private BroadcastReceiver mTrackingStoppedReceiver;
-    private SectionsPagerAdapter mSectionsPagerAdapter;
-    private ViewPager mViewPager;
 
 
     @Override
@@ -277,14 +275,14 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
             /* BEGIN NEW STUFF */
             // Create the adapter that will return a fragment for each of the three
             // primary sections of the activity.
-            mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+            SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
             // Set up the ViewPager with the sections adapter.
-            mViewPager = (ViewPager) findViewById(R.id.container);
-            mViewPager.setAdapter(mSectionsPagerAdapter);
+            ViewPager viewPager = (ViewPager) findViewById(R.id.container);
+            viewPager.setAdapter(sectionsPagerAdapter);
 
             TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-            tabLayout.setupWithViewPager(mViewPager);
+            tabLayout.setupWithViewPager(viewPager);
             /* END NEW STUFF */
 
             // get reference to fragment

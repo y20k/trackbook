@@ -1,3 +1,19 @@
+/**
+ * MainActivityTrackFragment.java
+ * Implements the track fragment used in the track tab of the main activity
+ * This fragment displays a saved track
+ *
+ * This file is part of
+ * TRACKBOOK - Movement Recorder for Android
+ *
+ * Copyright (c) 2016 - Y20K.org
+ * Licensed under the MIT-License
+ * http://opensource.org/licenses/MIT
+ *
+ * Trackbook uses osmdroid - OpenStreetMap-Tools for Android
+ * https://github.com/osmdroid/osmdroid
+ */
+
 package org.y20k.trackbook;
 
 import android.os.Bundle;
@@ -7,10 +23,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+
 /**
- * Created by solaris on 16/09/16.
+ * MainActivityTrackFragment class
  */
 public class MainActivityTrackFragment extends Fragment {
+
+    /* Define log tag */
+    private static final String LOG_TAG = MainActivityTrackFragment.class.getSimpleName();
 
 
     /* Main class variables */

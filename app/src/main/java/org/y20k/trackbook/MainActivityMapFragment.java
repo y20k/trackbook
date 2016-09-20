@@ -1,6 +1,6 @@
 /**
  * MainActivityMapFragment.java
- * Implements the main fragment of the main activity
+ * Implements the map fragment used in the map tab of the main activity
  * This fragment displays a map using osmdroid
  *
  * This file is part of
@@ -557,7 +557,7 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
                 toggleLocationOffBar();
             }
 
-            // start / stop perliminary tracking
+            // start / stop preliminary tracking
             if (!mLocationSystemSetting) {
                 stopPreliminaryTracking();
             } else if (!mTrackerServiceRunning && mFragmentVisible) {

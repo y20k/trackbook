@@ -155,11 +155,11 @@ public class NotificationHelper implements TrackbookKeys {
         int width = (int) resources.getDimension(android.R.dimen.notification_large_icon_width);
 
         Bitmap bitmap;
-         if (tracking) {
-             bitmap = getBitmap(R.drawable.ic_notification_large_tracking_48dp);
-         } else {
-             bitmap = getBitmap(R.drawable.ic_notification_large_not_tracking_48dp);
-         }
+        if (tracking) {
+            bitmap = getBitmap(R.drawable.ic_notification_large_tracking_48dp);
+        } else {
+            bitmap = getBitmap(R.drawable.ic_notification_large_not_tracking_48dp);
+        }
 
         return Bitmap.createScaledBitmap(bitmap, width, height, false);
     }
@@ -178,7 +178,5 @@ public class NotificationHelper implements TrackbookKeys {
             return null;
         }
     }
-
-
 
 }

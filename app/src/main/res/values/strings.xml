@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- activities -->
     <string name="app_name">Trackbook</string> <!-- please do not translate app_name - transcription into different alphabet types is fine though -->
@@ -8,7 +9,7 @@
     <string name="menu_about">About</string>
 
     <!-- headers -->
-    <string name="header_about">About</string>
+    <string name="header_about">About Trackbook</string>
 
     <!-- tabs -->
     <string name="tab_map">MAP</string>
@@ -18,7 +19,7 @@
     <string name="notification_title_trackbook_running">Trackbook running</string>
     <string name="notification_title_trackbook_not_running">Trackbook not running</string>
     <string name="notification_stop">Stop</string>
-    <string name="notification_swipe_to_clear_map">SWIPE to clear map.</string>
+    <string name="notification_swipe_to_clear_map">(swipe to clear map)</string>
     <string name="notification_content_duration">Duration</string>
     <string name="notification_content_distance">Distance</string>
 
