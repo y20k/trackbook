@@ -302,11 +302,13 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
         List locationProviders = mLocationManager.getAllProviders();
         if (locationProviders.contains(LocationManager.GPS_PROVIDER)) {
             mGPSListener = createLocationListener();
-        } else if (locationProviders.contains(LocationManager.NETWORK_PROVIDER)) {
+            mTrackerServiceRunning = true;
+        }
+        if (locationProviders.contains(LocationManager.NETWORK_PROVIDER)) {
             mNetworkListener = createLocationListener();
+            mTrackerServiceRunning = true;
         }
         LocationHelper.registerLocationListeners(mLocationManager, mGPSListener, mNetworkListener);
-        mTrackerServiceRunning = true;
     }
 
 

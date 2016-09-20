@@ -31,6 +31,7 @@
     <!-- toast messages -->
     <string name="toast_message_permissions_granted">Permissions granted.</string>
     <string name="toast_message_unable_to_start_app">Unable to start Trackbook.</string>
+    <string name="toast_message_no_external_storage">Unable to access external storage.</string>
     <string name="toast_message_location_offline">Location is turned off. Trackbook will not work.</string>
     <string name="toast_message_acquiring_location">Acquiring current location.</string>
     <string name="toast_message_last_location">Last location:</string>

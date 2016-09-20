@@ -31,6 +31,7 @@
     <!-- toast messages -->
     <string name="toast_message_permissions_granted">Berechtigungen erteilt.</string>
     <string name="toast_message_unable_to_start_app">Trackbook kann nicht starten.</string>
+    <string name="toast_message_no_external_storage">Zugriff auf den externen Speicher verweigert.</string>
     <string name="toast_message_location_offline">Standortdienste sind deaktiviert. Trackbook kann nicht aufzeichnen.</string>
     <string name="toast_message_acquiring_location">Suche aktuellen Standort.</string>
     <string name="toast_message_last_location">Letzte Position:</string>

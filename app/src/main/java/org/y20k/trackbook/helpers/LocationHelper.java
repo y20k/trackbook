@@ -157,10 +157,10 @@ public final class LocationHelper implements TrackbookKeys {
         LogHelper.v(LOG_TAG, "Registering location listeners.");
 
         // get location providers
-        List locationProviders = locationManager.getProviders(true);
+        List locationProviders = locationManager.getAllProviders();
 
         // got GPS location provider?
-        if (locationProviders.contains(LocationManager.GPS_PROVIDER) && gpsListener != null) {
+        if (gpsListener != null && locationProviders.contains(LocationManager.GPS_PROVIDER)) {
             try {
                 // register GPS location listener and request updates
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, gpsListener);
@@ -172,7 +172,7 @@ public final class LocationHelper implements TrackbookKeys {
         }
 
         // got network location provider?
-        if (locationProviders.contains(LocationManager.NETWORK_PROVIDER) && networkListener != null) {
+        if (networkListener != null && locationProviders.contains(LocationManager.NETWORK_PROVIDER)) {
             try {
                 // register network location listener and request updates
                 locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, networkListener);

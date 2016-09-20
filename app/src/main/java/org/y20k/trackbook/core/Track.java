@@ -151,6 +151,12 @@ public class Track implements TrackbookKeys, Parcelable {
         return LocationHelper.convertToReadableTime(mDuration, true);
     }
 
+    /* Getter for start date of recording */
+    public Date getRecordingStart() {
+        return mRecordingStart;
+    }
+
+
 
     /* Getter for distance of track */
     public String getTrackDistance() {
