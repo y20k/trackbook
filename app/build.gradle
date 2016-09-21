@@ -8,8 +8,8 @@ android {
         applicationId "org.y20k.trackbook"
         minSdkVersion 22
         targetSdkVersion 24
-        versionCode 4
-        versionName "0.9.3 (The Great Gig in the Sky)"
+        versionCode 5
+        versionName "0.9.4 (The Great Gig in the Sky)"
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
@@ -26,4 +26,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:design:24.2.1'
     compile 'org.osmdroid:osmdroid-android:5.2@aar'
+    compile 'com.google.code.gson:gson:2.4'
 }
