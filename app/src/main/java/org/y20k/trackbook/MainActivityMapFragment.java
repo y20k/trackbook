@@ -384,11 +384,13 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
 
     /* Removes track crumbs from map */
     public void clearMap() {
-// TODO clear map or clear intent
+        // clear map
         if (mTrackOverlay != null) {
             Toast.makeText(mActivity, mActivity.getString(R.string.toast_message_clear_map), Toast.LENGTH_LONG).show();
             mMapView.getOverlays().remove(mTrackOverlay);
         }
+        // clear track object
+        mTrack = null;
     }
 
 

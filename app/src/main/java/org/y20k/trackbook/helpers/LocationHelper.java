@@ -140,8 +140,15 @@ public final class LocationHelper implements TrackbookKeys {
         float distance = newLocation.distanceTo(lastLocation);
         long timeDifference = newLocation.getElapsedRealtimeNanos() - lastLocation.getElapsedRealtimeNanos();
 
-        // distance is bigger than 10 meters and time difference bigger than 12 seconds
-        return distance > 10 && timeDifference >= TWELVE_SECONDS_IN_NANOSECONDS;
+        // TODO check for sudden location jump errors
+
+        if (newLocation.getProvider().equals(LocationManager.GPS_PROVIDER)) {
+            // CASE GPS: distance is bigger than 10 meters and time difference bigger than 12 seconds
+            return distance > 10 && timeDifference >= TWELVE_SECONDS_IN_NANOSECONDS;
+        } else {
+            // CASE network: distance is bigger than 50 meters and time difference bigger than 12 seconds
+            return distance > 50 && timeDifference >= TWELVE_SECONDS_IN_NANOSECONDS;
+        }
     }
 
 
