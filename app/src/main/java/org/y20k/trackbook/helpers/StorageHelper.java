@@ -34,7 +34,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 
@@ -53,8 +57,11 @@ public class StorageHelper implements TrackbookKeys {
 
     /* Constructor */
     public StorageHelper(Activity activity) {
+        // store activity
         mActivity = activity;
-        mFolder  = mActivity.getExternalFilesDir("Tracks");
+
+        // set name sub-directory to "tracks"
+        mFolder  = mActivity.getExternalFilesDir("tracks");
         // mFolder = getTracksDirectory();
 
         // create folder if necessary
@@ -71,6 +78,8 @@ public class StorageHelper implements TrackbookKeys {
         Date recordingStart = track.getRecordingStart();
 
         if (mFolder.exists() && mFolder.isDirectory() && mFolder.canWrite() && recordingStart != null) {
+            File lastTrackFile = getLastTrack();
+
             // construct filename from track recording date
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss", Locale.US);
             String fileName = dateFormat.format(recordingStart) + ".trackbook";
@@ -86,7 +95,11 @@ public class StorageHelper implements TrackbookKeys {
                 bw.write(json);
             } catch (IOException e) {
                 LogHelper.e(LOG_TAG, "Unable to saving track to external storage (IOException): " + file.toString());
+                return false;
             }
+
+            // if write was successful delete last file
+            lastTrackFile.delete();
 
             return true;
 
@@ -128,9 +141,10 @@ public class StorageHelper implements TrackbookKeys {
     /* Gets the last track from directory */
     public File getLastTrack() {
         if (mFolder != null && mFolder.isDirectory()) {
-            File[] files = mFolder.listFiles();
+            List<File> files = new ArrayList<File>(Arrays.asList(mFolder.listFiles()));
+            Collections.sort(files);
             // TODO
-            return files[0];
+            return files.get(files.size() - 1);
         }
         // TODO
         return null;
