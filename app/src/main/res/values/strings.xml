@@ -34,6 +34,7 @@
     <string name="toast_message_no_external_storage">Unable to access external storage.</string>
     <string name="toast_message_location_offline">Location is turned off. Trackbook will not work.</string>
     <string name="toast_message_acquiring_location">Acquiring current location.</string>
+    <string name="toast_message_location_services_not_ready">Location services not ready. Please retry.</string>
     <string name="toast_message_last_location">Last location:</string>
     <string name="toast_message_clear_map">Clearing map.</string>
     <string name="toast_message_last_location_age_one_hour">over one hour</string>

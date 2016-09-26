@@ -16,8 +16,8 @@
     <string name="tab_last_track">LETZTE AUFZEICHNUNG</string>
 
     <!-- notification -->
-    <string name="notification_title_trackbook_not_running">Trackbook ist aktiv</string>
-    <string name="notification_title_trackbook_running">Trackbook ist inaktiv</string>
+    <string name="notification_title_trackbook_not_running">Trackbook ist inaktiv</string>
+    <string name="notification_title_trackbook_running">Trackbook ist aktiv</string>
     <string name="notification_stop">Stopp</string>
     <string name="notification_swipe_to_clear_map">(Ausblenden setzt Kartenansicht zurück)</string>
     <string name="notification_content_duration">Dauer</string>
@@ -34,6 +34,7 @@
     <string name="toast_message_no_external_storage">Zugriff auf den externen Speicher verweigert.</string>
     <string name="toast_message_location_offline">Standortdienste sind deaktiviert. Trackbook kann nicht aufzeichnen.</string>
     <string name="toast_message_acquiring_location">Suche aktuellen Standort.</string>
+    <string name="toast_message_location_services_not_ready">Standortdienste noch nicht bereit. Bitte erneut versuchen.</string>
     <string name="toast_message_last_location">Letzte Position:</string>
     <string name="toast_message_clear_map">Kartenansicht wird zurückgesetzt</string>
     <string name="toast_message_last_location_age_one_hour">über eine Stunde</string>

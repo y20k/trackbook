@@ -26,5 +26,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:design:24.2.1'
     compile 'org.osmdroid:osmdroid-android:5.2@aar'
-    compile 'com.google.code.gson:gson:2.4'
+    compile 'com.google.code.gson:gson:2.7'
 }

@@ -361,11 +361,19 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
             // get last location from MainActivity Fragment
             Location lastLocation = mMainActivityMapFragment.getCurrentBestLocation();
 
-            // start tracker service
-            Intent intent = new Intent(this, TrackerService.class);
-            intent.setAction(ACTION_START);
-            intent.putExtra(EXTRA_LAST_LOCATION, lastLocation);
-            startService(intent);
+            if (lastLocation != null) {
+                // start tracker service
+                Intent intent = new Intent(this, TrackerService.class);
+                intent.setAction(ACTION_START);
+                intent.putExtra(EXTRA_LAST_LOCATION, lastLocation);
+                startService(intent);
+            } else {
+                Toast.makeText(this, getString(R.string.toast_message_location_services_not_ready), Toast.LENGTH_LONG).show();
+                // change state back
+                mTrackerServiceRunning = false;
+                setFloatingActionButtonState();
+            }
+
         }
 
         // update tracking state in MainActivityMapFragment

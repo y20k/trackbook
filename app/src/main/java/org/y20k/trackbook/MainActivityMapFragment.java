@@ -299,25 +299,35 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
                     // app does not have any location fix
                     mCurrentBestLocation = LocationHelper.determineLastKnownLocation(mLocationManager);
                 }
-                position = convertToGeoPoint(mCurrentBestLocation);
 
-                // center map on current position
-                mController.setCenter(position);
 
-                // mark user's new location on map and remove last marker
-                updateMyLocationMarker();
+                // check if really got a position
+                if (mCurrentBestLocation != null) {
+                    position = convertToGeoPoint(mCurrentBestLocation);
 
-                // inform user about location quality
-                String locationInfo;
-                long locationAge =  (SystemClock.elapsedRealtimeNanos() - mCurrentBestLocation.getElapsedRealtimeNanos()) / 1000000;
-                String locationAgeString = LocationHelper.convertToReadableTime(locationAge, false);
-                if (locationAgeString == null) {
-                    locationAgeString = mActivity.getString(R.string.toast_message_last_location_age_one_hour);
+                    // center map on current position
+                    mController.setCenter(position);
+
+                    // mark user's new location on map and remove last marker
+                    updateMyLocationMarker();
+
+                    // inform user about location quality
+                    String locationInfo;
+                    long locationAge =  (SystemClock.elapsedRealtimeNanos() - mCurrentBestLocation.getElapsedRealtimeNanos()) / 1000000;
+                    String locationAgeString = LocationHelper.convertToReadableTime(locationAge, false);
+                    if (locationAgeString == null) {
+                        locationAgeString = mActivity.getString(R.string.toast_message_last_location_age_one_hour);
+                    }
+                    locationInfo = " " + locationAgeString + " | " + mCurrentBestLocation.getProvider();
+                    Toast.makeText(mActivity, mActivity.getString(R.string.toast_message_last_location) + locationInfo, Toast.LENGTH_LONG).show();
+                    return true;
+                } else {
+                    Toast.makeText(mActivity, mActivity.getString(R.string.toast_message_location_services_not_ready), Toast.LENGTH_LONG).show();
+                    return false;
                 }
-                locationInfo = " " + locationAgeString + " | " + mCurrentBestLocation.getProvider();
-                Toast.makeText(mActivity, mActivity.getString(R.string.toast_message_last_location) + locationInfo, Toast.LENGTH_LONG).show();
 
-                return true;
+
+
 
             // CASE DEFAULT
             default:
@@ -374,6 +384,7 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
 
     /* Removes track crumbs from map */
     public void clearMap() {
+// TODO clear map or clear intent
         if (mTrackOverlay != null) {
             Toast.makeText(mActivity, mActivity.getString(R.string.toast_message_clear_map), Toast.LENGTH_LONG).show();
             mMapView.getOverlays().remove(mTrackOverlay);
