@@ -18,6 +18,7 @@ package org.y20k.trackbook;
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.app.DialogFragment;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -44,6 +45,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import org.y20k.trackbook.helpers.DialogClearFragment;
 import org.y20k.trackbook.helpers.LogHelper;
 import org.y20k.trackbook.helpers.NotificationHelper;
 import org.y20k.trackbook.helpers.TrackbookKeys;
@@ -57,7 +59,7 @@ import java.util.Map;
 /**
  * MainActivity class
  */
-public class MainActivity extends AppCompatActivity implements TrackbookKeys {
+public class MainActivity extends AppCompatActivity implements TrackbookKeys, DialogClearFragment.DialogClearListener {
 
     /* Define log tag */
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
@@ -203,6 +205,26 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     }
 
 
+    @Override
+    public void onDialogClearPositiveClick(DialogFragment dialog) {
+        // DialogClear: User chose CLEAR.
+        LogHelper.v(LOG_TAG, "User chose CLEAR");
+
+        // clear the map
+        mMainActivityMapFragment.clearMap();
+
+        // dismiss notification
+        NotificationHelper.stop();
+    }
+
+
+    @Override
+    public void onDialogClearNegativeClick(DialogFragment dialog) {
+        // DialogClear: User chose CANCEL.
+        LogHelper.v(LOG_TAG, "User chose CANCEL.");
+    }
+
+
     /* Set up main layout */
     private void setupLayout() {
         if (mPermissionsGranted) {
@@ -232,8 +254,9 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
                     if (mTrackerServiceRunning || mMainActivityMapFragment == null) {
                         return false;
                     } else {
-                        mMainActivityMapFragment.clearMap();
-                        NotificationHelper.stop();
+                        // show clear dialog
+                        DialogFragment dialog = new DialogClearFragment();
+                        dialog.show(getFragmentManager(), "DialogClearFragment");
                         return true;
                     }
                 }
@@ -304,8 +327,6 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
                     if (mTrackerServiceRunning || mMainActivityMapFragment == null) {
                         return false;
                     } else {
-                        mMainActivityMapFragment.clearMap();
-                        NotificationHelper.stop();
                         return true;
                     }
                 }
@@ -404,7 +425,9 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
                     // prevent multiple reactions to intent
                     intent.setAction(ACTION_DEFAULT);
                 } else if (intent.hasExtra(EXTRA_CLEAR_MAP) && mMainActivityMapFragment != null) {
-                    mMainActivityMapFragment.clearMap();
+                    // show clear dialog
+                    DialogFragment dialog = new DialogClearFragment();
+                    dialog.show(getFragmentManager(), "DialogClearFragment");
                     // prevent multiple reactions to intent
                     intent.setAction(ACTION_DEFAULT);
                 }

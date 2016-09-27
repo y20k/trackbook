@@ -28,6 +28,12 @@
     <string name="snackbar_message_tracking_started">Tracking started</string>
     <string name="snackbar_message_location_offline">Location is turned off. Trackbook will not work.</string>
 
+    <!-- dialogs -->
+    <string name="dialog_clear_map_title">Clear</string>
+    <string name="dialog_clear_map_message">Do you want to clear the map?</string>
+    <string name="dialog_clear_map_okay">Clear</string>
+    <string name="dialog_clear_map_cancel">Cancel</string>
+
     <!-- toast messages -->
     <string name="toast_message_permissions_granted">Permissions granted.</string>
     <string name="toast_message_unable_to_start_app">Unable to start Trackbook.</string>

@@ -28,6 +28,12 @@
     <string name="snackbar_message_tracking_started">Tracking aktiviert</string>
     <string name="snackbar_message_location_offline">Standortdienste sind deaktiviert. Trackbook kann nicht aufzeichnen.</string>
 
+    <!-- dialogs -->
+    <string name="dialog_clear_map_title">Zurücksetzen</string>
+    <string name="dialog_clear_map_message">Möchten Sie die Karte zurücksetzen?</string>
+    <string name="dialog_clear_map_okay">Zurücksetzen</string>
+    <string name="dialog_clear_map_cancel">Abbrechen</string>
+
     <!-- toast messages -->
     <string name="toast_message_permissions_granted">Berechtigungen erteilt.</string>
     <string name="toast_message_unable_to_start_app">Trackbook kann nicht starten.</string>

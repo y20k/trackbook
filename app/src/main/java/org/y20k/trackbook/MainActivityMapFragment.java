@@ -384,6 +384,7 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
 
     /* Removes track crumbs from map */
     public void clearMap() {
+
         // clear map
         if (mTrackOverlay != null) {
             Toast.makeText(mActivity, mActivity.getString(R.string.toast_message_clear_map), Toast.LENGTH_LONG).show();
@@ -391,6 +392,30 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
         }
         // clear track object
         mTrack = null;
+
+//        // Use the Builder class for convenient dialog construction
+//        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+//        builder.setTitle(R.string.dialog_clear_map_title)
+//                .setMessage(R.string.dialog_clear_map_message)
+//                .setPositiveButton(R.string.dialog_clear_map_okay, new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int id) {
+//                        // clear map
+//                        if (mTrackOverlay != null) {
+//                            Toast.makeText(mActivity, mActivity.getString(R.string.toast_message_clear_map), Toast.LENGTH_LONG).show();
+//                            mMapView.getOverlays().remove(mTrackOverlay);
+//                        }
+//                        // clear track object
+//                        mTrack = null;
+//                    }
+//                })
+//                .setNegativeButton(R.string.dialog_clear_map_cancel, new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int id) {
+//                        // user clicked cancel - do nothing
+//                    }
+//                });
+//        // Create the AlertDialog object and return it
+//        builder.create().show();
+
     }
 
 
