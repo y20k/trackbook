@@ -18,6 +18,7 @@ package org.y20k.trackbook.helpers;
 
 import android.app.Activity;
 import android.os.Environment;
+import android.support.annotation.Nullable;
 import android.support.v4.os.EnvironmentCompat;
 import android.widget.Toast;
 
@@ -61,7 +62,7 @@ public class StorageHelper implements TrackbookKeys {
         // store activity
         mActivity = activity;
 
-        // set name sub-directory to "tracks"
+        // get "tracks" folder
         mFolder  = mActivity.getExternalFilesDir(mDirectoryName);
         // mFolder = getTracksDirectory();
 
@@ -74,13 +75,17 @@ public class StorageHelper implements TrackbookKeys {
 
 
     /* Saves track object to file */
-    public boolean saveTrack(Track track) {
+    public boolean saveTrack(@Nullable Track track) {
 
-        Date recordingStart = track.getRecordingStart();
+        // get "tracks" folder
+        mFolder  = mActivity.getExternalFilesDir(mDirectoryName);
 
-        if (mFolder.exists() && mFolder.isDirectory() && mFolder.canWrite() && recordingStart != null) {
-            File lastTrackFile = getMostCurrentTrack();
+        Date recordingStart = null;
+        if (track != null) {
+            recordingStart = track.getRecordingStart();
+        }
 
+        if (mFolder.exists() && mFolder.isDirectory() && mFolder.canWrite() && recordingStart != null && track != null) {
             // construct filename from track recording date
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss", Locale.US);
             String fileName = dateFormat.format(recordingStart) + mFileExtension;
@@ -99,8 +104,8 @@ public class StorageHelper implements TrackbookKeys {
                 return false;
             }
 
-            // if write was successful delete last file
-            lastTrackFile.delete();
+            // if write was successful delete old track files
+            deleteOldTracks();
 
             return true;
 
@@ -141,6 +146,10 @@ public class StorageHelper implements TrackbookKeys {
 
     /* Gets most current track from directory */
     public File getMostCurrentTrack() {
+
+        // get "tracks" folder
+        mFolder  = mActivity.getExternalFilesDir(mDirectoryName);
+
         if (mFolder != null && mFolder.isDirectory()) {
             // get files and sort them
             File[] files = mFolder.listFiles();
@@ -155,6 +164,10 @@ public class StorageHelper implements TrackbookKeys {
 
     /* Gets the last track from directory */
     private void deleteOldTracks() {
+
+        // get "tracks" folder
+        mFolder  = mActivity.getExternalFilesDir(mDirectoryName);
+
         if (mFolder != null && mFolder.isDirectory()) {
             LogHelper.v(LOG_TAG, "Deleting old Track files.");
 

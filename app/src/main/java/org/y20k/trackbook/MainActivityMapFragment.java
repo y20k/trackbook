@@ -50,6 +50,7 @@ import org.y20k.trackbook.core.Track;
 import org.y20k.trackbook.helpers.LocationHelper;
 import org.y20k.trackbook.helpers.LogHelper;
 import org.y20k.trackbook.helpers.MapHelper;
+import org.y20k.trackbook.helpers.StorageHelper;
 import org.y20k.trackbook.helpers.TrackbookKeys;
 
 import java.util.List;
@@ -390,31 +391,14 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
             Toast.makeText(mActivity, mActivity.getString(R.string.toast_message_clear_map), Toast.LENGTH_LONG).show();
             mMapView.getOverlays().remove(mTrackOverlay);
         }
+
+        // save track object
+        StorageHelper storageHelper = new StorageHelper(mActivity);
+        storageHelper.saveTrack(mTrack);
+
         // clear track object
         mTrack = null;
 
-//        // Use the Builder class for convenient dialog construction
-//        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-//        builder.setTitle(R.string.dialog_clear_map_title)
-//                .setMessage(R.string.dialog_clear_map_message)
-//                .setPositiveButton(R.string.dialog_clear_map_okay, new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int id) {
-//                        // clear map
-//                        if (mTrackOverlay != null) {
-//                            Toast.makeText(mActivity, mActivity.getString(R.string.toast_message_clear_map), Toast.LENGTH_LONG).show();
-//                            mMapView.getOverlays().remove(mTrackOverlay);
-//                        }
-//                        // clear track object
-//                        mTrack = null;
-//                    }
-//                })
-//                .setNegativeButton(R.string.dialog_clear_map_cancel, new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int id) {
-//                        // user clicked cancel - do nothing
-//                    }
-//                });
-//        // Create the AlertDialog object and return it
-//        builder.create().show();
 
     }
 
