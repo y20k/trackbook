@@ -34,11 +34,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 
@@ -51,6 +49,9 @@ public class StorageHelper implements TrackbookKeys {
     private static final String LOG_TAG = StorageHelper.class.getSimpleName();
 
     /* Main class variables */
+    private final int mMaxTrackFiles = 10;
+    private final String mDirectoryName = "tracks";
+    private final String mFileExtension = ".trackbook";
     private final Activity mActivity;
     private File mFolder;
 
@@ -61,7 +62,7 @@ public class StorageHelper implements TrackbookKeys {
         mActivity = activity;
 
         // set name sub-directory to "tracks"
-        mFolder  = mActivity.getExternalFilesDir("tracks");
+        mFolder  = mActivity.getExternalFilesDir(mDirectoryName);
         // mFolder = getTracksDirectory();
 
         // create folder if necessary
@@ -78,11 +79,11 @@ public class StorageHelper implements TrackbookKeys {
         Date recordingStart = track.getRecordingStart();
 
         if (mFolder.exists() && mFolder.isDirectory() && mFolder.canWrite() && recordingStart != null) {
-            File lastTrackFile = getLastTrack();
+            File lastTrackFile = getMostCurrentTrack();
 
             // construct filename from track recording date
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss", Locale.US);
-            String fileName = dateFormat.format(recordingStart) + ".trackbook";
+            String fileName = dateFormat.format(recordingStart) + mFileExtension;
             File file = new File(mFolder.toString() + "/" +  fileName);
 
             // convert to JSON
@@ -138,23 +139,85 @@ public class StorageHelper implements TrackbookKeys {
     }
 
 
-    /* Gets the last track from directory */
-    public File getLastTrack() {
+    /* Gets most current track from directory */
+    public File getMostCurrentTrack() {
         if (mFolder != null && mFolder.isDirectory()) {
-            List<File> files = new ArrayList<File>(Arrays.asList(mFolder.listFiles()));
-            Collections.sort(files);
-            // TODO
-            return files.get(files.size() - 1);
+            // get files and sort them
+            File[] files = mFolder.listFiles();
+            files = sortFiles(files);
+            // return latest track
+            return files[0];
         }
-        // TODO
+        LogHelper.e(LOG_TAG, "Unable to get files from given folder.");
         return null;
+    }
+
+
+    /* Gets the last track from directory */
+    private void deleteOldTracks() {
+        if (mFolder != null && mFolder.isDirectory()) {
+            LogHelper.v(LOG_TAG, "Deleting old Track files.");
+
+            // get files and sort them
+            File[] files = mFolder.listFiles();
+            files = sortFiles(files);
+
+            // store length of array
+            int numberOfFiles = files.length;
+
+            // keep the latest ten (mMaxTrackFiles) track files
+            int index = mMaxTrackFiles;
+            // iterate through array
+            while (index < numberOfFiles && files[index].getName().endsWith(mFileExtension)) {
+                files[index].delete();
+                index++;
+            }
+        }
+    }
+
+
+    /* Sorts array of files in a way that the newest files are at the top and non-.trackbook files are at the bottom */
+    private File[] sortFiles(File[] files) {
+        // sort array
+        LogHelper.v(LOG_TAG, "Sorting files.");
+        Arrays.sort(files, new Comparator<File>() {
+            @Override
+            public int compare(File file1, File file2) {
+
+                // discard files not ending with ".trackbook"
+                boolean file1IsTrack = file1.getName().endsWith(mFileExtension);
+                boolean file2IsTrack = file2.getName().endsWith(mFileExtension);
+
+                // note: "greater" means higher index in array
+                if (!file1IsTrack && file2IsTrack) {
+                    // file1 is not a track, file1 is greater
+                    return 1;
+                } else if (!file2IsTrack && file1IsTrack) {
+                    // file2 is not a track, file2 is greater
+                    return -1;
+                } else {
+                    // "compareTo" compares abstract pathnames lexicographically | 0 == equal | -1 == file2 less than file1 | 1 == file2 greater than file1
+                    return file2.compareTo(file1);
+                }
+
+            }
+        });
+
+        // log sorting result // TODO comment out for release
+        String fileList = "";
+        for (File file : files) {
+            fileList = fileList + file.getName() + "\n";
+        }
+        LogHelper.v(LOG_TAG, "+++ List of files +++\n" + fileList);
+
+        // hand back sorted array of files
+        return files;
     }
 
 
     /* Return a write-able sub-directory from external storage  */
     private File getTracksDirectory() {
-        String subDirectory = "Tracks";
-        File[] storage = mActivity.getExternalFilesDirs(subDirectory);
+        File[] storage = mActivity.getExternalFilesDirs(mDirectoryName);
         for (File file : storage) {
             if (file != null) {
                 String state = EnvironmentCompat.getStorageState(file);
