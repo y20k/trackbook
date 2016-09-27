@@ -26,6 +26,7 @@ import android.database.ContentObserver;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -393,13 +394,8 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
         }
 
         // save track object
-        StorageHelper storageHelper = new StorageHelper(mActivity);
-        storageHelper.saveTrack(mTrack);
-
-        // clear track object
-        mTrack = null;
-
-
+        SaveTrackAsyncHelper saveTrackAsyncHelper = new SaveTrackAsyncHelper();
+        saveTrackAsyncHelper.execute();
     }
 
 
@@ -555,9 +551,9 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
     /**
      * Inner class: SettingsContentObserver is a custom ContentObserver for changes in Android Settings
      */
-    public class SettingsContentObserver extends ContentObserver {
+    private class SettingsContentObserver extends ContentObserver {
 
-        public SettingsContentObserver(Handler handler) {
+        SettingsContentObserver(Handler handler) {
             super(handler);
         }
 
@@ -587,6 +583,30 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
             }
         }
 
+    }
+
+
+    /**
+     * Inner class: Saves track to external storage using an AsyncTask
+     */
+    private class SaveTrackAsyncHelper extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            LogHelper.v(LOG_TAG, "Saving track object in background.");
+            // save track object
+            StorageHelper storageHelper = new StorageHelper(mActivity);
+            storageHelper.saveTrack(mTrack);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            // clear track object
+            LogHelper.v(LOG_TAG, "Clearing track object after background save operation.");
+            mTrack = null;
+        }
     }
 
 
