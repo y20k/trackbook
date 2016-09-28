@@ -136,19 +136,33 @@ public final class LocationHelper implements TrackbookKeys {
 
 
     /* Checks if given location is a new WayPoint */
-    public static boolean isNewWayPoint(Location lastLocation, Location newLocation) {
+    public static boolean isNewWayPoint(Location lastLocation, Location newLocation, float averageSpeed) {
         float distance = newLocation.distanceTo(lastLocation);
         long timeDifference = newLocation.getElapsedRealtimeNanos() - lastLocation.getElapsedRealtimeNanos();
 
-        // TODO check for sudden location jump errors
+        if (newLocation.getProvider().equals(LocationManager.NETWORK_PROVIDER)) {
+            // SPECIAL CASE network: plausibility check for network provider. looking for sudden location jump errors
+            float speedDifference;
+            float currentSpeed = distance / ((float)timeDifference / ONE_NANOSECOND);
+            if (currentSpeed > averageSpeed) {
+                speedDifference = currentSpeed / averageSpeed;
+            } else {
+                speedDifference = averageSpeed / currentSpeed;
+            }
+            // check if speed is high (10 m/s == 36km/h) and has doubled
+            if (averageSpeed != 0f && currentSpeed > 10f && speedDifference > 2f) {
+                // implausible location
+                return false;
+            }
 
-        if (newLocation.getProvider().equals(LocationManager.GPS_PROVIDER)) {
-            // CASE GPS: distance is bigger than 10 meters and time difference bigger than 12 seconds
-            return distance > 10 && timeDifference >= TWELVE_SECONDS_IN_NANOSECONDS;
+            // DEFAULT network: distance is bigger than 50 meters and time difference bigger than 12 seconds
+            return distance > 50 && timeDifference >= 12 * ONE_NANOSECOND;
+
         } else {
-            // CASE network: distance is bigger than 50 meters and time difference bigger than 12 seconds
-            return distance > 50 && timeDifference >= TWELVE_SECONDS_IN_NANOSECONDS;
+            // DEFAULT GPS: distance is bigger than 10 meters and time difference bigger than 12 seconds
+            return distance > 10 && timeDifference >= 12 * ONE_NANOSECOND;
         }
+
     }
 
 

@@ -372,6 +372,8 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys, Di
             startService(intent);
 
         } else {
+            // TODO ask if user wants to save the last track before starting a new recording
+            // TODO alternatively only ask if last track was very short
             // show snackbar
             Snackbar.make(view, R.string.snackbar_message_tracking_started, Snackbar.LENGTH_SHORT).setAction("Action", null).show();
 

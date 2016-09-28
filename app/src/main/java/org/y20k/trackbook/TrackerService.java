@@ -250,7 +250,17 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
         } else {
             // get last WayPoint and compare it to current location
             Location lastWayPoint = mTrack.getWayPointLocation(trackSize - 1);
-            if (LocationHelper.isNewWayPoint(lastWayPoint, mCurrentBestLocation)) {
+
+            // compute average speed
+            float averageSpeed = 0f;
+            if (trackSize > 1) {
+                Location firstWayPoint = mTrack.getWayPointLocation(0);
+                float distance = firstWayPoint.distanceTo(lastWayPoint);
+                long timeDifference = lastWayPoint.getElapsedRealtimeNanos() - firstWayPoint.getElapsedRealtimeNanos();
+                averageSpeed = distance / ((float)timeDifference / ONE_NANOSECOND);
+            }
+
+            if (LocationHelper.isNewWayPoint(lastWayPoint, mCurrentBestLocation, averageSpeed)) {
                 // if new, add current best location to track
                 newWayPoint = mTrack.addWayPoint(mCurrentBestLocation);
             }

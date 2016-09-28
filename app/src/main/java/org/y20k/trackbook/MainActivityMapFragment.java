@@ -396,6 +396,7 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
         // save track object
         SaveTrackAsyncHelper saveTrackAsyncHelper = new SaveTrackAsyncHelper();
         saveTrackAsyncHelper.execute();
+        // TODO add toast indicating track save
     }
 
 
@@ -587,7 +588,7 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
 
 
     /**
-     * Inner class: Saves track to external storage using an AsyncTask
+     * Inner class: Saves track to external storage using AsyncTask
      */
     private class SaveTrackAsyncHelper extends AsyncTask<Void, Void, Void> {
 

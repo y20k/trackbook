@@ -67,11 +67,11 @@ public interface TrackbookKeys {
     /* RESULTS */
 
     /* CONSTANTS */
+    long ONE_NANOSECOND = 1000000000L;
     long EIGHT_HOURS_IN_MILLISECONDS = 43200000; // maximum tracking duration
     long FIFTEEN_SECONDS_IN_MILLISECONDS = 15000; // timer interval for tracking
     long FIVE_MINUTES_IN_NANOSECONDS = 5L * 60000000000L; // determines a stop over
     long TWO_MINUTES_IN_NANOSECONDS = 2L * 60000000000L; // defines an old location
-    long TWELVE_SECONDS_IN_NANOSECONDS = 12000000000L; // defines a new location
 
 
     /* MISC */
