@@ -48,7 +48,7 @@ public class Track implements TrackbookKeys, Parcelable {
     private float mStepCount;
     private int mUnitSystem;
     private Date mRecordingStart;
-    private Date mRecordingEnd;
+    private Date mRecordingStop;
 
 
     /* Constructor */
@@ -58,7 +58,7 @@ public class Track implements TrackbookKeys, Parcelable {
         mStepCount = 0;
         mUnitSystem = getUnitSystem(Locale.getDefault());
         mRecordingStart = GregorianCalendar.getInstance().getTime();
-        mRecordingEnd = mRecordingStart;
+        mRecordingStop = mRecordingStart;
     }
 
 
@@ -69,7 +69,7 @@ public class Track implements TrackbookKeys, Parcelable {
         mStepCount = in.readFloat();
         mUnitSystem = in.readInt();
         mRecordingStart = new Date(in.readLong());
-        mRecordingEnd = new Date(in.readLong());
+        mRecordingStop = new Date(in.readLong());
     }
 
 
@@ -118,7 +118,7 @@ public class Track implements TrackbookKeys, Parcelable {
 
     /* Setter for end time and date of recording */
     public void setRecordingEnd (Date recordingEnd) {
-        mRecordingEnd = recordingEnd;
+        mRecordingStop = recordingEnd;
     }
 
 
@@ -157,6 +157,17 @@ public class Track implements TrackbookKeys, Parcelable {
     }
 
 
+    /* Getter for stop date of recording */
+    public Date getRecordingStop() {
+        return mRecordingStop;
+    }
+
+
+    /* Getter for step count of recording */
+    public float getStepCount() {
+        return mStepCount;
+    }
+
 
     /* Getter for distance of track */
     public String getTrackDistance() {
@@ -180,6 +191,7 @@ public class Track implements TrackbookKeys, Parcelable {
     public Location getWayPointLocation(int index) {
         return mWayPoints.get(index).getLocation();
     }
+
 
     /* Adds distance to given location to length of track */
     private float addDistanceToTrack(Location location) {
@@ -210,7 +222,7 @@ public class Track implements TrackbookKeys, Parcelable {
         parcel.writeFloat(mStepCount);
         parcel.writeInt(mUnitSystem);
         parcel.writeLong(mRecordingStart.getTime());
-        parcel.writeLong(mRecordingEnd.getTime());
+        parcel.writeLong(mRecordingStop.getTime());
     }
 
 

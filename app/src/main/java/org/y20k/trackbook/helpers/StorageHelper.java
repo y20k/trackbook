@@ -120,6 +120,12 @@ public class StorageHelper implements TrackbookKeys {
     /* Loads given file into memory */
     public Track loadTrack (File file) {
 
+        // check if given file was null
+        if (file == null) {
+            LogHelper.e(LOG_TAG, "Did not receive file object.");
+            return null;
+        }
+
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             LogHelper.v(LOG_TAG, "Loading track to external storage: " + file.toString());
 
@@ -154,8 +160,10 @@ public class StorageHelper implements TrackbookKeys {
             // get files and sort them
             File[] files = mFolder.listFiles();
             files = sortFiles(files);
-            // return latest track
-            return files[0];
+            if (files.length > 0 && files[0].getName().endsWith(mFileExtension)){
+                // return latest track
+                return files[0];
+            }
         }
         LogHelper.e(LOG_TAG, "Unable to get files from given folder.");
         return null;

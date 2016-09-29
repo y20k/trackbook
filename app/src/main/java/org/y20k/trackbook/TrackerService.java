@@ -251,9 +251,11 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
             // get last WayPoint and compare it to current location
             Location lastWayPoint = mTrack.getWayPointLocation(trackSize - 1);
 
-            // compute average speed
+            // default value for average speed
             float averageSpeed = 0f;
-            if (trackSize > 1) {
+
+            // compute average speed if new location come from network provider
+            if (trackSize > 1 && mCurrentBestLocation.getProvider().equals(LocationManager.NETWORK_PROVIDER)) {
                 Location firstWayPoint = mTrack.getWayPointLocation(0);
                 float distance = firstWayPoint.distanceTo(lastWayPoint);
                 long timeDifference = lastWayPoint.getElapsedRealtimeNanos() - firstWayPoint.getElapsedRealtimeNanos();
