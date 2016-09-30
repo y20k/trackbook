@@ -17,6 +17,8 @@
 package org.y20k.trackbook;
 
 import android.app.Activity;
+import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
@@ -26,14 +28,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.osmdroid.api.IMapController;
+import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
+import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.ItemizedIconOverlay;
+import org.osmdroid.views.overlay.compass.CompassOverlay;
+import org.osmdroid.views.overlay.compass.InternalCompassOrientationProvider;
 import org.y20k.trackbook.core.Track;
+import org.y20k.trackbook.helpers.LogHelper;
+import org.y20k.trackbook.helpers.MapHelper;
 import org.y20k.trackbook.helpers.StorageHelper;
+import org.y20k.trackbook.helpers.TrackbookKeys;
 
 
 /**
  * MainActivityTrackFragment class
  */
-public class MainActivityTrackFragment extends Fragment {
+public class MainActivityTrackFragment extends Fragment implements TrackbookKeys {
 
     /* Define log tag */
     private static final String LOG_TAG = MainActivityTrackFragment.class.getSimpleName();
@@ -42,6 +54,9 @@ public class MainActivityTrackFragment extends Fragment {
     /* Main class variables */
     private Activity mActivity;
     private View mRootView;
+    private MapView mMapView;
+    private IMapController mController;
+    private ItemizedIconOverlay mTrackOverlay;
     private TextView mDistanceView;
     private TextView mStepsView;
     private TextView mWaypointsView;
@@ -73,6 +88,35 @@ public class MainActivityTrackFragment extends Fragment {
         // inflate root view from xml
         mRootView = inflater.inflate(R.layout.fragment_main_track, container, false);
 
+        // create basic map
+        mMapView = (MapView) mRootView.findViewById(R.id.track_map);
+
+        // get map controller
+        mController = mMapView.getController();
+
+        // basic map setup
+        mMapView.setTileSource(TileSourceFactory.MAPNIK);
+        mMapView.setTilesScaledToDpi(true);
+
+        // add multi-touch capability
+        mMapView.setMultiTouchControls(true);
+
+        // add compass to map
+        CompassOverlay compassOverlay = new CompassOverlay(mActivity, new InternalCompassOrientationProvider(mActivity), mMapView);
+        compassOverlay.enableCompass();
+        mMapView.getOverlays().add(compassOverlay);
+
+        // initiate map state
+        if (savedInstanceState != null) {
+            // restore saved instance of map
+            GeoPoint position = new GeoPoint(savedInstanceState.getDouble(INSTANCE_LATITUDE_TRACK_MAP, DEFAULT_LATITUDE), savedInstanceState.getDouble(INSTANCE_LONGITUDE_TRACK_MAP, DEFAULT_LONGITUDE));
+            mController.setCenter(position);
+            mController.setZoom(savedInstanceState.getInt(INSTANCE_ZOOM_LEVEL_MAIN_MAP, 16));
+        } else {
+            mController.setZoom(16);
+        }
+
+
         // get views
         mDistanceView = (TextView) mRootView.findViewById(R.id.statistics_data_distance);
         mStepsView = (TextView) mRootView.findViewById(R.id.statistics_data_steps);
@@ -91,23 +135,13 @@ public class MainActivityTrackFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        LogHelper.v(LOG_TAG, "TrackFragment: onResume called.");
 
-        // get most current track from storage
-        StorageHelper storageHelper = new StorageHelper(mActivity);
-        mTrack = storageHelper.loadTrack(storageHelper.getMostCurrentTrack());
-
-        // populate views
-        if (mTrack != null) {
-            mDistanceView.setText(mTrack.getTrackDistance());
-            mStepsView.setText(String.valueOf(mTrack.getStepCount()));
-            mWaypointsView.setText(String.valueOf(mTrack.getWayPoints().size()));
-            mDurationView.setText(mTrack.getTrackDuration());
-            mRecordingStartView.setText(mTrack.getRecordingStart().toString());
-            mRecordingStopView.setText(mTrack.getRecordingStop().toString());
-        }
+        // load track and display map and statistics
+        LoadTrackAsyncHelper loadTrackAsyncHelper = new LoadTrackAsyncHelper();
+        loadTrackAsyncHelper.execute();
 
         mStatisticsSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-
 
     }
 
@@ -115,13 +149,88 @@ public class MainActivityTrackFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
+        LogHelper.v(LOG_TAG, "TrackFragment: onPause called.");
     }
 
 
     @Override
-    public void onDestroyView() {
+    public void onDestroyView(){
         super.onDestroyView();
+
+        // deactivate map
+        mMapView.onDetach();
     }
 
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putDouble(INSTANCE_LATITUDE_TRACK_MAP, mMapView.getMapCenter().getLatitude());
+        outState.putDouble(INSTANCE_LONGITUDE_TRACK_MAP, mMapView.getMapCenter().getLongitude());
+        outState.putInt(INSTANCE_ZOOM_LEVEL_TRACK_MAP, mMapView.getZoomLevel());
+        outState.putParcelable(INSTANCE_TRACK_TRACK_MAP, mTrack);
+        super.onSaveInstanceState(outState);
+    }
+
+
+    /* Displays map and statistics for track */
+    private void displayTrack() {
+        GeoPoint position;
+
+        if (mTrack != null) {
+            // set end of track as position
+            Location lastLocation = mTrack.getWayPointLocation(mTrack.getSize() -1);
+            position = new GeoPoint(lastLocation.getLatitude(), lastLocation.getLongitude());
+
+            // populate views
+            mDistanceView.setText(mTrack.getTrackDistance());
+            mStepsView.setText(String.valueOf(Math.round(mTrack.getStepCount())));
+            mWaypointsView.setText(String.valueOf(mTrack.getWayPoints().size()));
+            mDurationView.setText(mTrack.getTrackDuration());
+            mRecordingStartView.setText(mTrack.getRecordingStart().toString());
+            mRecordingStopView.setText(mTrack.getRecordingStop().toString());
+
+            // draw track on map
+            drawTrackOverlay(mTrack);
+        } else {
+            position = new GeoPoint(DEFAULT_LATITUDE, DEFAULT_LONGITUDE);
+        }
+
+        // center map over position
+        mController.setCenter(position);
+
+
+
+    }
+
+
+    /* Draws track onto overlay */
+    private void drawTrackOverlay(Track track) {
+        mMapView.getOverlays().remove(mTrackOverlay);
+        mTrackOverlay = MapHelper.createTrackOverlay(mActivity, track, false);
+        mMapView.getOverlays().add(mTrackOverlay);
+    }
+
+    /**
+     * Inner class: Loads track from external storage using AsyncTask
+     */
+    private class LoadTrackAsyncHelper extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            LogHelper.v(LOG_TAG, "Loading track object in background.");
+            // save track object
+            StorageHelper storageHelper = new StorageHelper(mActivity);
+            mTrack = storageHelper.loadTrack(storageHelper.getMostCurrentTrack());
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            // clear track object
+            LogHelper.v(LOG_TAG, "Display map and statistics of track.");
+            displayTrack();
+        }
+    }
 
 }

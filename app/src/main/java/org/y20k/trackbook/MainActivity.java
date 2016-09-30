@@ -72,16 +72,18 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys, Di
     private FloatingActionButton mFloatingActionButton;
     private MainActivityMapFragment mMainActivityMapFragment;
     private BroadcastReceiver mTrackingStoppedReceiver;
+    private int mSelectedTab;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // set state of tracking
+        // get state of tracking and get selected tab
         mTrackerServiceRunning = false;
         if (savedInstanceState != null) {
             mTrackerServiceRunning = savedInstanceState.getBoolean(INSTANCE_TRACKING_STATE, false);
+            mSelectedTab = savedInstanceState.getInt(INSTANCE_SELECTED_TAB, 0);
         }
 
         // check permissions on Android 6 and higher
@@ -144,6 +146,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys, Di
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState.putBoolean(INSTANCE_TRACKING_STATE, mTrackerServiceRunning);
+        outState.putInt(INSTANCE_SELECTED_TAB, mSelectedTab);
         super.onSaveInstanceState(outState);
     }
 
@@ -301,11 +304,38 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys, Di
             SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
             // Set up the ViewPager with the sections adapter.
-            ViewPager viewPager = (ViewPager) findViewById(R.id.container);
-            viewPager.setAdapter(sectionsPagerAdapter);
+            ViewPager mViewPager = (ViewPager) findViewById(R.id.container);
+            mViewPager.setAdapter(sectionsPagerAdapter);
+            mViewPager.setCurrentItem(mSelectedTab);
 
             TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-            tabLayout.setupWithViewPager(viewPager);
+            tabLayout.setupWithViewPager(mViewPager);
+            tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                @Override
+                public void onTabSelected(TabLayout.Tab tab) {
+                    switch (tab.getPosition()) {
+                        case 0:
+                            mFloatingActionButton.show();
+                            break;
+                        case 1:
+                            mFloatingActionButton.hide();
+                            break;
+                        default:
+                            mFloatingActionButton.show();
+                            break;
+                    }
+                }
+
+                @Override
+                public void onTabUnselected(TabLayout.Tab tab) {
+
+                }
+
+                @Override
+                public void onTabReselected(TabLayout.Tab tab) {
+
+                }
+            });
             /* END NEW STUFF */
 
             // get reference to fragment
@@ -479,7 +509,6 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys, Di
     }
 
 
-
     /**
      * Inner class: SectionsPagerAdapter that returns a fragment corresponding to one of the tabs.
      * see also: https://developer.android.com/reference/android/support/v4/app/FragmentPagerAdapter.html
@@ -526,6 +555,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys, Di
             }
             return null;
         }
+
     }
     /**
      * End of inner class

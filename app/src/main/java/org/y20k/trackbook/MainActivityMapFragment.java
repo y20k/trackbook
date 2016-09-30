@@ -168,12 +168,17 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
         // add multi-touch capability
         mMapView.setMultiTouchControls(true);
 
+        // add compass to map
+        CompassOverlay compassOverlay = new CompassOverlay(mActivity, new InternalCompassOrientationProvider(mActivity), mMapView);
+        compassOverlay.enableCompass();
+        mMapView.getOverlays().add(compassOverlay);
+
         // initiate map state
         if (savedInstanceState != null) {
             // restore saved instance of map
-            GeoPoint position = new GeoPoint(savedInstanceState.getDouble(INSTANCE_LATITUDE, DEFAULT_LATITUDE), savedInstanceState.getDouble(INSTANCE_LONGITUDE, DEFAULT_LONGITUDE));
+            GeoPoint position = new GeoPoint(savedInstanceState.getDouble(INSTANCE_LATITUDE_MAIN_MAP, DEFAULT_LATITUDE), savedInstanceState.getDouble(INSTANCE_LONGITUDE_MAIN_MAP, DEFAULT_LONGITUDE));
             mController.setCenter(position);
-            mController.setZoom(savedInstanceState.getInt(INSTANCE_ZOOM_LEVEL, 16));
+            mController.setZoom(savedInstanceState.getInt(INSTANCE_ZOOM_LEVEL_MAIN_MAP, 16));
             // restore current location
             mCurrentBestLocation = savedInstanceState.getParcelable(INSTANCE_CURRENT_LOCATION);
         } else if (mCurrentBestLocation != null) {
@@ -191,16 +196,11 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
 
         // restore track
         if (savedInstanceState != null) {
-            mTrack = savedInstanceState.getParcelable(INSTANCE_TRACK);
+            mTrack = savedInstanceState.getParcelable(INSTANCE_TRACK_MAIN_MAP);
         }
         if (mTrack != null) {
             drawTrackOverlay(mTrack);
         }
-
-        // add compass to map
-        CompassOverlay compassOverlay = new CompassOverlay(mActivity, new InternalCompassOrientationProvider(mActivity), mMapView);
-        compassOverlay.enableCompass();
-        mMapView.getOverlays().add(compassOverlay);
 
         // mark user's location on map
         if (mCurrentBestLocation != null && !mTrackerServiceRunning) {
@@ -297,11 +297,14 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
 
                 // get current position
                 GeoPoint position;
-                if (mCurrentBestLocation == null) {
+
+                if (mTrackerServiceRunning) {
+                    // get current Location from tracker service
+                    mCurrentBestLocation = mTrack.getWayPointLocation(mTrack.getSize());
+                } else if (mCurrentBestLocation == null) {
                     // app does not have any location fix
                     mCurrentBestLocation = LocationHelper.determineLastKnownLocation(mLocationManager);
                 }
-
 
                 // check if really got a position
                 if (mCurrentBestLocation != null) {
@@ -328,9 +331,6 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
                     return false;
                 }
 
-
-
-
             // CASE DEFAULT
             default:
                 return super.onOptionsItemSelected(item);
@@ -341,12 +341,12 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         outState.putBoolean(INSTANCE_FIRST_START, mFirstStart);
-        outState.putDouble(INSTANCE_LATITUDE, mMapView.getMapCenter().getLatitude());
-        outState.putDouble(INSTANCE_LONGITUDE, mMapView.getMapCenter().getLongitude());
-        outState.putInt(INSTANCE_ZOOM_LEVEL, mMapView.getZoomLevel());
         outState.putParcelable(INSTANCE_CURRENT_LOCATION, mCurrentBestLocation);
-        outState.putParcelable(INSTANCE_TRACK, mTrack);
         outState.putBoolean(INSTANCE_TRACKING_STATE, mTrackerServiceRunning);
+        outState.putDouble(INSTANCE_LATITUDE_MAIN_MAP, mMapView.getMapCenter().getLatitude());
+        outState.putDouble(INSTANCE_LONGITUDE_MAIN_MAP, mMapView.getMapCenter().getLongitude());
+        outState.putInt(INSTANCE_ZOOM_LEVEL_MAIN_MAP, mMapView.getZoomLevel());
+        outState.putParcelable(INSTANCE_TRACK_MAIN_MAP, mTrack);
         super.onSaveInstanceState(outState);
     }
 

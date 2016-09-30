@@ -150,13 +150,13 @@ public final class MapHelper {
                     @Override
                     public boolean onItemSingleTapUp(final int index, final OverlayItem item) {
                         Toast.makeText(context, item.getTitle() + " | " + item.getSnippet(), Toast.LENGTH_LONG).show();
-                        LogHelper.v(LOG_TAG, "Tap on a track crumb icon detected. Measured distance: " + item.getTitle());
+                        LogHelper.v(LOG_TAG, "Tap on waypoint. " + item.getTitle());
                         return true;
                     }
 
                     @Override
                     public boolean onItemLongPress(final int index, final OverlayItem item) {
-                        LogHelper.v(LOG_TAG, "Long press on a track crumb icon detected. Timestamp: " + item.getSnippet());
+                        LogHelper.v(LOG_TAG, "Long press on waypoint. " + item.getSnippet());
                         return true;
                     }
 

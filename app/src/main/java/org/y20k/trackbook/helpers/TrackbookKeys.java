@@ -57,12 +57,17 @@ public interface TrackbookKeys {
 
     /* INSTANCE STATE */
     String INSTANCE_FIRST_START = "firstStart";
-    String INSTANCE_LATITUDE = "latitude";
-    String INSTANCE_LONGITUDE = "longitude";
-    String INSTANCE_ZOOM_LEVEL = "zoomLevel";
-    String INSTANCE_CURRENT_LOCATION = "currentLocation";
     String INSTANCE_TRACKING_STATE = "trackingState";
-    String INSTANCE_TRACK = "track";
+    String INSTANCE_SELECTED_TAB = "selectedTab";
+    String INSTANCE_TRACK_MAIN_MAP = "trackMainMap";
+    String INSTANCE_LATITUDE_MAIN_MAP = "latitudeMainMap";
+    String INSTANCE_LONGITUDE_MAIN_MAP = "longitudeMainMap";
+    String INSTANCE_ZOOM_LEVEL_MAIN_MAP = "zoomLevelMainMap";
+    String INSTANCE_TRACK_TRACK_MAP = "trackTrackMap";
+    String INSTANCE_LATITUDE_TRACK_MAP = "latitudeTrackMap";
+    String INSTANCE_LONGITUDE_TRACK_MAP = "longitudeTrackMap";
+    String INSTANCE_ZOOM_LEVEL_TRACK_MAP = "zoomLevelTrackMap";
+    String INSTANCE_CURRENT_LOCATION = "currentLocation";
 
     /* RESULTS */
 
@@ -72,7 +77,6 @@ public interface TrackbookKeys {
     long FIFTEEN_SECONDS_IN_MILLISECONDS = 15000; // timer interval for tracking
     long FIVE_MINUTES_IN_NANOSECONDS = 5L * 60000000000L; // determines a stop over
     long TWO_MINUTES_IN_NANOSECONDS = 2L * 60000000000L; // defines an old location
-
 
     /* MISC */
     int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
