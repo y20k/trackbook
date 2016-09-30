@@ -139,9 +139,11 @@ public final class LocationHelper implements TrackbookKeys {
     public static boolean isNewWayPoint(Location lastLocation, Location newLocation, float averageSpeed) {
         float distance = newLocation.distanceTo(lastLocation);
         long timeDifference = newLocation.getElapsedRealtimeNanos() - lastLocation.getElapsedRealtimeNanos();
+        String providerLastLocation = lastLocation.getProvider();
+        String providerNewLocation = newLocation.getProvider();
 
         if (newLocation.getProvider().equals(LocationManager.NETWORK_PROVIDER)) {
-            // SPECIAL CASE network: plausibility check for network provider. looking for sudden location jump errors
+            // calculate speed difference
             float speedDifference;
             float currentSpeed = distance / ((float)timeDifference / ONE_NANOSECOND);
             if (currentSpeed > averageSpeed) {
@@ -149,14 +151,21 @@ public final class LocationHelper implements TrackbookKeys {
             } else {
                 speedDifference = averageSpeed / currentSpeed;
             }
-            // check if speed is high (10 m/s == 36km/h) and has doubled
+
+            // SPECIAL CASE network: plausibility check for network provider. looking for sudden location jump errors
             if (averageSpeed != 0f && currentSpeed > 10f && speedDifference > 2f) {
-                // implausible location
+                // implausible location (speed is high (10 m/s == 36km/h) and has doubled)
                 return false;
             }
 
-            // DEFAULT network: distance is bigger than 50 meters and time difference bigger than 12 seconds
-            return distance > 50 && timeDifference >= 12 * ONE_NANOSECOND;
+            // SPECIAL CASE network: if last location came from gps. only accept location fixes with decent accuracy
+            if (lastLocation.getProvider().equals(LocationManager.GPS_PROVIDER) && newLocation.getAccuracy() < 66) {
+                // network locations tend to be too in accurate
+                return false;
+            }
+
+            // DEFAULT network: distance is bigger than 30 meters and time difference bigger than 12 seconds
+            return distance > 30 && timeDifference >= 12 * ONE_NANOSECOND;
 
         } else {
             // DEFAULT GPS: distance is bigger than 10 meters and time difference bigger than 12 seconds
