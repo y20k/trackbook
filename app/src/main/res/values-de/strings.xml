@@ -49,6 +49,16 @@
     <string name="marker_description_source">Quelle</string>
     <string name="marker_description_accuracy">Genauigkeit</string>
 
+    <!-- statistics sheet -->
+    <string name="statistics_sheet_h1_statistics">Statistik</string>
+    <string name="statistics_sheet_p_default_data">keine Daten vorhanden</string>
+    <string name="statistics_sheet_p_distance">Distanz (gesamt):</string>
+    <string name="statistics_sheet_p_steps">Schrittzähler:</string>
+    <string name="statistics_sheet_p_waypoints">Aufgezeichnete Wegpunkte:</string>
+    <string name="statistics_sheet_p_duration">Dauer (gesamt):</string>
+    <string name="statistics_sheet_p_recording_start">Start der Aufzeichnung:</string>
+    <string name="statistics_sheet_p_recording_stop">Ende der Aufzeichnung:</string>
+
     <!-- onboarding layout -->
     <string name="layout_onboarding_h1_welcome">Hallo</string>
     <string name="layout_onboarding_description_app_icon">Trackbook App Icon</string>
