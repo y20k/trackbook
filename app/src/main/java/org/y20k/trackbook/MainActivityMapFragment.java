@@ -300,7 +300,7 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
 
                 if (mTrackerServiceRunning) {
                     // get current Location from tracker service
-                    mCurrentBestLocation = mTrack.getWayPointLocation(mTrack.getSize());
+                    mCurrentBestLocation = mTrack.getWayPointLocation(mTrack.getSize() - 1);
                 } else if (mCurrentBestLocation == null) {
                     // app does not have any location fix
                     mCurrentBestLocation = LocationHelper.determineLastKnownLocation(mLocationManager);
@@ -394,8 +394,8 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
         }
 
         // save track object
-        SaveTrackAsyncHelper saveTrackAsyncHelper = new SaveTrackAsyncHelper();
-        saveTrackAsyncHelper.execute();
+//        SaveTrackAsyncHelper saveTrackAsyncHelper = new SaveTrackAsyncHelper();
+//        saveTrackAsyncHelper.execute();
         // TODO add toast indicating track save
     }
 

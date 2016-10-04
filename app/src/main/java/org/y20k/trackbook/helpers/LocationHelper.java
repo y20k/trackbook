@@ -165,7 +165,7 @@ public final class LocationHelper implements TrackbookKeys {
             }
 
             // DEFAULT network: distance is bigger than 30 meters and time difference bigger than 12 seconds
-            return distance > 30 && timeDifference >= 12 * ONE_NANOSECOND;
+            return distance > 30 && timeDifference >= 12 * ONE_NANOSECOND; // TODO add minimal accuracy
 
         } else {
             // DEFAULT GPS: distance is bigger than 10 meters and time difference bigger than 12 seconds
