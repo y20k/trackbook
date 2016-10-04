@@ -85,7 +85,7 @@ public class StorageHelper implements TrackbookKeys {
             recordingStart = track.getRecordingStart();
         }
 
-        if (mFolder.exists() && mFolder.isDirectory() && mFolder.canWrite() && recordingStart != null && track != null) {
+        if (mFolder != null && mFolder.exists() && mFolder.isDirectory() && mFolder.canWrite() && recordingStart != null && track != null) {
             // construct filename from track recording date
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss", Locale.US);
             String fileName = dateFormat.format(recordingStart) + mFileExtension;
