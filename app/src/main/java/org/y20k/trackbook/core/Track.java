@@ -46,7 +46,6 @@ public class Track implements TrackbookKeys, Parcelable {
     private float mTrackLength;
     private long mDuration;
     private float mStepCount;
-    private int mUnitSystem;
     private Date mRecordingStart;
     private Date mRecordingStop;
 
@@ -56,7 +55,6 @@ public class Track implements TrackbookKeys, Parcelable {
         mWayPoints = new ArrayList<WayPoint>();
         mTrackLength = 0;
         mStepCount = 0;
-        mUnitSystem = getUnitSystem(Locale.getDefault());
         mRecordingStart = GregorianCalendar.getInstance().getTime();
         mRecordingStop = mRecordingStart;
     }
@@ -67,7 +65,6 @@ public class Track implements TrackbookKeys, Parcelable {
         mWayPoints = in.createTypedArrayList(WayPoint.CREATOR);
         mTrackLength = in.readFloat();
         mStepCount = in.readFloat();
-        mUnitSystem = in.readInt();
         mRecordingStart = new Date(in.readLong());
         mRecordingStop = new Date(in.readLong());
     }
@@ -174,7 +171,7 @@ public class Track implements TrackbookKeys, Parcelable {
         float trackDistance;
         String unit;
 
-        if (mUnitSystem == IMPERIAL) {
+        if (getUnitSystem(Locale.getDefault()) == IMPERIAL) {
             // get track distance and convert to feet
             trackDistance = mWayPoints.get(mWayPoints.size()-1).getDistanceToStartingPoint() * 3.28084f;
             unit = "ft";
@@ -216,11 +213,10 @@ public class Track implements TrackbookKeys, Parcelable {
 
 
     @Override
-    public void writeToParcel(Parcel parcel, int i) {
+    public void writeToParcel(Parcel parcel, int flags) {
         parcel.writeTypedList(mWayPoints);
         parcel.writeFloat(mTrackLength);
         parcel.writeFloat(mStepCount);
-        parcel.writeInt(mUnitSystem);
         parcel.writeLong(mRecordingStart.getTime());
         parcel.writeLong(mRecordingStop.getTime());
     }

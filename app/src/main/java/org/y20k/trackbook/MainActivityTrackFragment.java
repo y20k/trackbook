@@ -41,6 +41,8 @@ import org.y20k.trackbook.helpers.MapHelper;
 import org.y20k.trackbook.helpers.StorageHelper;
 import org.y20k.trackbook.helpers.TrackbookKeys;
 
+import java.text.DateFormat;
+
 
 /**
  * MainActivityTrackFragment class
@@ -126,7 +128,18 @@ public class MainActivityTrackFragment extends Fragment implements TrackbookKeys
         mRecordingStopView = (TextView) mRootView.findViewById(R.id.statistics_data_recording_stop);
         mStatisticsSheet = mRootView.findViewById(R.id.statistic_sheet);
 
+        if (mTrack == null) {
+            // load track and display map and statistics
+            LoadTrackAsyncHelper loadTrackAsyncHelper = new LoadTrackAsyncHelper();
+            loadTrackAsyncHelper.execute();
+        } else {
+            // display map and statistics
+            displayTrack();
+        }
+
+        // show statistics sheet
         mStatisticsSheetBehavior = BottomSheetBehavior.from(mStatisticsSheet);
+        mStatisticsSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
 
         return mRootView;
     }
@@ -136,12 +149,6 @@ public class MainActivityTrackFragment extends Fragment implements TrackbookKeys
     public void onResume() {
         super.onResume();
         LogHelper.v(LOG_TAG, "TrackFragment: onResume called.");
-
-        // load track and display map and statistics
-        LoadTrackAsyncHelper loadTrackAsyncHelper = new LoadTrackAsyncHelper();
-        loadTrackAsyncHelper.execute();
-
-        mStatisticsSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
 
     }
 
@@ -181,13 +188,18 @@ public class MainActivityTrackFragment extends Fragment implements TrackbookKeys
             Location lastLocation = mTrack.getWayPointLocation(mTrack.getSize() -1);
             position = new GeoPoint(lastLocation.getLatitude(), lastLocation.getLongitude());
 
+            String recordingStart = DateFormat.getDateInstance(DateFormat.SHORT).format(mTrack.getRecordingStart()) + " " +
+                    DateFormat.getTimeInstance(DateFormat.SHORT).format(mTrack.getRecordingStart());
+            String recordingStop = DateFormat.getDateInstance(DateFormat.SHORT).format(mTrack.getRecordingStop()) + " " +
+                    DateFormat.getTimeInstance(DateFormat.SHORT).format(mTrack.getRecordingStop());
+
             // populate views
             mDistanceView.setText(mTrack.getTrackDistance());
             mStepsView.setText(String.valueOf(Math.round(mTrack.getStepCount())));
             mWaypointsView.setText(String.valueOf(mTrack.getWayPoints().size()));
             mDurationView.setText(mTrack.getTrackDuration());
-            mRecordingStartView.setText(mTrack.getRecordingStart().toString());
-            mRecordingStopView.setText(mTrack.getRecordingStop().toString());
+            mRecordingStartView.setText(recordingStart);
+            mRecordingStopView.setText(recordingStop);
 
             // draw track on map
             drawTrackOverlay(mTrack);
@@ -228,6 +240,7 @@ public class MainActivityTrackFragment extends Fragment implements TrackbookKeys
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             // clear track object
+//            LogHelper.v(LOG_TAG, "!!! TRACK:" + mTrack.getWayPoints().get(0).getLocation().getExtras());
             LogHelper.v(LOG_TAG, "Display map and statistics of track.");
             displayTrack();
         }

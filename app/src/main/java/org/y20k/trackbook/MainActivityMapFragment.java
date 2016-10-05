@@ -140,6 +140,9 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
             mCurrentBestLocation.setLongitude(DEFAULT_LONGITUDE);
         }
 
+        LogHelper.v(LOG_TAG, "!!! TRACK:" + mCurrentBestLocation.getExtras());
+
+
         // get state of location system setting
         mLocationSystemSetting = LocationHelper.checkLocationSystemSetting(mActivity);
 
@@ -394,8 +397,8 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
         }
 
         // save track object
-//        SaveTrackAsyncHelper saveTrackAsyncHelper = new SaveTrackAsyncHelper();
-//        saveTrackAsyncHelper.execute();
+        SaveTrackAsyncHelper saveTrackAsyncHelper = new SaveTrackAsyncHelper();
+        saveTrackAsyncHelper.execute();
         // TODO add toast indicating track save
     }
 
