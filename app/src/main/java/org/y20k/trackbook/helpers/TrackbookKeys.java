@@ -69,6 +69,10 @@ public interface TrackbookKeys {
     String INSTANCE_ZOOM_LEVEL_TRACK_MAP = "zoomLevelTrackMap";
     String INSTANCE_CURRENT_LOCATION = "currentLocation";
 
+    /* FRAGMENT IDS */
+    int FRAGMENT_ID_MAP = 0;
+    int FRAGMENT_ID_TRACK = 1;
+
     /* RESULTS */
 
     /* CONSTANTS */

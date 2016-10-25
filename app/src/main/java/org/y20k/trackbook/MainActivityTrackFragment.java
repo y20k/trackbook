@@ -133,7 +133,7 @@ public class MainActivityTrackFragment extends Fragment implements TrackbookKeys
             LoadTrackAsyncHelper loadTrackAsyncHelper = new LoadTrackAsyncHelper();
             loadTrackAsyncHelper.execute();
         } else {
-            // display map and statistics
+            // just display map and statistics
             displayTrack();
         }
 
@@ -176,6 +176,20 @@ public class MainActivityTrackFragment extends Fragment implements TrackbookKeys
         outState.putInt(INSTANCE_ZOOM_LEVEL_TRACK_MAP, mMapView.getZoomLevel());
         outState.putParcelable(INSTANCE_TRACK_TRACK_MAP, mTrack);
         super.onSaveInstanceState(outState);
+    }
+
+
+    /* Removes current track display */
+    public void refreshTrackView() {
+
+        // remove previous track
+        if (mMapView != null && mTrackOverlay != null) {
+            mMapView.getOverlays().remove(mTrackOverlay);
+        }
+
+        // load track and display map and statistics
+        LoadTrackAsyncHelper loadTrackAsyncHelper = new LoadTrackAsyncHelper();
+        loadTrackAsyncHelper.execute();
     }
 
 
@@ -239,8 +253,6 @@ public class MainActivityTrackFragment extends Fragment implements TrackbookKeys
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            // clear track object
-//            LogHelper.v(LOG_TAG, "!!! TRACK:" + mTrack.getWayPoints().get(0).getLocation().getExtras());
             LogHelper.v(LOG_TAG, "Display map and statistics of track.");
             displayTrack();
         }

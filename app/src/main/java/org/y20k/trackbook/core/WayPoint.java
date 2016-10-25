@@ -17,6 +17,7 @@
 package org.y20k.trackbook.core;
 
 import android.location.Location;
+import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -29,12 +30,23 @@ public class WayPoint implements Parcelable {
     private Location mLocation;
     private boolean mIsStopOver;
     private float mDistanceToStartingPoint;
+    private int mNumberSatellites;
 
     /* Constructor */
     public WayPoint(Location location, boolean isStopOver, float distanceToStartingPoint) {
         mLocation = location;
         mIsStopOver = isStopOver;
         mDistanceToStartingPoint = distanceToStartingPoint;
+
+        // save number of satellites
+        Bundle extras = location.getExtras();
+        if (extras != null && extras.containsKey("satellites")) {
+            mNumberSatellites = extras.getInt("satellites", 0);
+            mLocation.setExtras(null); // necessary because Location Extras cause cannot be serialized properly by GSON
+        } else {
+            mNumberSatellites = 0;
+        }
+
     }
 
     /* Constructor used by CREATOR */
@@ -43,6 +55,7 @@ public class WayPoint implements Parcelable {
         mLocation = Location.CREATOR.createFromParcel(in);
         mIsStopOver = in.readByte() != 0;
         mDistanceToStartingPoint = in.readFloat();
+        mNumberSatellites = in.readInt();
     }
 
 
@@ -104,9 +117,10 @@ public class WayPoint implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
 //        parcel.writeParcelable(mLocation, flags);
-        mLocation.setExtras(null); // necessary because: Location Extras cause cannot be serialized properly by GSON
+        mLocation.setExtras(null); // necessary because Location Extras cause cannot be serialized properly by GSON
         mLocation.writeToParcel(parcel, flags);
         parcel.writeByte((byte) (mIsStopOver ? 1 : 0));
         parcel.writeFloat(mDistanceToStartingPoint);
+        parcel.writeInt(mNumberSatellites);
     }
 }

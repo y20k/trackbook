@@ -42,6 +42,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -71,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys, Di
     private List<String> mMissingPermissions;
     private FloatingActionButton mFloatingActionButton;
     private MainActivityMapFragment mMainActivityMapFragment;
+    private MainActivityTrackFragment mMainActivityTrackFragment;
     private BroadcastReceiver mTrackingStoppedReceiver;
     private int mSelectedTab;
 
@@ -101,7 +103,39 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys, Di
 
         // set up main layout
         setupLayout();
-//        setupTestLayout();
+
+
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        // add listeners to button
+        if (mFloatingActionButton != null) {
+            mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // onClick: start / stop tracking
+                    handleFloatingActionButtonClick(view);
+                }
+            });
+            mFloatingActionButton.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    // onLongClick: clear map
+                    if (mTrackerServiceRunning || mMainActivityMapFragment == null) {
+                        return false;
+                    } else {
+                        // show clear dialog
+                        DialogFragment dialog = new DialogClearFragment();
+                        dialog.show(getFragmentManager(), "DialogClearFragment");
+                        return true;
+                    }
+                }
+            });
+        }
 
         // register broadcast receiver for stopped tracking
         mTrackingStoppedReceiver = createTrackingStoppedReceiver();
@@ -216,6 +250,9 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys, Di
         // clear the map
         mMainActivityMapFragment.clearMap();
 
+        // reset current track
+        mMainActivityTrackFragment.refreshTrackView();
+
         // dismiss notification
         NotificationHelper.stop();
     }
@@ -232,75 +269,13 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys, Di
     private void setupLayout() {
         if (mPermissionsGranted) {
             // point to the main map layout
-            setContentView(R.layout.activity_main);
-
-            // show action bar
-            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-            setSupportActionBar(toolbar);
-
-            // get reference to fragment
-            mMainActivityMapFragment = (MainActivityMapFragment)getSupportFragmentManager().findFragmentById(R.id.content_main);
-
-            // show the record button and attach listener
-            mFloatingActionButton = (FloatingActionButton) findViewById(R.id.fab);
-            mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    // onClick: start / stop tracking
-                    handleFloatingActionButtonClick(view);
-                }
-            });
-            mFloatingActionButton.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View view) {
-                    // onLongClick: clear map
-                    if (mTrackerServiceRunning || mMainActivityMapFragment == null) {
-                        return false;
-                    } else {
-                        // show clear dialog
-                        DialogFragment dialog = new DialogClearFragment();
-                        dialog.show(getFragmentManager(), "DialogClearFragment");
-                        return true;
-                    }
-                }
-            });
-
-        } else {
-            // point to the on main onboarding layout
-            setContentView(R.layout.activity_main_onboarding);
-
-            // show the okay button and attach listener
-            Button okButton = (Button) findViewById(R.id.button_okay);
-            okButton.setOnClickListener(new View.OnClickListener() {
-                @TargetApi(Build.VERSION_CODES.M)
-                @Override
-                public void onClick(View view) {
-                    if (mMissingPermissions != null && !mMissingPermissions.isEmpty()) {
-                        // request permissions
-                        String[] params = mMissingPermissions.toArray(new String[mMissingPermissions.size()]);
-                        requestPermissions(params, REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
-                    }
-                }
-            });
-
-        }
-
-    }
-
-
-    /* TEST: Set up main layout */
-    private void setupTestLayout() {
-        if (mPermissionsGranted) {
-            // point to the main map layout
             setContentView(R.layout.activity_main_test);
 
             // show action bar
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
 
-            /* BEGIN NEW STUFF */
-            // Create the adapter that will return a fragment for each of the three
-            // primary sections of the activity.
+            // create adapter that returns fragments for the maim map and the last track display
             SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
             // Set up the ViewPager with the sections adapter.
@@ -314,10 +289,10 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys, Di
                 @Override
                 public void onTabSelected(TabLayout.Tab tab) {
                     switch (tab.getPosition()) {
-                        case 0:
+                        case FRAGMENT_ID_MAP:
                             mFloatingActionButton.show();
                             break;
-                        case 1:
+                        case FRAGMENT_ID_TRACK:
                             mFloatingActionButton.hide();
                             break;
                         default:
@@ -336,31 +311,9 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys, Di
 
                 }
             });
-            /* END NEW STUFF */
-
-            // get reference to fragment
-            mMainActivityMapFragment = (MainActivityMapFragment)getSupportFragmentManager().findFragmentById(R.id.content_main);
 
             // show the record button and attach listener
             mFloatingActionButton = (FloatingActionButton) findViewById(R.id.fab);
-            mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    // onClick: start / stop tracking
-                    handleFloatingActionButtonClick(view);
-                }
-            });
-            mFloatingActionButton.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View view) {
-                    // onLongClick: clear map
-                    if (mTrackerServiceRunning || mMainActivityMapFragment == null) {
-                        return false;
-                    } else {
-                        return true;
-                    }
-                }
-            });
 
         } else {
             // point to the on main onboarding layout
@@ -383,8 +336,6 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys, Di
         }
 
     }
-
-
 
 
     /* Handles tap on the record button */
@@ -523,17 +474,9 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys, Di
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             switch (position) {
-                case 0:
-//                    if (mMainActivityMapFragment == null) {
-//                        mMainActivityMapFragment = new MainActivityMapFragment();
-//                    }
-//                    return mMainActivityMapFragment;
+                case FRAGMENT_ID_MAP:
                     return new MainActivityMapFragment();
-                case 1:
-//                    if (mMainActivityMapFragment == null) {
-//                        mMainActivityMapFragment = new MainActivityMapFragment();
-//                    }
-//                    return mMainActivityMapFragment;
+                case FRAGMENT_ID_TRACK:
                     return new MainActivityTrackFragment();
             }
             return null;
@@ -548,14 +491,28 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys, Di
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position) {
-                case 0:
+                case FRAGMENT_ID_MAP:
                     return getString(R.string.tab_map);
-                case 1:
+                case FRAGMENT_ID_TRACK:
                     return getString(R.string.tab_last_track);
             }
             return null;
         }
 
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            Fragment createdFragment = (Fragment) super.instantiateItem(container, position);
+            // save references to created Fragments
+            switch (position) {
+                case FRAGMENT_ID_MAP:
+                    mMainActivityMapFragment = (MainActivityMapFragment)createdFragment;
+                    break;
+                case FRAGMENT_ID_TRACK:
+                    mMainActivityTrackFragment = (MainActivityTrackFragment)createdFragment;
+                    break;
+            }
+            return createdFragment;
+        }
     }
     /**
      * End of inner class
