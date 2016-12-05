@@ -90,4 +90,22 @@
     <string name="infosheet_about_h3_external">Berechtigung WRITE_EXTERNAL_STORAGE</string>
     <string name="infosheet_about_p_external">Trackbook nutzt osmdroid. osmdroid speichert Kartendaten im Externen Speicher von Android. Der Karten-Cache befindet sich im Ordner osmdroid auf der obersten Ebene des für Nutzer sichtbaren Dateisystems.</string>
 
+    <!-- descriptions -->
+    <string name="descr_map_current_track">Karte der aktuellen Aufzeichnung</string>
+    <string name="descr_map_last_track">Karte der letzten Aufzeichnung</string>
+    <string name="descr_statistics_sheet_headline">Überschrift der Statistik-Einblendung</string>
+    <string name="descr_statistics_sheet_icon">Icon Balkendiagramm</string>
+    <string name="descr_statistics_sheet_p_distance">Datenpunkt: Distanz</string>
+    <string name="descr_statistics_sheet_p_steps">Datenpunkt: Schritte</string>
+    <string name="descr_statistics_sheet_p_waypoints">Datenpunkt: Wegpunkte</string>
+    <string name="descr_statistics_sheet_p_duration">Datenpunkt: Dauer</string>
+    <string name="descr_statistics_sheet_p_recording_start">Datenpunkt: Start der Aufzeichnung</string>
+    <string name="descr_statistics_sheet_p_recording_end">Datenpunkt: Ende der Aufzeichnung</string>
+    <string name="descr_statistics_sheet_p_distance_value">Wert: Distanz</string>
+    <string name="descr_statistics_sheet_p_steps_value">Wert: Schritte</string>
+    <string name="descr_statistics_sheet_p_waypoints_value">Wert: Wegpunkte</string>
+    <string name="descr_statistics_sheet_p_duration_value">Wert: Dauer</string>
+    <string name="descr_statistics_sheet_p_recording_start_value">Wert: Start der Aufzeichnung</string>
+    <string name="descr_statistics_sheet_p_recording_end_value">Wert: Ende der Aufzeichnung</string>
+
 </resources>

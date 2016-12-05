@@ -59,7 +59,6 @@
     <string name="statistics_sheet_p_recording_start">Recording started:</string>
     <string name="statistics_sheet_p_recording_stop">Recording stopped:</string>
 
-
     <!-- onboarding layout -->
     <string name="layout_onboarding_h1_welcome">Hello</string>
     <string name="layout_onboarding_description_app_icon">Trackbook App Icon</string>
@@ -90,5 +89,23 @@
     <string name="infosheet_about_p_location">Trackbook needs accurate GPS location data to be able to record your movements. If the GPS data is not available or not accurate enough Trackbook uses location data from cell tower and WiFi triangulation.</string>
     <string name="infosheet_about_h3_external">Permission WRITE_EXTERNAL_STORAGE</string>
     <string name="infosheet_about_p_external">Trackbook uses osmdroid, which caches map tiles on Android\'s external storage. You can find the map cache in the osmdroid folder on the top level of the user-facing file system.</string>
+
+    <!-- descriptions -->
+    <string name="descr_map_current_track">Map of the current track</string>
+    <string name="descr_map_last_track">Map of the last track</string>
+    <string name="descr_statistics_sheet_headline">Headline of the statistics sheet</string>
+    <string name="descr_statistics_sheet_icon">Icon of a bar chart</string>
+    <string name="descr_statistics_sheet_p_distance">Data point: distance</string>
+    <string name="descr_statistics_sheet_p_steps">Data point: steps</string>
+    <string name="descr_statistics_sheet_p_waypoints">Data point: waypoints</string>
+    <string name="descr_statistics_sheet_p_duration">Data point: duration</string>
+    <string name="descr_statistics_sheet_p_recording_start">Data point: start of recording</string>
+    <string name="descr_statistics_sheet_p_recording_end">Data point: end of recording</string>
+    <string name="descr_statistics_sheet_p_distance_value">Value: distance</string>
+    <string name="descr_statistics_sheet_p_steps_value">Value: steps</string>
+    <string name="descr_statistics_sheet_p_waypoints_value">Value: waypoints</string>
+    <string name="descr_statistics_sheet_p_duration_value">Value: duration</string>
+    <string name="descr_statistics_sheet_p_recording_start_value">Value: start of recording</string>
+    <string name="descr_statistics_sheet_p_recording_end_value">Value: end of recording</string>
 
 </resources>

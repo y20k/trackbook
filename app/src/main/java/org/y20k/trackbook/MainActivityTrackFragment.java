@@ -20,8 +20,10 @@ import android.app.Activity;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,6 +61,7 @@ public class MainActivityTrackFragment extends Fragment implements TrackbookKeys
     private MapView mMapView;
     private IMapController mController;
     private ItemizedIconOverlay mTrackOverlay;
+    private View mStaticticsView;
     private TextView mDistanceView;
     private TextView mStepsView;
     private TextView mWaypointsView;
@@ -66,6 +69,7 @@ public class MainActivityTrackFragment extends Fragment implements TrackbookKeys
     private TextView mRecordingStartView;
     private TextView mRecordingStopView;
     private View mStatisticsSheet;
+    private Snackbar mStatisticsSnackbar;
     private BottomSheetBehavior mStatisticsSheetBehavior;
     private Track mTrack;
 
@@ -120,13 +124,14 @@ public class MainActivityTrackFragment extends Fragment implements TrackbookKeys
 
 
         // get views
+        mStaticticsView = mRootView.findViewById(R.id.statistics_view);
         mDistanceView = (TextView) mRootView.findViewById(R.id.statistics_data_distance);
         mStepsView = (TextView) mRootView.findViewById(R.id.statistics_data_steps);
         mWaypointsView = (TextView) mRootView.findViewById(R.id.statistics_data_waypoints);
         mDurationView = (TextView) mRootView.findViewById(R.id.statistics_data_duration);
         mRecordingStartView = (TextView) mRootView.findViewById(R.id.statistics_data_recording_start);
         mRecordingStopView = (TextView) mRootView.findViewById(R.id.statistics_data_recording_stop);
-        mStatisticsSheet = mRootView.findViewById(R.id.statistic_sheet);
+        mStatisticsSheet = mRootView.findViewById(R.id.statistics_sheet);
 
         if (mTrack == null) {
             // load track and display map and statistics
@@ -139,7 +144,46 @@ public class MainActivityTrackFragment extends Fragment implements TrackbookKeys
 
         // show statistics sheet
         mStatisticsSheetBehavior = BottomSheetBehavior.from(mStatisticsSheet);
-        mStatisticsSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        mStatisticsSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        mStatisticsSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                // react to state change
+                switch (newState) {
+                    case BottomSheetBehavior.STATE_EXPANDED:
+                        LogHelper.v(LOG_TAG,"Statistics sheet expanded");
+                        break;
+                    case BottomSheetBehavior.STATE_COLLAPSED:
+                        LogHelper.v(LOG_TAG,"Statistics sheet collapsed");
+                        mStatisticsSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                        break;
+                    case BottomSheetBehavior.STATE_HIDDEN:
+                        LogHelper.v(LOG_TAG,"Statistics sheet hidden");
+                        mStatisticsSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+                // react to dragging events
+            }
+        });
+
+        // react to tap on sheet heading
+        mStaticticsView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LogHelper.v(LOG_TAG,"Statistics view tapped");
+                if (mStatisticsSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
+                    mStatisticsSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                } else {
+                    mStatisticsSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                }
+            }
+        });
+
 
         return mRootView;
     }
