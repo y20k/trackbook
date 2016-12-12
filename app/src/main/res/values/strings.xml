@@ -28,11 +28,10 @@
     <string name="snackbar_message_tracking_started">Tracking started</string>
     <string name="snackbar_message_location_offline">Location is turned off. Trackbook will not work.</string>
 
-    <!-- dialogs -->
-    <string name="dialog_clear_map_title">Clear</string>
-    <string name="dialog_clear_map_message">Do you want to clear the map?</string>
-    <string name="dialog_clear_map_okay">Clear</string>
-    <string name="dialog_clear_map_cancel">Cancel</string>
+    <!-- fab sub menu -->
+    <string name="fab_sub_menu_clear">Clear</string>
+    <string name="fab_sub_menu_save_and_clear">Save and Clear</string>
+
 
     <!-- toast messages -->
     <string name="toast_message_permissions_granted">Permissions granted.</string>
@@ -42,7 +41,7 @@
     <string name="toast_message_acquiring_location">Acquiring current location.</string>
     <string name="toast_message_location_services_not_ready">Location services not ready. Please retry.</string>
     <string name="toast_message_last_location">Last location:</string>
-    <string name="toast_message_clear_map">Clearing map.</string>
+    <string name="toast_message_save_track">Saving current track.</string>
     <string name="toast_message_last_location_age_one_hour">over one hour</string>
 
     <!-- map markers -->

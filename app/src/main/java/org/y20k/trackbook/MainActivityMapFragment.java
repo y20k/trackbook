@@ -108,7 +108,7 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
             mFirstStart = savedInstanceState.getBoolean(INSTANCE_FIRST_START, true);
         }
 
-        // restore tracking state
+        // restore tracking and map state
         mTrackerServiceRunning = false;
         if (savedInstanceState != null) {
             mTrackerServiceRunning = savedInstanceState.getBoolean(INSTANCE_TRACKING_STATE, false);
@@ -235,7 +235,7 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
         // show/hide the location off notification bar
         toggleLocationOffBar();
 
-        // start preliminary tracking - if no TrackerService is running
+        // start preliminary tracking - if no TrackerService is running // TODO check if this still works in tabbed ui
         if (!mTrackerServiceRunning && mFragmentVisible) {
             startPreliminaryTracking();
         }
@@ -388,20 +388,26 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
 
 
     /* Removes track crumbs from map */
-    public void clearMap() {
-
-        LogHelper.v(LOG_TAG, "!!! Ding clear.");
+    public void clearMap(boolean saveTrack) {
 
         // clear map
         if (mTrackOverlay != null) {
-            Toast.makeText(mActivity, mActivity.getString(R.string.toast_message_clear_map), Toast.LENGTH_LONG).show();
             mMapView.getOverlays().remove(mTrackOverlay);
         }
 
-        // save track object
-        SaveTrackAsyncHelper saveTrackAsyncHelper = new SaveTrackAsyncHelper();
-        saveTrackAsyncHelper.execute();
-        // TODO add toast indicating track save
+        // save track object if requested
+        if (saveTrack) {
+            SaveTrackAsyncHelper saveTrackAsyncHelper = new SaveTrackAsyncHelper();
+            saveTrackAsyncHelper.execute();
+            Toast.makeText(mActivity, mActivity.getString(R.string.toast_message_save_track), Toast.LENGTH_LONG).show();
+        }
+
+    }
+
+
+    /* Getter for length of current track */
+    public String getCurrentTrackLength() {
+        return mTrack.getTrackDistance();
     }
 
 

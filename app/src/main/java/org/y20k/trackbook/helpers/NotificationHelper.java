@@ -114,8 +114,6 @@ public class NotificationHelper implements TrackbookKeys {
         TaskStackBuilder swipeActionIntentBuilder = TaskStackBuilder.create(mService);
         swipeActionIntentBuilder.addParentStack(MainActivity.class);
         swipeActionIntentBuilder.addNextIntent(swipeActionIntent);
-        // pending intent wrapper for notification tap
-        PendingIntent swipeActionPendingIntent = swipeActionIntentBuilder.getPendingIntent(11, PendingIntent.FLAG_UPDATE_CURRENT);
 
         // ACTION: NOTIFICATION BUTTON STOP
         Intent stopActionIntent = new Intent(mService, TrackerService.class);
@@ -136,10 +134,8 @@ public class NotificationHelper implements TrackbookKeys {
             builder.setContentTitle(mService.getString(R.string.notification_title_trackbook_running));
             builder.setContentText(contentText);
         } else {
-            builder.setDeleteIntent(swipeActionPendingIntent);
             builder.setContentTitle(mService.getString(R.string.notification_title_trackbook_not_running));
             builder.setContentText(contentText);
-            builder.setSubText(mService.getString(R.string.notification_swipe_to_clear_map));
         }
 
         return builder;

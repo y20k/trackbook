@@ -28,11 +28,9 @@
     <string name="snackbar_message_tracking_started">Tracking aktiviert</string>
     <string name="snackbar_message_location_offline">Standortdienste sind deaktiviert. Trackbook kann nicht aufzeichnen.</string>
 
-    <!-- dialogs -->
-    <string name="dialog_clear_map_title">Zurücksetzen</string>
-    <string name="dialog_clear_map_message">Möchten Sie die Karte zurücksetzen?</string>
-    <string name="dialog_clear_map_okay">Zurücksetzen</string>
-    <string name="dialog_clear_map_cancel">Abbrechen</string>
+    <!-- fab sub menu -->
+    <string name="fab_sub_menu_clear">Zurücksetzen</string>
+    <string name="fab_sub_menu_save_and_clear">Speichern und Zurücksetzen</string>
 
     <!-- toast messages -->
     <string name="toast_message_permissions_granted">Berechtigungen erteilt.</string>
@@ -42,7 +40,7 @@
     <string name="toast_message_acquiring_location">Suche aktuellen Standort.</string>
     <string name="toast_message_location_services_not_ready">Standortdienste noch nicht bereit. Bitte erneut versuchen.</string>
     <string name="toast_message_last_location">Letzte Position:</string>
-    <string name="toast_message_clear_map">Kartenansicht wird zurückgesetzt</string>
+    <string name="toast_message_save_track">Aufzeichnung wird gespeichert.</string>
     <string name="toast_message_last_location_age_one_hour">über eine Stunde</string>
 
     <!-- map markers -->

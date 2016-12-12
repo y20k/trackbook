@@ -7,7 +7,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     tools:context=".MainActivityMapFragment"
-    tools:showIn="@layout/activity_main">
+    tools:showIn="@layout/activity_main_old">
 
     <org.osmdroid.views.MapView android:id="@+id/map"
         android:layout_width="fill_parent"

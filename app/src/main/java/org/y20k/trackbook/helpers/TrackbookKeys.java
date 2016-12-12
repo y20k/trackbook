@@ -42,6 +42,8 @@ public interface TrackbookKeys {
     String ARG_PERMISSIONS_GRANTED = "ArgPermissionsGranted";
     String ARG_TRACKING_STATE = "ArgTrackingState";
     String ARG_TRACK = "ArgTrack";
+    String ARG_TRACK_VISIBLE = "ArgTrackVisible";
+    String ARG_TRACK_DISTANCE = "ArgTrackDistance";
 
     /* TAGS */
     String TAG_MAIN_ACTIVITY_FRAGMENT = "TagMainActivityFragment";
@@ -58,7 +60,9 @@ public interface TrackbookKeys {
     /* INSTANCE STATE */
     String INSTANCE_FIRST_START = "firstStart";
     String INSTANCE_TRACKING_STATE = "trackingState";
+    String INSTANCE_TRACK_VISIBLE = "trackVisible";
     String INSTANCE_SELECTED_TAB = "selectedTab";
+    String INSTANCE_FAB_SUB_MENU_VISIBLE = "fabSubMenuVisible";
     String INSTANCE_TRACK_MAIN_MAP = "trackMainMap";
     String INSTANCE_LATITUDE_MAIN_MAP = "latitudeMainMap";
     String INSTANCE_LONGITUDE_MAIN_MAP = "longitudeMainMap";

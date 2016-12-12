@@ -15,8 +15,6 @@
         android:layout_height="fill_parent"
         android:contentDescription="@string/descr_map_last_track" />
 
-<!-- TODO ADD android:contentDescription="@string/descr_xyz" -->
-
     <!-- BOTTOM SHEET -->
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/statistics_sheet"
