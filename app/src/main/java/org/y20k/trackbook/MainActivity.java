@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
 
 
     /* Main class variables */
+    private ViewPager mViewPager;
     private boolean mTrackerServiceRunning;
     private boolean mCurrentTrackVisible;
     private boolean mPermissionsGranted;
@@ -81,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     private MainActivityMapFragment mMainActivityMapFragment;
     private MainActivityTrackFragment mMainActivityTrackFragment;
     private BroadcastReceiver mTrackingStoppedReceiver;
+    private int mFloatingActionButtonState;
     private int mSelectedTab;
 
 
@@ -183,12 +185,17 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     @Override
     protected void onResume() {
         super.onResume();
+        LogHelper.v(LOG_TAG, "onResume called.");
+
+        // TODO loadAppState?
+        loadAppState(this);
 
         // handle new intents - onNewIntent does not seem to work
         handleIncomingIntent();
 
         // if not in onboarding mode: set state of FloatingActionButton
         if (mFloatingActionButton != null) {
+            LogHelper.v(LOG_TAG, "onResume: setting state of FAB.");
             setFloatingActionButtonState();
         }
     }
@@ -241,11 +248,12 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     protected void onSaveInstanceState(Bundle outState) {
         LogHelper.v(LOG_TAG, "onSaveInstanceState called.");
         outState.putBoolean(INSTANCE_TRACKING_STATE, mTrackerServiceRunning);
-        outState.putBoolean(INSTANCE_TRACK_VISIBLE, mCurrentTrackVisible);
-        outState.putBoolean(INSTANCE_FAB_SUB_MENU_VISIBLE, mFloatingActionButtonSubMenuVisible);
         outState.putInt(INSTANCE_SELECTED_TAB, mSelectedTab);
+        outState.putInt(INSTANCE_FAB_STATE, mFloatingActionButtonState);
+        outState.putBoolean(INSTANCE_FAB_SUB_MENU_VISIBLE, mFloatingActionButtonSubMenuVisible);
         super.onSaveInstanceState(outState);
     }
+
 
 
     @Override
@@ -253,9 +261,9 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
         super.onRestoreInstanceState(savedInstanceState);
         LogHelper.v(LOG_TAG, "onRestoreInstanceState called.");
         mTrackerServiceRunning = savedInstanceState.getBoolean(INSTANCE_TRACKING_STATE, false);
-        mCurrentTrackVisible = savedInstanceState.getBoolean(INSTANCE_TRACK_VISIBLE, false);
-        mFloatingActionButtonSubMenuVisible = savedInstanceState.getBoolean(INSTANCE_FAB_SUB_MENU_VISIBLE, false);
         mSelectedTab = savedInstanceState.getInt(INSTANCE_SELECTED_TAB, 0);
+        mFloatingActionButtonState = savedInstanceState.getInt(INSTANCE_FAB_STATE, FAB_STATE_DEFAULT);
+        mFloatingActionButtonSubMenuVisible = savedInstanceState.getBoolean(INSTANCE_FAB_SUB_MENU_VISIBLE, false);
     }
 
 
@@ -263,10 +271,12 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     private void saveAppState(Context context) {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = settings.edit();
-        editor.putBoolean(INSTANCE_TRACKING_STATE, mTrackerServiceRunning);
-        editor.putBoolean(INSTANCE_TRACK_VISIBLE, mCurrentTrackVisible);
-        editor.putBoolean(INSTANCE_FAB_SUB_MENU_VISIBLE, mFloatingActionButtonSubMenuVisible);
-        editor.putInt(INSTANCE_SELECTED_TAB, mSelectedTab);
+        // mCurrentTrackVisible is handled (= saved) by fragment
+
+//        editor.putBoolean(INSTANCE_FAB_SUB_MENU_VISIBLE, mFloatingActionButtonSubMenuVisible);
+//        editor.putBoolean(INSTANCE_TRACKING_STATE, mTrackerServiceRunning);
+//        editor.putInt(INSTANCE_SELECTED_TAB, mSelectedTab);
+
         editor.apply();
         LogHelper.v(LOG_TAG, "Saving state.");
     }
@@ -275,10 +285,12 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     /* Loads app state from preferences */
     private void loadAppState(Context context) {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-        mTrackerServiceRunning = settings.getBoolean(INSTANCE_TRACKING_STATE, false);
         mCurrentTrackVisible = settings.getBoolean(INSTANCE_TRACK_VISIBLE, false);
-        mFloatingActionButtonSubMenuVisible = settings.getBoolean(INSTANCE_FAB_SUB_MENU_VISIBLE, false);
-        mSelectedTab = settings.getInt(INSTANCE_SELECTED_TAB, 0);
+
+//        mFloatingActionButtonSubMenuVisible = settings.getBoolean(INSTANCE_FAB_SUB_MENU_VISIBLE, false);
+//        mTrackerServiceRunning = settings.getBoolean(INSTANCE_TRACKING_STATE, false);
+//        mSelectedTab = settings.getInt(INSTANCE_SELECTED_TAB, 0);
+
         LogHelper.v(LOG_TAG, "Loading state.");
     }
 
@@ -297,7 +309,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
             SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
             // Set up the ViewPager with the sections adapter.
-            ViewPager mViewPager = (ViewPager) findViewById(R.id.container);
+            mViewPager = (ViewPager) findViewById(R.id.container);
             mViewPager.setAdapter(sectionsPagerAdapter);
             mViewPager.setCurrentItem(mSelectedTab);
 
@@ -308,12 +320,16 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
                 public void onTabSelected(TabLayout.Tab tab) {
                     switch (tab.getPosition()) {
                         case FRAGMENT_ID_MAP:
+                            // show the Floating Action Button
                             mFloatingActionButton.show();
                             break;
                         case FRAGMENT_ID_TRACK:
+                            // hide the Floating Action Button - and its sub menu
                             mFloatingActionButton.hide();
+                            showFloatingActionButtonMenu(false);
                             break;
                         default:
+                            // show the Floating Action Button
                             mFloatingActionButton.show();
                             break;
                     }
@@ -375,50 +391,59 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
 
     /* Handles tap on the record button */
     private void handleFloatingActionButtonClick(View view) {
-        if (mTrackerServiceRunning) {
-            // show snackbar
-            Snackbar.make(view, R.string.snackbar_message_tracking_stopped, Snackbar.LENGTH_SHORT).setAction("Action", null).show();
 
-            // change state
-            // --> is handled by broadcast receiver
+        switch (mFloatingActionButtonState) {
+            case FAB_STATE_DEFAULT:
+                // show snackbar
+                Snackbar.make(view, R.string.snackbar_message_tracking_started, Snackbar.LENGTH_SHORT).setAction("Action", null).show();
 
-            // stop tracker service
-            Intent intent = new Intent(this, TrackerService.class);
-            intent.setAction(ACTION_STOP);
-            startService(intent);
-
-        } else if (mCurrentTrackVisible) {
-            // toggle floating action button sub menu
-            if (!mFloatingActionButtonSubMenuVisible) {
-                showFloatingActionButtonMenu(true);
-            } else {
-                showFloatingActionButtonMenu(false);
-            }
-
-        } else {
-            // show snackbar
-            Snackbar.make(view, R.string.snackbar_message_tracking_started, Snackbar.LENGTH_SHORT).setAction("Action", null).show();
-
-            // change state
-            mTrackerServiceRunning = true;
-            mCurrentTrackVisible = true;
-            setFloatingActionButtonState();
-
-            // get last location from MainActivity Fragment
-            Location lastLocation = mMainActivityMapFragment.getCurrentBestLocation();
-
-            if (lastLocation != null) {
-                // start tracker service
-                Intent intent = new Intent(this, TrackerService.class);
-                intent.setAction(ACTION_START);
-                intent.putExtra(EXTRA_LAST_LOCATION, lastLocation);
-                startService(intent);
-            } else {
-                Toast.makeText(this, getString(R.string.toast_message_location_services_not_ready), Toast.LENGTH_LONG).show();
-                // change state back
-                mTrackerServiceRunning = false;
+                // change state
+                mTrackerServiceRunning = true;
+                mCurrentTrackVisible = true;
+                mFloatingActionButtonState = FAB_STATE_RECORDING;
                 setFloatingActionButtonState();
-            }
+
+                // get last location from MainActivity Fragment
+                Location lastLocation = mMainActivityMapFragment.getCurrentBestLocation();
+
+                if (lastLocation != null) {
+                    // start tracker service
+                    Intent intent = new Intent(this, TrackerService.class);
+                    intent.setAction(ACTION_START);
+                    intent.putExtra(EXTRA_LAST_LOCATION, lastLocation);
+                    startService(intent);
+                } else {
+                    Toast.makeText(this, getString(R.string.toast_message_location_services_not_ready), Toast.LENGTH_LONG).show();
+                    // change state back
+                    mTrackerServiceRunning = false;
+                    setFloatingActionButtonState();
+                }
+
+                break;
+
+            case FAB_STATE_RECORDING:
+                // show snackbar
+                Snackbar.make(view, R.string.snackbar_message_tracking_stopped, Snackbar.LENGTH_SHORT).setAction("Action", null).show();
+
+                // change state
+                // --> is handled by broadcast receiver
+
+                // stop tracker service
+                Intent intent = new Intent(this, TrackerService.class);
+                intent.setAction(ACTION_STOP);
+                startService(intent);
+
+                break;
+
+            case FAB_STATE_SAVE:
+                // toggle floating action button sub menu
+                if (!mFloatingActionButtonSubMenuVisible) {
+                    showFloatingActionButtonMenu(true);
+                } else {
+                    showFloatingActionButtonMenu(false);
+                }
+
+                break;
 
         }
 
@@ -432,13 +457,15 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
         LogHelper.v(LOG_TAG, "User chose SAVE and CLEAR");
 
         // clear map and save track
-        mMainActivityMapFragment.clearMap(true); // TODO change to true
+        mMainActivityMapFragment.clearMap(true);
         mCurrentTrackVisible = false;
 
-//        // reset current track // TODO ist this still necessary
+//        // reset current track // TODO is this still necessary?
 //        mMainActivityTrackFragment.refreshTrackView();
 
-        // TODO change to track tab
+        // display track tab
+        mSelectedTab = FRAGMENT_ID_TRACK;
+        mViewPager.setCurrentItem(mSelectedTab);
 
         // dismiss notification
         NotificationHelper.stop();
@@ -447,7 +474,10 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
         showFloatingActionButtonMenu(false);
 
         // update Floating Action Button icon
+        mFloatingActionButtonState = FAB_STATE_DEFAULT;
         setFloatingActionButtonState();
+
+        Toast.makeText(this, getString(R.string.toast_message_track_save), Toast.LENGTH_LONG).show();
     }
 
 
@@ -466,18 +496,29 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
         showFloatingActionButtonMenu(false);
 
         // update Floating Action Button icon
+        mFloatingActionButtonState = FAB_STATE_DEFAULT;
         setFloatingActionButtonState();
+
+        Toast.makeText(this, getString(R.string.toast_message_track_clear), Toast.LENGTH_LONG).show();
     }
 
 
     /* Set state of FloatingActionButton */
     private void setFloatingActionButtonState() {
-        if (mTrackerServiceRunning) {
-            mFloatingActionButton.setImageResource(R.drawable.ic_fiber_manual_record_red_24dp);
-        } else if (mCurrentTrackVisible) {
-            mFloatingActionButton.setImageResource(R.drawable.ic_save_white_24dp);
-        } else {
-            mFloatingActionButton.setImageResource(R.drawable.ic_fiber_manual_record_white_24dp);
+
+        switch (mFloatingActionButtonState) {
+            case FAB_STATE_DEFAULT:
+                mFloatingActionButton.setImageResource(R.drawable.ic_fiber_manual_record_white_24dp);
+                break;
+            case FAB_STATE_RECORDING:
+                mFloatingActionButton.setImageResource(R.drawable.ic_fiber_manual_record_red_24dp);
+                break;
+            case FAB_STATE_SAVE:
+                mFloatingActionButton.setImageResource(R.drawable.ic_save_white_24dp);
+                break;
+            default:
+                mFloatingActionButton.setImageResource(R.drawable.ic_fiber_manual_record_white_24dp);
+                break;
         }
     }
 
@@ -501,12 +542,14 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     private void handleIncomingIntent() {
         Intent intent = getIntent();
         String intentAction = intent.getAction();
-
         switch (intentAction) {
             case ACTION_SHOW_MAP:
-                if (intent.hasExtra(EXTRA_TRACKING_STATE) && mMainActivityMapFragment != null) {
+                if (intent.hasExtra(EXTRA_TRACKING_STATE)) {
                     mTrackerServiceRunning = intent.getBooleanExtra(EXTRA_TRACKING_STATE, false);
-                    mMainActivityMapFragment.setTrackingState(mTrackerServiceRunning);
+                    // mMainActivityMapFragment.setTrackingState(mTrackerServiceRunning);
+                    if (mTrackerServiceRunning) {
+                        mFloatingActionButtonState = FAB_STATE_RECORDING;
+                    }
                     // prevent multiple reactions to intent
                     intent.setAction(ACTION_DEFAULT);
                 }
@@ -547,6 +590,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
             public void onReceive(Context context, Intent intent) {
                 // change state
                 mTrackerServiceRunning = false;
+                mFloatingActionButtonState = FAB_STATE_SAVE;
                 setFloatingActionButtonState();
 
                 // pass tracking state to MainActivityMapFragment

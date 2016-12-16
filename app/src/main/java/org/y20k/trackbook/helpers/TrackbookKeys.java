@@ -62,6 +62,7 @@ public interface TrackbookKeys {
     String INSTANCE_TRACKING_STATE = "trackingState";
     String INSTANCE_TRACK_VISIBLE = "trackVisible";
     String INSTANCE_SELECTED_TAB = "selectedTab";
+    String INSTANCE_FAB_STATE = "fabState";
     String INSTANCE_FAB_SUB_MENU_VISIBLE = "fabSubMenuVisible";
     String INSTANCE_TRACK_MAIN_MAP = "trackMainMap";
     String INSTANCE_LATITUDE_MAIN_MAP = "latitudeMainMap";
@@ -92,6 +93,10 @@ public interface TrackbookKeys {
     int INFOSHEET_CONTENT_ABOUT = 1;
     int METRIC = 1;
     int IMPERIAL = 2;
+    int FAB_STATE_DEFAULT = 0;
+    int FAB_STATE_RECORDING = 1;
+    int FAB_STATE_SAVE = 2;
+
     double DEFAULT_LATITUDE = 49.41667; // latitude Nordkapp, Norway
     double DEFAULT_LONGITUDE = 8.67201; // longitude Nordkapp, Norway
 }

@@ -50,7 +50,7 @@ public class StorageHelper implements TrackbookKeys {
     private static final String LOG_TAG = StorageHelper.class.getSimpleName();
 
     /* Main class variables */
-    private final int mMaxTrackFiles = 10;
+    private final int mMaxTrackFiles = 25;
     private final String mDirectoryName = "tracks";
     private final String mFileExtension = ".trackbook";
     private final Activity mActivity;

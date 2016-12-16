@@ -102,15 +102,11 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
         // action bar has options menu
         setHasOptionsMenu(true);
 
-        // restore first start state
+        // restore first start state and tracking state
         mFirstStart = true;
-        if (savedInstanceState != null) {
-            mFirstStart = savedInstanceState.getBoolean(INSTANCE_FIRST_START, true);
-        }
-
-        // restore tracking and map state
         mTrackerServiceRunning = false;
         if (savedInstanceState != null) {
+            mFirstStart = savedInstanceState.getBoolean(INSTANCE_FIRST_START, true);
             mTrackerServiceRunning = savedInstanceState.getBoolean(INSTANCE_TRACKING_STATE, false);
         }
 
@@ -139,9 +135,6 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
             mCurrentBestLocation.setLatitude(DEFAULT_LATITUDE);
             mCurrentBestLocation.setLongitude(DEFAULT_LONGITUDE);
         }
-
-        LogHelper.v(LOG_TAG, "!!! TRACK:" + mCurrentBestLocation.getExtras());
-
 
         // get state of location system setting
         mLocationSystemSetting = LocationHelper.checkLocationSystemSetting(mActivity);
@@ -222,6 +215,9 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
         // set visibility
         mFragmentVisible = true;
 
+        // TODO
+        handleIncomingIntent();
+
         // center map on current position - if TrackerService is running
         if (mTrackerServiceRunning) {
             mController.setCenter(convertToGeoPoint(mCurrentBestLocation));
@@ -257,6 +253,9 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
 
         // disable content observer for changes in System Settings
         mActivity.getContentResolver().unregisterContentObserver(mSettingsContentObserver);
+
+        // save state of track visibility
+        saveTrackVisibilityState(mActivity);
     }
 
 
@@ -344,8 +343,8 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         outState.putBoolean(INSTANCE_FIRST_START, mFirstStart);
-        outState.putParcelable(INSTANCE_CURRENT_LOCATION, mCurrentBestLocation);
         outState.putBoolean(INSTANCE_TRACKING_STATE, mTrackerServiceRunning);
+        outState.putParcelable(INSTANCE_CURRENT_LOCATION, mCurrentBestLocation);
         outState.putDouble(INSTANCE_LATITUDE_MAIN_MAP, mMapView.getMapCenter().getLatitude());
         outState.putDouble(INSTANCE_LONGITUDE_MAIN_MAP, mMapView.getMapCenter().getLongitude());
         outState.putInt(INSTANCE_ZOOM_LEVEL_MAIN_MAP, mMapView.getZoomLevel());
@@ -393,21 +392,28 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
         // clear map
         if (mTrackOverlay != null) {
             mMapView.getOverlays().remove(mTrackOverlay);
+            mTrackOverlay = null;
         }
 
-        // save track object if requested
         if (saveTrack) {
+            // save track object if requested
             SaveTrackAsyncHelper saveTrackAsyncHelper = new SaveTrackAsyncHelper();
             saveTrackAsyncHelper.execute();
             Toast.makeText(mActivity, mActivity.getString(R.string.toast_message_save_track), Toast.LENGTH_LONG).show();
+        } else {
+            // clear track object
+            mTrack = null;
         }
 
+        // save track state
+        saveTrackVisibilityState(mActivity);
     }
 
 
-    /* Getter for length of current track */
-    public String getCurrentTrackLength() {
-        return mTrack.getTrackDistance();
+    /* Handles new incoming intents */
+    private void handleIncomingIntent() {
+        Intent intent = mActivity.getIntent();
+        // TODO get track from intent if not present
     }
 
 
@@ -544,20 +550,30 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
     }
 
 
-    /* Saves state of map */
-    private void saveMaoState(Context context) {
+    /* Saves state of track visibility to SharedPreferences */
+    private void saveTrackVisibilityState(Context context) {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = settings.edit();
-        editor.putInt(PREFS_ZOOM_LEVEL, mMapView.getZoomLevel());
+        editor.putBoolean(INSTANCE_TRACK_VISIBLE, (mTrackOverlay != null));
         editor.apply();
+        LogHelper.v(LOG_TAG, "Saving state: track visibility = " + (mTrackOverlay != null));
     }
 
 
-    /* Loads app state from preferences */
-    private void loadMapState(Context context) {
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-        int zoom = settings.getInt(PREFS_ZOOM_LEVEL, 16);
-    }
+//    /* Saves state of map */
+//    private void saveMaoState(Context context) {
+//        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+//        SharedPreferences.Editor editor = settings.edit();
+//        editor.putInt(PREFS_ZOOM_LEVEL, mMapView.getZoomLevel());
+//        editor.apply();
+//    }
+
+
+//    /* Loads app state from preferences */
+//    private void loadMapState(Context context) {
+//        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+//        int zoom = settings.getInt(PREFS_ZOOM_LEVEL, 16);
+//    }
 
 
     /**
