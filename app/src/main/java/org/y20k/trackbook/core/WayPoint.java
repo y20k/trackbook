@@ -30,7 +30,7 @@ public class WayPoint implements Parcelable {
     private Location mLocation;
     private boolean mIsStopOver;
     private float mDistanceToStartingPoint;
-    private int mNumberSatellites;
+    private final int mNumberSatellites;
 
     /* Constructor */
     public WayPoint(Location location, boolean isStopOver, float distanceToStartingPoint) {

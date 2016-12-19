@@ -18,7 +18,6 @@ package org.y20k.trackbook;
 
 import android.Manifest;
 import android.annotation.TargetApi;
-import android.app.DialogFragment;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -38,7 +37,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -52,6 +50,7 @@ import android.widget.Toast;
 import org.y20k.trackbook.helpers.LogHelper;
 import org.y20k.trackbook.helpers.NotificationHelper;
 import org.y20k.trackbook.helpers.TrackbookKeys;
+import org.y20k.trackbook.layout.NonSwipeableViewPager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -69,13 +68,12 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
 
 
     /* Main class variables */
-    private ViewPager mViewPager;
+    private NonSwipeableViewPager mViewPager;
     private boolean mTrackerServiceRunning;
     private boolean mCurrentTrackVisible;
     private boolean mPermissionsGranted;
     private boolean mFloatingActionButtonSubMenuVisible;
     private List<String> mMissingPermissions;
-    private LinearLayout mFloatingActionButtonLayout;
     private FloatingActionButton mFloatingActionButton;
     private LinearLayout mFloatingActionButtonSubMenu1;
     private LinearLayout mFloatingActionButtonSubMenu2;
@@ -91,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
         super.onCreate(savedInstanceState);
 
         // load saved state of app
-        loadAppState(this);
+        loadTrackState(this);
 
         // check permissions on Android 6 and higher
         mPermissionsGranted = false;
@@ -187,10 +185,10 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
         super.onResume();
         LogHelper.v(LOG_TAG, "onResume called.");
 
-        // TODO loadAppState?
-        loadAppState(this);
+        // load state of track visibility
+        loadTrackState(this);
 
-        // handle new intents - onNewIntent does not seem to work
+        // handle incoming intent (from notification)
         handleIncomingIntent();
 
         // if not in onboarding mode: set state of FloatingActionButton
@@ -198,6 +196,12 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
             LogHelper.v(LOG_TAG, "onResume: setting state of FAB.");
             setFloatingActionButtonState();
         }
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
     }
 
 
@@ -267,31 +271,12 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     }
 
 
-    /* Saves app state to SharedPreferences */
-    private void saveAppState(Context context) {
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-        SharedPreferences.Editor editor = settings.edit();
-        // mCurrentTrackVisible is handled (= saved) by fragment
-
-//        editor.putBoolean(INSTANCE_FAB_SUB_MENU_VISIBLE, mFloatingActionButtonSubMenuVisible);
-//        editor.putBoolean(INSTANCE_TRACKING_STATE, mTrackerServiceRunning);
-//        editor.putInt(INSTANCE_SELECTED_TAB, mSelectedTab);
-
-        editor.apply();
-        LogHelper.v(LOG_TAG, "Saving state.");
-    }
-
-
-    /* Loads app state from preferences */
-    private void loadAppState(Context context) {
+    /* Loads state of track visibility from preferences */
+    private void loadTrackState(Context context) {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
         mCurrentTrackVisible = settings.getBoolean(INSTANCE_TRACK_VISIBLE, false);
-
-//        mFloatingActionButtonSubMenuVisible = settings.getBoolean(INSTANCE_FAB_SUB_MENU_VISIBLE, false);
-//        mTrackerServiceRunning = settings.getBoolean(INSTANCE_TRACKING_STATE, false);
-//        mSelectedTab = settings.getInt(INSTANCE_SELECTED_TAB, 0);
-
-        LogHelper.v(LOG_TAG, "Loading state.");
+        // mCurrentTrackVisible is handled / saved by fragment
+        LogHelper.v(LOG_TAG, "Loading state. Track visibility: " + mCurrentTrackVisible);
     }
 
 
@@ -309,7 +294,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
             SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
             // Set up the ViewPager with the sections adapter.
-            mViewPager = (ViewPager) findViewById(R.id.container);
+            mViewPager = (NonSwipeableViewPager) findViewById(R.id.container);
             mViewPager.setAdapter(sectionsPagerAdapter);
             mViewPager.setCurrentItem(mSelectedTab);
 
@@ -347,7 +332,6 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
             });
 
             // get references to the record button and show/hide its sub menu
-            mFloatingActionButtonLayout = (LinearLayout) findViewById(R.id.fabFrameLayout);
             mFloatingActionButton = (FloatingActionButton) findViewById(R.id.fabMainButton);
             mFloatingActionButtonSubMenu1 = (LinearLayout) findViewById(R.id.fabSubMenu1);
             mFloatingActionButtonSubMenu2 = (LinearLayout) findViewById(R.id.fabSubMenu2);
@@ -377,15 +361,6 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
 
         }
 
-    }
-
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        // save current state
-        saveAppState(this);
     }
 
 
@@ -453,19 +428,17 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
 
 
     /* Handles tap on the save and clear button */
-    public void handleButtonSaveAndClearClick() {
+    private void handleButtonSaveAndClearClick() {
         LogHelper.v(LOG_TAG, "User chose SAVE and CLEAR");
 
         // clear map and save track
         mMainActivityMapFragment.clearMap(true);
         mCurrentTrackVisible = false;
 
-//        // reset current track // TODO is this still necessary?
-//        mMainActivityTrackFragment.refreshTrackView();
-
-        // display track tab
+        // display and update track tab
         mSelectedTab = FRAGMENT_ID_TRACK;
         mViewPager.setCurrentItem(mSelectedTab);
+        mMainActivityTrackFragment.refreshTrackView();
 
         // dismiss notification
         NotificationHelper.stop();
@@ -482,7 +455,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
 
 
     /* Handles tap on the clear button */
-    public void handleButtonClearClick() {
+    private void handleButtonClearClick() {
         LogHelper.v(LOG_TAG, "User chose CLEAR");
 
         // clear map, do not save track
@@ -540,24 +513,23 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
 
     /* Handles new incoming intents */
     private void handleIncomingIntent() {
+        LogHelper.v(LOG_TAG, "Main Activity received intent.");
         Intent intent = getIntent();
         String intentAction = intent.getAction();
         switch (intentAction) {
             case ACTION_SHOW_MAP:
+                mSelectedTab = FRAGMENT_ID_MAP;
+                mViewPager.setCurrentItem(mSelectedTab);
                 if (intent.hasExtra(EXTRA_TRACKING_STATE)) {
                     mTrackerServiceRunning = intent.getBooleanExtra(EXTRA_TRACKING_STATE, false);
-                    // mMainActivityMapFragment.setTrackingState(mTrackerServiceRunning);
                     if (mTrackerServiceRunning) {
                         mFloatingActionButtonState = FAB_STATE_RECORDING;
                     }
-                    // prevent multiple reactions to intent
-                    intent.setAction(ACTION_DEFAULT);
                 }
                 break;
 
             default:
-                // log
-                LogHelper.v(LOG_TAG, "Intent received. Doing nothing. Type of ACTION: " +  intentAction);
+                LogHelper.v(LOG_TAG, "Doing nothing. Type of ACTION: " +  intentAction);
                 break;
         }
     }

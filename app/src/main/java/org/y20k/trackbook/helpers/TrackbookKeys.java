@@ -29,6 +29,7 @@ public interface TrackbookKeys {
     String ACTION_SHOW_MAP = "SHOW_MAP";
     String ACTION_TRACK_UPDATED = "TRACK_UPDATED";
     String ACTION_TRACKING_STOPPED = "TRACKING_STOPPED";
+    String ACTION_TRACK_SAVE = "TRACK_SAVE";
 
     /* EXTRAS */
     String EXTRA_TRACK = "TRACK";
@@ -37,6 +38,7 @@ public interface TrackbookKeys {
     String EXTRA_CLEAR_MAP = "CLEAR_MAP";
     String EXTRA_INFOSHEET_TITLE = "EXTRA_INFOSHEET_TITLE";
     String EXTRA_INFOSHEET_CONTENT = "INFOSHEET_CONTENT";
+    String EXTRA_SAVE_FINISHED = "SAVE_FINISHED";
 
     /* ARGS */
     String ARG_PERMISSIONS_GRANTED = "ArgPermissionsGranted";

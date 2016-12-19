@@ -17,14 +17,18 @@
 package org.y20k.trackbook;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,17 +65,15 @@ public class MainActivityTrackFragment extends Fragment implements TrackbookKeys
     private MapView mMapView;
     private IMapController mController;
     private ItemizedIconOverlay mTrackOverlay;
-    private View mStaticticsView;
     private TextView mDistanceView;
     private TextView mStepsView;
     private TextView mWaypointsView;
     private TextView mDurationView;
     private TextView mRecordingStartView;
     private TextView mRecordingStopView;
-    private View mStatisticsSheet;
-    private Snackbar mStatisticsSnackbar;
     private BottomSheetBehavior mStatisticsSheetBehavior;
     private Track mTrack;
+    private BroadcastReceiver mTrackSavedReceiver;
 
 
 
@@ -84,6 +86,19 @@ public class MainActivityTrackFragment extends Fragment implements TrackbookKeys
 
         // store activity
         mActivity = getActivity();
+
+        // create receiver for finished save operation
+        mTrackSavedReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                if (intent.hasExtra(EXTRA_SAVE_FINISHED) && intent.getBooleanExtra(EXTRA_SAVE_FINISHED, false)) {
+                    // load track and display map and statistics
+                    LoadTrackAsyncHelper loadTrackAsyncHelper = new LoadTrackAsyncHelper();
+                    loadTrackAsyncHelper.execute();
+                }
+            }
+        };
+
     }
 
 
@@ -124,14 +139,14 @@ public class MainActivityTrackFragment extends Fragment implements TrackbookKeys
 
 
         // get views
-        mStaticticsView = mRootView.findViewById(R.id.statistics_view);
+        View mStaticticsView = mRootView.findViewById(R.id.statistics_view);
         mDistanceView = (TextView) mRootView.findViewById(R.id.statistics_data_distance);
         mStepsView = (TextView) mRootView.findViewById(R.id.statistics_data_steps);
         mWaypointsView = (TextView) mRootView.findViewById(R.id.statistics_data_waypoints);
         mDurationView = (TextView) mRootView.findViewById(R.id.statistics_data_duration);
         mRecordingStartView = (TextView) mRootView.findViewById(R.id.statistics_data_recording_start);
         mRecordingStopView = (TextView) mRootView.findViewById(R.id.statistics_data_recording_stop);
-        mStatisticsSheet = mRootView.findViewById(R.id.statistics_sheet);
+        View mStatisticsSheet = mRootView.findViewById(R.id.statistics_sheet);
 
         if (mTrack == null) {
             // load track and display map and statistics
@@ -231,9 +246,9 @@ public class MainActivityTrackFragment extends Fragment implements TrackbookKeys
             mMapView.getOverlays().remove(mTrackOverlay);
         }
 
-        // load track and display map and statistics
-        LoadTrackAsyncHelper loadTrackAsyncHelper = new LoadTrackAsyncHelper();
-        loadTrackAsyncHelper.execute();
+        // listen for finished save
+        IntentFilter trackSavedReceiverIntentFilter = new IntentFilter(ACTION_TRACK_SAVE);
+        LocalBroadcastManager.getInstance(mActivity).registerReceiver(mTrackSavedReceiver, trackSavedReceiverIntentFilter);
     }
 
 
@@ -297,8 +312,11 @@ public class MainActivityTrackFragment extends Fragment implements TrackbookKeys
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            LogHelper.v(LOG_TAG, "Display map and statistics of track.");
+            LogHelper.v(LOG_TAG, "Loading finished. Displaying map and statistics of track.");
             displayTrack();
+
+            // remove listener
+            LocalBroadcastManager.getInstance(mActivity).unregisterReceiver(mTrackSavedReceiver);
         }
     }
 

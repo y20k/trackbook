@@ -46,7 +46,7 @@ public class Track implements TrackbookKeys, Parcelable {
     private float mTrackLength;
     private long mDuration;
     private float mStepCount;
-    private Date mRecordingStart;
+    private final Date mRecordingStart;
     private Date mRecordingStop;
 
 

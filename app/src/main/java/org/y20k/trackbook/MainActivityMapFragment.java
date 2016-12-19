@@ -96,6 +96,8 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        LogHelper.v(LOG_TAG, "!!! MainActivityMapFragment onCreate called.");
+
         // get activity
         mActivity = getActivity();
 
@@ -215,7 +217,7 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
         // set visibility
         mFragmentVisible = true;
 
-        // TODO
+        // handle incoming intent (from notification)
         handleIncomingIntent();
 
         // center map on current position - if TrackerService is running
@@ -412,8 +414,30 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
 
     /* Handles new incoming intents */
     private void handleIncomingIntent() {
+        LogHelper.v(LOG_TAG, "Map Fragment received intent.");
         Intent intent = mActivity.getIntent();
-        // TODO get track from intent if not present
+        String intentAction = intent.getAction();
+        switch (intentAction) {
+            case ACTION_SHOW_MAP:
+                if (intent.hasExtra(EXTRA_TRACK)) {
+                    mTrack = intent.getParcelableExtra(EXTRA_TRACK);
+                    drawTrackOverlay(mTrack);
+                }
+
+                if (intent.hasExtra(EXTRA_TRACKING_STATE)) {
+                    mTrackerServiceRunning = intent.getBooleanExtra(EXTRA_TRACKING_STATE, false);
+                    mMapView.getOverlays().remove(mMyLocationOverlay);
+                }
+
+                // prevent multiple reactions to intent
+                intent.setAction(ACTION_DEFAULT);
+
+                break;
+
+            default:
+                LogHelper.v(LOG_TAG, "Doing nothing. Type of ACTION: " +  intentAction);
+                break;
+        }
     }
 
 
@@ -632,8 +656,14 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             // clear track object
-            LogHelper.v(LOG_TAG, "Clearing track object after background save operation.");
+            LogHelper.v(LOG_TAG, "Saving finished.");
             mTrack = null;
+
+            // notify track fragment that save is finished
+            Intent i = new Intent();
+            i.setAction(ACTION_TRACK_SAVE);
+            i.putExtra(EXTRA_SAVE_FINISHED, true);
+            LocalBroadcastManager.getInstance(mActivity).sendBroadcast(i);
         }
     }
 

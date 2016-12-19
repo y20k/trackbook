@@ -217,7 +217,7 @@ public class StorageHelper implements TrackbookKeys {
                     // file2 is not a track, file2 is greater
                     return -1;
                 } else {
-                    // "compareTo" compares abstract pathnames lexicographically | 0 == equal | -1 == file2 less than file1 | 1 == file2 greater than file1
+                    // "compareTo" compares abstract path names lexicographically | 0 == equal | -1 == file2 less than file1 | 1 == file2 greater than file1
                     return file2.compareTo(file1);
                 }
 
