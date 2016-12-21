@@ -33,10 +33,10 @@ Stop the recording and then tap again on the big blue button. It will offer an o
 Stop the recording and then tap again on the big blue button. Chose the option "Clear", if you just want to clear the map without saving your recording.
 
 ### Statistics and Last Track
-Peek into Trackbook's notification to see the distance and duration of your current recording. Switch to the Last Track to review your last recording. Pull up the statistics to see distance and duration of that recording, as well as the steps taken.
+Peek into Trackbook's notification to see the distance and duration of your current recording. Switch to the Last Track view to review your last recording. Pull up the statistics to see distance and duration of that recording, as well as the steps taken.
 
-### How doe Trackbook measure distance?
-Trackbook calculates the distance between set markers and adds them up.
+### How does Trackbook measure distance?
+Trackbook calculates the distance between markers and adds them up.
 
 Which Permissions does Trackbook need?
 --------------------------------------
@@ -51,3 +51,14 @@ Trackbook needs accurate GPS location data to be able to record your movements. 
 
 ### Permission "WRITE\_EXTERNAL\_STORAGE"
 Trackbook uses [osmdroid](https://github.com/osmdroid/osmdroid), which caches map tiles on Android's external storage. You can find the map cache in the `osmdroid` folder on the top level of the user-facing file system.
+
+## Screenshots (current version)
+[<img src="https://cloud.githubusercontent.com/assets/9103935/21387023/0a6eef1c-c776-11e6-8a88-a00aa2ad5979.png" width="240">](https://cloud.githubusercontent.com/assets/9103935/21387023/0a6eef1c-c776-11e6-8a88-a00aa2ad5979.png)
+[<img src="https://cloud.githubusercontent.com/assets/9103935/21387024/0a6f9eb2-c776-11e6-80fb-ca098e9303ad.png" width="240">](https://cloud.githubusercontent.com/assets/9103935/21387024/0a6f9eb2-c776-11e6-80fb-ca098e9303ad.png)
+[<img src="https://cloud.githubusercontent.com/assets/9103935/21387025/0a701f68-c776-11e6-8f9a-66fb7e6eafff.png" width="240">](https://cloud.githubusercontent.com/assets/9103935/21387025/0a701f68-c776-11e6-8f9a-66fb7e6eafff.png)
+[<img src="https://cloud.githubusercontent.com/assets/9103935/21387026/0a704614-c776-11e6-94fa-27f9cb566b91.png" width="240">](https://cloud.githubusercontent.com/assets/9103935/21387026/0a704614-c776-11e6-94fa-27f9cb566b91.png)
+[<img src="https://cloud.githubusercontent.com/assets/9103935/21387028/0a70d71e-c776-11e6-8838-934eb11dbca7.png" width="240">](https://cloud.githubusercontent.com/assets/9103935/21387028/0a70d71e-c776-11e6-8838-934eb11dbca7.png)
+[<img src="https://cloud.githubusercontent.com/assets/9103935/21387027/0a70c468-c776-11e6-9405-b91c5bc902c4.png" width="240">](https://cloud.githubusercontent.com/assets/9103935/21387027/0a70c468-c776-11e6-9405-b91c5bc902c4.png)
+[<img src="https://cloud.githubusercontent.com/assets/9103935/21387029/0a81c344-c776-11e6-866b-7e608e2e9f33.png" width="240">](https://cloud.githubusercontent.com/assets/9103935/21387029/0a81c344-c776-11e6-866b-7e608e2e9f33.png)
+[<img src="https://cloud.githubusercontent.com/assets/9103935/21387030/0a82ca96-c776-11e6-9b3c-6c83f61f2188.png" width="240">](https://cloud.githubusercontent.com/assets/9103935/21387030/0a82ca96-c776-11e6-9b3c-6c83f61f2188.png)
+[<img src="https://cloud.githubusercontent.com/assets/9103935/21387031/0a838274-c776-11e6-8e1c-f1bb7baf5ebe.png" width="240">](https://cloud.githubusercontent.com/assets/9103935/21387031/0a838274-c776-11e6-8e1c-f1bb7baf5ebe.png)
