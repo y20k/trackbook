@@ -303,9 +303,9 @@ public class MainActivityTrackFragment extends Fragment implements TrackbookKeys
         @Override
         protected Void doInBackground(Void... voids) {
             LogHelper.v(LOG_TAG, "Loading track object in background.");
-            // save track object
-            StorageHelper storageHelper = new StorageHelper(mActivity);
-            mTrack = storageHelper.loadTrack(storageHelper.getMostCurrentTrack());
+            // load track object
+            StorageHelper storageHelper = new StorageHelper(mActivity, FILETYPE_TRACK);
+            mTrack = storageHelper.loadTrack();
             return null;
         }
 

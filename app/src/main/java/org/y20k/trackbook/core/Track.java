@@ -53,8 +53,8 @@ public class Track implements TrackbookKeys, Parcelable {
     /* Constructor */
     public Track() {
         mWayPoints = new ArrayList<WayPoint>();
-        mTrackLength = 0;
-        mStepCount = 0;
+        mTrackLength = 0f;
+        mStepCount = 0f;
         mRecordingStart = GregorianCalendar.getInstance().getTime();
         mRecordingStop = mRecordingStart;
     }
@@ -113,9 +113,9 @@ public class Track implements TrackbookKeys, Parcelable {
     }
 
 
-    /* Setter for end time and date of recording */
-    public void setRecordingEnd (Date recordingEnd) {
-        mRecordingStop = recordingEnd;
+    /* Sets end time and date of recording */
+    public void setRecordingEnd () {
+        mRecordingStop = GregorianCalendar.getInstance().getTime();;
     }
 
 

@@ -52,17 +52,18 @@ public interface TrackbookKeys {
 
     /* PREFS */
     String PREFS_NAME = "org.y20k.trackbook.prefs";
-    String PREFS_TILE_SOURCE = "tileSource";
-    String PREFS_LATITUDE = "latitude";
-    String PREFS_LONGITUDE = "longitude";
-    String PREFS_ZOOM_LEVEL = "zoomLevel";
-    String PREFS_SHOW_LOCATION = "showLocation";
-    String PREFS_SHOW_COMPASS = "showCompass";
+    String PREFS_TILE_SOURCE = "tileSourcePrefs";
+    String PREFS_LATITUDE = "latitudePrefs";
+    String PREFS_LONGITUDE = "longitudePrefs";
+    String PREFS_ZOOM_LEVEL = "zoomLevelPrefs";
+    String PREFS_SHOW_LOCATION = "showLocationPrefs";
+    String PREFS_SHOW_COMPASS = "showCompassPrefs";
+    String PREFS_FAB_STATE = "fabStatePrefs";
+    String PREFS_TRACK_VISIBLE = "trackVisiblePrefs";
 
     /* INSTANCE STATE */
     String INSTANCE_FIRST_START = "firstStart";
     String INSTANCE_TRACKING_STATE = "trackingState";
-    String INSTANCE_TRACK_VISIBLE = "trackVisible";
     String INSTANCE_SELECTED_TAB = "selectedTab";
     String INSTANCE_FAB_STATE = "fabState";
     String INSTANCE_FAB_SUB_MENU_VISIBLE = "fabSubMenuVisible";
@@ -88,6 +89,7 @@ public interface TrackbookKeys {
     long FIFTEEN_SECONDS_IN_MILLISECONDS = 15000; // timer interval for tracking
     long FIVE_MINUTES_IN_NANOSECONDS = 5L * 60000000000L; // determines a stop over
     long TWO_MINUTES_IN_NANOSECONDS = 2L * 60000000000L; // defines an old location
+    int MAXIMUM_TRACK_FILES = 25;
 
     /* MISC */
     int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
@@ -98,6 +100,10 @@ public interface TrackbookKeys {
     int FAB_STATE_DEFAULT = 0;
     int FAB_STATE_RECORDING = 1;
     int FAB_STATE_SAVE = 2;
+    int FILETYPE_TEMP = 0;
+    int FILETYPE_TRACK = 1;
+
+    String FILENAME_TEMP = "temp";
 
     double DEFAULT_LATITUDE = 49.41667; // latitude Nordkapp, Norway
     double DEFAULT_LONGITUDE = 8.67201; // longitude Nordkapp, Norway

@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     /* Main class variables */
     private NonSwipeableViewPager mViewPager;
     private boolean mTrackerServiceRunning;
-    private boolean mCurrentTrackVisible;
+//    private boolean mCurrentTrackVisible;
     private boolean mPermissionsGranted;
     private boolean mFloatingActionButtonSubMenuVisible;
     private List<String> mMissingPermissions;
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
         super.onCreate(savedInstanceState);
 
         // load saved state of app
-        loadTrackState(this);
+        loadFloatingActionButtonState(this);
 
         // check permissions on Android 6 and higher
         mPermissionsGranted = false;
@@ -114,31 +114,33 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     protected void onStart() {
         super.onStart();
 
-        // add listeners to button and submenu
-        if (mFloatingActionButton != null) {
-            mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    handleFloatingActionButtonClick(view);
-                }
-            });
-        }
-        if (mFloatingActionButtonSubMenu1 != null) {
-            mFloatingActionButtonSubMenu1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    handleButtonSaveAndClearClick();
-                }
-            });
-        }
-        if (mFloatingActionButtonSubMenu2 != null) {
-            mFloatingActionButtonSubMenu2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    handleButtonClearClick();
-                }
-            });
-        }
+//        // add listeners to button and submenu
+//        if (mFloatingActionButton != null) {
+//            mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    handleFloatingActionButtonClick(view);
+//                }
+//            });
+//        } else {
+//            LogHelper.e(LOG_TAG, "mFloatingActionButton is null!");
+//        }
+//        if (mFloatingActionButtonSubMenu1 != null) {
+//            mFloatingActionButtonSubMenu1.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    handleButtonSaveAndClearClick();
+//                }
+//            });
+//        }
+//        if (mFloatingActionButtonSubMenu2 != null) {
+//            mFloatingActionButtonSubMenu2.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    handleButtonClearClick();
+//                }
+//            });
+//        }
 
         // register broadcast receiver for stopped tracking
         mTrackingStoppedReceiver = createTrackingStoppedReceiver();
@@ -185,8 +187,8 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
         super.onResume();
         LogHelper.v(LOG_TAG, "onResume called.");
 
-        // load state of track visibility
-        loadTrackState(this);
+        // load state of Floating Action Button
+        loadFloatingActionButtonState(this);
 
         // handle incoming intent (from notification)
         handleIncomingIntent();
@@ -202,6 +204,9 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     @Override
     protected void onPause() {
         super.onPause();
+
+        // save state of Floating Action Button
+        saveFloatingActionButtonState(this);
     }
 
 
@@ -253,7 +258,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
         LogHelper.v(LOG_TAG, "onSaveInstanceState called.");
         outState.putBoolean(INSTANCE_TRACKING_STATE, mTrackerServiceRunning);
         outState.putInt(INSTANCE_SELECTED_TAB, mSelectedTab);
-        outState.putInt(INSTANCE_FAB_STATE, mFloatingActionButtonState);
+//        outState.putInt(INSTANCE_FAB_STATE, mFloatingActionButtonState);
         outState.putBoolean(INSTANCE_FAB_SUB_MENU_VISIBLE, mFloatingActionButtonSubMenuVisible);
         super.onSaveInstanceState(outState);
     }
@@ -266,17 +271,26 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
         LogHelper.v(LOG_TAG, "onRestoreInstanceState called.");
         mTrackerServiceRunning = savedInstanceState.getBoolean(INSTANCE_TRACKING_STATE, false);
         mSelectedTab = savedInstanceState.getInt(INSTANCE_SELECTED_TAB, 0);
-        mFloatingActionButtonState = savedInstanceState.getInt(INSTANCE_FAB_STATE, FAB_STATE_DEFAULT);
+//        mFloatingActionButtonState = savedInstanceState.getInt(INSTANCE_FAB_STATE, FAB_STATE_DEFAULT);
         mFloatingActionButtonSubMenuVisible = savedInstanceState.getBoolean(INSTANCE_FAB_SUB_MENU_VISIBLE, false);
     }
 
 
-    /* Loads state of track visibility from preferences */
-    private void loadTrackState(Context context) {
+    /* Loads state of Floating Action Button from preferences */
+    private void loadFloatingActionButtonState(Context context) {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-        mCurrentTrackVisible = settings.getBoolean(INSTANCE_TRACK_VISIBLE, false);
+        mFloatingActionButtonState = settings.getInt(PREFS_FAB_STATE, FAB_STATE_DEFAULT);
+//        mCurrentTrackVisible = settings.getBoolean(PREFS_TRACK_VISIBLE, false); // TODO remove mCurrentTrackVisible completely
         // mCurrentTrackVisible is handled / saved by fragment
-        LogHelper.v(LOG_TAG, "Loading state. Track visibility: " + mCurrentTrackVisible);
+//        LogHelper.v(LOG_TAG, "Loading state. Track visibility: " + mCurrentTrackVisible);
+    }
+
+    /* Saves state of Floating Action Button */
+    private void saveFloatingActionButtonState(Context context) {
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putInt(PREFS_FAB_STATE, mFloatingActionButtonState);
+        editor.apply();
     }
 
 
@@ -341,6 +355,33 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
                 showFloatingActionButtonMenu(false);
             }
 
+            // add listeners to button and submenu
+            if (mFloatingActionButton != null) {
+                mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        handleFloatingActionButtonClick(view);
+                    }
+                });
+            }
+            if (mFloatingActionButtonSubMenu1 != null) {
+                mFloatingActionButtonSubMenu1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        handleButtonSaveAndClearClick();
+                    }
+                });
+            }
+            if (mFloatingActionButtonSubMenu2 != null) {
+                mFloatingActionButtonSubMenu2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        handleButtonClearClick();
+                    }
+                });
+            }
+
+
         } else {
             // point to the on main onboarding layout
             setContentView(R.layout.activity_main_onboarding);
@@ -374,7 +415,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
 
                 // change state
                 mTrackerServiceRunning = true;
-                mCurrentTrackVisible = true;
+//                mCurrentTrackVisible = true;
                 mFloatingActionButtonState = FAB_STATE_RECORDING;
                 setFloatingActionButtonState();
 
@@ -433,7 +474,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
 
         // clear map and save track
         mMainActivityMapFragment.clearMap(true);
-        mCurrentTrackVisible = false;
+//        mCurrentTrackVisible = false;
 
         // display and update track tab
         mSelectedTab = FRAGMENT_ID_TRACK;
@@ -460,7 +501,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
 
         // clear map, do not save track
         mMainActivityMapFragment.clearMap(false);
-        mCurrentTrackVisible = false;
+//        mCurrentTrackVisible = false;
 
         // dismiss notification
         NotificationHelper.stop();

@@ -21,7 +21,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.database.ContentObserver;
 import android.location.Location;
 import android.location.LocationListener;
@@ -30,7 +29,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
-import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
@@ -96,7 +94,7 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        LogHelper.v(LOG_TAG, "!!! MainActivityMapFragment onCreate called.");
+        LogHelper.v(LOG_TAG, "MainActivityMapFragment onCreate called.");
 
         // get activity
         mActivity = getActivity();
@@ -193,11 +191,17 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
         }
 
         // restore track
-        if (savedInstanceState != null) {
+        StorageHelper storageHelper = new StorageHelper(mActivity, FILETYPE_TEMP);
+        if (storageHelper.tempFileExists()) {
+            // load track from temp file if it exists
+            LoadTempTrackAsyncHelper loadTempTrackAsyncHelper = new LoadTempTrackAsyncHelper();
+            loadTempTrackAsyncHelper.execute();
+        } else if (savedInstanceState != null) {
+            // load track from saved instance
             mTrack = savedInstanceState.getParcelable(INSTANCE_TRACK_MAIN_MAP);
-        }
-        if (mTrack != null) {
-            drawTrackOverlay(mTrack);
+            if (mTrack != null) {
+               drawTrackOverlay(mTrack);
+            }
         }
 
         // mark user's location on map
@@ -256,8 +260,8 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
         // disable content observer for changes in System Settings
         mActivity.getContentResolver().unregisterContentObserver(mSettingsContentObserver);
 
-        // save state of track visibility
-        saveTrackVisibilityState(mActivity);
+//        // save state of track visibility
+//        saveTrackVisibilityState(mActivity);
     }
 
 
@@ -407,8 +411,8 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
             mTrack = null;
         }
 
-        // save track state
-        saveTrackVisibilityState(mActivity);
+//        // save track state
+//        saveTrackVisibilityState(mActivity);
     }
 
 
@@ -477,7 +481,7 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
         return new LocationListener() {
             public void onLocationChanged(Location location) {
                 // check if the new location is better
-                if (LocationHelper.isBetterLocation(location, mCurrentBestLocation)) {
+                if (mCurrentBestLocation == null || LocationHelper.isBetterLocation(location, mCurrentBestLocation)) {
                     // save location
                     mCurrentBestLocation = location;
                     // mark user's new location on map and remove last marker
@@ -574,14 +578,14 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
     }
 
 
-    /* Saves state of track visibility to SharedPreferences */
-    private void saveTrackVisibilityState(Context context) {
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putBoolean(INSTANCE_TRACK_VISIBLE, (mTrackOverlay != null));
-        editor.apply();
-        LogHelper.v(LOG_TAG, "Saving state: track visibility = " + (mTrackOverlay != null));
-    }
+//    /* Saves state of track visibility to SharedPreferences */
+//    private void saveTrackVisibilityState(Context context) {
+//        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+//        SharedPreferences.Editor editor = settings.edit();
+//        editor.putBoolean(PREFS_TRACK_VISIBLE, (mTrackOverlay != null));
+//        editor.apply();
+//        LogHelper.v(LOG_TAG, "Saving state: track visibility = " + (mTrackOverlay != null));
+//    }
 
 
 //    /* Saves state of map */
@@ -647,7 +651,7 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
         protected Void doInBackground(Void... voids) {
             LogHelper.v(LOG_TAG, "Saving track object in background.");
             // save track object
-            StorageHelper storageHelper = new StorageHelper(mActivity);
+            StorageHelper storageHelper = new StorageHelper(mActivity, FILETYPE_TRACK);
             storageHelper.saveTrack(mTrack);
             return null;
         }
@@ -667,5 +671,36 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
         }
     }
 
+
+    /**
+     * Inner class: Loads track from external storage using AsyncTask
+     */
+    private class LoadTempTrackAsyncHelper extends AsyncTask<Void, Void, Void> {
+
+        StorageHelper storageHelper;
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            LogHelper.v(LOG_TAG, "Loading temporary track object in background.");
+            // load track object
+            storageHelper = new StorageHelper(mActivity, FILETYPE_TEMP);
+            mTrack = storageHelper.loadTrack();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            LogHelper.v(LOG_TAG, "Loading finished.");
+
+            // draw track on map
+            if (mTrack != null) {
+                drawTrackOverlay(mTrack);
+            }
+
+            // delete temp file
+            storageHelper.deleteTempFile();
+        }
+    }
 
 }

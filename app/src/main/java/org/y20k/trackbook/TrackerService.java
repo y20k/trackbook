@@ -19,6 +19,7 @@ package org.y20k.trackbook;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.ContentObserver;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -27,10 +28,12 @@ import android.hardware.SensorManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
 import android.widget.Toast;
@@ -40,9 +43,9 @@ import org.y20k.trackbook.core.WayPoint;
 import org.y20k.trackbook.helpers.LocationHelper;
 import org.y20k.trackbook.helpers.LogHelper;
 import org.y20k.trackbook.helpers.NotificationHelper;
+import org.y20k.trackbook.helpers.StorageHelper;
 import org.y20k.trackbook.helpers.TrackbookKeys;
 
-import java.util.GregorianCalendar;
 import java.util.List;
 
 
@@ -105,6 +108,12 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
         // ACTION STOP
         else if (intent.getAction().equals(ACTION_STOP) || !mLocationSystemSetting) {
             stopTracking();
+
+            // save changed state of Floating Action Button
+            SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putInt(PREFS_FAB_STATE, FAB_STATE_SAVE);
+            editor.apply();
         }
 
         // START_STICKY is used for services that are explicitly started and stopped as needed
@@ -218,10 +227,14 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
         LogHelper.v(LOG_TAG, "Service received command: STOP");
 
         // store current date and time
-        mTrack.setRecordingEnd(GregorianCalendar.getInstance().getTime());
+        mTrack.setRecordingEnd();
 
         // stop timer
         mTimer.cancel();
+
+        // save a temp file in case the activity has been killed
+        SaveTempTrackAsyncHelper saveTempTrackAsyncHelper = new SaveTempTrackAsyncHelper();
+        saveTempTrackAsyncHelper.execute();
 
         // change notification
         NotificationHelper.update(mTrack, false);
@@ -369,7 +382,31 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
         }
 
     }
+    /**
+     * End of inner class
+     */
 
+
+    /**
+     * Inner class: Saves track to external storage using AsyncTask
+     */
+    private class SaveTempTrackAsyncHelper extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            LogHelper.v(LOG_TAG, "Saving temporary track object in background.");
+            // save track object
+            StorageHelper storageHelper = new StorageHelper(TrackerService.this, FILETYPE_TEMP);
+            storageHelper.saveTrack(mTrack);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            LogHelper.v(LOG_TAG, "Saving finished.");
+        }
+    }
 
 
 }

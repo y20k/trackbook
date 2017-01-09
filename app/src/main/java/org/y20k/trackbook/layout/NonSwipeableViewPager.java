@@ -28,18 +28,25 @@ import android.view.MotionEvent;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Scroller;
 
+import org.y20k.trackbook.helpers.LogHelper;
+
 import java.lang.reflect.Field;
 
 
 public class NonSwipeableViewPager extends ViewPager {
 
+    /* Define log tag */
+    private static final String LOG_TAG = NonSwipeableViewPager.class.getSimpleName();
 
+
+    /* Constructor */
     public NonSwipeableViewPager(Context context) {
         super(context);
         setMyScroller();
     }
 
 
+    /* Constructor */
     public NonSwipeableViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
         setMyScroller();
@@ -59,9 +66,9 @@ public class NonSwipeableViewPager extends ViewPager {
         return false;
     }
 
-
     //down one is added for smooth scrolling
 
+    /* Attaches a custom scroller to a ViewPager */
     private void setMyScroller() {
         try {
             Class<?> viewpager = ViewPager.class;
@@ -69,11 +76,15 @@ public class NonSwipeableViewPager extends ViewPager {
             scroller.setAccessible(true);
             scroller.set(this, new MyScroller(getContext()));
         } catch (Exception e) {
+            LogHelper.e(LOG_TAG, "Problem accessing or modifying the mScroller field.");
             e.printStackTrace();
         }
     }
 
 
+    /**
+     * Inner class: MyScroller is a custom Scroller
+     */
     public class MyScroller extends Scroller {
         public MyScroller(Context context) {
             super(context, new DecelerateInterpolator());
@@ -84,4 +95,8 @@ public class NonSwipeableViewPager extends ViewPager {
             super.startScroll(startX, startY, dx, dy, 350 /*1 secs*/);
         }
     }
+    /**
+     * End of inner class
+     */
+
 }

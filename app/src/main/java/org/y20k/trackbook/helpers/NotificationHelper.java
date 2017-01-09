@@ -92,8 +92,7 @@ public class NotificationHelper implements TrackbookKeys {
     private static NotificationCompat.Builder getNotificationBuilder(Track track, boolean tracking) {
 
         String contentText = mService.getString(R.string.notification_content_distance) + ": " + track.getTrackDistance() + " | " +
-                mService.getString(R.string.notification_content_duration) + " : " +  track.getTrackDuration();
-
+                mService.getString(R.string.notification_content_duration) + ": " +  track.getTrackDuration();
 
         // ACTION: NOTIFICATION TAP
         Intent tapActionIntent = new Intent(mService, MainActivity.class);
