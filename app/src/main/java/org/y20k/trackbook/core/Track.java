@@ -54,6 +54,7 @@ public class Track implements TrackbookKeys, Parcelable {
     public Track() {
         mWayPoints = new ArrayList<WayPoint>();
         mTrackLength = 0f;
+        mDuration = 0;
         mStepCount = 0f;
         mRecordingStart = GregorianCalendar.getInstance().getTime();
         mRecordingStop = mRecordingStart;
@@ -64,6 +65,7 @@ public class Track implements TrackbookKeys, Parcelable {
     protected Track(Parcel in) {
         mWayPoints = in.createTypedArrayList(WayPoint.CREATOR);
         mTrackLength = in.readFloat();
+        mDuration = in.readLong();
         mStepCount = in.readFloat();
         mRecordingStart = new Date(in.readLong());
         mRecordingStop = new Date(in.readLong());
@@ -216,6 +218,7 @@ public class Track implements TrackbookKeys, Parcelable {
     public void writeToParcel(Parcel parcel, int flags) {
         parcel.writeTypedList(mWayPoints);
         parcel.writeFloat(mTrackLength);
+        parcel.writeLong(mDuration);
         parcel.writeFloat(mStepCount);
         parcel.writeLong(mRecordingStart.getTime());
         parcel.writeLong(mRecordingStop.getTime());

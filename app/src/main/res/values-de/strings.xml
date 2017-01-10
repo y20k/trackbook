@@ -43,8 +43,6 @@
     <string name="toast_message_save_track">Aufzeichnung wird gespeichert.</string>
     <string name="toast_message_last_location_age_one_hour">über eine Stunde</string>
     <string name="toast_message_track_clear">Aufzeichnung zurückgesetzt.</string>
-    <string name="toast_message_track_save">Speichere Aufzeichnung.</string>
-
 
     <!-- map markers -->
     <string name="marker_description_source">Quelle</string>

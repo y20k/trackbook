@@ -187,7 +187,8 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
             @Override
             public void onTick(long millisUntilFinished) {
                 // update track duration
-                mTrack.setDuration(EIGHT_HOURS_IN_MILLISECONDS - millisUntilFinished);
+                long duration = EIGHT_HOURS_IN_MILLISECONDS - millisUntilFinished;
+                mTrack.setDuration(duration);
                 // try to add WayPoint to Track
                 addWayPointToTrack();
                 // update notification

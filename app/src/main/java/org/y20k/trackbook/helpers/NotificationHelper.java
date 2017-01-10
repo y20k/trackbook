@@ -48,6 +48,7 @@ public class NotificationHelper implements TrackbookKeys {
     private static Notification mNotification;
     private static Service mService;
 
+
     /* Create and put up notification */
     public static void show(final Service service, Track track) {
         // save service

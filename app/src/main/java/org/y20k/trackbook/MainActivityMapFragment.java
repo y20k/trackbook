@@ -407,8 +407,10 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
             saveTrackAsyncHelper.execute();
             Toast.makeText(mActivity, mActivity.getString(R.string.toast_message_save_track), Toast.LENGTH_LONG).show();
         } else {
-            // clear track object
+            // clear track object and delete temp file
             mTrack = null;
+            StorageHelper storageHelper = new StorageHelper(mActivity, FILETYPE_TEMP);
+            storageHelper.deleteTempFile();
         }
 
 //        // save track state

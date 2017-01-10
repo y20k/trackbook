@@ -44,8 +44,6 @@
     <string name="toast_message_save_track">Saving current track.</string>
     <string name="toast_message_last_location_age_one_hour">over one hour</string>
     <string name="toast_message_track_clear">Current track data removed.</string>
-    <string name="toast_message_track_save">Saving current track data.</string>
-
 
     <!-- map markers -->
     <string name="marker_description_source">Source</string>

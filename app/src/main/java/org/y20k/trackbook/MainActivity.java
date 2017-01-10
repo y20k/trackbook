@@ -479,7 +479,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
         // display and update track tab
         mSelectedTab = FRAGMENT_ID_TRACK;
         mViewPager.setCurrentItem(mSelectedTab);
-        mMainActivityTrackFragment.refreshTrackView();
+//        mMainActivityTrackFragment.refreshTrackView();
 
         // dismiss notification
         NotificationHelper.stop();
@@ -490,8 +490,6 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
         // update Floating Action Button icon
         mFloatingActionButtonState = FAB_STATE_DEFAULT;
         setFloatingActionButtonState();
-
-        Toast.makeText(this, getString(R.string.toast_message_track_save), Toast.LENGTH_LONG).show();
     }
 
 

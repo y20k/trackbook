@@ -76,7 +76,6 @@ public class MainActivityTrackFragment extends Fragment implements TrackbookKeys
     private BroadcastReceiver mTrackSavedReceiver;
 
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,17 +86,20 @@ public class MainActivityTrackFragment extends Fragment implements TrackbookKeys
         // store activity
         mActivity = getActivity();
 
-        // create receiver for finished save operation
+        // listen for finished save operation
         mTrackSavedReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 if (intent.hasExtra(EXTRA_SAVE_FINISHED) && intent.getBooleanExtra(EXTRA_SAVE_FINISHED, false)) {
+                    LogHelper.v(LOG_TAG, "Save operation detected. Start loading the new track.");
                     // load track and display map and statistics
                     LoadTrackAsyncHelper loadTrackAsyncHelper = new LoadTrackAsyncHelper();
                     loadTrackAsyncHelper.execute();
                 }
             }
         };
+        IntentFilter trackSavedReceiverIntentFilter = new IntentFilter(ACTION_TRACK_SAVE);
+        LocalBroadcastManager.getInstance(mActivity).registerReceiver(mTrackSavedReceiver, trackSavedReceiverIntentFilter);
 
     }
 
@@ -139,7 +141,7 @@ public class MainActivityTrackFragment extends Fragment implements TrackbookKeys
 
 
         // get views
-        View mStaticticsView = mRootView.findViewById(R.id.statistics_view);
+        View mStatisticsView = mRootView.findViewById(R.id.statistics_view);
         mDistanceView = (TextView) mRootView.findViewById(R.id.statistics_data_distance);
         mStepsView = (TextView) mRootView.findViewById(R.id.statistics_data_steps);
         mWaypointsView = (TextView) mRootView.findViewById(R.id.statistics_data_waypoints);
@@ -148,7 +150,11 @@ public class MainActivityTrackFragment extends Fragment implements TrackbookKeys
         mRecordingStopView = (TextView) mRootView.findViewById(R.id.statistics_data_recording_stop);
         View mStatisticsSheet = mRootView.findViewById(R.id.statistics_sheet);
 
-        if (mTrack == null) {
+        if (savedInstanceState != null) {
+            // get track from saved instance and display map and statistics
+            mTrack = savedInstanceState.getParcelable(INSTANCE_TRACK_TRACK_MAP);
+            displayTrack();
+        } else if (mTrack == null) {
             // load track and display map and statistics
             LoadTrackAsyncHelper loadTrackAsyncHelper = new LoadTrackAsyncHelper();
             loadTrackAsyncHelper.execute();
@@ -187,7 +193,7 @@ public class MainActivityTrackFragment extends Fragment implements TrackbookKeys
         });
 
         // react to tap on sheet heading
-        mStaticticsView.setOnClickListener(new View.OnClickListener() {
+        mStatisticsView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 LogHelper.v(LOG_TAG,"Statistics view tapped");
@@ -208,7 +214,6 @@ public class MainActivityTrackFragment extends Fragment implements TrackbookKeys
     public void onResume() {
         super.onResume();
         LogHelper.v(LOG_TAG, "TrackFragment: onResume called.");
-
     }
 
 
@@ -229,7 +234,17 @@ public class MainActivityTrackFragment extends Fragment implements TrackbookKeys
 
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        // remove listener
+        LocalBroadcastManager.getInstance(mActivity).unregisterReceiver(mTrackSavedReceiver);
+    }
+
+
+    @Override
     public void onSaveInstanceState(Bundle outState) {
+        LogHelper.v(LOG_TAG, "TrackFragment: onSaveInstanceState called.");
         outState.putDouble(INSTANCE_LATITUDE_TRACK_MAP, mMapView.getMapCenter().getLatitude());
         outState.putDouble(INSTANCE_LONGITUDE_TRACK_MAP, mMapView.getMapCenter().getLongitude());
         outState.putInt(INSTANCE_ZOOM_LEVEL_TRACK_MAP, mMapView.getZoomLevel());
@@ -238,18 +253,18 @@ public class MainActivityTrackFragment extends Fragment implements TrackbookKeys
     }
 
 
-    /* Removes current track display */
-    public void refreshTrackView() {
-
-        // remove previous track
-        if (mMapView != null && mTrackOverlay != null) {
-            mMapView.getOverlays().remove(mTrackOverlay);
-        }
-
-        // listen for finished save
-        IntentFilter trackSavedReceiverIntentFilter = new IntentFilter(ACTION_TRACK_SAVE);
-        LocalBroadcastManager.getInstance(mActivity).registerReceiver(mTrackSavedReceiver, trackSavedReceiverIntentFilter);
-    }
+//    /* Removes current track display */
+//    public void refreshTrackView() {
+//
+//        // remove previous track
+//        if (mMapView != null && mTrackOverlay != null) {
+//            mMapView.getOverlays().remove(mTrackOverlay);
+//        }
+//
+//        // listen for finished save
+//        IntentFilter trackSavedReceiverIntentFilter = new IntentFilter(ACTION_TRACK_SAVE);
+//        LocalBroadcastManager.getInstance(mActivity).registerReceiver(mTrackSavedReceiver, trackSavedReceiverIntentFilter);
+//    }
 
 
     /* Displays map and statistics for track */
@@ -283,8 +298,6 @@ public class MainActivityTrackFragment extends Fragment implements TrackbookKeys
         // center map over position
         mController.setCenter(position);
 
-
-
     }
 
 
@@ -294,6 +307,7 @@ public class MainActivityTrackFragment extends Fragment implements TrackbookKeys
         mTrackOverlay = MapHelper.createTrackOverlay(mActivity, track, false);
         mMapView.getOverlays().add(mTrackOverlay);
     }
+
 
     /**
      * Inner class: Loads track from external storage using AsyncTask
@@ -314,9 +328,6 @@ public class MainActivityTrackFragment extends Fragment implements TrackbookKeys
             super.onPostExecute(aVoid);
             LogHelper.v(LOG_TAG, "Loading finished. Displaying map and statistics of track.");
             displayTrack();
-
-            // remove listener
-            LocalBroadcastManager.getInstance(mActivity).unregisterReceiver(mTrackSavedReceiver);
         }
     }
 
