@@ -71,6 +71,7 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
     private boolean mTrackerServiceRunning;
     private boolean mLocationSystemSetting;
 
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
@@ -164,6 +165,7 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
     }
 
 
+    /* Start tracking location */
     private void startTracking(Intent intent) {
         LogHelper.v(LOG_TAG, "Service received command: START");
 
@@ -224,6 +226,7 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
     }
 
 
+    /* Stop tracking location */
     private void stopTracking() {
         LogHelper.v(LOG_TAG, "Service received command: STOP");
 

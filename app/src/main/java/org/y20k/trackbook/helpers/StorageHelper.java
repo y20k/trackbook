@@ -103,17 +103,19 @@ public class StorageHelper implements TrackbookKeys {
         }
 
         if (mFolder != null && mFolder.exists() && mFolder.isDirectory() && mFolder.canWrite() && recordingStart != null && track != null) {
-            // construct filename from track recording date
+            // create file object
             String fileName;
             if (mFileType == FILETYPE_TEMP) {
+                // case: temp file
                 fileName = FILENAME_TEMP + mFileExtension;
             } else {
+                // case: regular file
                 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss", Locale.US);
                 fileName = dateFormat.format(recordingStart) + mFileExtension;
             }
             File file = new File(mFolder.toString() + "/" +  fileName);
 
-            // convert to JSON
+            // convert track to JSON
             Gson gson = new Gson();
             String json = gson.toJson(track);
 
@@ -128,7 +130,8 @@ public class StorageHelper implements TrackbookKeys {
 
             // if write was successful delete old track files - only if not a temp file
             if (mFileType != FILETYPE_TEMP) {
-                deleteOldTracks();
+                // include  temp file if it exists
+                deleteOldTracks(true);
             }
 
             return true;
@@ -213,7 +216,7 @@ public class StorageHelper implements TrackbookKeys {
 
 
     /* Gets the last track from directory */
-    private void deleteOldTracks() {
+    private void deleteOldTracks(boolean includeTempFile) {
 
         // get "tracks" folder
         mFolder  = mActivity.getExternalFilesDir(mDirectoryName);
@@ -236,6 +239,12 @@ public class StorageHelper implements TrackbookKeys {
                 index++;
             }
         }
+
+        // delete temp file if it exists
+        if (includeTempFile && mTempFile.exists()) {
+            mTempFile.delete();
+        }
+
     }
 
 
@@ -247,9 +256,9 @@ public class StorageHelper implements TrackbookKeys {
             @Override
             public int compare(File file1, File file2) {
 
-                // discard files not ending with ".trackbook"
-                boolean file1IsTrack = file1.getName().endsWith(mFileExtension);
-                boolean file2IsTrack = file2.getName().endsWith(mFileExtension);
+                // discard temp file and files not ending with ".trackbook"
+                boolean file1IsTrack = file1.getName().endsWith(mFileExtension) && !file1.equals(mTempFile);
+                boolean file2IsTrack = file2.getName().endsWith(mFileExtension) && !file2.equals(mTempFile);
 
                 // note: "greater" means higher index in array
                 if (!file1IsTrack && file2IsTrack) {

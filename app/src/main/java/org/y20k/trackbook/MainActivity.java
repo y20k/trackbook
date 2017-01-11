@@ -387,8 +387,8 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
             setContentView(R.layout.activity_main_onboarding);
 
             // show the okay button and attach listener
-            Button okButton = (Button) findViewById(R.id.button_okay);
-            okButton.setOnClickListener(new View.OnClickListener() {
+            Button okayButton = (Button) findViewById(R.id.button_okay);
+            okayButton.setOnClickListener(new View.OnClickListener() {
                 @TargetApi(Build.VERSION_CODES.M)
                 @Override
                 public void onClick(View view) {
@@ -562,6 +562,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
                 if (intent.hasExtra(EXTRA_TRACKING_STATE)) {
                     mTrackerServiceRunning = intent.getBooleanExtra(EXTRA_TRACKING_STATE, false);
                     if (mTrackerServiceRunning) {
+                        // set FAB state
                         mFloatingActionButtonState = FAB_STATE_RECORDING;
                     }
                 }

@@ -21,6 +21,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.database.ContentObserver;
 import android.location.Location;
 import android.location.LocationListener;
@@ -29,6 +30,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
@@ -105,9 +107,10 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
         // restore first start state and tracking state
         mFirstStart = true;
         mTrackerServiceRunning = false;
+        loadTrackerServiceState(mActivity);
         if (savedInstanceState != null) {
             mFirstStart = savedInstanceState.getBoolean(INSTANCE_FIRST_START, true);
-            mTrackerServiceRunning = savedInstanceState.getBoolean(INSTANCE_TRACKING_STATE, false);
+//            mTrackerServiceRunning = savedInstanceState.getBoolean(INSTANCE_TRACKING_STATE, false);
         }
 
         // acquire reference to Location Manager
@@ -196,11 +199,13 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
             // load track from temp file if it exists
             LoadTempTrackAsyncHelper loadTempTrackAsyncHelper = new LoadTempTrackAsyncHelper();
             loadTempTrackAsyncHelper.execute();
+            LogHelper.v(LOG_TAG, "MapFragment: getting track from temp file.");
         } else if (savedInstanceState != null) {
             // load track from saved instance
             mTrack = savedInstanceState.getParcelable(INSTANCE_TRACK_MAIN_MAP);
             if (mTrack != null) {
                drawTrackOverlay(mTrack);
+               LogHelper.v(LOG_TAG, "MapFragment: got track from saved instance.");
             }
         }
 
@@ -222,7 +227,10 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
         mFragmentVisible = true;
 
         // handle incoming intent (from notification)
-        handleIncomingIntent();
+//        handleIncomingIntent(); // todo remove
+
+        // load state of tracker service - see if anything changed
+        loadTrackerServiceState(mActivity);
 
         // center map on current position - if TrackerService is running
         if (mTrackerServiceRunning) {
@@ -348,6 +356,7 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
+        LogHelper.v(LOG_TAG, "MapFragment: onSaveInstanceState called. mTrack object is Null: " + (mTrack == null));
         outState.putBoolean(INSTANCE_FIRST_START, mFirstStart);
         outState.putBoolean(INSTANCE_TRACKING_STATE, mTrackerServiceRunning);
         outState.putParcelable(INSTANCE_CURRENT_LOCATION, mCurrentBestLocation);
@@ -367,6 +376,7 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
         Intent intent = mActivity.getIntent();
         if (intent != null && intent.hasExtra(EXTRA_TRACK)) {
             mTrack = intent.getParcelableExtra(EXTRA_TRACK);
+            LogHelper.v(LOG_TAG, "MapFragment: getting track from intent.");
         }
 
         // turn on/off tracking for MainActivity Fragment - prevent double tracking
@@ -418,33 +428,61 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
     }
 
 
-    /* Handles new incoming intents */
-    private void handleIncomingIntent() {
-        LogHelper.v(LOG_TAG, "Map Fragment received intent.");
-        Intent intent = mActivity.getIntent();
-        String intentAction = intent.getAction();
-        switch (intentAction) {
-            case ACTION_SHOW_MAP:
-                if (intent.hasExtra(EXTRA_TRACK)) {
-                    mTrack = intent.getParcelableExtra(EXTRA_TRACK);
-                    drawTrackOverlay(mTrack);
-                }
+//    public void updateTrackingState(boolean trackerServiceRunning, Track track) {
+//        mTrackerServiceRunning = trackerServiceRunning;
+//        mTrack = track;
+//        if (mTrackerServiceRunning && mTrack != null) {
+//            drawTrackOverlay(mTrack);
+//            // remove the blue "my location" dot
+//            mMapView.getOverlays().remove(mMyLocationOverlay);
+//        }
+//    }
 
-                if (intent.hasExtra(EXTRA_TRACKING_STATE)) {
-                    mTrackerServiceRunning = intent.getBooleanExtra(EXTRA_TRACKING_STATE, false);
-                    mMapView.getOverlays().remove(mMyLocationOverlay);
-                }
 
-                // prevent multiple reactions to intent
-                intent.setAction(ACTION_DEFAULT);
-
-                break;
-
-            default:
-                LogHelper.v(LOG_TAG, "Doing nothing. Type of ACTION: " +  intentAction);
-                break;
-        }
-    }
+//    /* Handles new incoming intents */
+//    private void handleIncomingIntent() {
+//        LogHelper.v(LOG_TAG, "Map Fragment received intent.");
+//        Intent intent = mActivity.getIntent();
+//        String intentAction = intent.getAction();
+//        switch (intentAction) {
+//            case ACTION_SHOW_MAP:
+////                if (intent.hasExtra(EXTRA_TRACK)) {
+////                    LogHelper.v(LOG_TAG, "MapFragment: Intent received drawing map.");
+////                    mTrack = intent.getParcelableExtra(EXTRA_TRACK);
+////                    drawTrackOverlay(mTrack);
+////                }
+////
+////                if (intent.hasExtra(EXTRA_TRACKING_STATE)) {
+////                    mTrackerServiceRunning = intent.getBooleanExtra(EXTRA_TRACKING_STATE, false);
+////                    mMapView.getOverlays().remove(mMyLocationOverlay);
+////                }
+//
+//
+//                if (intent.hasExtra(EXTRA_TRACKING_STATE)) {
+//                    // store tracker service state
+//                    mTrackerServiceRunning = intent.getBooleanExtra(EXTRA_TRACKING_STATE, false);
+//
+//                    // get most current track (from notification) - if recording is active
+//                    if (mTrackerServiceRunning && intent.hasExtra(EXTRA_TRACK)) {
+//                        LogHelper.v(LOG_TAG, "MapFragment: Intent received drawing map.");
+//                        mTrack = intent.getParcelableExtra(EXTRA_TRACK);
+//                        drawTrackOverlay(mTrack);
+//                        // remove the blue "my location" dot
+//                        mMapView.getOverlays().remove(mMyLocationOverlay);
+//                    }
+//                }
+//
+//
+//                // prevent multiple reactions to intent
+//                intent.setAction(ACTION_DEFAULT);
+//
+//                break;
+//
+//            default:
+//                LogHelper.v(LOG_TAG, "Doing nothing. Type of ACTION: " +  intentAction);
+//                break;
+//        }
+//    }
 
 
     /* Start preliminary tracking for map */
@@ -520,8 +558,12 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
     /* Draws track onto overlay */
     private void drawTrackOverlay(Track track) {
         mMapView.getOverlays().remove(mTrackOverlay);
-        mTrackOverlay = MapHelper.createTrackOverlay(mActivity, track, mTrackerServiceRunning);
-        mMapView.getOverlays().add(mTrackOverlay);
+        mTrackOverlay = null;
+        if (track != null) {
+            LogHelper.v(LOG_TAG, "MapFragment: drawing new track overlay.");
+            mTrackOverlay = MapHelper.createTrackOverlay(mActivity, track, mTrackerServiceRunning);
+            mMapView.getOverlays().add(mTrackOverlay);
+        }
     }
 
 
@@ -564,6 +606,7 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
                     mController.setCenter(convertToGeoPoint(mCurrentBestLocation));
                     // clear intent
                     intent.setAction(ACTION_DEFAULT);
+                    LogHelper.v(LOG_TAG, "MapFragment: Track update received - drawing map.");
                 }
             }
         };
@@ -604,6 +647,15 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
 //        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
 //        int zoom = settings.getInt(PREFS_ZOOM_LEVEL, 16);
 //    }
+
+    /* Loads state tracker service from preferences */
+    private void loadTrackerServiceState(Context context) {
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+        int fabState = settings.getInt(PREFS_FAB_STATE, FAB_STATE_DEFAULT);
+        if (fabState == FAB_STATE_RECORDING) {
+            mTrackerServiceRunning = true;
+        }
+    }
 
 
     /**
