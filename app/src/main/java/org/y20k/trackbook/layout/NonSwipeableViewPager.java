@@ -42,14 +42,14 @@ public class NonSwipeableViewPager extends ViewPager {
     /* Constructor */
     public NonSwipeableViewPager(Context context) {
         super(context);
-        setMyScroller();
+        // setMyScroller();
     }
 
 
     /* Constructor */
     public NonSwipeableViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setMyScroller();
+        // setMyScroller();
     }
 
 
