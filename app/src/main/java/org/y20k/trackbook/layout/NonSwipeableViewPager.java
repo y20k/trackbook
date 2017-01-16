@@ -73,10 +73,14 @@ public class NonSwipeableViewPager extends ViewPager {
         try {
             Class<?> viewpager = ViewPager.class;
             Field scroller = viewpager.getDeclaredField("mScroller");
-            scroller.setAccessible(true);
-            scroller.set(this, new MyScroller(getContext()));
+            if (scroller != null) {
+                scroller.setAccessible(true);
+                scroller.set(this, new MyScroller(getContext()));
+            } else {
+                LogHelper.v(LOG_TAG, "Unable to get mScroller field."); // todo remove
+            }
         } catch (Exception e) {
-            LogHelper.e(LOG_TAG, "Problem accessing or modifying the mScroller field.");
+            LogHelper.e(LOG_TAG, "Problem accessing or modifying the mScroller field. Exception: " + e);
             e.printStackTrace();
         }
     }

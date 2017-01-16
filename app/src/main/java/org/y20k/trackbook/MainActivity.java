@@ -175,6 +175,17 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
                 startActivity(aboutIntent);
                 return true;
 
+            // CASE MY LOCATION
+            case R.id.action_bar_my_location:
+                LogHelper.v(LOG_TAG, "MainActivity: CASE MY LOCATION."); // todo remove
+                if (mSelectedTab != FRAGMENT_ID_MAP) {
+                    LogHelper.v(LOG_TAG, "MainActivity: ."); // todo remove
+                    // show map fragment
+                    mSelectedTab = FRAGMENT_ID_MAP;
+                    mViewPager.setCurrentItem(mSelectedTab);
+                }
+                return false;
+
             // CASE DEFAULT
             default:
                 return super.onOptionsItemSelected(item);
@@ -214,6 +225,9 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     public void onDestroy() {
         super.onDestroy();
         LogHelper.v(LOG_TAG, "onDestroy called.");
+
+        // reset selected tab
+        mSelectedTab = FRAGMENT_ID_MAP;
 
         // disable  broadcast receiver
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mTrackingStoppedReceiver);
@@ -262,7 +276,6 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
         outState.putBoolean(INSTANCE_FAB_SUB_MENU_VISIBLE, mFloatingActionButtonSubMenuVisible);
         super.onSaveInstanceState(outState);
     }
-
 
 
     @Override
@@ -321,11 +334,13 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
                         case FRAGMENT_ID_MAP:
                             // show the Floating Action Button
                             mFloatingActionButton.show();
+                            mSelectedTab = FRAGMENT_ID_MAP;
                             break;
                         case FRAGMENT_ID_TRACK:
                             // hide the Floating Action Button - and its sub menu
                             mFloatingActionButton.hide();
                             showFloatingActionButtonMenu(false);
+                            mSelectedTab = FRAGMENT_ID_TRACK;
                             break;
                         default:
                             // show the Floating Action Button
