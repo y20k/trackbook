@@ -232,9 +232,11 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
         // load state of tracker service - see if anything changed
         loadTrackerServiceState(mActivity);
 
-        // center map on current position - if TrackerService is running
+        // request an updated track recording from service - if TrackerService is running
         if (mTrackerServiceRunning) {
-            mController.setCenter(convertToGeoPoint(mCurrentBestLocation));
+            Intent i = new Intent();
+            i.setAction(ACTION_TRACK_REQUEST);
+            LocalBroadcastManager.getInstance(mActivity).sendBroadcast(i);
         }
 
         // draw track on map - if available

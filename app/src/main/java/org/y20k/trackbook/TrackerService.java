@@ -17,8 +17,10 @@
 package org.y20k.trackbook;
 
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.database.ContentObserver;
 import android.hardware.Sensor;
@@ -68,12 +70,23 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
     private LocationListener mNetworkListener = null;
     private SettingsContentObserver mSettingsContentObserver;
     private Location mCurrentBestLocation;
+    private BroadcastReceiver mTrackRequestReceiver;
     private boolean mTrackerServiceRunning;
     private boolean mLocationSystemSetting;
 
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+
+        // listen for finished save operation
+        mTrackRequestReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                sendTrackUpdate();
+            }
+        };
+        IntentFilter trackRequestReceiverIntentFilter = new IntentFilter(ACTION_TRACK_REQUEST);
+        LocalBroadcastManager.getInstance(this).registerReceiver(mTrackRequestReceiver, trackRequestReceiverIntentFilter);
 
         // acquire reference to Location Manager
         mLocationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
@@ -133,9 +146,10 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
     public void onDestroy() {
         LogHelper.v(LOG_TAG, "onDestroy called.");
 
-        // remove listeners
+        // remove receivers and listeners
         stopFindingLocation();
         mSensorManager.unregisterListener(this);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mTrackRequestReceiver);
 
         // cancel notification
         stopForeground(true);
@@ -288,13 +302,19 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
 
         // send local broadcast if new WayPoint added
         if (newWayPoint != null) {
-            Intent i = new Intent();
-            i.setAction(ACTION_TRACK_UPDATED);
-            i.putExtra(EXTRA_TRACK, mTrack);
-            i.putExtra(EXTRA_LAST_LOCATION, mCurrentBestLocation);
-            LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(i);
+            sendTrackUpdate();
         }
 
+    }
+
+
+    /* Broadcasts a track update */
+    private void sendTrackUpdate() {
+        Intent i = new Intent();
+        i.setAction(ACTION_TRACK_UPDATED);
+        i.putExtra(EXTRA_TRACK, mTrack);
+        i.putExtra(EXTRA_LAST_LOCATION, mCurrentBestLocation);
+        LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(i);
     }
 
 
@@ -411,6 +431,9 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
             LogHelper.v(LOG_TAG, "Saving finished.");
         }
     }
+    /**
+     * End of inner class
+     */
 
 
 }
