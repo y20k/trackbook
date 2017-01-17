@@ -314,7 +314,7 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
                 // get current position
                 GeoPoint position;
 
-                if (mTrackerServiceRunning) {
+                if (mTrackerServiceRunning && mTrack != null) {
                     // get current Location from tracker service
                     mCurrentBestLocation = mTrack.getWayPointLocation(mTrack.getSize() - 1);
                 } else if (mCurrentBestLocation == null) {
@@ -652,9 +652,7 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
     private void loadTrackerServiceState(Context context) {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
         int fabState = settings.getInt(PREFS_FAB_STATE, FAB_STATE_DEFAULT);
-        if (fabState == FAB_STATE_RECORDING) {
-            mTrackerServiceRunning = true;
-        }
+        mTrackerServiceRunning = fabState == FAB_STATE_RECORDING;
     }
 
 
