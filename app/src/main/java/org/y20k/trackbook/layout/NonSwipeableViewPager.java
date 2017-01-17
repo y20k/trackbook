@@ -42,14 +42,14 @@ public class NonSwipeableViewPager extends ViewPager {
     /* Constructor */
     public NonSwipeableViewPager(Context context) {
         super(context);
-        // setMyScroller();
+        setMyScroller();
     }
 
 
     /* Constructor */
     public NonSwipeableViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
-        // setMyScroller();
+        setMyScroller();
     }
 
 
@@ -66,19 +66,14 @@ public class NonSwipeableViewPager extends ViewPager {
         return false;
     }
 
-    //down one is added for smooth scrolling
 
-    /* Attaches a custom scroller to a ViewPager */
+    /* Attaches a custom smooth scrolling scroller to a ViewPager */
     private void setMyScroller() {
         try {
             Class<?> viewpager = ViewPager.class;
             Field scroller = viewpager.getDeclaredField("mScroller");
-            if (scroller != null) {
-                scroller.setAccessible(true);
-                scroller.set(this, new MyScroller(getContext()));
-            } else {
-                LogHelper.v(LOG_TAG, "Unable to get mScroller field."); // todo remove
-            }
+            scroller.setAccessible(true);
+            scroller.set(this, new MyScroller(getContext()));
         } catch (Exception e) {
             LogHelper.e(LOG_TAG, "Problem accessing or modifying the mScroller field. Exception: " + e);
             e.printStackTrace();
