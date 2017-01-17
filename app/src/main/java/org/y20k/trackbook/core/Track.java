@@ -24,6 +24,7 @@ import org.y20k.trackbook.helpers.LocationHelper;
 import org.y20k.trackbook.helpers.LogHelper;
 import org.y20k.trackbook.helpers.TrackbookKeys;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -69,6 +70,13 @@ public class Track implements TrackbookKeys, Parcelable {
         mStepCount = in.readFloat();
         mRecordingStart = new Date(in.readLong());
         mRecordingStop = new Date(in.readLong());
+
+        // TODO remove logging
+        String recordingStart = DateFormat.getDateInstance(DateFormat.SHORT).format(mRecordingStart) + " " +
+                DateFormat.getTimeInstance(DateFormat.SHORT).format(mRecordingStart);
+        String recordingStop = DateFormat.getDateInstance(DateFormat.SHORT).format(mRecordingStop) + " " +
+                DateFormat.getTimeInstance(DateFormat.SHORT).format(mRecordingStop);
+        LogHelper.v(LOG_TAG, "Track recreated from parcel. Start: " + recordingStart + " | Stop: " + recordingStop);
     }
 
 
@@ -118,6 +126,11 @@ public class Track implements TrackbookKeys, Parcelable {
     /* Sets end time and date of recording */
     public void setRecordingEnd () {
         mRecordingStop = GregorianCalendar.getInstance().getTime();;
+
+        // TODO remove logging
+        String recordingStop = DateFormat.getDateInstance(DateFormat.SHORT).format(mRecordingStop) + " " +
+                DateFormat.getTimeInstance(DateFormat.SHORT).format(mRecordingStop);
+        LogHelper.v(LOG_TAG, "Saving date and time to track: " + recordingStop);
     }
 
 
@@ -222,6 +235,14 @@ public class Track implements TrackbookKeys, Parcelable {
         parcel.writeFloat(mStepCount);
         parcel.writeLong(mRecordingStart.getTime());
         parcel.writeLong(mRecordingStop.getTime());
+
+        // TODO remove logging
+        String recordingStart = DateFormat.getDateInstance(DateFormat.SHORT).format(mRecordingStart) + " " +
+                DateFormat.getTimeInstance(DateFormat.SHORT).format(mRecordingStart);
+        String recordingStop = DateFormat.getDateInstance(DateFormat.SHORT).format(mRecordingStop) + " " +
+                DateFormat.getTimeInstance(DateFormat.SHORT).format(mRecordingStop);
+        LogHelper.v(LOG_TAG, "Track writing to parcel. Start: " + recordingStart + " | Stop: " + recordingStop);
+
     }
 
 
