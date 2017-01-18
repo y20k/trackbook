@@ -23,6 +23,7 @@ import android.support.v4.os.EnvironmentCompat;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.y20k.trackbook.R;
 import org.y20k.trackbook.core.Track;
@@ -116,7 +117,9 @@ public class StorageHelper implements TrackbookKeys {
             File file = new File(mFolder.toString() + "/" +  fileName);
 
             // convert track to JSON
-            Gson gson = new Gson();
+            GsonBuilder gsonBuilder = new GsonBuilder();
+            gsonBuilder.setDateFormat("M/d/yy hh:mm a");
+            Gson gson = gsonBuilder.create();
             String json = gson.toJson(track);
 
             // write track
@@ -174,7 +177,9 @@ public class StorageHelper implements TrackbookKeys {
             }
 
             // get track from JSON
-            Gson gson = new Gson();
+            GsonBuilder gsonBuilder = new GsonBuilder();
+            gsonBuilder.setDateFormat("M/d/yy hh:mm a");
+            Gson gson = gsonBuilder.create();
             return gson.fromJson(sb.toString(), Track.class);
 
         } catch (IOException e) {
