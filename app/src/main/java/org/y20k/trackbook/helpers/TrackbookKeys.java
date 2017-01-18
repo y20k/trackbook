@@ -93,6 +93,7 @@ public interface TrackbookKeys {
     int MAXIMUM_TRACK_FILES = 25;
 
     /* MISC */
+    int CURRENT_TRACK_FORMAT_VERSION = 1; // incremental version number to prevent issues in case the Track format evolves
     int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
     int TRACKER_SERVICE_NOTIFICATION_ID = 1;
     int INFOSHEET_CONTENT_ABOUT = 1;

@@ -42,6 +42,7 @@ public class Track implements TrackbookKeys, Parcelable {
 
 
     /* Main class variables */
+    private final int mTrackFormatVersion;
     private final List<WayPoint> mWayPoints;
     private float mTrackLength;
     private long mDuration;
@@ -52,6 +53,7 @@ public class Track implements TrackbookKeys, Parcelable {
 
     /* Constructor */
     public Track() {
+        mTrackFormatVersion = CURRENT_TRACK_FORMAT_VERSION;
         mWayPoints = new ArrayList<WayPoint>();
         mTrackLength = 0f;
         mDuration = 0;
@@ -63,6 +65,7 @@ public class Track implements TrackbookKeys, Parcelable {
 
     /* Constructor used by CREATOR */
     protected Track(Parcel in) {
+        mTrackFormatVersion = in.readInt();
         mWayPoints = in.createTypedArrayList(WayPoint.CREATOR);
         mTrackLength = in.readFloat();
         mDuration = in.readLong();
@@ -216,6 +219,7 @@ public class Track implements TrackbookKeys, Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
+        parcel.writeInt(mTrackFormatVersion);
         parcel.writeTypedList(mWayPoints);
         parcel.writeFloat(mTrackLength);
         parcel.writeLong(mDuration);
