@@ -6,7 +6,7 @@
  * This file is part of
  * TRACKBOOK - Movement Recorder for Android
  *
- * Copyright (c) 2016 - Y20K.org
+ * Copyright (c) 2016-17 - Y20K.org
  * Licensed under the MIT-License
  * http://opensource.org/licenses/MIT
  * 
@@ -23,8 +23,8 @@ package org.y20k.trackbook.helpers;
 public interface TrackbookKeys {
 
     /* ACTIONS */
-    String ACTION_START = "org.y20k.transistor.action.START";
-    String ACTION_STOP = "org.y20k.transistor.action.STOP";
+    String ACTION_START = "org.y20k.trackbook.action.START";
+    String ACTION_STOP = "org.y20k.trackbook.action.STOP";
     String ACTION_DEFAULT = "DEFAULT";
     String ACTION_SHOW_MAP = "SHOW_MAP";
     String ACTION_TRACK_UPDATED = "TRACK_UPDATED";

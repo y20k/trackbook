@@ -54,8 +54,8 @@
             android:name=".TrackerService"
             android:exported="false">
             <intent-filter>
-                <action android:name="org.y20k.transistor.action.START" />
-                <action android:name="org.y20k.transistor.action.STOP" />
+                <action android:name="org.y20k.trackbook.action.START" />
+                <action android:name="org.y20k.trackbook.action.STOP" />
             </intent-filter>
         </service>
 

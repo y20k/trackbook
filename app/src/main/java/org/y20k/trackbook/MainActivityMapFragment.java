@@ -6,7 +6,7 @@
  * This file is part of
  * TRACKBOOK - Movement Recorder for Android
  *
- * Copyright (c) 2016 - Y20K.org
+ * Copyright (c) 2016-17 - Y20K.org
  * Licensed under the MIT-License
  * http://opensource.org/licenses/MIT
  *
@@ -75,6 +75,7 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
     private SettingsContentObserver mSettingsContentObserver;
     private MapView mMapView;
     private IMapController mController;
+    private StorageHelper mStorageHelper;
     private LocationManager mLocationManager;
     private LocationListener mGPSListener;
     private LocationListener mNetworkListener;
@@ -112,6 +113,9 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
             mFirstStart = savedInstanceState.getBoolean(INSTANCE_FIRST_START, true);
 //            mTrackerServiceRunning = savedInstanceState.getBoolean(INSTANCE_TRACKING_STATE, false);
         }
+
+        // create storage helper
+        mStorageHelper = new StorageHelper(mActivity);
 
         // acquire reference to Location Manager
         mLocationManager = (LocationManager) mActivity.getSystemService(Context.LOCATION_SERVICE);
@@ -193,20 +197,25 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
             mFirstStart = false;
         }
 
-        // restore track
-        StorageHelper storageHelper = new StorageHelper(mActivity, FILETYPE_TEMP);
-        if (storageHelper.tempFileExists()) {
-            // load track from temp file if it exists
-            LoadTempTrackAsyncHelper loadTempTrackAsyncHelper = new LoadTempTrackAsyncHelper();
-            loadTempTrackAsyncHelper.execute();
-            LogHelper.v(LOG_TAG, "MapFragment: getting track from temp file.");
-        } else if (savedInstanceState != null) {
-            // load track from saved instance
+//        // restore track
+//        StorageHelper storageHelper = new StorageHelper(mActivity, FILETYPE_TEMP);
+//        if (storageHelper.tempFileExists()) {
+//            // load track from temp file if it exists
+//            LoadTempTrackAsyncHelper loadTempTrackAsyncHelper = new LoadTempTrackAsyncHelper();
+//            loadTempTrackAsyncHelper.execute();
+//            LogHelper.v(LOG_TAG, "MapFragment: getting track from temp file.");
+//        } else if (savedInstanceState != null) {
+//            // load track from saved instance
+//            mTrack = savedInstanceState.getParcelable(INSTANCE_TRACK_MAIN_MAP);
+//            if (mTrack != null) {
+//               drawTrackOverlay(mTrack);
+//               LogHelper.v(LOG_TAG, "MapFragment: got track from saved instance.");
+//            }
+//        }
+
+        // load track from saved instance
+        if (savedInstanceState != null) {
             mTrack = savedInstanceState.getParcelable(INSTANCE_TRACK_MAIN_MAP);
-            if (mTrack != null) {
-               drawTrackOverlay(mTrack);
-               LogHelper.v(LOG_TAG, "MapFragment: got track from saved instance.");
-            }
         }
 
         // mark user's location on map
@@ -226,22 +235,30 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
         // set visibility
         mFragmentVisible = true;
 
-        // handle incoming intent (from notification)
-//        handleIncomingIntent(); // todo remove
-
         // load state of tracker service - see if anything changed
         loadTrackerServiceState(mActivity);
 
-        // request an updated track recording from service - if TrackerService is running
+        // CASE 1: recording active
         if (mTrackerServiceRunning) {
+            // request an updated track recording from service
             Intent i = new Intent();
             i.setAction(ACTION_TRACK_REQUEST);
             LocalBroadcastManager.getInstance(mActivity).sendBroadcast(i);
+            LogHelper.v(LOG_TAG, "MapFragment: requesting updated track from service.");
         }
 
-        // draw track on map - if available
-        if (mTrack != null) {
+        // CASE 2: recording stopped - temp file exists
+        else if (mStorageHelper.tempFileExists()) {
+            // load track from temp file if it exists
+            LoadTempTrackAsyncHelper loadTempTrackAsyncHelper = new LoadTempTrackAsyncHelper();
+            loadTempTrackAsyncHelper.execute();
+            LogHelper.v(LOG_TAG, "MapFragment: getting track from temp file.");
+
+        // CASE 3: not recording and no temp file
+        } else if (mTrack != null) {
+            // just draw existing track data
             drawTrackOverlay(mTrack);
+            LogHelper.v(LOG_TAG, "MapFragment: got track from saved instance.");
         }
 
         // show/hide the location off notification bar
@@ -421,8 +438,7 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
         } else {
             // clear track object and delete temp file
             mTrack = null;
-            StorageHelper storageHelper = new StorageHelper(mActivity, FILETYPE_TEMP);
-            storageHelper.deleteTempFile();
+            mStorageHelper.deleteTempFile();
         }
 
 //        // save track state
@@ -705,8 +721,7 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
         protected Void doInBackground(Void... voids) {
             LogHelper.v(LOG_TAG, "Saving track object in background.");
             // save track object
-            StorageHelper storageHelper = new StorageHelper(mActivity, FILETYPE_TRACK);
-            storageHelper.saveTrack(mTrack);
+            mStorageHelper.saveTrack(mTrack, FILETYPE_TRACK);
             return null;
         }
 
@@ -731,14 +746,11 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
      */
     private class LoadTempTrackAsyncHelper extends AsyncTask<Void, Void, Void> {
 
-        StorageHelper storageHelper;
-
         @Override
         protected Void doInBackground(Void... voids) {
             LogHelper.v(LOG_TAG, "Loading temporary track object in background.");
             // load track object
-            storageHelper = new StorageHelper(mActivity, FILETYPE_TEMP);
-            mTrack = storageHelper.loadTrack();
+            mTrack = mStorageHelper.loadTrack(FILETYPE_TEMP);
             return null;
         }
 
@@ -753,7 +765,7 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
             }
 
             // delete temp file
-            storageHelper.deleteTempFile();
+            mStorageHelper.deleteTempFile();
         }
     }
 

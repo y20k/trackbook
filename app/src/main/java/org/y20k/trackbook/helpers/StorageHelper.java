@@ -6,7 +6,7 @@
  * This file is part of
  * TRACKBOOK - Movement Recorder for Android
  *
- * Copyright (c) 2016 - Y20K.org
+ * Copyright (c) 2016-17 - Y20K.org
  * Licensed under the MIT-License
  * http://opensource.org/licenses/MIT
  *
@@ -51,7 +51,6 @@ public class StorageHelper implements TrackbookKeys {
     private static final String LOG_TAG = StorageHelper.class.getSimpleName();
 
     /* Main class variables */
-    private final int mFileType;
     private final String mDirectoryName = "tracks";
     private final String mFileExtension = ".trackbook";
     private final Context mActivity;
@@ -60,10 +59,9 @@ public class StorageHelper implements TrackbookKeys {
 
 
     /* Constructor */
-    public StorageHelper(Context activity, int fileType) {
+    public StorageHelper(Context activity) {
         // store activity
         mActivity = activity;
-        mFileType = fileType;
 
         // get "tracks" folder
         mFolder  = mActivity.getExternalFilesDir(mDirectoryName);
@@ -93,7 +91,7 @@ public class StorageHelper implements TrackbookKeys {
 
 
     /* Saves track object to file */
-    public boolean saveTrack(@Nullable Track track) {
+    public boolean saveTrack(@Nullable Track track, int fileType) {
 
         // get "tracks" folder
         mFolder  = mActivity.getExternalFilesDir(mDirectoryName);
@@ -106,7 +104,7 @@ public class StorageHelper implements TrackbookKeys {
         if (mFolder != null && mFolder.exists() && mFolder.isDirectory() && mFolder.canWrite() && recordingStart != null && track != null) {
             // create file object
             String fileName;
-            if (mFileType == FILETYPE_TEMP) {
+            if (fileType == FILETYPE_TEMP) {
                 // case: temp file
                 fileName = FILENAME_TEMP + mFileExtension;
             } else {
@@ -132,7 +130,7 @@ public class StorageHelper implements TrackbookKeys {
             }
 
             // if write was successful delete old track files - only if not a temp file
-            if (mFileType != FILETYPE_TEMP) {
+            if (fileType != FILETYPE_TEMP) {
                 // include  temp file if it exists
                 deleteOldTracks(true);
             }
@@ -148,11 +146,11 @@ public class StorageHelper implements TrackbookKeys {
 
 
     /* Loads given file into memory */
-    public Track loadTrack () {
+    public Track loadTrack (int fileType) {
 
         // get file reference
         File file;
-        if (mFileType == FILETYPE_TEMP) {
+        if (fileType == FILETYPE_TEMP) {
             file = getTempFile();
         } else {
             file = getMostCurrentTrack();
@@ -175,6 +173,8 @@ public class StorageHelper implements TrackbookKeys {
                 sb.append(line);
                 sb.append("\n");
             }
+
+            // TODO implement a format version check before handing the file to GSON
 
             // get track from JSON
             GsonBuilder gsonBuilder = new GsonBuilder();

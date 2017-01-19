@@ -6,7 +6,7 @@
  * This file is part of
  * TRACKBOOK - Movement Recorder for Android
  *
- * Copyright (c) 2016 - Y20K.org
+ * Copyright (c) 2016-17 - Y20K.org
  * Licensed under the MIT-License
  * http://opensource.org/licenses/MIT
  *
@@ -250,6 +250,9 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
         // stop timer
         mTimer.cancel();
 
+        // TODO test for race condition
+        sendTrackUpdate();
+
         // save a temp file in case the activity has been killed
         SaveTempTrackAsyncHelper saveTempTrackAsyncHelper = new SaveTempTrackAsyncHelper();
         saveTempTrackAsyncHelper.execute();
@@ -420,8 +423,8 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
         protected Void doInBackground(Void... voids) {
             LogHelper.v(LOG_TAG, "Saving temporary track object in background.");
             // save track object
-            StorageHelper storageHelper = new StorageHelper(TrackerService.this, FILETYPE_TEMP);
-            storageHelper.saveTrack(mTrack);
+            StorageHelper storageHelper = new StorageHelper(TrackerService.this);
+            storageHelper.saveTrack(mTrack, FILETYPE_TEMP);
             return null;
         }
 

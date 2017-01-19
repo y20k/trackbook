@@ -6,7 +6,7 @@
  * This file is part of
  * TRACKBOOK - Movement Recorder for Android
  *
- * Copyright (c) 2016 - Y20K.org
+ * Copyright (c) 2016-17 - Y20K.org
  * Licensed under the MIT-License
  * http://opensource.org/licenses/MIT
  *
@@ -318,8 +318,8 @@ public class MainActivityTrackFragment extends Fragment implements TrackbookKeys
         protected Void doInBackground(Void... voids) {
             LogHelper.v(LOG_TAG, "Loading track object in background.");
             // load track object
-            StorageHelper storageHelper = new StorageHelper(mActivity, FILETYPE_TRACK);
-            mTrack = storageHelper.loadTrack();
+            StorageHelper storageHelper = new StorageHelper(mActivity);
+            mTrack = storageHelper.loadTrack(FILETYPE_TRACK);
             return null;
         }
 
