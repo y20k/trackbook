@@ -141,7 +141,7 @@ public class MainActivityTrackFragment extends Fragment implements TrackbookKeys
 
 
         // get views
-        View mStatisticsView = mRootView.findViewById(R.id.statistics_view);
+        View statisticsView = mRootView.findViewById(R.id.statistics_view);
         mDistanceView = (TextView) mRootView.findViewById(R.id.statistics_data_distance);
         mStepsView = (TextView) mRootView.findViewById(R.id.statistics_data_steps);
         mWaypointsView = (TextView) mRootView.findViewById(R.id.statistics_data_waypoints);
@@ -193,7 +193,7 @@ public class MainActivityTrackFragment extends Fragment implements TrackbookKeys
         });
 
         // react to tap on sheet heading
-        mStatisticsView.setOnClickListener(new View.OnClickListener() {
+        statisticsView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 LogHelper.v(LOG_TAG,"Statistics view tapped");
