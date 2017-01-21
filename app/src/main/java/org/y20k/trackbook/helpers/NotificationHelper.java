@@ -72,6 +72,8 @@ public class NotificationHelper implements TrackbookKeys {
         NotificationManager notificationManager = (NotificationManager) mService.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(TRACKER_SERVICE_NOTIFICATION_ID, mNotification);
 
+        LogHelper.v(LOG_TAG, "!!! Notification: Received updated Track. Start == End -> " + (track.getRecordingStart().equals(track.getRecordingStop())) ); // TODO REMOVE
+
         if (!tracking) {
             // make notification swipe-able
             mService.stopForeground(false);

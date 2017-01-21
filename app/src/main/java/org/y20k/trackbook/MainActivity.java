@@ -293,6 +293,14 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     }
 
 
+//    @Override
+//    protected void onNewIntent(Intent intent) {
+//        super.onNewIntent(intent);
+//        LogHelper.v(LOG_TAG, "onNewIntent called.");
+//        handleIncomingIntent(intent);
+//    }
+//
+//
     /* Loads state of Floating Action Button from preferences */
     private void loadFloatingActionButtonState(Context context) {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
@@ -583,13 +591,22 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
             case ACTION_SHOW_MAP:
                 mSelectedTab = FRAGMENT_ID_MAP;
                 mViewPager.setCurrentItem(mSelectedTab);
-                if (intent.hasExtra(EXTRA_TRACKING_STATE)) {
-                    mTrackerServiceRunning = intent.getBooleanExtra(EXTRA_TRACKING_STATE, false);
-                    if (mTrackerServiceRunning) {
-                        // set FAB state
-                        mFloatingActionButtonState = FAB_STATE_RECORDING;
-                    }
-                }
+//                if (intent.hasExtra(EXTRA_TRACKING_STATE)) {
+//                    mTrackerServiceRunning = intent.getBooleanExtra(EXTRA_TRACKING_STATE, false);
+//                    if (mTrackerServiceRunning) {
+//                        // set FAB state
+//                        mFloatingActionButtonState = FAB_STATE_RECORDING;
+//                    }
+//                }
+//
+//                Intent i = new Intent();
+//                i.setAction(ACTION_TRACK_REQUEST);
+//                LocalBroadcastManager.getInstance(this).sendBroadcast(i);
+//                LogHelper.v(LOG_TAG, "MapActivity: requesting updated track from service.");
+
+                // clear intent
+                intent.setAction(ACTION_DEFAULT);
+
                 break;
 
             default:

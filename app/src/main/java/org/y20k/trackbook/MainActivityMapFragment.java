@@ -391,12 +391,13 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
     public void setTrackingState(boolean trackingState) {
         mTrackerServiceRunning = trackingState;
 
-        // got a new track (from notification)
-        Intent intent = mActivity.getIntent();
-        if (intent != null && intent.hasExtra(EXTRA_TRACK)) {
-            mTrack = intent.getParcelableExtra(EXTRA_TRACK);
-            LogHelper.v(LOG_TAG, "MapFragment: getting track from intent.");
-        }
+//        // got a new track (from notification)
+//        // todo check for ACTION
+//        Intent intent = mActivity.getIntent();
+//        if (intent != null && intent.hasExtra(EXTRA_TRACK)) {
+//            mTrack = intent.getParcelableExtra(EXTRA_TRACK);
+//            LogHelper.v(LOG_TAG, "MapFragment: getting track from intent.");
+//        }
 
         // turn on/off tracking for MainActivity Fragment - prevent double tracking
         if (mTrackerServiceRunning) {
@@ -406,7 +407,7 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
         }
 
         if (mTrack != null) {
-            drawTrackOverlay(mTrack);
+            drawTrackOverlay(mTrack); // TODO check if redundant
         }
 
         // update marker
@@ -435,6 +436,7 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
             SaveTrackAsyncHelper saveTrackAsyncHelper = new SaveTrackAsyncHelper();
             saveTrackAsyncHelper.execute();
             Toast.makeText(mActivity, mActivity.getString(R.string.toast_message_save_track), Toast.LENGTH_LONG).show();
+            LogHelper.v(LOG_TAG, "!!! MapFragment: Saving current track. Start == End -> " + (mTrack.getRecordingStart().equals(mTrack.getRecordingStop())) ); // TODO REMOVE
         } else {
             // clear track object and delete temp file
             mTrack = null;
@@ -625,6 +627,7 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
                     // clear intent
                     intent.setAction(ACTION_DEFAULT);
                     LogHelper.v(LOG_TAG, "MapFragment: Track update received - drawing map.");
+                    LogHelper.v(LOG_TAG, "!!! MapFragment: Track update received. Start == End -> " + (mTrack.getRecordingStart().equals(mTrack.getRecordingStop())) ); // TODO REMOVE
                 }
             }
         };

@@ -318,6 +318,7 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
         i.putExtra(EXTRA_TRACK, mTrack);
         i.putExtra(EXTRA_LAST_LOCATION, mCurrentBestLocation);
         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(i);
+        LogHelper.v(LOG_TAG, "!!! sendTrackUpdate. Start == End -> " + (mTrack.getRecordingStart().equals(mTrack.getRecordingStop())) ); // TODO REMOVE
     }
 
 
