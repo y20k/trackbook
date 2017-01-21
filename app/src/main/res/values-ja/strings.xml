@@ -98,4 +98,5 @@
     <string name="descr_statistics_sheet_p_recording_start_value">値: 記録の開始</string>
     <string name="descr_statistics_sheet_p_recording_end_value">値: 記録の終了</string>
 
-</resources>
+<string name="marker_description_time">時間</string>
+    </resources>
