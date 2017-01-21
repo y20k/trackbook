@@ -1,2 +1,101 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<?xml version='1.0' encoding='UTF-8'?>
+<resources><string name="app_name">Trackbook</string> <string name="title_activity_infosheet">情報シート</string>
+
+    <string name="menu_my_location">私の場所</string>
+    <string name="menu_about">アプリについて</string>
+
+    <string name="header_about">Trackbook について</string>
+
+    <string name="tab_map">地図</string>
+    <string name="tab_last_track">最後のトラック</string>
+
+    <string name="notification_title_trackbook_running">Trackbook 実行中</string>
+    <string name="notification_title_trackbook_not_running">Trackbook は実行していません</string>
+    <string name="notification_stop">停止</string>
+    <string name="notification_swipe_to_clear_map">(スワイプしてマップをクリア)</string>
+    <string name="notification_content_duration">期間</string>
+    <string name="notification_content_distance">距離</string>
+
+    <string name="snackbar_message_tracking_stopped">トレースを停止しました</string>
+    <string name="snackbar_message_tracking_started">トレースを開始しました</string>
+    <string name="snackbar_message_location_offline">位置情報がオフです。Trackbook は動作しません。</string>
+
+    <string name="fab_sub_menu_clear">クリア</string>
+    <string name="fab_sub_menu_save_and_clear">保存してクリア</string>
+
+
+    <string name="toast_message_permissions_granted">アクセス許可を付与しました。</string>
+    <string name="toast_message_unable_to_start_app">Trackbook を起動できません。</string>
+    <string name="toast_message_no_external_storage">外部ストレージにアクセスできません。</string>
+    <string name="toast_message_location_offline">位置情報はオフです。Trackbook は動作しません。</string>
+    <string name="toast_message_acquiring_location">現在の場所を取得します。</string>
+    <string name="toast_message_location_services_not_ready">位置情報サービスの準備ができていません。もう一度やり直してください。</string>
+    <string name="toast_message_last_location">最後の場所:</string>
+    <string name="toast_message_save_track">現在のトラックを保存しています。</string>
+    <string name="toast_message_last_location_age_one_hour">1 時間以上</string>
+    <string name="toast_message_track_clear">現在のトラック データを削除しました。</string>
+
+    <string name="marker_description_source">ソース</string>
+    <string name="marker_description_accuracy">精度</string>
+
+    <string name="statistics_sheet_h1_statistics">統計情報</string>
+    <string name="statistics_sheet_p_default_data">トラックデータが見つかりません</string>
+    <string name="statistics_sheet_p_distance">総距離:</string>
+    <string name="statistics_sheet_p_steps">歩数:</string>
+    <string name="statistics_sheet_p_waypoints">記録されたウェイ ポイント:</string>
+    <string name="statistics_sheet_p_duration">合計時間:</string>
+    <string name="statistics_sheet_p_recording_start">記録の開始:</string>
+    <string name="statistics_sheet_p_recording_stop">記録の停止:</string>
+
+    <string name="layout_onboarding_h1_welcome">こんにちは</string>
+    <string name="layout_onboarding_description_app_icon">Trackbook アプリ アイコン</string>
+    <string name="layout_onboarding_h2_app_name">Trackbook</string>
+    <string name="layout_onboarding_p_app_claim">Android 用の移動レコーダー</string>
+    <string name="layout_onboarding_h2_request_permissions">Trackbook は、これらのアクセス許可がないと動作できません。</string>
+    <string name="layout_onboarding_h3_permission_location">場所</string>
+    <string name="layout_onboarding_p_permission_location">Trackbook は、移動を記録できるように、正確な GPS の位置データを必要があります。GPS データが利用できない、または正確ではない場合、Trackbook は基地局および WiFi の三角測量の場所データを使用します。</string>
+    <string name="layout_onboarding_h3_permission_storage">ストレージ</string>
+    <string name="layout_onboarding_p_permission_storage">Trackbook は、Android の外部ストレージに地図タイルをキャッシュする osmdroid を使用します。地図キャッシュは、ユーザー向けファイル・システムの最上位レベルの osmdroid フォルダーで見つけることができます。</string>
+    <string name="layout_onboarding_button_okay">完了!</string>
+
+    <string name="infosheet_about_h1_about">Trackbook について</string>
+    <string name="infosheet_about_h2_recorder">Android 用の移動レコーダー</string>
+    <string name="infosheet_about_h3_version">Version 0.9 (The Great Gig in the Sky)</string>
+    <string name="infosheet_about_p_bare">Trackbook は、動きを記録するためベアボーンアプリです。Trackbook は、ハイキング、旅行、運動に最適です。 開始すると、地図にあなたの動きをトレースします。 地図データは、OpenStreetMap (OSM) によって提供されます。</string>
+    <string name="infosheet_about_p_free">Trackbook はフリー ソフトウェアです。コードは GitHub 上で見つけることができます。GitHub は、バグの報告するのに良い場所です。興味があれば、貢献にも。Trackbook は、MIT オープン ソース ライセンスの下で公開されます。Trackbook は、Apache ライセンスの下で公開されるフリー ソフトウェアでもある、osmdroid を使用して地図を表示します。</string>
+    <string name="infosheet_about_p_github">https://github.com/y20k/trackbook</string>
+    <string name="infosheet_about_p_osmdroid">https://github.com/osmdroid/osmdroid</string>
+    <string name="infosheet_about_p_license">https://opensource.org/licenses/MIT</string>
+    <string name="infosheet_about_h2_permissions">Trackbook には何のアクセス許可が必要ですか?</string>
+    <string name="infosheet_about_h3_internet">インターネット アクセス許可</string>
+    <string name="infosheet_about_p_internet">Trackbook は、Open Street Map サーバーから地図データをダウンロードする必要があります。したがって、インターネットへのアクセスが必要です。</string>
+    <string name="infosheet_about_h3_network">ACCESS_WIFI_STATE および ACCESS_NETWORK_STATE アクセス許可</string>
+    <string name="infosheet_about_p_network">Trackbook は、osmdroid を使用して地図を描画します。osmdroid は、デバイスの接続の現在の状態を知る必要があります。</string>
+    <string name="infosheet_about_h3_location">ACCESS_COARSE_LOCATION および ACCESS_FINE_LOCATION アクセス許可</string>
+    <string name="infosheet_about_p_location">Trackbook は、あなたの動きを記録できるように、正確な GPS の位置データを必要があります。GPS データが利用できないか、正確ではない場合、Trackbook は基地局および WiFi の三角測量の場所データを使用します。</string>
+    <string name="infosheet_about_h3_external">WRITE_EXTERNAL_STORAGE アクセス許可</string>
+    <string name="infosheet_about_p_external">Trackbook は、Android の外部ストレージに地図タイルをキャッシュする osmdroid を使用します。地図キャッシュは、ユーザー向けファイル・システムの最上位レベルの osmdroid フォルダーで見つけることができます。</string>
+
+    <string name="descr_map_current_track">現在のトラックの地図</string>
+    <string name="descr_map_last_track">最後のトラックの地図</string>
+    <string name="descr_fab_main">メイン アクション ボタン</string>
+    <string name="descr_fab_sub_menu_label_1">保存とクリア ボタンのラベル</string>
+    <string name="descr_fab_sub_menu_button_1">小さな保存してクリア ボタン</string>
+    <string name="descr_fab_sub_menu_label_2">クリア ボタンのラベル</string>
+    <string name="descr_fab_sub_menu_button_2">小さなクリア ボタン</string>
+    <string name="descr_statistics_sheet_headline">統計情報シートの見出し</string>
+    <string name="descr_statistics_sheet_icon">棒グラフのアイコン</string>
+    <string name="descr_statistics_sheet_p_distance">データ地点: 距離</string>
+    <string name="descr_statistics_sheet_p_steps">データ地点: 歩数</string>
+    <string name="descr_statistics_sheet_p_waypoints">データ地点: ウェイ ポイント</string>
+    <string name="descr_statistics_sheet_p_duration">データ地点: 期間</string>
+    <string name="descr_statistics_sheet_p_recording_start">データ地点: 記録の開始</string>
+    <string name="descr_statistics_sheet_p_recording_end">データ地点: 記録の終了</string>
+    <string name="descr_statistics_sheet_p_distance_value">値: 距離</string>
+    <string name="descr_statistics_sheet_p_steps_value">値: 歩数</string>
+    <string name="descr_statistics_sheet_p_waypoints_value">値: ウェイポイント</string>
+    <string name="descr_statistics_sheet_p_duration_value">値: 期間</string>
+    <string name="descr_statistics_sheet_p_recording_start_value">値: 記録の開始</string>
+    <string name="descr_statistics_sheet_p_recording_end_value">値: 記録の終了</string>
+
+</resources>
