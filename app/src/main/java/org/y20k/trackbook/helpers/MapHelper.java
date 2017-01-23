@@ -29,8 +29,10 @@ import org.y20k.trackbook.R;
 import org.y20k.trackbook.core.Track;
 import org.y20k.trackbook.core.WayPoint;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 
 /**
@@ -149,7 +151,7 @@ public final class MapHelper {
                 new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
                     @Override
                     public boolean onItemSingleTapUp(final int index, final OverlayItem item) {
-                        Toast.makeText(context, item.getTitle() + " | " + item.getSnippet(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, item.getTitle(), Toast.LENGTH_LONG).show();
                         LogHelper.v(LOG_TAG, "Tap on waypoint. " + item.getTitle());
                         return true;
                     }
@@ -157,6 +159,7 @@ public final class MapHelper {
                     @Override
                     public boolean onItemLongPress(final int index, final OverlayItem item) {
                         LogHelper.v(LOG_TAG, "Long press on waypoint. " + item.getSnippet());
+                        Toast.makeText(context, item.getSnippet(), Toast.LENGTH_LONG).show();
                         return true;
                     }
 
@@ -167,7 +170,8 @@ public final class MapHelper {
     /* Creates a marker overlay item */
     private static OverlayItem createOverlayItem(Context context, Location location) {
         // create content of overlay item
-        final String title = context.getString(R.string.marker_description_source) + ": " + location.getProvider();
+        String time = SimpleDateFormat.getTimeInstance(SimpleDateFormat.MEDIUM, Locale.getDefault()).format(location.getTime());
+        final String title = context.getString(R.string.marker_description_source) + ": " + location.getProvider() + " | " + context.getString(R.string.marker_description_time) + ": " + time;
         final String description = context.getString(R.string.marker_description_accuracy) + ": " + location.getAccuracy();
         final GeoPoint position = new GeoPoint(location.getLatitude(),location.getLongitude());
 

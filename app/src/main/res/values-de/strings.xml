@@ -46,6 +46,7 @@
 
     <!-- map markers -->
     <string name="marker_description_source">Quelle</string>
+    <string name="marker_description_time">Uhrzeit</string>
     <string name="marker_description_accuracy">Genauigkeit</string>
 
     <!-- statistics sheet -->

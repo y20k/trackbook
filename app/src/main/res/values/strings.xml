@@ -47,6 +47,7 @@
 
     <!-- map markers -->
     <string name="marker_description_source">Source</string>
+    <string name="marker_description_time">Time</string>
     <string name="marker_description_accuracy">Accuracy</string>
 
     <!-- statistics sheet -->

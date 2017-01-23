@@ -48,6 +48,7 @@ import org.y20k.trackbook.helpers.StorageHelper;
 import org.y20k.trackbook.helpers.TrackbookKeys;
 
 import java.text.DateFormat;
+import java.util.Locale;
 
 
 /**
@@ -276,10 +277,10 @@ public class MainActivityTrackFragment extends Fragment implements TrackbookKeys
             Location lastLocation = mTrack.getWayPointLocation(mTrack.getSize() -1);
             position = new GeoPoint(lastLocation.getLatitude(), lastLocation.getLongitude());
 
-            String recordingStart = DateFormat.getDateInstance(DateFormat.SHORT).format(mTrack.getRecordingStart()) + " " +
-                    DateFormat.getTimeInstance(DateFormat.SHORT).format(mTrack.getRecordingStart());
-            String recordingStop = DateFormat.getDateInstance(DateFormat.SHORT).format(mTrack.getRecordingStop()) + " " +
-                    DateFormat.getTimeInstance(DateFormat.SHORT).format(mTrack.getRecordingStop());
+            String recordingStart = DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault()).format(mTrack.getRecordingStart()) + " " +
+                    DateFormat.getTimeInstance(DateFormat.SHORT, Locale.getDefault()).format(mTrack.getRecordingStart());
+            String recordingStop = DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault()).format(mTrack.getRecordingStop()) + " " +
+                    DateFormat.getTimeInstance(DateFormat.SHORT, Locale.getDefault()).format(mTrack.getRecordingStop());
 
             // populate views
             mDistanceView.setText(mTrack.getTrackDistance());
