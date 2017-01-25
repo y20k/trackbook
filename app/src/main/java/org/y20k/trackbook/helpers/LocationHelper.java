@@ -139,8 +139,6 @@ public final class LocationHelper implements TrackbookKeys {
     public static boolean isNewWayPoint(Location lastLocation, Location newLocation, float averageSpeed) {
         float distance = newLocation.distanceTo(lastLocation);
         long timeDifference = newLocation.getElapsedRealtimeNanos() - lastLocation.getElapsedRealtimeNanos();
-//        String providerLastLocation = lastLocation.getProvider();
-//        String providerNewLocation = newLocation.getProvider();
 
         if (newLocation.getProvider().equals(LocationManager.NETWORK_PROVIDER)) {
             // calculate speed difference

@@ -51,11 +51,9 @@ public class StorageHelper implements TrackbookKeys {
     private static final String LOG_TAG = StorageHelper.class.getSimpleName();
 
     /* Main class variables */
-    private final String mDirectoryName = "tracks";
-    private final String mFileExtension = ".trackbook";
     private final Context mActivity;
     private File mFolder;
-    private File mTempFile;
+    private final File mTempFile;
 
 
     /* Constructor */
@@ -64,7 +62,7 @@ public class StorageHelper implements TrackbookKeys {
         mActivity = activity;
 
         // get "tracks" folder
-        mFolder  = mActivity.getExternalFilesDir(mDirectoryName);
+        mFolder  = mActivity.getExternalFilesDir(DIRECTORY_NAME);
         // mFolder = getTracksDirectory();
 
         // create folder if necessary
@@ -74,7 +72,7 @@ public class StorageHelper implements TrackbookKeys {
         }
 
         // create temp file object
-        mTempFile = new File(mFolder.toString() + "/" +  FILENAME_TEMP + mFileExtension);
+        mTempFile = new File(mFolder.toString() + "/" + FILE_NAME_TEMP + FILE_TYPE_EXTENSION);
     }
 
 
@@ -94,7 +92,7 @@ public class StorageHelper implements TrackbookKeys {
     public boolean saveTrack(@Nullable Track track, int fileType) {
 
         // get "tracks" folder
-        mFolder  = mActivity.getExternalFilesDir(mDirectoryName);
+        mFolder = mActivity.getExternalFilesDir(DIRECTORY_NAME);
 
         Date recordingStart = null;
         if (track != null) {
@@ -104,13 +102,13 @@ public class StorageHelper implements TrackbookKeys {
         if (mFolder != null && mFolder.exists() && mFolder.isDirectory() && mFolder.canWrite() && recordingStart != null && track != null) {
             // create file object
             String fileName;
-            if (fileType == FILETYPE_TEMP) {
+            if (fileType == FILE_TYPE_TEMP) {
                 // case: temp file
-                fileName = FILENAME_TEMP + mFileExtension;
+                fileName = FILE_NAME_TEMP + FILE_TYPE_EXTENSION;
             } else {
                 // case: regular file
                 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss", Locale.US);
-                fileName = dateFormat.format(recordingStart) + mFileExtension;
+                fileName = dateFormat.format(recordingStart) + FILE_TYPE_EXTENSION;
             }
             File file = new File(mFolder.toString() + "/" +  fileName);
 
@@ -130,7 +128,7 @@ public class StorageHelper implements TrackbookKeys {
             }
 
             // if write was successful delete old track files - only if not a temp file
-            if (fileType != FILETYPE_TEMP) {
+            if (fileType != FILE_TYPE_TEMP) {
                 // include  temp file if it exists
                 deleteOldTracks(true);
             }
@@ -150,7 +148,7 @@ public class StorageHelper implements TrackbookKeys {
 
         // get file reference
         File file;
-        if (fileType == FILETYPE_TEMP) {
+        if (fileType == FILE_TYPE_TEMP) {
             file = getTempFile();
         } else {
             file = getMostCurrentTrack();
@@ -194,13 +192,13 @@ public class StorageHelper implements TrackbookKeys {
     private File getMostCurrentTrack() {
 
         // get "tracks" folder
-        mFolder  = mActivity.getExternalFilesDir(mDirectoryName);
+        mFolder  = mActivity.getExternalFilesDir(DIRECTORY_NAME);
 
         if (mFolder != null && mFolder.isDirectory()) {
             // get files and sort them
             File[] files = mFolder.listFiles();
             files = sortFiles(files);
-            if (files.length > 0 && files[0].getName().endsWith(mFileExtension) && !files[0].equals(mTempFile)){
+            if (files.length > 0 && files[0].getName().endsWith(FILE_TYPE_EXTENSION) && !files[0].equals(mTempFile)){
                 // return latest track
                 return files[0];
             }
@@ -224,10 +222,10 @@ public class StorageHelper implements TrackbookKeys {
     private void deleteOldTracks(boolean includeTempFile) {
 
         // get "tracks" folder
-        mFolder  = mActivity.getExternalFilesDir(mDirectoryName);
+        mFolder  = mActivity.getExternalFilesDir(DIRECTORY_NAME);
 
         if (mFolder != null && mFolder.isDirectory()) {
-            LogHelper.v(LOG_TAG, "Deleting old Track files.");
+            LogHelper.v(LOG_TAG, "Deleting older recordings.");
 
             // get files and sort them
             File[] files = mFolder.listFiles();
@@ -239,7 +237,7 @@ public class StorageHelper implements TrackbookKeys {
             // keep the latest ten (mMaxTrackFiles) track files
             int index = MAXIMUM_TRACK_FILES;
             // iterate through array
-            while (index < numberOfFiles && files[index].getName().endsWith(mFileExtension) && !files[index].equals(mTempFile)) {
+            while (index < numberOfFiles && files[index].getName().endsWith(FILE_TYPE_EXTENSION) && !files[index].equals(mTempFile)) {
                 files[index].delete();
                 index++;
             }
@@ -262,8 +260,8 @@ public class StorageHelper implements TrackbookKeys {
             public int compare(File file1, File file2) {
 
                 // discard temp file and files not ending with ".trackbook"
-                boolean file1IsTrack = file1.getName().endsWith(mFileExtension) && !file1.equals(mTempFile);
-                boolean file2IsTrack = file2.getName().endsWith(mFileExtension) && !file2.equals(mTempFile);
+                boolean file1IsTrack = file1.getName().endsWith(FILE_TYPE_EXTENSION) && !file1.equals(mTempFile);
+                boolean file2IsTrack = file2.getName().endsWith(FILE_TYPE_EXTENSION) && !file2.equals(mTempFile);
 
                 // note: "greater" means higher index in array
                 if (!file1IsTrack && file2IsTrack) {
@@ -281,11 +279,11 @@ public class StorageHelper implements TrackbookKeys {
         });
 
         // log sorting result // TODO comment out for release
-        String fileList = "";
-        for (File file : files) {
-            fileList = fileList + file.getName() + "\n";
-        }
-        LogHelper.v(LOG_TAG, "+++ List of files +++\n" + fileList);
+//        String fileList = "";
+//        for (File file : files) {
+//            fileList = fileList + file.getName() + "\n";
+//        }
+//        LogHelper.v(LOG_TAG, "+++ List of files +++\n" + fileList);
 
         // hand back sorted array of files
         return files;
@@ -294,7 +292,7 @@ public class StorageHelper implements TrackbookKeys {
 
     /* Return a write-able sub-directory from external storage  */
     private File getTracksDirectory() {
-        File[] storage = mActivity.getExternalFilesDirs(mDirectoryName);
+        File[] storage = mActivity.getExternalFilesDirs(DIRECTORY_NAME);
         for (File file : storage) {
             if (file != null) {
                 String state = EnvironmentCompat.getStorageState(file);

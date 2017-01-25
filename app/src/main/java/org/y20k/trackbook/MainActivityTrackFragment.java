@@ -173,14 +173,14 @@ public class MainActivityTrackFragment extends Fragment implements TrackbookKeys
                 // react to state change
                 switch (newState) {
                     case BottomSheetBehavior.STATE_EXPANDED:
-                        LogHelper.v(LOG_TAG,"Statistics sheet expanded");
+                        // statistics sheet expanded
                         break;
                     case BottomSheetBehavior.STATE_COLLAPSED:
-                        LogHelper.v(LOG_TAG,"Statistics sheet collapsed");
+                        // statistics sheet collapsed
                         mStatisticsSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                         break;
                     case BottomSheetBehavior.STATE_HIDDEN:
-                        LogHelper.v(LOG_TAG,"Statistics sheet hidden");
+                        // statistics sheet hidden
                         mStatisticsSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                         break;
                     default:
@@ -197,7 +197,6 @@ public class MainActivityTrackFragment extends Fragment implements TrackbookKeys
         statisticsView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LogHelper.v(LOG_TAG,"Statistics view tapped");
                 if (mStatisticsSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
                     mStatisticsSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                 } else {
@@ -214,14 +213,12 @@ public class MainActivityTrackFragment extends Fragment implements TrackbookKeys
     @Override
     public void onResume() {
         super.onResume();
-        LogHelper.v(LOG_TAG, "TrackFragment: onResume called.");
     }
 
 
     @Override
     public void onPause() {
         super.onPause();
-        LogHelper.v(LOG_TAG, "TrackFragment: onPause called.");
     }
 
 
@@ -236,36 +233,23 @@ public class MainActivityTrackFragment extends Fragment implements TrackbookKeys
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
+        LogHelper.v(LOG_TAG, "onDestroy called.");
 
         // remove listener
         LocalBroadcastManager.getInstance(mActivity).unregisterReceiver(mTrackSavedReceiver);
+
+        super.onDestroy();
     }
 
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        LogHelper.v(LOG_TAG, "TrackFragment: onSaveInstanceState called.");
         outState.putDouble(INSTANCE_LATITUDE_TRACK_MAP, mMapView.getMapCenter().getLatitude());
         outState.putDouble(INSTANCE_LONGITUDE_TRACK_MAP, mMapView.getMapCenter().getLongitude());
         outState.putInt(INSTANCE_ZOOM_LEVEL_TRACK_MAP, mMapView.getZoomLevel());
         outState.putParcelable(INSTANCE_TRACK_TRACK_MAP, mTrack);
         super.onSaveInstanceState(outState);
     }
-
-
-//    /* Removes current track display */
-//    public void refreshTrackView() {
-//
-//        // remove previous track
-//        if (mMapView != null && mTrackOverlay != null) {
-//            mMapView.getOverlays().remove(mTrackOverlay);
-//        }
-//
-//        // listen for finished save
-//        IntentFilter trackSavedReceiverIntentFilter = new IntentFilter(ACTION_TRACK_SAVE);
-//        LocalBroadcastManager.getInstance(mActivity).registerReceiver(mTrackSavedReceiver, trackSavedReceiverIntentFilter);
-//    }
 
 
     /* Displays map and statistics for track */
@@ -320,7 +304,7 @@ public class MainActivityTrackFragment extends Fragment implements TrackbookKeys
             LogHelper.v(LOG_TAG, "Loading track object in background.");
             // load track object
             StorageHelper storageHelper = new StorageHelper(mActivity);
-            mTrack = storageHelper.loadTrack(FILETYPE_TRACK);
+            mTrack = storageHelper.loadTrack(FILE_TYPE_TRACK);
             return null;
         }
 

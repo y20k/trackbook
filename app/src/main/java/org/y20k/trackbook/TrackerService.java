@@ -250,7 +250,7 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
         // stop timer
         mTimer.cancel();
 
-        // TODO test for race condition
+        // broadcast an updated track
         sendTrackUpdate();
 
         // save a temp file in case the activity has been killed
@@ -318,7 +318,6 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
         i.putExtra(EXTRA_TRACK, mTrack);
         i.putExtra(EXTRA_LAST_LOCATION, mCurrentBestLocation);
         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(i);
-        LogHelper.v(LOG_TAG, "!!! sendTrackUpdate. Start == End -> " + (mTrack.getRecordingStart().equals(mTrack.getRecordingStop())) ); // TODO REMOVE
     }
 
 
@@ -425,7 +424,7 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
             LogHelper.v(LOG_TAG, "Saving temporary track object in background.");
             // save track object
             StorageHelper storageHelper = new StorageHelper(TrackerService.this);
-            storageHelper.saveTrack(mTrack, FILETYPE_TEMP);
+            storageHelper.saveTrack(mTrack, FILE_TYPE_TEMP);
             return null;
         }
 

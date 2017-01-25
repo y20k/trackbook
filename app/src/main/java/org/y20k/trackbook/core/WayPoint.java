@@ -51,7 +51,6 @@ public class WayPoint implements Parcelable {
 
     /* Constructor used by CREATOR */
     protected WayPoint(Parcel in) {
-//        mLocation = in.readParcelable(Location.class.getClassLoader());
         mLocation = Location.CREATOR.createFromParcel(in);
         mIsStopOver = in.readByte() != 0;
         mDistanceToStartingPoint = in.readFloat();
@@ -116,7 +115,6 @@ public class WayPoint implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
-//        parcel.writeParcelable(mLocation, flags);
         mLocation.setExtras(null); // necessary because Location Extras cause cannot be serialized properly by GSON
         mLocation.writeToParcel(parcel, flags);
         parcel.writeByte((byte) (mIsStopOver ? 1 : 0));

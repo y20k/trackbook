@@ -56,7 +56,6 @@ public final class MapHelper {
         } else {
             newMarker = AppCompatDrawableManager.get().getDrawable(context, R.drawable.ic_my_location_dot_grey_24dp);
         }
-        final GeoPoint position = new GeoPoint(currentBestLocation.getLatitude(), currentBestLocation.getLongitude());
         OverlayItem overlayItem = createOverlayItem(context, currentBestLocation);
         overlayItem.setMarker(newMarker);
 
@@ -68,14 +67,14 @@ public final class MapHelper {
                 new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
                     @Override
                     public boolean onItemSingleTapUp(final int index, final OverlayItem item) {
+                        // tap on My Location dot icon
                         Toast.makeText(context, item.getTitle() + " | " + item.getSnippet(), Toast.LENGTH_LONG).show();
-                        LogHelper.v(LOG_TAG, "Tap on the My Location dot icon detected.");
                         return true;
                     }
 
                     @Override
                     public boolean onItemLongPress(final int index, final OverlayItem item) {
-                        LogHelper.v(LOG_TAG, "Long press on the My Location dot icon detected.");
+                        // long press on My Location dot icon
                         return true;
                     }
                 }, context);
@@ -151,14 +150,14 @@ public final class MapHelper {
                 new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
                     @Override
                     public boolean onItemSingleTapUp(final int index, final OverlayItem item) {
+                        // tap on waypoint
                         Toast.makeText(context, item.getTitle(), Toast.LENGTH_LONG).show();
-                        LogHelper.v(LOG_TAG, "Tap on waypoint. " + item.getTitle());
                         return true;
                     }
 
                     @Override
                     public boolean onItemLongPress(final int index, final OverlayItem item) {
-                        LogHelper.v(LOG_TAG, "Long press on waypoint. " + item.getSnippet());
+                        // long press on waypoint
                         Toast.makeText(context, item.getSnippet(), Toast.LENGTH_LONG).show();
                         return true;
                     }

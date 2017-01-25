@@ -4,7 +4,7 @@ README
 Trackbook - Movement Recorder for Android
 -----------------------------------------
 
-**upcoming Version 1.0.x ("Astronomy Domine")**
+**Version 1.0.x ("Astronomy Domine")**
 
 Trackbook is a bare bones app for recording your movements. Trackbook is great for hiking, vacation or workout. Once started it traces your movements on a map. The map data is provided by [OpenStreetMap (OSM)](https://www.openstreetmap.org/).
 

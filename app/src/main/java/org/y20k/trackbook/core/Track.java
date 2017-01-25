@@ -120,7 +120,7 @@ public class Track implements TrackbookKeys, Parcelable {
 
     /* Sets end time and date of recording */
     public void setRecordingEnd () {
-        mRecordingStop = GregorianCalendar.getInstance().getTime();;
+        mRecordingStop = GregorianCalendar.getInstance().getTime();
     }
 
 
@@ -211,6 +211,20 @@ public class Track implements TrackbookKeys, Parcelable {
     }
 
 
+    /* Determines which unit system the device is using (metric or imperial) */
+    private int getUnitSystem(Locale locale) {
+        // America (US), Liberia (LR), Myanmar(MM) use the imperial system
+        List<String> imperialSystemCountries = Arrays.asList("US", "LR", "MM");
+        String countryCode = locale.getCountry();
+
+        if (imperialSystemCountries.contains(countryCode)){
+            return IMPERIAL;
+        } else {
+            return METRIC;
+        }
+    }
+
+
     @Override
     public int describeContents() {
         return 0;
@@ -228,19 +242,6 @@ public class Track implements TrackbookKeys, Parcelable {
         parcel.writeLong(mRecordingStop.getTime());
     }
 
-
-    /* Determines which unit system the device is using (metric or imperial) */
-    private int getUnitSystem(Locale locale) {
-        // America (US), Liberia (LR), Myanmar(MM) use the imperial system
-        List<String> imperialSystemCountries = Arrays.asList("US", "LR", "MM");
-        String countryCode = locale.getCountry();
-
-        if (imperialSystemCountries.contains(countryCode)){
-            return IMPERIAL;
-        } else {
-            return METRIC;
-        }
-    }
 
 
 }

@@ -36,37 +36,24 @@ public interface TrackbookKeys {
     String EXTRA_TRACK = "TRACK";
     String EXTRA_LAST_LOCATION = "LAST_LOCATION";
     String EXTRA_TRACKING_STATE = "TRACKING_STATE";
-    String EXTRA_CLEAR_MAP = "CLEAR_MAP";
     String EXTRA_INFOSHEET_TITLE = "EXTRA_INFOSHEET_TITLE";
     String EXTRA_INFOSHEET_CONTENT = "INFOSHEET_CONTENT";
     String EXTRA_SAVE_FINISHED = "SAVE_FINISHED";
 
     /* ARGS */
-    String ARG_PERMISSIONS_GRANTED = "ArgPermissionsGranted";
-    String ARG_TRACKING_STATE = "ArgTrackingState";
-    String ARG_TRACK = "ArgTrack";
-    String ARG_TRACK_VISIBLE = "ArgTrackVisible";
-    String ARG_TRACK_DISTANCE = "ArgTrackDistance";
-
-    /* TAGS */
-    String TAG_MAIN_ACTIVITY_FRAGMENT = "TagMainActivityFragment";
+//    String ARG_PERMISSIONS_GRANTED = "ArgPermissionsGranted";
+//    String ARG_TRACKING_STATE = "ArgTrackingState";
+//    String ARG_TRACK = "ArgTrack";
+//    String ARG_TRACK_VISIBLE = "ArgTrackVisible";
+//    String ARG_TRACK_DISTANCE = "ArgTrackDistance";
 
     /* PREFS */
-    String PREFS_NAME = "org.y20k.trackbook.prefs";
-    String PREFS_TILE_SOURCE = "tileSourcePrefs";
-    String PREFS_LATITUDE = "latitudePrefs";
-    String PREFS_LONGITUDE = "longitudePrefs";
-    String PREFS_ZOOM_LEVEL = "zoomLevelPrefs";
-    String PREFS_SHOW_LOCATION = "showLocationPrefs";
-    String PREFS_SHOW_COMPASS = "showCompassPrefs";
     String PREFS_FAB_STATE = "fabStatePrefs";
-    String PREFS_TRACK_VISIBLE = "trackVisiblePrefs";
 
     /* INSTANCE STATE */
     String INSTANCE_FIRST_START = "firstStart";
     String INSTANCE_TRACKING_STATE = "trackingState";
     String INSTANCE_SELECTED_TAB = "selectedTab";
-    String INSTANCE_FAB_STATE = "fabState";
     String INSTANCE_FAB_SUB_MENU_VISIBLE = "fabSubMenuVisible";
     String INSTANCE_TRACK_MAIN_MAP = "trackMainMap";
     String INSTANCE_LATITUDE_MAIN_MAP = "latitudeMainMap";
@@ -102,10 +89,12 @@ public interface TrackbookKeys {
     int FAB_STATE_DEFAULT = 0;
     int FAB_STATE_RECORDING = 1;
     int FAB_STATE_SAVE = 2;
-    int FILETYPE_TEMP = 0;
-    int FILETYPE_TRACK = 1;
+    int FILE_TYPE_TEMP = 0;
+    int FILE_TYPE_TRACK = 1;
 
-    String FILENAME_TEMP = "temp";
+    String DIRECTORY_NAME = "tracks";
+    String FILE_TYPE_EXTENSION = ".trackbook";
+    String FILE_NAME_TEMP = "temp";
 
     double DEFAULT_LATITUDE = 49.41667; // latitude Nordkapp, Norway
     double DEFAULT_LONGITUDE = 8.67201; // longitude Nordkapp, Norway
