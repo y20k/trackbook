@@ -75,7 +75,7 @@
     <!-- infosheet about -->
     <string name="infosheet_about_h1_about">About Trackbook</string>
     <string name="infosheet_about_h2_recorder">Movement Recorder for Android</string>
-    <string name="infosheet_about_h3_version">Version 0.9 ("The Great Gig in the Sky")</string>
+    <string name="infosheet_about_h3_version">Version 1.0 (Astronomy Domine)</string>
     <string name="infosheet_about_p_bare">Trackbook is a bare bones app for recording your movements. Trackbook is great for hiking, vacation or workout. Once started it traces your movements on a map. The map data is provided by OpenStreetMap (OSM).</string>
     <string name="infosheet_about_p_free">Trackbook is free software. You can find the code on GitHub. GitHub is also a good place to file bugs or even to contribute, if you are interested. Trackbook is published under the MIT open source license. Trackbook uses osmdroid to display the map, which is also free software published under the Apache License.</string>
     <string name="infosheet_about_p_github">https://github.com/y20k/trackbook</string>

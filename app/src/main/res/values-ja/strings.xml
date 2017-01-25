@@ -60,7 +60,7 @@
 
     <string name="infosheet_about_h1_about">Trackbook について</string>
     <string name="infosheet_about_h2_recorder">Android 用の移動レコーダー</string>
-    <string name="infosheet_about_h3_version">Version 0.9 (The Great Gig in the Sky)</string>
+    <string name="infosheet_about_h3_version">Version 1.0 (Astronomy Domine)</string>
     <string name="infosheet_about_p_bare">Trackbook は、動きを記録するためベアボーンアプリです。Trackbook は、ハイキング、旅行、運動に最適です。 開始すると、地図にあなたの動きをトレースします。 地図データは、OpenStreetMap (OSM) によって提供されます。</string>
     <string name="infosheet_about_p_free">Trackbook はフリー ソフトウェアです。コードは GitHub 上で見つけることができます。GitHub は、バグの報告するのに良い場所です。興味があれば、貢献にも。Trackbook は、MIT オープン ソース ライセンスの下で公開されます。Trackbook は、Apache ライセンスの下で公開されるフリー ソフトウェアでもある、osmdroid を使用して地図を表示します。</string>
     <string name="infosheet_about_p_github">https://github.com/y20k/trackbook</string>
