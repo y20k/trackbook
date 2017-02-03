@@ -113,5 +113,7 @@
     <string name="descr_statistics_sheet_p_duration_value">Value: duration</string>
     <string name="descr_statistics_sheet_p_recording_start_value">Value: start of recording</string>
     <string name="descr_statistics_sheet_p_recording_end_value">Value: end of recording</string>
+    <string name="descr_track_selector">Dropdown menu for further tracks</string>
+    <string name="descr_delete_button">Track delete button</string>
 
 </resources>

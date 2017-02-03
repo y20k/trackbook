@@ -36,9 +36,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 
@@ -185,6 +187,32 @@ public class StorageHelper implements TrackbookKeys {
             return null;
         }
 
+    }
+
+
+    /* Gets a list of .trackbook files - excluding the temp file */
+    public File[] getListOfTrackbookFiles() {
+        // TODO HANDLE CASE: EMPTY FILE LIST
+
+        // get files and sort them
+        return sortFiles(mFolder.listFiles());
+    }
+
+
+    /* Gets a list of tracks based on their file names */
+    public List<String> getListOfTracks() {
+        List<String> listOfTracks = new ArrayList<String>();
+
+        // get files and sort them
+        File[] files = mFolder.listFiles();
+        files = sortFiles(files);
+
+        for (File file : files) {
+            listOfTracks.add(file.getName());
+        }
+
+        // TODO HANDLE CASE: EMPTY FILE LIST
+        return listOfTracks;
     }
 
 

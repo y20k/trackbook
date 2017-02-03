@@ -32,6 +32,8 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import org.osmdroid.api.IMapController;
@@ -42,6 +44,7 @@ import org.osmdroid.views.overlay.ItemizedIconOverlay;
 import org.osmdroid.views.overlay.compass.CompassOverlay;
 import org.osmdroid.views.overlay.compass.InternalCompassOrientationProvider;
 import org.y20k.trackbook.core.Track;
+import org.y20k.trackbook.helpers.DropdownAdapter;
 import org.y20k.trackbook.helpers.LogHelper;
 import org.y20k.trackbook.helpers.MapHelper;
 import org.y20k.trackbook.helpers.StorageHelper;
@@ -66,6 +69,9 @@ public class MainActivityTrackFragment extends Fragment implements TrackbookKeys
     private MapView mMapView;
     private IMapController mController;
     private ItemizedIconOverlay mTrackOverlay;
+    private ArrayAdapter<String> mTrackSelectorAdapter;
+    private DropdownAdapter mDropdownAdapter;
+    private Spinner mDropdown;
     private TextView mDistanceView;
     private TextView mStepsView;
     private TextView mWaypointsView;
@@ -86,6 +92,9 @@ public class MainActivityTrackFragment extends Fragment implements TrackbookKeys
 
         // store activity
         mActivity = getActivity();
+
+        // create drop-down adapter
+        mDropdownAdapter = new DropdownAdapter(mActivity);
 
         // listen for finished save operation
         mTrackSavedReceiver = new BroadcastReceiver() {
@@ -140,8 +149,10 @@ public class MainActivityTrackFragment extends Fragment implements TrackbookKeys
             mController.setZoom(16);
         }
 
+        // get views for track selector
+        mDropdown = (Spinner) mRootView.findViewById(R.id.track_selector);
 
-        // get views
+        // get views for statistics sheet
         View statisticsView = mRootView.findViewById(R.id.statistics_view);
         mDistanceView = (TextView) mRootView.findViewById(R.id.statistics_data_distance);
         mStepsView = (TextView) mRootView.findViewById(R.id.statistics_data_steps);
@@ -213,6 +224,11 @@ public class MainActivityTrackFragment extends Fragment implements TrackbookKeys
     @Override
     public void onResume() {
         super.onResume();
+        StorageHelper storageHelper = new StorageHelper(mActivity);
+
+//        mTrackSelectorAdapter = new ArrayAdapter<String>(mActivity, android.R.layout.simple_spinner_dropdown_item, storageHelper.getListOfTracks());
+//        mDropdown.setAdapter(mTrackSelectorAdapter);
+        mDropdown.setAdapter(mDropdownAdapter);
     }
 
 
@@ -315,5 +331,8 @@ public class MainActivityTrackFragment extends Fragment implements TrackbookKeys
             displayTrack();
         }
     }
+    /**
+     * End of inner class
+     */
 
 }

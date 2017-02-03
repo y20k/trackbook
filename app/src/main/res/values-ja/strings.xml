@@ -1,5 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources><string name="app_name">Trackbook</string> <string name="title_activity_infosheet">情報シート</string>
+<resources>
+    <string name="app_name">Trackbook</string>
+    <string name="title_activity_infosheet">情報シート</string>
 
     <string name="menu_my_location">私の場所</string>
     <string name="menu_about">アプリについて</string>
@@ -36,6 +38,7 @@
     <string name="toast_message_track_clear">現在のトラック データを削除しました。</string>
 
     <string name="marker_description_source">ソース</string>
+    <string name="marker_description_time">時間</string>
     <string name="marker_description_accuracy">精度</string>
 
     <string name="statistics_sheet_h1_statistics">統計情報</string>
@@ -97,6 +100,7 @@
     <string name="descr_statistics_sheet_p_duration_value">値: 期間</string>
     <string name="descr_statistics_sheet_p_recording_start_value">値: 記録の開始</string>
     <string name="descr_statistics_sheet_p_recording_end_value">値: 記録の終了</string>
+    <string name="descr_track_selector">Dropdown menu for further tracks</string>
+    <string name="descr_delete_button">Track delete button</string>
 
-<string name="marker_description_time">時間</string>
-    </resources>
+</resources>

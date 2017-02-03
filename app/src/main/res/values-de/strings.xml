@@ -112,5 +112,7 @@
     <string name="descr_statistics_sheet_p_duration_value">Wert: Dauer</string>
     <string name="descr_statistics_sheet_p_recording_start_value">Wert: Start der Aufzeichnung</string>
     <string name="descr_statistics_sheet_p_recording_end_value">Wert: Ende der Aufzeichnung</string>
+    <string name="descr_track_selector">Auswahl-Menü für weitere Aufzeichnungen</string>
+    <string name="descr_delete_button">Button Track Löschen</string>
 
 </resources>

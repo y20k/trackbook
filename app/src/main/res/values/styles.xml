@@ -14,6 +14,9 @@
     </style>
 
     <style name="TrackbookAppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-    <style name="TrackbookAppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="TrackbookAppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
+        <!-- <item name="colorBackground">@color/trackbook_red</item> -->
+    </style>
 
 </resources>

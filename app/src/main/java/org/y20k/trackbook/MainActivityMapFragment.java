@@ -622,6 +622,9 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
             LocalBroadcastManager.getInstance(mActivity).sendBroadcast(i);
         }
     }
+    /**
+     * End of inner class
+     */
 
 
     /**
@@ -651,5 +654,8 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
             mStorageHelper.deleteTempFile();
         }
     }
+    /**
+     * End of inner class
+     */
 
 }
