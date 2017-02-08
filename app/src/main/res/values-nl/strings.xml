@@ -1,2 +1,104 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<?xml version='1.0' encoding='UTF-8'?>
+<resources><string name="app_name">Trackbook</string> <string name="title_activity_infosheet">Informatieblad</string>
+
+    <string name="menu_my_location">Mijn locatie</string>
+    <string name="menu_about">Over</string>
+
+    <string name="header_about">Over Trackbook</string>
+
+    <string name="tab_map">KAART</string>
+    <string name="tab_last_track">LAATSTE BAAN</string>
+
+    <string name="notification_title_trackbook_running">Trackbook is actief</string>
+    <string name="notification_title_trackbook_not_running">Trackbook is niet actief</string>
+    <string name="notification_stop">Stoppen</string>
+    <string name="notification_swipe_to_clear_map">(veeg om kaart te wissen)</string>
+    <string name="notification_content_duration">Duur</string>
+    <string name="notification_content_distance">Afstand</string>
+
+    <string name="snackbar_message_tracking_stopped">Bijhouden gestopt</string>
+    <string name="snackbar_message_tracking_started">Bijhouden gestart</string>
+    <string name="snackbar_message_location_offline">Locatie is uitgeschakeld; Trackbook zal niet werken.</string>
+
+    <string name="fab_sub_menu_clear">Wissen</string>
+    <string name="fab_sub_menu_save_and_clear">Opslaan en wissen</string>
+
+
+    <string name="toast_message_permissions_granted">Rechten verleend.</string>
+    <string name="toast_message_unable_to_start_app">Trackbook kan niet worden gestart.</string>
+    <string name="toast_message_no_external_storage">Toegang tot externe opslag kan niet worden verkregen.</string>
+    <string name="toast_message_location_offline">Locatie is uitgeschakeld; Trackbook zal niet werken.</string>
+    <string name="toast_message_acquiring_location">Bezig met opvragen van huidige locatie.</string>
+    <string name="toast_message_location_services_not_ready">Locatie-diensten zijn nog niet klaar; probeer het opnieuw.</string>
+    <string name="toast_message_last_location">Laatste locatie:</string>
+    <string name="toast_message_save_track">Bezig met opslaan van huidige baan.</string>
+    <string name="toast_message_last_location_age_one_hour">langer dan één uur</string>
+    <string name="toast_message_track_clear">Huidige baangegevens verwijderd.</string>
+
+    <string name="marker_description_source">Bron</string>
+    <string name="marker_description_time">Tijd</string>
+    <string name="marker_description_accuracy">Nauwkeurigheid</string>
+
+    <string name="statistics_sheet_h1_statistics">Statistieken</string>
+    <string name="statistics_sheet_p_default_data">baangegevens ontbreken</string>
+    <string name="statistics_sheet_p_distance">Totale afstand:</string>
+    <string name="statistics_sheet_p_steps">Gezette stappen:</string>
+    <string name="statistics_sheet_p_waypoints">Opgeslagen pauzelocaties:</string>
+    <string name="statistics_sheet_p_duration">Totale duur:</string>
+    <string name="statistics_sheet_p_recording_start">Bijhouden gestart:</string>
+    <string name="statistics_sheet_p_recording_stop">Bijhouden gestopt:</string>
+
+    <string name="layout_onboarding_h1_welcome">Hallo</string>
+    <string name="layout_onboarding_description_app_icon">Trackbook-app-pictogram</string>
+    <string name="layout_onboarding_h2_app_name">Trackbook</string>
+    <string name="layout_onboarding_p_app_claim">Bewegingsbijhouding voor Android</string>
+    <string name="layout_onboarding_h2_request_permissions">Trackbook kan niet werken zonder deze rechten:</string>
+    <string name="layout_onboarding_h3_permission_location">LOCATIE</string>
+    <string name="layout_onboarding_p_permission_location">Trackbook heeft nauwkeurige GPS-locatiegegevens nodig om uw bewegingen te kunnen bijhouden. Als de GPS-gegevens niet beschikbaar of niet nauwkeurig genoeg zijn zal Trackbook gegevens gebruiken van zendmasten en WiFi-triangulatie.</string>
+    <string name="layout_onboarding_h3_permission_storage">OPSLAG</string>
+    <string name="layout_onboarding_p_permission_storage">Trackbook gebruikt osmdroid. osmdroid slaat kaarttegels op in een cache op Android\'s externe opslag. U kunt de kaartcache vinden in de osmdroid-map op het hoogste niveau van het gebruikersbestandssysteem.</string>
+    <string name="layout_onboarding_button_okay">Ik snap het!</string>
+
+    <string name="infosheet_about_h1_about">Over Trackbook</string>
+    <string name="infosheet_about_h2_recorder">Bewegingsbijhouding voor Android</string>
+    <string name="infosheet_about_h3_version">Versie 1.0 (Astronomy Domine)</string>
+    <string name="infosheet_about_p_bare">Trackbook is een simpele app die uw bewegingen bijhoudt. Trackbook is heel handig voor wandelen, op vakantie of voor een workout. Zodra u Trackbook start begint de app uw bewegingen bij te houden op een kaart. De kaartgegevens zijn afkomstig van OpenStreetMap (OSM).</string>
+    <string name="infosheet_about_p_free">Trackbook is vrije software. U kunt de broncode vinden op GitHub. GitHub is tevens dé plek om fouten (bugs) te rapporteren of om bij te dragen. Trackbook wordt uitgebracht onder de MIT open bron-licentie. Trackbook gebruikt osmdroid om de kaart te weergeven. osmdroid is eveneens vrije software, uitgebracht onder de Apache-licentie.</string>
+    <string name="infosheet_about_p_github">https://github.com/y20k/trackbook</string>
+    <string name="infosheet_about_p_osmdroid">https://github.com/osmdroid/osmdroid</string>
+    <string name="infosheet_about_p_license">https://opensource.org/licenses/MIT</string>
+    <string name="infosheet_about_h2_permissions">Welke rechten zijn vereist voor Trackbook?</string>
+    <string name="infosheet_about_h3_internet">Recht INTERNET</string>
+    <string name="infosheet_about_p_internet">Trackbook moet de kaartgegevens downloaden van OpenStreetMap-servers; hiervoor is internettoegang vereist.</string>
+    <string name="infosheet_about_h3_network">Recht TOEGANG_WIFI_STATUS en TOEGANG_NETWERKSTATUS</string>
+    <string name="infosheet_about_p_network">Trackbook gebruikt osmdroid om kaarten te weergeven. osmdroid moet daarom weten wat de huidige verbinding van uw apparaat is.</string>
+    <string name="infosheet_about_h3_location">Recht TOEGANG_COARSE_LOCATIE en TOEGANG_FINE_LOCATIE</string>
+    <string name="infosheet_about_p_location">Trackbook heeft nauwkeurige GPS-locatiegegevens nodig om uw bewegingen te kunnen bijhouden. Als de GPS-gegevens niet beschikbaar of nauwkeurig genoeg zijn, dan wordt gebruikt gemaakt van zendmasten en WiFi-triangulatie.</string>
+    <string name="infosheet_about_h3_external">Recht SCHRIJVEN_EXTERNE_OPSLAG</string>
+    <string name="infosheet_about_p_external">Trackbook gebruikt osmdroid. osmdroid cachet kaarttegels op Android\'s externe opslag. U kunt de kaartcache vinden in de osmdroid-map op het hoogste niveau van het gebruikersbestandssysteem.</string>
+
+    <string name="descr_map_current_track">Kaart van de huidige baan</string>
+    <string name="descr_map_last_track">Kaart van de laatste baan</string>
+    <string name="descr_fab_main">Hoofd-actieknop</string>
+    <string name="descr_fab_sub_menu_label_1">Label van de Opslaan en wissen-knop</string>
+    <string name="descr_fab_sub_menu_button_1">kleine Opslaan en wissen-knop</string>
+    <string name="descr_fab_sub_menu_label_2">Label van de Wissen-knop</string>
+    <string name="descr_fab_sub_menu_button_2">kleine Wissen-knop</string>
+    <string name="descr_statistics_sheet_headline">Kop van het statistiekenblad</string>
+    <string name="descr_statistics_sheet_icon">Pictogram van een staafgrafiek</string>
+    <string name="descr_statistics_sheet_p_distance">Gegevenspunt: afstand</string>
+    <string name="descr_statistics_sheet_p_steps">Gegevenspunt: stappen</string>
+    <string name="descr_statistics_sheet_p_waypoints">Gegevenspunt: pauzepunten</string>
+    <string name="descr_statistics_sheet_p_duration">Gegevenspunt: duur</string>
+    <string name="descr_statistics_sheet_p_recording_start">Gegevenspunt: begin van bijhouden</string>
+    <string name="descr_statistics_sheet_p_recording_end">Gegevenspunt: stoppen van bijhouden</string>
+    <string name="descr_statistics_sheet_p_distance_value">Waarde: afstand</string>
+    <string name="descr_statistics_sheet_p_steps_value">Waarde: stappen</string>
+    <string name="descr_statistics_sheet_p_waypoints_value">Waarde: pauzepunten</string>
+    <string name="descr_statistics_sheet_p_duration_value">Waarde: duur</string>
+    <string name="descr_statistics_sheet_p_recording_start_value">Waarde: beginnen met bijhouden</string>
+    <string name="descr_statistics_sheet_p_recording_end_value">Waarde: stoppen met bijhouden</string>
+    <string name="descr_track_selector">Uitrolmenu voor verdere banen</string>
+    <string name="descr_delete_button">Baan - verwijderknop</string>
+
+</resources>
