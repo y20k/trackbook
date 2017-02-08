@@ -28,7 +28,7 @@
     <string name="dialog_clear_content">Clear Recording?</string>
     <string name="dialog_clear_action_clear">Clear</string>
     <string name="dialog_delete_title">Delete Recording?</string>
-    <string name="dialog_delete_content">Delete the following recording:</string>
+    <string name="dialog_delete_content">Deze opname verwijderen:</string>
     <string name="dialog_delete_action_delete">Delete</string>
     <string name="dialog_export_title_export">Export Recording as GPX?</string>
     <string name="dialog_export_content_export">Export this recording as GPX track.</string>
