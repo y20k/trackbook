@@ -16,7 +16,7 @@
     <style name="TrackbookAppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="TrackbookAppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
-        <!-- <item name="colorBackground">@color/trackbook_red</item> -->
+        <item name="android:colorControlNormal">@color/trackbook_white</item>
     </style>
 
 </resources>

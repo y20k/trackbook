@@ -32,6 +32,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -50,6 +51,7 @@ import org.y20k.trackbook.helpers.MapHelper;
 import org.y20k.trackbook.helpers.StorageHelper;
 import org.y20k.trackbook.helpers.TrackbookKeys;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.util.Locale;
 
@@ -57,7 +59,7 @@ import java.util.Locale;
 /**
  * MainActivityTrackFragment class
  */
-public class MainActivityTrackFragment extends Fragment implements TrackbookKeys {
+public class MainActivityTrackFragment extends Fragment implements AdapterView.OnItemSelectedListener, TrackbookKeys {
 
     /* Define log tag */
     private static final String LOG_TAG = MainActivityTrackFragment.class.getSimpleName();
@@ -79,6 +81,7 @@ public class MainActivityTrackFragment extends Fragment implements TrackbookKeys
     private TextView mRecordingStartView;
     private TextView mRecordingStopView;
     private BottomSheetBehavior mStatisticsSheetBehavior;
+    private int mCurrentTrack;
     private Track mTrack;
     private BroadcastReceiver mTrackSavedReceiver;
 
@@ -93,6 +96,13 @@ public class MainActivityTrackFragment extends Fragment implements TrackbookKeys
         // store activity
         mActivity = getActivity();
 
+        // get current track
+        if (savedInstanceState != null) {
+            mCurrentTrack = savedInstanceState.getInt(INSTANCE_CURRENT_TRACK, 0);
+        } else {
+            mCurrentTrack = 0;
+        }
+
         // create drop-down adapter
         mDropdownAdapter = new DropdownAdapter(mActivity);
 
@@ -102,9 +112,14 @@ public class MainActivityTrackFragment extends Fragment implements TrackbookKeys
             public void onReceive(Context context, Intent intent) {
                 if (intent.hasExtra(EXTRA_SAVE_FINISHED) && intent.getBooleanExtra(EXTRA_SAVE_FINISHED, false)) {
                     LogHelper.v(LOG_TAG, "Save operation detected. Start loading the new track.");
+
                     // load track and display map and statistics
                     LoadTrackAsyncHelper loadTrackAsyncHelper = new LoadTrackAsyncHelper();
                     loadTrackAsyncHelper.execute();
+
+                    mDropdownAdapter.refresh();
+                    mDropdownAdapter.notifyDataSetChanged();
+                    mDropdown.setSelection(0);
                 }
             }
         };
@@ -137,6 +152,8 @@ public class MainActivityTrackFragment extends Fragment implements TrackbookKeys
         // add compass to map
         CompassOverlay compassOverlay = new CompassOverlay(mActivity, new InternalCompassOrientationProvider(mActivity), mMapView);
         compassOverlay.enableCompass();
+        // move the compass overlay down a bit
+        compassOverlay.setCompassCenter(35.0f, 80.0f);
         mMapView.getOverlays().add(compassOverlay);
 
         // initiate map state
@@ -167,7 +184,7 @@ public class MainActivityTrackFragment extends Fragment implements TrackbookKeys
             mTrack = savedInstanceState.getParcelable(INSTANCE_TRACK_TRACK_MAP);
             displayTrack();
         } else if (mTrack == null) {
-            // load track and display map and statistics
+            // load track and display map and statistics // todo get via mCurrentTrack
             LoadTrackAsyncHelper loadTrackAsyncHelper = new LoadTrackAsyncHelper();
             loadTrackAsyncHelper.execute();
         } else {
@@ -222,13 +239,17 @@ public class MainActivityTrackFragment extends Fragment implements TrackbookKeys
 
 
     @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mDropdown.setAdapter(mDropdownAdapter);
+        mDropdown.setOnItemSelectedListener(this);
+    }
+
+
+    @Override
     public void onResume() {
         super.onResume();
-        StorageHelper storageHelper = new StorageHelper(mActivity);
 
-//        mTrackSelectorAdapter = new ArrayAdapter<String>(mActivity, android.R.layout.simple_spinner_dropdown_item, storageHelper.getListOfTracks());
-//        mDropdown.setAdapter(mTrackSelectorAdapter);
-        mDropdown.setAdapter(mDropdownAdapter);
     }
 
 
@@ -259,11 +280,31 @@ public class MainActivityTrackFragment extends Fragment implements TrackbookKeys
 
 
     @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        // update current track
+        mCurrentTrack = i;
+
+        // get track file
+        File trackFile = mDropdownAdapter.getItem(i).getTrackFile();
+
+        // load track and display map and statistics
+        LoadTrackAsyncHelper loadTrackAsyncHelper = new LoadTrackAsyncHelper();
+        loadTrackAsyncHelper.execute(trackFile);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+
+
+    @Override
     public void onSaveInstanceState(Bundle outState) {
         outState.putDouble(INSTANCE_LATITUDE_TRACK_MAP, mMapView.getMapCenter().getLatitude());
         outState.putDouble(INSTANCE_LONGITUDE_TRACK_MAP, mMapView.getMapCenter().getLongitude());
         outState.putInt(INSTANCE_ZOOM_LEVEL_TRACK_MAP, mMapView.getZoomLevel());
         outState.putParcelable(INSTANCE_TRACK_TRACK_MAP, mTrack);
+        outState.putInt(INSTANCE_CURRENT_TRACK, mCurrentTrack);
         super.onSaveInstanceState(outState);
     }
 
@@ -313,14 +354,23 @@ public class MainActivityTrackFragment extends Fragment implements TrackbookKeys
     /**
      * Inner class: Loads track from external storage using AsyncTask
      */
-    private class LoadTrackAsyncHelper extends AsyncTask<Void, Void, Void> {
+    private class LoadTrackAsyncHelper extends AsyncTask<File, Void, Void> {
 
         @Override
-        protected Void doInBackground(Void... voids) {
+        protected Void doInBackground(File... files) {
             LogHelper.v(LOG_TAG, "Loading track object in background.");
-            // load track object
+
             StorageHelper storageHelper = new StorageHelper(mActivity);
-            mTrack = storageHelper.loadTrack(FILE_TYPE_TRACK);
+
+            if (files.length > 0) {
+                // load track object from given file
+                mTrack = storageHelper.loadTrack(files[0]);
+            } else {
+                // load track object from most current file
+                mTrack = storageHelper.loadTrack(FILE_MOST_CURRENT_TRACK);
+            }
+
+
             return null;
         }
 
@@ -328,6 +378,8 @@ public class MainActivityTrackFragment extends Fragment implements TrackbookKeys
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             LogHelper.v(LOG_TAG, "Loading finished. Displaying map and statistics of track.");
+
+            // display track on map
             displayTrack();
         }
     }

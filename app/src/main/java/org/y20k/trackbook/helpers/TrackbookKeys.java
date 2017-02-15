@@ -64,6 +64,7 @@ public interface TrackbookKeys {
     String INSTANCE_LONGITUDE_TRACK_MAP = "longitudeTrackMap";
     String INSTANCE_ZOOM_LEVEL_TRACK_MAP = "zoomLevelTrackMap";
     String INSTANCE_CURRENT_LOCATION = "currentLocation";
+    String INSTANCE_CURRENT_TRACK = "currentTrack";
 
     /* FRAGMENT IDS */
     int FRAGMENT_ID_MAP = 0;
@@ -89,12 +90,13 @@ public interface TrackbookKeys {
     int FAB_STATE_DEFAULT = 0;
     int FAB_STATE_RECORDING = 1;
     int FAB_STATE_SAVE = 2;
-    int FILE_TYPE_TEMP = 0;
-    int FILE_TYPE_TRACK = 1;
+    int FILE_TEMP_TRACK = 0;
+    int FILE_MOST_CURRENT_TRACK = 1;
 
     String DIRECTORY_NAME = "tracks";
     String FILE_TYPE_EXTENSION = ".trackbook";
     String FILE_NAME_TEMP = "temp";
+
 
     double DEFAULT_LATITUDE = 49.41667; // latitude Nordkapp, Norway
     double DEFAULT_LONGITUDE = 8.67201; // longitude Nordkapp, Norway

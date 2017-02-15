@@ -424,7 +424,7 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
             LogHelper.v(LOG_TAG, "Saving temporary track object in background.");
             // save track object
             StorageHelper storageHelper = new StorageHelper(TrackerService.this);
-            storageHelper.saveTrack(mTrack, FILE_TYPE_TEMP);
+            storageHelper.saveTrack(mTrack, FILE_TEMP_TRACK);
             return null;
         }
 

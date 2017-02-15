@@ -621,7 +621,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
                 case FRAGMENT_ID_MAP:
                     return getString(R.string.tab_map);
                 case FRAGMENT_ID_TRACK:
-                    return getString(R.string.tab_last_track);
+                    return getString(R.string.tab_last_tracks);
             }
             return null;
         }

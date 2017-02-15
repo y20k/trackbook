@@ -604,7 +604,7 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
         protected Void doInBackground(Void... voids) {
             LogHelper.v(LOG_TAG, "Saving track object in background.");
             // save track object
-            mStorageHelper.saveTrack(mTrack, FILE_TYPE_TRACK);
+            mStorageHelper.saveTrack(mTrack, FILE_MOST_CURRENT_TRACK);
             return null;
         }
 
@@ -636,7 +636,7 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
         protected Void doInBackground(Void... voids) {
             LogHelper.v(LOG_TAG, "Loading temporary track object in background.");
             // load track object
-            mTrack = mStorageHelper.loadTrack(FILE_TYPE_TEMP);
+            mTrack = mStorageHelper.loadTrack(FILE_TEMP_TRACK);
             return null;
         }
 

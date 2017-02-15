@@ -10,6 +10,7 @@
 
     <string name="tab_map">地図</string>
     <string name="tab_last_track">最後のトラック</string>
+    <string name="tab_last_tracks">LAST TRACKS</string>
 
     <string name="notification_title_trackbook_running">Trackbook 実行中</string>
     <string name="notification_title_trackbook_not_running">Trackbook は実行していません</string>
@@ -24,7 +25,6 @@
 
     <string name="fab_sub_menu_clear">クリア</string>
     <string name="fab_sub_menu_save_and_clear">保存してクリア</string>
-
 
     <string name="toast_message_permissions_granted">アクセス許可を付与しました。</string>
     <string name="toast_message_unable_to_start_app">Trackbook を起動できません。</string>

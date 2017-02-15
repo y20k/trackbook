@@ -5,7 +5,9 @@ AUTHORS
 Trackbook is designed, developed and maintained by: [y20k](https://github.com/y20k)
 
 ### Translations
-German version: [y20k](https://github.com/y20k)
+Dutch version: [Vistaus](Vistaus)
+
+German version: [y20k](https://github.com/Vistaus)
 
 Japanese version: [naofum](https://github.com/y20k)
 

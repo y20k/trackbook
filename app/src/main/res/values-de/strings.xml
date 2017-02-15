@@ -14,6 +14,7 @@
     <!-- tabs -->
     <string name="tab_map">KARTE</string>
     <string name="tab_last_track">LETZTE AUFZEICHNUNG</string>
+    <string name="tab_last_tracks">LETZTE AUFZEICHNUNGEN</string>
 
     <!-- notification -->
     <string name="notification_title_trackbook_not_running">Trackbook ist inaktiv</string>

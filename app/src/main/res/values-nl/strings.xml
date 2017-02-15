@@ -8,6 +8,7 @@
 
     <string name="tab_map">KAART</string>
     <string name="tab_last_track">LAATSTE BAAN</string>
+    <string name="tab_last_tracks">LAST TRACKS</string>
 
     <string name="notification_title_trackbook_running">Trackbook is actief</string>
     <string name="notification_title_trackbook_not_running">Trackbook is niet actief</string>

@@ -25,20 +25,21 @@ import android.support.v7.widget.ThemedSpinnerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import org.y20k.trackbook.R;
+import org.y20k.trackbook.core.TrackBundle;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 
 /**
  * DropdownHelper class
  */
-public class DropdownAdapter implements ThemedSpinnerAdapter, TrackbookKeys {
+public class DropdownAdapter extends BaseAdapter implements ThemedSpinnerAdapter, TrackbookKeys {
 
     /* Define log tag */
     private static final String LOG_TAG = DropdownAdapter.class.getSimpleName();
@@ -157,6 +158,13 @@ public class DropdownAdapter implements ThemedSpinnerAdapter, TrackbookKeys {
     }
 
 
+    /* Refreshes the adapter data */
+    public void refresh() {
+        // re-initialize the adapter's array list
+        initializeTrackBundleList();
+    }
+
+
     /* Initializes list of track bundles */
     private void initializeTrackBundleList() {
 
@@ -171,46 +179,5 @@ public class DropdownAdapter implements ThemedSpinnerAdapter, TrackbookKeys {
         }
 
     }
-
-
-    /**
-     * Inner class: Container for file and corresponding name of a track
-     */
-    private class TrackBundle {
-        File trackFile;
-        String trackName;
-
-        /* Constructor */
-        TrackBundle(File file) {
-            trackFile = file;
-            trackName = buildTrackName(file);
-        }
-
-        /* Getter for track fike */
-        File getTrackFile() {
-            return trackFile;
-        }
-
-        /* Getter for track name */
-        String getTrackName() {
-            return trackName;
-        }
-
-        /* Builds a readable track name from the track's file name */
-        String buildTrackName(File file) {
-            // todo get date back from track name
-            Date date = null;
-
-            // todo get name according to current locale
-            String readableTrackName = null;
-
-            return file.getName();
-            // return readableTrackName;
-        }
-
-    }
-    /**
-     * End of inner class
-     */
 
 }

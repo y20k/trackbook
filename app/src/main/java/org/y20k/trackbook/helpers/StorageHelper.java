@@ -104,7 +104,7 @@ public class StorageHelper implements TrackbookKeys {
         if (mFolder != null && mFolder.exists() && mFolder.isDirectory() && mFolder.canWrite() && recordingStart != null && track != null) {
             // create file object
             String fileName;
-            if (fileType == FILE_TYPE_TEMP) {
+            if (fileType == FILE_TEMP_TRACK) {
                 // case: temp file
                 fileName = FILE_NAME_TEMP + FILE_TYPE_EXTENSION;
             } else {
@@ -130,7 +130,7 @@ public class StorageHelper implements TrackbookKeys {
             }
 
             // if write was successful delete old track files - only if not a temp file
-            if (fileType != FILE_TYPE_TEMP) {
+            if (fileType != FILE_TEMP_TRACK) {
                 // include  temp file if it exists
                 deleteOldTracks(true);
             }
@@ -146,19 +146,76 @@ public class StorageHelper implements TrackbookKeys {
 
 
     /* Loads given file into memory */
-    public Track loadTrack (int fileType) {
+    public Track loadTrack(int fileType) {
 
         // get file reference
-        File file;
-        if (fileType == FILE_TYPE_TEMP) {
-            file = getTempFile();
-        } else {
-            file = getMostCurrentTrack();
+        File trackFile;
+        switch (fileType) {
+            case FILE_TEMP_TRACK:
+                trackFile = getTempFile();
+                break;
+            case FILE_MOST_CURRENT_TRACK:
+                trackFile = getMostCurrentTrack();
+                break;
+            default:
+                trackFile = null;
+                break;
         }
+
+        // read & parse file and return track
+        return readTrackFromFile(trackFile);
+    }
+
+
+    /* Loads given file into memory */
+    public Track loadTrack(File file) {
+
+        // get file reference
+        File trackFile;
+        if (file != null) {
+            trackFile = file;
+        } else {
+            // fallback
+            trackFile = getMostCurrentTrack();
+        }
+
+        // read & parse file and return track
+        return readTrackFromFile(trackFile);
+    }
+
+
+    /* Gets a list of .trackbook files - excluding the temp file */
+    public File[] getListOfTrackbookFiles() {
+        // TODO HANDLE CASE: EMPTY FILE LIST
+
+        // get files and sort them
+        return sortFiles(mFolder.listFiles());
+    }
+
+
+    /* Gets a list of tracks based on their file names */
+    public List<String> getListOfTracks() {
+        List<String> listOfTracks = new ArrayList<String>();
+
+        // get files and sort them
+        File[] files = mFolder.listFiles();
+        files = sortFiles(files);
+
+        for (File file : files) {
+            listOfTracks.add(file.getName());
+        }
+
+        // TODO HANDLE CASE: EMPTY FILE LIST
+        return listOfTracks;
+    }
+
+
+    // loads file and parses it into a track
+    private Track readTrackFromFile(File file) {
 
         // check if given file was null
         if (file == null) {
-            LogHelper.e(LOG_TAG, "Did not receive file object.");
+            LogHelper.e(LOG_TAG, "Did not receive a file object.");
             return null;
         }
 
@@ -186,33 +243,6 @@ public class StorageHelper implements TrackbookKeys {
             LogHelper.e(LOG_TAG, "Unable to read file from external storage: " + file.toString());
             return null;
         }
-
-    }
-
-
-    /* Gets a list of .trackbook files - excluding the temp file */
-    public File[] getListOfTrackbookFiles() {
-        // TODO HANDLE CASE: EMPTY FILE LIST
-
-        // get files and sort them
-        return sortFiles(mFolder.listFiles());
-    }
-
-
-    /* Gets a list of tracks based on their file names */
-    public List<String> getListOfTracks() {
-        List<String> listOfTracks = new ArrayList<String>();
-
-        // get files and sort them
-        File[] files = mFolder.listFiles();
-        files = sortFiles(files);
-
-        for (File file : files) {
-            listOfTracks.add(file.getName());
-        }
-
-        // TODO HANDLE CASE: EMPTY FILE LIST
-        return listOfTracks;
     }
 
 

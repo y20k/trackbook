@@ -14,6 +14,7 @@
     <!-- tabs -->
     <string name="tab_map">MAP</string>
     <string name="tab_last_track">LAST TRACK</string>
+    <string name="tab_last_tracks">LAST TRACKS</string>
 
     <!-- notification -->
     <string name="notification_title_trackbook_running">Trackbook running</string>
