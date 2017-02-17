@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/track_tab_onboarding">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/trackbook_grey"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:text="@string/track_tab_onboarding_h1_part_1" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/trackbook_icon"
+        android:background="@mipmap/ic_launcher"
+        android:contentDescription="@string/layout_onboarding_description_app_icon" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/trackbook_grey"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="@string/track_tab_onboarding_h1_part_2" />
+
+</LinearLayout>
+

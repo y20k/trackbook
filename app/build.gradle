@@ -8,8 +8,8 @@ android {
         applicationId "org.y20k.trackbook"
         minSdkVersion 22
         targetSdkVersion 25
-        versionCode 7
-        versionName "1.0.0 (Astronomy Domine)"
+        versionCode 8
+        versionName "1.0.1 (Astronomy Domine)"
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
