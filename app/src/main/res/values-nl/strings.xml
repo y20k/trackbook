@@ -60,6 +60,9 @@
     <string name="layout_onboarding_p_permission_storage">Trackbook gebruikt osmdroid. osmdroid slaat kaarttegels op in een cache op Android\'s externe opslag. U kunt de kaartcache vinden in de osmdroid-map op het hoogste niveau van het gebruikersbestandssysteem.</string>
     <string name="layout_onboarding_button_okay">Ik snap het!</string>
 
+    <string name="track_tab_onboarding_h1_part_1">Your recorded tracks</string>
+    <string name="track_tab_onboarding_h1_part_2">… will show up here.</string>
+
     <string name="infosheet_about_h1_about">Over Trackbook</string>
     <string name="infosheet_about_h2_recorder">Bewegingsbijhouding voor Android</string>
     <string name="infosheet_about_h3_version">Versie 1.0 (Astronomy Domine)</string>

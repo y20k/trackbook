@@ -19,8 +19,11 @@
             android:layout_height="match_parent"
             android:contentDescription="@string/descr_map_last_track" />
 
+        <include layout="@layout/fragment_main_track_onboarding" />
+
         <!-- TRACK SELECTION -->
         <LinearLayout
+            android:id="@+id/track_management_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="@dimen/activity_horizontal_margin"

@@ -33,7 +33,6 @@
     <string name="fab_sub_menu_clear">Clear</string>
     <string name="fab_sub_menu_save_and_clear">Save and Clear</string>
 
-
     <!-- toast messages -->
     <string name="toast_message_permissions_granted">Permissions granted.</string>
     <string name="toast_message_unable_to_start_app">Unable to start Trackbook.</string>
@@ -72,6 +71,10 @@
     <string name="layout_onboarding_h3_permission_storage">STORAGE</string>
     <string name="layout_onboarding_p_permission_storage">Trackbook uses osmdroid, which caches map tiles on Android\'s external storage. You can find the map cache in the osmdroid folder on the top level of the user-facing file system.</string>
     <string name="layout_onboarding_button_okay">Got it!</string>
+
+    <!-- track tab onboarding -->
+    <string name="track_tab_onboarding_h1_part_1">Your recorded tracks</string>
+    <string name="track_tab_onboarding_h1_part_2">… will show up here.</string>
 
     <!-- infosheet about -->
     <string name="infosheet_about_h1_about">About Trackbook</string>

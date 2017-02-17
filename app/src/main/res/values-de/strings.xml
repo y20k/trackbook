@@ -72,6 +72,10 @@
     <string name="layout_onboarding_p_permission_storage">Trackbook nutzt osmdroid; osmdroid speichert Kartendaten im Externen Speicher von Android. Der Karten-Cache befindet sich im Ordner osmdroid auf der obersten Ebene des für Nutzer sichtbaren Dateisystems.</string>
     <string name="layout_onboarding_button_okay">Alles klar!</string>
 
+    <!-- track tab onboarding -->
+    <string name="track_tab_onboarding_h1_part_1">Your recorded tracks</string>
+    <string name="track_tab_onboarding_h1_part_2">… will show up here.</string>
+
     <!-- infosheet about -->
     <string name="infosheet_about_h1_about">Über Trackbook</string>
     <string name="infosheet_about_h2_recorder">Bewegungsrekorder für Android</string>

@@ -92,6 +92,7 @@ public interface TrackbookKeys {
     int FAB_STATE_SAVE = 2;
     int FILE_TEMP_TRACK = 0;
     int FILE_MOST_CURRENT_TRACK = 1;
+    int NEW_DROPDOWN_ITEM = -1;
 
     String DIRECTORY_NAME = "tracks";
     String FILE_TYPE_EXTENSION = ".trackbook";

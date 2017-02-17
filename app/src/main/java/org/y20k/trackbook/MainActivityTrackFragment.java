@@ -33,7 +33,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -69,10 +69,11 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
     private Activity mActivity;
     private View mRootView;
     private MapView mMapView;
+    private LinearLayout mOnboardingView;
     private IMapController mController;
     private ItemizedIconOverlay mTrackOverlay;
-    private ArrayAdapter<String> mTrackSelectorAdapter;
     private DropdownAdapter mDropdownAdapter;
+    private LinearLayout mTrackManagementLayout;
     private Spinner mDropdown;
     private TextView mDistanceView;
     private TextView mStepsView;
@@ -113,13 +114,11 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
                 if (intent.hasExtra(EXTRA_SAVE_FINISHED) && intent.getBooleanExtra(EXTRA_SAVE_FINISHED, false)) {
                     LogHelper.v(LOG_TAG, "Save operation detected. Start loading the new track.");
 
-                    // load track and display map and statistics
-                    LoadTrackAsyncHelper loadTrackAsyncHelper = new LoadTrackAsyncHelper();
-                    loadTrackAsyncHelper.execute();
-
+                    // update dropdown menu (and load track in onItemSelected)
                     mDropdownAdapter.refresh();
                     mDropdownAdapter.notifyDataSetChanged();
-                    mDropdown.setSelection(0);
+                    mDropdown.setAdapter(mDropdownAdapter);
+                    mDropdown.setSelection(0, true);
                 }
             }
         };
@@ -136,7 +135,10 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
         // inflate root view from xml
         mRootView = inflater.inflate(R.layout.fragment_main_track, container, false);
 
-        // create basic map
+        // get reference to onboarding layout
+        mOnboardingView = (LinearLayout) mRootView.findViewById(R.id.track_tab_onboarding);
+
+        // get reference to basic map
         mMapView = (MapView) mRootView.findViewById(R.id.track_map);
 
         // get map controller
@@ -167,6 +169,7 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
         }
 
         // get views for track selector
+        mTrackManagementLayout = (LinearLayout) mRootView.findViewById(R.id.track_management_layout);
         mDropdown = (Spinner) mRootView.findViewById(R.id.track_selector);
 
         // get views for statistics sheet
@@ -184,7 +187,7 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
             mTrack = savedInstanceState.getParcelable(INSTANCE_TRACK_TRACK_MAP);
             displayTrack();
         } else if (mTrack == null) {
-            // load track and display map and statistics // todo get via mCurrentTrack
+            // load track and display map and statistics
             LoadTrackAsyncHelper loadTrackAsyncHelper = new LoadTrackAsyncHelper();
             loadTrackAsyncHelper.execute();
         } else {
@@ -249,7 +252,8 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
     @Override
     public void onResume() {
         super.onResume();
-
+        // show / hide the onboarding layout
+        switchOnboardingLayout();
     }
 
 
@@ -284,12 +288,9 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
         // update current track
         mCurrentTrack = i;
 
-        // get track file
-        File trackFile = mDropdownAdapter.getItem(i).getTrackFile();
-
         // load track and display map and statistics
         LoadTrackAsyncHelper loadTrackAsyncHelper = new LoadTrackAsyncHelper();
-        loadTrackAsyncHelper.execute(trackFile);
+        loadTrackAsyncHelper.execute(i);
     }
 
     @Override
@@ -351,33 +352,51 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
     }
 
 
+    /* show the onboarding layout, if no track has been recorded yet */
+    private void switchOnboardingLayout() {
+        if (mDropdownAdapter.isEmpty()){
+            // show onboarding layout
+            mMapView.setVisibility(View.GONE);
+            mOnboardingView.setVisibility(View.VISIBLE);
+            mTrackManagementLayout.setVisibility(View.INVISIBLE);
+            mStatisticsSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+        } else {
+            // show normal layout
+            mOnboardingView.setVisibility(View.GONE);
+            mMapView.setVisibility(View.VISIBLE);
+            mTrackManagementLayout.setVisibility(View.VISIBLE);
+            mStatisticsSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        }
+    }
+
+
     /**
      * Inner class: Loads track from external storage using AsyncTask
      */
-    private class LoadTrackAsyncHelper extends AsyncTask<File, Void, Void> {
+    private class LoadTrackAsyncHelper extends AsyncTask<Integer, Void, Void> {
 
         @Override
-        protected Void doInBackground(File... files) {
+        protected Void doInBackground(Integer... ints) {
             LogHelper.v(LOG_TAG, "Loading track object in background.");
 
             StorageHelper storageHelper = new StorageHelper(mActivity);
-
-            if (files.length > 0) {
-                // load track object from given file
-                mTrack = storageHelper.loadTrack(files[0]);
+            if (ints.length > 0) {
+                // get track file from dropdown adapter
+                int item = ints[0];
+                File trackFile = mDropdownAdapter.getItem(item).getTrackFile();
+                LogHelper.v(LOG_TAG, "Loading track number " + item);
+                mTrack = storageHelper.loadTrack(trackFile);
             } else {
                 // load track object from most current file
+                LogHelper.v(LOG_TAG, "No specific track specified. Loading most current one.");
                 mTrack = storageHelper.loadTrack(FILE_MOST_CURRENT_TRACK);
             }
-
-
             return null;
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            LogHelper.v(LOG_TAG, "Loading finished. Displaying map and statistics of track.");
 
             // display track on map
             displayTrack();
