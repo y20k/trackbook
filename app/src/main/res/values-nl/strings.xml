@@ -24,6 +24,12 @@
     <string name="fab_sub_menu_clear">Wissen</string>
     <string name="fab_sub_menu_save_and_clear">Opslaan en wissen</string>
 
+    <string name="dialog_default_action_cancel">Cancel</string>
+    <string name="dialog_clear_content">Clear Recording?</string>
+    <string name="dialog_clear_action_clear">Clear</string>
+    <string name="dialog_delete_title">Delete Recording?</string>
+    <string name="dialog_delete_content">Do you really want to delete this recording?</string>
+    <string name="dialog_delete_action_delete">Delete</string>
 
     <string name="toast_message_permissions_granted">Rechten verleend.</string>
     <string name="toast_message_unable_to_start_app">Trackbook kan niet worden gestart.</string>

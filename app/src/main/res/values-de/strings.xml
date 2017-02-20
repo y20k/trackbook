@@ -33,6 +33,14 @@
     <string name="fab_sub_menu_clear">Zurücksetzen</string>
     <string name="fab_sub_menu_save_and_clear">Speichern und Zurücksetzen</string>
 
+    <!-- dialogs -->
+    <string name="dialog_default_action_cancel">Abbrechen</string>
+    <string name="dialog_clear_content">Aufzeichnung zurücksetzen?</string>
+    <string name="dialog_clear_action_clear">Zurücksetzen</string>
+    <string name="dialog_delete_title">Aufzeichnung löschen?</string>
+    <string name="dialog_delete_content">Möchten Sie diese Aufzeichnung wirklich löschen?</string>
+    <string name="dialog_delete_action_delete">Löschen</string>
+
     <!-- toast messages -->
     <string name="toast_message_permissions_granted">Berechtigungen erteilt.</string>
     <string name="toast_message_unable_to_start_app">Trackbook kann nicht starten.</string>
