@@ -19,6 +19,7 @@ package org.y20k.trackbook;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.location.Location;
@@ -29,10 +30,12 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -172,16 +175,21 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
         mTrackManagementLayout = (LinearLayout) mRootView.findViewById(R.id.track_management_layout);
         mDropdown = (Spinner) mRootView.findViewById(R.id.track_selector);
 
+        //
+        ImageButton deleteButton = (ImageButton) mRootView.findViewById(R.id.delete_button);
+        deleteButton.setOnClickListener(getDeleteButtonListener());
+
         // get views for statistics sheet
         View statisticsView = mRootView.findViewById(R.id.statistics_view);
+        View statisticsSheet = mRootView.findViewById(R.id.statistics_sheet);
         mDistanceView = (TextView) mRootView.findViewById(R.id.statistics_data_distance);
         mStepsView = (TextView) mRootView.findViewById(R.id.statistics_data_steps);
         mWaypointsView = (TextView) mRootView.findViewById(R.id.statistics_data_waypoints);
         mDurationView = (TextView) mRootView.findViewById(R.id.statistics_data_duration);
         mRecordingStartView = (TextView) mRootView.findViewById(R.id.statistics_data_recording_start);
         mRecordingStopView = (TextView) mRootView.findViewById(R.id.statistics_data_recording_stop);
-        View mStatisticsSheet = mRootView.findViewById(R.id.statistics_sheet);
 
+        // display map and statistics
         if (savedInstanceState != null) {
             // get track from saved instance and display map and statistics
             mTrack = savedInstanceState.getParcelable(INSTANCE_TRACK_TRACK_MAP);
@@ -195,36 +203,10 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
             displayTrack();
         }
 
-        // show statistics sheet
-        mStatisticsSheetBehavior = BottomSheetBehavior.from(mStatisticsSheet);
+        // set up and show statistics sheet
+        mStatisticsSheetBehavior = BottomSheetBehavior.from(statisticsSheet);
         mStatisticsSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-        mStatisticsSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
-            @Override
-            public void onStateChanged(@NonNull View bottomSheet, int newState) {
-                // react to state change
-                switch (newState) {
-                    case BottomSheetBehavior.STATE_EXPANDED:
-                        // statistics sheet expanded
-                        break;
-                    case BottomSheetBehavior.STATE_COLLAPSED:
-                        // statistics sheet collapsed
-                        mStatisticsSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                        break;
-                    case BottomSheetBehavior.STATE_HIDDEN:
-                        // statistics sheet hidden
-                        mStatisticsSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                        break;
-                    default:
-                        break;
-                }
-            }
-            @Override
-            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-                // react to dragging events
-            }
-        });
-
-        // react to tap on sheet heading
+        mStatisticsSheetBehavior.setBottomSheetCallback(getStatisticsSheetCallback());
         statisticsView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -235,7 +217,6 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
                 }
             }
         });
-
 
         return mRootView;
     }
@@ -367,6 +348,66 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
             mTrackManagementLayout.setVisibility(View.VISIBLE);
             mStatisticsSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         }
+    }
+
+
+    /* Creates BottomSheetCallback for the statistics sheet - needed in onCreateView */
+    private BottomSheetBehavior.BottomSheetCallback getStatisticsSheetCallback() {
+        return new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                // react to state change
+                switch (newState) {
+                    case BottomSheetBehavior.STATE_EXPANDED:
+                        // statistics sheet expanded
+                        break;
+                    case BottomSheetBehavior.STATE_COLLAPSED:
+                        // statistics sheet collapsed
+                        mStatisticsSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                        break;
+                    case BottomSheetBehavior.STATE_HIDDEN:
+                        // statistics sheet hidden
+                        mStatisticsSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+                // react to dragging events
+            }
+        };
+    }
+
+
+    /* Creates OnClickListener for the delete button - needed in onCreateView */
+    private View.OnClickListener getDeleteButtonListener() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // ask user to confirm the delete action
+                String dialogMessage = getString(R.string.dialog_delete_content) + " " + mTrack.getTrackDuration() + " | " + mTrack.getTrackDistance();
+                AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+                builder.setTitle(R.string.dialog_delete_title);
+                builder.setMessage(dialogMessage);
+                builder.setNegativeButton(R.string.dialog_default_action_cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // do nothing
+                    }
+                });
+                builder.setPositiveButton(R.string.dialog_delete_action_delete, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // delete current track
+                        // TODO implement
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        };
     }
 
 

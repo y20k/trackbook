@@ -38,7 +38,7 @@
     <string name="dialog_clear_content">Aufzeichnung zurücksetzen?</string>
     <string name="dialog_clear_action_clear">Zurücksetzen</string>
     <string name="dialog_delete_title">Aufzeichnung löschen?</string>
-    <string name="dialog_delete_content">Möchten Sie diese Aufzeichnung wirklich löschen?</string>
+    <string name="dialog_delete_content">Diese Aufzeichnung löschen:</string>
     <string name="dialog_delete_action_delete">Löschen</string>
 
     <!-- toast messages -->

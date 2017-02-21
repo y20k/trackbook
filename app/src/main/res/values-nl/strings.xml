@@ -28,7 +28,7 @@
     <string name="dialog_clear_content">Clear Recording?</string>
     <string name="dialog_clear_action_clear">Clear</string>
     <string name="dialog_delete_title">Delete Recording?</string>
-    <string name="dialog_delete_content">Do you really want to delete this recording?</string>
+    <string name="dialog_delete_content">Delete the following recording:</string>
     <string name="dialog_delete_action_delete">Delete</string>
 
     <string name="toast_message_permissions_granted">Rechten verleend.</string>

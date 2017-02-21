@@ -75,6 +75,9 @@ public class StorageHelper implements TrackbookKeys {
 
         // create temp file object
         mTempFile = new File(mFolder.toString() + "/" + FILE_NAME_TEMP + FILE_TYPE_EXTENSION);
+
+        // delete old track - exclude temp file
+        deleteOldTracks(false);
     }
 
 

@@ -20,6 +20,7 @@ import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -38,6 +39,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.SparseArray;
@@ -354,11 +356,27 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
                 mFloatingActionButtonSubMenu2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        handleButtonClearClick();
+                        // ask user to confirm the clear action
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                        builder.setMessage(R.string.dialog_clear_content);
+                        builder.setNegativeButton(R.string.dialog_default_action_cancel, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                // do nothing
+                            }
+                        });
+                        builder.setPositiveButton(R.string.dialog_clear_action_clear, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                // clear current track
+                                handleButtonClearClick();
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
                     }
                 });
             }
-
 
         } else {
             // point to the on main onboarding layout
