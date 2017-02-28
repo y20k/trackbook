@@ -30,7 +30,7 @@
     <string name="dialog_clear_content">記録をクリアしますか?</string>
     <string name="dialog_clear_action_clear">クリア</string>
     <string name="dialog_delete_title">記録を削除しますか?</string>
-    <string name="dialog_delete_content">次の記録を削除:</string>
+    <string name="dialog_delete_content">この記録を削除:</string>
     <string name="dialog_delete_action_delete">Delete</string>
     <string name="dialog_export_title_export">Export Recording as GPX?</string>
     <string name="dialog_export_content_export">Export this recording as GPX track.</string>
