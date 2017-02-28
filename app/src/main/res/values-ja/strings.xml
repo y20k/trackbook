@@ -9,8 +9,8 @@
     <string name="header_about">Trackbook について</string>
 
     <string name="tab_map">地図</string>
-    <string name="tab_last_track">最後のトラック</string>
-    <string name="tab_last_tracks">LAST TRACKS</string>
+    <string name="tab_last_track">最後のトレース</string>
+    <string name="tab_last_tracks">最後のトレース</string>
 
     <string name="notification_title_trackbook_running">Trackbook 実行中</string>
     <string name="notification_title_trackbook_not_running">Trackbook は実行していません</string>
@@ -26,11 +26,11 @@
     <string name="fab_sub_menu_clear">クリア</string>
     <string name="fab_sub_menu_save_and_clear">保存してクリア</string>
 
-    <string name="dialog_default_action_cancel">Cancel</string>
-    <string name="dialog_clear_content">Clear Recording?</string>
-    <string name="dialog_clear_action_clear">Clear</string>
-    <string name="dialog_delete_title">Delete Recording?</string>
-    <string name="dialog_delete_content">Delete the following recording:</string>
+    <string name="dialog_default_action_cancel">キャンセル</string>
+    <string name="dialog_clear_content">記録をクリアしますか?</string>
+    <string name="dialog_clear_action_clear">クリア</string>
+    <string name="dialog_delete_title">記録を削除しますか?</string>
+    <string name="dialog_delete_content">次の記録を削除:</string>
     <string name="dialog_delete_action_delete">Delete</string>
 
     <string name="toast_message_permissions_granted">アクセス許可を付与しました。</string>
@@ -40,16 +40,16 @@
     <string name="toast_message_acquiring_location">現在の場所を取得します。</string>
     <string name="toast_message_location_services_not_ready">位置情報サービスの準備ができていません。もう一度やり直してください。</string>
     <string name="toast_message_last_location">最後の場所:</string>
-    <string name="toast_message_save_track">現在のトラックを保存しています。</string>
+    <string name="toast_message_save_track">現在のトレースを保存しています。</string>
     <string name="toast_message_last_location_age_one_hour">1 時間以上</string>
-    <string name="toast_message_track_clear">現在のトラック データを削除しました。</string>
+    <string name="toast_message_track_clear">現在のトレース データを削除しました。</string>
 
     <string name="marker_description_source">ソース</string>
     <string name="marker_description_time">時間</string>
     <string name="marker_description_accuracy">精度</string>
 
     <string name="statistics_sheet_h1_statistics">統計情報</string>
-    <string name="statistics_sheet_p_default_data">トラックデータが見つかりません</string>
+    <string name="statistics_sheet_p_default_data">トレースデータが見つかりません</string>
     <string name="statistics_sheet_p_distance">総距離:</string>
     <string name="statistics_sheet_p_steps">歩数:</string>
     <string name="statistics_sheet_p_waypoints">記録されたウェイ ポイント:</string>
@@ -68,12 +68,12 @@
     <string name="layout_onboarding_p_permission_storage">Trackbook は、Android の外部ストレージに地図タイルをキャッシュする osmdroid を使用します。地図キャッシュは、ユーザー向けファイル・システムの最上位レベルの osmdroid フォルダーで見つけることができます。</string>
     <string name="layout_onboarding_button_okay">完了!</string>
 
-    <string name="track_tab_onboarding_h1_part_1">Your recorded tracks</string>
-    <string name="track_tab_onboarding_h1_part_2">… will show up here.</string>
+    <string name="track_tab_onboarding_h1_part_1">記録したトレース</string>
+    <string name="track_tab_onboarding_h1_part_2">… ここに表示されます。</string>
 
     <string name="infosheet_about_h1_about">Trackbook について</string>
     <string name="infosheet_about_h2_recorder">Android 用の移動レコーダー</string>
-    <string name="infosheet_about_h3_version">Version 1.0 (Astronomy Domine)</string>
+    <string name="infosheet_about_h3_version">バージョン 1.0 (Astronomy Domine)</string>
     <string name="infosheet_about_p_bare">Trackbook は、動きを記録するためベアボーンアプリです。Trackbook は、ハイキング、旅行、運動に最適です。 開始すると、地図にあなたの動きをトレースします。 地図データは、OpenStreetMap (OSM) によって提供されます。</string>
     <string name="infosheet_about_p_free">Trackbook はフリー ソフトウェアです。コードは GitHub 上で見つけることができます。GitHub は、バグの報告するのに良い場所です。興味があれば、貢献にも。Trackbook は、MIT オープン ソース ライセンスの下で公開されます。Trackbook は、Apache ライセンスの下で公開されるフリー ソフトウェアでもある、osmdroid を使用して地図を表示します。</string>
     <string name="infosheet_about_p_github">https://github.com/y20k/trackbook</string>
@@ -89,8 +89,8 @@
     <string name="infosheet_about_h3_external">WRITE_EXTERNAL_STORAGE アクセス許可</string>
     <string name="infosheet_about_p_external">Trackbook は、Android の外部ストレージに地図タイルをキャッシュする osmdroid を使用します。地図キャッシュは、ユーザー向けファイル・システムの最上位レベルの osmdroid フォルダーで見つけることができます。</string>
 
-    <string name="descr_map_current_track">現在のトラックの地図</string>
-    <string name="descr_map_last_track">最後のトラックの地図</string>
+    <string name="descr_map_current_track">現在のトレースの地図</string>
+    <string name="descr_map_last_track">最後のトレースの地図</string>
     <string name="descr_fab_main">メイン アクション ボタン</string>
     <string name="descr_fab_sub_menu_label_1">保存とクリア ボタンのラベル</string>
     <string name="descr_fab_sub_menu_button_1">小さな保存してクリア ボタン</string>
@@ -110,7 +110,7 @@
     <string name="descr_statistics_sheet_p_duration_value">値: 期間</string>
     <string name="descr_statistics_sheet_p_recording_start_value">値: 記録の開始</string>
     <string name="descr_statistics_sheet_p_recording_end_value">値: 記録の終了</string>
-    <string name="descr_track_selector">Dropdown menu for further tracks</string>
-    <string name="descr_delete_button">Track delete button</string>
+    <string name="descr_track_selector">ドロップダウン メニューでさらにトレース</string>
+    <string name="descr_delete_button">トレース削除ボタン</string>
 
 </resources>
