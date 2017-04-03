@@ -50,7 +50,9 @@ public class GpxHelper {
 
         // add header
         gpxString = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?>\n" +
-                    "<gpx version=\"1.1\" creator=\"Transistor App (Android)\">\n";
+                    "<gpx version=\"1.1\" creator=\"Transistor App (Android)\"\n" +
+                    "     xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
+                    "     xsi:schemaLocation=\"http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd\">\n";
 
         // add track
         gpxString = gpxString + addTrack();
