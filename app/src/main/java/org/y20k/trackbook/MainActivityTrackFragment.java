@@ -19,7 +19,6 @@ package org.y20k.trackbook;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.location.Location;
@@ -28,9 +27,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +48,9 @@ import org.osmdroid.views.overlay.ItemizedIconOverlay;
 import org.osmdroid.views.overlay.compass.CompassOverlay;
 import org.osmdroid.views.overlay.compass.InternalCompassOrientationProvider;
 import org.y20k.trackbook.core.Track;
+import org.y20k.trackbook.helpers.DialogHelper;
 import org.y20k.trackbook.helpers.DropdownAdapter;
+import org.y20k.trackbook.helpers.ExportHelper;
 import org.y20k.trackbook.helpers.LogHelper;
 import org.y20k.trackbook.helpers.MapHelper;
 import org.y20k.trackbook.helpers.StorageHelper;
@@ -69,7 +71,7 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
 
 
     /* Main class variables */
-    private Activity mActivity;
+    private FragmentActivity mActivity;
     private View mRootView;
     private MapView mMapView;
     private LinearLayout mOnboardingView;
@@ -175,8 +177,10 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
         mTrackManagementLayout = (LinearLayout) mRootView.findViewById(R.id.track_management_layout);
         mDropdown = (Spinner) mRootView.findViewById(R.id.track_selector);
 
-        //
+        // attach listeners to export and delete buttons
+        ImageButton exportButton = (ImageButton) mRootView.findViewById(R.id.export_button);
         ImageButton deleteButton = (ImageButton) mRootView.findViewById(R.id.delete_button);
+        exportButton.setOnClickListener(getExportButtonListener());
         deleteButton.setOnClickListener(getDeleteButtonListener());
 
         // get views for statistics sheet
@@ -291,6 +295,34 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
     }
 
 
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch(requestCode) {
+            case RESULT_DELETE_DIALOG:
+                if (resultCode == Activity.RESULT_OK) {
+                    LogHelper.v(LOG_TAG, "Delete dialog result: DELETE");
+                } else if (resultCode == Activity.RESULT_CANCELED){
+                    LogHelper.v(LOG_TAG, "Delete dialog result: CANCEL");
+                }
+                break;
+            case RESULT_EXPORT_DIALOG:
+                if (resultCode == Activity.RESULT_OK) {
+                    // User chose EXPORT
+                    ExportHelper exportHelper = new ExportHelper(mActivity);
+                    exportHelper.exportToGpx(mTrack);
+                } else if (resultCode == Activity.RESULT_CANCELED){
+                    // User chose CANCEL
+                    LogHelper.v(LOG_TAG, "Export to GPX: User chose CANCEL.");
+                }
+                break;
+        }
+    }
+
+
+
+
     /* Displays map and statistics for track */
     private void displayTrack() {
         GeoPoint position;
@@ -360,9 +392,11 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
                 switch (newState) {
                     case BottomSheetBehavior.STATE_EXPANDED:
                         // statistics sheet expanded
+                        mTrackManagementLayout.setVisibility(View.INVISIBLE);
                         break;
                     case BottomSheetBehavior.STATE_COLLAPSED:
                         // statistics sheet collapsed
+                        mTrackManagementLayout.setVisibility(View.VISIBLE);
                         mStatisticsSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                         break;
                     case BottomSheetBehavior.STATE_HIDDEN:
@@ -376,6 +410,12 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
             @Override
             public void onSlide(@NonNull View bottomSheet, float slideOffset) {
                 // react to dragging events
+                if (slideOffset < 0.5f) {
+                    mTrackManagementLayout.setVisibility(View.VISIBLE);
+                } else {
+                    mTrackManagementLayout.setVisibility(View.INVISIBLE);
+                }
+
             }
         };
     }
@@ -386,26 +426,54 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // ask user to confirm the delete action
+                // get text elements for delete dialog
+                int dialogTitle = R.string.dialog_delete_title;
                 String dialogMessage = getString(R.string.dialog_delete_content) + " " + mTrack.getTrackDuration() + " | " + mTrack.getTrackDistance();
-                AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
-                builder.setTitle(R.string.dialog_delete_title);
-                builder.setMessage(dialogMessage);
-                builder.setNegativeButton(R.string.dialog_default_action_cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        // do nothing
-                    }
-                });
-                builder.setPositiveButton(R.string.dialog_delete_action_delete, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        // delete current track
-                        // TODO implement
-                    }
-                });
-                AlertDialog dialog = builder.create();
-                dialog.show();
+                int dialogPositiveButton = R.string.dialog_delete_action_delete;
+                int dialogNegativeButton = R.string.dialog_default_action_cancel;
+
+                // show delete dialog - results are handles by onActivityResult
+                DialogFragment dialogFragment = DialogHelper.newInstance(dialogTitle, dialogMessage, dialogPositiveButton, dialogNegativeButton);
+                dialogFragment.setTargetFragment(MainActivityTrackFragment.this, RESULT_DELETE_DIALOG);
+                dialogFragment.show(mActivity.getSupportFragmentManager(), "DeleteDialog");
+            }
+        };
+    }
+
+
+    /* Creates OnClickListener for the export button - needed in onCreateView */
+    private View.OnClickListener getExportButtonListener() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // dialog text components
+                int dialogTitle;
+                String dialogMessage;
+                int dialogPositiveButton;
+                int dialogNegativeButton;
+
+                // create an ExportHelper
+                final ExportHelper exportHelper = new ExportHelper(mActivity);
+
+                // get text elements for delete dialog
+                if (exportHelper.gpxFileExists(mTrack)) {
+                    // CASE: OVERWRITE - GPX file exists
+                    dialogTitle = R.string.dialog_export_title_overwrite;
+                    dialogMessage = getString(R.string.dialog_export_content_overwrite) + " (" + mTrack.getTrackDuration() + " | " + mTrack.getTrackDistance() + ")";
+                    dialogPositiveButton = R.string.dialog_export_action_overwrite;
+                    dialogNegativeButton = R.string.dialog_default_action_cancel;
+                } else {
+                    // CASE: EXPORT - GPX file does NOT yet exits
+                    dialogTitle = R.string.dialog_export_title_export;
+                    dialogMessage = getString(R.string.dialog_export_content_export) + " (" + mTrack.getTrackDuration() + " | " + mTrack.getTrackDistance() + ")";
+                    dialogPositiveButton = R.string.dialog_export_action_export;
+                    dialogNegativeButton = R.string.dialog_default_action_cancel;
+                }
+
+                // show delete dialog - results are handles by onActivityResult
+                DialogFragment dialogFragment = DialogHelper.newInstance(dialogTitle, dialogMessage, dialogPositiveButton, dialogNegativeButton);
+                dialogFragment.setTargetFragment(MainActivityTrackFragment.this, RESULT_EXPORT_DIALOG);
+                dialogFragment.show(mActivity.getSupportFragmentManager(), "ExportDialog");
             }
         };
     }

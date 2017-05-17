@@ -349,6 +349,35 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
 
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch(requestCode) {
+            case RESULT_SAVE_DIALOG:
+                if (resultCode == Activity.RESULT_OK) {
+                    // user chose SAVE - clear map and save track
+                    clearMap(true);
+                    // FloatingActionButton state is already being handled in MainActivity
+                    // ((MainActivity)mActivity).onFloatingActionButtonResult(requestCode, resultCode);
+                    LogHelper.v(LOG_TAG, "Save dialog result: SAVE");
+                } else if (resultCode == Activity.RESULT_CANCELED){
+                    LogHelper.v(LOG_TAG, "Save dialog result: CANCEL");
+                }
+                break;
+            case RESULT_CLEAR_DIALOG:
+                if (resultCode == Activity.RESULT_OK) {
+                    // User chose CLEAR - clear map, do not save track
+                    clearMap(false);
+                    // handle FloatingActionButton state in MainActivity
+                    ((MainActivity)mActivity).onFloatingActionButtonResult(requestCode, resultCode);
+                } else if (resultCode == Activity.RESULT_CANCELED){
+                    LogHelper.v(LOG_TAG, "Clear dialog result: CANCEL");
+                }
+                break;
+        }
+    }
+
+
+    @Override
     public void onSaveInstanceState(Bundle outState) {
         outState.putBoolean(INSTANCE_FIRST_START, mFirstStart);
         outState.putBoolean(INSTANCE_TRACKING_STATE, mTrackerServiceRunning);
@@ -389,7 +418,7 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
 
 
     /* Removes track crumbs from map */
-    public void clearMap(boolean saveTrack) {
+    private void clearMap(boolean saveTrack) {
 
         // clear map
         if (mTrackOverlay != null) {

@@ -30,6 +30,12 @@
     <string name="dialog_delete_title">Delete Recording?</string>
     <string name="dialog_delete_content">Delete the following recording:</string>
     <string name="dialog_delete_action_delete">Delete</string>
+    <string name="dialog_export_title_export">Export Recording as GPX?</string>
+    <string name="dialog_export_content_export">Export this recording as GPX track.</string>
+    <string name="dialog_export_action_export">Export</string>
+    <string name="dialog_export_title_overwrite">Export and Overwrite?</string>
+    <string name="dialog_export_content_overwrite">File already exists. Export and overwrite this recording as GPX track.</string>
+    <string name="dialog_export_action_overwrite">Export and Overwrite</string>
 
     <string name="toast_message_permissions_granted">Rechten verleend.</string>
     <string name="toast_message_unable_to_start_app">Trackbook kan niet worden gestart.</string>
@@ -41,6 +47,8 @@
     <string name="toast_message_save_track">Bezig met opslaan van huidige baan.</string>
     <string name="toast_message_last_location_age_one_hour">langer dan één uur</string>
     <string name="toast_message_track_clear">Huidige baangegevens verwijderd.</string>
+    <string name="toast_message_export_success">GPX export successful:</string>
+    <string name="toast_message_export_fail">GPX export failed:</string>
 
     <string name="marker_description_source">Bron</string>
     <string name="marker_description_time">Tijd</string>
@@ -109,6 +117,7 @@
     <string name="descr_statistics_sheet_p_recording_start_value">Waarde: beginnen met bijhouden</string>
     <string name="descr_statistics_sheet_p_recording_end_value">Waarde: stoppen met bijhouden</string>
     <string name="descr_track_selector">Uitrolmenu voor verdere banen</string>
+    <string name="descr_export_button">Track export button</string>
     <string name="descr_delete_button">Baan - verwijderknop</string>
 
 </resources>

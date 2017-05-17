@@ -25,6 +25,7 @@
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/TrackbookAppTheme.NoActionBar"
+            android:resizeableActivity="true"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,6 +40,7 @@
             android:name=".InfosheetActivity"
             android:label="@string/title_activity_infosheet"
             android:parentActivityName=".MainActivity"
+            android:resizeableActivity="true"
             android:configChanges="keyboardHidden|orientation|screenSize|screenLayout">
 
 

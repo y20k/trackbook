@@ -1,7 +1,7 @@
 /**
  * TrackbookKeys.java
  * Implements the keys used throughout the app
- * This class hosts all keys used to control Trackbook's state
+ * This interface hosts all keys used to control Trackbook's state
  *
  * This file is part of
  * TRACKBOOK - Movement Recorder for Android
@@ -41,6 +41,11 @@ public interface TrackbookKeys {
     String EXTRA_SAVE_FINISHED = "SAVE_FINISHED";
 
     /* ARGS */
+    String ARG_DIALOG_TITLE = "ArgDialogTitle";
+    String ARG_DIALOG_MESSAGE = "ArgDialogMessage";
+    String ARG_DIALOG_BUTTON_POSITIVE = "ArgDialogButtonPositive";
+    String ARG_DIALOG_BUTTON_NEGATIVE = "ArgDialogButtonNegative";
+
 //    String ARG_PERMISSIONS_GRANTED = "ArgPermissionsGranted";
 //    String ARG_TRACKING_STATE = "ArgTrackingState";
 //    String ARG_TRACK = "ArgTrack";
@@ -94,8 +99,17 @@ public interface TrackbookKeys {
     int FILE_MOST_CURRENT_TRACK = 1;
     int NEW_DROPDOWN_ITEM = -1;
 
-    String DIRECTORY_NAME = "tracks";
-    String FILE_TYPE_EXTENSION = ".trackbook";
+    int RESULT_SAVE_DIALOG = 1;
+    int RESULT_CLEAR_DIALOG = 2;
+    int RESULT_DELETE_DIALOG = 3;
+    int RESULT_EXPORT_DIALOG = 4;
+
+    int STORAGE_TRACKS = 1;
+    int STORAGE_DOWNLOADS = 2;
+
+    String TRACKS_DIRECTORY_NAME = "tracks";
+    String FILE_TYPE_GPX_EXTENSION = ".gpx";
+    String FILE_TYPE_TRACKBOOK_EXTENSION = ".trackbook";
     String FILE_NAME_TEMP = "temp";
 
 

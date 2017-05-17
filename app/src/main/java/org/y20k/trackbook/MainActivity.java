@@ -18,9 +18,9 @@ package org.y20k.trackbook;
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -34,12 +34,12 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.SparseArray;
@@ -51,6 +51,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import org.y20k.trackbook.helpers.DialogHelper;
 import org.y20k.trackbook.helpers.LogHelper;
 import org.y20k.trackbook.helpers.NotificationHelper;
 import org.y20k.trackbook.helpers.TrackbookKeys;
@@ -256,6 +257,64 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     }
 
 
+    /* Handles FloatingActionButton dialog results */
+    public void onFloatingActionButtonResult(int requestCode, int resultCode) {
+        switch(requestCode) {
+            case RESULT_SAVE_DIALOG:
+                if (resultCode == Activity.RESULT_OK) {
+                    // user chose SAVE
+                    handleStateAfterSave();
+                } else if (resultCode == Activity.RESULT_CANCELED){
+                    LogHelper.v(LOG_TAG, "Save dialog result: CANCEL");
+                }
+                break;
+            case RESULT_CLEAR_DIALOG:
+                if (resultCode == Activity.RESULT_OK) {
+                    // user chose CLEAR
+                    handleStateAfterClear();
+                } else if (resultCode == Activity.RESULT_CANCELED){
+                    LogHelper.v(LOG_TAG, "Clear map: User chose CANCEL.");
+                }
+                break;
+        }
+    }
+
+
+    /* Handles the visual state after a save action */
+    private void handleStateAfterSave() {
+        // display and update track tab
+        mSelectedTab = FRAGMENT_ID_TRACK;
+        mViewPager.setCurrentItem(mSelectedTab);
+
+        // dismiss notification
+        NotificationHelper.stop();
+
+        // hide Floating Action Button sub menu
+        showFloatingActionButtonMenu(false);
+
+        // update Floating Action Button icon
+        mFloatingActionButtonState = FAB_STATE_DEFAULT;
+        setFloatingActionButtonState();
+    }
+
+
+    /* Handles the visual state after a save action */
+    private void handleStateAfterClear() {
+        // notify user
+        Toast.makeText(this, getString(R.string.toast_message_track_clear), Toast.LENGTH_LONG).show();
+
+        // dismiss notification
+        NotificationHelper.stop();
+
+        // hide Floating Action Button sub menu
+        showFloatingActionButtonMenu(false);
+
+        // update Floating Action Button icon
+        mFloatingActionButtonState = FAB_STATE_DEFAULT;
+        setFloatingActionButtonState();
+    }
+
+
     /* Loads state of Floating Action Button from preferences */
     private void loadFloatingActionButtonState(Context context) {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
@@ -348,7 +407,9 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
                 mFloatingActionButtonSubMenu1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        handleButtonSaveAndClearClick();
+                        MainActivityMapFragment mainActivityMapFragment = (MainActivityMapFragment) mSectionsPagerAdapter.getFragment(FRAGMENT_ID_MAP);
+                        mainActivityMapFragment.onActivityResult(RESULT_SAVE_DIALOG, Activity.RESULT_OK, getIntent());
+                        handleStateAfterSave();
                     }
                 });
             }
@@ -356,24 +417,16 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
                 mFloatingActionButtonSubMenu2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        // ask user to confirm the clear action
-                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                        builder.setMessage(R.string.dialog_clear_content);
-                        builder.setNegativeButton(R.string.dialog_default_action_cancel, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                // do nothing
-                            }
-                        });
-                        builder.setPositiveButton(R.string.dialog_clear_action_clear, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                // clear current track
-                                handleButtonClearClick();
-                            }
-                        });
-                        AlertDialog dialog = builder.create();
-                        dialog.show();
+                        int dialogTitle = -1;
+                        String dialogMessage = getString(R.string.dialog_clear_content);
+                        int dialogPositiveButton = R.string.dialog_clear_action_clear;
+                        int dialogNegativeButton = R.string.dialog_default_action_cancel;
+
+                        // show delete dialog - results are handles by onActivityResult
+                        MainActivityMapFragment mainActivityMapFragment = (MainActivityMapFragment) mSectionsPagerAdapter.getFragment(FRAGMENT_ID_MAP);
+                        DialogFragment dialogFragment = DialogHelper.newInstance(dialogTitle, dialogMessage, dialogPositiveButton, dialogNegativeButton);
+                        dialogFragment.setTargetFragment(mainActivityMapFragment, RESULT_CLEAR_DIALOG);
+                        dialogFragment.show(getSupportFragmentManager(), "ClearDialog");
                     }
                 });
             }
@@ -465,46 +518,46 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     }
 
 
-    /* Handles tap on the save and clear button */
-    private void handleButtonSaveAndClearClick() {
-        // clear map and save track
-        MainActivityMapFragment mainActivityMapFragment = (MainActivityMapFragment) mSectionsPagerAdapter.getFragment(FRAGMENT_ID_MAP);
-        mainActivityMapFragment.clearMap(true);
+//    /* Handles tap on the save and clear button */
+//    private void handleButtonSaveAndClearClick() {
+//        // clear map and save track
+//        MainActivityMapFragment mainActivityMapFragment = (MainActivityMapFragment) mSectionsPagerAdapter.getFragment(FRAGMENT_ID_MAP);
+//        mainActivityMapFragment.clearMap(true);
+//
+//        // display and update track tab
+//        mSelectedTab = FRAGMENT_ID_TRACK;
+//        mViewPager.setCurrentItem(mSelectedTab);
+//
+//        // dismiss notification
+//        NotificationHelper.stop();
+//
+//        // hide Floating Action Button sub menu
+//        showFloatingActionButtonMenu(false);
+//
+//        // update Floating Action Button icon
+//        mFloatingActionButtonState = FAB_STATE_DEFAULT;
+//        setFloatingActionButtonState();
+//    }
 
-        // display and update track tab
-        mSelectedTab = FRAGMENT_ID_TRACK;
-        mViewPager.setCurrentItem(mSelectedTab);
 
-        // dismiss notification
-        NotificationHelper.stop();
-
-        // hide Floating Action Button sub menu
-        showFloatingActionButtonMenu(false);
-
-        // update Floating Action Button icon
-        mFloatingActionButtonState = FAB_STATE_DEFAULT;
-        setFloatingActionButtonState();
-    }
-
-
-    /* Handles tap on the clear button */
-    private void handleButtonClearClick() {
-        // clear map, do not save track
-        MainActivityMapFragment mainActivityMapFragment = (MainActivityMapFragment) mSectionsPagerAdapter.getFragment(FRAGMENT_ID_MAP);
-        mainActivityMapFragment.clearMap(false);
-
-        // dismiss notification
-        NotificationHelper.stop();
-
-        // hide Floating Action Button sub menu
-        showFloatingActionButtonMenu(false);
-
-        // update Floating Action Button icon
-        mFloatingActionButtonState = FAB_STATE_DEFAULT;
-        setFloatingActionButtonState();
-
-        Toast.makeText(this, getString(R.string.toast_message_track_clear), Toast.LENGTH_LONG).show();
-    }
+//    /* Handles tap on the clear button */
+//    private void handleButtonClearClick() {
+//        // clear map, do not save track
+//        MainActivityMapFragment mainActivityMapFragment = (MainActivityMapFragment) mSectionsPagerAdapter.getFragment(FRAGMENT_ID_MAP);
+//        mainActivityMapFragment.clearMap(false);
+//
+//        // dismiss notification
+//        NotificationHelper.stop();
+//
+//        // hide Floating Action Button sub menu
+//        showFloatingActionButtonMenu(false);
+//
+//        // update Floating Action Button icon
+//        mFloatingActionButtonState = FAB_STATE_DEFAULT;
+//        setFloatingActionButtonState();
+//
+//        Toast.makeText(this, getString(R.string.toast_message_track_clear), Toast.LENGTH_LONG).show();
+//    }
 
 
     /* Set state of FloatingActionButton */

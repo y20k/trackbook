@@ -39,11 +39,23 @@
                 android:theme="@style/TrackbookAppTheme.PopupOverlay"
                 android:contentDescription="@string/descr_track_selector" />
             <ImageButton
+                android:visibility="visible"
+                android:id="@+id/export_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:background="@drawable/ic_export_white_24dp"
+                android:contentDescription="@string/descr_export_button" />
+            <ImageButton
                 android:visibility="gone"
                 android:id="@+id/delete_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|center"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
                 android:background="@drawable/ic_delete_forever_white_24dp"
                 android:contentDescription="@string/descr_delete_button" />
         </LinearLayout>
