@@ -98,9 +98,9 @@
     <string name="infosheet_about_h3_version">Version 1.0 (Astronomy Domine)</string>
     <string name="infosheet_about_p_bare">Trackbook is a bare bones app for recording your movements. Trackbook is great for hiking, vacation or workout. Once started it traces your movements on a map. The map data is provided by OpenStreetMap (OSM).</string>
     <string name="infosheet_about_p_free">Trackbook is free software. You can find the code on GitHub. GitHub is also a good place to file bugs or even to contribute, if you are interested. Trackbook is published under the MIT open source license. Trackbook uses osmdroid to display the map, which is also free software published under the Apache License.</string>
-    <string name="infosheet_about_p_github">https://github.com/y20k/trackbook</string>
-    <string name="infosheet_about_p_osmdroid">https://github.com/osmdroid/osmdroid</string>
-    <string name="infosheet_about_p_license">https://opensource.org/licenses/MIT</string>
+    <string name="infosheet_about_p_github" translatable="false">https://github.com/y20k/trackbook</string>
+    <string name="infosheet_about_p_osmdroid" translatable="false">https://github.com/osmdroid/osmdroid</string>
+    <string name="infosheet_about_p_license" translatable="false">https://opensource.org/licenses/MIT</string>
     <string name="infosheet_about_h2_permissions">Which Permissions does Trackbook need?</string>
     <string name="infosheet_about_h3_internet">Permission INTERNET</string>
     <string name="infosheet_about_p_internet">Trackbook needs to download map data from OpenStreetMap servers and therefore needs access to the internet.</string>
