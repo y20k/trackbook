@@ -1,2 +1,121 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<?xml version='1.0' encoding='UTF-8'?>
+<resources><string name="app_name">Sporingsbok</string> <string name="title_activity_infosheet">Infoark</string>
+
+    <string name="menu_my_location">Min plasssering</string>
+    <string name="menu_about">Om</string>
+
+    <string name="header_about">Om Sporingsbok</string>
+
+    <string name="tab_map">KART</string>
+    <string name="tab_last_track">SISTE TUR</string>
+    <string name="tab_last_tracks">SISTE TURER</string>
+
+    <string name="notification_title_trackbook_running">Sporingsbok kjører</string>
+    <string name="notification_title_trackbook_not_running">Sporingsbok kjører ikke</string>
+    <string name="notification_stop">Stopp</string>
+    <string name="notification_swipe_to_clear_map">(sveip for å tømme kart)</string>
+    <string name="notification_content_duration">Varighet</string>
+    <string name="notification_content_distance">Distanse</string>
+
+    <string name="snackbar_message_tracking_stopped">Sporing stoppet</string>
+    <string name="snackbar_message_tracking_started">Sporing startet</string>
+    <string name="snackbar_message_location_offline">Plassering avskrudd. Sporingsbok bil ikke fungere.</string>
+
+    <string name="fab_sub_menu_clear">Tøm</string>
+    <string name="fab_sub_menu_save_and_clear">Lagre og tøm</string>
+
+    <string name="dialog_default_action_cancel">Avbryt</string>
+    <string name="dialog_clear_content">Fjern opptak?</string>
+    <string name="dialog_clear_action_clear">Tøm</string>
+    <string name="dialog_delete_title">Slett opptak?</string>
+    <string name="dialog_delete_content">Slett dette opptaket:</string>
+    <string name="dialog_delete_action_delete">Slett</string>
+    <string name="dialog_export_title_export">Eksporter opptak som GPX?</string>
+    <string name="dialog_export_content_export">Exporter dette opptaket som en GPX-tur?</string>
+    <string name="dialog_export_action_export">Eksporter</string>
+    <string name="dialog_export_title_overwrite">Exporter og overskriv?</string>
+    <string name="dialog_export_content_overwrite">Fila finnes allerede. Eksporter og overskriv dette opptaket som en GPX-tur.</string>
+    <string name="dialog_export_action_overwrite">Eksporter og overskriv</string>
+
+    <string name="toast_message_permissions_granted">Tilgang gitt.</string>
+    <string name="toast_message_unable_to_start_app">Sporingsbok kan ikke starte.</string>
+    <string name="toast_message_no_external_storage">Fikk ikke tilgang til ekstern lagring.</string>
+    <string name="toast_message_location_offline">Plassering skrudd av. Sporingsbok vil ikke fungere.</string>
+    <string name="toast_message_acquiring_location">Innhenter nåværende plassering.</string>
+    <string name="toast_message_location_services_not_ready">Plasseringstjenester er ikke klare. Prøv igjen.</string>
+    <string name="toast_message_last_location">Siste plassering:</string>
+    <string name="toast_message_save_track">Lagrer nåværende tur.</string>
+    <string name="toast_message_last_location_age_one_hour">over én time</string>
+    <string name="toast_message_track_clear">Nåværende turdata fjernet.</string>
+    <string name="toast_message_export_success">GPX-eksportering vellykket:</string>
+    <string name="toast_message_export_fail">GPX-eksportering mislyktes:</string>
+
+    <string name="marker_description_source">Kilde</string>
+    <string name="marker_description_time">Tid</string>
+    <string name="marker_description_accuracy">Nøyaktighet</string>
+
+    <string name="statistics_sheet_h1_statistics">Statistikk</string>
+    <string name="statistics_sheet_p_default_data">turdata mangler</string>
+    <string name="statistics_sheet_p_distance">Total distanse:</string>
+    <string name="statistics_sheet_p_steps">Skritt:</string>
+    <string name="statistics_sheet_p_waypoints">Registrerte veipunkter:</string>
+    <string name="statistics_sheet_p_duration">Total varighet:</string>
+    <string name="statistics_sheet_p_recording_start">Opptak startet:</string>
+    <string name="statistics_sheet_p_recording_stop">Opptak stoppet:</string>
+
+    <string name="layout_onboarding_h1_welcome">Hallo</string>
+    <string name="layout_onboarding_description_app_icon">Programikon for Sporingsbok</string>
+    <string name="layout_onboarding_h2_app_name">Sporingsbok</string>
+    <string name="layout_onboarding_p_app_claim">Bevegelsesopptak for Android</string>
+    <string name="layout_onboarding_h2_request_permissions">Sporingsbok fungerer ikke uten disse tilgangene:</string>
+    <string name="layout_onboarding_h3_permission_location">PLASSERING</string>
+    <string name="layout_onboarding_p_permission_location">Sporingsbok trenger nøyaktige GPS-data for å kunne ta opp dine bevegelser. Hvis GPS-dataen ikke er tilgjengelig eller nøyaktig nok vil sporingsbok bruke plasseringsdata fra telefonmaster og Wi-Fi-triangulering.</string>
+    <string name="layout_onboarding_h3_permission_storage">LAGRING</string>
+    <string name="layout_onboarding_p_permission_storage">Sporingsbok brukerosmdroid, som hurtiglagrer kartfliser på Androids eksterne lagringsmedie. Du kan finne dette karthurtiglageret i osmdroid-mappa på topnivået av brukergrensesnittet.</string>
+    <string name="layout_onboarding_button_okay">Skjønner!</string>
+
+    <string name="track_tab_onboarding_h1_part_1">Dine registrerte turer</string>
+    <string name="track_tab_onboarding_h1_part_2">… vil vises her</string>
+
+    <string name="infosheet_about_h1_about">Om Sporingsbok</string>
+    <string name="infosheet_about_h2_recorder">Bevegelsesopptaker for Android</string>
+    <string name="infosheet_about_h3_version">Versjon 1.0 (Astronomy Domine)</string>
+    <string name="infosheet_about_p_bare">Sporingsbok er et minimalistisk program for opptak av dine bevegelser. Sporingsbok er bra for turgåing, reise eller trening. Når det er startet sporer det bevegelsene dine på et kart. Kartdataene kommer fra OpenStreetMap (OSM).</string>
+    <string name="infosheet_about_p_free">Sporingsbok er fri programvare. Kildekoden er å finne på GitHub og det er også et bra sted å rapportere feil eller bidra, hvis du er interessert. Sporingsbok er utgitt under MIT åpenkildekode-lisens. Sporingsbok bruker osmdroid til å vise kartet, som også er fri programvare utgitt med Apache-lisens.</string>
+    <string name="infosheet_about_p_github">https://github.com/y20k/trackbook</string>
+    <string name="infosheet_about_p_osmdroid">https://github.com/osmdroid/osmdroid</string>
+    <string name="infosheet_about_p_license">https://opensource.org/licenses/MIT</string>
+    <string name="infosheet_about_h3_internet">Tilgang INTERNETT</string>
+    <string name="infosheet_about_p_internet">Sporingsbok må laste ned kartdata fra OpenStreetMap-tjenere og må derfor ha tilgang til Internett.</string>
+    <string name="infosheet_about_h3_network">Tilganger ACCESS_WIFI_STATE og ACCESS_NETWORK_STATE</string>
+    <string name="infosheet_about_p_network">Sporingsbok bruker osmdroid til å tegne kartene. osmdroid trenger å vite gjeldende tilstand for din enhets tilkobling.</string>
+    <string name="infosheet_about_h3_location">Tilganger ACCESS_COARSE_LOCATION og ACCESS_FINE_LOCATION</string>
+    <string name="infosheet_about_p_location">Sporingsbok trenger nøyaktig GPS-data for å kunne registrere bevegelsene dine. Hvis GPS-dataen ikke er tilgjengelig eller nøyaktig nok, bruker Sporingsbok plasseringsdata fra mobilmaster og Wi-Fi-triangulering.</string>
+    <string name="infosheet_about_p_external">Sporingsbok bruker osmdroid, som hurtiglagrer fliser på Androids eksterne lagringsmedie. Du kan finne kartflisene i osmdroid-mappa på toppnivået av brukergrensesnittet.</string>
+
+    <string name="descr_map_current_track">Kartlegging av nåværende tur</string>
+    <string name="descr_map_last_track">Kartlegging av forrige tur</string>
+    <string name="descr_fab_main">Hovedhandlingsknapp</string>
+    <string name="descr_fab_sub_menu_label_1">Etikett for Lagre- og Tøm-knapp</string>
+    <string name="descr_fab_sub_menu_button_1">liten Lagre- og Tøm-knapp</string>
+    <string name="descr_fab_sub_menu_label_2">Etikett for Tøm-knappen</string>
+    <string name="descr_fab_sub_menu_button_2">liten Tøm-knapp</string>
+    <string name="descr_statistics_sheet_headline">Overskrift for statistikkarket</string>
+    <string name="descr_statistics_sheet_icon">Ikon for stolpediagram</string>
+    <string name="descr_statistics_sheet_p_distance">Datapunkt: Distanse</string>
+    <string name="descr_statistics_sheet_p_steps">Datapunkter: Skritt</string>
+    <string name="descr_statistics_sheet_p_waypoints">Datapunkter: Veipunkter</string>
+    <string name="descr_statistics_sheet_p_duration">Datapunkt: Varighet</string>
+    <string name="descr_statistics_sheet_p_recording_start">Datapunkt: Opptaksstart</string>
+    <string name="descr_statistics_sheet_p_recording_end">Datapunkt: Opptaksslutt</string>
+    <string name="descr_statistics_sheet_p_distance_value">Verdi: Distanse</string>
+    <string name="descr_statistics_sheet_p_steps_value">Verdi: Steg</string>
+    <string name="descr_statistics_sheet_p_waypoints_value">Verdi: Veipunkter</string>
+    <string name="descr_statistics_sheet_p_duration_value">Verdi: Varighet</string>
+    <string name="descr_statistics_sheet_p_recording_start_value">Verdi: Opptaksstart</string>
+    <string name="descr_statistics_sheet_p_recording_end_value">Verdi: Opptaksslutt</string>
+    <string name="descr_track_selector">Nedtrekksmeny for ytterligere turer</string>
+    <string name="descr_export_button">Tureksportknapp</string>
+    <string name="descr_delete_button">Turslettingsknapp</string>
+
+</resources>
