@@ -98,9 +98,6 @@
     <string name="infosheet_about_h3_version">Version 1.0 (Astronomy Domine)</string>
     <string name="infosheet_about_p_bare">Trackbook ist eine minimalistische App, um Standort-Bewegungen aufzuzeichnen. Trackbook eignet sich für Wandern, Urlaub und Sport. Im Aufnahmemodus werden Deine Bewegungen auf einer Karte nachgezeichnet. Die Kartendaten stammen von OpenStreetMap (OSM).</string>
     <string name="infosheet_about_p_free">Trackbook ist Freie Software. Der Quellcode befindet sich auf GitHub. GitHub ist auch ein guter Ort, um Bugs zu melden oder um sich bei Interesse an der Weiterentwicklung zu beteiligen. Trackbook ist unter der MIT Open Source Lizenz veröffentlicht. Trackbook nutzt osmdroid um die Karten darstellen. osmdroid ist ebenfalls freie Software und ist unter der Apache Lizenz veröffentlicht.</string>
-    <string name="infosheet_about_p_github" translatable="false">https://github.com/y20k/trackbook</string>
-    <string name="infosheet_about_p_osmdroid" translatable="false">https://github.com/osmdroid/osmdroid</string>
-    <string name="infosheet_about_p_license" translatable="false">https://opensource.org/licenses/MIT</string>
     <string name="infosheet_about_h2_permissions">Welche Berechtigungen benötigt Trackbook?</string>
     <string name="infosheet_about_h3_internet">Berechtigung INTERNET</string>
     <string name="infosheet_about_p_internet">Trackbook lädt Kartendaten OpenStreetMap Servern und benötigt daher Zugang zum Internet.</string>
