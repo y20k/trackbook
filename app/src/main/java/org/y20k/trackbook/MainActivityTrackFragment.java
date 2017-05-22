@@ -469,7 +469,7 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
                 } else {
                     // CASE: EXPORT - GPX file does NOT yet exits
                     dialogTitle = R.string.dialog_export_title_export;
-                    dialogMessage = getString(R.string.dialog_export_content_export) + " (" + mTrack.getTrackDuration() + " | " + mTrack.getTrackDistance() + ")";
+                    dialogMessage = getString(R.string.dialog_export_content_export) + " (" + recordingStartDate + " | " + mTrack.getTrackDistance() + ")";
                     dialogPositiveButton = R.string.dialog_export_action_export;
                     dialogNegativeButton = R.string.dialog_default_action_cancel;
                 }
