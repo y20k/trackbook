@@ -33,7 +33,10 @@ Stop the recording and then tap again on the big blue button. It will offer an o
 Stop the recording and then tap again on the big blue button. Chose the option "Clear", if you just want to clear the map without saving your recording.
 
 ### Statistics and Last Tracks
-Peek into Trackbook's notification to see the distance and duration of your current recording. Switch to the Last Tracks view to review your last recordings - up to 25 tracks. Pull up the statistics to see distance and duration of that recording, as well as the steps taken.
+Peek into Trackbook's notification to see the distance and duration of your current recording. Switch to the "Last Tracks" view to review your last recordings - up to 25 tracks. Pull up the statistics to see distance and duration of that recording, as well as the steps taken.
+
+### GPX Export
+Saved recordings can be exported as GPX ([GPS Exchange Format](https://en.wikipedia.org/wiki/GPS_Exchange_Format)) from the "Last Tracks" view. Just tap the export icon next to the track selection menu.
 
 ### How does Trackbook measure distance?
 Trackbook calculates the distance between markers and adds them up.
