@@ -5,11 +5,13 @@ AUTHORS
 Trackbook is designed, developed and maintained by: [y20k](https://github.com/y20k)
 
 ### Translations
-Dutch version: [Vistaus](Vistaus)
+Dutch version: [Heimen Stoffels](https://github.com/Vistaus)
 
-German version: [y20k](https://github.com/Vistaus)
+German version: [y20k](https://github.com/y20k)
 
-Japanese version: [naofum](https://github.com/y20k)
+Japanese version: [naofum](https://github.com/naofum)
+
+Norwegian version: [comradekingu](https://github.com/comradekingu)
 
 ### Testing
 Thanks for finding all those bugs: [collectorgeneral](https://github.com/collectorgeneral)
