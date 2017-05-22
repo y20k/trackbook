@@ -1,5 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources><string name="app_name">Sporingsbok</string> <string name="title_activity_infosheet">Infoark</string>
+<resources>
+    <string name="app_name">Trackbook</string> <!-- please do not translate app_name - transcription into different alphabet types is fine though -->
+    <string name="title_activity_infosheet">Infoark</string>
 
     <string name="menu_my_location">Min plasssering</string>
     <string name="menu_about">Om</string>

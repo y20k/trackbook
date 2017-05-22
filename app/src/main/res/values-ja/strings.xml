@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-    <string name="app_name">Trackbook</string>
+    <string name="app_name">Trackbook</string> <!-- please do not translate app_name - transcription into different alphabet types is fine though -->
     <string name="title_activity_infosheet">情報シート</string>
 
     <string name="menu_my_location">私の場所</string>

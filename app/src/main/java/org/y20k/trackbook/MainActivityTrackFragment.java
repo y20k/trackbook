@@ -124,6 +124,9 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
                     mDropdownAdapter.notifyDataSetChanged();
                     mDropdown.setAdapter(mDropdownAdapter);
                     mDropdown.setSelection(0, true);
+
+                    // remove onboarding if necessary
+                    switchOnboardingLayout();
                 }
             }
         };
@@ -295,7 +298,6 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
     }
 
 
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -319,8 +321,6 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
                 break;
         }
     }
-
-
 
 
     /* Displays map and statistics for track */
@@ -428,9 +428,11 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
             public void onClick(View view) {
                 // get text elements for delete dialog
                 int dialogTitle = R.string.dialog_delete_title;
-                String dialogMessage = getString(R.string.dialog_delete_content) + " " + mTrack.getTrackDuration() + " | " + mTrack.getTrackDistance();
                 int dialogPositiveButton = R.string.dialog_delete_action_delete;
                 int dialogNegativeButton = R.string.dialog_default_action_cancel;
+                DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault());
+                String recordingStartDate = df.format(mTrack.getRecordingStart());
+                String dialogMessage = getString(R.string.dialog_delete_content) + " " + recordingStartDate + " | " + mTrack.getTrackDistance();
 
                 // show delete dialog - results are handles by onActivityResult
                 DialogFragment dialogFragment = DialogHelper.newInstance(dialogTitle, dialogMessage, dialogPositiveButton, dialogNegativeButton);
@@ -448,9 +450,11 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
             public void onClick(View view) {
                 // dialog text components
                 int dialogTitle;
-                String dialogMessage;
                 int dialogPositiveButton;
                 int dialogNegativeButton;
+                DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault());
+                String recordingStartDate = df.format(mTrack.getRecordingStart());
+                String dialogMessage;
 
                 // create an ExportHelper
                 final ExportHelper exportHelper = new ExportHelper(mActivity);
@@ -459,7 +463,7 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
                 if (exportHelper.gpxFileExists(mTrack)) {
                     // CASE: OVERWRITE - GPX file exists
                     dialogTitle = R.string.dialog_export_title_overwrite;
-                    dialogMessage = getString(R.string.dialog_export_content_overwrite) + " (" + mTrack.getTrackDuration() + " | " + mTrack.getTrackDistance() + ")";
+                    dialogMessage = getString(R.string.dialog_export_content_overwrite) + " (" + recordingStartDate + " | " + mTrack.getTrackDistance() + ")";
                     dialogPositiveButton = R.string.dialog_export_action_overwrite;
                     dialogNegativeButton = R.string.dialog_default_action_cancel;
                 } else {

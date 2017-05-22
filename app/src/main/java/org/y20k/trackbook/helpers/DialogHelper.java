@@ -59,7 +59,7 @@ public class DialogHelper extends DialogFragment implements TrackbookKeys {
         if (title != -1) {
             dialogBuilder.setTitle(title);
         }
-        dialogBuilder.setTitle(message);
+        dialogBuilder.setMessage(message);
         dialogBuilder.setPositiveButton(positiveButton,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {

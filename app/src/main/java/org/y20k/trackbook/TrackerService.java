@@ -76,9 +76,10 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
 
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
+    public void onCreate() {
+        super.onCreate();
 
-        // listen for finished save operation
+        // receiver: listen track request issued by the main map - in onResume
         mTrackRequestReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -98,11 +99,17 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
         mLocationSystemSetting = LocationHelper.checkLocationSystemSetting(getApplicationContext());
 
         // create content observer for changes in System Settings
-        mSettingsContentObserver = new SettingsContentObserver( new Handler());
+        mSettingsContentObserver = new SettingsContentObserver(new Handler());
+
+    }
+
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
 
         // check if user did turn off location in device settings
         if (!mLocationSystemSetting) {
-            LogHelper.v(LOG_TAG, "Location Setting is turned off.");
+            LogHelper.i(LOG_TAG, "Location Setting is turned off.");
             Toast.makeText(getApplicationContext(), R.string.toast_message_location_offline, Toast.LENGTH_LONG).show();
             stopTracking();
             return START_STICKY;
@@ -110,7 +117,8 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
 
         // checking for empty intent
         if (intent == null) {
-            LogHelper.v(LOG_TAG, "Null-Intent received. Stopping self.");
+            LogHelper.e(LOG_TAG, "Null-Intent received. Stopping self.");
+            // stopSelf triggers onDestroy
             stopSelf();
         }
 
@@ -225,7 +233,7 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
         if (stepCounter != null) {
             mSensorManager.registerListener(this, stepCounter, SensorManager.SENSOR_DELAY_UI);
         } else {
-            LogHelper.v(LOG_TAG, "Pedometer Sensor not available");
+            LogHelper.i(LOG_TAG, "Pedometer Sensor not available");
             mTrack.setStepCount(-1);
         }
 
@@ -313,11 +321,13 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
 
     /* Broadcasts a track update */
     private void sendTrackUpdate() {
-        Intent i = new Intent();
-        i.setAction(ACTION_TRACK_UPDATED);
-        i.putExtra(EXTRA_TRACK, mTrack);
-        i.putExtra(EXTRA_LAST_LOCATION, mCurrentBestLocation);
-        LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(i);
+        if (mTrack != null) {
+            Intent i = new Intent();
+            i.setAction(ACTION_TRACK_UPDATED);
+            i.putExtra(EXTRA_TRACK, mTrack);
+            i.putExtra(EXTRA_LAST_LOCATION, mCurrentBestLocation);
+            LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(i);
+        }
     }
 
 
