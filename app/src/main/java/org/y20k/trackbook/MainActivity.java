@@ -28,6 +28,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -91,6 +92,9 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // check state of External Storage
+        checkExternalStorageState();
 
         // load saved state of app
         loadFloatingActionButtonState(this);
@@ -653,6 +657,24 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
             }
         };
     }
+
+
+    /* Checks the state of External Storage */
+    private void checkExternalStorageState() {
+
+        String state = Environment.getExternalStorageState();
+        if (!state.equals(Environment.MEDIA_MOUNTED)) {
+            LogHelper.e(LOG_TAG, "Error: Unable to mount External Storage. Current state: " + state);
+
+            // move MainActivity to back
+            moveTaskToBack(true);
+
+            // shutting down app
+            android.os.Process.killProcess(android.os.Process.myPid());
+            System.exit(1);
+        }
+    }
+
 
 
     /**

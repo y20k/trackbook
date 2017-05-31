@@ -51,18 +51,18 @@ public class StorageHelper implements TrackbookKeys {
     private static final String LOG_TAG = StorageHelper.class.getSimpleName();
 
     /* Main class variables */
-    private final Context mActivity;
+    private final Context mContext;
     private File mFolder;
     private final File mTempFile;
 
 
     /* Constructor */
-    public StorageHelper(Context activity) {
+    public StorageHelper(Context context) {
         // store activity
-        mActivity = activity;
+        mContext = context;
 
         // get "tracks" folder
-        mFolder  = mActivity.getExternalFilesDir(TRACKS_DIRECTORY_NAME);
+        mFolder  = mContext.getExternalFilesDir(TRACKS_DIRECTORY_NAME);
         // mFolder = getTracksDirectory();
 
         // create "tracks" folder if necessary
@@ -129,7 +129,7 @@ public class StorageHelper implements TrackbookKeys {
 
             // if write was successful delete old track files - only if not a temp file
             if (fileType != FILE_TEMP_TRACK) {
-                // include  temp file if it exists
+                // include temp file if it exists
                 deleteOldTracks(true);
             }
 
@@ -340,9 +340,9 @@ public class StorageHelper implements TrackbookKeys {
     }
 
 
-    /* Return a write-able sub-directory from external storage  */
+    /* Return a write-able sub-directory from external storage */
     private File getTracksDirectory() {
-        File[] storage = mActivity.getExternalFilesDirs(TRACKS_DIRECTORY_NAME);
+        File[] storage = mContext.getExternalFilesDirs(TRACKS_DIRECTORY_NAME);
         for (File file : storage) {
             if (file != null) {
                 String state = EnvironmentCompat.getStorageState(file);
@@ -352,7 +352,7 @@ public class StorageHelper implements TrackbookKeys {
                 }
             }
         }
-        Toast.makeText(mActivity, R.string.toast_message_no_external_storage, Toast.LENGTH_LONG).show();
+        Toast.makeText(mContext, R.string.toast_message_no_external_storage, Toast.LENGTH_LONG).show();
         LogHelper.e(LOG_TAG, "Unable to access external storage.");
 
         return null;

@@ -129,7 +129,9 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
 
         // ACTION STOP
         else if (intent.getAction().equals(ACTION_STOP) || !mLocationSystemSetting) {
-            stopTracking();
+            if (mTrack != null) {
+                stopTracking();
+            }
 
             // save changed state of Floating Action Button
             SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
@@ -413,7 +415,9 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
             mLocationSystemSetting = LocationHelper.checkLocationSystemSetting(getApplicationContext());
             if (previousLocationSystemSetting != mLocationSystemSetting && !mLocationSystemSetting && mTrackerServiceRunning) {
                 LogHelper.v(LOG_TAG, "Location Setting turned off while tracking service running.");
-                stopTracking();
+                if (mTrack != null) {
+                    stopTracking();
+                }
                 stopForeground(true);
             }
         }
