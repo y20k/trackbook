@@ -129,7 +129,7 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
 
         // ACTION STOP
         else if (intent.getAction().equals(ACTION_STOP) || !mLocationSystemSetting) {
-            if (mTrack != null) {
+            if (mTrack != null && mTimer != null) {
                 stopTracking();
             }
 
