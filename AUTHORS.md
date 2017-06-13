@@ -9,6 +9,8 @@ Dutch version: [Heimen Stoffels](https://github.com/Vistaus)
 
 German version: [y20k](https://github.com/y20k)
 
+Italian version: [Marco](https://github.com/marcoM32)
+
 Japanese version: [naofum](https://github.com/naofum)
 
 Norwegian version: [comradekingu](https://github.com/comradekingu)
