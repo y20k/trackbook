@@ -175,7 +175,7 @@ public class ExportHelper implements TrackbookKeys {
         }
 
         // add closing track segment tag
-        gpxTrack.append("\t\t<trkseg>\n");
+        gpxTrack.append("\t\t</trkseg>\n");
 
         // add closing track tag
         gpxTrack.append("\t</trk>\n");

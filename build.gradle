@@ -21,8 +21,8 @@ allprojects {
     }
     project.ext {
         applicationId = 'org.y20k.trackbook'
-        versionCode = 11
-        versionName = '1.0.4 (Astronomy Domine)'
+        versionCode = 12
+        versionName = '1.0.5 (Astronomy Domine)'
         minSdkVersion = 22
         // Android N - release
         compileSdkVersion = 25

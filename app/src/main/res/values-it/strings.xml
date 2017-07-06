@@ -96,11 +96,8 @@
     <string name="infosheet_about_h1_about">Altro su Trackbook</string>
     <string name="infosheet_about_h2_recorder">Geolocalizzatore per Android</string>
     <string name="infosheet_about_h3_version">Versione 1.0 (Astronomy Domine)</string>
-    <string name="infosheet_about_p_bare">Trackbook è un'applicazione per registrare i tuoi movimenti. Trackbook è ottimo per escursioni, vacanze o per i tuoi allenamenti. Una volta avviato, tiena traccia dei tuoi movimenti su una mappa. I dati della mappa sono forniti da OpenStreetMap (OSM).</string>
+    <string name="infosheet_about_p_bare">Trackbook è un\'applicazione per registrare i tuoi movimenti. Trackbook è ottimo per escursioni, vacanze o per i tuoi allenamenti. Una volta avviato, tiena traccia dei tuoi movimenti su una mappa. I dati della mappa sono forniti da OpenStreetMap (OSM).</string>
     <string name="infosheet_about_p_free">Trackbook è software libero. È possibile trovare il codice sorgente su GitHub; inoltre questa piattaforma è anche un buon posto per inserire segnalazioni, suggerimenti o modifiche. Trackbook è pubblicato sotto la licenza open source MIT. Trackbook utilizza osmdroid per visualizzare la mappa, che è anch\'esso un software libero, pubblicato sotto licenza Apache.</string>
-    <string name="infosheet_about_p_github" translatable="false">https://github.com/y20k/trackbook</string>
-    <string name="infosheet_about_p_osmdroid" translatable="false">https://github.com/osmdroid/osmdroid</string>
-    <string name="infosheet_about_p_license" translatable="false">https://opensource.org/licenses/MIT</string>
     <string name="infosheet_about_h2_permissions">Quali autorizzazioni sono necessarie a Trackbook??</string>
     <string name="infosheet_about_h3_internet">Autorizzazione INTERNET</string>
     <string name="infosheet_about_p_internet">Trackbook deve scaricare i dati della mappa dai server OpenStreetMap quindi ha bisogno di accedere a Internet.</string>
