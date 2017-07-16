@@ -1,2 +1,22 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<?xml version='1.0' encoding='UTF-8'?>
+<resources><string name="app_name">Trackbook</string> <string name="title_activity_infosheet">Infosheet</string>
+
+    <string name="menu_my_location">Lokasi Saya</string>
+    <string name="menu_about">Tentang</string>
+
+    <string name="header_about">Tentang Trackbook</string>
+
+    <string name="tab_map">PETA</string>
+    <string name="tab_last_track">JALUR TERAKHIR</string>
+    <string name="tab_last_tracks">JALUR TERAKHIR</string>
+
+    <string name="notification_title_trackbook_running">Trackbook aktif</string>
+    <string name="notification_title_trackbook_not_running">Trackbook tidak aktif</string>
+    <string name="notification_stop">Berhenti</string>
+    <string name="notification_swipe_to_clear_map">(geser untuk menghapus peta)</string>
+    <string name="notification_content_duration">Durasi</string>
+    <string name="notification_content_distance">Jarak</string>
+
+    <string name="snackbar_message_tracking_stopped">Pelacakan berhenti</string>
+    <string name="snackbar_message_tracking_started">Pelacakan dimulai</string>
+    </resources>
