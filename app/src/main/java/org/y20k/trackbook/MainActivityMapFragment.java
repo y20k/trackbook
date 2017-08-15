@@ -194,10 +194,10 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
             mFirstStart = false;
         }
 
-        // load track from saved instance
-        if (savedInstanceState != null) {
-            mTrack = savedInstanceState.getParcelable(INSTANCE_TRACK_MAIN_MAP);
-        }
+//        // load track from saved instance
+//        if (savedInstanceState != null) {
+//            mTrack = savedInstanceState.getParcelable(INSTANCE_TRACK_MAIN_MAP);
+//        }
 
         // mark user's location on map
         if (mCurrentBestLocation != null && !mTrackerServiceRunning) {
@@ -222,9 +222,9 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
         // CASE 1: recording active
         if (mTrackerServiceRunning) {
             // request an updated track recording from service
-            Intent i = new Intent();
-            i.setAction(ACTION_TRACK_REQUEST);
-            LocalBroadcastManager.getInstance(mActivity).sendBroadcast(i);
+            Intent intent = new Intent(mActivity, TrackerService.class);
+            intent.setAction(ACTION_TRACK_REQUEST);
+            mActivity.startService(intent);
         }
 
         // CASE 2: recording stopped - temp file exists
@@ -232,12 +232,13 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
             // load track from temp file if it exists
             LoadTempTrackAsyncHelper loadTempTrackAsyncHelper = new LoadTempTrackAsyncHelper();
             loadTempTrackAsyncHelper.execute();
-
-        // CASE 3: not recording and no temp file
-        } else if (mTrack != null) {
-            // just draw existing track data (from saved instance)
-            drawTrackOverlay(mTrack);
         }
+
+//        // CASE 3: not recording and no temp file
+//        else if (mTrack != null) {
+//            // just draw existing track data (from saved instance)
+//            drawTrackOverlay(mTrack);
+//        }
 
         // show/hide the location off notification bar
         toggleLocationOffBar();
@@ -385,7 +386,7 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
         outState.putDouble(INSTANCE_LATITUDE_MAIN_MAP, mMapView.getMapCenter().getLatitude());
         outState.putDouble(INSTANCE_LONGITUDE_MAIN_MAP, mMapView.getMapCenter().getLongitude());
         outState.putInt(INSTANCE_ZOOM_LEVEL_MAIN_MAP, mMapView.getZoomLevel());
-        outState.putParcelable(INSTANCE_TRACK_MAIN_MAP, mTrack);
+//        outState.putParcelable(INSTANCE_TRACK_MAIN_MAP, mTrack);
         super.onSaveInstanceState(outState);
     }
 
@@ -581,8 +582,7 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
     /* Loads state tracker service from preferences */
     private void loadTrackerServiceState(Context context) {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-        int fabState = settings.getInt(PREFS_FAB_STATE, FAB_STATE_DEFAULT);
-        mTrackerServiceRunning = fabState == FAB_STATE_RECORDING;
+        mTrackerServiceRunning = settings.getBoolean(PREFS_TRACKER_SERVICE_RUNNING, false);
     }
 
 

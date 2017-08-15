@@ -23,6 +23,8 @@
     <string name="notification_swipe_to_clear_map">(Ausblenden setzt Kartenansicht zurück)</string>
     <string name="notification_content_duration">Dauer</string>
     <string name="notification_content_distance">Entfernung</string>
+    <string name="notification_channel_recording_name">Status der Aufzeichnung</string>
+    <string name="notification_channel_recording_description">Dauer- und Entfernungsanzeige. Option die Aufzeichnung von Standort-Bewegungen zu beenden.</string>
 
     <!-- snackbar messages -->
     <string name="snackbar_message_tracking_stopped">Tracking deaktiviert</string>

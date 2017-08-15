@@ -18,6 +18,8 @@
     <string name="notification_swipe_to_clear_map">(veeg om kaart te wissen)</string>
     <string name="notification_content_duration">Duur</string>
     <string name="notification_content_distance">Afstand</string>
+    <string name="notification_channel_recording_name">Movement Recording State</string>
+    <string name="notification_channel_recording_description">Display duration and distance. Option to stop movement recording.</string>
 
     <string name="snackbar_message_tracking_stopped">Bijhouden gestopt</string>
     <string name="snackbar_message_tracking_started">Bijhouden gestart</string>

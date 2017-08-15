@@ -1,22 +1,139 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources><string name="app_name">Trackbook</string> <string name="title_activity_infosheet">Infosheet</string>
+<resources>
+    <!-- activities -->
+    <string name="app_name">Trackbook</string>
+    <string name="title_activity_infosheet">Infosheet</string>
 
+    <!-- menu entries -->
     <string name="menu_my_location">Lokasi Saya</string>
     <string name="menu_about">Tentang</string>
 
+    <!-- headers -->
     <string name="header_about">Tentang Trackbook</string>
 
+    <!-- tabs -->
     <string name="tab_map">PETA</string>
     <string name="tab_last_track">JALUR TERAKHIR</string>
     <string name="tab_last_tracks">JALUR TERAKHIR</string>
 
+    <!-- notification -->
     <string name="notification_title_trackbook_running">Trackbook aktif</string>
     <string name="notification_title_trackbook_not_running">Trackbook tidak aktif</string>
     <string name="notification_stop">Berhenti</string>
     <string name="notification_swipe_to_clear_map">(geser untuk menghapus peta)</string>
     <string name="notification_content_duration">Durasi</string>
     <string name="notification_content_distance">Jarak</string>
+    <string name="notification_channel_recording_name">Movement Recording State</string>
+    <string name="notification_channel_recording_description">Display duration and distance. Option to stop movement recording.</string>
 
+    <!-- snackbar messages -->
     <string name="snackbar_message_tracking_stopped">Pelacakan berhenti</string>
     <string name="snackbar_message_tracking_started">Pelacakan dimulai</string>
-    </resources>
+    <string name="snackbar_message_location_offline">Location is turned off. Trackbook will not work.</string>
+
+    <!-- fab sub menu -->
+    <string name="fab_sub_menu_clear">Clear</string>
+    <string name="fab_sub_menu_save_and_clear">Save and Clear</string>
+
+    <!-- dialogs -->
+    <string name="dialog_default_action_cancel">Cancel</string>
+    <string name="dialog_clear_content">Clear Recording?</string>
+    <string name="dialog_clear_action_clear">Clear</string>
+    <string name="dialog_delete_title">Delete Recording?</string>
+    <string name="dialog_delete_content">Delete this recording:</string>
+    <string name="dialog_delete_action_delete">Delete</string>
+    <string name="dialog_export_title_export">Export Recording as GPX?</string>
+    <string name="dialog_export_content_export">Export this recording as GPX track.</string>
+    <string name="dialog_export_action_export">Export</string>
+    <string name="dialog_export_title_overwrite">Export and Overwrite?</string>
+    <string name="dialog_export_content_overwrite">File already exists. Export and overwrite this recording as GPX track.</string>
+    <string name="dialog_export_action_overwrite">Export and Overwrite</string>
+
+    <!-- toast messages -->
+    <string name="toast_message_permissions_granted">Permissions granted.</string>
+    <string name="toast_message_unable_to_start_app">Unable to start Trackbook.</string>
+    <string name="toast_message_no_external_storage">Unable to access external storage.</string>
+    <string name="toast_message_location_offline">Location is turned off. Trackbook will not work.</string>
+    <string name="toast_message_acquiring_location">Acquiring current location.</string>
+    <string name="toast_message_location_services_not_ready">Location services not ready. Please retry.</string>
+    <string name="toast_message_last_location">Last location:</string>
+    <string name="toast_message_save_track">Saving current track.</string>
+    <string name="toast_message_last_location_age_one_hour">over one hour</string>
+    <string name="toast_message_track_clear">Current track data removed.</string>
+    <string name="toast_message_export_success">GPX export successful:</string>
+    <string name="toast_message_export_fail">GPX export failed:</string>
+
+    <!-- map markers -->
+    <string name="marker_description_source">Source</string>
+    <string name="marker_description_time">Time</string>
+    <string name="marker_description_accuracy">Accuracy</string>
+
+    <!-- statistics sheet -->
+    <string name="statistics_sheet_h1_statistics">Statistics</string>
+    <string name="statistics_sheet_p_default_data">track data missing</string>
+    <string name="statistics_sheet_p_distance">Total distance:</string>
+    <string name="statistics_sheet_p_steps">Steps taken:</string>
+    <string name="statistics_sheet_p_waypoints">Recorded waypoints:</string>
+    <string name="statistics_sheet_p_duration">Total duration:</string>
+    <string name="statistics_sheet_p_recording_start">Recording started:</string>
+    <string name="statistics_sheet_p_recording_stop">Recording stopped:</string>
+
+    <!-- onboarding layout -->
+    <string name="layout_onboarding_h1_welcome">Hello</string>
+    <string name="layout_onboarding_description_app_icon">Trackbook App Icon</string>
+    <string name="layout_onboarding_h2_app_name">Trackbook</string>
+    <string name="layout_onboarding_p_app_claim">Movement Recorder for Android</string>
+    <string name="layout_onboarding_h2_request_permissions">Trackbook cannot work without these permissions:</string>
+    <string name="layout_onboarding_h3_permission_location">LOCATION</string>
+    <string name="layout_onboarding_p_permission_location">Trackbook needs accurate GPS data to be able to record your movements. If the GPS data is not available or not accurate enough, Trackbook uses location data from cell tower and Wi-Fi triangulation.</string>
+    <string name="layout_onboarding_h3_permission_storage">STORAGE</string>
+    <string name="layout_onboarding_p_permission_storage">Trackbook uses osmdroid, which caches map tiles on Android\'s external storage. You can find the map cache in the osmdroid folder on the top level of the user-facing file system.</string>
+    <string name="layout_onboarding_button_okay">Got it!</string>
+
+    <!-- track tab onboarding -->
+    <string name="track_tab_onboarding_h1_part_1">Your recorded tracks</string>
+    <string name="track_tab_onboarding_h1_part_2">… will show up here.</string>
+
+    <!-- infosheet about -->
+    <string name="infosheet_about_h1_about">About Trackbook</string>
+    <string name="infosheet_about_h2_recorder">Movement Recorder for Android</string>
+    <string name="infosheet_about_h3_version">Version 1.0 (Astronomy Domine)</string>
+    <string name="infosheet_about_p_bare">Trackbook is a bare bones app for recording your movements. Trackbook is great for hiking, vacation or workout. Once started it traces your movements on a map. The map data is provided by OpenStreetMap (OSM).</string>
+    <string name="infosheet_about_p_free">Trackbook is free software. You can find the code on GitHub. GitHub is also a good place to file bugs or even to contribute, if you are interested. Trackbook is published under the MIT open source license. Trackbook uses osmdroid to display the map, which is also free software published under the Apache License.</string>
+    <string name="infosheet_about_h2_permissions">Which Permissions does Trackbook need?</string>
+    <string name="infosheet_about_h3_internet">Permission INTERNET</string>
+    <string name="infosheet_about_p_internet">Trackbook needs to download map data from OpenStreetMap servers and therefore needs access to the internet.</string>
+    <string name="infosheet_about_h3_network">Permissions ACCESS_WIFI_STATE and ACCESS_NETWORK_STATE</string>
+    <string name="infosheet_about_p_network">Trackbook uses osmdroid to draw its maps. osmdroid needs to know the current state of your device’s connectivity.</string>
+    <string name="infosheet_about_h3_location">Permissions ACCESS_COARSE_LOCATION and ACCESS_FINE_LOCATION</string>
+    <string name="infosheet_about_p_location">Trackbook needs accurate GPS location data to be able to record your movements. If the GPS data is not available or not accurate enough Trackbook uses location data from cell tower and WiFi triangulation.</string>
+    <string name="infosheet_about_h3_external">Permission WRITE_EXTERNAL_STORAGE</string>
+    <string name="infosheet_about_p_external">Trackbook uses osmdroid, which caches map tiles on Android\'s external storage. You can find the map cache in the osmdroid folder on the top level of the user-facing file system.</string>
+
+    <!-- descriptions -->
+    <string name="descr_map_current_track">Mapping of current track</string>
+    <string name="descr_map_last_track">Mapping of last track</string>
+    <string name="descr_fab_main">Main Action Button</string>
+    <string name="descr_fab_sub_menu_label_1">Label of the Save and Clear button</string>
+    <string name="descr_fab_sub_menu_button_1">small Save and Clear button</string>
+    <string name="descr_fab_sub_menu_label_2">Label of the Clear button</string>
+    <string name="descr_fab_sub_menu_button_2">small Clear button</string>
+    <string name="descr_statistics_sheet_headline">Headline of the statistics sheet</string>
+    <string name="descr_statistics_sheet_icon">Icon of a bar chart</string>
+    <string name="descr_statistics_sheet_p_distance">Data point: Distance</string>
+    <string name="descr_statistics_sheet_p_steps">Data point: Steps</string>
+    <string name="descr_statistics_sheet_p_waypoints">Data point: Waypoints</string>
+    <string name="descr_statistics_sheet_p_duration">Data point: Duration</string>
+    <string name="descr_statistics_sheet_p_recording_start">Data point: Start of recording</string>
+    <string name="descr_statistics_sheet_p_recording_end">Data point: End of recording</string>
+    <string name="descr_statistics_sheet_p_distance_value">Value: Distance</string>
+    <string name="descr_statistics_sheet_p_steps_value">Value: Steps</string>
+    <string name="descr_statistics_sheet_p_waypoints_value">Value: Waypoints</string>
+    <string name="descr_statistics_sheet_p_duration_value">Value: Duration</string>
+    <string name="descr_statistics_sheet_p_recording_start_value">Value: Start of recording</string>
+    <string name="descr_statistics_sheet_p_recording_end_value">Value: End of recording</string>
+    <string name="descr_track_selector">Dropdown menu for further tracks</string>
+    <string name="descr_export_button">Track export button</string>
+    <string name="descr_delete_button">Track delete button</string>
+
+</resources>

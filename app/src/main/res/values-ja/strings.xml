@@ -18,6 +18,8 @@
     <string name="notification_swipe_to_clear_map">(スワイプしてマップをクリア)</string>
     <string name="notification_content_duration">期間</string>
     <string name="notification_content_distance">距離</string>
+    <string name="notification_channel_recording_name">Movement Recording State</string>
+    <string name="notification_channel_recording_description">Display duration and distance. Option to stop movement recording.</string>
 
     <string name="snackbar_message_tracking_stopped">トレースを停止しました</string>
     <string name="snackbar_message_tracking_started">トレースを開始しました</string>

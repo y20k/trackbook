@@ -25,6 +25,7 @@ public interface TrackbookKeys {
     /* ACTIONS */
     String ACTION_START = "org.y20k.trackbook.action.START";
     String ACTION_STOP = "org.y20k.trackbook.action.STOP";
+    String ACTION_DISMISS = "org.y20k.transistor.action.DISMISS";
     String ACTION_DEFAULT = "DEFAULT";
     String ACTION_SHOW_MAP = "SHOW_MAP";
     String ACTION_TRACK_UPDATED = "TRACK_UPDATED";
@@ -54,6 +55,7 @@ public interface TrackbookKeys {
 
     /* PREFS */
     String PREFS_FAB_STATE = "fabStatePrefs";
+    String PREFS_TRACKER_SERVICE_RUNNING = "trackerServiceRunning";
 
     /* INSTANCE STATE */
     String INSTANCE_FIRST_START = "firstStart";
@@ -112,6 +114,7 @@ public interface TrackbookKeys {
     String FILE_TYPE_TRACKBOOK_EXTENSION = ".trackbook";
     String FILE_NAME_TEMP = "temp";
 
+    String NOTIFICATION_CHANEL_ID_RECORDING_CHANNEL ="notificationChannelIdRecordingChannel";
 
     double DEFAULT_LATITUDE = 49.41667; // latitude Nordkapp, Norway
     double DEFAULT_LONGITUDE = 8.67201; // longitude Nordkapp, Norway

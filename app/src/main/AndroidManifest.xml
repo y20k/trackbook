@@ -58,6 +58,7 @@
             <intent-filter>
                 <action android:name="org.y20k.trackbook.action.START" />
                 <action android:name="org.y20k.trackbook.action.STOP" />
+                <action android:name="org.y20k.trackbook.action.DISMISS" />
             </intent-filter>
         </service>
 

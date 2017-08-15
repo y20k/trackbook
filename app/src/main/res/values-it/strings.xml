@@ -23,6 +23,8 @@
     <string name="notification_swipe_to_clear_map">(scorri per spostare la mappa)</string>
     <string name="notification_content_duration">Durata</string>
     <string name="notification_content_distance">Distanza</string>
+    <string name="notification_channel_recording_name">Movement Recording State</string>
+    <string name="notification_channel_recording_description">Display duration and distance. Option to stop movement recording.</string>
 
     <!-- snackbar messages -->
     <string name="snackbar_message_tracking_stopped">Tracciamento interrotto</string>

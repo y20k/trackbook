@@ -54,7 +54,6 @@ import android.widget.Toast;
 
 import org.y20k.trackbook.helpers.DialogHelper;
 import org.y20k.trackbook.helpers.LogHelper;
-import org.y20k.trackbook.helpers.NotificationHelper;
 import org.y20k.trackbook.helpers.TrackbookKeys;
 import org.y20k.trackbook.layout.NonSwipeableViewPager;
 
@@ -192,8 +191,8 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     protected void onPause() {
         super.onPause();
 
-        // save state of Floating Action Button
-        saveFloatingActionButtonState(this);
+//        // save state of Floating Action Button
+//        saveFloatingActionButtonState(this);
     }
 
 
@@ -291,7 +290,9 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
         mViewPager.setCurrentItem(mSelectedTab);
 
         // dismiss notification
-        NotificationHelper.stop();
+        Intent intent = new Intent(this, TrackerService.class);
+        intent.setAction(ACTION_DISMISS);
+        startService(intent);
 
         // hide Floating Action Button sub menu
         showFloatingActionButtonMenu(false);
@@ -308,7 +309,9 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
         Toast.makeText(this, getString(R.string.toast_message_track_clear), Toast.LENGTH_LONG).show();
 
         // dismiss notification
-        NotificationHelper.stop();
+        Intent intent = new Intent(this, TrackerService.class);
+        intent.setAction(ACTION_DISMISS);
+        startService(intent);
 
         // hide Floating Action Button sub menu
         showFloatingActionButtonMenu(false);
@@ -326,13 +329,13 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     }
 
 
-    /* Saves state of Floating Action Button */
-    private void saveFloatingActionButtonState(Context context) {
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putInt(PREFS_FAB_STATE, mFloatingActionButtonState);
-        editor.apply();
-    }
+//    /* Saves state of Floating Action Button */
+//    private void saveFloatingActionButtonState(Context context) {
+//        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+//        SharedPreferences.Editor editor = settings.edit();
+//        editor.putInt(PREFS_FAB_STATE, mFloatingActionButtonState);
+//        editor.apply();
+//    }
 
 
     /* Set up main layout */
@@ -480,7 +483,13 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
                     Intent intent = new Intent(this, TrackerService.class);
                     intent.setAction(ACTION_START);
                     intent.putExtra(EXTRA_LAST_LOCATION, lastLocation);
-                    startService(intent);
+//                    startService(intent);
+                    if (Build.VERSION.SDK_INT == Build.VERSION_CODES.O) {
+                        startForegroundService(intent);
+                    } else {
+                        startService(intent);
+                    }
+
                 } else {
                     Toast.makeText(this, getString(R.string.toast_message_location_services_not_ready), Toast.LENGTH_LONG).show();
                     // change state back

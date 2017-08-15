@@ -17,17 +17,18 @@
 package org.y20k.trackbook.helpers;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.os.Build;
 import android.support.graphics.drawable.VectorDrawableCompat;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
-import android.support.v7.app.NotificationCompat;
 
 import org.y20k.trackbook.MainActivity;
 import org.y20k.trackbook.R;
@@ -44,110 +45,96 @@ public class NotificationHelper implements TrackbookKeys {
     private static final String LOG_TAG = NotificationHelper.class.getSimpleName();
 
 
-    /* Main class variables */
-    private static Notification mNotification;
-    private static Service mService;
-
-
-    /* Create and put up notification */
-    public static void show(final Service service, Track track) {
-        // save service
-        mService = service;
-
-        // build notification
-        mNotification = getNotificationBuilder(track, true).build();
-
-        // display notification
-        mService.startForeground(TRACKER_SERVICE_NOTIFICATION_ID, mNotification);
-    }
-
-
-    /* Updates the notification */
-    public static void update(Track track, boolean tracking) {
-
-        // build notification
-        mNotification = getNotificationBuilder(track, tracking).build();
-
-        // display updated notification
-        NotificationManager notificationManager = (NotificationManager) mService.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(TRACKER_SERVICE_NOTIFICATION_ID, mNotification);
-
-        if (!tracking) {
-            // make notification swipe-able
-            mService.stopForeground(false);
-        }
-
-    }
-
-
-    /* Stop displaying notification */
-    public static void stop() {
-        if (mService != null) {
-            mService.stopForeground(true);
-        }
-    }
-
-
     /* Creates a notification builder */
-    private static NotificationCompat.Builder getNotificationBuilder(Track track, boolean tracking) {
+    public static Notification getNotification(Context context, NotificationCompat.Builder builder, Track track, boolean tracking) {
 
-        String contentText = mService.getString(R.string.notification_content_distance) + ": " + track.getTrackDistance() + " | " +
-                mService.getString(R.string.notification_content_duration) + ": " +  track.getTrackDuration();
+        // create notification channel
+        createNotificationChannel(context);
+
+        // build context text for notification builder
+        String contentText = getContextString(context, track);
 
         // ACTION: NOTIFICATION TAP
-        Intent tapActionIntent = new Intent(mService, MainActivity.class);
+        Intent tapActionIntent = new Intent(context, MainActivity.class);
         tapActionIntent.setAction(ACTION_SHOW_MAP);
         tapActionIntent.putExtra(EXTRA_TRACK, track);
         tapActionIntent.putExtra(EXTRA_TRACKING_STATE, tracking);
         // artificial back stack for started Activity (https://developer.android.com/training/notify-user/navigation.html#DirectEntry)
-        TaskStackBuilder tapActionIntentBuilder = TaskStackBuilder.create(mService);
+        TaskStackBuilder tapActionIntentBuilder = TaskStackBuilder.create(context);
         tapActionIntentBuilder.addParentStack(MainActivity.class);
         tapActionIntentBuilder.addNextIntent(tapActionIntent);
         // pending intent wrapper for notification tap
         PendingIntent tapActionPendingIntent = tapActionIntentBuilder.getPendingIntent(10, PendingIntent.FLAG_UPDATE_CURRENT);
 
-
         // ACTION: NOTIFICATION BUTTON STOP
-        Intent stopActionIntent = new Intent(mService, TrackerService.class);
+        Intent stopActionIntent = new Intent(context, TrackerService.class);
         stopActionIntent.setAction(ACTION_STOP);
         // pending intent wrapper for notification stop action
-        PendingIntent stopActionPendingIntent = PendingIntent.getService(mService, 12, stopActionIntent, 0);
-
+        PendingIntent stopActionPendingIntent = PendingIntent.getService(context, 12, stopActionIntent, 0);
 
         // construct notification in builder
-        NotificationCompat.Builder builder;
-        builder = new NotificationCompat.Builder(mService);
         builder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
         builder.setShowWhen(false);
         builder.setContentIntent(tapActionPendingIntent);
         builder.setSmallIcon(R.drawable.ic_notification_small_24dp);
-        builder.setLargeIcon(getNotificationIconLarge(tracking));
+        builder.setLargeIcon(getNotificationIconLarge(context, tracking));
         if (tracking) {
-            builder.addAction(R.drawable.ic_stop_white_36dp, mService.getString(R.string.notification_stop), stopActionPendingIntent);
-            builder.setContentTitle(mService.getString(R.string.notification_title_trackbook_running));
-            builder.setContentText(contentText);
+            builder.addAction(R.drawable.ic_stop_white_36dp, context.getString(R.string.notification_stop), stopActionPendingIntent);
+            builder.setContentTitle(context.getString(R.string.notification_title_trackbook_running));
+            builder.setContentText(getContextString(context, track));
         } else {
-            builder.setContentTitle(mService.getString(R.string.notification_title_trackbook_not_running));
-            builder.setContentText(contentText);
+            builder.setContentTitle(context.getString(R.string.notification_title_trackbook_not_running));
+            builder.setContentText(getContextString(context, track));
         }
 
-        return builder;
+        return builder.build();
+    }
+
+
+    /* Constructs an updated notification */
+    public static Notification getUpdatedNotification(Context context, NotificationCompat.Builder builder, Track track) {
+        builder.setContentText(getContextString(context, track));
+        return builder.build();
+    }
+
+
+    /* Create a notification channel */
+    public static boolean createNotificationChannel(Context context) {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            // API level 26 ("Android O") supports notification channels.
+            String id = NOTIFICATION_CHANEL_ID_RECORDING_CHANNEL;
+            CharSequence name = context.getString(R.string.notification_channel_recording_name);
+            String description = context.getString(R.string.notification_channel_recording_description);
+            int importance = NotificationManager.IMPORTANCE_LOW;
+
+            // create channel
+            NotificationChannel channel = new NotificationChannel(id, name, importance);
+            channel.setDescription(description);
+
+            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.createNotificationChannel(channel);
+            return true;
+
+        } else {
+            return false;
+        }
     }
 
 
     /* Get station image for notification's large icon */
-    private static Bitmap getNotificationIconLarge(boolean tracking) {
+    private static Bitmap getNotificationIconLarge(Context context, boolean tracking) {
 
         // get dimensions
-        Resources resources = mService.getResources();
+        Resources resources = context.getResources();
         int height = (int) resources.getDimension(android.R.dimen.notification_large_icon_height);
         int width = (int) resources.getDimension(android.R.dimen.notification_large_icon_width);
 
         Bitmap bitmap;
         if (tracking) {
-            bitmap = getBitmap(R.drawable.ic_notification_large_tracking_48dp);
+            bitmap = getBitmap(context, R.drawable.ic_notification_large_tracking_48dp);
         } else {
-            bitmap = getBitmap(R.drawable.ic_notification_large_not_tracking_48dp);
+            bitmap = getBitmap(context, R.drawable.ic_notification_large_not_tracking_48dp);
         }
 
         return Bitmap.createScaledBitmap(bitmap, width, height, false);
@@ -155,8 +142,8 @@ public class NotificationHelper implements TrackbookKeys {
 
 
     /* Return a bitmap for a given resource id of a vector drawable */
-    private static Bitmap getBitmap(int resource) {
-        VectorDrawableCompat drawable = VectorDrawableCompat.create(mService.getResources(), resource, null);
+    private static Bitmap getBitmap(Context context, int resource) {
+        VectorDrawableCompat drawable = VectorDrawableCompat.create(context.getResources(), resource, null);
         if (drawable != null) {
             Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
             Canvas canvas = new Canvas(bitmap);
@@ -166,6 +153,13 @@ public class NotificationHelper implements TrackbookKeys {
         } else {
             return null;
         }
+    }
+
+
+    /* Build context text for notification builder */
+    private static String getContextString(Context context, Track track) {
+        return context.getString(R.string.notification_content_distance) + ": " + track.getTrackDistance() + " | " +
+                context.getString(R.string.notification_content_duration) + ": " + track.getTrackDuration();
     }
 
 }
