@@ -47,12 +47,6 @@ public interface TrackbookKeys {
     String ARG_DIALOG_BUTTON_POSITIVE = "ArgDialogButtonPositive";
     String ARG_DIALOG_BUTTON_NEGATIVE = "ArgDialogButtonNegative";
 
-//    String ARG_PERMISSIONS_GRANTED = "ArgPermissionsGranted";
-//    String ARG_TRACKING_STATE = "ArgTrackingState";
-//    String ARG_TRACK = "ArgTrack";
-//    String ARG_TRACK_VISIBLE = "ArgTrackVisible";
-//    String ARG_TRACK_DISTANCE = "ArgTrackDistance";
-
     /* PREFS */
     String PREFS_FAB_STATE = "fabStatePrefs";
     String PREFS_TRACKER_SERVICE_RUNNING = "trackerServiceRunning";
@@ -62,7 +56,6 @@ public interface TrackbookKeys {
     String INSTANCE_TRACKING_STATE = "trackingState";
     String INSTANCE_SELECTED_TAB = "selectedTab";
     String INSTANCE_FAB_SUB_MENU_VISIBLE = "fabSubMenuVisible";
-    String INSTANCE_TRACK_MAIN_MAP = "trackMainMap";
     String INSTANCE_LATITUDE_MAIN_MAP = "latitudeMainMap";
     String INSTANCE_LONGITUDE_MAIN_MAP = "longitudeMainMap";
     String INSTANCE_ZOOM_LEVEL_MAIN_MAP = "zoomLevelMainMap";
@@ -78,6 +71,10 @@ public interface TrackbookKeys {
     int FRAGMENT_ID_TRACK = 1;
 
     /* RESULTS */
+    int RESULT_SAVE_DIALOG = 1;
+    int RESULT_CLEAR_DIALOG = 2;
+    int RESULT_DELETE_DIALOG = 3;
+    int RESULT_EXPORT_DIALOG = 4;
 
     /* CONSTANTS */
     long ONE_NANOSECOND = 1000000000L;
@@ -87,35 +84,32 @@ public interface TrackbookKeys {
     long TWO_MINUTES_IN_NANOSECONDS = 2L * 60000000000L; // defines an old location
     int MAXIMUM_TRACK_FILES = 25;
 
-    /* MISC */
-    int CURRENT_TRACK_FORMAT_VERSION = 1; // incremental version number to prevent issues in case the Track format evolves
-    int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
-    int TRACKER_SERVICE_NOTIFICATION_ID = 1;
-    int INFOSHEET_CONTENT_ABOUT = 1;
-    int METRIC = 1;
-    int IMPERIAL = 2;
-    int FAB_STATE_DEFAULT = 0;
-    int FAB_STATE_RECORDING = 1;
-    int FAB_STATE_SAVE = 2;
-    int FILE_TEMP_TRACK = 0;
-    int FILE_MOST_CURRENT_TRACK = 1;
-    int NEW_DROPDOWN_ITEM = -1;
-
-    int RESULT_SAVE_DIALOG = 1;
-    int RESULT_CLEAR_DIALOG = 2;
-    int RESULT_DELETE_DIALOG = 3;
-    int RESULT_EXPORT_DIALOG = 4;
-
-    int STORAGE_TRACKS = 1;
-    int STORAGE_DOWNLOADS = 2;
-
-    String TRACKS_DIRECTORY_NAME = "tracks";
+    /* FILE */
     String FILE_TYPE_GPX_EXTENSION = ".gpx";
     String FILE_TYPE_TRACKBOOK_EXTENSION = ".trackbook";
     String FILE_NAME_TEMP = "temp";
+    String TRACKS_DIRECTORY_NAME = "tracks";
+    int FILE_TEMP_TRACK = 0;
+    int FILE_MOST_CURRENT_TRACK = 1;
 
+    /* UNITS */
+    int METRIC = 1;
+    int IMPERIAL = 2;
+
+    /* FLOATING ACTION BUTTON */
+    int FAB_STATE_DEFAULT = 0;
+    int FAB_STATE_RECORDING = 1;
+    int FAB_STATE_SAVE = 2;
+
+    /* NOTIFICATION */
+    int TRACKER_SERVICE_NOTIFICATION_ID = 1;
     String NOTIFICATION_CHANEL_ID_RECORDING_CHANNEL ="notificationChannelIdRecordingChannel";
 
+    /* MISC */
     double DEFAULT_LATITUDE = 49.41667; // latitude Nordkapp, Norway
     double DEFAULT_LONGITUDE = 8.67201; // longitude Nordkapp, Norway
+    int CURRENT_TRACK_FORMAT_VERSION = 1; // incremental version number to prevent issues in case the Track format evolves
+    int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
+    int INFOSHEET_CONTENT_ABOUT = 1;
+
 }

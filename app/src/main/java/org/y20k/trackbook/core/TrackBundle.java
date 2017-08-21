@@ -36,8 +36,8 @@ public class TrackBundle {
     private static final String LOG_TAG = TrackBundle.class.getSimpleName();
 
     /* Main class variables */
-    private File mTrackFile;
-    private String mTrackName;
+    private final File mTrackFile;
+    private final String mTrackName;
 
 
     /* Constructor */

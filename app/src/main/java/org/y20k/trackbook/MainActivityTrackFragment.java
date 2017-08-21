@@ -396,6 +396,7 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
             mDropdown.setAdapter(mDropdownAdapter);
         } else {
             LogHelper.e(LOG_TAG, "Unable to delete recording.");
+            return;
         }
 
         if (mDropdownAdapter.isEmpty()) {

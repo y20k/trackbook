@@ -46,7 +46,7 @@ public class DropdownAdapter extends BaseAdapter implements ThemedSpinnerAdapter
 
 
     /* Main class variables */
-    private Activity mActivity;
+    private final Activity mActivity;
     private final ThemedSpinnerAdapter.Helper mDropdownAdapterHelper;
     private List<TrackBundle> mTrackBundleList;
 

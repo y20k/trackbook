@@ -52,7 +52,7 @@ public class StorageHelper implements TrackbookKeys {
 
     /* Main class variables */
     private final Context mContext;
-    private File mFolder;
+    private final File mFolder;
     private final File mTempFile;
 
 

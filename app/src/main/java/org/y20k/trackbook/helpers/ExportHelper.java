@@ -46,7 +46,7 @@ public class ExportHelper implements TrackbookKeys {
     /* Main class variables */
 //    private final Track mTrack;
     private final Context mContext;
-    private File mFolder;
+    private final File mFolder;
 
 
     /* Constructor */
@@ -135,7 +135,7 @@ public class ExportHelper implements TrackbookKeys {
     /* Creates Track */
     private String addTrack(Track track) {
         StringBuilder gpxTrack = new StringBuilder("");
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.US);
 
         // add opening track tag
         gpxTrack.append("\t<trk>\n");
