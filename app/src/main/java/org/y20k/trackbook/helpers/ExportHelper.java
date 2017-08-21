@@ -142,7 +142,7 @@ public class ExportHelper implements TrackbookKeys {
 
         // add name to track
         gpxTrack.append("\t\t<name>");
-        gpxTrack.append("test");
+        gpxTrack.append("Trackbook Recording");
         gpxTrack.append("</name>\n");
 
         // add opening track segment tag
