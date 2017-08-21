@@ -80,6 +80,7 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
     private DropdownAdapter mDropdownAdapter;
     private LinearLayout mTrackManagementLayout;
     private Spinner mDropdown;
+    private View mStatisticsSheet;
     private TextView mDistanceView;
     private TextView mStepsView;
     private TextView mWaypointsView;
@@ -188,7 +189,7 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
 
         // get views for statistics sheet
         View statisticsView = mRootView.findViewById(R.id.statistics_view);
-        View statisticsSheet = mRootView.findViewById(R.id.statistics_sheet);
+        mStatisticsSheet = mRootView.findViewById(R.id.statistics_sheet);
         mDistanceView = (TextView) mRootView.findViewById(R.id.statistics_data_distance);
         mStepsView = (TextView) mRootView.findViewById(R.id.statistics_data_steps);
         mWaypointsView = (TextView) mRootView.findViewById(R.id.statistics_data_waypoints);
@@ -211,7 +212,7 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
         }
 
         // set up and show statistics sheet
-        mStatisticsSheetBehavior = BottomSheetBehavior.from(statisticsSheet);
+        mStatisticsSheetBehavior = BottomSheetBehavior.from(mStatisticsSheet);
         mStatisticsSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         mStatisticsSheetBehavior.setBottomSheetCallback(getStatisticsSheetCallback());
         statisticsView.setOnClickListener(new View.OnClickListener() {
@@ -304,7 +305,7 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
         switch(requestCode) {
             case RESULT_DELETE_DIALOG:
                 if (resultCode == Activity.RESULT_OK) {
-                    LogHelper.v(LOG_TAG, "Delete dialog result: DELETE");
+                    deleteCurrentTrack();
                 } else if (resultCode == Activity.RESULT_CANCELED){
                     LogHelper.v(LOG_TAG, "Delete dialog result: CANCEL");
                 }
@@ -371,15 +372,41 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
             // show onboarding layout
             mMapView.setVisibility(View.GONE);
             mOnboardingView.setVisibility(View.VISIBLE);
-            mTrackManagementLayout.setVisibility(View.INVISIBLE);
-            mStatisticsSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+            mTrackManagementLayout.setVisibility(View.GONE);
+            mStatisticsSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+            mStatisticsSheet.setVisibility(View.GONE);
         } else {
             // show normal layout
             mOnboardingView.setVisibility(View.GONE);
             mMapView.setVisibility(View.VISIBLE);
             mTrackManagementLayout.setVisibility(View.VISIBLE);
             mStatisticsSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+            mStatisticsSheet.setVisibility(View.VISIBLE);
         }
+    }
+
+
+    /* Deletes currently visible track */
+    private void deleteCurrentTrack() {
+
+        // delete track file and refresh dropdown adapter
+        if (mDropdownAdapter.getItem(mCurrentTrack).getTrackFile().delete()) {
+            mDropdownAdapter.refresh();
+            mDropdownAdapter.notifyDataSetChanged();
+            mDropdown.setAdapter(mDropdownAdapter);
+        } else {
+            LogHelper.e(LOG_TAG, "Unable to delete recording.");
+        }
+
+        if (mDropdownAdapter.isEmpty()) {
+            // show onboarding
+            switchOnboardingLayout();
+        } else {
+            // show next track
+            mDropdown.setSelection(0, true);
+            mCurrentTrack = 0;
+        }
+
     }
 
 
