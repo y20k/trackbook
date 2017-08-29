@@ -1,17 +1,22 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
+    <!-- activities -->
     <string name="app_name">Trackbook</string> <!-- please do not translate app_name - transcription into different alphabet types is fine though -->
     <string name="title_activity_infosheet">Informatieblad</string>
 
+    <!-- menu entries -->
     <string name="menu_my_location">Mijn locatie</string>
     <string name="menu_about">Over</string>
 
+    <!-- headers -->
     <string name="header_about">Over Trackbook</string>
 
+    <!-- tabs -->
     <string name="tab_map">KAART</string>
     <string name="tab_last_track">LAATSTE BAAN</string>
     <string name="tab_last_tracks">LAST TRACKS</string>
 
+    <!-- notification -->
     <string name="notification_title_trackbook_running">Trackbook is actief</string>
     <string name="notification_title_trackbook_not_running">Trackbook is niet actief</string>
     <string name="notification_stop">Stoppen</string>
@@ -21,13 +26,16 @@
     <string name="notification_channel_recording_name">Movement Recording State</string>
     <string name="notification_channel_recording_description">Display duration and distance. Option to stop movement recording.</string>
 
+    <!-- snackbar messages -->
     <string name="snackbar_message_tracking_stopped">Bijhouden gestopt</string>
     <string name="snackbar_message_tracking_started">Bijhouden gestart</string>
     <string name="snackbar_message_location_offline">Locatie is uitgeschakeld; Trackbook zal niet werken.</string>
 
+    <!-- fab sub menu -->
     <string name="fab_sub_menu_clear">Wissen</string>
     <string name="fab_sub_menu_save_and_clear">Opslaan en wissen</string>
 
+    <!-- dialogs -->
     <string name="dialog_default_action_cancel">Cancel</string>
     <string name="dialog_clear_content">Clear Recording?</string>
     <string name="dialog_clear_action_clear">Clear</string>
@@ -41,6 +49,7 @@
     <string name="dialog_export_content_overwrite">File already exists. Export and overwrite this recording as GPX track.</string>
     <string name="dialog_export_action_overwrite">Export and Overwrite</string>
 
+    <!-- toast messages -->
     <string name="toast_message_permissions_granted">Rechten verleend.</string>
     <string name="toast_message_unable_to_start_app">Trackbook kan niet worden gestart.</string>
     <string name="toast_message_no_external_storage">Toegang tot externe opslag kan niet worden verkregen.</string>
@@ -54,19 +63,23 @@
     <string name="toast_message_export_success">GPX export successful:</string>
     <string name="toast_message_export_fail">GPX export failed:</string>
 
+    <!-- map markers -->
     <string name="marker_description_source">Bron</string>
     <string name="marker_description_time">Tijd</string>
     <string name="marker_description_accuracy">Nauwkeurigheid</string>
 
+    <!-- statistics sheet -->
     <string name="statistics_sheet_h1_statistics">Statistieken</string>
     <string name="statistics_sheet_p_default_data">baangegevens ontbreken</string>
     <string name="statistics_sheet_p_distance">Totale afstand:</string>
     <string name="statistics_sheet_p_steps">Gezette stappen:</string>
+    <string name="statistics_sheet_p_steps_no_pedometer">pedometer not available</string>
     <string name="statistics_sheet_p_waypoints">Opgeslagen pauzelocaties:</string>
     <string name="statistics_sheet_p_duration">Totale duur:</string>
     <string name="statistics_sheet_p_recording_start">Bijhouden gestart:</string>
     <string name="statistics_sheet_p_recording_stop">Bijhouden gestopt:</string>
 
+    <!-- onboarding layout -->
     <string name="layout_onboarding_h1_welcome">Hallo</string>
     <string name="layout_onboarding_description_app_icon">Trackbook-app-pictogram</string>
     <string name="layout_onboarding_h2_app_name">Trackbook</string>
@@ -78,9 +91,11 @@
     <string name="layout_onboarding_p_permission_storage">Trackbook gebruikt osmdroid. osmdroid slaat kaarttegels op in een cache op Android\'s externe opslag. U kunt de kaartcache vinden in de osmdroid-map op het hoogste niveau van het gebruikersbestandssysteem.</string>
     <string name="layout_onboarding_button_okay">Ik snap het!</string>
 
+    <!-- track tab onboarding -->
     <string name="track_tab_onboarding_h1_part_1">Your recorded tracks</string>
     <string name="track_tab_onboarding_h1_part_2">… will show up here.</string>
 
+    <!-- infosheet about -->
     <string name="infosheet_about_h1_about">Over Trackbook</string>
     <string name="infosheet_about_h2_recorder">Bewegingsbijhouding voor Android</string>
     <string name="infosheet_about_h3_version">Versie 1.0 (Astronomy Domine)</string>
@@ -96,6 +111,7 @@
     <string name="infosheet_about_h3_external">Recht SCHRIJVEN_EXTERNE_OPSLAG</string>
     <string name="infosheet_about_p_external">Trackbook gebruikt osmdroid. osmdroid cachet kaarttegels op Android\'s externe opslag. U kunt de kaartcache vinden in de osmdroid-map op het hoogste niveau van het gebruikersbestandssysteem.</string>
 
+    <!-- descriptions -->
     <string name="descr_map_current_track">Kaart van de huidige baan</string>
     <string name="descr_map_last_track">Kaart van de laatste baan</string>
     <string name="descr_fab_main">Hoofd-actieknop</string>

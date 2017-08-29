@@ -337,10 +337,16 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
                     DateFormat.getTimeInstance(DateFormat.SHORT, Locale.getDefault()).format(mTrack.getRecordingStart());
             String recordingStop = DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault()).format(mTrack.getRecordingStop()) + " " +
                     DateFormat.getTimeInstance(DateFormat.SHORT, Locale.getDefault()).format(mTrack.getRecordingStop());
+            String stepsTaken;
+            if (mTrack.getStepCount() == -1) {
+                stepsTaken = getString(R.string.statistics_sheet_p_steps_no_pedometer);
+            } else {
+                stepsTaken = String.valueOf(Math.round(mTrack.getStepCount()));
+            }
 
             // populate views
             mDistanceView.setText(mTrack.getTrackDistance());
-            mStepsView.setText(String.valueOf(Math.round(mTrack.getStepCount())));
+            mStepsView.setText(stepsTaken);
             mWaypointsView.setText(String.valueOf(mTrack.getWayPoints().size()));
             mDurationView.setText(mTrack.getTrackDuration());
             mRecordingStartView.setText(recordingStart);

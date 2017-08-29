@@ -1,17 +1,22 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
+    <!-- activities -->
     <string name="app_name">Trackbook</string> <!-- please do not translate app_name - transcription into different alphabet types is fine though -->
     <string name="title_activity_infosheet">Infoark</string>
 
+    <!-- menu entries -->
     <string name="menu_my_location">Min plasssering</string>
     <string name="menu_about">Om</string>
 
+    <!-- headers -->
     <string name="header_about">Om Trackbook</string>
 
+    <!-- tabs -->
     <string name="tab_map">KART</string>
     <string name="tab_last_track">SISTE TUR</string>
     <string name="tab_last_tracks">SISTE TURER</string>
 
+    <!-- notification -->
     <string name="notification_title_trackbook_running">Trackbook kjører</string>
     <string name="notification_title_trackbook_not_running">Trackbook kjører ikke</string>
     <string name="notification_stop">Stopp</string>
@@ -21,13 +26,16 @@
     <string name="notification_channel_recording_name">Movement Recording State</string>
     <string name="notification_channel_recording_description">Display duration and distance. Option to stop movement recording.</string>
 
+    <!-- snackbar messages -->
     <string name="snackbar_message_tracking_stopped">Sporing stoppet</string>
     <string name="snackbar_message_tracking_started">Sporing startet</string>
     <string name="snackbar_message_location_offline">Plassering avskrudd. Trackbook bil ikke fungere.</string>
 
+    <!-- fab sub menu -->
     <string name="fab_sub_menu_clear">Tøm</string>
     <string name="fab_sub_menu_save_and_clear">Lagre og tøm</string>
 
+    <!-- dialogs -->
     <string name="dialog_default_action_cancel">Avbryt</string>
     <string name="dialog_clear_content">Fjern opptak?</string>
     <string name="dialog_clear_action_clear">Tøm</string>
@@ -41,6 +49,7 @@
     <string name="dialog_export_content_overwrite">Fila finnes allerede. Eksporter og overskriv dette opptaket som en GPX-tur.</string>
     <string name="dialog_export_action_overwrite">Eksporter og overskriv</string>
 
+    <!-- toast messages -->
     <string name="toast_message_permissions_granted">Tilgang gitt.</string>
     <string name="toast_message_unable_to_start_app">Trackbook kan ikke starte.</string>
     <string name="toast_message_no_external_storage">Fikk ikke tilgang til ekstern lagring.</string>
@@ -54,19 +63,23 @@
     <string name="toast_message_export_success">GPX-eksportering vellykket:</string>
     <string name="toast_message_export_fail">GPX-eksportering mislyktes:</string>
 
+    <!-- map markers -->
     <string name="marker_description_source">Kilde</string>
     <string name="marker_description_time">Tid</string>
     <string name="marker_description_accuracy">Nøyaktighet</string>
 
+    <!-- statistics sheet -->
     <string name="statistics_sheet_h1_statistics">Statistikk</string>
     <string name="statistics_sheet_p_default_data">turdata mangler</string>
     <string name="statistics_sheet_p_distance">Total distanse:</string>
     <string name="statistics_sheet_p_steps">Skritt:</string>
+    <string name="statistics_sheet_p_steps_no_pedometer">pedometer not available</string>
     <string name="statistics_sheet_p_waypoints">Registrerte veipunkter:</string>
     <string name="statistics_sheet_p_duration">Total varighet:</string>
     <string name="statistics_sheet_p_recording_start">Opptak startet:</string>
     <string name="statistics_sheet_p_recording_stop">Opptak stoppet:</string>
 
+    <!-- onboarding layout -->
     <string name="layout_onboarding_h1_welcome">Hallo</string>
     <string name="layout_onboarding_description_app_icon">Programikon for Trackbook</string>
     <string name="layout_onboarding_h2_app_name">Trackbook</string>
@@ -78,9 +91,11 @@
     <string name="layout_onboarding_p_permission_storage">Trackbook brukerosmdroid, som hurtiglagrer kartfliser på Androids eksterne lagringsmedie. Du kan finne dette karthurtiglageret i osmdroid-mappa på topnivået av brukergrensesnittet.</string>
     <string name="layout_onboarding_button_okay">Skjønner!</string>
 
+    <!-- track tab onboarding -->
     <string name="track_tab_onboarding_h1_part_1">Dine registrerte turer</string>
     <string name="track_tab_onboarding_h1_part_2">… vil vises her</string>
 
+    <!-- infosheet about -->
     <string name="infosheet_about_h1_about">Om Trackbook</string>
     <string name="infosheet_about_h2_recorder">Bevegelsesopptaker for Android</string>
     <string name="infosheet_about_h3_version">Versjon 1.0 (Astronomy Domine)</string>
@@ -96,6 +111,7 @@
     <string name="infosheet_about_h3_external">Tilganger WRITE_EXTERNAL_STORAGE</string>
     <string name="infosheet_about_p_external">Trackbook bruker osmdroid, som hurtiglagrer fliser på Androids eksterne lagringsmedie. Du kan finne kartflisene i osmdroid-mappa på toppnivået av brukergrensesnittet.</string>
 
+    <!-- descriptions -->
     <string name="descr_map_current_track">Kartlegging av nåværende tur</string>
     <string name="descr_map_last_track">Kartlegging av forrige tur</string>
     <string name="descr_fab_main">Hovedhandlingsknapp</string>

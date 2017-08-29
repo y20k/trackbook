@@ -73,6 +73,7 @@
     <string name="statistics_sheet_p_default_data">track data missing</string>
     <string name="statistics_sheet_p_distance">Total distance:</string>
     <string name="statistics_sheet_p_steps">Steps taken:</string>
+    <string name="statistics_sheet_p_steps_no_pedometer">pedometer not available</string>
     <string name="statistics_sheet_p_waypoints">Recorded waypoints:</string>
     <string name="statistics_sheet_p_duration">Total duration:</string>
     <string name="statistics_sheet_p_recording_start">Recording started:</string>

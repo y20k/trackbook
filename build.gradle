@@ -22,7 +22,7 @@ allprojects {
     project.ext {
         applicationId = 'org.y20k.trackbook'
         versionCode = 13
-        versionName = '1.0.6 (Astronomy Domine)'
+        versionName = '1.0.7'
         minSdkVersion = 22
         compileSdkVersion = 26
         targetSdkVersion = 26

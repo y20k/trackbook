@@ -73,6 +73,7 @@
     <string name="statistics_sheet_p_default_data">dati mancanti</string>
     <string name="statistics_sheet_p_distance">Distanza totale:</string>
     <string name="statistics_sheet_p_steps">Passi:</string>
+    <string name="statistics_sheet_p_steps_no_pedometer">pedometer not available</string>
     <string name="statistics_sheet_p_waypoints">Waypoint registrati:</string>
     <string name="statistics_sheet_p_duration">Durata totale:</string>
     <string name="statistics_sheet_p_recording_start">Registrazione avviata il:</string>

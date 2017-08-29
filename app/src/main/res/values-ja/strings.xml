@@ -1,17 +1,22 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
+    <!-- activities -->
     <string name="app_name">Trackbook</string> <!-- please do not translate app_name - transcription into different alphabet types is fine though -->
     <string name="title_activity_infosheet">情報シート</string>
 
+    <!-- menu entries -->
     <string name="menu_my_location">私の場所</string>
     <string name="menu_about">アプリについて</string>
 
+    <!-- headers -->
     <string name="header_about">Trackbook について</string>
 
+    <!-- tabs -->
     <string name="tab_map">地図</string>
     <string name="tab_last_track">最後のトレース</string>
     <string name="tab_last_tracks">最後のトレース</string>
 
+    <!-- notification -->
     <string name="notification_title_trackbook_running">Trackbook 実行中</string>
     <string name="notification_title_trackbook_not_running">Trackbook は実行していません</string>
     <string name="notification_stop">停止</string>
@@ -21,13 +26,16 @@
     <string name="notification_channel_recording_name">Movement Recording State</string>
     <string name="notification_channel_recording_description">Display duration and distance. Option to stop movement recording.</string>
 
+    <!-- snackbar messages -->
     <string name="snackbar_message_tracking_stopped">トレースを停止しました</string>
     <string name="snackbar_message_tracking_started">トレースを開始しました</string>
     <string name="snackbar_message_location_offline">位置情報がオフです。Trackbook は動作しません。</string>
 
+    <!-- fab sub menu -->
     <string name="fab_sub_menu_clear">クリア</string>
     <string name="fab_sub_menu_save_and_clear">保存してクリア</string>
 
+    <!-- dialogs -->
     <string name="dialog_default_action_cancel">キャンセル</string>
     <string name="dialog_clear_content">記録をクリアしますか?</string>
     <string name="dialog_clear_action_clear">クリア</string>
@@ -41,6 +49,7 @@
     <string name="dialog_export_content_overwrite">File already exists. Export and overwrite this recording as GPX track.</string>
     <string name="dialog_export_action_overwrite">Export and Overwrite</string>
 
+    <!-- toast messages -->
     <string name="toast_message_permissions_granted">アクセス許可を付与しました。</string>
     <string name="toast_message_unable_to_start_app">Trackbook を起動できません。</string>
     <string name="toast_message_no_external_storage">外部ストレージにアクセスできません。</string>
@@ -54,19 +63,23 @@
     <string name="toast_message_export_success">GPX export successful:</string>
     <string name="toast_message_export_fail">GPX export failed:</string>
 
+    <!-- map markers -->
     <string name="marker_description_source">ソース</string>
     <string name="marker_description_time">時間</string>
     <string name="marker_description_accuracy">精度</string>
 
+    <!-- statistics sheet -->
     <string name="statistics_sheet_h1_statistics">統計情報</string>
     <string name="statistics_sheet_p_default_data">トレースデータが見つかりません</string>
     <string name="statistics_sheet_p_distance">総距離:</string>
     <string name="statistics_sheet_p_steps">歩数:</string>
+    <string name="statistics_sheet_p_steps_no_pedometer">pedometer not available</string>
     <string name="statistics_sheet_p_waypoints">記録されたウェイ ポイント:</string>
     <string name="statistics_sheet_p_duration">合計時間:</string>
     <string name="statistics_sheet_p_recording_start">記録の開始:</string>
     <string name="statistics_sheet_p_recording_stop">記録の停止:</string>
 
+    <!-- onboarding layout -->
     <string name="layout_onboarding_h1_welcome">こんにちは</string>
     <string name="layout_onboarding_description_app_icon">Trackbook アプリ アイコン</string>
     <string name="layout_onboarding_h2_app_name">Trackbook</string>
@@ -78,9 +91,11 @@
     <string name="layout_onboarding_p_permission_storage">Trackbook は、Android の外部ストレージに地図タイルをキャッシュする osmdroid を使用します。地図キャッシュは、ユーザー向けファイル・システムの最上位レベルの osmdroid フォルダーで見つけることができます。</string>
     <string name="layout_onboarding_button_okay">完了!</string>
 
+    <!-- track tab onboarding -->
     <string name="track_tab_onboarding_h1_part_1">記録したトレース</string>
     <string name="track_tab_onboarding_h1_part_2">… ここに表示されます。</string>
 
+    <!-- infosheet about -->
     <string name="infosheet_about_h1_about">Trackbook について</string>
     <string name="infosheet_about_h2_recorder">Android 用の移動レコーダー</string>
     <string name="infosheet_about_h3_version">バージョン 1.0 (Astronomy Domine)</string>
@@ -96,6 +111,7 @@
     <string name="infosheet_about_h3_external">WRITE_EXTERNAL_STORAGE アクセス許可</string>
     <string name="infosheet_about_p_external">Trackbook は、Android の外部ストレージに地図タイルをキャッシュする osmdroid を使用します。地図キャッシュは、ユーザー向けファイル・システムの最上位レベルの osmdroid フォルダーで見つけることができます。</string>
 
+    <!-- descriptions -->
     <string name="descr_map_current_track">現在のトレースのマッピング</string>
     <string name="descr_map_last_track">最後のトレースのマッピング</string>
     <string name="descr_fab_main">メイン アクション ボタン</string>

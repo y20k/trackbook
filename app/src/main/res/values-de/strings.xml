@@ -73,6 +73,7 @@
     <string name="statistics_sheet_p_default_data">keine Daten vorhanden</string>
     <string name="statistics_sheet_p_distance">Distanz (gesamt):</string>
     <string name="statistics_sheet_p_steps">Schrittzähler:</string>
+    <string name="statistics_sheet_p_steps_no_pedometer">Schrittzähler nicht verfügbar</string>
     <string name="statistics_sheet_p_waypoints">Aufgezeichnete Wegpunkte:</string>
     <string name="statistics_sheet_p_duration">Dauer (gesamt):</string>
     <string name="statistics_sheet_p_recording_start">Start der Aufzeichnung:</string>

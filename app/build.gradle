@@ -10,7 +10,9 @@ android {
         targetSdkVersion project.ext.targetSdkVersion
         versionCode project.ext.versionCode
         versionName project.ext.versionName
+
         vectorDrawables.useSupportLibrary = true
+        resConfigs "en", "de", "id", "it", "ja", "nb-rNO", "nl", "v21", "w820dp"
     }
     buildTypes {
         release {
