@@ -23,8 +23,8 @@
     <string name="notification_swipe_to_clear_map">(sveip for å tømme kart)</string>
     <string name="notification_content_duration">Varighet</string>
     <string name="notification_content_distance">Distanse</string>
-    <string name="notification_channel_recording_name">Movement Recording State</string>
-    <string name="notification_channel_recording_description">Display duration and distance. Option to stop movement recording.</string>
+    <string name="notification_channel_recording_name">Bevegelsesopptakstilstand</string>
+    <string name="notification_channel_recording_description">Vis varighet og distanse. Mulighet for å stoppe bevegelsesopptak.</string>
 
     <!-- snackbar messages -->
     <string name="snackbar_message_tracking_stopped">Sporing stoppet</string>
@@ -43,7 +43,7 @@
     <string name="dialog_delete_content">Slett dette opptaket:</string>
     <string name="dialog_delete_action_delete">Slett</string>
     <string name="dialog_export_title_export">Eksporter opptak som GPX?</string>
-    <string name="dialog_export_content_export">Exporter dette opptaket som en GPX-tur?</string>
+    <string name="dialog_export_content_export">Eksporter dette opptaket som en GPX-tur.</string>
     <string name="dialog_export_action_export">Eksporter</string>
     <string name="dialog_export_title_overwrite">Exporter og overskriv?</string>
     <string name="dialog_export_content_overwrite">Fila finnes allerede. Eksporter og overskriv dette opptaket som en GPX-tur.</string>
@@ -73,7 +73,7 @@
     <string name="statistics_sheet_p_default_data">turdata mangler</string>
     <string name="statistics_sheet_p_distance">Total distanse:</string>
     <string name="statistics_sheet_p_steps">Skritt:</string>
-    <string name="statistics_sheet_p_steps_no_pedometer">pedometer not available</string>
+    <string name="statistics_sheet_p_steps_no_pedometer">pedometer ikke tilgjengelig</string>
     <string name="statistics_sheet_p_waypoints">Registrerte veipunkter:</string>
     <string name="statistics_sheet_p_duration">Total varighet:</string>
     <string name="statistics_sheet_p_recording_start">Opptak startet:</string>
@@ -93,7 +93,7 @@
 
     <!-- track tab onboarding -->
     <string name="track_tab_onboarding_h1_part_1">Dine registrerte turer</string>
-    <string name="track_tab_onboarding_h1_part_2">… vil vises her</string>
+    <string name="track_tab_onboarding_h1_part_2">… vil vises her.</string>
 
     <!-- infosheet about -->
     <string name="infosheet_about_h1_about">Om Trackbook</string>
@@ -101,7 +101,7 @@
     <string name="infosheet_about_h3_version">Versjon 1.0 (Astronomy Domine)</string>
     <string name="infosheet_about_p_bare">Trackbook er et minimalistisk program for opptak av dine bevegelser. Trackbook er bra for turgåing, reise eller trening. Når det er startet sporer det bevegelsene dine på et kart. Kartdataene kommer fra OpenStreetMap (OSM).</string>
     <string name="infosheet_about_p_free">Trackbook er fri programvare. Kildekoden er å finne på GitHub og det er også et bra sted å rapportere feil eller bidra, hvis du er interessert. Trackbook er utgitt under MIT åpenkildekode-lisens. Trackbook bruker osmdroid til å vise kartet, som også er fri programvare utgitt med Apache-lisens.</string>
-    <string name="infosheet_about_h2_permissions">Which Permissions does Trackbook need?</string>
+    <string name="infosheet_about_h2_permissions">Hvilke tilganger trenger Trackbook?</string>
     <string name="infosheet_about_h3_internet">Tilgang INTERNETT</string>
     <string name="infosheet_about_p_internet">Trackbook må laste ned kartdata fra OpenStreetMap-tjenere og må derfor ha tilgang til Internett.</string>
     <string name="infosheet_about_h3_network">Tilgangene ACCESS_WIFI_STATE og ACCESS_NETWORK_STATE</string>
