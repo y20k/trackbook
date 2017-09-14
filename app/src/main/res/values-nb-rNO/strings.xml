@@ -104,9 +104,9 @@
     <string name="infosheet_about_h2_permissions">Which Permissions does Trackbook need?</string>
     <string name="infosheet_about_h3_internet">Tilgang INTERNETT</string>
     <string name="infosheet_about_p_internet">Trackbook må laste ned kartdata fra OpenStreetMap-tjenere og må derfor ha tilgang til Internett.</string>
-    <string name="infosheet_about_h3_network">Tilganger ACCESS_WIFI_STATE og ACCESS_NETWORK_STATE</string>
+    <string name="infosheet_about_h3_network">Tilgangene ACCESS_WIFI_STATE og ACCESS_NETWORK_STATE</string>
     <string name="infosheet_about_p_network">Trackbook bruker osmdroid til å tegne kartene. osmdroid trenger å vite gjeldende tilstand for din enhets tilkobling.</string>
-    <string name="infosheet_about_h3_location">Tilganger ACCESS_COARSE_LOCATION og ACCESS_FINE_LOCATION</string>
+    <string name="infosheet_about_h3_location">Tilgangene ACCESS_COARSE_LOCATION og ACCESS_FINE_LOCATION</string>
     <string name="infosheet_about_p_location">Trackbook trenger nøyaktig GPS-data for å kunne registrere bevegelsene dine. Hvis GPS-dataen ikke er tilgjengelig eller nøyaktig nok, bruker Trackbook plasseringsdata fra mobilmaster og Wi-Fi-triangulering.</string>
     <string name="infosheet_about_h3_external">Tilganger WRITE_EXTERNAL_STORAGE</string>
     <string name="infosheet_about_p_external">Trackbook bruker osmdroid, som hurtiglagrer fliser på Androids eksterne lagringsmedie. Du kan finne kartflisene i osmdroid-mappa på toppnivået av brukergrensesnittet.</string>
