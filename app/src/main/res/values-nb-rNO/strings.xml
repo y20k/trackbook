@@ -120,7 +120,7 @@
     <string name="descr_fab_sub_menu_label_2">Etikett for Tøm-knappen</string>
     <string name="descr_fab_sub_menu_button_2">liten Tøm-knapp</string>
     <string name="descr_statistics_sheet_headline">Overskrift for statistikkarket</string>
-    <string name="descr_statistics_sheet_icon">Ikon for stolpediagram</string>
+    <string name="descr_statistics_sheet_icon">Informasjonsikon</string>
     <string name="descr_statistics_sheet_p_distance">Datapunkt: Distanse</string>
     <string name="descr_statistics_sheet_p_steps">Datapunkter: Skritt</string>
     <string name="descr_statistics_sheet_p_waypoints">Datapunkter: Veipunkter</string>
