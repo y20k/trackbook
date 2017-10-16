@@ -414,6 +414,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
                 mFloatingActionButtonSubMenu1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        // todo check -> may produce NullPointerException
                         MainActivityMapFragment mainActivityMapFragment = (MainActivityMapFragment) mSectionsPagerAdapter.getFragment(FRAGMENT_ID_MAP);
                         mainActivityMapFragment.onActivityResult(RESULT_SAVE_DIALOG, Activity.RESULT_OK, getIntent());
                         handleStateAfterSave();
@@ -474,7 +475,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
                 mFloatingActionButtonState = FAB_STATE_RECORDING;
                 setFloatingActionButtonState();
 
-                // get last location from MainActivity Fragment
+                // get last location from MainActivity Fragment // todo check -> may produce NullPointerException
                 MainActivityMapFragment mainActivityMapFragment = (MainActivityMapFragment) mSectionsPagerAdapter.getFragment(FRAGMENT_ID_MAP);
                 Location lastLocation = mainActivityMapFragment.getCurrentBestLocation();
 
@@ -525,7 +526,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
 
         }
 
-        // update tracking state in MainActivityMapFragment
+        // update tracking state in MainActivityMapFragment // todo check -> may produce NullPointerException
         MainActivityMapFragment mainActivityMapFragment = (MainActivityMapFragment) mSectionsPagerAdapter.getFragment(FRAGMENT_ID_MAP);
         mainActivityMapFragment.setTrackingState(mTrackerServiceRunning);
     }
@@ -660,7 +661,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
                 mFloatingActionButtonState = FAB_STATE_SAVE;
                 setFloatingActionButtonState();
 
-                // pass tracking state to MainActivityMapFragment
+                // pass tracking state to MainActivityMapFragment // todo check -> may produce NullPointerException
                 MainActivityMapFragment mainActivityMapFragment = (MainActivityMapFragment) mSectionsPagerAdapter.getFragment(FRAGMENT_ID_MAP);
                 mainActivityMapFragment.setTrackingState(false);
             }

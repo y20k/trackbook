@@ -36,6 +36,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -81,6 +82,8 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
     private LinearLayout mTrackManagementLayout;
     private Spinner mDropdown;
     private View mStatisticsSheet;
+    private ImageView mStatisticsIcon;
+    private TextView mStatisticsHeadline;
     private TextView mDistanceView;
     private TextView mStepsView;
     private TextView mWaypointsView;
@@ -189,6 +192,8 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
 
         // get views for statistics sheet
         View statisticsView = mRootView.findViewById(R.id.statistics_view);
+        mStatisticsIcon = mRootView.findViewById(R.id.statistics_icon);
+        mStatisticsHeadline = mRootView.findViewById(R.id.statistics_headline);
         mStatisticsSheet = mRootView.findViewById(R.id.statistics_sheet);
         mDistanceView = (TextView) mRootView.findViewById(R.id.statistics_data_distance);
         mStepsView = (TextView) mRootView.findViewById(R.id.statistics_data_steps);
@@ -427,10 +432,16 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
                     case BottomSheetBehavior.STATE_EXPANDED:
                         // statistics sheet expanded
                         mTrackManagementLayout.setVisibility(View.INVISIBLE);
+//                        mStatisticsSheet.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.trackbook_blue_85percent));
+//                        mStatisticsIcon.setBackgroundResource(R.drawable.ic_statistics_white_48dp);
+//                        mStatisticsHeadline.setVisibility(View.VISIBLE);
                         break;
                     case BottomSheetBehavior.STATE_COLLAPSED:
                         // statistics sheet collapsed
                         mTrackManagementLayout.setVisibility(View.VISIBLE);
+//                        mStatisticsSheet.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.trackbook_transparent));
+//                        mStatisticsIcon.setBackgroundResource(R.drawable.ic_statistics_blue_48dp);
+//                        mStatisticsHeadline.setVisibility(View.INVISIBLE);
                         mStatisticsSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                         break;
                     case BottomSheetBehavior.STATE_HIDDEN:
@@ -449,7 +460,15 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
                 } else {
                     mTrackManagementLayout.setVisibility(View.INVISIBLE);
                 }
-
+//                if (slideOffset < 0.125f) {
+//                    mStatisticsSheet.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.trackbook_transparent));
+//                    mStatisticsIcon.setBackgroundResource(R.drawable.ic_statistics_blue_48dp);
+//                    mStatisticsHeadline.setVisibility(View.INVISIBLE);
+//                } else {
+//                    mStatisticsSheet.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.trackbook_blue_85percent));
+//                    mStatisticsIcon.setBackgroundResource(R.drawable.ic_statistics_white_48dp);
+//                    mStatisticsHeadline.setVisibility(View.VISIBLE);
+//                }
             }
         };
     }

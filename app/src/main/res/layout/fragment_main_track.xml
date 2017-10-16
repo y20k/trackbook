@@ -76,7 +76,7 @@
         android:layout_gravity="bottom"
         android:background="@color/trackbook_blue_85percent"
         app:behavior_hideable="true"
-        app:behavior_peekHeight="132dp"
+        app:behavior_peekHeight="112dp"
         app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
 
         <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -99,9 +99,10 @@
                     android:paddingEnd="@dimen/activity_horizontal_margin"
                     android:orientation="horizontal">
                     <TextView
+                        android:id="@+id/statistics_headline"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:textAppearance="@android:style/TextAppearance.Large.Inverse"
+                        android:textAppearance="@android:style/TextAppearance.Medium.Inverse"
                         android:layout_weight="1"
                         android:gravity="start|center"
                         android:textStyle="bold"
@@ -109,11 +110,12 @@
                         android:text="@string/statistics_sheet_h1_statistics"
                         android:contentDescription="@string/descr_statistics_sheet_headline" />
                     <ImageView
+                        android:id="@+id/statistics_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="end|center"
-                        android:background="@drawable/ic_statistics_white_48dp"
-                        android:contentDescription="@string/descr_statistics_sheet_icon" />
+                        android:contentDescription="@string/descr_statistics_sheet_icon"
+                        app:srcCompat="@drawable/ic_info_white_24dp" />
                 </LinearLayout>
 
                 <LinearLayout

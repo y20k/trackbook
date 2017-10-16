@@ -173,7 +173,7 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
 //        stopFindingLocation();
 //        mSensorManager.unregisterListener(this);
 
-        // todo describe
+        // remove TrackerService from foreground state
         stopForeground(true);
 
         super.onDestroy();
@@ -297,7 +297,7 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
         // disable content observer for changes in System Settings
         this.getContentResolver().unregisterContentObserver(mSettingsContentObserver);
 
-        // todo describe
+        // remove TrackerService from foreground state
         stopForeground(false);
     }
 

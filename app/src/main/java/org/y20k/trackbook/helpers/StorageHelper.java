@@ -71,7 +71,7 @@ public class StorageHelper implements TrackbookKeys {
             mFolder.mkdirs();
         }
 
-        // create temp file object
+        // create temp file object // todo check -> may produce NullPointerException
         mTempFile = new File(mFolder.toString() + "/" + FILE_NAME_TEMP + FILE_TYPE_TRACKBOOK_EXTENSION);
 
         // delete old track - exclude temp file

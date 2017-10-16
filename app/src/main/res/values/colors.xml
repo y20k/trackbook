@@ -18,4 +18,7 @@
     <color name="trackbook_grey">#FF455a64</color>
     <color name="trackbook_grey_85percent">#D9455a64</color>
 
+    <color name="trackbook_transparent">#00000000</color>
+
+
 </resources>
