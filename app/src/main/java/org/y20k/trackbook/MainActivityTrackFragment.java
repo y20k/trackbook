@@ -96,6 +96,12 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
     private BroadcastReceiver mTrackSavedReceiver;
 
 
+    /* Return a new Instance of MainActivityTrackFragment */
+    public static MainActivityTrackFragment newInstance() {
+        return new MainActivityTrackFragment();
+    }
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -12,9 +12,9 @@
     <string name="header_about">About Trackbook</string>
 
     <!-- tabs -->
-    <string name="tab_map">MAP</string>
-    <string name="tab_last_track">LAST TRACK</string>
-    <string name="tab_last_tracks">LAST TRACKS</string>
+    <string name="tab_map">Map</string>
+    <string name="tab_last_track">Last Track</string>
+    <string name="tab_last_tracks">Last Tracks</string>
 
     <!-- notification -->
     <string name="notification_title_trackbook_running">Trackbook running</string>

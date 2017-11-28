@@ -17,6 +17,7 @@ android {
     buildTypes {
         release {
             minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -27,6 +28,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:' + supportLibraryVersion
     compile 'com.android.support:design:' + supportLibraryVersion
     compile 'com.android.support:cardview-v7:' + supportLibraryVersion
+    compile 'com.android.support.constraint:constraint-layout:' + constraintLayoutVersion
     compile 'org.osmdroid:osmdroid-android:' + osmdroidVersion
     compile 'com.google.code.gson:gson:' + gsonVersion
 }

@@ -12,9 +12,9 @@
     <string name="header_about">Über Trackbook</string>
 
     <!-- tabs -->
-    <string name="tab_map">KARTE</string>
-    <string name="tab_last_track">LETZTE AUFZEICHNUNG</string>
-    <string name="tab_last_tracks">LETZTE AUFZEICHNUNGEN</string>
+    <string name="tab_map">Karte</string>
+    <string name="tab_last_track">Letzte Aufzeichnung</string>
+    <string name="tab_last_tracks">Letzte Aufzeichnungen</string>
 
     <!-- notification -->
     <string name="notification_title_trackbook_not_running">Trackbook ist inaktiv</string>

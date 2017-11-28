@@ -68,7 +68,11 @@ public interface TrackbookKeys {
 
     /* FRAGMENT IDS */
     int FRAGMENT_ID_MAP = 0;
-    int FRAGMENT_ID_TRACK = 1;
+    int FRAGMENT_ID_TRACKS = 1;
+
+    String FRAGMENT_TAG_MAP = "fragmentTagMap";
+    String FRAGMENT_TAG_TRACKS = "fragmentTagTracks";
+
 
     /* RESULTS */
     int RESULT_SAVE_DIALOG = 1;

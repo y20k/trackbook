@@ -29,7 +29,7 @@
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:orientation="horizontal"
-            android:background="@color/trackbook_blue_85percent">
+            android:background="@color/trackbook_white_85percent">
             <Spinner
                 android:id="@+id/track_selector"
                 android:layout_width="0dp"
@@ -46,7 +46,7 @@
                 android:layout_gravity="end|center"
                 android:paddingStart="@dimen/activity_horizontal_margin"
                 android:paddingEnd="@dimen/activity_horizontal_margin"
-                android:src="@drawable/ic_file_download_white_24dp"
+                android:src="@drawable/ic_file_download_grey_24dp"
                 android:background="@android:color/transparent"
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
@@ -61,7 +61,7 @@
                 android:paddingEnd="@dimen/activity_horizontal_margin"
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
-                android:src="@drawable/ic_delete_forever_white_24dp"
+                android:src="@drawable/ic_delete_forever_grey_24dp"
                 android:background="@android:color/transparent"
                 android:contentDescription="@string/descr_delete_button" />
         </LinearLayout>
@@ -74,7 +74,7 @@
         android:layout_width="@dimen/bottom_sheet_width"
         android:layout_height="match_parent"
         android:layout_gravity="bottom"
-        android:background="@color/trackbook_blue_85percent"
+        android:background="@color/trackbook_white_85percent"
         app:behavior_hideable="true"
         app:behavior_peekHeight="112dp"
         app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
@@ -102,7 +102,7 @@
                         android:id="@+id/statistics_headline"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:textAppearance="@android:style/TextAppearance.Medium.Inverse"
+                        android:textAppearance="@android:style/TextAppearance.Medium"
                         android:layout_weight="1"
                         android:gravity="start|center"
                         android:textStyle="bold"
@@ -115,7 +115,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="end|center"
                         android:contentDescription="@string/descr_statistics_sheet_icon"
-                        app:srcCompat="@drawable/ic_info_white_24dp" />
+                        app:srcCompat="@drawable/ic_info_grey_24dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -130,14 +130,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="4dp"
                         android:text="@string/statistics_sheet_p_distance"
-                        android:textAppearance="@android:style/TextAppearance.Small.Inverse"
+                        android:textAppearance="@android:style/TextAppearance.Small"
                         android:contentDescription="@string/descr_statistics_sheet_p_distance" />
                     <TextView
                         android:id="@+id/statistics_data_distance"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/statistics_sheet_p_default_data"
-                        android:textAppearance="@android:style/TextAppearance.Medium.Inverse"
+                        android:textAppearance="@android:style/TextAppearance.Medium"
                         android:contentDescription="@string/descr_statistics_sheet_p_distance_value" />
                 </LinearLayout>
 
@@ -153,14 +153,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="4dp"
                         android:text="@string/statistics_sheet_p_steps"
-                        android:textAppearance="@android:style/TextAppearance.Small.Inverse"
+                        android:textAppearance="@android:style/TextAppearance.Small"
                         android:contentDescription="@string/descr_statistics_sheet_p_steps" />
                     <TextView
                         android:id="@+id/statistics_data_steps"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/statistics_sheet_p_default_data"
-                        android:textAppearance="@android:style/TextAppearance.Medium.Inverse"
+                        android:textAppearance="@android:style/TextAppearance.Medium"
                         android:contentDescription="@string/descr_statistics_sheet_p_steps_value" />
                 </LinearLayout>
 
@@ -176,14 +176,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="4dp"
                         android:text="@string/statistics_sheet_p_waypoints"
-                        android:textAppearance="@android:style/TextAppearance.Small.Inverse"
+                        android:textAppearance="@android:style/TextAppearance.Small"
                         android:contentDescription="@string/descr_statistics_sheet_p_waypoints" />
                     <TextView
                         android:id="@+id/statistics_data_waypoints"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/statistics_sheet_p_default_data"
-                        android:textAppearance="@android:style/TextAppearance.Medium.Inverse"
+                        android:textAppearance="@android:style/TextAppearance.Medium"
                         android:contentDescription="@string/descr_statistics_sheet_p_waypoints_value" />
                 </LinearLayout>
 
@@ -199,14 +199,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="4dp"
                         android:text="@string/statistics_sheet_p_duration"
-                        android:textAppearance="@android:style/TextAppearance.Small.Inverse"
+                        android:textAppearance="@android:style/TextAppearance.Small"
                         android:contentDescription="@string/descr_statistics_sheet_p_duration" />
                     <TextView
                         android:id="@+id/statistics_data_duration"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/statistics_sheet_p_default_data"
-                        android:textAppearance="@android:style/TextAppearance.Medium.Inverse"
+                        android:textAppearance="@android:style/TextAppearance.Medium"
                         android:contentDescription="@string/descr_statistics_sheet_p_duration_value" />
                 </LinearLayout>
 
@@ -222,14 +222,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="4dp"
                         android:text="@string/statistics_sheet_p_recording_start"
-                        android:textAppearance="@android:style/TextAppearance.Small.Inverse"
+                        android:textAppearance="@android:style/TextAppearance.Small"
                         android:contentDescription="@string/descr_statistics_sheet_p_recording_start" />
                     <TextView
                         android:id="@+id/statistics_data_recording_start"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/statistics_sheet_p_default_data"
-                        android:textAppearance="@android:style/TextAppearance.Medium.Inverse"
+                        android:textAppearance="@android:style/TextAppearance.Medium"
                         android:contentDescription="@string/descr_statistics_sheet_p_recording_start_value" />
                 </LinearLayout>
 
@@ -246,14 +246,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="4dp"
                         android:text="@string/statistics_sheet_p_recording_stop"
-                        android:textAppearance="@android:style/TextAppearance.Small.Inverse"
+                        android:textAppearance="@android:style/TextAppearance.Small"
                         android:contentDescription="@string/descr_statistics_sheet_p_recording_end" />
                     <TextView
                         android:id="@+id/statistics_data_recording_stop"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/statistics_sheet_p_default_data"
-                        android:textAppearance="@android:style/TextAppearance.Medium.Inverse"
+                        android:textAppearance="@android:style/TextAppearance.Medium"
                         android:contentDescription="@string/descr_statistics_sheet_p_recording_end_value" />
                 </LinearLayout>
 

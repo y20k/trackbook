@@ -35,7 +35,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -93,15 +92,18 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
     }
 
 
+    /* Return a new Instance of MainActivityMapFragment */
+    public static MainActivityMapFragment newInstance() {
+        return new MainActivityMapFragment();
+    }
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // get activity
         mActivity = getActivity();
-
-        // action bar has options menu
-        setHasOptionsMenu(true);
 
         // restore first start state and tracking state
         mFirstStart = true;
@@ -290,63 +292,6 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
         super.onDestroy();
     }
 
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        // handle action bar options menu selection
-        switch (item.getItemId()) {
-
-            // CASE MY LOCATION
-            case R.id.action_bar_my_location:
-
-                // do nothing if location setting is off
-                if (toggleLocationOffBar()) {
-                    stopPreliminaryTracking();
-                    return false;
-                }
-
-                // get current position
-                GeoPoint position;
-
-                if (mTrackerServiceRunning && mTrack != null) {
-                    // get current Location from tracker service
-                    mCurrentBestLocation = mTrack.getWayPointLocation(mTrack.getSize() - 1);
-                } else if (mCurrentBestLocation == null) {
-                    // app does not have any location fix
-                    mCurrentBestLocation = LocationHelper.determineLastKnownLocation(mLocationManager);
-                }
-
-                // check if really got a position
-                if (mCurrentBestLocation != null) {
-                    position = convertToGeoPoint(mCurrentBestLocation);
-
-                    // center map on current position
-                    mController.setCenter(position);
-
-                    // mark user's new location on map and remove last marker
-                    updateMyLocationMarker();
-
-                    // inform user about location quality
-                    String locationInfo;
-                    long locationAge =  (SystemClock.elapsedRealtimeNanos() - mCurrentBestLocation.getElapsedRealtimeNanos()) / 1000000;
-                    String locationAgeString = LocationHelper.convertToReadableTime(locationAge, false);
-                    if (locationAgeString == null) {
-                        locationAgeString = mActivity.getString(R.string.toast_message_last_location_age_one_hour);
-                    }
-                    locationInfo = " " + locationAgeString + " | " + mCurrentBestLocation.getProvider();
-                    Toast.makeText(mActivity, mActivity.getString(R.string.toast_message_last_location) + locationInfo, Toast.LENGTH_LONG).show();
-                    return true;
-                } else {
-                    Toast.makeText(mActivity, mActivity.getString(R.string.toast_message_location_services_not_ready), Toast.LENGTH_LONG).show();
-                    return false;
-                }
-
-            // CASE DEFAULT
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
 
 
     @Override
@@ -545,6 +490,53 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
             return false;
         }
 
+    }
+
+
+    /* Handles tap on the my location button */
+    public boolean handleShowMyLocation() {
+
+        // do nothing if location setting is off
+        if (toggleLocationOffBar()) {
+            stopPreliminaryTracking();
+            return false;
+        }
+
+        // get current position
+        GeoPoint position;
+
+        if (mTrackerServiceRunning && mTrack != null) {
+            // get current Location from tracker service
+            mCurrentBestLocation = mTrack.getWayPointLocation(mTrack.getSize() - 1);
+        } else if (mCurrentBestLocation == null) {
+            // app does not have any location fix
+            mCurrentBestLocation = LocationHelper.determineLastKnownLocation(mLocationManager);
+        }
+
+        // check if really got a position
+        if (mCurrentBestLocation != null) {
+            position = convertToGeoPoint(mCurrentBestLocation);
+
+            // center map on current position
+            mController.setCenter(position);
+
+            // mark user's new location on map and remove last marker
+            updateMyLocationMarker();
+
+            // inform user about location quality
+            String locationInfo;
+            long locationAge =  (SystemClock.elapsedRealtimeNanos() - mCurrentBestLocation.getElapsedRealtimeNanos()) / 1000000;
+            String locationAgeString = LocationHelper.convertToReadableTime(locationAge, false);
+            if (locationAgeString == null) {
+                locationAgeString = mActivity.getString(R.string.toast_message_last_location_age_one_hour);
+            }
+            locationInfo = " " + locationAgeString + " | " + mCurrentBestLocation.getProvider();
+            Toast.makeText(mActivity, mActivity.getString(R.string.toast_message_last_location) + locationInfo, Toast.LENGTH_LONG).show();
+            return true;
+        } else {
+            Toast.makeText(mActivity, mActivity.getString(R.string.toast_message_location_services_not_ready), Toast.LENGTH_LONG).show();
+            return false;
+        }
     }
 
 

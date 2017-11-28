@@ -3,6 +3,7 @@
 
     <color name="trackbook_red">#FFE53935</color>
     <color name="trackbook_red_dark">#FFB71C1C</color>
+    <color name="trackbook_red_85percent">#D9E53935</color>
 
     <color name="trackbook_gold">#FFE6BA64</color>
 
@@ -13,7 +14,10 @@
     <color name="trackbook_green">#FF4CAF50</color>
 
     <color name="trackbook_white">#FFFFFFFF</color>
+    <color name="trackbook_white_85percent">#D9FFFFFF</color>
+    <color name="trackbook_black">#FF000000</color>
 
+    <color name="trackbook_grey_lighter">#FFECEFF1</color>
     <color name="trackbook_grey_light">#FF607d8b</color>
     <color name="trackbook_grey">#FF455a64</color>
     <color name="trackbook_grey_85percent">#D9455a64</color>

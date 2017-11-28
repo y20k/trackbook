@@ -1,20 +1,14 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="org.y20k.trackbook.MainActivity">
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/action_bar_my_location"
-        android:icon="@drawable/ic_my_location_white_24dp"
-        android:title="@string/menu_my_location"
-        android:visible="true"
-        app:showAsAction="ifRoom" />
-
+        android:id="@+id/navigation_map"
+        android:icon="@drawable/ic_compass_needle_black_24dp"
+        android:title="@string/tab_map" />
 
     <item
-        android:id="@+id/action_bar_about"
-        android:orderInCategory="100"
-        android:title="@string/menu_about"
-        app:showAsAction="never" />
+        android:id="@+id/navigation_last_tracks"
+        android:icon="@drawable/ic_notebook_black_24dp"
+        android:title="@string/tab_last_tracks" />
 
 </menu>
