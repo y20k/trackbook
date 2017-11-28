@@ -120,7 +120,7 @@
     <string name="descr_fab_sub_menu_label_2">Label van de Wissen-knop</string>
     <string name="descr_fab_sub_menu_button_2">kleine Wissen-knop</string>
     <string name="descr_statistics_sheet_headline">Kop van het statistiekenblad</string>
-    <string name="descr_statistics_sheet_icon">Pictogram van een staafgrafiek</string>
+    <string name="descr_statistics_sheet_icon">Informatiepictogram</string>
     <string name="descr_statistics_sheet_p_distance">Gegevenspunt: afstand</string>
     <string name="descr_statistics_sheet_p_steps">Gegevenspunt: stappen</string>
     <string name="descr_statistics_sheet_p_waypoints">Gegevenspunt: pauzepunten</string>
