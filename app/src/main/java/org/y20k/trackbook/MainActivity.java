@@ -312,56 +312,8 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
                 showFloatingActionButtonMenu(false);
             }
 
-            // add listeners to button and submenu
-            if (mFloatingActionButtonMain != null) {
-                mFloatingActionButtonMain.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        handleFloatingActionButtonClick(view);
-                    }
-                });
-            }
-            if (mFloatingActionButtonSubSave != null) {
-                mFloatingActionButtonSubSave.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        handleSaveButtonClick();
-                    }
-                });
-            }
-            if (mFloatingActionButtonSubSaveLabel != null) {
-                mFloatingActionButtonSubSaveLabel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        handleSaveButtonClick();
-                    }
-                });
-            }
-            if (mFloatingActionButtonSubClear != null) {
-                mFloatingActionButtonSubClear.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        handleClearButtonClick();
-                    }
-                });
-            }
-            if (mFloatingActionButtonSubClearLabel != null) {
-                mFloatingActionButtonSubClearLabel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        handleClearButtonClick();
-                    }
-                });
-            }
-            if (mFloatingActionButtonLocation != null) {
-                mFloatingActionButtonLocation.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        MainActivityMapFragment mainActivityMapFragment = (MainActivityMapFragment) getFragmentFromTag(FRAGMENT_TAG_MAP);
-                        mainActivityMapFragment.handleShowMyLocation();
-                    }
-                });
-            }
+            // add listeners to buttons
+            addListenersToViews();
 
             // show map fragment
             showFragment(FRAGMENT_ID_MAP);
@@ -386,6 +338,49 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
 
         }
 
+    }
+
+
+    /* Add listeners to ui buttons */
+    private void addListenersToViews() {
+
+        mFloatingActionButtonMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                handleFloatingActionButtonClick(view);
+            }
+        });
+        mFloatingActionButtonSubSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                handleSaveButtonClick();
+            }
+        });
+        mFloatingActionButtonSubSaveLabel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                handleSaveButtonClick();
+            }
+        });
+        mFloatingActionButtonSubClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                handleClearButtonClick();
+            }
+        });
+        mFloatingActionButtonSubClearLabel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                handleClearButtonClick();
+            }
+        });
+        mFloatingActionButtonLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MainActivityMapFragment mainActivityMapFragment = (MainActivityMapFragment) getFragmentFromTag(FRAGMENT_TAG_MAP);
+                mainActivityMapFragment.handleShowMyLocation();
+            }
+        });
     }
 
 

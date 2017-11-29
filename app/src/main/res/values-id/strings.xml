@@ -12,9 +12,9 @@
     <string name="header_about">Tentang Trackbook</string>
 
     <!-- tabs -->
-    <string name="tab_map">PETA</string>
-    <string name="tab_last_track">JALUR TERAKHIR</string>
-    <string name="tab_last_tracks">JALUR TERAKHIR</string>
+    <string name="tab_map">Peta</string>
+    <string name="tab_last_track">Jalur Terakhir</string>
+    <string name="tab_last_tracks">Jalur Terakhir</string>
 
     <!-- notification -->
     <string name="notification_title_trackbook_running">Trackbook aktif</string>

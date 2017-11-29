@@ -29,7 +29,7 @@
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:orientation="horizontal"
-            android:background="@color/trackbook_white_85percent">
+            android:background="@color/trackbook_white">
             <Spinner
                 android:id="@+id/track_selector"
                 android:layout_width="0dp"

@@ -12,9 +12,9 @@
     <string name="header_about">Om Trackbook</string>
 
     <!-- tabs -->
-    <string name="tab_map">KART</string>
-    <string name="tab_last_track">SISTE TUR</string>
-    <string name="tab_last_tracks">SISTE TURER</string>
+    <string name="tab_map">Kart</string>
+    <string name="tab_last_track">Siste Tur</string>
+    <string name="tab_last_tracks">Siste Turer</string>
 
     <!-- notification -->
     <string name="notification_title_trackbook_running">Trackbook kjører</string>
