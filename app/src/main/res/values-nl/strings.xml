@@ -13,8 +13,8 @@
 
     <!-- tabs -->
     <string name="tab_map">Kaart</string>
-    <string name="tab_last_track">Laatste Baan</string>
-    <string name="tab_last_tracks">Last Tracks</string>
+    <string name="tab_last_track">Laatste baan</string>
+    <string name="tab_last_tracks">Laatste banen</string>
 
     <!-- notification -->
     <string name="notification_title_trackbook_running">Trackbook is actief</string>
