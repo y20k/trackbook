@@ -74,8 +74,8 @@
         android:layout_width="@dimen/bottom_sheet_width"
         android:layout_height="match_parent"
         android:layout_gravity="bottom"
-        android:background="@color/trackbook_white_85percent"
-        app:behavior_hideable="true"
+        android:background="@color/trackbook_white"
+        app:behavior_hideable="false"
         app:behavior_peekHeight="112dp"
         app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
 

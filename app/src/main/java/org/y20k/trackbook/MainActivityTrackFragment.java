@@ -30,6 +30,7 @@ import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -438,16 +439,12 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
                     case BottomSheetBehavior.STATE_EXPANDED:
                         // statistics sheet expanded
                         mTrackManagementLayout.setVisibility(View.INVISIBLE);
-//                        mStatisticsSheet.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.trackbook_blue_85percent));
-//                        mStatisticsIcon.setBackgroundResource(R.drawable.ic_statistics_white_48dp);
-//                        mStatisticsHeadline.setVisibility(View.VISIBLE);
+                        mStatisticsSheet.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.trackbook_white_85percent));
                         break;
                     case BottomSheetBehavior.STATE_COLLAPSED:
                         // statistics sheet collapsed
                         mTrackManagementLayout.setVisibility(View.VISIBLE);
-//                        mStatisticsSheet.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.trackbook_transparent));
-//                        mStatisticsIcon.setBackgroundResource(R.drawable.ic_statistics_blue_48dp);
-//                        mStatisticsHeadline.setVisibility(View.INVISIBLE);
+                        mStatisticsSheet.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.trackbook_white));
                         mStatisticsSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                         break;
                     case BottomSheetBehavior.STATE_HIDDEN:
@@ -466,15 +463,11 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
                 } else {
                     mTrackManagementLayout.setVisibility(View.INVISIBLE);
                 }
-//                if (slideOffset < 0.125f) {
-//                    mStatisticsSheet.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.trackbook_transparent));
-//                    mStatisticsIcon.setBackgroundResource(R.drawable.ic_statistics_blue_48dp);
-//                    mStatisticsHeadline.setVisibility(View.INVISIBLE);
-//                } else {
-//                    mStatisticsSheet.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.trackbook_blue_85percent));
-//                    mStatisticsIcon.setBackgroundResource(R.drawable.ic_statistics_white_48dp);
-//                    mStatisticsHeadline.setVisibility(View.VISIBLE);
-//                }
+                if (slideOffset < 0.125f) {
+                    mStatisticsSheet.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.trackbook_white));
+                } else {
+                    mStatisticsSheet.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.trackbook_white_85percent));
+                }
             }
         };
     }
