@@ -24,5 +24,7 @@
 
     <color name="trackbook_transparent">#00000000</color>
 
+    <color name="trackbook_icon_background_light">#FF4caf50</color>
+    <color name="trackbook_icon_background_dark">#FF289033</color>
 
 </resources>
