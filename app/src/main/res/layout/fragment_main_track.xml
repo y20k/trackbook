@@ -3,7 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivityMapFragment">
@@ -12,59 +11,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- MAP VIEW -->
+        <!-- OSM MAP -->
         <org.osmdroid.views.MapView
             android:id="@+id/track_map"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:contentDescription="@string/descr_map_last_track" />
 
+        <!-- OPTIONAL ONBOARDING  -->
         <include layout="@layout/fragment_main_track_onboarding" />
 
-        <!-- TRACK SELECTION -->
-        <LinearLayout
-            android:id="@+id/track_management_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:orientation="horizontal"
-            android:background="@color/trackbook_white">
-            <Spinner
-                android:id="@+id/track_selector"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="start|center"
-                android:theme="@style/TrackbookAppTheme.PopupOverlay"
-                android:contentDescription="@string/descr_track_selector" />
-            <ImageButton
-                android:visibility="visible"
-                android:id="@+id/export_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end|center"
-                android:paddingStart="@dimen/activity_horizontal_margin"
-                android:paddingEnd="@dimen/activity_horizontal_margin"
-                android:src="@drawable/ic_file_download_grey_24dp"
-                android:background="@android:color/transparent"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:contentDescription="@string/descr_export_button" />
-            <ImageButton
-                android:visibility="visible"
-                android:id="@+id/delete_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end|center"
-                android:paddingStart="@dimen/activity_horizontal_margin"
-                android:paddingEnd="@dimen/activity_horizontal_margin"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:src="@drawable/ic_delete_forever_grey_24dp"
-                android:background="@android:color/transparent"
-                android:contentDescription="@string/descr_delete_button" />
-        </LinearLayout>
+        <!-- TRACK MANAGEMENT -->
+        <include layout="@layout/fragment_main_track_management" />
 
     </RelativeLayout>
 
@@ -73,7 +33,7 @@
         android:id="@+id/statistics_sheet"
         android:layout_width="@dimen/bottom_sheet_width"
         android:layout_height="match_parent"
-        android:layout_gravity="bottom"
+        android:layout_gravity="center_horizontal"
         android:background="@color/trackbook_white"
         app:behavior_hideable="false"
         app:behavior_peekHeight="112dp"
@@ -83,181 +43,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scrollbars="vertical">
-
-                <LinearLayout
-                    android:id="@+id/statistics_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="@dimen/activity_vertical_margin"
-                    android:paddingBottom="@dimen/activity_vertical_margin"
-                    android:paddingStart="@dimen/activity_horizontal_margin"
-                    android:paddingEnd="@dimen/activity_horizontal_margin"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:id="@+id/statistics_headline"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:textAppearance="@android:style/TextAppearance.Medium"
-                        android:layout_weight="1"
-                        android:gravity="start|center"
-                        android:textStyle="bold"
-                        android:textAllCaps="true"
-                        android:text="@string/statistics_sheet_h1_statistics"
-                        android:contentDescription="@string/descr_statistics_sheet_headline" />
-                    <ImageView
-                        android:id="@+id/statistics_icon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="end|center"
-                        android:contentDescription="@string/descr_statistics_sheet_icon"
-                        app:srcCompat="@drawable/ic_info_grey_24dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginStart="@dimen/activity_horizontal_margin"
-                    android:layout_marginEnd="@dimen/activity_horizontal_margin">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="4dp"
-                        android:text="@string/statistics_sheet_p_distance"
-                        android:textAppearance="@android:style/TextAppearance.Small"
-                        android:contentDescription="@string/descr_statistics_sheet_p_distance" />
-                    <TextView
-                        android:id="@+id/statistics_data_distance"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/statistics_sheet_p_default_data"
-                        android:textAppearance="@android:style/TextAppearance.Medium"
-                        android:contentDescription="@string/descr_statistics_sheet_p_distance_value" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginStart="@dimen/activity_horizontal_margin"
-                    android:layout_marginEnd="@dimen/activity_horizontal_margin">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="4dp"
-                        android:text="@string/statistics_sheet_p_steps"
-                        android:textAppearance="@android:style/TextAppearance.Small"
-                        android:contentDescription="@string/descr_statistics_sheet_p_steps" />
-                    <TextView
-                        android:id="@+id/statistics_data_steps"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/statistics_sheet_p_default_data"
-                        android:textAppearance="@android:style/TextAppearance.Medium"
-                        android:contentDescription="@string/descr_statistics_sheet_p_steps_value" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginStart="@dimen/activity_horizontal_margin"
-                    android:layout_marginEnd="@dimen/activity_horizontal_margin">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="4dp"
-                        android:text="@string/statistics_sheet_p_waypoints"
-                        android:textAppearance="@android:style/TextAppearance.Small"
-                        android:contentDescription="@string/descr_statistics_sheet_p_waypoints" />
-                    <TextView
-                        android:id="@+id/statistics_data_waypoints"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/statistics_sheet_p_default_data"
-                        android:textAppearance="@android:style/TextAppearance.Medium"
-                        android:contentDescription="@string/descr_statistics_sheet_p_waypoints_value" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginStart="@dimen/activity_horizontal_margin"
-                    android:layout_marginEnd="@dimen/activity_horizontal_margin">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="4dp"
-                        android:text="@string/statistics_sheet_p_duration"
-                        android:textAppearance="@android:style/TextAppearance.Small"
-                        android:contentDescription="@string/descr_statistics_sheet_p_duration" />
-                    <TextView
-                        android:id="@+id/statistics_data_duration"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/statistics_sheet_p_default_data"
-                        android:textAppearance="@android:style/TextAppearance.Medium"
-                        android:contentDescription="@string/descr_statistics_sheet_p_duration_value" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginStart="@dimen/activity_horizontal_margin"
-                    android:layout_marginEnd="@dimen/activity_horizontal_margin">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="4dp"
-                        android:text="@string/statistics_sheet_p_recording_start"
-                        android:textAppearance="@android:style/TextAppearance.Small"
-                        android:contentDescription="@string/descr_statistics_sheet_p_recording_start" />
-                    <TextView
-                        android:id="@+id/statistics_data_recording_start"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/statistics_sheet_p_default_data"
-                        android:textAppearance="@android:style/TextAppearance.Medium"
-                        android:contentDescription="@string/descr_statistics_sheet_p_recording_start_value" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginStart="@dimen/activity_horizontal_margin"
-                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                    android:layout_marginBottom="48dp">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="4dp"
-                        android:text="@string/statistics_sheet_p_recording_stop"
-                        android:textAppearance="@android:style/TextAppearance.Small"
-                        android:contentDescription="@string/descr_statistics_sheet_p_recording_end" />
-                    <TextView
-                        android:id="@+id/statistics_data_recording_stop"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/statistics_sheet_p_default_data"
-                        android:textAppearance="@android:style/TextAppearance.Medium"
-                        android:contentDescription="@string/descr_statistics_sheet_p_recording_end_value" />
-                </LinearLayout>
-
-            </LinearLayout>
+            <!-- STATISTICS -->
+            <include layout="@layout/fragment_main_track_statistics" />
 
         </ScrollView>
 

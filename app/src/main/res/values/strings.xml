@@ -123,7 +123,7 @@
     <string name="descr_fab_sub_menu_label_2">Label of the Clear button</string>
     <string name="descr_fab_sub_menu_button_2">small Clear button</string>
     <string name="descr_statistics_sheet_headline">Headline of the statistics sheet</string>
-    <string name="descr_statistics_sheet_icon">Icon of a bar chart</string>
+    <string name="descr_statistics_sheet_icon">Information icon</string>
     <string name="descr_statistics_sheet_p_distance">Data point: Distance</string>
     <string name="descr_statistics_sheet_p_steps">Data point: Steps</string>
     <string name="descr_statistics_sheet_p_waypoints">Data point: Waypoints</string>

@@ -26,6 +26,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -37,7 +38,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -80,10 +80,10 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
     private IMapController mController;
     private ItemizedIconOverlay mTrackOverlay;
     private DropdownAdapter mDropdownAdapter;
-    private LinearLayout mTrackManagementLayout;
+    private ConstraintLayout mTrackManagementLayout;
     private Spinner mDropdown;
     private View mStatisticsSheet;
-    private ImageView mStatisticsIcon;
+    private ImageButton mStatisticsIcon;
     private TextView mStatisticsHeadline;
     private TextView mDistanceView;
     private TextView mStepsView;
@@ -188,7 +188,7 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
         }
 
         // get views for track selector
-        mTrackManagementLayout = (LinearLayout) mRootView.findViewById(R.id.track_management_layout);
+        mTrackManagementLayout = (ConstraintLayout) mRootView.findViewById(R.id.track_management_layout);
         mDropdown = (Spinner) mRootView.findViewById(R.id.track_selector);
 
         // attach listeners to export and delete buttons

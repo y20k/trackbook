@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/statistics_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/statistics_headline"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="16dp"
+        android:contentDescription="@string/descr_statistics_sheet_headline"
+        android:text="@string/statistics_sheet_h1_statistics"
+        android:textAllCaps="true"
+        android:textAppearance="@android:style/TextAppearance.Medium"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/statistics_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/statistics_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:background="@color/trackbook_transparent"
+        android:contentDescription="@string/descr_statistics_sheet_icon"
+        app:layout_constraintBottom_toBottomOf="@+id/statistics_headline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/statistics_headline"
+        app:srcCompat="@drawable/ic_info_grey_24dp" />
+
+    <TextView
+        android:id="@+id/statistics_p_distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:contentDescription="@string/descr_statistics_sheet_p_distance"
+        android:text="@string/statistics_sheet_p_distance"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
+        app:layout_constraintStart_toStartOf="@+id/statistics_headline"
+        app:layout_constraintTop_toBottomOf="@+id/statistics_headline" />
+
+    <TextView
+        android:id="@+id/statistics_data_distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:contentDescription="@string/descr_statistics_sheet_p_distance_value"
+        android:text="@string/statistics_sheet_p_default_data"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        app:layout_constraintBottom_toBottomOf="@+id/statistics_p_distance"
+        app:layout_constraintStart_toEndOf="@+id/statistics_p_distance"
+        app:layout_constraintTop_toTopOf="@+id/statistics_p_distance" />
+
+    <TextView
+        android:id="@+id/statistics_p_steps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:contentDescription="@string/descr_statistics_sheet_p_steps"
+        android:text="@string/statistics_sheet_p_steps"
+        app:layout_constraintStart_toStartOf="@+id/statistics_p_distance"
+        app:layout_constraintTop_toBottomOf="@+id/statistics_p_distance" />
+
+    <TextView
+        android:id="@+id/statistics_data_steps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:contentDescription="@string/descr_statistics_sheet_p_steps_value"
+        android:text="@string/statistics_sheet_p_default_data"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        app:layout_constraintBottom_toBottomOf="@+id/statistics_p_steps"
+        app:layout_constraintStart_toEndOf="@+id/statistics_p_steps"
+        app:layout_constraintTop_toTopOf="@+id/statistics_p_steps" />
+
+    <TextView
+        android:id="@+id/statistics_p_waypoints"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="@string/descr_statistics_sheet_p_waypoints"
+        android:text="@string/statistics_sheet_p_waypoints"
+        app:layout_constraintStart_toStartOf="@+id/statistics_p_steps"
+        app:layout_constraintTop_toBottomOf="@+id/statistics_p_steps" />
+
+    <TextView
+        android:id="@+id/statistics_data_waypoints"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:contentDescription="@string/descr_statistics_sheet_p_waypoints_value"
+        android:text="@string/statistics_sheet_p_default_data"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        app:layout_constraintBottom_toBottomOf="@+id/statistics_p_waypoints"
+        app:layout_constraintStart_toEndOf="@+id/statistics_p_waypoints"
+        app:layout_constraintTop_toTopOf="@+id/statistics_p_waypoints" />
+
+    <TextView
+        android:id="@+id/statistics_p_duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:contentDescription="@string/descr_statistics_sheet_p_duration"
+        android:text="@string/statistics_sheet_p_duration"
+        app:layout_constraintStart_toStartOf="@+id/statistics_p_waypoints"
+        app:layout_constraintTop_toBottomOf="@+id/statistics_p_waypoints" />
+
+    <TextView
+        android:id="@+id/statistics_data_duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:contentDescription="@string/descr_statistics_sheet_p_duration_value"
+        android:text="@string/statistics_sheet_p_default_data"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        app:layout_constraintBottom_toBottomOf="@+id/statistics_p_duration"
+        app:layout_constraintStart_toEndOf="@+id/statistics_p_duration"
+        app:layout_constraintTop_toTopOf="@+id/statistics_p_duration" />
+
+    <TextView
+        android:id="@+id/statistics_p_recording_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:contentDescription="@string/descr_statistics_sheet_p_recording_start"
+        android:text="@string/statistics_sheet_p_recording_start"
+        app:layout_constraintStart_toStartOf="@+id/statistics_p_duration"
+        app:layout_constraintTop_toBottomOf="@+id/statistics_p_duration" />
+
+    <TextView
+        android:id="@+id/statistics_data_recording_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:contentDescription="@string/descr_statistics_sheet_p_recording_start_value"
+        android:text="@string/statistics_sheet_p_default_data"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        app:layout_constraintBottom_toBottomOf="@+id/statistics_p_recording_start"
+        app:layout_constraintStart_toEndOf="@+id/statistics_p_recording_start"
+        app:layout_constraintTop_toTopOf="@+id/statistics_p_recording_start" />
+
+    <TextView
+        android:id="@+id/statistics_p_recording_stop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="@string/descr_statistics_sheet_p_recording_end"
+        android:text="@string/statistics_sheet_p_recording_stop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/statistics_p_recording_start"
+        app:layout_constraintTop_toBottomOf="@+id/statistics_p_recording_start" />
+
+    <TextView
+        android:id="@+id/statistics_data_recording_stop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:contentDescription="@string/descr_statistics_sheet_p_recording_end_value"
+        android:text="@string/statistics_sheet_p_default_data"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        app:layout_constraintBottom_toBottomOf="@+id/statistics_p_recording_stop"
+        app:layout_constraintStart_toEndOf="@+id/statistics_p_recording_stop"
+        app:layout_constraintTop_toTopOf="@+id/statistics_p_recording_stop" />
+
+</android.support.constraint.ConstraintLayout>
