@@ -24,11 +24,11 @@ allprojects {
         versionCode = 16
         versionName = '1.1.0'
         minSdkVersion = 22
-        compileSdkVersion = 26
-        targetSdkVersion = 26
-        buildToolsVersion = '26.0.2'
-        supportLibraryVersion = '26.1.0'
-        constraintLayoutVersion = '1.1.0-beta3'
+        compileSdkVersion = 27
+        targetSdkVersion = 27
+        buildToolsVersion = '27.0.2'
+        supportLibraryVersion = '27.0.2'
+        constraintLayoutVersion = '1.1.0-beta4'
 
         osmdroidVersion = '5.6.5'
         gsonVersion = '2.8.2'
