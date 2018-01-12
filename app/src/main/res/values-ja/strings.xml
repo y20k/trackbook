@@ -120,7 +120,7 @@
     <string name="descr_fab_sub_menu_label_2">クリア ボタンのラベル</string>
     <string name="descr_fab_sub_menu_button_2">小さなクリア ボタン</string>
     <string name="descr_statistics_sheet_headline">統計情報シートの見出し</string>
-    <string name="descr_statistics_sheet_icon">棒グラフのアイコン</string>
+    <string name="descr_statistics_sheet_icon">情報アイコン</string>
     <string name="descr_statistics_sheet_p_distance">データ地点: 距離</string>
     <string name="descr_statistics_sheet_p_steps">データ地点: 歩数</string>
     <string name="descr_statistics_sheet_p_waypoints">データ地点: ウェイポイント</string>
