@@ -6,7 +6,7 @@
  * This file is part of
  * TRACKBOOK - Movement Recorder for Android
  *
- * Copyright (c) 2016-17 - Y20K.org
+ * Copyright (c) 2016-18 - Y20K.org
  * Licensed under the MIT-License
  * http://opensource.org/licenses/MIT
  *
@@ -31,24 +31,31 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.util.SparseArray;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
 import org.y20k.trackbook.helpers.DialogHelper;
 import org.y20k.trackbook.helpers.LogHelper;
 import org.y20k.trackbook.helpers.TrackbookKeys;
+import org.y20k.trackbook.layout.NonSwipeableViewPager;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -66,6 +73,8 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
 
     /* Main class variables */
     private BottomNavigationView mBottomNavigationView;
+    private NonSwipeableViewPager mViewPager;
+    private SectionsPagerAdapter mSectionsPagerAdapter;
     private boolean mTrackerServiceRunning;
     private boolean mPermissionsGranted;
     private boolean mFloatingActionButtonSubMenuVisible;
@@ -207,7 +216,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         mTrackerServiceRunning = savedInstanceState.getBoolean(INSTANCE_TRACKING_STATE, false);
-        mSelectedTab = savedInstanceState.getInt(INSTANCE_SELECTED_TAB, 0);
+        mSelectedTab = savedInstanceState.getInt(INSTANCE_SELECTED_TAB, FRAGMENT_ID_MAP);
         mFloatingActionButtonSubMenuVisible = savedInstanceState.getBoolean(INSTANCE_FAB_SUB_MENU_VISIBLE, false);
     }
 
@@ -239,6 +248,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     private void handleStateAfterSave() {
         // display and update track tab
         mSelectedTab = FRAGMENT_ID_TRACKS;
+        mViewPager.setCurrentItem(mSelectedTab);
 
         // dismiss notification
         Intent intent = new Intent(this, TrackerService.class);
@@ -295,6 +305,14 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
             // point to the main map layout
             setContentView(R.layout.activity_main);
 
+            // create adapter that returns fragments for the maim map and the last track display
+            mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+
+            // set up the ViewPager with the sections adapter.
+            mViewPager = (NonSwipeableViewPager) findViewById(R.id.container2);
+            mViewPager.setAdapter(mSectionsPagerAdapter);
+            mViewPager.setCurrentItem(mSelectedTab);
+
             // setup bottom navigation
             mBottomNavigationView = findViewById(R.id.navigation);
             mBottomNavigationView.setOnNavigationItemSelectedListener(getOnNavigationItemSelectedListener());
@@ -315,8 +333,8 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
             // add listeners to buttons
             addListenersToViews();
 
-            // show map fragment
-            showFragment(FRAGMENT_ID_MAP);
+//            // show map fragment
+//            showFragment(FRAGMENT_ID_MAP);
 
         } else {
             // point to the on main onboarding layout
@@ -377,7 +395,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
         mFloatingActionButtonLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MainActivityMapFragment mainActivityMapFragment = (MainActivityMapFragment) getFragmentFromTag(FRAGMENT_TAG_MAP);
+                MainActivityMapFragment mainActivityMapFragment = (MainActivityMapFragment) mSectionsPagerAdapter.getFragment(FRAGMENT_ID_MAP);
                 mainActivityMapFragment.handleShowMyLocation();
             }
         });
@@ -387,7 +405,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     /* Handles tap on the button "save and clear" */
     private void handleSaveButtonClick() {
         // todo check -> may produce NullPointerException
-        MainActivityMapFragment mainActivityMapFragment = (MainActivityMapFragment) getFragmentFromTag(FRAGMENT_TAG_MAP);
+        MainActivityMapFragment mainActivityMapFragment = (MainActivityMapFragment) mSectionsPagerAdapter.getFragment(FRAGMENT_ID_MAP);
         mainActivityMapFragment.onActivityResult(RESULT_SAVE_DIALOG, Activity.RESULT_OK, getIntent());
         handleStateAfterSave();
     }
@@ -401,7 +419,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
         int dialogNegativeButton = R.string.dialog_default_action_cancel;
 
         // show delete dialog - results are handles by onActivityResult
-        MainActivityMapFragment mainActivityMapFragment = (MainActivityMapFragment) getFragmentFromTag(FRAGMENT_TAG_MAP);
+        MainActivityMapFragment mainActivityMapFragment = (MainActivityMapFragment) mSectionsPagerAdapter.getFragment(FRAGMENT_ID_MAP);
         DialogFragment dialogFragment = DialogHelper.newInstance(dialogTitle, dialogMessage, dialogPositiveButton, dialogNegativeButton);
         dialogFragment.setTargetFragment(mainActivityMapFragment, RESULT_CLEAR_DIALOG);
         dialogFragment.show(getSupportFragmentManager(), "ClearDialog");
@@ -422,7 +440,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
                 setFloatingActionButtonState();
 
                 // get last location from MainActivity Fragment // todo check -> may produce NullPointerException
-                MainActivityMapFragment mainActivityMapFragment = (MainActivityMapFragment) getFragmentFromTag(FRAGMENT_TAG_MAP);
+                MainActivityMapFragment mainActivityMapFragment = (MainActivityMapFragment) mSectionsPagerAdapter.getFragment(FRAGMENT_ID_MAP);
                 Location lastLocation = mainActivityMapFragment.getCurrentBestLocation();
 
                 if (lastLocation != null) {
@@ -472,7 +490,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
         }
 
         // update tracking state in MainActivityMapFragment // todo check -> may produce NullPointerException
-        MainActivityMapFragment mainActivityMapFragment = (MainActivityMapFragment) getFragmentFromTag(FRAGMENT_TAG_MAP);
+        MainActivityMapFragment mainActivityMapFragment = (MainActivityMapFragment) mSectionsPagerAdapter.getFragment(FRAGMENT_ID_MAP);
         mainActivityMapFragment.setTrackingState(mTrackerServiceRunning);
     }
 
@@ -558,48 +576,6 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     }
 
 
-    /* Show fragment for given position */
-    private void showFragment(int pos) {
-        Fragment fragment = null;
-        String tag = null;
-
-        // define tag
-        if (pos == FRAGMENT_ID_TRACKS) {
-            tag = FRAGMENT_TAG_TRACKS;
-        } else {
-            tag = FRAGMENT_TAG_MAP;
-        }
-        // get fragment
-        fragment = getFragmentFromTag(tag);
-
-        // update selected tab
-        mSelectedTab = pos;
-
-        // place fragment in container
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, fragment, tag )
-                .commit();
-    }
-
-
-    /* Returns a fragment for a given tag - creates a new instance if necessary */
-    private Fragment getFragmentFromTag(String tag) {
-        Fragment fragment = null;
-        fragment = getSupportFragmentManager().findFragmentByTag(tag);
-
-        if (fragment != null) {
-            return fragment;
-        } else {
-            if (tag.equals(FRAGMENT_TAG_TRACKS)) {
-                fragment = MainActivityTrackFragment.newInstance();
-            } else {
-                fragment = MainActivityMapFragment.newInstance();
-            }
-            return fragment;
-        }
-    }
-
-
     /* Handles taps on the bottom navigation */
     private BottomNavigationView.OnNavigationItemSelectedListener getOnNavigationItemSelectedListener() {
         return new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -615,7 +591,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
 
                         // show map fragment
                         mSelectedTab = FRAGMENT_ID_MAP;
-                        showFragment(FRAGMENT_ID_MAP);
+                        mViewPager.setCurrentItem(mSelectedTab);
 
                         return true;
 
@@ -629,7 +605,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
 
                         // show tracks fragment
                         mSelectedTab = FRAGMENT_ID_TRACKS;
-                        showFragment(FRAGMENT_ID_TRACKS);
+                        mViewPager.setCurrentItem(mSelectedTab);
 
                         return true;
 
@@ -652,7 +628,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
             case ACTION_SHOW_MAP:
                 // show map fragment
                 mSelectedTab = FRAGMENT_ID_MAP;
-                mBottomNavigationView.setSelectedItemId(FRAGMENT_ID_MAP);
+                mViewPager.setCurrentItem(mSelectedTab);
 
                 // clear intent
                 intent.setAction(ACTION_DEFAULT);
@@ -696,7 +672,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
                 setFloatingActionButtonState();
 
                 // pass tracking state to MainActivityMapFragment // todo check -> may produce NullPointerException
-                MainActivityMapFragment mainActivityMapFragment = (MainActivityMapFragment) getFragmentFromTag(FRAGMENT_TAG_MAP);
+                MainActivityMapFragment mainActivityMapFragment = (MainActivityMapFragment) mSectionsPagerAdapter.getFragment(FRAGMENT_ID_MAP);
                 mainActivityMapFragment.setTrackingState(false);
             }
         };
@@ -718,5 +694,77 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
             System.exit(1);
         }
     }
+
+
+    /**
+     * Inner class: SectionsPagerAdapter that returns a fragment corresponding to one of the tabs.
+     * see also: https://developer.android.com/reference/android/support/v4/app/FragmentPagerAdapter.html
+     * and: http://www.truiton.com/2015/12/android-activity-fragment-communication/
+     */
+    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+
+        private final SparseArray<WeakReference<Fragment>> instantiatedFragments = new SparseArray<>();
+
+        public SectionsPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            // getItem is called to instantiate the fragment for the given page.
+            switch (position) {
+                case FRAGMENT_ID_MAP:
+                    return new MainActivityMapFragment();
+                case FRAGMENT_ID_TRACKS:
+                    return new MainActivityTrackFragment();
+            }
+            return null;
+        }
+
+        @Override
+        public int getCount() {
+            // Show 2 total pages.
+            return 2;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            switch (position) {
+                case FRAGMENT_ID_MAP:
+                    return getString(R.string.tab_map);
+                case FRAGMENT_ID_TRACKS:
+                    return getString(R.string.tab_last_tracks);
+            }
+            return null;
+        }
+
+        @Override
+        public Object instantiateItem(final ViewGroup container, final int position) {
+            final Fragment fragment = (Fragment) super.instantiateItem(container, position);
+            instantiatedFragments.put(position, new WeakReference<>(fragment));
+            return fragment;
+        }
+
+        @Override
+        public void destroyItem(final ViewGroup container, final int position, final Object object) {
+            instantiatedFragments.remove(position);
+            super.destroyItem(container, position, object);
+        }
+
+        @Nullable
+        public Fragment getFragment(final int position) {
+            final WeakReference<Fragment> wr = instantiatedFragments.get(position);
+            if (wr != null) {
+                return wr.get();
+            } else {
+                return null;
+            }
+        }
+
+    }
+    /**
+     * End of inner class
+     */
+
 
 }

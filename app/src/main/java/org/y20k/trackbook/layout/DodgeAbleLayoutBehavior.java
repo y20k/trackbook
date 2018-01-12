@@ -6,7 +6,7 @@
  * This file is part of
  * TRACKBOOK - Movement Recorder for Android
  *
- * Copyright (c) 2016-17 - Y20K.org
+ * Copyright (c) 2016-18 - Y20K.org
  * Licensed under the MIT-License
  * http://opensource.org/licenses/MIT
  *

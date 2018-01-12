@@ -36,7 +36,7 @@
         android:layout_gravity="center_horizontal"
         android:background="@color/trackbook_white"
         app:behavior_hideable="false"
-        app:behavior_peekHeight="112dp"
+        app:behavior_peekHeight="54dp"
         app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
 
         <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"

@@ -6,7 +6,7 @@
  * This file is part of
  * TRACKBOOK - Movement Recorder for Android
  *
- * Copyright (c) 2016-17 - Y20K.org
+ * Copyright (c) 2016-18 - Y20K.org
  * Licensed under the MIT-License
  * http://opensource.org/licenses/MIT
  *
@@ -174,7 +174,7 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
         CompassOverlay compassOverlay = new CompassOverlay(mActivity, new InternalCompassOrientationProvider(mActivity), mMapView);
         compassOverlay.enableCompass();
         // move the compass overlay down a bit
-        compassOverlay.setCompassCenter(35.0f, 80.0f);
+        compassOverlay.setCompassCenter(35.0f, 96.0f);
         mMapView.getOverlays().add(compassOverlay);
 
         // initiate map state
