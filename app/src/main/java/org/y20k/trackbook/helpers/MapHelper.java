@@ -19,7 +19,7 @@ package org.y20k.trackbook.helpers;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
-import android.support.v7.widget.AppCompatDrawableManager;
+import android.support.v4.content.ContextCompat;
 import android.widget.Toast;
 
 import org.osmdroid.util.GeoPoint;
@@ -33,7 +33,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
 
 /**
  * MapHelper class
@@ -52,11 +51,9 @@ public final class MapHelper {
         // create marker
         Drawable newMarker;
         if (locationIsNew) {
-            // noinspection RestrictedApi // TODO remove as soon as support library gets updated
-            newMarker = AppCompatDrawableManager.get().getDrawable(context, R.drawable.ic_my_location_dot_blue_24dp);
+            newMarker = ContextCompat.getDrawable(context, R.drawable.ic_my_location_dot_blue_24dp);
         } else {
-            //noinspection RestrictedApi
-            newMarker = AppCompatDrawableManager.get().getDrawable(context, R.drawable.ic_my_location_dot_grey_24dp);
+            newMarker = ContextCompat.getDrawable(context, R.drawable.ic_my_location_dot_grey_24dp);
         }
         OverlayItem overlayItem = createOverlayItem(context, currentBestLocation);
         overlayItem.setMarker(newMarker);
@@ -104,12 +101,10 @@ public final class MapHelper {
             if (trackingActive && !currentPosition) {
                 if (wayPoint.getIsStopOver()) {
                     // stop over marker
-                    // noinspection RestrictedApi // TODO remove as soon as support library gets updated
-                    newMarker = AppCompatDrawableManager.get().getDrawable(context, R.drawable.ic_my_location_crumb_grey_24dp);
+                    newMarker = ContextCompat.getDrawable(context, R.drawable.ic_my_location_crumb_grey_24dp);
                 } else {
                     // default marker for this case
-                    // noinspection RestrictedApi // TODO remove as soon as support library gets updated
-                    newMarker = AppCompatDrawableManager.get().getDrawable(context, R.drawable.ic_my_location_crumb_red_24dp);
+                    newMarker = ContextCompat.getDrawable(context, R.drawable.ic_my_location_crumb_red_24dp);
                 }
             }
 
@@ -117,12 +112,10 @@ public final class MapHelper {
             else if (trackingActive && currentPosition) {
                 if (wayPoint.getIsStopOver()) {
                     // stop over marker
-                    // noinspection RestrictedApi // TODO remove as soon as support library gets updated
-                    newMarker = AppCompatDrawableManager.get().getDrawable(context, R.drawable.ic_my_location_dot_grey_24dp);
+                    newMarker = ContextCompat.getDrawable(context, R.drawable.ic_my_location_dot_grey_24dp);
                 } else {
                     // default marker for this case
-                    // noinspection RestrictedApi // TODO remove as soon as support library gets updated
-                    newMarker = AppCompatDrawableManager.get().getDrawable(context, R.drawable.ic_my_location_dot_red_24dp);
+                    newMarker = ContextCompat.getDrawable(context, R.drawable.ic_my_location_dot_red_24dp);
                 }
             }
 
@@ -130,20 +123,17 @@ public final class MapHelper {
             else if (!trackingActive && !currentPosition) {
                 if (wayPoint.getIsStopOver()) {
                     // stop over marker
-                    // noinspection RestrictedApi // TODO remove as soon as support library gets updated
-                    newMarker = AppCompatDrawableManager.get().getDrawable(context, R.drawable.ic_my_location_crumb_grey_24dp);
+                    newMarker = ContextCompat.getDrawable(context, R.drawable.ic_my_location_crumb_grey_24dp);
                 } else {
                     // default marker for this case
-                    // noinspection RestrictedApi // TODO remove as soon as support library gets updated
-                    newMarker = AppCompatDrawableManager.get().getDrawable(context, R.drawable.ic_my_location_crumb_blue_24dp);
+                    newMarker = ContextCompat.getDrawable(context, R.drawable.ic_my_location_crumb_blue_24dp);
                 }
             }
 
             // CASE 4: Tracking not active and WayPoint is current position
             else {
                 // default marker
-                // noinspection RestrictedApi // TODO remove as soon as support library gets updated
-                newMarker = AppCompatDrawableManager.get().getDrawable(context, R.drawable.ic_my_location_crumb_blue_24dp);
+                newMarker = ContextCompat.getDrawable(context, R.drawable.ic_my_location_crumb_blue_24dp);
             }
 
             // create overlay item

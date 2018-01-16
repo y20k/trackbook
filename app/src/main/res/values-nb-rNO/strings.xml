@@ -5,15 +5,11 @@
     <string name="title_activity_infosheet">Infoark</string>
 
     <!-- menu entries -->
-    <string name="menu_my_location">Min plasssering</string>
-    <string name="menu_about">Om</string>
 
     <!-- headers -->
-    <string name="header_about">Om Trackbook</string>
 
     <!-- tabs -->
     <string name="tab_map">Kart</string>
-    <string name="tab_last_track">Siste Tur</string>
     <string name="tab_last_tracks">Siste Turer</string>
 
     <!-- notification -->
@@ -95,25 +91,10 @@
     <string name="track_tab_onboarding_h1_part_1">Dine registrerte turer</string>
     <string name="track_tab_onboarding_h1_part_2">… vil vises her.</string>
 
-    <!-- infosheet about -->
-    <string name="infosheet_about_h1_about">Om Trackbook</string>
-    <string name="infosheet_about_h2_recorder">Bevegelsesopptaker for Android</string>
-    <string name="infosheet_about_h3_version">Versjon 1.0 (Astronomy Domine)</string>
-    <string name="infosheet_about_p_bare">Trackbook er et minimalistisk program for opptak av dine bevegelser. Trackbook er bra for turgåing, reise eller trening. Når det er startet sporer det bevegelsene dine på et kart. Kartdataene kommer fra OpenStreetMap (OSM).</string>
-    <string name="infosheet_about_p_free">Trackbook er fri programvare. Kildekoden er å finne på GitHub og det er også et bra sted å rapportere feil eller bidra, hvis du er interessert. Trackbook er utgitt under MIT åpenkildekode-lisens. Trackbook bruker osmdroid til å vise kartet, som også er fri programvare utgitt med Apache-lisens.</string>
-    <string name="infosheet_about_h2_permissions">Hvilke tilganger trenger Trackbook?</string>
-    <string name="infosheet_about_h3_internet">Tilgang INTERNETT</string>
-    <string name="infosheet_about_p_internet">Trackbook må laste ned kartdata fra OpenStreetMap-tjenere og må derfor ha tilgang til Internett.</string>
-    <string name="infosheet_about_h3_network">Tilgangene ACCESS_WIFI_STATE og ACCESS_NETWORK_STATE</string>
-    <string name="infosheet_about_p_network">Trackbook bruker osmdroid til å tegne kartene. osmdroid trenger å vite gjeldende tilstand for din enhets tilkobling.</string>
-    <string name="infosheet_about_h3_location">Tilgangene ACCESS_COARSE_LOCATION og ACCESS_FINE_LOCATION</string>
-    <string name="infosheet_about_p_location">Trackbook trenger nøyaktig GPS-data for å kunne registrere bevegelsene dine. Hvis GPS-dataen ikke er tilgjengelig eller nøyaktig nok, bruker Trackbook plasseringsdata fra mobilmaster og Wi-Fi-triangulering.</string>
-    <string name="infosheet_about_h3_external">Tilganger WRITE_EXTERNAL_STORAGE</string>
-    <string name="infosheet_about_p_external">Trackbook bruker osmdroid, som hurtiglagrer fliser på Androids eksterne lagringsmedie. Du kan finne kartflisene i osmdroid-mappa på toppnivået av brukergrensesnittet.</string>
-
     <!-- descriptions -->
     <string name="descr_map_current_track">Kartlegging av nåværende tur</string>
     <string name="descr_map_last_track">Kartlegging av forrige tur</string>
+    <string name="descr_fab_my_location">My Location Button</string>
     <string name="descr_fab_main">Hovedhandlingsknapp</string>
     <string name="descr_fab_sub_menu_label_1">Etikett for Lagre- og Tøm-knapp</string>
     <string name="descr_fab_sub_menu_button_1">liten Lagre- og Tøm-knapp</string>

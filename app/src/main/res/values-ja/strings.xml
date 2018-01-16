@@ -5,15 +5,11 @@
     <string name="title_activity_infosheet">情報シート</string>
 
     <!-- menu entries -->
-    <string name="menu_my_location">私の場所</string>
-    <string name="menu_about">アプリについて</string>
 
     <!-- headers -->
-    <string name="header_about">Trackbook について</string>
 
     <!-- tabs -->
     <string name="tab_map">地図</string>
-    <string name="tab_last_track">最後のトレース</string>
     <string name="tab_last_tracks">最後のトレース</string>
 
     <!-- notification -->
@@ -95,25 +91,10 @@
     <string name="track_tab_onboarding_h1_part_1">記録したトレース</string>
     <string name="track_tab_onboarding_h1_part_2">… ここに表示されます。</string>
 
-    <!-- infosheet about -->
-    <string name="infosheet_about_h1_about">Trackbook について</string>
-    <string name="infosheet_about_h2_recorder">Android 用の移動レコーダー</string>
-    <string name="infosheet_about_h3_version">バージョン 1.0 (Astronomy Domine)</string>
-    <string name="infosheet_about_p_bare">Trackbook は、動きを記録するためベアボーンアプリです。Trackbook は、ハイキング、旅行、運動に最適です。 開始すると、地図にあなたの動きをトレースします。 地図データは、OpenStreetMap (OSM) によって提供されます。</string>
-    <string name="infosheet_about_p_free">Trackbook はフリー ソフトウェアです。コードは GitHub 上で見つけることができます。GitHub は、バグの報告するのに良い場所です。興味があれば、貢献にも。Trackbook は、MIT オープン ソース ライセンスの下で公開されます。Trackbook は、Apache ライセンスの下で公開されるフリー ソフトウェアでもある、osmdroid を使用して地図を表示します。</string>
-    <string name="infosheet_about_h2_permissions">Trackbook には何のアクセス許可が必要ですか?</string>
-    <string name="infosheet_about_h3_internet">インターネット アクセス許可</string>
-    <string name="infosheet_about_p_internet">Trackbook は、OpenStreetMap サーバーから地図データをダウンロードする必要があります。したがって、インターネットへのアクセスが必要です。</string>
-    <string name="infosheet_about_h3_network">ACCESS_WIFI_STATE および ACCESS_NETWORK_STATE アクセス許可</string>
-    <string name="infosheet_about_p_network">Trackbook は、osmdroid を使用して地図を描画します。osmdroid は、デバイスの接続の現在の状態を知る必要があります。</string>
-    <string name="infosheet_about_h3_location">ACCESS_COARSE_LOCATION および ACCESS_FINE_LOCATION アクセス許可</string>
-    <string name="infosheet_about_p_location">Trackbook は、あなたの動きを記録できるように、正確な GPS の位置データを必要があります。GPS データが利用できないか、正確ではない場合、Trackbook は基地局および WiFi の三角測量の場所データを使用します。</string>
-    <string name="infosheet_about_h3_external">WRITE_EXTERNAL_STORAGE アクセス許可</string>
-    <string name="infosheet_about_p_external">Trackbook は、Android の外部ストレージに地図タイルをキャッシュする osmdroid を使用します。地図キャッシュは、ユーザー向けファイル・システムの最上位レベルの osmdroid フォルダーで見つけることができます。</string>
-
     <!-- descriptions -->
     <string name="descr_map_current_track">現在のトレースのマッピング</string>
     <string name="descr_map_last_track">最後のトレースのマッピング</string>
+    <string name="descr_fab_my_location">My Location Button</string>
     <string name="descr_fab_main">メイン アクション ボタン</string>
     <string name="descr_fab_sub_menu_label_1">保存とクリア ボタンのラベル</string>
     <string name="descr_fab_sub_menu_button_1">小さな保存してクリア ボタン</string>

@@ -5,15 +5,11 @@
     <string name="title_activity_infosheet">Infosheet</string>
 
     <!-- menu entries -->
-    <string name="menu_my_location">Lokasi Saya</string>
-    <string name="menu_about">Tentang</string>
 
     <!-- headers -->
-    <string name="header_about">Tentang Trackbook</string>
 
     <!-- tabs -->
     <string name="tab_map">Peta</string>
-    <string name="tab_last_track">Jalur Terakhir</string>
     <string name="tab_last_tracks">Jalur Terakhir</string>
 
     <!-- notification -->
@@ -95,25 +91,10 @@
     <string name="track_tab_onboarding_h1_part_1">Your recorded tracks</string>
     <string name="track_tab_onboarding_h1_part_2">… will show up here.</string>
 
-    <!-- infosheet about -->
-    <string name="infosheet_about_h1_about">About Trackbook</string>
-    <string name="infosheet_about_h2_recorder">Movement Recorder for Android</string>
-    <string name="infosheet_about_h3_version">Version 1.0 (Astronomy Domine)</string>
-    <string name="infosheet_about_p_bare">Trackbook is a bare bones app for recording your movements. Trackbook is great for hiking, vacation or workout. Once started it traces your movements on a map. The map data is provided by OpenStreetMap (OSM).</string>
-    <string name="infosheet_about_p_free">Trackbook is free software. You can find the code on GitHub. GitHub is also a good place to file bugs or even to contribute, if you are interested. Trackbook is published under the MIT open source license. Trackbook uses osmdroid to display the map, which is also free software published under the Apache License.</string>
-    <string name="infosheet_about_h2_permissions">Which Permissions does Trackbook need?</string>
-    <string name="infosheet_about_h3_internet">Permission INTERNET</string>
-    <string name="infosheet_about_p_internet">Trackbook needs to download map data from OpenStreetMap servers and therefore needs access to the internet.</string>
-    <string name="infosheet_about_h3_network">Permissions ACCESS_WIFI_STATE and ACCESS_NETWORK_STATE</string>
-    <string name="infosheet_about_p_network">Trackbook uses osmdroid to draw its maps. osmdroid needs to know the current state of your device’s connectivity.</string>
-    <string name="infosheet_about_h3_location">Permissions ACCESS_COARSE_LOCATION and ACCESS_FINE_LOCATION</string>
-    <string name="infosheet_about_p_location">Trackbook needs accurate GPS location data to be able to record your movements. If the GPS data is not available or not accurate enough Trackbook uses location data from cell tower and WiFi triangulation.</string>
-    <string name="infosheet_about_h3_external">Permission WRITE_EXTERNAL_STORAGE</string>
-    <string name="infosheet_about_p_external">Trackbook uses osmdroid, which caches map tiles on Android\'s external storage. You can find the map cache in the osmdroid folder on the top level of the user-facing file system.</string>
-
     <!-- descriptions -->
     <string name="descr_map_current_track">Mapping of current track</string>
     <string name="descr_map_last_track">Mapping of last track</string>
+    <string name="descr_fab_my_location">My Location Button</string>
     <string name="descr_fab_main">Main Action Button</string>
     <string name="descr_fab_sub_menu_label_1">Label of the Save and Clear button</string>
     <string name="descr_fab_sub_menu_button_1">small Save and Clear button</string>

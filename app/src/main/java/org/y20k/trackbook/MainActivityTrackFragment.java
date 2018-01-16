@@ -83,8 +83,6 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
     private ConstraintLayout mTrackManagementLayout;
     private Spinner mDropdown;
     private View mStatisticsSheet;
-    private ImageButton mStatisticsIcon;
-    private TextView mStatisticsHeadline;
     private TextView mDistanceView;
     private TextView mStepsView;
     private TextView mWaypointsView;
@@ -149,7 +147,7 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         // inflate root view from xml
         mRootView = inflater.inflate(R.layout.fragment_main_track, container, false);
@@ -199,8 +197,6 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
 
         // get views for statistics sheet
         View statisticsView = mRootView.findViewById(R.id.statistics_view);
-        mStatisticsIcon = mRootView.findViewById(R.id.statistics_icon);
-        mStatisticsHeadline = mRootView.findViewById(R.id.statistics_headline);
         mStatisticsSheet = mRootView.findViewById(R.id.statistics_sheet);
         mDistanceView = (TextView) mRootView.findViewById(R.id.statistics_data_distance);
         mStepsView = (TextView) mRootView.findViewById(R.id.statistics_data_steps);
@@ -243,7 +239,7 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
 
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mDropdown.setAdapter(mDropdownAdapter);
         mDropdown.setOnItemSelectedListener(this);
@@ -301,7 +297,7 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
 
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         outState.putDouble(INSTANCE_LATITUDE_TRACK_MAP, mMapView.getMapCenter().getLatitude());
         outState.putDouble(INSTANCE_LONGITUDE_TRACK_MAP, mMapView.getMapCenter().getLongitude());
         outState.putInt(INSTANCE_ZOOM_LEVEL_TRACK_MAP, mMapView.getZoomLevel());

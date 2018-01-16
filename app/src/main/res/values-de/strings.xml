@@ -5,15 +5,11 @@
     <string name="title_activity_infosheet">Infosheet</string>
 
     <!-- menu entries -->
-    <string name="menu_my_location">Mein Standort</string>
-    <string name="menu_about">Über Trackbook</string>
 
     <!-- headers -->
-    <string name="header_about">Über Trackbook</string>
 
     <!-- tabs -->
     <string name="tab_map">Karte</string>
-    <string name="tab_last_track">Letzte Aufzeichnung</string>
     <string name="tab_last_tracks">Letzte Aufzeichnungen</string>
 
     <!-- notification -->
@@ -95,25 +91,10 @@
     <string name="track_tab_onboarding_h1_part_1">Bewegungsaufzeichnungen</string>
     <string name="track_tab_onboarding_h1_part_2">… werden hier erscheinen.</string>
 
-    <!-- infosheet about -->
-    <string name="infosheet_about_h1_about">Über Trackbook</string>
-    <string name="infosheet_about_h2_recorder">Bewegungsrekorder für Android</string>
-    <string name="infosheet_about_h3_version">Version 1.0 (Astronomy Domine)</string>
-    <string name="infosheet_about_p_bare">Trackbook ist eine minimalistische App, um Standort-Bewegungen aufzuzeichnen. Trackbook eignet sich für Wandern, Urlaub und Sport. Im Aufnahmemodus werden Deine Bewegungen auf einer Karte nachgezeichnet. Die Kartendaten stammen von OpenStreetMap (OSM).</string>
-    <string name="infosheet_about_p_free">Trackbook ist Freie Software. Der Quellcode befindet sich auf GitHub. GitHub ist auch ein guter Ort, um Bugs zu melden oder um sich bei Interesse an der Weiterentwicklung zu beteiligen. Trackbook ist unter der MIT Open Source Lizenz veröffentlicht. Trackbook nutzt osmdroid um die Karten darstellen. osmdroid ist ebenfalls freie Software und ist unter der Apache Lizenz veröffentlicht.</string>
-    <string name="infosheet_about_h2_permissions">Welche Berechtigungen benötigt Trackbook?</string>
-    <string name="infosheet_about_h3_internet">Berechtigung INTERNET</string>
-    <string name="infosheet_about_p_internet">Trackbook lädt Kartendaten OpenStreetMap Servern und benötigt daher Zugang zum Internet.</string>
-    <string name="infosheet_about_h3_location">Berechtigung ACCESS_COARSE_LOCATION und ACCESS_FINE_LOCATION</string>
-    <string name="infosheet_about_p_location">Trackbook benötigt präzise GPS Informationen, um Bewegungen aufzeichnen zu können. Wenn GPS nicht verfügbar ist, oder wenn die GPS-Daten zu ungenau sind, nutzt Trackbook zur Ortung Mobilfunk- und WLAN-Triangulation.</string>
-    <string name="infosheet_about_h3_network">Berechtigung ACCESS_WIFI_STATE and ACCESS_NETWORK_STATE</string>
-    <string name="infosheet_about_p_network">Trackbook nutzt osmdroid für die Kartendarstellung. osmdroid benötigt Informationen über den aktuellen Netzwerkstatus Deines Geräts.</string>
-    <string name="infosheet_about_h3_external">Berechtigung WRITE_EXTERNAL_STORAGE</string>
-    <string name="infosheet_about_p_external">Trackbook nutzt osmdroid. osmdroid speichert Kartendaten im Externen Speicher von Android. Der Karten-Cache befindet sich im Ordner osmdroid auf der obersten Ebene des für Nutzer sichtbaren Dateisystems.</string>
-
     <!-- descriptions -->
     <string name="descr_map_current_track">Karte der aktuellen Aufzeichnung</string>
     <string name="descr_map_last_track">Karte der letzten Aufzeichnung</string>
+    <string name="descr_fab_my_location">Mein-Standort-Button</string>
     <string name="descr_fab_main">Haupt-Aktionsbutton</string>
     <string name="descr_fab_sub_menu_label_1">Beschreibung des Speichern-und-Zurücksetzen-Buttons</string>
     <string name="descr_fab_sub_menu_button_1">kleiner Speichern-und-Zurücksetzen-Button</string>

@@ -218,15 +218,6 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     }
 
 
-//    @Override
-//    public void onRestoreInstanceState(Bundle savedInstanceState) {
-//        super.onRestoreInstanceState(savedInstanceState);
-//        mTrackerServiceRunning = savedInstanceState.getBoolean(INSTANCE_TRACKING_STATE, false);
-//        mSelectedTab = savedInstanceState.getInt(INSTANCE_SELECTED_TAB, FRAGMENT_ID_MAP);
-//        mFloatingActionButtonSubMenuVisible = savedInstanceState.getBoolean(INSTANCE_FAB_SUB_MENU_VISIBLE, false);
-//    }
-
-
     /* Handles FloatingActionButton dialog results - called by MainActivityMapFragment after Saving and/or clearing the map */
     public void onFloatingActionButtonResult(int requestCode, int resultCode) {
         switch(requestCode) {
@@ -340,7 +331,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
             mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
             // set up the ViewPager with the sections adapter.
-            mViewPager = (NonSwipeableViewPager) findViewById(R.id.container2);
+            mViewPager = (NonSwipeableViewPager) findViewById(R.id.fragmentContainer);
             mViewPager.setAdapter(mSectionsPagerAdapter);
 
             // setup bottom navigation
@@ -349,7 +340,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
 
             // get references to the record button and show/hide its sub menu
             mFloatingActionButtonMain = findViewById(R.id.fabMainButton);
-            mFloatingActionButtonLocation = findViewById(R.id.fabLLcationButton);
+            mFloatingActionButtonLocation = findViewById(R.id.fabLocationButton);
             mFloatingActionButtonSubSave = findViewById(R.id.fabSubMenuButtonSave);
             mFloatingActionButtonSubSaveLabel = findViewById(R.id.fabSubMenuLabelSave);
             mFloatingActionButtonSubClear = findViewById(R.id.fabSubMenuButtonClear);
@@ -560,10 +551,6 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
                         mSelectedTab = FRAGMENT_ID_MAP;
                         mViewPager.setCurrentItem(mSelectedTab);
 
-                        // tint bottom bar red
-                        mBottomNavigationView.setBackgroundResource(R.color.trackbook_red);
-                        mBottomNavigationView.setItemBackgroundResource(R.color.trackbook_red);
-
                         return true;
 
                     case R.id.navigation_last_tracks:
@@ -577,10 +564,6 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
                         // show tracks fragment
                         mSelectedTab = FRAGMENT_ID_TRACKS;
                         mViewPager.setCurrentItem(mSelectedTab);
-
-                        // tint bottom bar blue
-                        mBottomNavigationView.setBackgroundResource(R.color.trackbook_blue);
-                        mBottomNavigationView.setItemBackgroundResource(R.color.trackbook_blue);
 
                         return true;
 
@@ -712,6 +695,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
             return null;
         }
 
+        @NonNull
         @Override
         public Object instantiateItem(final ViewGroup container, final int position) {
             final Fragment fragment = (Fragment) super.instantiateItem(container, position);

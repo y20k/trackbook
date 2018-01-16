@@ -5,15 +5,11 @@
     <string name="title_activity_infosheet">Informatieblad</string>
 
     <!-- menu entries -->
-    <string name="menu_my_location">Mijn locatie</string>
-    <string name="menu_about">Over</string>
 
     <!-- headers -->
-    <string name="header_about">Over Trackbook</string>
 
     <!-- tabs -->
     <string name="tab_map">Kaart</string>
-    <string name="tab_last_track">Laatste baan</string>
     <string name="tab_last_tracks">Laatste banen</string>
 
     <!-- notification -->
@@ -95,25 +91,10 @@
     <string name="track_tab_onboarding_h1_part_1">Your recorded tracks</string>
     <string name="track_tab_onboarding_h1_part_2">… will show up here.</string>
 
-    <!-- infosheet about -->
-    <string name="infosheet_about_h1_about">Over Trackbook</string>
-    <string name="infosheet_about_h2_recorder">Bewegingsbijhouding voor Android</string>
-    <string name="infosheet_about_h3_version">Versie 1.0 (Astronomy Domine)</string>
-    <string name="infosheet_about_p_bare">Trackbook is een simpele app die uw bewegingen bijhoudt. Trackbook is heel handig voor wandelen, op vakantie of voor een workout. Zodra u Trackbook start begint de app uw bewegingen bij te houden op een kaart. De kaartgegevens zijn afkomstig van OpenStreetMap (OSM).</string>
-    <string name="infosheet_about_p_free">Trackbook is vrije software. U kunt de broncode vinden op GitHub. GitHub is tevens dé plek om fouten (bugs) te rapporteren of om bij te dragen. Trackbook wordt uitgebracht onder de MIT open bron-licentie. Trackbook gebruikt osmdroid om de kaart te weergeven. osmdroid is eveneens vrije software, uitgebracht onder de Apache-licentie.</string>
-    <string name="infosheet_about_h2_permissions">Welke rechten zijn vereist voor Trackbook?</string>
-    <string name="infosheet_about_h3_internet">Recht INTERNET</string>
-    <string name="infosheet_about_p_internet">Trackbook moet de kaartgegevens downloaden van OpenStreetMap-servers; hiervoor is internettoegang vereist.</string>
-    <string name="infosheet_about_h3_network">Recht TOEGANG_WIFI_STATUS en TOEGANG_NETWERKSTATUS</string>
-    <string name="infosheet_about_p_network">Trackbook gebruikt osmdroid om kaarten te weergeven. osmdroid moet daarom weten wat de huidige verbinding van uw apparaat is.</string>
-    <string name="infosheet_about_h3_location">Recht TOEGANG_COARSE_LOCATIE en TOEGANG_FINE_LOCATIE</string>
-    <string name="infosheet_about_p_location">Trackbook heeft nauwkeurige GPS-locatiegegevens nodig om uw bewegingen te kunnen bijhouden. Als de GPS-gegevens niet beschikbaar of nauwkeurig genoeg zijn, dan wordt gebruikt gemaakt van zendmasten en WiFi-triangulatie.</string>
-    <string name="infosheet_about_h3_external">Recht SCHRIJVEN_EXTERNE_OPSLAG</string>
-    <string name="infosheet_about_p_external">Trackbook gebruikt osmdroid. osmdroid cachet kaarttegels op Android\'s externe opslag. U kunt de kaartcache vinden in de osmdroid-map op het hoogste niveau van het gebruikersbestandssysteem.</string>
-
     <!-- descriptions -->
     <string name="descr_map_current_track">Kaart van de huidige baan</string>
     <string name="descr_map_last_track">Kaart van de laatste baan</string>
+    <string name="descr_fab_my_location">My Location Button</string>
     <string name="descr_fab_main">Hoofd-actieknop</string>
     <string name="descr_fab_sub_menu_label_1">Label van de Opslaan en wissen-knop</string>
     <string name="descr_fab_sub_menu_button_1">kleine Opslaan en wissen-knop</string>

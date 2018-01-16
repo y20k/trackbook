@@ -31,6 +31,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
@@ -156,7 +157,7 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // create basic map
         mMapView = new MapView(inflater.getContext());
 
@@ -324,7 +325,7 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
 
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         outState.putBoolean(INSTANCE_FIRST_START, mFirstStart);
         outState.putBoolean(INSTANCE_TRACKING_STATE, mTrackerServiceRunning);
         outState.putParcelable(INSTANCE_CURRENT_LOCATION, mCurrentBestLocation);
