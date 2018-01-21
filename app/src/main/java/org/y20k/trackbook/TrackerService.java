@@ -115,7 +115,7 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
 
         // RESTART CHECK:  checking for empty intent - try to get saved track
         if (intent == null || intent.getAction() == null) {
-            LogHelper.e(LOG_TAG, "Null-Intent received. Are we being restarted?");
+            LogHelper.w(LOG_TAG, "Null-Intent received. Trying to restart tracking.");
             StorageHelper storageHelper = new StorageHelper(this);
             if (storageHelper.tempFileExists()) {
                 mTrack = storageHelper.loadTrack(FILE_TEMP_TRACK);
@@ -136,14 +136,14 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
                 stopTracking();
             } else {
                 // handle error - save state
-                saveTrackerServiceState(mTrackerServiceRunning, 0, FAB_STATE_DEFAULT);
+                saveTrackerServiceState(mTrackerServiceRunning, FAB_STATE_DEFAULT);
             }
         }
 
         // ACTION DISMISS
         else if (intent.getAction().equals(ACTION_DISMISS)) {
             // save state
-            saveTrackerServiceState(mTrackerServiceRunning, mTrack.getTrackDuration(), FAB_STATE_DEFAULT);
+            saveTrackerServiceState(mTrackerServiceRunning, FAB_STATE_DEFAULT);
             // dismiss notification
             mNotificationManager.cancel(TRACKER_SERVICE_NOTIFICATION_ID); // todo check if necessary?
             stopForeground(true);
@@ -230,19 +230,23 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
         mNotificationManager.notify(TRACKER_SERVICE_NOTIFICATION_ID, mNotification); // todo check if necessary in pre Android O
 
         // set timer to retrieve new locations and to prevent endless tracking
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
-        final long previouslyRecorded = settings.getLong(PREFS_CURRENT_TRACK_DURATION, 0);// todo describe
+//        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+//        final long previouslyRecordedDuration = settings.getLong(PREFS_CURRENT_TRACK_DURATION, 0);// todo describe
+        final long previouslyRecordedDuration = mTrack.getTrackDuration();// todo describe
         mTimer = new CountDownTimer(EIGHT_HOURS_IN_MILLISECONDS, FIFTEEN_SECONDS_IN_MILLISECONDS) {
             @Override
             public void onTick(long millisUntilFinished) {
                 // update track duration
-                long duration = EIGHT_HOURS_IN_MILLISECONDS - millisUntilFinished + previouslyRecorded;
+                long duration = EIGHT_HOURS_IN_MILLISECONDS - millisUntilFinished + previouslyRecordedDuration;
                 mTrack.setDuration(duration);
                 // try to add WayPoint to Track
                 addWayPointToTrack();
                 // update notification
                 mNotification = NotificationHelper.getUpdatedNotification(TrackerService.this, mNotificationBuilder, mTrack);
                 mNotificationManager.notify(TRACKER_SERVICE_NOTIFICATION_ID, mNotification);
+                // save a temp file in case the service has been killed by the system
+                SaveTempTrackAsyncHelper saveTempTrackAsyncHelper = new SaveTempTrackAsyncHelper();
+                saveTempTrackAsyncHelper.execute();
             }
 
             @Override
@@ -358,18 +362,11 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
                 // if new, add current best location to track
                 newWayPoint = mTrack.addWayPoint(mCurrentBestLocation);
             }
-
-            // save state
-            saveTrackerServiceState(mTrackerServiceRunning, mTrack.getTrackDuration(), FAB_STATE_RECORDING);
         }
 
         // send local broadcast if new WayPoint added
         if (newWayPoint != null) {
             sendTrackUpdate();
-
-            // save a temp file in case the service has been killed by the system
-            SaveTempTrackAsyncHelper saveTempTrackAsyncHelper = new SaveTempTrackAsyncHelper();
-            saveTempTrackAsyncHelper.execute();
         }
 
     }
@@ -427,7 +424,7 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
             mTrackerServiceRunning = true;
         }
         LocationHelper.registerLocationListeners(mLocationManager, mGPSListener, mNetworkListener);
-        saveTrackerServiceState(mTrackerServiceRunning, mTrack.getTrackDuration(), FAB_STATE_RECORDING);
+        saveTrackerServiceState(mTrackerServiceRunning, FAB_STATE_RECORDING);
     }
 
 
@@ -436,7 +433,7 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
         // remove listeners
         LocationHelper.removeLocationListeners(mLocationManager, mGPSListener, mNetworkListener);
         mTrackerServiceRunning = false;
-        saveTrackerServiceState(mTrackerServiceRunning, mTrack.getTrackDuration(),FAB_STATE_SAVE);
+        saveTrackerServiceState(mTrackerServiceRunning, FAB_STATE_SAVE);
 
         // notify MainActivityMapFragment
         Intent i = new Intent();
@@ -448,11 +445,12 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
 
 
     /* Saves state of Tracker Service and floating Action Button */
-    private void saveTrackerServiceState(boolean trackerServiceRunning, long currentTrackDuration, int fabState) {
+    private void saveTrackerServiceState(boolean trackerServiceRunning, int fabState) {
+//    private void saveTrackerServiceState(boolean trackerServiceRunning, long currentTrackDuration, int fabState) {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = settings.edit();
         editor.putBoolean(PREFS_TRACKER_SERVICE_RUNNING, trackerServiceRunning);
-        editor.putLong(PREFS_CURRENT_TRACK_DURATION, currentTrackDuration);
+//        editor.putLong(PREFS_CURRENT_TRACK_DURATION, currentTrackDuration); // todo remove
         editor.putInt(PREFS_FAB_STATE, fabState);
         editor.apply();
     }

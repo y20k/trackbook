@@ -275,9 +275,9 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
             intent.putExtra(EXTRA_LAST_LOCATION, lastLocation);
         }
 
-        // start service
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            // ... in foreground to prevent it being killed on Oreo
+        // communicate with service
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && intentAction.equals(ACTION_START)) {
+            // ... start service in foreground to prevent it being killed on Oreo
             startForegroundService(intent);
         } else {
             startService(intent);
