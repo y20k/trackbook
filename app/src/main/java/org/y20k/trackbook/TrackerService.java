@@ -16,6 +16,7 @@
 
 package org.y20k.trackbook;
 
+import android.app.ActivityManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.Service;
@@ -49,6 +50,7 @@ import org.y20k.trackbook.helpers.NotificationHelper;
 import org.y20k.trackbook.helpers.StorageHelper;
 import org.y20k.trackbook.helpers.TrackbookKeys;
 
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -111,16 +113,20 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
             return START_STICKY;
         }
 
-        // checking for empty intent
+        // RESTART CHECK:  checking for empty intent - try to get saved track
         if (intent == null || intent.getAction() == null) {
-            LogHelper.e(LOG_TAG, "Null-Intent received. Stopping self.");
-            // stopSelf triggers onDestroy
-            stopSelf();
+            LogHelper.e(LOG_TAG, "Null-Intent received. Are we being restarted?");
+            StorageHelper storageHelper = new StorageHelper(this);
+            if (storageHelper.tempFileExists()) {
+                mTrack = storageHelper.loadTrack(FILE_TEMP_TRACK);
+                // restart tracking
+                startTracking(intent, false);
+            }
         }
 
         // ACTION START
         else if (intent.getAction().equals(ACTION_START) && mLocationSystemSetting) {
-            startTracking(intent);
+            startTracking(intent, true);
         }
 
         // ACTION STOP
@@ -130,14 +136,14 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
                 stopTracking();
             } else {
                 // handle error - save state
-                saveTrackerServiceState(mTrackerServiceRunning, FAB_STATE_DEFAULT);
+                saveTrackerServiceState(mTrackerServiceRunning, 0, FAB_STATE_DEFAULT);
             }
         }
 
         // ACTION DISMISS
         else if (intent.getAction().equals(ACTION_DISMISS)) {
             // save state
-            saveTrackerServiceState(mTrackerServiceRunning, FAB_STATE_DEFAULT);
+            saveTrackerServiceState(mTrackerServiceRunning, mTrack.getTrackDuration(), FAB_STATE_DEFAULT);
             // dismiss notification
             mNotificationManager.cancel(TRACKER_SERVICE_NOTIFICATION_ID); // todo check if necessary?
             stopForeground(true);
@@ -169,10 +175,6 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
             stopTracking();
         }
 
-//        // remove listeners
-//        stopFindingLocation();
-//        mSensorManager.unregisterListener(this);
-
         // remove TrackerService from foreground state
         stopForeground(true);
 
@@ -202,14 +204,16 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
 
 
     /* Start tracking location */
-    private void startTracking(Intent intent) {
+    private void startTracking(@Nullable Intent intent, boolean createNewTrack) {
         LogHelper.v(LOG_TAG, "Service received command: START");
 
-        // create a new track
-        mTrack = new Track();
+        // create a new track -- if necessary
+        if (createNewTrack) {
+            mTrack = new Track();
+        }
 
         // get last location
-        if (intent.hasExtra(EXTRA_LAST_LOCATION)) {
+        if (intent != null && intent.hasExtra(EXTRA_LAST_LOCATION)) {
             mCurrentBestLocation = intent.getParcelableExtra(EXTRA_LAST_LOCATION);
         }
         //  get last location - fallback
@@ -226,11 +230,13 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
         mNotificationManager.notify(TRACKER_SERVICE_NOTIFICATION_ID, mNotification); // todo check if necessary in pre Android O
 
         // set timer to retrieve new locations and to prevent endless tracking
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+        final long previouslyRecorded = settings.getLong(PREFS_CURRENT_TRACK_DURATION, 0);// todo describe
         mTimer = new CountDownTimer(EIGHT_HOURS_IN_MILLISECONDS, FIFTEEN_SECONDS_IN_MILLISECONDS) {
             @Override
             public void onTick(long millisUntilFinished) {
                 // update track duration
-                long duration = EIGHT_HOURS_IN_MILLISECONDS - millisUntilFinished;
+                long duration = EIGHT_HOURS_IN_MILLISECONDS - millisUntilFinished + previouslyRecorded;
                 mTrack.setDuration(duration);
                 // try to add WayPoint to Track
                 addWayPointToTrack();
@@ -305,6 +311,25 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
     /* Adds a new WayPoint to current track */
     private void addWayPointToTrack() {
 
+        // TODO REMOVE
+        ActivityManager am = (ActivityManager) this.getSystemService(ACTIVITY_SERVICE);
+        List<ActivityManager.RunningServiceInfo> l = am.getRunningServices(50);
+        Iterator<ActivityManager.RunningServiceInfo> i = l.iterator();
+        while (i.hasNext()) {
+            ActivityManager.RunningServiceInfo runningServiceInfo = i
+                    .next();
+
+            if(runningServiceInfo.service.getClassName().contains("TrackerService")){
+
+                if(runningServiceInfo.foreground)
+                {
+                    LogHelper.e(LOG_TAG, "Foreground State? YES");
+                }
+            }
+        }
+        // TODO REMOVE
+
+
         // create new WayPoint
         WayPoint newWayPoint = null;
 
@@ -334,11 +359,17 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
                 newWayPoint = mTrack.addWayPoint(mCurrentBestLocation);
             }
 
+            // save state
+            saveTrackerServiceState(mTrackerServiceRunning, mTrack.getTrackDuration(), FAB_STATE_RECORDING);
         }
 
         // send local broadcast if new WayPoint added
         if (newWayPoint != null) {
             sendTrackUpdate();
+
+            // save a temp file in case the service has been killed by the system
+            SaveTempTrackAsyncHelper saveTempTrackAsyncHelper = new SaveTempTrackAsyncHelper();
+            saveTempTrackAsyncHelper.execute();
         }
 
     }
@@ -396,7 +427,7 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
             mTrackerServiceRunning = true;
         }
         LocationHelper.registerLocationListeners(mLocationManager, mGPSListener, mNetworkListener);
-        saveTrackerServiceState(mTrackerServiceRunning, FAB_STATE_RECORDING);
+        saveTrackerServiceState(mTrackerServiceRunning, mTrack.getTrackDuration(), FAB_STATE_RECORDING);
     }
 
 
@@ -405,7 +436,7 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
         // remove listeners
         LocationHelper.removeLocationListeners(mLocationManager, mGPSListener, mNetworkListener);
         mTrackerServiceRunning = false;
-        saveTrackerServiceState(mTrackerServiceRunning, FAB_STATE_SAVE);
+        saveTrackerServiceState(mTrackerServiceRunning, mTrack.getTrackDuration(),FAB_STATE_SAVE);
 
         // notify MainActivityMapFragment
         Intent i = new Intent();
@@ -417,10 +448,11 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
 
 
     /* Saves state of Tracker Service and floating Action Button */
-    private void saveTrackerServiceState(boolean trackerServiceRunning, int fabState) {
+    private void saveTrackerServiceState(boolean trackerServiceRunning, long currentTrackDuration, int fabState) {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = settings.edit();
         editor.putBoolean(PREFS_TRACKER_SERVICE_RUNNING, trackerServiceRunning);
+        editor.putLong(PREFS_CURRENT_TRACK_DURATION, currentTrackDuration);
         editor.putInt(PREFS_FAB_STATE, fabState);
         editor.apply();
     }

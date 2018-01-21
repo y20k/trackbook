@@ -353,10 +353,10 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
             }
 
             // populate views
-            mDistanceView.setText(mTrack.getTrackDistance());
+            mDistanceView.setText(mTrack.getTrackDistanceString());
             mStepsView.setText(stepsTaken);
             mWaypointsView.setText(String.valueOf(mTrack.getWayPoints().size()));
-            mDurationView.setText(mTrack.getTrackDuration());
+            mDurationView.setText(mTrack.getTrackDurationString());
             mRecordingStartView.setText(recordingStart);
             mRecordingStopView.setText(recordingStop);
 
@@ -480,7 +480,7 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
                 int dialogNegativeButton = R.string.dialog_default_action_cancel;
                 DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault());
                 String recordingStartDate = df.format(mTrack.getRecordingStart());
-                String dialogMessage = getString(R.string.dialog_delete_content) + " " + recordingStartDate + " | " + mTrack.getTrackDistance();
+                String dialogMessage = getString(R.string.dialog_delete_content) + " " + recordingStartDate + " | " + mTrack.getTrackDistanceString();
 
                 // show delete dialog - results are handles by onActivityResult
                 DialogFragment dialogFragment = DialogHelper.newInstance(dialogTitle, dialogMessage, dialogPositiveButton, dialogNegativeButton);
@@ -511,13 +511,13 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
                 if (exportHelper.gpxFileExists(mTrack)) {
                     // CASE: OVERWRITE - GPX file exists
                     dialogTitle = R.string.dialog_export_title_overwrite;
-                    dialogMessage = getString(R.string.dialog_export_content_overwrite) + " (" + recordingStartDate + " | " + mTrack.getTrackDistance() + ")";
+                    dialogMessage = getString(R.string.dialog_export_content_overwrite) + " (" + recordingStartDate + " | " + mTrack.getTrackDistanceString() + ")";
                     dialogPositiveButton = R.string.dialog_export_action_overwrite;
                     dialogNegativeButton = R.string.dialog_default_action_cancel;
                 } else {
                     // CASE: EXPORT - GPX file does NOT yet exits
                     dialogTitle = R.string.dialog_export_title_export;
-                    dialogMessage = getString(R.string.dialog_export_content_export) + " (" + recordingStartDate + " | " + mTrack.getTrackDistance() + ")";
+                    dialogMessage = getString(R.string.dialog_export_content_export) + " (" + recordingStartDate + " | " + mTrack.getTrackDistanceString() + ")";
                     dialogPositiveButton = R.string.dialog_export_action_export;
                     dialogNegativeButton = R.string.dialog_default_action_cancel;
                 }

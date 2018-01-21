@@ -149,8 +149,8 @@ public class Track implements TrackbookKeys, Parcelable {
 
 
     /* Getter for duration of track */
-    public String getTrackDuration() {
-        return LocationHelper.convertToReadableTime(mDuration, true);
+    public long getTrackDuration() {
+        return mDuration;
     }
 
     /* Getter for start date of recording */
@@ -171,8 +171,13 @@ public class Track implements TrackbookKeys, Parcelable {
     }
 
 
-    /* Getter for distance of track */
-    public String getTrackDistance() {
+    /* Getter for string representation of track duration */
+    public String getTrackDurationString() {
+        return LocationHelper.convertToReadableTime(mDuration, true);
+    }
+
+    /* Getter for string representation of track distance */
+    public String getTrackDistanceString() {
         float trackDistance;
         String unit;
 

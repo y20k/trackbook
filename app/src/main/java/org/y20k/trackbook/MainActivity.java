@@ -249,9 +249,13 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
         mBottomNavigationView.setSelectedItemId(R.id.navigation_last_tracks);
 
         // dismiss notification
-        Intent intent = new Intent(this, TrackerService.class);
-        intent.setAction(ACTION_DISMISS);
-        startService(intent);
+        startTrackerService(ACTION_DISMISS, null);
+
+//        Intent intent = new Intent(this, TrackerService.class);
+//        intent.setAction(ACTION_DISMISS);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            startForegroundService(intent);
+//        }
 
         // hide Floating Action Button sub menu
         showFloatingActionButtonMenu(false);
@@ -262,15 +266,37 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     }
 
 
+    /* Start/stop tracker service */
+    private void startTrackerService(String intentAction, @Nullable Location lastLocation) {
+        // build intent
+        Intent intent = new Intent(this, TrackerService.class);
+        intent.setAction(intentAction);
+        if (lastLocation != null && intentAction.equals(ACTION_START)) {
+            intent.putExtra(EXTRA_LAST_LOCATION, lastLocation);
+        }
+
+        // start service
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            // ... in foreground to prevent it being killed on Oreo
+            startForegroundService(intent);
+        } else {
+            startService(intent);
+        }
+    }
+
+
+
     /* Handles the visual state after a save action */
     private void handleStateAfterClear() {
         // notify user
         Toast.makeText(this, getString(R.string.toast_message_track_clear), Toast.LENGTH_LONG).show();
 
         // dismiss notification
-        Intent intent = new Intent(this, TrackerService.class);
-        intent.setAction(ACTION_DISMISS);
-        startService(intent);
+        startTrackerService(ACTION_DISMISS, null);
+
+//        Intent intent = new Intent(this, TrackerService.class); // todo remove
+//        intent.setAction(ACTION_DISMISS);
+//        startService(intent);
 
         // hide Floating Action Button sub menu
         showFloatingActionButtonMenu(false);
@@ -446,14 +472,16 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
 
                 if (lastLocation != null) {
                     // start tracker service
-                    Intent intent = new Intent(this, TrackerService.class);
-                    intent.setAction(ACTION_START);
-                    intent.putExtra(EXTRA_LAST_LOCATION, lastLocation);
-                    if (Build.VERSION.SDK_INT == Build.VERSION_CODES.O) {
-                        startForegroundService(intent);
-                    } else {
-                        startService(intent);
-                    }
+                    startTrackerService(ACTION_START, lastLocation);
+
+//                    Intent intent = new Intent(this, TrackerService.class); // todo remove
+//                    intent.setAction(ACTION_START);
+//                    intent.putExtra(EXTRA_LAST_LOCATION, lastLocation);
+//                    if (Build.VERSION.SDK_INT == Build.VERSION_CODES.O) {
+//                        startForegroundService(intent);
+//                    } else {
+//                        startService(intent);
+//                    }
 
                 } else {
                     Toast.makeText(this, getString(R.string.toast_message_location_services_not_ready), Toast.LENGTH_LONG).show();
@@ -472,9 +500,11 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
                 // --> is handled by broadcast receiver
 
                 // stop tracker service
-                Intent intent = new Intent(this, TrackerService.class);
-                intent.setAction(ACTION_STOP);
-                startService(intent);
+                startTrackerService(ACTION_STOP, null);
+
+//                Intent intent = new Intent(this, TrackerService.class); // todo remove
+//                intent.setAction(ACTION_STOP);
+//                startService(intent);
 
                 break;
 

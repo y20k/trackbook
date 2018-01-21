@@ -50,6 +50,7 @@ public interface TrackbookKeys {
     /* PREFS */
     String PREFS_FAB_STATE = "fabStatePrefs";
     String PREFS_TRACKER_SERVICE_RUNNING = "trackerServiceRunning";
+    String PREFS_CURRENT_TRACK_DURATION = "currentTrackDuration";
 
     /* INSTANCE STATE */
     String INSTANCE_FIRST_START = "firstStart";

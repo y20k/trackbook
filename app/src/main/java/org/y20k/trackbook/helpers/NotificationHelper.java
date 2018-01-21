@@ -158,8 +158,8 @@ public class NotificationHelper implements TrackbookKeys {
 
     /* Build context text for notification builder */
     private static String getContextString(Context context, Track track) {
-        return context.getString(R.string.notification_content_distance) + ": " + track.getTrackDistance() + " | " +
-                context.getString(R.string.notification_content_duration) + ": " + track.getTrackDuration();
+        return context.getString(R.string.notification_content_distance) + ": " + track.getTrackDistanceString() + " | " +
+                context.getString(R.string.notification_content_duration) + ": " + track.getTrackDurationString();
     }
 
 }
