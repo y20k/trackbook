@@ -294,10 +294,6 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
         // dismiss notification
         startTrackerService(ACTION_DISMISS, null);
 
-//        Intent intent = new Intent(this, TrackerService.class); // todo remove
-//        intent.setAction(ACTION_DISMISS);
-//        startService(intent);
-
         // hide Floating Action Button sub menu
         showFloatingActionButtonMenu(false);
 
@@ -474,15 +470,6 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
                     // start tracker service
                     startTrackerService(ACTION_START, lastLocation);
 
-//                    Intent intent = new Intent(this, TrackerService.class); // todo remove
-//                    intent.setAction(ACTION_START);
-//                    intent.putExtra(EXTRA_LAST_LOCATION, lastLocation);
-//                    if (Build.VERSION.SDK_INT == Build.VERSION_CODES.O) {
-//                        startForegroundService(intent);
-//                    } else {
-//                        startService(intent);
-//                    }
-
                 } else {
                     Toast.makeText(this, getString(R.string.toast_message_location_services_not_ready), Toast.LENGTH_LONG).show();
                     // change state back
@@ -502,19 +489,11 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
                 // stop tracker service
                 startTrackerService(ACTION_STOP, null);
 
-//                Intent intent = new Intent(this, TrackerService.class); // todo remove
-//                intent.setAction(ACTION_STOP);
-//                startService(intent);
-
                 break;
 
             case FAB_STATE_SAVE:
-                // toggle floating action button sub menu
-                if (!mFloatingActionButtonSubMenuVisible) {
-                    showFloatingActionButtonMenu(true);
-                } else {
-                    showFloatingActionButtonMenu(false);
-                }
+                // toggle visibility floating action button sub menu
+                showFloatingActionButtonMenu(!mFloatingActionButtonSubMenuVisible);
 
                 break;
 

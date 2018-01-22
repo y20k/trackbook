@@ -16,7 +16,6 @@
 
 package org.y20k.trackbook;
 
-import android.app.ActivityManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.Service;
@@ -50,8 +49,9 @@ import org.y20k.trackbook.helpers.NotificationHelper;
 import org.y20k.trackbook.helpers.StorageHelper;
 import org.y20k.trackbook.helpers.TrackbookKeys;
 
-import java.util.Iterator;
 import java.util.List;
+
+import static android.hardware.Sensor.TYPE_STEP_COUNTER;
 
 
 /**
@@ -184,9 +184,9 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
-        // save the step count offset / previously recorded steps
+        // save the step count offset (steps previously recorded by the system) and add any steps recorded during this session in case the app was killed
         if (mStepCountOffset == 0) {
-            mStepCountOffset = sensorEvent.values[0] - 1;
+            mStepCountOffset = sensorEvent.values[0] - 1 + mTrack.getStepCount();
         }
 
         // calculate step count
@@ -229,14 +229,14 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
         mNotification = NotificationHelper.getNotification(this, mNotificationBuilder, mTrack, true);
         mNotificationManager.notify(TRACKER_SERVICE_NOTIFICATION_ID, mNotification); // todo check if necessary in pre Android O
 
+        // get duration of previously recorded track - in case this service has been restarted
+        final long previouslyRecordedDuration = mTrack.getTrackDuration();
+
         // set timer to retrieve new locations and to prevent endless tracking
-//        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
-//        final long previouslyRecordedDuration = settings.getLong(PREFS_CURRENT_TRACK_DURATION, 0);// todo describe
-        final long previouslyRecordedDuration = mTrack.getTrackDuration();// todo describe
         mTimer = new CountDownTimer(EIGHT_HOURS_IN_MILLISECONDS, FIFTEEN_SECONDS_IN_MILLISECONDS) {
             @Override
             public void onTick(long millisUntilFinished) {
-                // update track duration
+                // update track duration - and add duration from previously interrupted session
                 long duration = EIGHT_HOURS_IN_MILLISECONDS - millisUntilFinished + previouslyRecordedDuration;
                 mTrack.setDuration(duration);
                 // try to add WayPoint to Track
@@ -259,11 +259,13 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
 
         // initialize step counter
         mStepCountOffset = 0;
-        Sensor stepCounter = mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
-        if (stepCounter != null) {
-            mSensorManager.registerListener(this, stepCounter, SensorManager.SENSOR_DELAY_UI);
+
+        boolean stepCounterAvailable;
+        stepCounterAvailable = mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(TYPE_STEP_COUNTER), SensorManager.SENSOR_DELAY_UI);
+        if (stepCounterAvailable) {
+            LogHelper.v(LOG_TAG, "Pedometer sensor available: Registering listener.");
         } else {
-            LogHelper.i(LOG_TAG, "Pedometer Sensor not available");
+            LogHelper.i(LOG_TAG, "Pedometer sensor not available.");
             mTrack.setStepCount(-1);
         }
 
@@ -314,25 +316,6 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
 
     /* Adds a new WayPoint to current track */
     private void addWayPointToTrack() {
-
-        // TODO REMOVE
-        ActivityManager am = (ActivityManager) this.getSystemService(ACTIVITY_SERVICE);
-        List<ActivityManager.RunningServiceInfo> l = am.getRunningServices(50);
-        Iterator<ActivityManager.RunningServiceInfo> i = l.iterator();
-        while (i.hasNext()) {
-            ActivityManager.RunningServiceInfo runningServiceInfo = i
-                    .next();
-
-            if(runningServiceInfo.service.getClassName().contains("TrackerService")){
-
-                if(runningServiceInfo.foreground)
-                {
-                    LogHelper.e(LOG_TAG, "Foreground State? YES");
-                }
-            }
-        }
-        // TODO REMOVE
-
 
         // create new WayPoint
         WayPoint newWayPoint = null;
@@ -446,11 +429,9 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
 
     /* Saves state of Tracker Service and floating Action Button */
     private void saveTrackerServiceState(boolean trackerServiceRunning, int fabState) {
-//    private void saveTrackerServiceState(boolean trackerServiceRunning, long currentTrackDuration, int fabState) {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = settings.edit();
         editor.putBoolean(PREFS_TRACKER_SERVICE_RUNNING, trackerServiceRunning);
-//        editor.putLong(PREFS_CURRENT_TRACK_DURATION, currentTrackDuration); // todo remove
         editor.putInt(PREFS_FAB_STATE, fabState);
         editor.apply();
     }
