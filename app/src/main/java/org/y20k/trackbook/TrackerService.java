@@ -184,9 +184,9 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
-        // save the step count offset (steps previously recorded by the system) and add any steps recorded during this session in case the app was killed
+        // save the step count offset (steps previously recorded by the system) and subtract any steps recorded during this session in case the app was killed
         if (mStepCountOffset == 0) {
-            mStepCountOffset = sensorEvent.values[0] - 1 + mTrack.getStepCount();
+            mStepCountOffset = (sensorEvent.values[0] - 1) - mTrack.getStepCount();
         }
 
         // calculate step count
