@@ -559,6 +559,10 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
+            // todo remove
+            StorageHelper storageHelper = new StorageHelper(mActivity);
+            storageHelper.calculateTrackElevation(mTrack);
+
             // display track on map
             displayTrack();
         }

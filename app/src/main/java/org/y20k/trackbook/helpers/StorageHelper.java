@@ -17,6 +17,7 @@
 package org.y20k.trackbook.helpers;
 
 import android.content.Context;
+import android.location.Location;
 import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.os.EnvironmentCompat;
@@ -357,5 +358,40 @@ public class StorageHelper implements TrackbookKeys {
 
         return null;
     }
+
+
+    /* Calculates positive and negative elevation of track */ // todo make private
+    public Track calculateTrackElevation(@Nullable Track track) {
+        double positiveElevation = 0;
+        double negativeElevation = 0;
+        double LIKELY_MEASUREMENT_ERROR = 25; // move to TrackbookKeys
+
+        if (track != null && track.getWayPoints().size() > 0 && track.getWayPointLocation(0).getAltitude() != 0) {
+            Location previousLocation;
+            Location nextLocation;
+
+            // iterate over track
+            for (int i = 0; i < track.getWayPoints().size() - 1; i++ ) {
+                // calculate elevation difference
+                previousLocation = track.getWayPointLocation(i);
+                nextLocation = track.getWayPointLocation(i + 1);
+                double difference = nextLocation.getAltitude() - previousLocation.getAltitude();
+                LogHelper.i(LOG_TAG, "next:" + nextLocation.getAltitude() + " | prev:" + previousLocation.getAltitude() + " | diff:" + difference); // todo remove
+
+                // add difference to elevation
+                if (difference > 0 && difference < LIKELY_MEASUREMENT_ERROR) {
+                    positiveElevation = positiveElevation + difference;
+                } else if (difference < 0 && difference > -LIKELY_MEASUREMENT_ERROR) {
+                    negativeElevation = negativeElevation + difference;
+                }
+            }
+
+            String toastString = "Calculated elevation: +" +  positiveElevation + " / " + negativeElevation + " meters"; // todo remove
+            Toast.makeText(mContext, toastString, Toast.LENGTH_LONG).show(); // todo remove
+            LogHelper.i(LOG_TAG, toastString); // todo remove
+        }
+        return track;
+    }
+
 
 }
