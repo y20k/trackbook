@@ -33,6 +33,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 /**
  * ExportHelper class
@@ -136,6 +137,7 @@ public class ExportHelper implements TrackbookKeys {
     private String addTrack(Track track) {
         StringBuilder gpxTrack = new StringBuilder("");
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.US);
+        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
 
         // add opening track tag
         gpxTrack.append("\t<trk>\n");
