@@ -58,6 +58,7 @@
     <string name="toast_message_track_clear">Current track data removed.</string>
     <string name="toast_message_export_success">GPX export successful:</string>
     <string name="toast_message_export_fail">GPX export failed:</string>
+    <string name="toast_message_elevation_info">Hint: The accuracy of elevation data depends on your device. The uphill and downhill elevation of the whole route is measured.</string>
 
     <!-- map markers -->
     <string name="marker_description_source">Source</string>
@@ -74,6 +75,10 @@
     <string name="statistics_sheet_p_duration">Total duration:</string>
     <string name="statistics_sheet_p_recording_start">Recording started:</string>
     <string name="statistics_sheet_p_recording_stop">Recording stopped:</string>
+    <string name="statistics_sheet_p_max_altitude">Highest waypoint:</string>
+    <string name="statistics_sheet_p_min_altitude">Lowest waypoint:</string>
+    <string name="statistics_sheet_p_positive_elevation">Elevation (uphill):</string>
+    <string name="statistics_sheet_p_negative_elevation">Elevation (downhill):</string>
 
     <!-- onboarding layout -->
     <string name="layout_onboarding_h1_welcome">Hello</string>
@@ -114,6 +119,10 @@
     <string name="descr_statistics_sheet_p_duration_value">Value: Duration</string>
     <string name="descr_statistics_sheet_p_recording_start_value">Value: Start of recording</string>
     <string name="descr_statistics_sheet_p_recording_end_value">Value: End of recording</string>
+    <string name="descr_statistics_sheet_p_max_altitude">Value: Highest waypoint</string>
+    <string name="descr_statistics_sheet_p_min_altitude">Value: Lowest waypoint</string>
+    <string name="descr_statistics_sheet_p_positive_elevation">Value: Elevation (uphill)</string>
+    <string name="descr_statistics_sheet_p_negative_elevation">Value: Elevation (downhill)</string>
     <string name="descr_track_selector">Dropdown menu for further tracks</string>
     <string name="descr_export_button">Track export button</string>
     <string name="descr_delete_button">Track delete button</string>

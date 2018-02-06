@@ -58,6 +58,7 @@
     <string name="toast_message_track_clear">現在のトレース データを削除しました。</string>
     <string name="toast_message_export_success">GPX export successful:</string>
     <string name="toast_message_export_fail">GPX export failed:</string>
+    <string name="toast_message_elevation_info">Hint: The accuracy of elevation data depends on your device. The uphill and downhill elevation of the whole route is measured.</string>
 
     <!-- map markers -->
     <string name="marker_description_source">ソース</string>
@@ -74,6 +75,10 @@
     <string name="statistics_sheet_p_duration">合計時間:</string>
     <string name="statistics_sheet_p_recording_start">記録の開始:</string>
     <string name="statistics_sheet_p_recording_stop">記録の停止:</string>
+    <string name="statistics_sheet_p_max_altitude">Highest waypoint:</string>
+    <string name="statistics_sheet_p_min_altitude">Lowest waypoint:</string>
+    <string name="statistics_sheet_p_positive_elevation">Elevation (uphill):</string>
+    <string name="statistics_sheet_p_negative_elevation">Elevation (downhill):</string>
 
     <!-- onboarding layout -->
     <string name="layout_onboarding_h1_welcome">こんにちは</string>
@@ -114,6 +119,10 @@
     <string name="descr_statistics_sheet_p_duration_value">値: 期間</string>
     <string name="descr_statistics_sheet_p_recording_start_value">値: 記録の開始</string>
     <string name="descr_statistics_sheet_p_recording_end_value">値: 記録の終了</string>
+    <string name="descr_statistics_sheet_p_max_altitude">Value: Highest waypoint</string>
+    <string name="descr_statistics_sheet_p_min_altitude">Value: Lowest waypoint</string>
+    <string name="descr_statistics_sheet_p_positive_elevation">Value: Elevation (uphill)</string>
+    <string name="descr_statistics_sheet_p_negative_elevation">Value: Elevation (downhill)</string>
     <string name="descr_track_selector">ドロップダウン メニューでさらにトレース</string>
     <string name="descr_export_button">Track export button</string>
     <string name="descr_delete_button">トレース削除ボタン</string>

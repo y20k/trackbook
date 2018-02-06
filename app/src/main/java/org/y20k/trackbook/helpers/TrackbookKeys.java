@@ -111,10 +111,10 @@ public interface TrackbookKeys {
     String NOTIFICATION_CHANEL_ID_RECORDING_CHANNEL ="notificationChannelIdRecordingChannel";
 
     /* MISC */
+    int CURRENT_TRACK_FORMAT_VERSION = 2; // incremental version number to prevent issues in case the Track format evolves
     double DEFAULT_LATITUDE = 49.41667; // latitude Nordkapp, Norway
     double DEFAULT_LONGITUDE = 8.67201; // longitude Nordkapp, Norway
-    int CURRENT_TRACK_FORMAT_VERSION = 1; // incremental version number to prevent issues in case the Track format evolves
+    int MEASUREMENT_ERROR_THRESHOLD = 10; // altitude changes of 10 meter or more (per 15 seconds) are being discarded
     int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
-    int INFOSHEET_CONTENT_ABOUT = 1;
 
 }

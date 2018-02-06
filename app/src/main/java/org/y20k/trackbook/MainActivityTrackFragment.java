@@ -27,6 +27,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
+import android.support.constraint.Group;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -41,6 +42,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
@@ -89,6 +91,11 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
     private TextView mDurationView;
     private TextView mRecordingStartView;
     private TextView mRecordingStopView;
+    private TextView mMaxAltitudeView;
+    private TextView mMinAltitudeView;
+    private TextView mPositiveElevationView;
+    private TextView mNegativeElevationView;
+    private Group mElevationDataViews;
     private BottomSheetBehavior mStatisticsSheetBehavior;
     private int mCurrentTrack;
     private Track mTrack;
@@ -204,6 +211,14 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
         mDurationView = (TextView) mRootView.findViewById(R.id.statistics_data_duration);
         mRecordingStartView = (TextView) mRootView.findViewById(R.id.statistics_data_recording_start);
         mRecordingStopView = (TextView) mRootView.findViewById(R.id.statistics_data_recording_stop);
+        mMaxAltitudeView = (TextView) mRootView.findViewById(R.id.statistics_data_max_altitude);
+        mMinAltitudeView = (TextView) mRootView.findViewById(R.id.statistics_data_min_altitude);
+        mPositiveElevationView = (TextView) mRootView.findViewById(R.id.statistics_data_positive_elevation);
+        mNegativeElevationView = (TextView) mRootView.findViewById(R.id.statistics_data_negative_elevation);
+        mElevationDataViews = (Group) mRootView.findViewById(R.id.elevation_data);
+
+        // attach listners for taps on elevation views
+        attachTapListeners();
 
         // display map and statistics
         if (savedInstanceState != null) {
@@ -359,9 +374,23 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
             mDurationView.setText(mTrack.getTrackDurationString());
             mRecordingStartView.setText(recordingStart);
             mRecordingStopView.setText(recordingStop);
+            mPositiveElevationView.setText(mTrack.getPositiveElevationString());
+            mNegativeElevationView.setText(mTrack.getNegativeElevationString());
+            mMaxAltitudeView.setText(mTrack.getMaxAltitudeString());
+            mMinAltitudeView.setText(mTrack.getMinAltitudeString());
+
+            // show/hide elevation views depending on file format version
+            if (mTrack.getTrackFormatVersion() > 1 || mTrack.getMinAltitude() > 0) {
+                // show elevation views
+                mElevationDataViews.setVisibility(View.VISIBLE);
+            } else {
+                // hide elevation views
+                mElevationDataViews.setVisibility(View.GONE);
+            }
 
             // draw track on map
             drawTrackOverlay(mTrack);
+
         } else {
             position = new GeoPoint(DEFAULT_LATITUDE, DEFAULT_LONGITUDE);
         }
@@ -531,6 +560,21 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
     }
 
 
+    /* Add tap listners to elevation data views */
+    private void attachTapListeners() {
+        int referencedIds[] = mElevationDataViews.getReferencedIds();
+        for (int id : referencedIds) {
+            mRootView.findViewById(id).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // inform user about possible issues with altitude measurements
+                    Toast.makeText(mActivity, R.string.toast_message_elevation_info, Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+    }
+
+
     /**
      * Inner class: Loads track from external storage using AsyncTask
      */
@@ -558,10 +602,6 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-
-            // todo remove
-            StorageHelper storageHelper = new StorageHelper(mActivity);
-            storageHelper.calculateTrackElevation(mTrack);
 
             // display track on map
             displayTrack();

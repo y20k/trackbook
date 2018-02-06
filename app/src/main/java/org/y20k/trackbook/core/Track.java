@@ -49,6 +49,32 @@ public class Track implements TrackbookKeys, Parcelable {
     private float mStepCount;
     private final Date mRecordingStart;
     private Date mRecordingStop;
+    private double mMaxAltitude;
+    private double mMinAltitude;
+    private double mPositiveElevation;
+    private double mNegativeElevation;
+
+
+    /* Generic Constructor */
+    public Track(int trackFormatVersion, List<WayPoint> wayPoints, float trackLength, long duration, float stepCount, Date recordingStart, Date recordingStop, double maxAltitude, double minAltitude, double positiveElevation, double negativeElevation) {
+        mTrackFormatVersion = trackFormatVersion;
+        mWayPoints = wayPoints;
+        mTrackLength = trackLength;
+        mDuration = duration;
+        mStepCount = stepCount;
+        mRecordingStart = recordingStart;
+        mRecordingStop = recordingStop;
+        mMaxAltitude = maxAltitude;
+        mMinAltitude = minAltitude;
+        mPositiveElevation = positiveElevation;
+        mNegativeElevation = negativeElevation;
+    }
+
+
+    /* Copy Constructor */
+    public Track(Track track) {
+        this(track.getTrackFormatVersion(), track.getWayPoints(), track.getTrackLength(), track.getTrackDuration(), track.getStepCount(), track.getRecordingStart(), track.getRecordingStop(), track.getMaxAltitude(), track.getMinAltitude(), track.getPositiveElevation(), track.getNegativeElevation());
+    }
 
 
     /* Constructor */
@@ -60,6 +86,10 @@ public class Track implements TrackbookKeys, Parcelable {
         mStepCount = 0f;
         mRecordingStart = GregorianCalendar.getInstance().getTime();
         mRecordingStop = mRecordingStart;
+        mMaxAltitude = 0f;
+        mMinAltitude = 0f;
+        mPositiveElevation = 0f;
+        mNegativeElevation = 0f;
     }
 
 
@@ -72,6 +102,10 @@ public class Track implements TrackbookKeys, Parcelable {
         mStepCount = in.readFloat();
         mRecordingStart = new Date(in.readLong());
         mRecordingStop = new Date(in.readLong());
+        mMaxAltitude = in.readDouble();
+        mMinAltitude = in.readDouble();
+        mPositiveElevation = in.readDouble();
+        mNegativeElevation = in.readDouble();
     }
 
 
@@ -136,6 +170,36 @@ public class Track implements TrackbookKeys, Parcelable {
     }
 
 
+    /* Setter for maximum altitude of recording */
+    public void setMaxAltitude(double maxAltitude) {
+        mMaxAltitude = maxAltitude;
+    }
+
+
+    /* Setter for lowest altitude of recording */
+    public void setMinAltitude(double minAltitude) {
+        mMinAltitude = minAltitude;
+    }
+
+
+    /* Setter for positive elevation of recording (cumulative altitude difference) */
+    public void setPositiveElevation(double positiveElevation) {
+        mPositiveElevation = positiveElevation;
+    }
+
+
+    /* Setter for negative elevation of recording (cumulative altitude difference) */
+    public void setNegativeElevation(double megativeElevation) {
+        mNegativeElevation = megativeElevation;
+    }
+
+
+    /* Getter for file/track fornat version */
+    public int getTrackFormatVersion() {
+        return mTrackFormatVersion;
+    }
+
+
     /* Getter for mWayPoints */
     public List<WayPoint> getWayPoints() {
         return mWayPoints;
@@ -145,6 +209,12 @@ public class Track implements TrackbookKeys, Parcelable {
     /* Getter size of Track / number of WayPoints */
     public int getSize() {
         return mWayPoints.size();
+    }
+
+
+    /* Getter for track length */
+    public float getTrackLength() {
+        return mTrackLength;
     }
 
 
@@ -171,26 +241,64 @@ public class Track implements TrackbookKeys, Parcelable {
     }
 
 
+    /* Getter for maximum altitude of recording */
+    public double getMaxAltitude() {
+        return mMaxAltitude;
+    }
+
+
+    /* Getter for lowest altitude of recording */
+    public double getMinAltitude() {
+        return mMinAltitude;
+    }
+
+
+    /* Getter for positive elevation of recording (cumulative altitude difference) */
+    public double getPositiveElevation() {
+        return mPositiveElevation;
+    }
+
+
+    /* Getter for negative elevation of recording (cumulative altitude difference) */
+    public double getNegativeElevation() {
+        return mNegativeElevation;
+    }
+
+
+    /* Getter for string representation of maximum altitude of recording */
+    public String getMaxAltitudeString() {
+        return convertDistanceToString(mMaxAltitude);
+    }
+
+
+    /* Getter for string representation of lowest altitude of recording */
+    public String getMinAltitudeString() {
+        return convertDistanceToString(mMinAltitude);
+    }
+
+
+    /* Getter for string representation of positive elevation of recording (cumulative altitude difference) */
+    public String getPositiveElevationString() {
+        return convertDistanceToString(mPositiveElevation);
+    }
+
+
+    /* Getter for string representation of negative elevation of recording (cumulative altitude difference) */
+    public String getNegativeElevationString() {
+        return convertDistanceToString(mNegativeElevation);
+    }
+
+
     /* Getter for string representation of track duration */
     public String getTrackDurationString() {
         return LocationHelper.convertToReadableTime(mDuration, true);
     }
 
+
     /* Getter for string representation of track distance */
     public String getTrackDistanceString() {
-        float trackDistance;
-        String unit;
-
-        if (getUnitSystem(Locale.getDefault()) == IMPERIAL) {
-            // get track distance and convert to feet
-            trackDistance = mWayPoints.get(mWayPoints.size()-1).getDistanceToStartingPoint() * 3.28084f;
-            unit = "ft";
-        } else {
-            // get track distance
-            trackDistance = mWayPoints.get(mWayPoints.size()-1).getDistanceToStartingPoint();
-            unit = "m";
-        }
-        return String.format (Locale.ENGLISH, "%.0f", trackDistance) + unit;
+        double trackDistance = (double) mWayPoints.get(mWayPoints.size()-1).getDistanceToStartingPoint();
+        return convertDistanceToString(trackDistance);
     }
 
 
@@ -213,6 +321,23 @@ public class Track implements TrackbookKeys, Parcelable {
         }
 
         return 0f;
+    }
+
+
+    /* Converts a given distance value to a readable string */
+    private String convertDistanceToString(double distance) {
+        // check for locale and set unit system accordingly
+        String unit;
+        if (getUnitSystem(Locale.getDefault()) == IMPERIAL) {
+            // convert distance to feet
+            distance = distance * 3.28084f;
+            // set measurement unit
+            unit = "ft";
+        } else {
+            // set measurement unit
+            unit = "m";
+        }
+        return String.format (Locale.ENGLISH, "%.0f", distance) + unit;
     }
 
 
@@ -245,8 +370,11 @@ public class Track implements TrackbookKeys, Parcelable {
         parcel.writeFloat(mStepCount);
         parcel.writeLong(mRecordingStart.getTime());
         parcel.writeLong(mRecordingStop.getTime());
+        parcel.writeDouble(mMaxAltitude);
+        parcel.writeDouble(mMinAltitude);
+        parcel.writeDouble(mPositiveElevation);
+        parcel.writeDouble(mNegativeElevation);
     }
-
 
 
 }

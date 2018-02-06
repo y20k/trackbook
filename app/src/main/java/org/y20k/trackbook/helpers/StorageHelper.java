@@ -17,7 +17,6 @@
 package org.y20k.trackbook.helpers;
 
 import android.content.Context;
-import android.location.Location;
 import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.os.EnvironmentCompat;
@@ -28,6 +27,7 @@ import com.google.gson.GsonBuilder;
 
 import org.y20k.trackbook.R;
 import org.y20k.trackbook.core.Track;
+import org.y20k.trackbook.core.TrackBuilder;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -101,6 +101,9 @@ public class StorageHelper implements TrackbookKeys {
         }
 
         if (mFolder != null && mFolder.exists() && mFolder.isDirectory() && mFolder.canWrite() && recordingStart != null && track != null) {
+            // calculate elevation and store it in track
+            track = calculateElevation(track);
+
             // create file object
             String fileName;
             if (fileType == FILE_TEMP_TRACK) {
@@ -221,22 +224,19 @@ public class StorageHelper implements TrackbookKeys {
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             LogHelper.v(LOG_TAG, "Loading track from external storage: " + file.toString());
 
+            // read until last line reached
             String line;
             StringBuilder sb = new StringBuilder("");
-
-            // read until last line reached
             while ((line = br.readLine()) != null) {
                 sb.append(line);
                 sb.append("\n");
             }
 
-            // TODO implement a format version check before handing the file to GSON
-
-            // get track from JSON
+            // prepare GsonBuilder and return Track object
             GsonBuilder gsonBuilder = new GsonBuilder();
             gsonBuilder.setDateFormat("M/d/yy hh:mm a");
             Gson gson = gsonBuilder.create();
-            return gson.fromJson(sb.toString(), Track.class);
+            return gson.fromJson(sb.toString(), TrackBuilder.class).toTrack();
 
         } catch (IOException e) {
             LogHelper.e(LOG_TAG, "Unable to read file from external storage: " + file.toString());
@@ -360,37 +360,104 @@ public class StorageHelper implements TrackbookKeys {
     }
 
 
-    /* Calculates positive and negative elevation of track */ // todo make private
-    public Track calculateTrackElevation(@Nullable Track track) {
+    /* Calculates positive and negative elevation of track */
+    private Track calculateElevation(@Nullable Track track) {
+        double maxAltitude = 0;
+        double minAltitude = 0;
         double positiveElevation = 0;
         double negativeElevation = 0;
-        double LIKELY_MEASUREMENT_ERROR = 25; // move to TrackbookKeys
 
         if (track != null && track.getWayPoints().size() > 0 && track.getWayPointLocation(0).getAltitude() != 0) {
-            Location previousLocation;
-            Location nextLocation;
+            double previousLocationHeight;
+            double currentLocationHeight;
+            long previousTimeStamp;
+            long currentTimeStamp;
+
+            // initial values for max height and min height - first waypoint
+            maxAltitude = track.getWayPointLocation(0).getAltitude();
+            minAltitude = maxAltitude;
+
+            // apply filter & smooth data
+//            track = lowPass(track, 15f, 35f);
 
             // iterate over track
-            for (int i = 0; i < track.getWayPoints().size() - 1; i++ ) {
-                // calculate elevation difference
-                previousLocation = track.getWayPointLocation(i);
-                nextLocation = track.getWayPointLocation(i + 1);
-                double difference = nextLocation.getAltitude() - previousLocation.getAltitude();
-                LogHelper.i(LOG_TAG, "next:" + nextLocation.getAltitude() + " | prev:" + previousLocation.getAltitude() + " | diff:" + difference); // todo remove
+            for (int i = 1; i < track.getWayPoints().size(); i++ ) {
 
-                // add difference to elevation
-                if (difference > 0 && difference < LIKELY_MEASUREMENT_ERROR) {
-                    positiveElevation = positiveElevation + difference;
-                } else if (difference < 0 && difference > -LIKELY_MEASUREMENT_ERROR) {
-                    negativeElevation = negativeElevation + difference;
+                // get time difference
+                previousTimeStamp = track.getWayPointLocation(i -1).getTime();
+                currentTimeStamp = track.getWayPointLocation(i).getTime();
+                double timeDiff = (currentTimeStamp - previousTimeStamp);
+
+                // factor is bigger than 1 if the time stamp difference is larger than the movement recording interval (usually 15 seconds)
+                double timeDiffFactor = timeDiff / FIFTEEN_SECONDS_IN_MILLISECONDS;
+
+                // height of previous and current waypoints
+                previousLocationHeight = track.getWayPointLocation(i -1).getAltitude();
+                currentLocationHeight = track.getWayPointLocation(i).getAltitude();
+
+                // check for new min and max heights
+                if (currentLocationHeight > maxAltitude) {
+                    maxAltitude = currentLocationHeight;
+                } else if (minAltitude == 0 || currentLocationHeight < minAltitude) {
+                    minAltitude = currentLocationHeight;
+                }
+
+                // get elevation difference and sum it up
+                double altitudeDiff = currentLocationHeight - previousLocationHeight;
+                if (altitudeDiff > 0 && altitudeDiff < MEASUREMENT_ERROR_THRESHOLD * timeDiffFactor && currentLocationHeight != 0) {
+                    positiveElevation = positiveElevation + altitudeDiff;
+                } else if (altitudeDiff < 0 && altitudeDiff > -MEASUREMENT_ERROR_THRESHOLD * timeDiffFactor && currentLocationHeight != 0) {
+                    negativeElevation = negativeElevation + altitudeDiff;
                 }
             }
 
-            String toastString = "Calculated elevation: +" +  positiveElevation + " / " + negativeElevation + " meters"; // todo remove
-            Toast.makeText(mContext, toastString, Toast.LENGTH_LONG).show(); // todo remove
-            LogHelper.i(LOG_TAG, toastString); // todo remove
+            // store elevation data in track
+            track.setMaxAltitude(maxAltitude);
+            track.setMinAltitude(minAltitude);
+            track.setPositiveElevation(positiveElevation);
+            track.setNegativeElevation(negativeElevation);
         }
         return track;
+    }
+
+    /* Tries to smooth the elevation data using a low pass filter */
+    private Track lowPass(Track input, float dt, float rc) {
+        /* The following code is adapted from https://en.wikipedia.org/wiki/Low-pass_filter
+          *
+          * // Return RC low-pass filter output samples, given input samples,
+          * // time interval dt, and time constant RC
+          * function lowpass(real[0..n] x, real dt, real RC)
+          *     var real[0..n] y
+          *     var real α := dt / (RC + dt)
+          *     y[0] := α * x[0]
+          *     for i from 1 to n
+          *         y[i] := α * x[i] + (1-α) * y[i-1]
+          *     return y
+          */
+
+        // copy input track
+        Track output = new Track(input);
+
+        // calculate alpha
+        float alpha = dt / (rc + dt);
+
+        // set initial value for first waypoint
+        double outputInitialAltituteValue = alpha * input.getWayPoints().get(0).getLocation().getAltitude();
+        output.getWayPoints().get(0).getLocation().setAltitude(outputInitialAltituteValue);
+
+        double inputCurrentAltitudeValue;
+        double outputPreviousAltitudeValue;
+        double outputCurrentAltitudeValue;
+        for (int i = 1; i < input.getSize(); i++) {
+            inputCurrentAltitudeValue = input.getWayPoints().get(i).getLocation().getAltitude();
+            outputPreviousAltitudeValue = output.getWayPoints().get(i-1).getLocation().getAltitude();
+
+            outputCurrentAltitudeValue = alpha * inputCurrentAltitudeValue + (1 - alpha) * outputPreviousAltitudeValue;
+
+            output.getWayPoints().get(i).getLocation().setAltitude(outputCurrentAltitudeValue);
+        }
+
+        return output;
     }
 
 
