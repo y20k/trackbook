@@ -123,4 +123,8 @@
     <string name="descr_export_button">Track export button</string>
     <string name="descr_delete_button">Baan - verwijderknop</string>
 
-</resources>
+<string name="descr_statistics_sheet_p_max_altitude">Waarde: hoogste wegpunt</string>
+    <string name="descr_statistics_sheet_p_min_altitude">Waarde: laagste wegpunt</string>
+    <string name="descr_statistics_sheet_p_positive_elevation">Waarde: hoogte (heuvel-op)</string>
+    <string name="descr_statistics_sheet_p_negative_elevation">Waarde: hoogte (heuvel-af)</string>
+    </resources>
