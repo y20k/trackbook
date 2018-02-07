@@ -52,7 +52,7 @@
     <string name="toast_message_track_clear">Nåværende turdata fjernet.</string>
     <string name="toast_message_export_success">GPX-eksportering vellykket:</string>
     <string name="toast_message_export_fail">GPX-eksportering mislyktes:</string>
-    <string name="toast_message_elevation_info">Hint: The accuracy of elevation data depends on your device. The uphill and downhill elevation of the whole route is measured.</string>
+    <string name="toast_message_elevation_info">Hint: Høydedataens nøyaktighet avhenger av enheten din. Opp og ned-stigningen for hele ruten måles.</string>
 
     <!-- map markers -->
     <string name="marker_description_source">Kilde</string>
@@ -69,10 +69,10 @@
     <string name="statistics_sheet_p_duration">Total varighet:</string>
     <string name="statistics_sheet_p_recording_start">Opptak startet:</string>
     <string name="statistics_sheet_p_recording_stop">Opptak stoppet:</string>
-    <string name="statistics_sheet_p_max_altitude">Highest waypoint:</string>
-    <string name="statistics_sheet_p_min_altitude">Lowest waypoint:</string>
-    <string name="statistics_sheet_p_positive_elevation">Elevation (uphill):</string>
-    <string name="statistics_sheet_p_negative_elevation">Elevation (downhill):</string>
+    <string name="statistics_sheet_p_max_altitude">Høyeste veipunkt:</string>
+    <string name="statistics_sheet_p_min_altitude">Laveste veipunkt:</string>
+    <string name="statistics_sheet_p_positive_elevation">Stigning:</string>
+    <string name="statistics_sheet_p_negative_elevation">Nedstigning:</string>
 
     <!-- onboarding layout -->
     <string name="layout_onboarding_h1_welcome">Hallo</string>
@@ -93,7 +93,7 @@
     <!-- descriptions -->
     <string name="descr_map_current_track">Kartlegging av nåværende tur</string>
     <string name="descr_map_last_track">Kartlegging av forrige tur</string>
-    <string name="descr_fab_my_location">My Location Button</string>
+    <string name="descr_fab_my_location">Min plassering-knapp</string>
     <string name="descr_fab_main">Hovedhandlingsknapp</string>
     <string name="descr_fab_sub_menu_label_1">Etikett for Lagre- og Tøm-knapp</string>
     <string name="descr_fab_sub_menu_button_1">liten Lagre- og Tøm-knapp</string>
@@ -113,10 +113,10 @@
     <string name="descr_statistics_sheet_p_duration_value">Verdi: Varighet</string>
     <string name="descr_statistics_sheet_p_recording_start_value">Verdi: Opptaksstart</string>
     <string name="descr_statistics_sheet_p_recording_end_value">Verdi: Opptaksslutt</string>
-    <string name="descr_statistics_sheet_p_max_altitude">Value: Highest waypoint</string>
-    <string name="descr_statistics_sheet_p_min_altitude">Value: Lowest waypoint</string>
-    <string name="descr_statistics_sheet_p_positive_elevation">Value: Elevation (uphill)</string>
-    <string name="descr_statistics_sheet_p_negative_elevation">Value: Elevation (downhill)</string>
+    <string name="descr_statistics_sheet_p_max_altitude">Verdi: Høyeste veipunkt</string>
+    <string name="descr_statistics_sheet_p_min_altitude">Verdi: Laveste veipunkt</string>
+    <string name="descr_statistics_sheet_p_positive_elevation">Verdi: Stigning</string>
+    <string name="descr_statistics_sheet_p_negative_elevation">Verdi: Nedstigning</string>
     <string name="descr_track_selector">Nedtrekksmeny for ytterligere turer</string>
     <string name="descr_export_button">Tureksportknapp</string>
     <string name="descr_delete_button">Turslettingsknapp</string>
