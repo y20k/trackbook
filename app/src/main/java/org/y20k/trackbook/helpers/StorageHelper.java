@@ -367,7 +367,7 @@ public class StorageHelper implements TrackbookKeys {
         double positiveElevation = 0;
         double negativeElevation = 0;
 
-        if (track != null && track.getWayPoints().size() > 0 && track.getWayPointLocation(0).getAltitude() != 0) {
+        if (track != null && track.getWayPoints().size() > 0) {
             double previousLocationHeight;
             double currentLocationHeight;
             long previousTimeStamp;
@@ -398,7 +398,8 @@ public class StorageHelper implements TrackbookKeys {
                 // check for new min and max heights
                 if (currentLocationHeight > maxAltitude) {
                     maxAltitude = currentLocationHeight;
-                } else if (minAltitude == 0 || currentLocationHeight < minAltitude) {
+                }
+                if (minAltitude == 0 || currentLocationHeight < minAltitude) {
                     minAltitude = currentLocationHeight;
                 }
 
@@ -406,9 +407,11 @@ public class StorageHelper implements TrackbookKeys {
                 double altitudeDiff = currentLocationHeight - previousLocationHeight;
                 if (altitudeDiff > 0 && altitudeDiff < MEASUREMENT_ERROR_THRESHOLD * timeDiffFactor && currentLocationHeight != 0) {
                     positiveElevation = positiveElevation + altitudeDiff;
-                } else if (altitudeDiff < 0 && altitudeDiff > -MEASUREMENT_ERROR_THRESHOLD * timeDiffFactor && currentLocationHeight != 0) {
+                }
+                if (altitudeDiff < 0 && altitudeDiff > -MEASUREMENT_ERROR_THRESHOLD * timeDiffFactor && currentLocationHeight != 0) {
                     negativeElevation = negativeElevation + altitudeDiff;
                 }
+
             }
 
             // store elevation data in track
@@ -422,18 +425,18 @@ public class StorageHelper implements TrackbookKeys {
 
     /* Tries to smooth the elevation data using a low pass filter */
     private Track lowPass(Track input, float dt, float rc) {
-        /* The following code is adapted from https://en.wikipedia.org/wiki/Low-pass_filter
-          *
-          * // Return RC low-pass filter output samples, given input samples,
-          * // time interval dt, and time constant RC
-          * function lowpass(real[0..n] x, real dt, real RC)
-          *     var real[0..n] y
-          *     var real α := dt / (RC + dt)
-          *     y[0] := α * x[0]
-          *     for i from 1 to n
-          *         y[i] := α * x[i] + (1-α) * y[i-1]
-          *     return y
-          */
+
+        // The following code is adapted from https://en.wikipedia.org/wiki/Low-pass_filter
+        //
+        // // Return RC low-pass filter output samples, given input samples,
+        // // time interval dt, and time constant RC
+        // function lowpass(real[0..n] x, real dt, real RC)
+        //     var real[0..n] y
+        //     var real α := dt / (RC + dt)
+        //     y[0] := α * x[0]
+        //     for i from 1 to n
+        //         y[i] := α * x[i] + (1-α) * y[i-1]
+        //     return y
 
         // copy input track
         Track output = new Track(input);
@@ -442,8 +445,8 @@ public class StorageHelper implements TrackbookKeys {
         float alpha = dt / (rc + dt);
 
         // set initial value for first waypoint
-        double outputInitialAltituteValue = alpha * input.getWayPoints().get(0).getLocation().getAltitude();
-        output.getWayPoints().get(0).getLocation().setAltitude(outputInitialAltituteValue);
+        double outputInitialAltitudeValue = alpha * input.getWayPoints().get(0).getLocation().getAltitude();
+        output.getWayPoints().get(0).getLocation().setAltitude(outputInitialAltitudeValue);
 
         double inputCurrentAltitudeValue;
         double outputPreviousAltitudeValue;
@@ -459,6 +462,5 @@ public class StorageHelper implements TrackbookKeys {
 
         return output;
     }
-
 
 }

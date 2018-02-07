@@ -189,12 +189,12 @@ public class Track implements TrackbookKeys, Parcelable {
 
 
     /* Setter for negative elevation of recording (cumulative altitude difference) */
-    public void setNegativeElevation(double megativeElevation) {
-        mNegativeElevation = megativeElevation;
+    public void setNegativeElevation(double negativeElevation) {
+        mNegativeElevation = negativeElevation;
     }
 
 
-    /* Getter for file/track fornat version */
+    /* Getter for file/track format version */
     public int getTrackFormatVersion() {
         return mTrackFormatVersion;
     }

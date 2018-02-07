@@ -2,11 +2,6 @@
 <resources>
     <!-- activities -->
     <string name="app_name">Trackbook</string>
-    <string name="title_activity_infosheet">Infosheet</string>
-
-    <!-- menu entries -->
-
-    <!-- headers -->
 
     <!-- tabs -->
     <string name="tab_map">Peta</string>
@@ -16,7 +11,6 @@
     <string name="notification_title_trackbook_running">Trackbook aktif</string>
     <string name="notification_title_trackbook_not_running">Trackbook tidak aktif</string>
     <string name="notification_stop">Berhenti</string>
-    <string name="notification_swipe_to_clear_map">(geser untuk menghapus peta)</string>
     <string name="notification_content_duration">Durasi</string>
     <string name="notification_content_distance">Jarak</string>
     <string name="notification_channel_recording_name">Movement Recording State</string>

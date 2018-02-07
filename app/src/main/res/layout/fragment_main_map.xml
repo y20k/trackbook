@@ -8,7 +8,8 @@
     android:layout_height="fill_parent"
     tools:context=".MainActivityMapFragment">
 
-    <org.osmdroid.views.MapView android:id="@+id/map"
+    <org.osmdroid.views.MapView
+        android:id="@+id/map"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:contentDescription="@string/descr_map_current_track" />

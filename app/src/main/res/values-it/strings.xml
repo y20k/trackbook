@@ -2,11 +2,6 @@
 <resources>
     <!-- activities -->
     <string name="app_name">Trackbook</string> <!-- please do not translate app_name - transcription into different alphabet types is fine though -->
-    <string name="title_activity_infosheet">Scheda informativa</string>
-
-    <!-- menu entries -->
-
-    <!-- headers -->
 
     <!-- tabs -->
     <string name="tab_map">Mappa</string>
@@ -16,7 +11,6 @@
     <string name="notification_title_trackbook_running">Trackbook in esecuzione</string>
     <string name="notification_title_trackbook_not_running">Trackbook non in esecuzione</string>
     <string name="notification_stop">Stop</string>
-    <string name="notification_swipe_to_clear_map">(scorri per spostare la mappa)</string>
     <string name="notification_content_duration">Durata</string>
     <string name="notification_content_distance">Distanza</string>
     <string name="notification_channel_recording_name">Stato registrazione</string>

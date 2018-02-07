@@ -2,11 +2,6 @@
 <resources>
     <!-- activities -->
     <string name="app_name">Trackbook</string> <!-- please do not translate app_name - transcription into different alphabet types is fine though -->
-    <string name="title_activity_infosheet">Infosheet</string>
-
-    <!-- menu entries -->
-
-    <!-- headers -->
 
     <!-- tabs -->
     <string name="tab_map">Karte</string>
@@ -16,7 +11,6 @@
     <string name="notification_title_trackbook_not_running">Trackbook ist inaktiv</string>
     <string name="notification_title_trackbook_running">Trackbook ist aktiv</string>
     <string name="notification_stop">Stopp</string>
-    <string name="notification_swipe_to_clear_map">(Ausblenden setzt Kartenansicht zurück)</string>
     <string name="notification_content_duration">Dauer</string>
     <string name="notification_content_distance">Entfernung</string>
     <string name="notification_channel_recording_name">Status der Aufzeichnung</string>

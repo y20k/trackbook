@@ -380,7 +380,7 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
             mMinAltitudeView.setText(mTrack.getMinAltitudeString());
 
             // show/hide elevation views depending on file format version
-            if (mTrack.getTrackFormatVersion() > 1 || mTrack.getMinAltitude() > 0) {
+            if (mTrack.getTrackFormatVersion() > 1 && mTrack.getMinAltitude() > 0) {
                 // show elevation views
                 mElevationDataViews.setVisibility(View.VISIBLE);
             } else {
