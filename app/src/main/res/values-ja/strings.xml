@@ -13,8 +13,8 @@
     <string name="notification_stop">停止</string>
     <string name="notification_content_duration">期間</string>
     <string name="notification_content_distance">距離</string>
-    <string name="notification_channel_recording_name">Movement Recording State</string>
-    <string name="notification_channel_recording_description">Display duration and distance. Option to stop movement recording.</string>
+    <string name="notification_channel_recording_name">移動記録状態</string>
+    <string name="notification_channel_recording_description">時間と距離を表示します。オプションで移動の記録を停止します。</string>
 
     <!-- snackbar messages -->
     <string name="snackbar_message_tracking_stopped">トレースを停止しました</string>
@@ -32,12 +32,12 @@
     <string name="dialog_delete_title">記録を削除しますか?</string>
     <string name="dialog_delete_content">この記録を削除:</string>
     <string name="dialog_delete_action_delete">Delete</string>
-    <string name="dialog_export_title_export">Export Recording as GPX?</string>
-    <string name="dialog_export_content_export">Export this recording as GPX track.</string>
+    <string name="dialog_export_title_export">GPX として記録をエクスポートしますか?</string>
+    <string name="dialog_export_content_export">GPX トラックとしてこの記録をエクスポートします。</string>
     <string name="dialog_export_action_export">Export</string>
-    <string name="dialog_export_title_overwrite">Export and Overwrite?</string>
-    <string name="dialog_export_content_overwrite">File already exists. Export and overwrite this recording as GPX track.</string>
-    <string name="dialog_export_action_overwrite">Export and Overwrite</string>
+    <string name="dialog_export_title_overwrite">エクスポートを上書きしますか?</string>
+    <string name="dialog_export_content_overwrite">ファイルは既に存在します。エクスポートし、GPX トラックとしてこの記録を上書きします。</string>
+    <string name="dialog_export_action_overwrite">エクスポートして上書き</string>
 
     <!-- toast messages -->
     <string name="toast_message_permissions_granted">アクセス許可を付与しました。</string>
@@ -50,9 +50,9 @@
     <string name="toast_message_save_track">現在のトレースを保存しています。</string>
     <string name="toast_message_last_location_age_one_hour">1 時間以上</string>
     <string name="toast_message_track_clear">現在のトレース データを削除しました。</string>
-    <string name="toast_message_export_success">GPX export successful:</string>
-    <string name="toast_message_export_fail">GPX export failed:</string>
-    <string name="toast_message_elevation_info">Hint: The accuracy of elevation data depends on your device. The uphill and downhill elevation of the whole route is measured.</string>
+    <string name="toast_message_export_success">GPX のエクスポートが完了しました:</string>
+    <string name="toast_message_export_fail">GPX のエクスポートに失敗しました:</string>
+    <string name="toast_message_elevation_info">ヒント: 標高データの精度は、お使いのデバイスによって異なります。ルート全体の上り坂と下り坂の標高を測定します。</string>
 
     <!-- map markers -->
     <string name="marker_description_source">ソース</string>
@@ -64,15 +64,15 @@
     <string name="statistics_sheet_p_default_data">トレースデータが見つかりません</string>
     <string name="statistics_sheet_p_distance">総距離:</string>
     <string name="statistics_sheet_p_steps">歩数:</string>
-    <string name="statistics_sheet_p_steps_no_pedometer">pedometer not available</string>
+    <string name="statistics_sheet_p_steps_no_pedometer">歩数計は使用できません</string>
     <string name="statistics_sheet_p_waypoints">記録されたウェイ ポイント:</string>
     <string name="statistics_sheet_p_duration">合計時間:</string>
     <string name="statistics_sheet_p_recording_start">記録の開始:</string>
     <string name="statistics_sheet_p_recording_stop">記録の停止:</string>
-    <string name="statistics_sheet_p_max_altitude">Highest waypoint:</string>
-    <string name="statistics_sheet_p_min_altitude">Lowest waypoint:</string>
-    <string name="statistics_sheet_p_positive_elevation">Elevation (uphill):</string>
-    <string name="statistics_sheet_p_negative_elevation">Elevation (downhill):</string>
+    <string name="statistics_sheet_p_max_altitude">最高のウェイポイント:</string>
+    <string name="statistics_sheet_p_min_altitude">最低のウェイポイント:</string>
+    <string name="statistics_sheet_p_positive_elevation">標高 (上り):</string>
+    <string name="statistics_sheet_p_negative_elevation">標高 (下り):</string>
 
     <!-- onboarding layout -->
     <string name="layout_onboarding_h1_welcome">こんにちは</string>
@@ -93,7 +93,7 @@
     <!-- descriptions -->
     <string name="descr_map_current_track">現在のトレースのマッピング</string>
     <string name="descr_map_last_track">最後のトレースのマッピング</string>
-    <string name="descr_fab_my_location">My Location Button</string>
+    <string name="descr_fab_my_location">自分の場所ボタン</string>
     <string name="descr_fab_main">メイン アクション ボタン</string>
     <string name="descr_fab_sub_menu_label_1">保存とクリア ボタンのラベル</string>
     <string name="descr_fab_sub_menu_button_1">小さな保存してクリア ボタン</string>
@@ -113,12 +113,12 @@
     <string name="descr_statistics_sheet_p_duration_value">値: 期間</string>
     <string name="descr_statistics_sheet_p_recording_start_value">値: 記録の開始</string>
     <string name="descr_statistics_sheet_p_recording_end_value">値: 記録の終了</string>
-    <string name="descr_statistics_sheet_p_max_altitude">Value: Highest waypoint</string>
-    <string name="descr_statistics_sheet_p_min_altitude">Value: Lowest waypoint</string>
-    <string name="descr_statistics_sheet_p_positive_elevation">Value: Elevation (uphill)</string>
-    <string name="descr_statistics_sheet_p_negative_elevation">Value: Elevation (downhill)</string>
+    <string name="descr_statistics_sheet_p_max_altitude">値: 最高のウェイポイント</string>
+    <string name="descr_statistics_sheet_p_min_altitude">値: 最低のウェイポイント</string>
+    <string name="descr_statistics_sheet_p_positive_elevation">値: 標高 (上り)</string>
+    <string name="descr_statistics_sheet_p_negative_elevation">値: 標高 (下り)</string>
     <string name="descr_track_selector">ドロップダウン メニューでさらにトレース</string>
-    <string name="descr_export_button">Track export button</string>
+    <string name="descr_export_button">トラックのエクスポート ボタン</string>
     <string name="descr_delete_button">トレース削除ボタン</string>
 
 </resources>
