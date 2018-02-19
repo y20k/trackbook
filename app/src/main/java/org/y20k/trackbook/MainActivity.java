@@ -50,6 +50,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import org.osmdroid.config.Configuration;
 import org.y20k.trackbook.helpers.DialogHelper;
 import org.y20k.trackbook.helpers.LogHelper;
 import org.y20k.trackbook.helpers.TrackbookKeys;
@@ -121,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
         }
 
         // set user agent to prevent getting banned from the osm servers
-        org.osmdroid.tileprovider.constants.OpenStreetMapTileProviderConstants.setUserAgentValue(BuildConfig.APPLICATION_ID);
+        Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);
 
         // set up main layout
         setupLayout();
@@ -454,19 +455,20 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
 
         switch (mFloatingActionButtonState) {
             case FAB_STATE_DEFAULT:
-                // show snackbar
-                Snackbar.make(view, R.string.snackbar_message_tracking_started, Snackbar.LENGTH_SHORT).setAction("Action", null).show();
-
-                // change state
-                mTrackerServiceRunning = true;
-                mFloatingActionButtonState = FAB_STATE_RECORDING;
-                setFloatingActionButtonState();
 
                 // get last location from MainActivity Fragment // todo check -> may produce NullPointerException
                 MainActivityMapFragment mainActivityMapFragment = (MainActivityMapFragment) mSectionsPagerAdapter.getFragment(FRAGMENT_ID_MAP);
                 Location lastLocation = mainActivityMapFragment.getCurrentBestLocation();
 
                 if (lastLocation != null) {
+                    // change state
+                    mTrackerServiceRunning = true;
+                    mFloatingActionButtonState = FAB_STATE_RECORDING;
+                    setFloatingActionButtonState();
+
+                    // show snackbar
+                    Snackbar.make(view, R.string.snackbar_message_tracking_started, Snackbar.LENGTH_SHORT).setAction("Action", null).show();
+
                     // start tracker service
                     startTrackerService(ACTION_START, lastLocation);
 
@@ -474,7 +476,6 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
                     Toast.makeText(this, getString(R.string.toast_message_location_services_not_ready), Toast.LENGTH_LONG).show();
                     // change state back
                     mTrackerServiceRunning = false;
-                    setFloatingActionButtonState();
                 }
 
                 break;

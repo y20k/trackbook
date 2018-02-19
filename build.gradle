@@ -20,8 +20,8 @@ allprojects {
     }
     project.ext {
         applicationId = 'org.y20k.trackbook'
-        versionCode = 20
-        versionName = '1.1.4'
+        versionCode = 21
+        versionName = '1.1.5'
         minSdkVersion = 22
         compileSdkVersion = 27
         targetSdkVersion = 27
@@ -29,7 +29,7 @@ allprojects {
         supportLibraryVersion = '27.0.2'
         constraintLayoutVersion = '1.1.0-beta4'
 
-        osmdroidVersion = '5.6.5'
+        osmdroidVersion = '6.0.1'
         gsonVersion = '2.8.2'
     }
 }

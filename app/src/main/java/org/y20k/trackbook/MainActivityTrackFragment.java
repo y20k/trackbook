@@ -175,6 +175,9 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
         // add multi-touch capability
         mMapView.setMultiTouchControls(true);
 
+        // disable default zoom controls
+        mMapView.setBuiltInZoomControls(false);
+
         // add compass to map
         CompassOverlay compassOverlay = new CompassOverlay(mActivity, new InternalCompassOrientationProvider(mActivity), mMapView);
         compassOverlay.enableCompass();

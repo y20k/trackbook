@@ -171,6 +171,9 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
         // add multi-touch capability
         mMapView.setMultiTouchControls(true);
 
+        // disable default zoom controls
+        mMapView.setBuiltInZoomControls(false);
+
         // add compass to map
         CompassOverlay compassOverlay = new CompassOverlay(mActivity, new InternalCompassOrientationProvider(mActivity), mMapView);
         compassOverlay.enableCompass();
@@ -359,7 +362,11 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
 
     /* Getter for current best location */
     public Location getCurrentBestLocation() {
-        return mCurrentBestLocation;
+        if (mLocationSystemSetting) {
+            return mCurrentBestLocation;
+        } else {
+            return null;
+        }
     }
 
 
