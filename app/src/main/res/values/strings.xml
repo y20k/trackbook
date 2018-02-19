@@ -23,7 +23,7 @@
 
     <!-- fab sub menu -->
     <string name="fab_sub_menu_clear">Clear</string>
-    <string name="fab_sub_menu_save_and_clear">Save and Clear</string>
+    <string name="fab_sub_menu_save">Save</string>
 
     <!-- dialogs -->
     <string name="dialog_default_action_cancel">Cancel</string>

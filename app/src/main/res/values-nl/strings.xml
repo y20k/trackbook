@@ -23,7 +23,7 @@
 
     <!-- fab sub menu -->
     <string name="fab_sub_menu_clear">Wissen</string>
-    <string name="fab_sub_menu_save_and_clear">Opslaan en wissen</string>
+    <string name="fab_sub_menu_save">Opslaan en wissen</string>
 
     <!-- dialogs -->
     <string name="dialog_default_action_cancel">Cancel</string>

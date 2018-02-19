@@ -71,7 +71,7 @@
                 android:paddingLeft="6dp"
                 android:paddingRight="6dp"
                 android:paddingTop="2dp"
-                android:text="@string/fab_sub_menu_save_and_clear"
+                android:text="@string/fab_sub_menu_save"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textStyle="bold"
                 tools:layout_editor_absoluteX="110dp"

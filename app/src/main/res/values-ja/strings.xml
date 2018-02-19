@@ -23,7 +23,7 @@
 
     <!-- fab sub menu -->
     <string name="fab_sub_menu_clear">クリア</string>
-    <string name="fab_sub_menu_save_and_clear">保存してクリア</string>
+    <string name="fab_sub_menu_save">保存してクリア</string>
 
     <!-- dialogs -->
     <string name="dialog_default_action_cancel">キャンセル</string>

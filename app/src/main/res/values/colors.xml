@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="trackbook_red">#FFE53935</color>
-    <color name="trackbook_red_dark">#FFB71C1C</color>
-    <color name="trackbook_red_85percent">#D9E53935</color>
+    <color name="trackbook_red">#FFD93025</color>
+    <color name="trackbook_red_dark">#FFB31412</color>
+    <color name="trackbook_red_85percent">#D9D93025</color>
 
     <color name="trackbook_gold">#FFE6BA64</color>
 
@@ -17,10 +17,11 @@
     <color name="trackbook_white_85percent">#D9FFFFFF</color>
     <color name="trackbook_black">#FF000000</color>
 
-    <color name="trackbook_grey_lighter">#FFCFD8DC</color>
-    <color name="trackbook_grey_light">#FF607d8b</color>
-    <color name="trackbook_grey">#FF455a64</color>
-    <color name="trackbook_grey_85percent">#D9455a64</color>
+    <color name="trackbook_grey_lighter">#FFD2D6DA</color>
+    <color name="trackbook_grey_light">#FFBDC1C6</color>
+    <color name="trackbook_grey">#FF5F6368</color>
+    <color name="trackbook_grey_dark">#FF3C4043</color>
+    <color name="trackbook_grey_darker">#FF17181A</color>
 
     <color name="trackbook_transparent">#00000000</color>
 

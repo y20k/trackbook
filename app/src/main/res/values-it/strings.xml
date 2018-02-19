@@ -23,7 +23,7 @@
 
     <!-- fab sub menu -->
     <string name="fab_sub_menu_clear">Cancella</string>
-    <string name="fab_sub_menu_save_and_clear">Salva e ripristina la mappa</string>
+    <string name="fab_sub_menu_save">Salva e ripristina la mappa</string>
 
     <!-- dialogs -->
     <string name="dialog_default_action_cancel">Annulla</string>

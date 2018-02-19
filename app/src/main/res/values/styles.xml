@@ -6,7 +6,7 @@
 
         <!-- Set AppCompat’s colors -->
         <item name="colorPrimary">@color/trackbook_red</item>
-        <item name="colorPrimaryDark">@color/trackbook_black</item>
+        <item name="colorPrimaryDark">@color/trackbook_grey_darker</item>
         <item name="colorAccent">@color/trackbook_blue</item>
 
     </style>

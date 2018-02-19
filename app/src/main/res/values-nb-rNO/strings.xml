@@ -23,7 +23,7 @@
 
     <!-- fab sub menu -->
     <string name="fab_sub_menu_clear">Tøm</string>
-    <string name="fab_sub_menu_save_and_clear">Lagre og tøm</string>
+    <string name="fab_sub_menu_save">Lagre og tøm</string>
 
     <!-- dialogs -->
     <string name="dialog_default_action_cancel">Avbryt</string>

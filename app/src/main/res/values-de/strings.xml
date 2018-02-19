@@ -23,7 +23,7 @@
 
     <!-- fab sub menu -->
     <string name="fab_sub_menu_clear">Zurücksetzen</string>
-    <string name="fab_sub_menu_save_and_clear">Speichern und Zurücksetzen</string>
+    <string name="fab_sub_menu_save">Speichernn</string>
 
     <!-- dialogs -->
     <string name="dialog_default_action_cancel">Abbrechen</string>
