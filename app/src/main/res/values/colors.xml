@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- DAY THEME COLORS -->
+    <color name="status_bar_background">@color/trackbook_white</color>
+    <color name="bottom_navigation_background">@color/trackbook_red</color>
+
+    <color name="fab_button_card_text">@color/trackbook_grey_dark</color>
+    <color name="fab_button_card_background">@color/trackbook_white</color>
+
+    <color name="location_buttom_icon">@color/trackbook_grey</color>
+    <color name="location_buttom_background">@color/trackbook_white</color>
+
+    <color name="track_management_text">@color/trackbook_grey_dark</color>
+    <color name="track_management_icons">@color/trackbook_grey_dark</color>
+    <color name="track_management_background">@color/trackbook_white</color>
+
+    <color name="statistic_sheet_text">@color/trackbook_grey_dark</color>
+    <color name="statistic_sheet_icons">@color/trackbook_grey_dark</color>
+    <color name="statistic_sheet_background_expanded">@color/trackbook_white_85percent</color>
+    <color name="statistic_sheet_background_collapsed">@color/trackbook_white</color>
+
+
+    <!-- COLOR NAMES -->
     <color name="trackbook_red">#FFD93025</color>
     <color name="trackbook_red_dark">#FFB31412</color>
     <color name="trackbook_red_85percent">#D9D93025</color>
@@ -16,6 +37,7 @@
     <color name="trackbook_white">#FFFFFFFF</color>
     <color name="trackbook_white_85percent">#D9FFFFFF</color>
     <color name="trackbook_black">#FF000000</color>
+    <color name="trackbook_black_85percent">#D9000000</color>
 
     <color name="trackbook_grey_lighter">#FFD2D6DA</color>
     <color name="trackbook_grey_light">#FFBDC1C6</color>

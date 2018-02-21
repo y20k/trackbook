@@ -29,6 +29,7 @@ import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -42,6 +43,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.CardView;
 import android.util.SparseArray;
 import android.view.MenuItem;
@@ -53,6 +55,7 @@ import android.widget.Toast;
 import org.osmdroid.config.Configuration;
 import org.y20k.trackbook.helpers.DialogHelper;
 import org.y20k.trackbook.helpers.LogHelper;
+import org.y20k.trackbook.helpers.NightModeHelper;
 import org.y20k.trackbook.helpers.TrackbookKeys;
 import org.y20k.trackbook.layout.NonSwipeableViewPager;
 
@@ -89,6 +92,12 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     private BroadcastReceiver mTrackingStoppedReceiver;
     private int mFloatingActionButtonState;
     private int mSelectedTab;
+
+
+    /* Sets day / night mode */
+    static {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+    }
 
 
     @Override
@@ -447,6 +456,14 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
                 mainActivityMapFragment.handleShowMyLocation();
             }
         });
+        mFloatingActionButtonLocation.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                longPressFeedback(R.string.toastmessage_long_press_night_mode_switch);
+                NightModeHelper.switchToOpposite(MainActivity.this);
+                return true;
+            }
+        });
     }
 
 
@@ -606,6 +623,18 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
                 break;
         }
     }
+
+
+    /* Inform user and give haptic feedback (vibration) */
+    private void longPressFeedback(int stringResource) {
+        // inform user
+        Toast.makeText(this, stringResource, Toast.LENGTH_LONG).show();
+        // vibrate 50 milliseconds
+        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        v.vibrate(50);
+//            v.vibrate(VibrationEffect.createOneShot(50, DEFAULT_AMPLITUDE)); // todo check if there is a support library vibrator
+    }
+
 
 
     /* Check which permissions have been granted */

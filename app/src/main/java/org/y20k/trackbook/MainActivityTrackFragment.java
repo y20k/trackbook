@@ -467,12 +467,12 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
                     case BottomSheetBehavior.STATE_EXPANDED:
                         // statistics sheet expanded
                         mTrackManagementLayout.setVisibility(View.INVISIBLE);
-                        mStatisticsSheet.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.trackbook_white_85percent));
+                        mStatisticsSheet.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.statistic_sheet_background_expanded));
                         break;
                     case BottomSheetBehavior.STATE_COLLAPSED:
                         // statistics sheet collapsed
                         mTrackManagementLayout.setVisibility(View.VISIBLE);
-                        mStatisticsSheet.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.trackbook_white));
+                        mStatisticsSheet.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.statistic_sheet_background_collapsed));
                         mStatisticsSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                         break;
                     case BottomSheetBehavior.STATE_HIDDEN:
@@ -492,9 +492,9 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
                     mTrackManagementLayout.setVisibility(View.INVISIBLE);
                 }
                 if (slideOffset < 0.125f) {
-                    mStatisticsSheet.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.trackbook_white));
+                    mStatisticsSheet.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.statistic_sheet_background_collapsed));
                 } else {
-                    mStatisticsSheet.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.trackbook_white_85percent));
+                    mStatisticsSheet.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.statistic_sheet_background_expanded));
                 }
             }
         };

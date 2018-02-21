@@ -53,6 +53,7 @@
     <string name="toast_message_export_success">GPX-Export erfolgreich:</string>
     <string name="toast_message_export_fail">GPX-Export fehlgeschlagen:</string>
     <string name="toast_message_elevation_info">Hinweis: Die Genauogkeit der Höhenmeter-Werte ist geräteabhängig. Gemessen werden die Steigungen und Gefälle der Gesamtstrecke.</string>
+    <string name="toastmessage_long_press_night_mode_switch">Schalter für Nachtmodus (Längeres Drücken erkannt)</string>
 
     <!-- map markers -->
     <string name="marker_description_source">Quelle</string>

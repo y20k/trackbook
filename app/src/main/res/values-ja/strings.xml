@@ -53,6 +53,7 @@
     <string name="toast_message_export_success">GPX のエクスポートが完了しました:</string>
     <string name="toast_message_export_fail">GPX のエクスポートに失敗しました:</string>
     <string name="toast_message_elevation_info">ヒント: 標高データの精度は、お使いのデバイスによって異なります。ルート全体の上り坂と下り坂の標高を測定します。</string>
+    <string name="toastmessage_long_press_night_mode_switch">Night mode switch (long press detected)</string>
 
     <!-- map markers -->
     <string name="marker_description_source">ソース</string>

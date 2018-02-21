@@ -2,9 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.y20k.trackbook">
 
+    <!-- EXCLUDE NON-GPS DEVICES -->
+    <uses-feature android:name="android.hardware.location.gps" android:required="true" />
+
     <!-- NORMAL PERMISSIONS, automatically granted -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.INTERNET" />
 
     <!-- DANGEROUS PERMISSIONS, must request -->
