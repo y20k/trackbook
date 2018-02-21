@@ -10,8 +10,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/trackbook_grey"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/statistic_sheet_onboarding_text"
         android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:text="@string/track_tab_onboarding_h1_part_1" />
 
@@ -25,8 +25,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/trackbook_grey"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/statistic_sheet_onboarding_text"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:text="@string/track_tab_onboarding_h1_part_2" />
 

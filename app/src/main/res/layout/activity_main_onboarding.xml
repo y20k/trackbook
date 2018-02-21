@@ -16,7 +16,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/main_onboarding_text"
             android:text="@string/layout_onboarding_h1_welcome"
             android:id="@+id/h1_welcome" />
 
@@ -45,14 +47,16 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="@color/main_onboarding_text"
                     android:text="@string/layout_onboarding_h2_app_name"
                     android:id="@+id/h2_app_name" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@color/main_onboarding_text"
                     android:text="@string/layout_onboarding_p_app_claim"
                     android:id="@+id/p_app_claim" />
 
@@ -63,7 +67,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/main_onboarding_text"
             android:text="@string/layout_onboarding_h2_request_permissions"
             android:id="@+id/h2_request_permissions"
             android:layout_marginTop="@dimen/activity_vertical_margin"/>
@@ -71,7 +76,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="@color/main_onboarding_text"
             android:textStyle="bold"
             android:text="@string/layout_onboarding_h3_permission_location"
             android:id="@+id/h3_permission_location"
@@ -79,14 +85,16 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="@color/main_onboarding_text"
             android:text="@string/layout_onboarding_p_permission_location"
             android:id="@+id/p_permission_location" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="@color/main_onboarding_text"
             android:textStyle="bold"
             android:text="@string/layout_onboarding_h3_permission_storage"
             android:id="@+id/h3_permission_storage"
@@ -94,7 +102,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="@color/main_onboarding_text"
             android:text="@string/layout_onboarding_p_permission_storage"
             android:id="@+id/p_permission_storage" />
 

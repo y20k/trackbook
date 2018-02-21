@@ -4,6 +4,7 @@
     <!-- DAY THEME COLORS -->
     <color name="status_bar_background">@color/trackbook_black</color>
     <color name="bottom_navigation_background">@color/trackbook_black</color>
+    <color name="main_onboarding_text">@color/trackbook_white</color>
 
     <color name="fab_button_card_text">@color/trackbook_white</color>
     <color name="fab_button_card_background">@color/trackbook_grey_dark</color>
@@ -15,6 +16,7 @@
     <color name="track_management_icons">@color/trackbook_white</color>
     <color name="track_management_background">@color/trackbook_black</color>
 
+    <color name="statistic_sheet_onboarding_text">@color/trackbook_white</color>
     <color name="statistic_sheet_text">@color/trackbook_white</color>
     <color name="statistic_sheet_icons">@color/trackbook_white</color>
     <color name="statistic_sheet_background_expanded">@color/trackbook_black_85percent</color>
