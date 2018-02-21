@@ -52,6 +52,9 @@ Trackbook uses [osmdroid](https://github.com/osmdroid/osmdroid/) to draw its map
 ### Permission "ACCESS\_COARSE\_LOCATION" and "ACCESS\_FINE\_LOCATION"
 Trackbook needs accurate GPS location data to be able to record your movements. If the GPS data is not available or not accurate enough Trackbook uses location data from cell tower and WiFi triangulation.
 
+### Permission "VIBRATE"
+Tapping and holding some controls will toggle a tiny vibration (force feedback).
+
 ### Permission "WRITE\_EXTERNAL\_STORAGE"
 Trackbook uses [osmdroid](https://github.com/osmdroid/osmdroid), which caches map tiles on Android's external storage. You can find the map cache in the `osmdroid` folder on the top level of the user-facing file system.
 
