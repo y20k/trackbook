@@ -39,7 +39,7 @@ import org.y20k.trackbook.core.Track;
 /**
  * NotificationHelper class
  */
-public class NotificationHelper implements TrackbookKeys {
+public final class NotificationHelper implements TrackbookKeys {
 
     /* Define log tag */
     private static final String LOG_TAG = NotificationHelper.class.getSimpleName();

@@ -38,69 +38,59 @@ import java.util.TimeZone;
 /**
  * ExportHelper class
  */
-public class ExportHelper implements TrackbookKeys {
+public final class ExportHelper implements TrackbookKeys {
 
     /* Define log tag */
     private static final String LOG_TAG = ExportHelper.class.getSimpleName();
 
 
-    /* Main class variables */
-//    private final Track mTrack;
-    private final Context mContext;
-    private final File mFolder;
-
-
-    /* Constructor */
-    public ExportHelper(Context context) {
-        mContext = context;
-        mFolder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-    }
-
-
     /* Checks if a GPX file for given track is already present */
-    public boolean gpxFileExists(Track track) {
-        return createFile(track).exists();
+    public static boolean gpxFileExists(Track track) {
+        File folder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        return createFile(track, folder).exists();
     }
 
 
     /* Exports given track to GPX */
-    public boolean exportToGpx(Track track) {
+    public static boolean exportToGpx(Context context, Track track) {
+        // get "Download" folder
+        File folder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
 
         // create "Download" folder if necessary
-        if (mFolder != null && !mFolder.exists()) {
-            LogHelper.v(LOG_TAG, "Creating new folder: " + mFolder.toString());
-            mFolder.mkdirs();
+        if (folder != null && !folder.exists()) {
+            LogHelper.v(LOG_TAG, "Creating new folder: " + folder.toString());
+            folder.mkdirs();
         }
 
         // get file for given track
-        File gpxFile = createFile(track);
+        File gpxFile = createFile(track, folder);
 
         // get GPX string representation for given track
         String gpxString = createGpxString(track);
 
         // write GPX file
         if (writeGpxToFile(gpxString, gpxFile)) {
-            String toastMessage = mContext.getResources().getString(R.string.toast_message_export_success) + " " + gpxFile.toString();
-            Toast.makeText(mContext, toastMessage, Toast.LENGTH_LONG).show();
+            String toastMessage = context.getResources().getString(R.string.toast_message_export_success) + " " + gpxFile.toString();
+            Toast.makeText(context, toastMessage, Toast.LENGTH_LONG).show();
             return true;
         } else {
-            String toastMessage = mContext.getResources().getString(R.string.toast_message_export_fail) + " " + gpxFile.toString();
-            Toast.makeText(mContext, toastMessage, Toast.LENGTH_LONG).show();
+            String toastMessage = context.getResources().getString(R.string.toast_message_export_fail) + " " + gpxFile.toString();
+            Toast.makeText(context, toastMessage, Toast.LENGTH_LONG).show();
             return false;
         }
     }
 
 
     /* Return a GPX filepath for a given track */
-    private File createFile(Track track) {
+    private static File createFile(Track track, File folder) {
         Date recordingStart = track.getRecordingStart();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss", Locale.US);
-        return new File(mFolder, dateFormat.format(recordingStart) + FILE_TYPE_GPX_EXTENSION);
+        return new File(folder, dateFormat.format(recordingStart) + FILE_TYPE_GPX_EXTENSION);
     }
 
 
     /* Writes given GPX string to Download folder */
-    private boolean writeGpxToFile (String gpxString, File gpxFile) {
+    private static boolean writeGpxToFile (String gpxString, File gpxFile) {
         // write track
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(gpxFile))) {
             LogHelper.v(LOG_TAG, "Saving track to external storage: " + gpxFile.toString());
@@ -114,7 +104,7 @@ public class ExportHelper implements TrackbookKeys {
 
 
     /* Creates GPX formatted string */
-    private String createGpxString(Track track) {
+    private static String createGpxString(Track track) {
         String gpxString;
 
         // add header
@@ -134,7 +124,7 @@ public class ExportHelper implements TrackbookKeys {
 
 
     /* Creates Track */
-    private String addTrack(Track track) {
+    private static String addTrack(Track track) {
         StringBuilder gpxTrack = new StringBuilder("");
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.US);
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));

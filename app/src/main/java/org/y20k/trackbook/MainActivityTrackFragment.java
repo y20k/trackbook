@@ -339,8 +339,7 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
             case RESULT_EXPORT_DIALOG:
                 if (resultCode == Activity.RESULT_OK) {
                     // User chose EXPORT
-                    ExportHelper exportHelper = new ExportHelper(mActivity);
-                    exportHelper.exportToGpx(mTrack);
+                    ExportHelper.exportToGpx(mActivity, mTrack);
                 } else if (resultCode == Activity.RESULT_CANCELED){
                     // User chose CANCEL
                     LogHelper.v(LOG_TAG, "Export to GPX: User chose CANCEL.");
@@ -536,11 +535,8 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
                 String recordingStartDate = df.format(mTrack.getRecordingStart());
                 String dialogMessage;
 
-                // create an ExportHelper
-                final ExportHelper exportHelper = new ExportHelper(mActivity);
-
                 // get text elements for delete dialog
-                if (exportHelper.gpxFileExists(mTrack)) {
+                if (ExportHelper.gpxFileExists(mTrack)) {
                     // CASE: OVERWRITE - GPX file exists
                     dialogTitle = R.string.dialog_export_title_overwrite;
                     dialogMessage = getString(R.string.dialog_export_content_overwrite) + " (" + recordingStartDate + " | " + mTrack.getTrackDistanceString() + ")";
