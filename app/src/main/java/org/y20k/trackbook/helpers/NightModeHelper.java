@@ -16,11 +16,14 @@
 
 package org.y20k.trackbook.helpers;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatDelegate;
+import android.view.View;
 
 
 /**
@@ -33,19 +36,22 @@ public final class NightModeHelper implements TrackbookKeys {
 
 
     /* Switches to opposite theme */
-    public static void switchToOpposite(Context context) {
-        switch (getCurrentNightModeState(context)) {
+    public static void switchToOpposite(Activity activity) {
+        switch (getCurrentNightModeState(activity)) {
             case Configuration.UI_MODE_NIGHT_NO:
                 // night mode is currently not active - turn on night mode
-                activateNightMode(context);
+                displayDefaultStatusBar(activity); // necessary hack :-/
+                activateNightMode(activity);
                 break;
             case Configuration.UI_MODE_NIGHT_YES:
                 // night mode is currently active - turn off night mode
-                deactivateNightMode(context);
+                displayLightStatusBar(activity); // necessary hack :-/
+                deactivateNightMode(activity);
                 break;
             case Configuration.UI_MODE_NIGHT_UNDEFINED:
                 // don't know what mode is active - turn off night mode
-                deactivateNightMode(context);
+                displayLightStatusBar(activity); // necessary hack :-/
+                deactivateNightMode(activity);
                 break;
         }
     }
@@ -84,7 +90,7 @@ public final class NightModeHelper implements TrackbookKeys {
     private static void activateNightMode(Context context) {
         saveNightModeState(context, Configuration.UI_MODE_NIGHT_YES);
 
-        // switch to Nighh Mode
+        // switch to Night Mode
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
     }
 
@@ -96,6 +102,24 @@ public final class NightModeHelper implements TrackbookKeys {
 
         // switch to Day Mode
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+    }
+
+
+    /* Displays the default status bar */
+    private static void displayDefaultStatusBar(Activity activity) {
+        View decorView = activity.getWindow().getDecorView();
+        decorView.setSystemUiVisibility(0);
+    }
+
+
+    /* Displays the light (inverted) status bar - if possible */
+    private static void displayLightStatusBar(Activity activity) {
+        View decorView = activity.getWindow().getDecorView();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        } else {
+            decorView.setSystemUiVisibility(0);
+        }
     }
 
 
