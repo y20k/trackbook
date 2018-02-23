@@ -43,7 +43,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.CardView;
 import android.util.SparseArray;
 import android.view.MenuItem;
@@ -92,12 +91,6 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     private BroadcastReceiver mTrackingStoppedReceiver;
     private int mFloatingActionButtonState;
     private int mSelectedTab;
-
-
-    /* Sets day / night mode */
-    static {
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-    }
 
 
     @Override
@@ -461,6 +454,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
             public boolean onLongClick(View v) {
                 longPressFeedback(R.string.toastmessage_long_press_night_mode_switch);
                 NightModeHelper.switchToOpposite(MainActivity.this);
+                recreate();
                 return true;
             }
         });
