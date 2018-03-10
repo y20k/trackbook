@@ -184,14 +184,14 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
             // restore saved instance of map
             GeoPoint position = new GeoPoint(savedInstanceState.getDouble(INSTANCE_LATITUDE_MAIN_MAP, DEFAULT_LATITUDE), savedInstanceState.getDouble(INSTANCE_LONGITUDE_MAIN_MAP, DEFAULT_LONGITUDE));
             mController.setCenter(position);
-            mController.setZoom(savedInstanceState.getInt(INSTANCE_ZOOM_LEVEL_MAIN_MAP, 16));
+            mController.setZoom(savedInstanceState.getDouble(INSTANCE_ZOOM_LEVEL_MAIN_MAP, 16f));
             // restore current location
             mCurrentBestLocation = savedInstanceState.getParcelable(INSTANCE_CURRENT_LOCATION);
         } else if (mCurrentBestLocation != null) {
             // fallback or first run: set map to current position
             GeoPoint position = convertToGeoPoint(mCurrentBestLocation);
             mController.setCenter(position);
-            mController.setZoom(16);
+            mController.setZoom(16f);
         }
 
         // inform user that new/better location is on its way
@@ -333,7 +333,7 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
         outState.putParcelable(INSTANCE_CURRENT_LOCATION, mCurrentBestLocation);
         outState.putDouble(INSTANCE_LATITUDE_MAIN_MAP, mMapView.getMapCenter().getLatitude());
         outState.putDouble(INSTANCE_LONGITUDE_MAIN_MAP, mMapView.getMapCenter().getLongitude());
-        outState.putInt(INSTANCE_ZOOM_LEVEL_MAIN_MAP, mMapView.getZoomLevel());
+        outState.putDouble(INSTANCE_ZOOM_LEVEL_MAIN_MAP, mMapView.getZoomLevelDouble());
 //        outState.putParcelable(INSTANCE_TRACK_MAIN_MAP, mTrack);
         super.onSaveInstanceState(outState);
     }

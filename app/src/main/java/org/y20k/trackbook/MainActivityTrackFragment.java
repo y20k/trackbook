@@ -190,9 +190,9 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
             // restore saved instance of map
             GeoPoint position = new GeoPoint(savedInstanceState.getDouble(INSTANCE_LATITUDE_TRACK_MAP, DEFAULT_LATITUDE), savedInstanceState.getDouble(INSTANCE_LONGITUDE_TRACK_MAP, DEFAULT_LONGITUDE));
             mController.setCenter(position);
-            mController.setZoom(savedInstanceState.getInt(INSTANCE_ZOOM_LEVEL_MAIN_MAP, 16));
+            mController.setZoom(savedInstanceState.getDouble(INSTANCE_ZOOM_LEVEL_MAIN_MAP, 16f));
         } else {
-            mController.setZoom(16);
+            mController.setZoom(16f);
         }
 
         // get views for track selector
@@ -318,7 +318,7 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
     public void onSaveInstanceState(@NonNull Bundle outState) {
         outState.putDouble(INSTANCE_LATITUDE_TRACK_MAP, mMapView.getMapCenter().getLatitude());
         outState.putDouble(INSTANCE_LONGITUDE_TRACK_MAP, mMapView.getMapCenter().getLongitude());
-        outState.putInt(INSTANCE_ZOOM_LEVEL_TRACK_MAP, mMapView.getZoomLevel());
+        outState.putDouble(INSTANCE_ZOOM_LEVEL_TRACK_MAP, mMapView.getZoomLevelDouble());
         outState.putParcelable(INSTANCE_TRACK_TRACK_MAP, mTrack);
         outState.putInt(INSTANCE_CURRENT_TRACK, mCurrentTrack);
         super.onSaveInstanceState(outState);

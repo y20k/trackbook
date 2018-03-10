@@ -17,8 +17,9 @@
 
 package org.y20k.trackbook.helpers;
 
-import android.support.v4.BuildConfig;
 import android.util.Log;
+
+import org.y20k.trackbook.BuildConfig;
 
 
 /**
@@ -26,7 +27,7 @@ import android.util.Log;
  */
 public final class LogHelper {
 
-    private final static boolean mTesting = true;
+    private final static boolean mTesting = false;
 
     public static void d(final String tag, String message) {
         // include logging only in debug versions

@@ -35,15 +35,15 @@ public class TrackBuilder {
     /* Main class variables */
     private final int mTrackFormatVersion;
     private final List<WayPoint> mWayPoints;
-    private float mTrackLength;
-    private long mDuration;
-    private float mStepCount;
+    private final float mTrackLength;
+    private final long mDuration;
+    private final float mStepCount;
     private final Date mRecordingStart;
-    private Date mRecordingStop;
-    private double mMaxAltitude;
-    private double mMinAltitude;
-    private double mPositiveElevation;
-    private double mNegativeElevation;
+    private final Date mRecordingStop;
+    private final double mMaxAltitude;
+    private final double mMinAltitude;
+    private final double mPositiveElevation;
+    private final double mNegativeElevation;
 
 
     /* Generic Constructor */
