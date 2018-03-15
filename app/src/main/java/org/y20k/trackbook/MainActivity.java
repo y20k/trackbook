@@ -85,9 +85,11 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     private FloatingActionButton mFloatingActionButtonMain;
     private FloatingActionButton mFloatingActionButtonSubSave;
     private FloatingActionButton mFloatingActionButtonSubClear;
+    private FloatingActionButton mFloatingActionButtonSubResume;
     private FloatingActionButton mFloatingActionButtonLocation;
     private CardView mFloatingActionButtonSubSaveLabel;
     private CardView mFloatingActionButtonSubClearLabel;
+    private CardView mFloatingActionButtonSubResumeLabel;
     private BroadcastReceiver mTrackingStoppedReceiver;
     private int mFloatingActionButtonState;
     private int mSelectedTab;
@@ -313,7 +315,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     }
 
 
-    /* Handles tap on the button "save and clear" */
+    /* Handles tap on the button "save" */
     private void handleSaveButtonClick() {
         // save button click is handled by onActivityResult in MainActivityMapFragment
         MainActivityMapFragment mainActivityMapFragment = (MainActivityMapFragment) mSectionsPagerAdapter.getFragment(FRAGMENT_ID_MAP);
@@ -334,6 +336,12 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
         dialogFragment.setTargetFragment(mainActivityMapFragment, RESULT_CLEAR_DIALOG);
         dialogFragment.show(getSupportFragmentManager(), "ClearDialog");
         // results of dialog are handled by onActivityResult in MainActivityMapFragment
+    }
+
+
+    /* Handles tap on the button "resume" */
+    private void handleResumeButtonClick() {
+        // todo implement
     }
 
 
@@ -370,6 +378,8 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
             mFloatingActionButtonSubSaveLabel = findViewById(R.id.fabSubMenuLabelSave);
             mFloatingActionButtonSubClear = findViewById(R.id.fabSubMenuButtonClear);
             mFloatingActionButtonSubClearLabel = findViewById(R.id.fabSubMenuLabelClear);
+            mFloatingActionButtonSubResume = findViewById(R.id.fabSubMenuButtonResume);
+            mFloatingActionButtonSubResumeLabel = findViewById(R.id.fabSubMenuLabelResume);
             if (mFloatingActionButtonSubMenuVisible) {
                 showFloatingActionButtonMenu(true);
             } else {
@@ -442,6 +452,20 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
                 handleClearButtonClick();
             }
         });
+        mFloatingActionButtonSubResume.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                handleResumeButtonClick();
+            }
+        });
+        mFloatingActionButtonSubResumeLabel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                handleResumeButtonClick();
+            }
+        });
+
+
         mFloatingActionButtonLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -540,12 +564,16 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     /* Shows (and hides) the sub menu of the floating action button */
     private void showFloatingActionButtonMenu(boolean visible) {
         if (visible) {
+            mFloatingActionButtonSubResume.setVisibility(View.VISIBLE);
+            mFloatingActionButtonSubResumeLabel.setVisibility(View.VISIBLE);
             mFloatingActionButtonSubClear.setVisibility(View.VISIBLE);
             mFloatingActionButtonSubClearLabel.setVisibility(View.VISIBLE);
             mFloatingActionButtonSubSave.setVisibility(View.VISIBLE);
             mFloatingActionButtonSubSaveLabel.setVisibility(View.VISIBLE);
             mFloatingActionButtonSubMenuVisible = true;
         } else {
+            mFloatingActionButtonSubResume.setVisibility(View.INVISIBLE);
+            mFloatingActionButtonSubResumeLabel.setVisibility(View.INVISIBLE);
             mFloatingActionButtonSubClear.setVisibility(View.INVISIBLE);
             mFloatingActionButtonSubClearLabel.setVisibility(View.INVISIBLE);
             mFloatingActionButtonSubSaveLabel.setVisibility(View.INVISIBLE);
