@@ -6,11 +6,11 @@
     <uses-feature android:name="android.hardware.location.gps" android:required="true" />
 
     <!-- NORMAL PERMISSIONS, automatically granted -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <!-- DANGEROUS PERMISSIONS, must request -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />

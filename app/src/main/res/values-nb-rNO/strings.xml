@@ -19,11 +19,13 @@
     <!-- snackbar messages -->
     <string name="snackbar_message_tracking_stopped">Sporing stoppet</string>
     <string name="snackbar_message_tracking_started">Sporing startet</string>
+    <string name="snackbar_message_tracking_resumed">Tracking resumed</string>
     <string name="snackbar_message_location_offline">Plassering avskrudd. Trackbook bil ikke fungere.</string>
 
     <!-- fab sub menu -->
     <string name="fab_sub_menu_clear">Tøm</string>
     <string name="fab_sub_menu_save">Lagre og tøm</string>
+    <string name="fab_sub_menu_resume">Resume</string>
 
     <!-- dialogs -->
     <string name="dialog_default_action_cancel">Avbryt</string>
@@ -100,6 +102,8 @@
     <string name="descr_fab_sub_menu_button_1">liten Lagre- og Tøm-knapp</string>
     <string name="descr_fab_sub_menu_label_2">Etikett for Tøm-knappen</string>
     <string name="descr_fab_sub_menu_button_2">liten Tøm-knapp</string>
+    <string name="descr_fab_sub_menu_label_3">Label of the Resume button</string>
+    <string name="descr_fab_sub_menu_button_3">small Resume button</string>
     <string name="descr_statistics_sheet_headline">Overskrift for statistikkarket</string>
     <string name="descr_statistics_sheet_icon">Informasjonsikon</string>
     <string name="descr_statistics_sheet_p_distance">Datapunkt: Distanse</string>
