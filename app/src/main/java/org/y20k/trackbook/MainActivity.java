@@ -308,13 +308,6 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     }
 
 
-    /* Loads state of Floating Action Button from preferences */
-    private void loadFloatingActionButtonState(Context context) {
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-        mFloatingActionButtonState = settings.getInt(PREFS_FAB_STATE, FAB_STATE_DEFAULT);
-    }
-
-
     /* Handles tap on the button "save" */
     private void handleSaveButtonClick() {
         // save button click is handled by onActivityResult in MainActivityMapFragment
@@ -340,18 +333,26 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
 
 
     /* Handles tap on the button "resume" */
-    private void handleResumeButtonClick() {
-        // todo implement
+    private void handleResumeButtonClick(View view) {
+        // change state
+        mTrackerServiceRunning = true;
+        mFloatingActionButtonState = FAB_STATE_RECORDING;
+        setFloatingActionButtonState();
+        showFloatingActionButtonMenu(false);
+
+        // show snackbar
+        Snackbar.make(view, R.string.snackbar_message_tracking_resumed, Snackbar.LENGTH_SHORT).setAction("Action", null).show();
+
+        // resume tracking
+        startTrackerService(ACTION_RESUME, null);
     }
 
 
-//    /* Saves state of Floating Action Button */ // not needed tracker service saves state
-//    private void saveFloatingActionButtonState(Context context) {
-//        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-//        SharedPreferences.Editor editor = settings.edit();
-//        editor.putInt(PREFS_FAB_STATE, mFloatingActionButtonState);
-//        editor.apply();
-//    }
+    /* Loads state of Floating Action Button from preferences */
+    private void loadFloatingActionButtonState(Context context) {
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+        mFloatingActionButtonState = settings.getInt(PREFS_FAB_STATE, FAB_STATE_DEFAULT);
+    }
 
 
     /* Set up main layout */
@@ -455,13 +456,13 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
         mFloatingActionButtonSubResume.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                handleResumeButtonClick();
+                handleResumeButtonClick(view);
             }
         });
         mFloatingActionButtonSubResumeLabel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                handleResumeButtonClick();
+                handleResumeButtonClick(view);
             }
         });
 

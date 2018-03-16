@@ -116,17 +116,17 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
         // RESTART CHECK:  checking for empty intent - try to get saved track
         if (intent == null || intent.getAction() == null) {
             LogHelper.w(LOG_TAG, "Null-Intent received. Trying to restart tracking.");
-            StorageHelper storageHelper = new StorageHelper(this);
-            if (storageHelper.tempFileExists()) {
-                mTrack = storageHelper.loadTrack(FILE_TEMP_TRACK);
-                // restart tracking
-                startTracking(intent, false);
-            }
+            startTracking(intent, false);
         }
 
         // ACTION START
         else if (intent.getAction().equals(ACTION_START) && mLocationSystemSetting) {
             startTracking(intent, true);
+        }
+
+        // ACTION START
+        else if (intent.getAction().equals(ACTION_RESUME) && mLocationSystemSetting) {
+            startTracking(intent, false);
         }
 
         // ACTION STOP
@@ -210,12 +210,27 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
         // create a new track -- if necessary
         if (createNewTrack) {
             mTrack = new Track();
+        } else {
+            StorageHelper storageHelper = new StorageHelper(this);
+            if (storageHelper.tempFileExists()) {
+                // load temp track file
+                mTrack = storageHelper.loadTrack(FILE_TEMP_TRACK);
+            } else {
+                // fallback, if temfile did not exist
+                LogHelper.e(LOG_TAG, "Unable to find previously saved track temp file.");
+                mTrack = new Track();
+            }
         }
 
         // get last location
-        if (intent != null && intent.hasExtra(EXTRA_LAST_LOCATION)) {
+        if (intent != null && ACTION_START.equals(intent.getAction()) && intent.hasExtra(EXTRA_LAST_LOCATION)) {
+            // received START intent and last location - unpack last location
             mCurrentBestLocation = intent.getParcelableExtra(EXTRA_LAST_LOCATION);
+        } else if (ACTION_RESUME.equals(intent.getAction()) && mTrack.getSize() > 0) {
+            // received RESUME intent - use last waypoint
+            mCurrentBestLocation = mTrack.getWayPointLocation(mTrack.getSize() -1);
         }
+
         //  get last location - fallback
         if (mCurrentBestLocation == null) {
             mCurrentBestLocation = LocationHelper.determineLastKnownLocation(mLocationManager);
@@ -229,14 +244,14 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
         mNotification = NotificationHelper.getNotification(this, mNotificationBuilder, mTrack, true);
         mNotificationManager.notify(TRACKER_SERVICE_NOTIFICATION_ID, mNotification); // todo check if necessary in pre Android O
 
-        // get duration of previously recorded track - in case this service has been restarted
+        // get duration of previously recorded track - in case this service has been restarted / resumed
         final long previouslyRecordedDuration = mTrack.getTrackDuration();
 
         // set timer to retrieve new locations and to prevent endless tracking
         mTimer = new CountDownTimer(EIGHT_HOURS_IN_MILLISECONDS, FIFTEEN_SECONDS_IN_MILLISECONDS) {
             @Override
             public void onTick(long millisUntilFinished) {
-                // update track duration - and add duration from previously interrupted session
+                // update track duration - and add duration from previously interrupted / paused session
                 long duration = EIGHT_HOURS_IN_MILLISECONDS - millisUntilFinished + previouslyRecordedDuration;
                 mTrack.setDuration(duration);
                 // try to add WayPoint to Track

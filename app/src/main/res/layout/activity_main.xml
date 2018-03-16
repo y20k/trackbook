@@ -52,6 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
+            android:layout_marginEnd="8dp"
             android:clickable="true"
             android:contentDescription="@string/descr_fab_sub_menu_label_save"
             android:focusable="true"
@@ -90,7 +91,6 @@
             app:fabSize="mini"
             app:layout_constraintBottom_toTopOf="@+id/fabSubMenuButtonResume"
             app:layout_constraintEnd_toEndOf="@+id/fabSubMenuButtonResume"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/fabSubMenuButtonResume"
             app:srcCompat="@drawable/ic_clear_white_24dp" />
 
