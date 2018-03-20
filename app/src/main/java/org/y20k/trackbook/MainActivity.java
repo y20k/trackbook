@@ -99,9 +99,6 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // initialize selected tab
-        mSelectedTab = FRAGMENT_ID_MAP;
-
         // check state of External Storage
         checkExternalStorageState();
 
@@ -118,11 +115,17 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
             mPermissionsGranted = true;
         }
 
-        // restore state if saved instance is available
+        // initialize state
         if (savedInstanceState != null) {
+            // restore if saved instance is available
             mTrackerServiceRunning = savedInstanceState.getBoolean(INSTANCE_TRACKING_STATE, false);
             mSelectedTab = savedInstanceState.getInt(INSTANCE_SELECTED_TAB, FRAGMENT_ID_MAP);
             mFloatingActionButtonSubMenuVisible = savedInstanceState.getBoolean(INSTANCE_FAB_SUB_MENU_VISIBLE, false);
+        } else {
+            // use default values
+            mTrackerServiceRunning = false;
+            mSelectedTab = FRAGMENT_ID_MAP;
+            mFloatingActionButtonSubMenuVisible = false;
         }
 
         // set user agent to prevent getting banned from the osm servers
@@ -564,16 +567,16 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     /* Shows (and hides) the sub menu of the floating action button */
     private void showFloatingActionButtonMenu(boolean visible) {
         if (visible) {
-            mFloatingActionButtonSubResume.setVisibility(View.VISIBLE);
-            mFloatingActionButtonSubResumeLabel.setVisibility(View.VISIBLE);
+//            mFloatingActionButtonSubResume.setVisibility(View.VISIBLE);
+//            mFloatingActionButtonSubResumeLabel.setVisibility(View.VISIBLE);
             mFloatingActionButtonSubClear.setVisibility(View.VISIBLE);
             mFloatingActionButtonSubClearLabel.setVisibility(View.VISIBLE);
             mFloatingActionButtonSubSave.setVisibility(View.VISIBLE);
             mFloatingActionButtonSubSaveLabel.setVisibility(View.VISIBLE);
             mFloatingActionButtonSubMenuVisible = true;
         } else {
-            mFloatingActionButtonSubResume.setVisibility(View.INVISIBLE);
-            mFloatingActionButtonSubResumeLabel.setVisibility(View.INVISIBLE);
+//            mFloatingActionButtonSubResume.setVisibility(View.INVISIBLE);
+//            mFloatingActionButtonSubResumeLabel.setVisibility(View.INVISIBLE);
             mFloatingActionButtonSubClear.setVisibility(View.INVISIBLE);
             mFloatingActionButtonSubClearLabel.setVisibility(View.INVISIBLE);
             mFloatingActionButtonSubSaveLabel.setVisibility(View.INVISIBLE);

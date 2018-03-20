@@ -134,6 +134,7 @@
             android:clickable="true"
             android:contentDescription="@string/descr_fab_sub_menu_button_resume"
             android:focusable="true"
+            android:visibility="gone"
             app:backgroundTint="@color/trackbook_blue"
             app:fabSize="mini"
             app:layout_constraintBottom_toTopOf="@+id/fabMainButton"
@@ -149,6 +150,7 @@
             android:clickable="true"
             android:contentDescription="@string/descr_fab_sub_menu_label_resume"
             android:focusable="true"
+            android:visibility="gone"
             app:cardBackgroundColor="@color/fab_button_card_background"
             app:cardCornerRadius="4dp"
             app:cardElevation="4dp"
@@ -164,6 +166,7 @@
                 android:paddingLeft="6dp"
                 android:paddingRight="6dp"
                 android:paddingTop="2dp"
+                android:visibility="gone"
                 android:text="@string/fab_sub_menu_resume"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textColor="@color/fab_button_card_text"
@@ -205,13 +208,13 @@
 
 
         <org.y20k.trackbook.layout.NonSwipeableViewPager
-                    android:id="@+id/fragmentContainer"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    app:layout_constraintBottom_toTopOf="@+id/navigation"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+            android:id="@+id/fragmentContainer"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/navigation"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </android.support.constraint.ConstraintLayout>

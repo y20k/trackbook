@@ -89,8 +89,8 @@ public final class NotificationHelper implements TrackbookKeys {
             builder.setContentTitle(context.getString(R.string.notification_title_trackbook_running));
             builder.setContentText(getContextString(context, track));
         } else {
-            builder.addAction(R.drawable.ic_fiber_manual_record_white_24dp, context.getString(R.string.notification_resume), resuneActionPendingIntent);
-            builder.addAction(R.drawable.ic_compass_needle_white_24dp, context.getString(R.string.notification_show), tapActionPendingIntent);
+//            builder.addAction(R.drawable.ic_fiber_manual_record_white_24dp, context.getString(R.string.notification_resume), resuneActionPendingIntent);
+//            builder.addAction(R.drawable.ic_compass_needle_white_24dp, context.getString(R.string.notification_show), tapActionPendingIntent);
             builder.setContentTitle(context.getString(R.string.notification_title_trackbook_not_running));
             builder.setContentText(getContextString(context, track));
         }
