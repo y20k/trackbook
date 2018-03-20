@@ -8,6 +8,6 @@
     android:paddingStart="@dimen/activity_horizontal_margin"
     android:paddingEnd="@dimen/activity_horizontal_margin"
     android:textColor="@color/track_management_text"
-    android:background="@color/track_management_background"
+    android:backgroundTint="@color/track_management_background"
     android:ellipsize="marquee"
     android:singleLine="true" />

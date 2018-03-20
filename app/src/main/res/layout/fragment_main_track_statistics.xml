@@ -33,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:background="@color/trackbook_transparent"
+        android:backgroundTint="@color/trackbook_transparent"
         android:contentDescription="@string/descr_statistics_sheet_icon"
         app:layout_constraintBottom_toBottomOf="@+id/statistics_headline"
         app:layout_constraintEnd_toEndOf="parent"
