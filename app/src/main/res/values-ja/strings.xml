@@ -11,6 +11,10 @@
     <string name="notification_title_trackbook_running">Trackbook 実行中</string>
     <string name="notification_title_trackbook_not_running">Trackbook は実行していません</string>
     <string name="notification_stop">停止</string>
+    <string name="notification_clear">クリア</string>
+    <string name="notification_save">保存してクリア</string>
+    <string name="notification_esume">Resume</string>
+    <string name="notification_show">Show</string>
     <string name="notification_content_duration">期間</string>
     <string name="notification_content_distance">距離</string>
     <string name="notification_channel_recording_name">移動記録状態</string>

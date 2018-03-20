@@ -11,6 +11,10 @@
     <string name="notification_title_trackbook_running">Trackbook kjører</string>
     <string name="notification_title_trackbook_not_running">Trackbook kjører ikke</string>
     <string name="notification_stop">Stopp</string>
+    <string name="notification_clear">Tøm</string>
+    <string name="notification_save">Lagre og tøm</string>
+    <string name="notification_resume">Fortsett</string>
+    <string name="notification_show">Show</string>
     <string name="notification_content_duration">Varighet</string>
     <string name="notification_content_distance">Distanse</string>
     <string name="notification_channel_recording_name">Bevegelsesopptakstilstand</string>

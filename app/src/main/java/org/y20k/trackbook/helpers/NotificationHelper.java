@@ -54,7 +54,7 @@ public final class NotificationHelper implements TrackbookKeys {
         // build context text for notification builder
         String contentText = getContextString(context, track);
 
-        // ACTION: NOTIFICATION TAP
+        // ACTION: NOTIFICATION TAP & BUTTON SHOW
         Intent tapActionIntent = new Intent(context, MainActivity.class);
         tapActionIntent.setAction(ACTION_SHOW_MAP);
         tapActionIntent.putExtra(EXTRA_TRACK, track);
@@ -70,7 +70,13 @@ public final class NotificationHelper implements TrackbookKeys {
         Intent stopActionIntent = new Intent(context, TrackerService.class);
         stopActionIntent.setAction(ACTION_STOP);
         // pending intent wrapper for notification stop action
-        PendingIntent stopActionPendingIntent = PendingIntent.getService(context, 12, stopActionIntent, 0);
+        PendingIntent stopActionPendingIntent = PendingIntent.getService(context, 14, stopActionIntent, 0);
+
+        // ACTION: NOTIFICATION BUTTON RESUME
+        Intent resumeActionIntent = new Intent(context, TrackerService.class);
+        resumeActionIntent.setAction(ACTION_RESUME);
+        // pending intent wrapper for notification resume action
+        PendingIntent resuneActionPendingIntent = PendingIntent.getService(context, 16, resumeActionIntent, 0);
 
         // construct notification in builder
         builder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
@@ -79,10 +85,12 @@ public final class NotificationHelper implements TrackbookKeys {
         builder.setSmallIcon(R.drawable.ic_notification_small_24dp);
         builder.setLargeIcon(getNotificationIconLarge(context, tracking));
         if (tracking) {
-            builder.addAction(R.drawable.ic_stop_white_36dp, context.getString(R.string.notification_stop), stopActionPendingIntent);
+            builder.addAction(R.drawable.ic_stop_white_24dp, context.getString(R.string.notification_stop), stopActionPendingIntent);
             builder.setContentTitle(context.getString(R.string.notification_title_trackbook_running));
             builder.setContentText(getContextString(context, track));
         } else {
+            builder.addAction(R.drawable.ic_fiber_manual_record_white_24dp, context.getString(R.string.notification_resume), resuneActionPendingIntent);
+            builder.addAction(R.drawable.ic_compass_needle_white_24dp, context.getString(R.string.notification_show), tapActionPendingIntent);
             builder.setContentTitle(context.getString(R.string.notification_title_trackbook_not_running));
             builder.setContentText(getContextString(context, track));
         }

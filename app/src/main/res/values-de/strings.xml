@@ -11,6 +11,10 @@
     <string name="notification_title_trackbook_not_running">Trackbook ist inaktiv</string>
     <string name="notification_title_trackbook_running">Trackbook wird ausgeführt</string>
     <string name="notification_stop">Stopp</string>
+    <string name="notification_clear">Zurücksetzen</string>
+    <string name="notification_save">Speichernn</string>
+    <string name="notification_resume">Fortsetzen</string>
+    <string name="notification_show">Show</string>
     <string name="notification_content_duration">Dauer</string>
     <string name="notification_content_distance">Entfernung</string>
     <string name="notification_channel_recording_name">Status der Aufzeichnung</string>

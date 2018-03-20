@@ -39,7 +39,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
@@ -141,7 +141,6 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
         mTrackingStoppedReceiver = createTrackingStoppedReceiver();
         IntentFilter trackingStoppedIntentFilter = new IntentFilter(ACTION_TRACKING_STOPPED);
         LocalBroadcastManager.getInstance(this).registerReceiver(mTrackingStoppedReceiver, trackingStoppedIntentFilter);
-
     }
 
 
@@ -642,6 +641,18 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
 
                 break;
 
+            case ACTION_CLEAR:
+                // show map fragment
+                mBottomNavigationView.setSelectedItemId(R.id.navigation_map);
+
+                // show clear dialog
+                handleClearButtonClick();
+
+                // clear intent
+                intent.setAction(ACTION_DEFAULT);
+
+                break;
+
             default:
                 break;
         }
@@ -715,12 +726,43 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     }
 
 
+//    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+//
+//        public SectionsPagerAdapter(FragmentManager fm) {
+//            super(fm);
+//        }
+//
+//        @Override
+//        public Fragment getItem(int position) {
+//            // getItem is called to instantiate the fragment for the given page.
+//            switch (position) {
+//                case FRAGMENT_ID_MAP:
+//                    return new MainActivityMapFragment();
+//                case FRAGMENT_ID_TRACKS:
+//                    return new MainActivityTrackFragment();
+//            }
+//            return null;
+//        }
+//
+//        @Override
+//        public int getCount() {
+//            return 2;
+//        }
+//
+//        public Fragment getFragment(int pos) {
+//            return getItem(pos);
+//        }
+//
+//    }
+
+
+
     /**
      * Inner class: SectionsPagerAdapter that returns a fragment corresponding to one of the tabs.
      * see also: https://developer.android.com/reference/android/support/v4/app/FragmentPagerAdapter.html
      * and: http://www.truiton.com/2015/12/android-activity-fragment-communication/
      */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+    public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
 
         private final SparseArray<WeakReference<Fragment>> instantiatedFragments = new SparseArray<>();
 
@@ -742,7 +784,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
 
         @Override
         public int getCount() {
-            // Show 2 total pages.
+            // show 2 total pages.
             return 2;
         }
 

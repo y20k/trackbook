@@ -11,6 +11,10 @@
     <string name="notification_title_trackbook_running">Trackbook is actief</string>
     <string name="notification_title_trackbook_not_running">Trackbook is niet actief</string>
     <string name="notification_stop">Stoppen</string>
+    <string name="notification_clear">Wissen</string>
+    <string name="notification_save">Opslaan en wissen</string>
+    <string name="notification_resume">Resume</string>
+    <string name="notification_show">Show</string>
     <string name="notification_content_duration">Duur</string>
     <string name="notification_content_distance">Afstand</string>
     <string name="notification_channel_recording_name">Movement Recording State</string>

@@ -11,6 +11,10 @@
     <string name="notification_title_trackbook_running">Trackbook aktif</string>
     <string name="notification_title_trackbook_not_running">Trackbook tidak aktif</string>
     <string name="notification_stop">Berhenti</string>
+    <string name="notification_clear">Clear</string>
+    <string name="notification_save">Save</string>
+    <string name="notification_resume">Resume</string>
+    <string name="notification_show">Show</string>
     <string name="notification_content_duration">Durasi</string>
     <string name="notification_content_distance">Jarak</string>
     <string name="notification_channel_recording_name">Movement Recording State</string>
@@ -24,7 +28,7 @@
 
     <!-- fab sub menu -->
     <string name="fab_sub_menu_clear">Clear</string>
-    <string name="fab_sub_menu_save">Save and Clear</string>
+    <string name="fab_sub_menu_save">Save</string>
     <string name="fab_sub_menu_resume">Resume</string>
 
     <!-- dialogs -->

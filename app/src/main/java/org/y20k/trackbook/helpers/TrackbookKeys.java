@@ -27,6 +27,8 @@ public interface TrackbookKeys {
     String ACTION_STOP = "org.y20k.trackbook.action.STOP";
     String ACTION_DISMISS = "org.y20k.transistor.action.DISMISS";
     String ACTION_RESUME = "org.y20k.transistor.action.RESUME";
+    String ACTION_CLEAR = "org.y20k.transistor.action.CLEAR";
+    String ACTION_SAVE = "org.y20k.transistor.action.SAVE";
     String ACTION_DEFAULT = "DEFAULT";
     String ACTION_SHOW_MAP = "SHOW_MAP";
     String ACTION_TRACK_UPDATED = "TRACK_UPDATED";
