@@ -13,7 +13,7 @@
     <string name="notification_stop">停止</string>
     <string name="notification_clear">クリア</string>
     <string name="notification_save">保存してクリア</string>
-    <string name="notification_esume">Resume</string>
+    <string name="notification_resume">Resume</string>
     <string name="notification_show">Show</string>
     <string name="notification_content_duration">期間</string>
     <string name="notification_content_distance">距離</string>
