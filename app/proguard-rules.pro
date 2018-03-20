@@ -19,4 +19,4 @@
 
 # needed for osmdroid v5.6.5 if using SDK version 26 TODO remove as soom as osmdroid v5.6.6 is released
 # see https://github.com/osmdroid/osmdroid/issues/633
--dontwarn org.osmdroid.tileprovider.modules.NetworkAvailabliltyCheck
+# -dontwarn org.osmdroid.tileprovider.modules.NetworkAvailabliltyCheck

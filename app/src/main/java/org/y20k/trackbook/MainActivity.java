@@ -567,16 +567,16 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     /* Shows (and hides) the sub menu of the floating action button */
     private void showFloatingActionButtonMenu(boolean visible) {
         if (visible) {
-//            mFloatingActionButtonSubResume.setVisibility(View.VISIBLE);
-//            mFloatingActionButtonSubResumeLabel.setVisibility(View.VISIBLE);
+            mFloatingActionButtonSubResume.setVisibility(View.VISIBLE);
+            mFloatingActionButtonSubResumeLabel.setVisibility(View.VISIBLE);
             mFloatingActionButtonSubClear.setVisibility(View.VISIBLE);
             mFloatingActionButtonSubClearLabel.setVisibility(View.VISIBLE);
             mFloatingActionButtonSubSave.setVisibility(View.VISIBLE);
             mFloatingActionButtonSubSaveLabel.setVisibility(View.VISIBLE);
             mFloatingActionButtonSubMenuVisible = true;
         } else {
-//            mFloatingActionButtonSubResume.setVisibility(View.INVISIBLE);
-//            mFloatingActionButtonSubResumeLabel.setVisibility(View.INVISIBLE);
+            mFloatingActionButtonSubResume.setVisibility(View.INVISIBLE);
+            mFloatingActionButtonSubResumeLabel.setVisibility(View.INVISIBLE);
             mFloatingActionButtonSubClear.setVisibility(View.INVISIBLE);
             mFloatingActionButtonSubClearLabel.setVisibility(View.INVISIBLE);
             mFloatingActionButtonSubSaveLabel.setVisibility(View.INVISIBLE);
