@@ -27,7 +27,7 @@ import org.y20k.trackbook.BuildConfig;
  */
 public final class LogHelper {
 
-    private final static boolean mTesting = false;
+    private final static boolean mTesting = true;
 
     public static void d(final String tag, String message) {
         // include logging only in debug versions

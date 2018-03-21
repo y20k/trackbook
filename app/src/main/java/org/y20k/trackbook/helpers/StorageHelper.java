@@ -63,7 +63,7 @@ public class StorageHelper implements TrackbookKeys {
         mContext = context;
 
         // get "tracks" folder
-        mFolder  = mContext.getExternalFilesDir(TRACKS_DIRECTORY_NAME);
+        mFolder = mContext.getExternalFilesDir(TRACKS_DIRECTORY_NAME);
         // mFolder = getTracksDirectory();
 
         // create "tracks" folder if necessary
@@ -73,7 +73,8 @@ public class StorageHelper implements TrackbookKeys {
         }
 
         // create temp file object // todo check -> may produce NullPointerException
-        mTempFile = new File(mFolder.toString() + "/" + FILE_NAME_TEMP + FILE_TYPE_TRACKBOOK_EXTENSION);
+        String tempFilePathName = mFolder.toString() + "/" + FILE_NAME_TEMP + FILE_TYPE_TRACKBOOK_EXTENSION;
+        mTempFile = new File(tempFilePathName);
 
         // delete old track - exclude temp file
         deleteOldTracks(false);

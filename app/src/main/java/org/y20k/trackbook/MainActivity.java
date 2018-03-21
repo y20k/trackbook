@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     private CardView mFloatingActionButtonSubSaveLabel;
     private CardView mFloatingActionButtonSubClearLabel;
     private CardView mFloatingActionButtonSubResumeLabel;
-    private BroadcastReceiver mTrackingStoppedReceiver;
+    private BroadcastReceiver mTrackingChangedReceiver;
     private int mFloatingActionButtonState;
     private int mSelectedTab;
 
@@ -140,10 +140,10 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     protected void onStart() {
         super.onStart();
 
-        // register broadcast receiver for stopped tracking
-        mTrackingStoppedReceiver = createTrackingStoppedReceiver();
-        IntentFilter trackingStoppedIntentFilter = new IntentFilter(ACTION_TRACKING_STOPPED);
-        LocalBroadcastManager.getInstance(this).registerReceiver(mTrackingStoppedReceiver, trackingStoppedIntentFilter);
+        // register broadcast receiver for changed tracking state
+        mTrackingChangedReceiver = createTrackingChangedReceiver();
+        IntentFilter trackingStoppedIntentFilter = new IntentFilter(ACTION_TRACKING_STATE_CHANGED);
+        LocalBroadcastManager.getInstance(this).registerReceiver(mTrackingChangedReceiver, trackingStoppedIntentFilter);
     }
 
 
@@ -179,7 +179,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
         mSelectedTab = FRAGMENT_ID_MAP;
 
         // disable  broadcast receiver
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(mTrackingStoppedReceiver);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mTrackingChangedReceiver);
     }
 
 
@@ -258,12 +258,6 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
         // dismiss notification
         startTrackerService(ACTION_DISMISS, null);
 
-//        Intent intent = new Intent(this, TrackerService.class);
-//        intent.setAction(ACTION_DISMISS);
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            startForegroundService(intent);
-//        }
-
         // hide Floating Action Button sub menu
         showFloatingActionButtonMenu(false);
 
@@ -336,17 +330,15 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
 
     /* Handles tap on the button "resume" */
     private void handleResumeButtonClick(View view) {
-        // change state
-        mTrackerServiceRunning = true;
-        mFloatingActionButtonState = FAB_STATE_RECORDING;
-        setFloatingActionButtonState();
-        showFloatingActionButtonMenu(false);
 
         // show snackbar
         Snackbar.make(view, R.string.snackbar_message_tracking_resumed, Snackbar.LENGTH_SHORT).setAction("Action", null).show();
 
         // resume tracking
         startTrackerService(ACTION_RESUME, null);
+
+        // hide sub menu
+        showFloatingActionButtonMenu(false);
     }
 
 
@@ -695,18 +687,23 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
 
 
     /* Creates receiver for stopped tracking */
-    private BroadcastReceiver createTrackingStoppedReceiver() {
+    private BroadcastReceiver createTrackingChangedReceiver() {
         return new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
+
                 // change state
-                mTrackerServiceRunning = false;
-                mFloatingActionButtonState = FAB_STATE_SAVE;
+                mTrackerServiceRunning = intent.getBooleanExtra(EXTRA_TRACKING_STATE, false);
+                if (mTrackerServiceRunning) {
+                    mFloatingActionButtonState = FAB_STATE_RECORDING;
+                } else {
+                    mFloatingActionButtonState = FAB_STATE_SAVE;
+                }
                 setFloatingActionButtonState();
 
                 // pass tracking state to MainActivityMapFragment // todo check -> may produce NullPointerException
                 MainActivityMapFragment mainActivityMapFragment = (MainActivityMapFragment) mSectionsPagerAdapter.getFragment(FRAGMENT_ID_MAP);
-                mainActivityMapFragment.setTrackingState(false);
+                mainActivityMapFragment.setTrackingState(mTrackerServiceRunning);
             }
         };
     }

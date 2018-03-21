@@ -679,7 +679,7 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
             }
 
             // delete temp file
-            mStorageHelper.deleteTempFile();
+//            mStorageHelper.deleteTempFile(); // todo check if necessary
         }
     }
     /**

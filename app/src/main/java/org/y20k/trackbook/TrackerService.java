@@ -124,7 +124,7 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
             startTracking(intent, true);
         }
 
-        // ACTION START
+        // ACTION RESUME
         else if (intent.getAction().equals(ACTION_RESUME) && mLocationSystemSetting) {
             startTracking(intent, false);
         }
@@ -207,7 +207,7 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
     private void startTracking(@Nullable Intent intent, boolean createNewTrack) {
         LogHelper.v(LOG_TAG, "Service received command: START");
 
-        // create a new track -- if necessary
+        // create a new track - if requested
         if (createNewTrack) {
             mTrack = new Track();
         } else {
@@ -215,8 +215,13 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
             if (storageHelper.tempFileExists()) {
                 // load temp track file
                 mTrack = storageHelper.loadTrack(FILE_TEMP_TRACK);
+                // try to mark last waypoint as stopover
+                int lastWayPoint = mTrack.getWayPoints().size() - 1;
+                if (lastWayPoint >= 0) {
+                    mTrack.getWayPoints().get(lastWayPoint).setIsStopOver(true);
+                }
             } else {
-                // fallback, if temfile did not exist
+                // fallback, if tempfile did not exist
                 LogHelper.e(LOG_TAG, "Unable to find previously saved track temp file.");
                 mTrack = new Track();
             }
@@ -423,6 +428,9 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
         }
         LocationHelper.registerLocationListeners(mLocationManager, mGPSListener, mNetworkListener);
         saveTrackerServiceState(mTrackerServiceRunning, FAB_STATE_RECORDING);
+
+        // notify MainActivity
+        broadcastTrackingStateChange();
     }
 
 
@@ -433,11 +441,18 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
         mTrackerServiceRunning = false;
         saveTrackerServiceState(mTrackerServiceRunning, FAB_STATE_SAVE);
 
-        // notify MainActivityMapFragment
+        // notify MainActivity
+        broadcastTrackingStateChange();
+    }
+
+
+    /* Sends a broadcast with tracking changed */
+    private void broadcastTrackingStateChange() {
         Intent i = new Intent();
-        i.setAction(ACTION_TRACKING_STOPPED);
+        i.setAction(ACTION_TRACKING_STATE_CHANGED);
         i.putExtra(EXTRA_TRACK, mTrack);
         i.putExtra(EXTRA_LAST_LOCATION, mCurrentBestLocation);
+        i.putExtra(EXTRA_TRACKING_STATE, mTrackerServiceRunning);
         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(i);
     }
 
