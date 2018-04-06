@@ -31,6 +31,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
+import android.os.Binder;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -50,6 +51,7 @@ import org.y20k.trackbook.helpers.StorageHelper;
 import org.y20k.trackbook.helpers.TrackbookKeys;
 
 import java.util.List;
+import java.util.Random;
 
 import static android.hardware.Sensor.TYPE_STEP_COUNTER;
 
@@ -79,6 +81,8 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
     private boolean mTrackerServiceRunning;
     private boolean mLocationSystemSetting;
 
+    private final IBinder mBinder = new LocalBinder(); // todo move to onCreate
+
 
     @Override
     public void onCreate() {
@@ -103,68 +107,100 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
 
 
     @Override
+    public IBinder onBind(Intent intent) {
+        // a client is binding to the service with bindService()
+        return mBinder;
+    }
+
+
+    @Override
+    public boolean onUnbind(Intent intent) {
+        // All clients have unbound with unbindService()
+//        return mAllowRebind; // todo change
+        return true;
+    }
+
+
+
+    @Override
+    public void onRebind(Intent intent) {
+        // A client is binding to the service with bindService(),
+        // after onUnbind() has already been called
+    }
+
+
+    @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        // check if user did turn off location in device settings
-        if (!mLocationSystemSetting) {
-            LogHelper.i(LOG_TAG, "Location Setting is turned off.");
-            Toast.makeText(getApplicationContext(), R.string.toast_message_location_offline, Toast.LENGTH_LONG).show();
-            stopTracking();
-            return START_STICKY;
-        }
-
-        // RESTART CHECK:  checking for empty intent - try to get saved track
-        if (intent == null || intent.getAction() == null) {
-            LogHelper.w(LOG_TAG, "Null-Intent received. Trying to restart tracking.");
-            startTracking(intent, false);
-        }
-
-        // ACTION START
-        else if (intent.getAction().equals(ACTION_START) && mLocationSystemSetting) {
-            startTracking(intent, true);
-        }
-
-        // ACTION RESUME
-        else if (intent.getAction().equals(ACTION_RESUME) && mLocationSystemSetting) {
-            startTracking(intent, false);
-        }
-
         // ACTION STOP
-        else if (intent.getAction().equals(ACTION_STOP) || !mLocationSystemSetting) {
-            mTrackerServiceRunning = false;
-            if (mTrack != null && mTimer != null) {
-                stopTracking();
-            } else {
-                // handle error - save state
-                saveTrackerServiceState(mTrackerServiceRunning, FAB_STATE_DEFAULT);
-            }
+        if (ACTION_STOP.equals(intent.getAction())) {
+            stopTracking();
+        }
+        // ACTION RESUME
+        else if (ACTION_RESUME.equals(intent.getAction())) {
+            resumeTracking();
         }
 
-        // ACTION DISMISS
-        else if (intent.getAction().equals(ACTION_DISMISS)) {
-            // save state
-            saveTrackerServiceState(mTrackerServiceRunning, FAB_STATE_DEFAULT);
-            // dismiss notification
-            mNotificationManager.cancel(TRACKER_SERVICE_NOTIFICATION_ID); // todo check if necessary?
-            stopForeground(true);
-        }
-
-        // ACTION TRACK REQUEST
-        else if (intent.getAction().equals(ACTION_TRACK_REQUEST)) {
-            // send track via broadcast
-            sendTrackUpdate();
-        }
+//        // check if user did turn off location in device settings
+//        if (!mLocationSystemSetting) {
+//            LogHelper.i(LOG_TAG, "Location Setting is turned off.");
+//            Toast.makeText(getApplicationContext(), R.string.toast_message_location_offline, Toast.LENGTH_LONG).show();
+//            stopTracking();
+//            return START_STICKY;
+//        }
+//
+//        // RESTART CHECK:  checking for empty intent - try to get saved track
+//        if (intent == null || intent.getAction() == null) {
+//            LogHelper.w(LOG_TAG, "Null-Intent received. Trying to restart tracking.");
+//            startTracking(intent, false);
+//        }
+//
+//        // ACTION START
+//        else if (intent.getAction().equals(ACTION_START) && mLocationSystemSetting) {
+//            startTracking(intent, true);
+//        }
+//
+//        // ACTION RESUME
+//        else if (intent.getAction().equals(ACTION_RESUME) && mLocationSystemSetting) {
+//            startTracking(intent, false);
+//        }
+//
+//        // ACTION STOP
+//        else if (intent.getAction().equals(ACTION_STOP) || !mLocationSystemSetting) {
+//            mTrackerServiceRunning = false;
+//            if (mTrack != null && mTimer != null) {
+//                stopTracking();
+//            } else {
+//                // handle error - save state
+//                saveTrackerServiceState(mTrackerServiceRunning, FAB_STATE_DEFAULT);
+//            }
+//        }
+//
+//        // ACTION DISMISS
+//        else if (intent.getAction().equals(ACTION_DISMISS)) {
+//            // save state
+//            saveTrackerServiceState(mTrackerServiceRunning, FAB_STATE_DEFAULT);
+//            // dismiss notification
+//            mNotificationManager.cancel(TRACKER_SERVICE_NOTIFICATION_ID); // todo check if necessary?
+//            stopForeground(true);
+//        }
+//
+//        // ACTION TRACK REQUEST
+//        else if (intent.getAction().equals(ACTION_TRACK_REQUEST)) {
+//            // send track via broadcast
+//            sendTrackUpdate();
+//        }
 
         // START_STICKY is used for services that are explicitly started and stopped as needed
         return START_STICKY;
     }
 
 
-    @Nullable
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
-    }
+//    @Nullable
+//    @Override
+//    public IBinder onBind(Intent intent) {
+//        return null;
+//    }
 
 
     @Override
@@ -204,6 +240,153 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
 
 
     /* Start tracking location */
+    public void startTracking(Location lastLocation) {
+        if (mLocationSystemSetting) {
+            LogHelper.v(LOG_TAG, "Start tracking");
+
+            // create a new track - if requested
+            mTrack = new Track();
+
+            // get last location
+            if (lastLocation != null) {
+                mCurrentBestLocation = lastLocation;
+            } else {
+                mCurrentBestLocation = LocationHelper.determineLastKnownLocation(mLocationManager);
+            }
+
+            // initialize step counter
+            mStepCountOffset = 0;
+
+            // begin recording
+            recordMovements();
+
+        } else {
+            LogHelper.i(LOG_TAG, "Location Setting is turned off.");
+            Toast.makeText(getApplicationContext(), R.string.toast_message_location_offline, Toast.LENGTH_LONG).show();
+        }
+    }
+
+
+    /* Resume tracking after stop/pause */
+    public void resumeTracking() {
+        if (mLocationSystemSetting) {
+            LogHelper.v(LOG_TAG, "Recording resumed");
+
+            // create a new track - if requested
+            StorageHelper storageHelper = new StorageHelper(this);
+            if (storageHelper.tempFileExists()) {
+                // load temp track file
+                mTrack = storageHelper.loadTrack(FILE_TEMP_TRACK);
+                // try to mark last waypoint as stopover
+                int lastWayPoint = mTrack.getWayPoints().size() - 1;
+                if (lastWayPoint >= 0) {
+                    mTrack.getWayPoints().get(lastWayPoint).setIsStopOver(true);
+                }
+            } else {
+                // fallback, if tempfile did not exist
+                LogHelper.e(LOG_TAG, "Unable to find previously saved track temp file.");
+                mTrack = new Track();
+            }
+
+            // get last location
+            if (mTrack.getSize() > 0) {
+                mCurrentBestLocation = mTrack.getWayPointLocation(mTrack.getSize() -1);
+            } else {
+                mCurrentBestLocation = LocationHelper.determineLastKnownLocation(mLocationManager);
+            }
+
+            // initialize step counter
+            mStepCountOffset = mTrack.getStepCount();
+
+            // begin recording
+            recordMovements();
+
+        } else {
+            LogHelper.i(LOG_TAG, "Location Setting is turned off.");
+            Toast.makeText(getApplicationContext(), R.string.toast_message_location_offline, Toast.LENGTH_LONG).show();
+        }
+    }
+
+
+    /* Record movements */
+    private void recordMovements() {
+        // add last location as WayPoint to track
+        addWayPointToTrack();
+
+        // put up notification
+        displayNotification(true);
+
+        // create gps and network location listeners
+        startFindingLocation();
+
+        // start timer that periodically request a location update
+        startIntervalTimer();
+
+        // start counting steps
+        startStepCounter();
+
+        // register content observer for changes in System Settings
+        this.getContentResolver().registerContentObserver(android.provider.Settings.Secure.CONTENT_URI, true, mSettingsContentObserver);
+
+        // start service in foreground
+        startForeground(TRACKER_SERVICE_NOTIFICATION_ID, mNotification);
+    }
+
+
+
+    private void startStepCounter() {
+        boolean stepCounterAvailable;
+        stepCounterAvailable = mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(TYPE_STEP_COUNTER), SensorManager.SENSOR_DELAY_UI);
+        if (stepCounterAvailable) {
+            LogHelper.v(LOG_TAG, "Pedometer sensor available: Registering listener.");
+        } else {
+            LogHelper.i(LOG_TAG, "Pedometer sensor not available.");
+            mTrack.setStepCount(-1);
+        }
+    }
+
+
+
+    /* Set timer to retrieve new locations and to prevent endless tracking */
+    private void startIntervalTimer() {
+        mTimer = new CountDownTimer(EIGHT_HOURS_IN_MILLISECONDS, FIFTEEN_SECONDS_IN_MILLISECONDS) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                // update track duration - and add duration from previously interrupted / paused session
+                long previouslyRecordedDuration = mTrack.getTrackDuration();
+                long duration = EIGHT_HOURS_IN_MILLISECONDS - millisUntilFinished + previouslyRecordedDuration;
+                mTrack.setDuration(duration);
+                // try to add WayPoint to Track
+                addWayPointToTrack();
+                // update notification
+
+                mNotification = NotificationHelper.getUpdatedNotification(TrackerService.this, mNotificationBuilder, mTrack);
+                mNotificationManager.notify(TRACKER_SERVICE_NOTIFICATION_ID, mNotification);
+                // save a temp file in case the service has been killed by the system
+                SaveTempTrackAsyncHelper saveTempTrackAsyncHelper = new SaveTempTrackAsyncHelper();
+                saveTempTrackAsyncHelper.execute();
+            }
+
+            @Override
+            public void onFinish() {
+                // stop tracking after eight hours
+                stopTracking();
+            }
+        };
+        mTimer.start();
+    }
+
+
+    /* Display notification */
+    private void displayNotification(boolean trackingState) {
+        mNotificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANEL_ID_RECORDING_CHANNEL);
+        mNotification = NotificationHelper.getNotification(this, mNotificationBuilder, mTrack, trackingState);
+        mNotificationManager.notify(TRACKER_SERVICE_NOTIFICATION_ID, mNotification); // todo check if necessary in pre Android O
+    }
+
+
+
+    /* Start tracking location */ // todo remove
     private void startTracking(@Nullable Intent intent, boolean createNewTrack) {
         LogHelper.v(LOG_TAG, "Service received command: START");
 
@@ -301,8 +484,8 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
 
 
     /* Stop tracking location */
-    private void stopTracking() {
-        LogHelper.v(LOG_TAG, "Service received command: STOP");
+    public void stopTracking() {
+        LogHelper.v(LOG_TAG, "Recording stopped");
 
         // store current date and time
         mTrack.setRecordingEnd();
@@ -318,9 +501,7 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
         saveTempTrackAsyncHelper.execute();
 
         // change notification
-        mNotificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANEL_ID_RECORDING_CHANNEL);
-        mNotification = NotificationHelper.getNotification(this, mNotificationBuilder, mTrack, false);
-        mNotificationManager.notify(TRACKER_SERVICE_NOTIFICATION_ID, mNotification);
+        displayNotification(false);
 
         // remove listeners
         stopFindingLocation();
@@ -332,6 +513,17 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
         // remove TrackerService from foreground state
         stopForeground(false);
     }
+
+
+    /* Dismiss notification */
+    public void dismissNotification() {
+        // save state
+        saveTrackerServiceState(mTrackerServiceRunning, FAB_STATE_DEFAULT);
+        // cancel notification
+        mNotificationManager.cancel(TRACKER_SERVICE_NOTIFICATION_ID); // todo check if necessary?
+        stopForeground(true);
+    }
+
 
 
     /* Adds a new WayPoint to current track */
@@ -376,7 +568,7 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
 
 
     /* Broadcasts a track update */
-    private void sendTrackUpdate() {
+    public void sendTrackUpdate() {
         if (mTrack != null) {
             Intent i = new Intent();
             i.setAction(ACTION_TRACK_UPDATED);
@@ -465,6 +657,20 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
         editor.putInt(PREFS_FAB_STATE, fabState);
         editor.apply();
     }
+
+
+    /**
+     * Inner class: Local Binder that returns this service
+     */
+    public class LocalBinder extends Binder {
+        TrackerService getService() {
+            // return this instance of TrackerService so clients can call public methods
+            return TrackerService.this;
+        }
+    }
+    /**
+     * End of inner class
+     */
 
 
     /**

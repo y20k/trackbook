@@ -20,15 +20,18 @@ import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.IBinder;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -52,6 +55,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import org.osmdroid.config.Configuration;
+import org.y20k.trackbook.core.Track;
 import org.y20k.trackbook.helpers.DialogHelper;
 import org.y20k.trackbook.helpers.LogHelper;
 import org.y20k.trackbook.helpers.NightModeHelper;
@@ -75,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
 
 
     /* Main class variables */
+    private TrackerService mTrackerService;
     private BottomNavigationView mBottomNavigationView;
     private NonSwipeableViewPager mViewPager;
     private SectionsPagerAdapter mSectionsPagerAdapter;
@@ -93,6 +98,8 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     private BroadcastReceiver mTrackingChangedReceiver;
     private int mFloatingActionButtonState;
     private int mSelectedTab;
+
+    boolean mBound = false;
 
 
     @Override
@@ -140,6 +147,10 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     protected void onStart() {
         super.onStart();
 
+        // bind to TrackerService
+        Intent intent = new Intent(this, TrackerService.class);
+        bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+
         // register broadcast receiver for changed tracking state
         mTrackingChangedReceiver = createTrackingChangedReceiver();
         IntentFilter trackingStoppedIntentFilter = new IntentFilter(ACTION_TRACKING_STATE_CHANGED);
@@ -167,6 +178,14 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     @Override
     protected void onPause() {
         super.onPause();
+    }
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unbindService(mConnection);
+        mBound = false;
     }
 
 
@@ -250,13 +269,21 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     }
 
 
+    /* Request the current Track from TrackerService */
+    public void requestTrack() {
+        if (mBound) {
+            mTrackerService.sendTrackUpdate();
+        }
+    }
+
+
     /* Handles the visual state after a save action */
     private void handleStateAfterSave() {
         // display and update tracks tab
         mBottomNavigationView.setSelectedItemId(R.id.navigation_last_tracks);
 
         // dismiss notification
-        startTrackerService(ACTION_DISMISS, null);
+        dismissNotification();
 
         // hide Floating Action Button sub menu
         showFloatingActionButtonMenu(false);
@@ -267,17 +294,11 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     }
 
 
-    /* Start/stop tracker service */
-    private void startTrackerService(String intentAction, @Nullable Location lastLocation) {
-        // build intent
+    /* Start tracker service */
+    private void startTrackerService() {
+        // start service so that it keeps running after unbind
         Intent intent = new Intent(this, TrackerService.class);
-        intent.setAction(intentAction);
-        if (lastLocation != null && intentAction.equals(ACTION_START)) {
-            intent.putExtra(EXTRA_LAST_LOCATION, lastLocation);
-        }
-
-        // communicate with service
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && intentAction.equals(ACTION_START)) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             // ... start service in foreground to prevent it being killed on Oreo
             startForegroundService(intent);
         } else {
@@ -286,6 +307,39 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     }
 
 
+    /* Start recording movements */
+    private void startRecording(Location lastLocation) {
+        startTrackerService();
+        if (mBound) {
+            mTrackerService.startTracking(lastLocation);
+        }
+    }
+
+
+    /* Resume recording movements */
+    private void resumeRecording() {
+        startTrackerService();
+        if (mBound) {
+            mTrackerService.resumeTracking();
+        }
+    }
+
+
+    /* Stop recording movements */
+    private void stopRecording() {
+        if (mBound) {
+            mTrackerService.stopTracking();
+        }
+    }
+
+
+    /* Dismiss notification */
+    private void dismissNotification() {
+        if (mBound) {
+            mTrackerService.dismissNotification();
+        }
+    }
+
 
     /* Handles the visual state after a save action */
     private void handleStateAfterClear() {
@@ -293,7 +347,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
         Toast.makeText(this, getString(R.string.toast_message_track_clear), Toast.LENGTH_LONG).show();
 
         // dismiss notification
-        startTrackerService(ACTION_DISMISS, null);
+        dismissNotification();
 
         // hide Floating Action Button sub menu
         showFloatingActionButtonMenu(false);
@@ -335,7 +389,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
         Snackbar.make(view, R.string.snackbar_message_tracking_resumed, Snackbar.LENGTH_SHORT).setAction("Action", null).show();
 
         // resume tracking
-        startTrackerService(ACTION_RESUME, null);
+        resumeRecording();
 
         // hide sub menu
         showFloatingActionButtonMenu(false);
@@ -500,7 +554,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
                     Snackbar.make(view, R.string.snackbar_message_tracking_started, Snackbar.LENGTH_SHORT).setAction("Action", null).show();
 
                     // start tracker service
-                    startTrackerService(ACTION_START, lastLocation);
+                    startRecording(lastLocation);
 
                 } else {
                     Toast.makeText(this, getString(R.string.toast_message_location_services_not_ready), Toast.LENGTH_LONG).show();
@@ -518,7 +572,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
                 // --> is handled by broadcast receiver
 
                 // stop tracker service
-                startTrackerService(ACTION_STOP, null);
+                stopRecording();
 
                 break;
 
@@ -755,6 +809,25 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
 //
 //    }
 
+
+    /**
+     * Defines callbacks for service binding, passed to bindService()
+     */
+    private ServiceConnection mConnection = new ServiceConnection() {
+
+        @Override
+        public void onServiceConnected(ComponentName className, IBinder service) {
+            // We've bound to LocalService, cast the IBinder and get LocalService instance
+            TrackerService.LocalBinder binder = (TrackerService.LocalBinder) service;
+            mTrackerService = binder.getService();
+            mBound = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName arg0) {
+            mBound = false;
+        }
+    };
 
 
     /**

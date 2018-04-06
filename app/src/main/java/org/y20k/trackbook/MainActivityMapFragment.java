@@ -228,9 +228,7 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
         // CASE 1: recording active
         if (mTrackerServiceRunning) {
             // request an updated track recording from service
-            Intent intent = new Intent(mActivity, TrackerService.class);
-            intent.setAction(ACTION_TRACK_REQUEST);
-            mActivity.startService(intent);
+            ((MainActivity)mActivity).requestTrack();
         }
 
         // CASE 2: recording stopped - temp file exists
@@ -580,6 +578,8 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
 
     /* Loads state tracker service from preferences */
     private void loadTrackerServiceState(Context context) {
+        // TODO: get state directly from service, create a ServiceConnection.
+        // see: https://github.com/ena1106/FragmentBoundServiceExample/blob/master/app/src/main/java/it/ena1106/fragmentboundservice/BoundFragment.java
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
         mTrackerServiceRunning = settings.getBoolean(PREFS_TRACKER_SERVICE_RUNNING, false);
     }
