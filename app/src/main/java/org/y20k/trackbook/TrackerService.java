@@ -37,7 +37,6 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
-import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.widget.Toast;
@@ -51,7 +50,6 @@ import org.y20k.trackbook.helpers.StorageHelper;
 import org.y20k.trackbook.helpers.TrackbookKeys;
 
 import java.util.List;
-import java.util.Random;
 
 import static android.hardware.Sensor.TYPE_STEP_COUNTER;
 
@@ -115,17 +113,14 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
 
     @Override
     public boolean onUnbind(Intent intent) {
-        // All clients have unbound with unbindService()
-//        return mAllowRebind; // todo change
+        // return true if you would like to have the service's onRebind(Intent) method later called when new clients bind to it.
         return true;
     }
 
 
-
     @Override
     public void onRebind(Intent intent) {
-        // A client is binding to the service with bindService(),
-        // after onUnbind() has already been called
+        // a client is binding to the service with bindService(), after onUnbind() has already been called
     }
 
 
@@ -141,66 +136,9 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
             resumeTracking();
         }
 
-//        // check if user did turn off location in device settings
-//        if (!mLocationSystemSetting) {
-//            LogHelper.i(LOG_TAG, "Location Setting is turned off.");
-//            Toast.makeText(getApplicationContext(), R.string.toast_message_location_offline, Toast.LENGTH_LONG).show();
-//            stopTracking();
-//            return START_STICKY;
-//        }
-//
-//        // RESTART CHECK:  checking for empty intent - try to get saved track
-//        if (intent == null || intent.getAction() == null) {
-//            LogHelper.w(LOG_TAG, "Null-Intent received. Trying to restart tracking.");
-//            startTracking(intent, false);
-//        }
-//
-//        // ACTION START
-//        else if (intent.getAction().equals(ACTION_START) && mLocationSystemSetting) {
-//            startTracking(intent, true);
-//        }
-//
-//        // ACTION RESUME
-//        else if (intent.getAction().equals(ACTION_RESUME) && mLocationSystemSetting) {
-//            startTracking(intent, false);
-//        }
-//
-//        // ACTION STOP
-//        else if (intent.getAction().equals(ACTION_STOP) || !mLocationSystemSetting) {
-//            mTrackerServiceRunning = false;
-//            if (mTrack != null && mTimer != null) {
-//                stopTracking();
-//            } else {
-//                // handle error - save state
-//                saveTrackerServiceState(mTrackerServiceRunning, FAB_STATE_DEFAULT);
-//            }
-//        }
-//
-//        // ACTION DISMISS
-//        else if (intent.getAction().equals(ACTION_DISMISS)) {
-//            // save state
-//            saveTrackerServiceState(mTrackerServiceRunning, FAB_STATE_DEFAULT);
-//            // dismiss notification
-//            mNotificationManager.cancel(TRACKER_SERVICE_NOTIFICATION_ID); // todo check if necessary?
-//            stopForeground(true);
-//        }
-//
-//        // ACTION TRACK REQUEST
-//        else if (intent.getAction().equals(ACTION_TRACK_REQUEST)) {
-//            // send track via broadcast
-//            sendTrackUpdate();
-//        }
-
         // START_STICKY is used for services that are explicitly started and stopped as needed
         return START_STICKY;
     }
-
-
-//    @Nullable
-//    @Override
-//    public IBinder onBind(Intent intent) {
-//        return null;
-//    }
 
 
     @Override
@@ -258,7 +196,7 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
             mStepCountOffset = 0;
 
             // begin recording
-            recordMovements();
+            startMovementRecording();
 
         } else {
             LogHelper.i(LOG_TAG, "Location Setting is turned off.");
@@ -299,7 +237,7 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
             mStepCountOffset = mTrack.getStepCount();
 
             // begin recording
-            recordMovements();
+            startMovementRecording();
 
         } else {
             LogHelper.i(LOG_TAG, "Location Setting is turned off.");
@@ -308,184 +246,16 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
     }
 
 
-    /* Record movements */
-    private void recordMovements() {
-        // add last location as WayPoint to track
-        addWayPointToTrack();
-
-        // put up notification
-        displayNotification(true);
-
-        // create gps and network location listeners
-        startFindingLocation();
-
-        // start timer that periodically request a location update
-        startIntervalTimer();
-
-        // start counting steps
-        startStepCounter();
-
-        // register content observer for changes in System Settings
-        this.getContentResolver().registerContentObserver(android.provider.Settings.Secure.CONTENT_URI, true, mSettingsContentObserver);
-
-        // start service in foreground
-        startForeground(TRACKER_SERVICE_NOTIFICATION_ID, mNotification);
-    }
-
-
-
-    private void startStepCounter() {
-        boolean stepCounterAvailable;
-        stepCounterAvailable = mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(TYPE_STEP_COUNTER), SensorManager.SENSOR_DELAY_UI);
-        if (stepCounterAvailable) {
-            LogHelper.v(LOG_TAG, "Pedometer sensor available: Registering listener.");
-        } else {
-            LogHelper.i(LOG_TAG, "Pedometer sensor not available.");
-            mTrack.setStepCount(-1);
-        }
-    }
-
-
-
-    /* Set timer to retrieve new locations and to prevent endless tracking */
-    private void startIntervalTimer() {
-        mTimer = new CountDownTimer(EIGHT_HOURS_IN_MILLISECONDS, FIFTEEN_SECONDS_IN_MILLISECONDS) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                // update track duration - and add duration from previously interrupted / paused session
-                long previouslyRecordedDuration = mTrack.getTrackDuration();
-                long duration = EIGHT_HOURS_IN_MILLISECONDS - millisUntilFinished + previouslyRecordedDuration;
-                mTrack.setDuration(duration);
-                // try to add WayPoint to Track
-                addWayPointToTrack();
-                // update notification
-
-                mNotification = NotificationHelper.getUpdatedNotification(TrackerService.this, mNotificationBuilder, mTrack);
-                mNotificationManager.notify(TRACKER_SERVICE_NOTIFICATION_ID, mNotification);
-                // save a temp file in case the service has been killed by the system
-                SaveTempTrackAsyncHelper saveTempTrackAsyncHelper = new SaveTempTrackAsyncHelper();
-                saveTempTrackAsyncHelper.execute();
-            }
-
-            @Override
-            public void onFinish() {
-                // stop tracking after eight hours
-                stopTracking();
-            }
-        };
-        mTimer.start();
-    }
-
-
-    /* Display notification */
-    private void displayNotification(boolean trackingState) {
-        mNotificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANEL_ID_RECORDING_CHANNEL);
-        mNotification = NotificationHelper.getNotification(this, mNotificationBuilder, mTrack, trackingState);
-        mNotificationManager.notify(TRACKER_SERVICE_NOTIFICATION_ID, mNotification); // todo check if necessary in pre Android O
-    }
-
-
-
-    /* Start tracking location */ // todo remove
-    private void startTracking(@Nullable Intent intent, boolean createNewTrack) {
-        LogHelper.v(LOG_TAG, "Service received command: START");
-
-        // create a new track - if requested
-        if (createNewTrack) {
-            mTrack = new Track();
-        } else {
-            StorageHelper storageHelper = new StorageHelper(this);
-            if (storageHelper.tempFileExists()) {
-                // load temp track file
-                mTrack = storageHelper.loadTrack(FILE_TEMP_TRACK);
-                // try to mark last waypoint as stopover
-                int lastWayPoint = mTrack.getWayPoints().size() - 1;
-                if (lastWayPoint >= 0) {
-                    mTrack.getWayPoints().get(lastWayPoint).setIsStopOver(true);
-                }
-            } else {
-                // fallback, if tempfile did not exist
-                LogHelper.e(LOG_TAG, "Unable to find previously saved track temp file.");
-                mTrack = new Track();
-            }
-        }
-
-        // get last location
-        if (intent != null && ACTION_START.equals(intent.getAction()) && intent.hasExtra(EXTRA_LAST_LOCATION)) {
-            // received START intent and last location - unpack last location
-            mCurrentBestLocation = intent.getParcelableExtra(EXTRA_LAST_LOCATION);
-        } else if (ACTION_RESUME.equals(intent.getAction()) && mTrack.getSize() > 0) {
-            // received RESUME intent - use last waypoint
-            mCurrentBestLocation = mTrack.getWayPointLocation(mTrack.getSize() -1);
-        }
-
-        //  get last location - fallback
-        if (mCurrentBestLocation == null) {
-            mCurrentBestLocation = LocationHelper.determineLastKnownLocation(mLocationManager);
-        }
-
-        // add last location as WayPoint to track
-        addWayPointToTrack();
-
-        // put up notification
-        mNotificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANEL_ID_RECORDING_CHANNEL);
-        mNotification = NotificationHelper.getNotification(this, mNotificationBuilder, mTrack, true);
-        mNotificationManager.notify(TRACKER_SERVICE_NOTIFICATION_ID, mNotification); // todo check if necessary in pre Android O
-
-        // get duration of previously recorded track - in case this service has been restarted / resumed
-        final long previouslyRecordedDuration = mTrack.getTrackDuration();
-
-        // set timer to retrieve new locations and to prevent endless tracking
-        mTimer = new CountDownTimer(EIGHT_HOURS_IN_MILLISECONDS, FIFTEEN_SECONDS_IN_MILLISECONDS) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                // update track duration - and add duration from previously interrupted / paused session
-                long duration = EIGHT_HOURS_IN_MILLISECONDS - millisUntilFinished + previouslyRecordedDuration;
-                mTrack.setDuration(duration);
-                // try to add WayPoint to Track
-                addWayPointToTrack();
-                // update notification
-                mNotification = NotificationHelper.getUpdatedNotification(TrackerService.this, mNotificationBuilder, mTrack);
-                mNotificationManager.notify(TRACKER_SERVICE_NOTIFICATION_ID, mNotification);
-                // save a temp file in case the service has been killed by the system
-                SaveTempTrackAsyncHelper saveTempTrackAsyncHelper = new SaveTempTrackAsyncHelper();
-                saveTempTrackAsyncHelper.execute();
-            }
-
-            @Override
-            public void onFinish() {
-                // stop tracking after eight hours
-                stopTracking();
-            }
-        };
-        mTimer.start();
-
-        // initialize step counter
-        mStepCountOffset = 0;
-
-        boolean stepCounterAvailable;
-        stepCounterAvailable = mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(TYPE_STEP_COUNTER), SensorManager.SENSOR_DELAY_UI);
-        if (stepCounterAvailable) {
-            LogHelper.v(LOG_TAG, "Pedometer sensor available: Registering listener.");
-        } else {
-            LogHelper.i(LOG_TAG, "Pedometer sensor not available.");
-            mTrack.setStepCount(-1);
-        }
-
-        // create gps and network location listeners
-        startFindingLocation();
-
-        // register content observer for changes in System Settings
-        this.getContentResolver().registerContentObserver(android.provider.Settings.Secure.CONTENT_URI, true, mSettingsContentObserver);
-
-        // start service in foreground
-        startForeground(TRACKER_SERVICE_NOTIFICATION_ID, mNotification);
-    }
-
-
     /* Stop tracking location */
     public void stopTracking() {
         LogHelper.v(LOG_TAG, "Recording stopped");
+
+        // catches a bug that leaves the ui in a incorrect state after a crash
+        if (!mTrackerServiceRunning) {
+            saveTrackerServiceState(mTrackerServiceRunning, FAB_STATE_SAVE);
+            broadcastTrackingStateChange();
+            return;
+        }
 
         // store current date and time
         mTrack.setRecordingEnd();
@@ -494,7 +264,7 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
         mTimer.cancel();
 
         // broadcast an updated track
-        sendTrackUpdate();
+        broadcastTrackUpdate();
 
         // save a temp file in case the activity has been killed
         SaveTempTrackAsyncHelper saveTempTrackAsyncHelper = new SaveTempTrackAsyncHelper();
@@ -525,6 +295,80 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
     }
 
 
+    /* Starts to record movements */
+    private void startMovementRecording() {
+        // add last location as WayPoint to track
+        addWayPointToTrack();
+
+        // put up notification
+        displayNotification(true);
+
+        // create gps and network location listeners
+        startFindingLocation();
+
+        // start timer that periodically request a location update
+        startRequestingLocationChanges();
+
+        // start counting steps
+        startStepCounter();
+
+        // register content observer for changes in System Settings
+        this.getContentResolver().registerContentObserver(android.provider.Settings.Secure.CONTENT_URI, true, mSettingsContentObserver);
+
+        // start service in foreground
+        startForeground(TRACKER_SERVICE_NOTIFICATION_ID, mNotification);
+    }
+
+
+    /* Registers a step counter listener */
+    private void startStepCounter() {
+        boolean stepCounterAvailable;
+        stepCounterAvailable = mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(TYPE_STEP_COUNTER), SensorManager.SENSOR_DELAY_UI);
+        if (stepCounterAvailable) {
+            LogHelper.v(LOG_TAG, "Pedometer sensor available: Registering listener.");
+        } else {
+            LogHelper.i(LOG_TAG, "Pedometer sensor not available.");
+            mTrack.setStepCount(-1);
+        }
+    }
+
+
+    /* Set timer to periodically retrieve new locations and to prevent endless tracking */
+    private void startRequestingLocationChanges() {
+        final long previouslyRecordedDuration = mTrack.getTrackDuration();
+        mTimer = new CountDownTimer(EIGHT_HOURS_IN_MILLISECONDS, FIFTEEN_SECONDS_IN_MILLISECONDS) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                // update track duration - and add duration from previously interrupted / paused session
+                long duration = EIGHT_HOURS_IN_MILLISECONDS - millisUntilFinished + previouslyRecordedDuration;
+                mTrack.setDuration(duration);
+                // try to add WayPoint to Track
+                addWayPointToTrack();
+                // update notification
+                mNotification = NotificationHelper.getUpdatedNotification(TrackerService.this, mNotificationBuilder, mTrack);
+                mNotificationManager.notify(TRACKER_SERVICE_NOTIFICATION_ID, mNotification);
+                // save a temp file in case the service has been killed by the system
+                SaveTempTrackAsyncHelper saveTempTrackAsyncHelper = new SaveTempTrackAsyncHelper();
+                saveTempTrackAsyncHelper.execute();
+            }
+
+            @Override
+            public void onFinish() {
+                // stop tracking after eight hours
+                stopTracking();
+            }
+        };
+        mTimer.start();
+    }
+
+
+    /* Display notification */
+    private void displayNotification(boolean trackingState) {
+        mNotificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANEL_ID_RECORDING_CHANNEL);
+        mNotification = NotificationHelper.getNotification(this, mNotificationBuilder, mTrack, trackingState);
+        mNotificationManager.notify(TRACKER_SERVICE_NOTIFICATION_ID, mNotification); // todo check if necessary in pre Android O
+    }
+
 
     /* Adds a new WayPoint to current track */
     private void addWayPointToTrack() {
@@ -550,7 +394,7 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
                 Location firstWayPoint = mTrack.getWayPointLocation(0);
                 float distance = firstWayPoint.distanceTo(lastWayPoint);
                 long timeDifference = lastWayPoint.getElapsedRealtimeNanos() - firstWayPoint.getElapsedRealtimeNanos();
-                averageSpeed = distance / ((float) timeDifference / ONE_NANOSECOND);
+                averageSpeed = distance / ((float) timeDifference / ONE_SECOND_IN_NANOSECOND);
             }
 
             if (LocationHelper.isNewWayPoint(lastWayPoint, mCurrentBestLocation, averageSpeed)) {
@@ -561,14 +405,14 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
 
         // send local broadcast if new WayPoint added
         if (newWayPoint != null) {
-            sendTrackUpdate();
+            broadcastTrackUpdate();
         }
 
     }
 
 
     /* Broadcasts a track update */
-    public void sendTrackUpdate() {
+    private void broadcastTrackUpdate() {
         if (mTrack != null) {
             Intent i = new Intent();
             i.setAction(ACTION_TRACK_UPDATED);

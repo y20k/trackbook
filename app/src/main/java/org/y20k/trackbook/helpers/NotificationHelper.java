@@ -51,9 +51,6 @@ public final class NotificationHelper implements TrackbookKeys {
         // create notification channel
         createNotificationChannel(context);
 
-        // build context text for notification builder
-        String contentText = getContextString(context, track);
-
         // ACTION: NOTIFICATION TAP & BUTTON SHOW
         Intent tapActionIntent = new Intent(context, MainActivity.class);
         tapActionIntent.setAction(ACTION_SHOW_MAP);

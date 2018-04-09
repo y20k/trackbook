@@ -17,6 +17,7 @@
 package org.y20k.trackbook.helpers;
 
 import android.content.Context;
+import android.location.Location;
 import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.os.EnvironmentCompat;
@@ -369,8 +370,8 @@ public class StorageHelper implements TrackbookKeys {
         double negativeElevation = 0;
 
         if (track != null && track.getWayPoints().size() > 0) {
-            double previousLocationHeight;
-            double currentLocationHeight;
+            double previousLocationAltitude;
+            double currentLocationAltitude;
             long previousTimeStamp;
             long currentTimeStamp;
 
@@ -379,7 +380,7 @@ public class StorageHelper implements TrackbookKeys {
             minAltitude = maxAltitude;
 
             // apply filter & smooth data
-//            track = lowPass(track, 15f, 35f);
+//            track = smoothTrack(track, 15f, 35f);
 
             // iterate over track
             for (int i = 1; i < track.getWayPoints().size(); i++ ) {
@@ -393,23 +394,23 @@ public class StorageHelper implements TrackbookKeys {
                 double timeDiffFactor = timeDiff / FIFTEEN_SECONDS_IN_MILLISECONDS;
 
                 // height of previous and current waypoints
-                previousLocationHeight = track.getWayPointLocation(i -1).getAltitude();
-                currentLocationHeight = track.getWayPointLocation(i).getAltitude();
+                previousLocationAltitude = track.getWayPointLocation(i -1).getAltitude();
+                currentLocationAltitude = track.getWayPointLocation(i).getAltitude();
 
                 // check for new min and max heights
-                if (currentLocationHeight > maxAltitude) {
-                    maxAltitude = currentLocationHeight;
+                if (currentLocationAltitude > maxAltitude) {
+                    maxAltitude = currentLocationAltitude;
                 }
-                if (minAltitude == 0 || currentLocationHeight < minAltitude) {
-                    minAltitude = currentLocationHeight;
+                if (minAltitude == 0 || currentLocationAltitude < minAltitude) {
+                    minAltitude = currentLocationAltitude;
                 }
 
                 // get elevation difference and sum it up
-                double altitudeDiff = currentLocationHeight - previousLocationHeight;
-                if (altitudeDiff > 0 && altitudeDiff < MEASUREMENT_ERROR_THRESHOLD * timeDiffFactor && currentLocationHeight != 0) {
+                double altitudeDiff = currentLocationAltitude - previousLocationAltitude;
+                if (altitudeDiff > 0 && altitudeDiff < MEASUREMENT_ERROR_THRESHOLD * timeDiffFactor && currentLocationAltitude != 0) {
                     positiveElevation = positiveElevation + altitudeDiff;
                 }
-                if (altitudeDiff < 0 && altitudeDiff > -MEASUREMENT_ERROR_THRESHOLD * timeDiffFactor && currentLocationHeight != 0) {
+                if (altitudeDiff < 0 && altitudeDiff > -MEASUREMENT_ERROR_THRESHOLD * timeDiffFactor && currentLocationAltitude != 0) {
                     negativeElevation = negativeElevation + altitudeDiff;
                 }
 
@@ -424,8 +425,9 @@ public class StorageHelper implements TrackbookKeys {
         return track;
     }
 
+
     /* Tries to smooth the elevation data using a low pass filter */
-    private Track lowPass(Track input, float dt, float rc) {
+    private Track smoothTrack(Track input, float dt, float rc) {
 
         // The following code is adapted from https://en.wikipedia.org/wiki/Low-pass_filter
         //

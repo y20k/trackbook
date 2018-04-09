@@ -225,18 +225,24 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
         // load state of tracker service - see if anything changed
         loadTrackerServiceState(mActivity);
 
-        // CASE 1: recording active
-        if (mTrackerServiceRunning) {
-            // request an updated track recording from service
-            ((MainActivity)mActivity).requestTrack();
-        }
-
-        // CASE 2: recording stopped - temp file exists
-        else if (mStorageHelper.tempFileExists()) {
-            // load track from temp file if it exists
+        // load track from temp file if it exists
+        if (mStorageHelper.tempFileExists()) {
             LoadTempTrackAsyncHelper loadTempTrackAsyncHelper = new LoadTempTrackAsyncHelper();
             loadTempTrackAsyncHelper.execute();
         }
+
+//        // CASE 1: recording active
+//        if (mTrackerServiceRunning) {
+//            // request an updated track recording from service
+//            ((MainActivity)mActivity).requestTrack();
+//        }
+//
+//        // CASE 2: recording stopped - temp file exists
+//        else if (mStorageHelper.tempFileExists()) {
+//            // load track from temp file if it exists
+//            LoadTempTrackAsyncHelper loadTempTrackAsyncHelper = new LoadTempTrackAsyncHelper();
+//            loadTempTrackAsyncHelper.execute();
+//        }
 
 //        // CASE 3: not recording and no temp file
 //        else if (mTrack != null) {
@@ -551,7 +557,6 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
             @Override
             public void onReceive(Context context, Intent intent) {
                 if (intent.hasExtra(EXTRA_TRACK) && intent.hasExtra(EXTRA_LAST_LOCATION)) {
-                    LogHelper.v(LOG_TAG, "Track update received.");
                     // draw track on map
                     mTrack = intent.getParcelableExtra(EXTRA_TRACK);
                     drawTrackOverlay(mTrack);

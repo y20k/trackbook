@@ -178,14 +178,15 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     @Override
     protected void onPause() {
         super.onPause();
+
     }
 
 
     @Override
     protected void onStop() {
         super.onStop();
+        // unbind from TrackerService
         unbindService(mConnection);
-        mBound = false;
     }
 
 
@@ -265,14 +266,6 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
                     LogHelper.v(LOG_TAG, "Clear map: User chose CANCEL.");
                 }
                 break;
-        }
-    }
-
-
-    /* Request the current Track from TrackerService */
-    public void requestTrack() {
-        if (mBound) {
-            mTrackerService.sendTrackUpdate();
         }
     }
 
