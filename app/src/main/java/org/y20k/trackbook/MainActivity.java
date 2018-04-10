@@ -55,7 +55,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import org.osmdroid.config.Configuration;
-import org.y20k.trackbook.core.Track;
 import org.y20k.trackbook.helpers.DialogHelper;
 import org.y20k.trackbook.helpers.LogHelper;
 import org.y20k.trackbook.helpers.NightModeHelper;
@@ -310,10 +309,10 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
 
 
     /* Resume recording movements */
-    private void resumeRecording() {
+    private void resumeRecording(Location lastLocation) {
         startTrackerService();
         if (mBound) {
-            mTrackerService.resumeTracking();
+            mTrackerService.resumeTracking(lastLocation);
         }
     }
 
@@ -378,14 +377,20 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     /* Handles tap on the button "resume" */
     private void handleResumeButtonClick(View view) {
 
-        // show snackbar
-        Snackbar.make(view, R.string.snackbar_message_tracking_resumed, Snackbar.LENGTH_SHORT).setAction("Action", null).show();
+        // get last location from MainActivity Fragment // todo check -> may produce NullPointerException
+        MainActivityMapFragment mainActivityMapFragment = (MainActivityMapFragment) mSectionsPagerAdapter.getFragment(FRAGMENT_ID_MAP);
+        Location lastLocation = mainActivityMapFragment.getCurrentBestLocation();
 
-        // resume tracking
-        resumeRecording();
-
-        // hide sub menu
-        showFloatingActionButtonMenu(false);
+        if (lastLocation != null) {
+            // show snackbar
+            Snackbar.make(view, R.string.snackbar_message_tracking_resumed, Snackbar.LENGTH_SHORT).setAction("Action", null).show();
+            // resume tracking
+            resumeRecording(lastLocation);
+            // hide sub menu
+            showFloatingActionButtonMenu(false);
+        } else {
+            Toast.makeText(this, getString(R.string.toast_message_location_services_not_ready), Toast.LENGTH_LONG).show();
+        }
     }
 
 
@@ -538,21 +543,12 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
                 Location lastLocation = mainActivityMapFragment.getCurrentBestLocation();
 
                 if (lastLocation != null) {
-                    // change state
-                    mTrackerServiceRunning = true;
-                    mFloatingActionButtonState = FAB_STATE_RECORDING;
-                    setFloatingActionButtonState();
-
                     // show snackbar
                     Snackbar.make(view, R.string.snackbar_message_tracking_started, Snackbar.LENGTH_SHORT).setAction("Action", null).show();
-
-                    // start tracker service
+                    // start recording
                     startRecording(lastLocation);
-
                 } else {
                     Toast.makeText(this, getString(R.string.toast_message_location_services_not_ready), Toast.LENGTH_LONG).show();
-                    // change state back
-                    mTrackerServiceRunning = false;
                 }
 
                 break;
@@ -560,10 +556,6 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
             case FAB_STATE_RECORDING:
                 // show snackbar
                 Snackbar.make(view, R.string.snackbar_message_tracking_stopped, Snackbar.LENGTH_SHORT).setAction("Action", null).show();
-
-                // change state
-                // --> is handled by broadcast receiver
-
                 // stop tracker service
                 stopRecording();
 

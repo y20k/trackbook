@@ -22,6 +22,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.SystemClock;
 import android.provider.Settings;
+import android.support.annotation.Nullable;
 
 import java.util.List;
 import java.util.Locale;
@@ -174,9 +175,13 @@ public final class LocationHelper implements TrackbookKeys {
 
 
     /* Checks if given location is a stop over */
-    public static boolean isStopOver(Location lastLocation, Location newLocation) {
-        long timeDifference =  newLocation.getElapsedRealtimeNanos() - lastLocation.getElapsedRealtimeNanos();
-        return timeDifference >= FIVE_MINUTES_IN_NANOSECONDS;
+    public static boolean isStopOver(@Nullable Location previousLocation, Location newLocation) {
+        if (previousLocation != null) {
+            long timeDifference =  newLocation.getElapsedRealtimeNanos() - previousLocation.getElapsedRealtimeNanos();
+            return timeDifference >= FIVE_MINUTES_IN_NANOSECONDS;
+        } else {
+            return false;
+        }
     }
 
 

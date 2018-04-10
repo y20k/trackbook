@@ -42,7 +42,6 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.widget.Toast;
 
 import org.y20k.trackbook.core.Track;
-import org.y20k.trackbook.core.WayPoint;
 import org.y20k.trackbook.helpers.LocationHelper;
 import org.y20k.trackbook.helpers.LogHelper;
 import org.y20k.trackbook.helpers.NotificationHelper;
@@ -78,6 +77,7 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
     private NotificationManager mNotificationManager;
     private boolean mTrackerServiceRunning;
     private boolean mLocationSystemSetting;
+    private boolean mResumedFlag;
 
     private final IBinder mBinder = new LocalBinder(); // todo move to onCreate
 
@@ -101,6 +101,9 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
 
         // create content observer for changes in System Settings
         mSettingsContentObserver = new SettingsContentObserver(new Handler());
+
+        // initialize the resume flag
+        mResumedFlag = false;
     }
 
 
@@ -133,7 +136,7 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
         }
         // ACTION RESUME
         else if (ACTION_RESUME.equals(intent.getAction())) {
-            resumeTracking();
+            resumeTracking(LocationHelper.determineLastKnownLocation(mLocationManager));
         }
 
         // START_STICKY is used for services that are explicitly started and stopped as needed
@@ -192,9 +195,6 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
                 mCurrentBestLocation = LocationHelper.determineLastKnownLocation(mLocationManager);
             }
 
-            // initialize step counter
-            mStepCountOffset = 0;
-
             // begin recording
             startMovementRecording();
 
@@ -206,9 +206,12 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
 
 
     /* Resume tracking after stop/pause */
-    public void resumeTracking() {
+    public void resumeTracking(Location lastLocation) {
         if (mLocationSystemSetting) {
             LogHelper.v(LOG_TAG, "Recording resumed");
+
+            // switch the resume flag
+            mResumedFlag = true;
 
             // create a new track - if requested
             StorageHelper storageHelper = new StorageHelper(this);
@@ -227,14 +230,11 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
             }
 
             // get last location
-            if (mTrack.getSize() > 0) {
+            mCurrentBestLocation = lastLocation;
+            // FALLBACK: use last recorded location
+            if (mCurrentBestLocation == null && mTrack.getSize() > 0) {
                 mCurrentBestLocation = mTrack.getWayPointLocation(mTrack.getSize() -1);
-            } else {
-                mCurrentBestLocation = LocationHelper.determineLastKnownLocation(mLocationManager);
             }
-
-            // initialize step counter
-            mStepCountOffset = mTrack.getStepCount();
 
             // begin recording
             startMovementRecording();
@@ -297,6 +297,9 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
 
     /* Starts to record movements */
     private void startMovementRecording() {
+        // initialize step counter
+        mStepCountOffset = 0;
+
         // add last location as WayPoint to track
         addWayPointToTrack();
 
@@ -322,8 +325,7 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
 
     /* Registers a step counter listener */
     private void startStepCounter() {
-        boolean stepCounterAvailable;
-        stepCounterAvailable = mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(TYPE_STEP_COUNTER), SensorManager.SENSOR_DELAY_UI);
+        boolean stepCounterAvailable = mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(TYPE_STEP_COUNTER), SensorManager.SENSOR_DELAY_UI);
         if (stepCounterAvailable) {
             LogHelper.v(LOG_TAG, "Pedometer sensor available: Registering listener.");
         } else {
@@ -373,38 +375,47 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
     /* Adds a new WayPoint to current track */
     private void addWayPointToTrack() {
 
-        // create new WayPoint
-        WayPoint newWayPoint = null;
-
-        // get number of previously tracked WayPoints
+        boolean success = false;
+        Location previousLocation = null;
         int trackSize = mTrack.getWayPoints().size();
 
         if (trackSize == 0) {
             // add first location to track
-            newWayPoint = mTrack.addWayPoint(mCurrentBestLocation);
+            success = mTrack.addWayPoint(previousLocation, mCurrentBestLocation);
+
         } else {
-            // get last WayPoint and compare it to current location
-            Location lastWayPoint = mTrack.getWayPointLocation(trackSize - 1);
+            // get location of previous WayPoint
+            previousLocation = mTrack.getWayPointLocation(trackSize - 1);
 
             // default value for average speed
             float averageSpeed = 0f;
 
-            // compute average speed if new location come from network provider
+            // compute average speed if new location came from network provider
             if (trackSize > 1 && mCurrentBestLocation.getProvider().equals(LocationManager.NETWORK_PROVIDER)) {
                 Location firstWayPoint = mTrack.getWayPointLocation(0);
-                float distance = firstWayPoint.distanceTo(lastWayPoint);
-                long timeDifference = lastWayPoint.getElapsedRealtimeNanos() - firstWayPoint.getElapsedRealtimeNanos();
+                float distance = firstWayPoint.distanceTo(previousLocation);
+                long timeDifference = previousLocation.getElapsedRealtimeNanos() - firstWayPoint.getElapsedRealtimeNanos();
                 averageSpeed = distance / ((float) timeDifference / ONE_SECOND_IN_NANOSECOND);
             }
 
-            if (LocationHelper.isNewWayPoint(lastWayPoint, mCurrentBestLocation, averageSpeed)) {
+            if (LocationHelper.isNewWayPoint(previousLocation, mCurrentBestLocation, averageSpeed)) {
                 // if new, add current best location to track
-                newWayPoint = mTrack.addWayPoint(mCurrentBestLocation);
+                success = mTrack.addWayPoint(previousLocation, mCurrentBestLocation);
             }
         }
 
-        // send local broadcast if new WayPoint added
-        if (newWayPoint != null) {
+        if (success) {
+            if (mResumedFlag) {
+                // mark last location as stop over
+                int lastWayPoint = mTrack.getWayPoints().size() - 2;
+                mTrack.getWayPoints().get(lastWayPoint).setIsStopOver(true);
+                mResumedFlag = false;
+            } else {
+                // update distance, if not resumed
+                mTrack.updateDistance(previousLocation, mCurrentBestLocation);
+            }
+
+            // send local broadcast if new WayPoint was added
             broadcastTrackUpdate();
         }
 

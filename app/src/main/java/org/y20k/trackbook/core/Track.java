@@ -19,9 +19,9 @@ package org.y20k.trackbook.core;
 import android.location.Location;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.Nullable;
 
 import org.y20k.trackbook.helpers.LocationHelper;
-import org.y20k.trackbook.helpers.LogHelper;
 import org.y20k.trackbook.helpers.TrackbookKeys;
 
 import java.util.ArrayList;
@@ -124,36 +124,46 @@ public class Track implements TrackbookKeys, Parcelable {
 
 
     /* Adds new WayPoint */
-    public WayPoint addWayPoint(Location location) {
-        // add up distance
-        mTrackLength = addDistanceToTrack(location);
+    public boolean addWayPoint(@Nullable Location previousLocation, Location newLocation) {
 
-        int wayPointCount = mWayPoints.size();
-
-        // determine if last WayPoint was a stopover
-        boolean stopOver = false;
-        if (wayPointCount > 1) {
-            Location lastLocation = mWayPoints.get(wayPointCount - 1).getLocation();
-            stopOver = LocationHelper.isStopOver(lastLocation, location);
-        }
-        if (stopOver) {
-            // mark last WayPoint as stopover
-            LogHelper.v(LOG_TAG, "Last Location was a stop.");
-            mWayPoints.get(wayPointCount-1).setIsStopOver(true);
+        // toggle stop over status, if necessary
+        boolean isStopOver = LocationHelper.isStopOver(previousLocation, newLocation);
+        if (isStopOver) {
+            int wayPointCount = mWayPoints.size();
+            mWayPoints.get(wayPointCount-1).setIsStopOver(isStopOver);
         }
 
         // create new WayPoint
-        WayPoint wayPoint = new WayPoint(location, false, mTrackLength);
+        WayPoint wayPoint = new WayPoint(newLocation, false, mTrackLength);
 
         // add new WayPoint to track
-        mWayPoints.add(wayPoint);
+        return mWayPoints.add(wayPoint);
+    }
 
-        return wayPoint;
+
+    /* Updates distance */
+    public boolean updateDistance(@Nullable Location previousLocation, Location newLocation){
+        // two data points needed to calculate distance
+        if (previousLocation != null) {
+            // add up distance
+            mTrackLength = mTrackLength + previousLocation.distanceTo(newLocation);
+            return true;
+        } else {
+            // this was the first waypoint
+            return false;
+        }
+    }
+
+
+    /* Toggles stop over status of last waypoint */
+    public void toggleLastWayPointStopOverStatus(boolean stopOver) {
+        int wayPointCount = mWayPoints.size();
+        mWayPoints.get(wayPointCount-1).setIsStopOver(stopOver);
     }
 
 
     /* Sets end time and date of recording */
-    public void setRecordingEnd () {
+    public void setRecordingEnd() {
         mRecordingStop = GregorianCalendar.getInstance().getTime();
     }
 
@@ -308,20 +318,20 @@ public class Track implements TrackbookKeys, Parcelable {
     }
 
 
-    /* Adds distance to given location to length of track */
-    private float addDistanceToTrack(Location location) {
-        // get number of previously recorded WayPoints
-        int wayPointCount = mWayPoints.size();
-
-        // at least two data points are needed
-        if (wayPointCount >= 1) {
-            // add up distance
-            Location lastLocation = mWayPoints.get(wayPointCount - 1).getLocation();
-            return mTrackLength + lastLocation.distanceTo(location);
-        }
-
-        return 0f;
-    }
+//    /* Adds distance to given location to length of track */
+//    private float addDistanceToTrack(Location location) {
+//        // get number of previously recorded WayPoints
+//        int wayPointCount = mWayPoints.size();
+//
+//        // at least two data points are needed
+//        if (wayPointCount >= 1) {
+//            // add up distance
+//            Location lastLocation = mWayPoints.get(wayPointCount - 1).getLocation();
+//            return mTrackLength + lastLocation.distanceTo(location);
+//        }
+//
+//        return 0f;
+//    }
 
 
     /* Converts a given distance value to a readable string */
