@@ -17,7 +17,6 @@
 package org.y20k.trackbook.helpers;
 
 import android.content.Context;
-import android.location.Location;
 import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.os.EnvironmentCompat;
