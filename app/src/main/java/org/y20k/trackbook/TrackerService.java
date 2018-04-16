@@ -130,8 +130,15 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
+        // SERVICE RESTART (via START_STICKY)
+        if (intent == null) {
+            if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean(PREFS_TRACKER_SERVICE_RUNNING, false)) {
+                LogHelper.w(LOG_TAG, "Trackbook has been killed by the operating system. Trying to resume recording.");
+                resumeTracking(LocationHelper.determineLastKnownLocation(mLocationManager));
+            }
+        }
         // ACTION STOP
-        if (ACTION_STOP.equals(intent.getAction())) {
+        else if (ACTION_STOP.equals(intent.getAction())) {
             stopTracking();
         }
         // ACTION RESUME
@@ -141,6 +148,13 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
 
         // START_STICKY is used for services that are explicitly started and stopped as needed
         return START_STICKY;
+    }
+
+
+    @Override
+    public void onTaskRemoved(Intent rootIntent) {
+        super.onTaskRemoved(rootIntent);
+        LogHelper.v(LOG_TAG, "onTaskRemoved called.");
     }
 
 
