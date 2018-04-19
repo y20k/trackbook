@@ -20,8 +20,8 @@ allprojects {
     }
     project.ext {
         applicationId = 'org.y20k.trackbook'
-        versionCode = 24
-        versionName = '1.1.8'
+        versionCode = 25
+        versionName = '1.1.9'
         minSdkVersion = 22
         compileSdkVersion = 27
         targetSdkVersion = 27
