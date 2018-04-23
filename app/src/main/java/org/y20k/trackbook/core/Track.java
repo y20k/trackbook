@@ -25,11 +25,9 @@ import org.y20k.trackbook.helpers.LocationHelper;
 import org.y20k.trackbook.helpers.TrackbookKeys;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Locale;
 
 
 /**
@@ -275,40 +273,9 @@ public class Track implements TrackbookKeys, Parcelable {
     }
 
 
-    /* Getter for string representation of maximum altitude of recording */
-    public String getMaxAltitudeString() {
-        return convertDistanceToString(mMaxAltitude);
-    }
-
-
-    /* Getter for string representation of lowest altitude of recording */
-    public String getMinAltitudeString() {
-        return convertDistanceToString(mMinAltitude);
-    }
-
-
-    /* Getter for string representation of positive elevation of recording (cumulative altitude difference) */
-    public String getPositiveElevationString() {
-        return convertDistanceToString(mPositiveElevation);
-    }
-
-
-    /* Getter for string representation of negative elevation of recording (cumulative altitude difference) */
-    public String getNegativeElevationString() {
-        return convertDistanceToString(mNegativeElevation);
-    }
-
-
-    /* Getter for string representation of track duration */
-    public String getTrackDurationString() {
-        return LocationHelper.convertToReadableTime(mDuration, true);
-    }
-
-
-    /* Getter for string representation of track distance */
-    public String getTrackDistanceString() {
-        double trackDistance = (double) mWayPoints.get(mWayPoints.size()-1).getDistanceToStartingPoint();
-        return convertDistanceToString(trackDistance);
+    /* Getter track distance */
+    public double getTrackDistance() {
+        return (double) mWayPoints.get(mWayPoints.size()-1).getDistanceToStartingPoint();
     }
 
 
@@ -334,35 +301,35 @@ public class Track implements TrackbookKeys, Parcelable {
 //    }
 
 
-    /* Converts a given distance value to a readable string */
-    private String convertDistanceToString(double distance) {
-        // check for locale and set unit system accordingly
-        String unit;
-        if (getUnitSystem(Locale.getDefault()) == IMPERIAL) {
-            // convert distance to feet
-            distance = distance * 3.28084f;
-            // set measurement unit
-            unit = "ft";
-        } else {
-            // set measurement unit
-            unit = "m";
-        }
-        return String.format (Locale.ENGLISH, "%.0f", distance) + unit;
-    }
+//    /* Converts a given distance value to a readable string */
+//    private String convertDistanceToString(double distance) {
+//        // check for locale and set unit system accordingly
+//        String unit;
+//        if (getUnitSystem(Locale.getDefault()) == IMPERIAL) {
+//            // convert distance to feet
+//            distance = distance * 3.28084f;
+//            // set measurement unit
+//            unit = "ft";
+//        } else {
+//            // set measurement unit
+//            unit = "m";
+//        }
+//        return String.format (Locale.ENGLISH, "%.0f", distance) + unit;
+//    }
 
 
-    /* Determines which unit system the device is using (metric or imperial) */
-    private int getUnitSystem(Locale locale) {
-        // America (US), Liberia (LR), Myanmar(MM) use the imperial system
-        List<String> imperialSystemCountries = Arrays.asList("US", "LR", "MM");
-        String countryCode = locale.getCountry();
-
-        if (imperialSystemCountries.contains(countryCode)){
-            return IMPERIAL;
-        } else {
-            return METRIC;
-        }
-    }
+//    /* Determines which unit system the device is using (metric or imperial) */
+//    private int getUnitSystem(Locale locale) {
+//        // America (US), Liberia (LR), Myanmar(MM) use the imperial system
+//        List<String> imperialSystemCountries = Arrays.asList("US", "LR", "MM");
+//        String countryCode = locale.getCountry();
+//
+//        if (imperialSystemCountries.contains(countryCode)){
+//            return IMPERIAL;
+//        } else {
+//            return METRIC;
+//        }
+//    }
 
 
     @Override

@@ -55,6 +55,8 @@ import org.y20k.trackbook.core.Track;
 import org.y20k.trackbook.helpers.DialogHelper;
 import org.y20k.trackbook.helpers.DropdownAdapter;
 import org.y20k.trackbook.helpers.ExportHelper;
+import org.y20k.trackbook.helpers.LocaleUnitHelper;
+import org.y20k.trackbook.helpers.LocationHelper;
 import org.y20k.trackbook.helpers.LogHelper;
 import org.y20k.trackbook.helpers.MapHelper;
 import org.y20k.trackbook.helpers.StorageHelper;
@@ -370,16 +372,16 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
             }
 
             // populate views
-            mDistanceView.setText(mTrack.getTrackDistanceString());
+            mDistanceView.setText(LocaleUnitHelper.convertDistanceToString(mTrack.getTrackDistance()));
             mStepsView.setText(stepsTaken);
             mWaypointsView.setText(String.valueOf(mTrack.getWayPoints().size()));
-            mDurationView.setText(mTrack.getTrackDurationString());
+            mDurationView.setText(LocationHelper.convertToReadableTime(mTrack.getTrackDuration(), true));
             mRecordingStartView.setText(recordingStart);
             mRecordingStopView.setText(recordingStop);
-            mPositiveElevationView.setText(mTrack.getPositiveElevationString());
-            mNegativeElevationView.setText(mTrack.getNegativeElevationString());
-            mMaxAltitudeView.setText(mTrack.getMaxAltitudeString());
-            mMinAltitudeView.setText(mTrack.getMinAltitudeString());
+            mPositiveElevationView.setText(LocaleUnitHelper.convertDistanceToString(mTrack.getPositiveElevation()));
+            mNegativeElevationView.setText(LocaleUnitHelper.convertDistanceToString(mTrack.getNegativeElevation()));
+            mMaxAltitudeView.setText(LocaleUnitHelper.convertDistanceToString(mTrack.getMaxAltitude()));
+            mMinAltitudeView.setText(LocaleUnitHelper.convertDistanceToString(mTrack.getMinAltitude()));
 
             // show/hide elevation views depending on file format version
             if (mTrack.getTrackFormatVersion() > 1 && mTrack.getMinAltitude() > 0) {
@@ -511,7 +513,7 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
                 int dialogNegativeButton = R.string.dialog_default_action_cancel;
                 DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault());
                 String recordingStartDate = df.format(mTrack.getRecordingStart());
-                String dialogMessage = getString(R.string.dialog_delete_content) + " " + recordingStartDate + " | " + mTrack.getTrackDistanceString();
+                String dialogMessage = getString(R.string.dialog_delete_content) + " " + recordingStartDate + " | " + LocaleUnitHelper.convertDistanceToString(mTrack.getTrackDistance());
 
                 // show delete dialog - results are handles by onActivityResult
                 DialogFragment dialogFragment = DialogHelper.newInstance(dialogTitle, dialogMessage, dialogPositiveButton, dialogNegativeButton);
@@ -539,13 +541,13 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
                 if (ExportHelper.gpxFileExists(mTrack)) {
                     // CASE: OVERWRITE - GPX file exists
                     dialogTitle = R.string.dialog_export_title_overwrite;
-                    dialogMessage = getString(R.string.dialog_export_content_overwrite) + " (" + recordingStartDate + " | " + mTrack.getTrackDistanceString() + ")";
+                    dialogMessage = getString(R.string.dialog_export_content_overwrite) + " (" + recordingStartDate + " | " + LocaleUnitHelper.convertDistanceToString(mTrack.getTrackDistance()) + ")";
                     dialogPositiveButton = R.string.dialog_export_action_overwrite;
                     dialogNegativeButton = R.string.dialog_default_action_cancel;
                 } else {
                     // CASE: EXPORT - GPX file does NOT yet exits
                     dialogTitle = R.string.dialog_export_title_export;
-                    dialogMessage = getString(R.string.dialog_export_content_export) + " (" + recordingStartDate + " | " + mTrack.getTrackDistanceString() + ")";
+                    dialogMessage = getString(R.string.dialog_export_content_export) + " (" + recordingStartDate + " | " + LocaleUnitHelper.convertDistanceToString(mTrack.getTrackDistance()) + ")";
                     dialogPositiveButton = R.string.dialog_export_action_export;
                     dialogNegativeButton = R.string.dialog_default_action_cancel;
                 }
