@@ -14,7 +14,7 @@
     <string name="notification_clear">Tøm</string>
     <string name="notification_save">Lagre og tøm</string>
     <string name="notification_resume">Fortsett</string>
-    <string name="notification_show">Show</string>
+    <string name="notification_show">Vis</string>
     <string name="notification_content_duration">Varighet</string>
     <string name="notification_content_distance">Distanse</string>
     <string name="notification_channel_recording_name">Bevegelsesopptakstilstand</string>
