@@ -22,6 +22,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.os.EnvironmentCompat;
 import android.widget.Toast;
 
+import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -118,9 +119,7 @@ public class StorageHelper implements TrackbookKeys {
             File file = new File(mFolder.toString() + "/" +  fileName);
 
             // convert track to JSON
-            GsonBuilder gsonBuilder = new GsonBuilder();
-            gsonBuilder.setDateFormat("M/d/yy hh:mm a");
-            Gson gson = gsonBuilder.create();
+            Gson gson = getCustomGson(true);
             String json = gson.toJson(track);
 
             // write track
@@ -226,18 +225,25 @@ public class StorageHelper implements TrackbookKeys {
             LogHelper.v(LOG_TAG, "Loading track from external storage: " + file.toString());
 
             // read until last line reached
-            String line;
+            String fileContent;
+            String singleLine;
             StringBuilder sb = new StringBuilder("");
-            while ((line = br.readLine()) != null) {
-                sb.append(line);
+            while ((singleLine = br.readLine()) != null) {
+                sb.append(singleLine);
                 sb.append("\n");
             }
+            fileContent = sb.toString();
 
-            // prepare GsonBuilder and return Track object
-            GsonBuilder gsonBuilder = new GsonBuilder();
-            gsonBuilder.setDateFormat("M/d/yy hh:mm a");
-            Gson gson = gsonBuilder.create();
-            return gson.fromJson(sb.toString(), TrackBuilder.class).toTrack();
+            // identify for ugly JSON files
+            boolean pretty = true;
+            if (fileContent.startsWith("{\"b\"")) {
+                LogHelper.w(LOG_TAG, "Trackbook file is not formatted correctly."); // todo remove
+                pretty = false;
+            }
+
+            // prepare custom Gson and return Track object
+            Gson gson = getCustomGson(pretty);
+            return gson.fromJson(fileContent, TrackBuilder.class).toTrack();
 
         } catch (IOException e) {
             LogHelper.e(LOG_TAG, "Unable to read file from external storage: " + file.toString());
@@ -245,6 +251,17 @@ public class StorageHelper implements TrackbookKeys {
         }
     }
 
+
+    /*  Creates a Gson object */
+    private Gson getCustomGson(boolean pretty) {
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.setDateFormat("M/d/yy hh:mm a");
+        if (pretty) {
+            gsonBuilder.setFieldNamingPolicy(FieldNamingPolicy.IDENTITY);
+            gsonBuilder.setPrettyPrinting();
+        }
+        return gsonBuilder.create();
+    }
 
     /* Gets most current track from directory */
     private File getMostCurrentTrack() {

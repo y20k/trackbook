@@ -18,7 +18,6 @@
 package org.y20k.trackbook.core;
 
 import org.y20k.trackbook.helpers.LogHelper;
-import org.y20k.trackbook.helpers.TrackbookKeys;
 
 import java.io.File;
 import java.text.DateFormat;
@@ -31,7 +30,7 @@ import java.util.Locale;
 /**
  * TrackBundle class
  */
-public class TrackBundle implements TrackbookKeys {
+public class TrackBundle {
 
     /* Define log tag */
     private static final String LOG_TAG = TrackBundle.class.getSimpleName();
@@ -63,13 +62,9 @@ public class TrackBundle implements TrackbookKeys {
     /* Builds a readable track name from the track's file name */
     private String buildTrackName(File file) {
 
-        // get file name
+        // get file name without extension
         String readableTrackName = file.getName();
-
-        // strip extension
-        if (readableTrackName.endsWith(FILE_TYPE_TRACKBOOK_EXTENSION)) {
-            readableTrackName = readableTrackName.substring(0, readableTrackName.indexOf(FILE_TYPE_TRACKBOOK_EXTENSION));
-        }
+        readableTrackName = readableTrackName.substring(0, readableTrackName.indexOf(".trackbook"));
 
         try {
             // convert file name to date
