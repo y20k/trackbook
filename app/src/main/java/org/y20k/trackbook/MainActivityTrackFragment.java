@@ -35,6 +35,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -55,6 +56,8 @@ import org.y20k.trackbook.core.Track;
 import org.y20k.trackbook.helpers.DialogHelper;
 import org.y20k.trackbook.helpers.DropdownAdapter;
 import org.y20k.trackbook.helpers.ExportHelper;
+import org.y20k.trackbook.helpers.LengthUnitHelper;
+import org.y20k.trackbook.helpers.LocationHelper;
 import org.y20k.trackbook.helpers.LogHelper;
 import org.y20k.trackbook.helpers.MapHelper;
 import org.y20k.trackbook.helpers.StorageHelper;
@@ -85,6 +88,7 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
     private ConstraintLayout mTrackManagementLayout;
     private Spinner mDropdown;
     private View mStatisticsSheet;
+    private View mStatisticsView;
     private TextView mDistanceView;
     private TextView mStepsView;
     private TextView mWaypointsView;
@@ -206,7 +210,7 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
         deleteButton.setOnClickListener(getDeleteButtonListener());
 
         // get views for statistics sheet
-        View statisticsView = mRootView.findViewById(R.id.statistics_view);
+        mStatisticsView = mRootView.findViewById(R.id.statistics_view);
         mStatisticsSheet = mRootView.findViewById(R.id.statistics_sheet);
         mDistanceView = (TextView) mRootView.findViewById(R.id.statistics_data_distance);
         mStepsView = (TextView) mRootView.findViewById(R.id.statistics_data_steps);
@@ -220,8 +224,6 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
         mNegativeElevationView = (TextView) mRootView.findViewById(R.id.statistics_data_negative_elevation);
         mElevationDataViews = (Group) mRootView.findViewById(R.id.elevation_data);
 
-        // attach listners for taps on elevation views
-        attachTapListeners();
 
         // display map and statistics
         if (savedInstanceState != null) {
@@ -241,7 +243,7 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
         mStatisticsSheetBehavior = BottomSheetBehavior.from(mStatisticsSheet);
         mStatisticsSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         mStatisticsSheetBehavior.setBottomSheetCallback(getStatisticsSheetCallback());
-        statisticsView.setOnClickListener(new View.OnClickListener() {
+        mStatisticsView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (mStatisticsSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
@@ -251,6 +253,12 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
                 }
             }
         });
+
+        // attach listener for taps on elevation views
+        attachTapListenerToElevationViews();
+
+//        // attach listener for taps on statistics // TODO uncomment
+//        attachTapListenerToStatisticsSheet();
 
         return mRootView;
     }
@@ -369,17 +377,14 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
                 stepsTaken = String.valueOf(Math.round(mTrack.getStepCount()));
             }
 
-            // populate views
-            mDistanceView.setText(mTrack.getTrackDistanceString());
+            // populate length views
+            displayCurrentLengthUnits();
+            // populate other views
             mStepsView.setText(stepsTaken);
             mWaypointsView.setText(String.valueOf(mTrack.getWayPoints().size()));
-            mDurationView.setText(mTrack.getTrackDurationString());
+            mDurationView.setText(LocationHelper.convertToReadableTime(mTrack.getTrackDuration(), true));
             mRecordingStartView.setText(recordingStart);
             mRecordingStopView.setText(recordingStop);
-            mPositiveElevationView.setText(mTrack.getPositiveElevationString());
-            mNegativeElevationView.setText(mTrack.getNegativeElevationString());
-            mMaxAltitudeView.setText(mTrack.getMaxAltitudeString());
-            mMinAltitudeView.setText(mTrack.getMinAltitudeString());
 
             // show/hide elevation views depending on file format version
             if (mTrack.getTrackFormatVersion() > 1 && mTrack.getMinAltitude() > 0) {
@@ -428,6 +433,27 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
             mStatisticsSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
             mStatisticsSheet.setVisibility(View.VISIBLE);
         }
+    }
+
+
+    /* Displays views in statistic sheet according to current locale */
+    private void displayCurrentLengthUnits() {
+        mDistanceView.setText(LengthUnitHelper.convertDistanceToString(mTrack.getTrackDistance()));
+        mPositiveElevationView.setText(LengthUnitHelper.convertDistanceToString(mTrack.getPositiveElevation()));
+        mNegativeElevationView.setText(LengthUnitHelper.convertDistanceToString(mTrack.getNegativeElevation()));
+        mMaxAltitudeView.setText(LengthUnitHelper.convertDistanceToString(mTrack.getMaxAltitude()));
+        mMinAltitudeView.setText(LengthUnitHelper.convertDistanceToString(mTrack.getMinAltitude()));
+    }
+
+
+    /* Switches views in statistic sheet between Metric and Imperial */
+    private void displayOppositeLengthUnits() {
+        int oppositeLengthUnit = LengthUnitHelper.getOppositeUnitSystem();
+        mDistanceView.setText(LengthUnitHelper.convertDistanceToString(mTrack.getTrackDistance(), oppositeLengthUnit));
+        mPositiveElevationView.setText(LengthUnitHelper.convertDistanceToString(mTrack.getPositiveElevation(), oppositeLengthUnit));
+        mNegativeElevationView.setText(LengthUnitHelper.convertDistanceToString(mTrack.getNegativeElevation(), oppositeLengthUnit));
+        mMaxAltitudeView.setText(LengthUnitHelper.convertDistanceToString(mTrack.getMaxAltitude(), oppositeLengthUnit));
+        mMinAltitudeView.setText(LengthUnitHelper.convertDistanceToString(mTrack.getMinAltitude(), oppositeLengthUnit));
     }
 
 
@@ -511,7 +537,7 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
                 int dialogNegativeButton = R.string.dialog_default_action_cancel;
                 DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault());
                 String recordingStartDate = df.format(mTrack.getRecordingStart());
-                String dialogMessage = getString(R.string.dialog_delete_content) + " " + recordingStartDate + " | " + mTrack.getTrackDistanceString();
+                String dialogMessage = getString(R.string.dialog_delete_content) + " " + recordingStartDate + " | " + LengthUnitHelper.convertDistanceToString(mTrack.getTrackDistance());
 
                 // show delete dialog - results are handles by onActivityResult
                 DialogFragment dialogFragment = DialogHelper.newInstance(dialogTitle, dialogMessage, dialogPositiveButton, dialogNegativeButton);
@@ -539,13 +565,13 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
                 if (ExportHelper.gpxFileExists(mTrack)) {
                     // CASE: OVERWRITE - GPX file exists
                     dialogTitle = R.string.dialog_export_title_overwrite;
-                    dialogMessage = getString(R.string.dialog_export_content_overwrite) + " (" + recordingStartDate + " | " + mTrack.getTrackDistanceString() + ")";
+                    dialogMessage = getString(R.string.dialog_export_content_overwrite) + " (" + recordingStartDate + " | " + LengthUnitHelper.convertDistanceToString(mTrack.getTrackDistance()) + ")";
                     dialogPositiveButton = R.string.dialog_export_action_overwrite;
                     dialogNegativeButton = R.string.dialog_default_action_cancel;
                 } else {
                     // CASE: EXPORT - GPX file does NOT yet exits
                     dialogTitle = R.string.dialog_export_title_export;
-                    dialogMessage = getString(R.string.dialog_export_content_export) + " (" + recordingStartDate + " | " + mTrack.getTrackDistanceString() + ")";
+                    dialogMessage = getString(R.string.dialog_export_content_export) + " (" + recordingStartDate + " | " + LengthUnitHelper.convertDistanceToString(mTrack.getTrackDistance()) + ")";
                     dialogPositiveButton = R.string.dialog_export_action_export;
                     dialogNegativeButton = R.string.dialog_default_action_cancel;
                 }
@@ -559,8 +585,8 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
     }
 
 
-    /* Add tap listners to elevation data views */
-    private void attachTapListeners() {
+    /* Add tap listener to elevation data views */
+    private void attachTapListenerToElevationViews() {
         int referencedIds[] = mElevationDataViews.getReferencedIds();
         for (int id : referencedIds) {
             mRootView.findViewById(id).setOnClickListener(new View.OnClickListener() {
@@ -571,6 +597,31 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
                 }
             });
         }
+    }
+
+
+    /* Add tap listener to statistics sheet */
+    private void attachTapListenerToStatisticsSheet() {
+        mStatisticsView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                    displayOppositeLengthUnits();
+                    return true;
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    displayCurrentLengthUnits();
+
+                    if (mStatisticsSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
+                        mStatisticsSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                    } else {
+                        mStatisticsSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                    }
+
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
 

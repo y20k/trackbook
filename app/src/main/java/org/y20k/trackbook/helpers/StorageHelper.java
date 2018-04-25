@@ -22,7 +22,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.os.EnvironmentCompat;
 import android.widget.Toast;
 
-import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -119,7 +118,7 @@ public class StorageHelper implements TrackbookKeys {
             File file = new File(mFolder.toString() + "/" +  fileName);
 
             // convert track to JSON
-            Gson gson = getCustomGson(true);
+            Gson gson = getCustomGson();
             String json = gson.toJson(track);
 
             // write track
@@ -234,15 +233,8 @@ public class StorageHelper implements TrackbookKeys {
             }
             fileContent = sb.toString();
 
-            // identify for ugly JSON files
-            boolean pretty = true;
-            if (fileContent.startsWith("{\"b\"")) {
-                LogHelper.w(LOG_TAG, "Trackbook file is not formatted correctly."); // todo remove
-                pretty = false;
-            }
-
             // prepare custom Gson and return Track object
-            Gson gson = getCustomGson(pretty);
+            Gson gson = getCustomGson();
             return gson.fromJson(fileContent, TrackBuilder.class).toTrack();
 
         } catch (IOException e) {
@@ -253,13 +245,9 @@ public class StorageHelper implements TrackbookKeys {
 
 
     /*  Creates a Gson object */
-    private Gson getCustomGson(boolean pretty) {
+    private Gson getCustomGson() {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.setDateFormat("M/d/yy hh:mm a");
-        if (pretty) {
-            gsonBuilder.setFieldNamingPolicy(FieldNamingPolicy.IDENTITY);
-            gsonBuilder.setPrettyPrinting();
-        }
         return gsonBuilder.create();
     }
 
@@ -346,13 +334,6 @@ public class StorageHelper implements TrackbookKeys {
 
             }
         });
-
-        // log sorting result // TODO comment out for release
-//        String fileList = "";
-//        for (File file : files) {
-//            fileList = fileList + file.getName() + "\n";
-//        }
-//        LogHelper.v(LOG_TAG, "+++ List of files +++\n" + fileList);
 
         // hand back sorted array of files
         return files;
