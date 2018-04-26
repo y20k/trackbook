@@ -243,22 +243,23 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
         mStatisticsSheetBehavior = BottomSheetBehavior.from(mStatisticsSheet);
         mStatisticsSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         mStatisticsSheetBehavior.setBottomSheetCallback(getStatisticsSheetCallback());
-        mStatisticsView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (mStatisticsSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
-                    mStatisticsSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                } else {
-                    mStatisticsSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                }
-            }
-        });
+        // todo attach listener to title and (i)icon
+//        mStatisticsView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (mStatisticsSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
+//                    mStatisticsSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+//                } else {
+//                    mStatisticsSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+//                }
+//            }
+//        });
 
         // attach listener for taps on elevation views
         attachTapListenerToElevationViews();
 
-//        // attach listener for taps on statistics // TODO uncomment
-//        attachTapListenerToStatisticsSheet();
+        // attach listener for taps on statistics // TODO uncomment
+        attachTapListenerToStatisticsSheet();
 
         return mRootView;
     }
@@ -605,19 +606,17 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
         mStatisticsView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if(event.getAction() == MotionEvent.ACTION_DOWN){
-                    displayOppositeLengthUnits();
-                    return true;
-                } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    displayCurrentLengthUnits();
-
-                    if (mStatisticsSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
-                        mStatisticsSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                    } else {
-                        mStatisticsSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                // todo describe
+                if (mStatisticsSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
+                    if (event.getAction() == MotionEvent.ACTION_DOWN){
+                        displayOppositeLengthUnits();
+                        return true;
+                    } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                        displayCurrentLengthUnits();
+                        return true;
                     }
-
-                    return true;
+                } else {
+                    displayCurrentLengthUnits();
                 }
                 return false;
             }
