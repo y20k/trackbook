@@ -16,6 +16,7 @@
 
 package org.y20k.trackbook.helpers;
 
+import java.text.NumberFormat;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
@@ -29,7 +30,7 @@ public final class LengthUnitHelper implements TrackbookKeys {
 
     /* Converts for the default locale a distance value to a readable string */
     public static String convertDistanceToString(double distance) {
-        return convertDistanceToString(distance, getUnitSystem(Locale.getDefault()));
+        return convertDistanceToString(distance, getUnitSystem());
     }
 
 
@@ -46,28 +47,19 @@ public final class LengthUnitHelper implements TrackbookKeys {
             // set measurement unit
             unit = "m";
         }
-        return String.format (Locale.ENGLISH, "%.0f", distance) + unit;
+        // format distance according to current locale
+        NumberFormat numberFormat =  NumberFormat.getNumberInstance();
+        numberFormat.setMaximumFractionDigits(0);
+        return numberFormat.format(distance) + " " + unit;
     }
 
 
     /* Determines which unit system the device is using (metric or imperial) */
-    private static int getUnitSystem(Locale locale) {
+    public static int getUnitSystem() {
         // America (US), Liberia (LR), Myanmar(MM) use the imperial system
         List<String> imperialSystemCountries = Arrays.asList("US", "LR", "MM");
-        String countryCode = locale.getCountry();
-
+        String countryCode = Locale.getDefault().getCountry();
         if (imperialSystemCountries.contains(countryCode)){
-            return IMPERIAL;
-        } else {
-            return METRIC;
-        }
-    }
-
-
-    /* Returns the opposite unit system based on the current locale */
-    public static int getOppositeUnitSystem() {
-        int unitSystem = getUnitSystem(Locale.getDefault());
-        if (unitSystem == METRIC){
             return IMPERIAL;
         } else {
             return METRIC;

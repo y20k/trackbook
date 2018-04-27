@@ -101,6 +101,8 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
     private TextView mNegativeElevationView;
     private Group mElevationDataViews;
     private BottomSheetBehavior mStatisticsSheetBehavior;
+    private int mCurrentLengthUnit;
+    private int mOppositeLengthUnit;
     private int mCurrentTrack;
     private Track mTrack;
     private BroadcastReceiver mTrackSavedReceiver;
@@ -258,7 +260,7 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
         // attach listener for taps on elevation views
         attachTapListenerToElevationViews();
 
-        // attach listener for taps on statistics // TODO uncomment
+        // attach listener for taps on statistics
         attachTapListenerToStatisticsSheet();
 
         return mRootView;
@@ -449,7 +451,7 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
 
     /* Switches views in statistic sheet between Metric and Imperial */
     private void displayOppositeLengthUnits() {
-        int oppositeLengthUnit = LengthUnitHelper.getOppositeUnitSystem();
+        int oppositeLengthUnit = LengthUnitHelper.getUnitSystem() * -1;
         mDistanceView.setText(LengthUnitHelper.convertDistanceToString(mTrack.getTrackDistance(), oppositeLengthUnit));
         mPositiveElevationView.setText(LengthUnitHelper.convertDistanceToString(mTrack.getPositiveElevation(), oppositeLengthUnit));
         mNegativeElevationView.setText(LengthUnitHelper.convertDistanceToString(mTrack.getNegativeElevation(), oppositeLengthUnit));
@@ -511,6 +513,8 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
             }
             @Override
             public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+                // reset length unit displays
+                displayCurrentLengthUnits();
                 // react to dragging events
                 if (slideOffset < 0.5f) {
                     mTrackManagementLayout.setVisibility(View.VISIBLE);
@@ -606,19 +610,12 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
         mStatisticsView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                // todo describe
-                if (mStatisticsSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
-                    if (event.getAction() == MotionEvent.ACTION_DOWN){
-                        displayOppositeLengthUnits();
-                        return true;
-                    } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                        displayCurrentLengthUnits();
-                        return true;
-                    }
-                } else {
+                if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                    displayOppositeLengthUnits();
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     displayCurrentLengthUnits();
                 }
-                return false;
+                return true;
             }
         });
     }

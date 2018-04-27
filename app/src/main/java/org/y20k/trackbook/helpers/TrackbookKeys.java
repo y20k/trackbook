@@ -103,7 +103,7 @@ public interface TrackbookKeys {
 
     /* UNITS */
     int METRIC = 1;
-    int IMPERIAL = 2;
+    int IMPERIAL = -1;
 
     /* FLOATING ACTION BUTTON */
     int FAB_STATE_DEFAULT = 0;
