@@ -445,7 +445,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
 
         } else {
             // point to the on main onboarding layout
-            setContentView(R.layout.activity_main_onboarding);
+            setContentView(R.layout.main_onboarding);
 
             // show the okay button and attach listener
             Button okayButton = (Button) findViewById(R.id.button_okay);

@@ -100,9 +100,8 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
     private TextView mPositiveElevationView;
     private TextView mNegativeElevationView;
     private Group mElevationDataViews;
+    private Group mStatisticsHeaderViews;
     private BottomSheetBehavior mStatisticsSheetBehavior;
-    private int mCurrentLengthUnit;
-    private int mOppositeLengthUnit;
     private int mCurrentTrack;
     private Track mTrack;
     private BroadcastReceiver mTrackSavedReceiver;
@@ -225,6 +224,7 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
         mPositiveElevationView = (TextView) mRootView.findViewById(R.id.statistics_data_positive_elevation);
         mNegativeElevationView = (TextView) mRootView.findViewById(R.id.statistics_data_negative_elevation);
         mElevationDataViews = (Group) mRootView.findViewById(R.id.elevation_data);
+        mStatisticsHeaderViews = (Group) mRootView.findViewById(R.id.statistics_header);
 
 
         // display map and statistics
@@ -245,23 +245,17 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
         mStatisticsSheetBehavior = BottomSheetBehavior.from(mStatisticsSheet);
         mStatisticsSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         mStatisticsSheetBehavior.setBottomSheetCallback(getStatisticsSheetCallback());
-        // todo attach listener to title and (i)icon
-//        mStatisticsView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if (mStatisticsSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
-//                    mStatisticsSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-//                } else {
-//                    mStatisticsSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-//                }
-//            }
-//        });
 
         // attach listener for taps on elevation views
         attachTapListenerToElevationViews();
 
-        // attach listener for taps on statistics
-        attachTapListenerToStatisticsSheet();
+        // attach listener for taps on statistics sheet header
+        attachTapListenerToStatisticHeaderViews();
+
+        // attach listener for taps on statistics - for US and other states plagued by Imperial units
+        if (LengthUnitHelper.getUnitSystem() == IMPERIAL) {
+            attachTapListenerToStatisticsSheet();
+        }
 
         return mRootView;
     }
@@ -599,6 +593,24 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
                 public void onClick(View view) {
                     // inform user about possible issues with altitude measurements
                     Toast.makeText(mActivity, R.string.toast_message_elevation_info, Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+    }
+
+
+    /* Add tap listener to statistic header views */
+    private void attachTapListenerToStatisticHeaderViews() {
+        int referencedIds[] = mStatisticsHeaderViews.getReferencedIds();
+        for (int id : referencedIds) {
+            mRootView.findViewById(id).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (mStatisticsSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
+                        mStatisticsSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                    } else {
+                        mStatisticsSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                    }
                 }
             });
         }

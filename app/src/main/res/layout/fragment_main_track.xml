@@ -21,10 +21,10 @@
             android:contentDescription="@string/descr_map_last_track" />
 
         <!-- OPTIONAL ONBOARDING  -->
-        <include layout="@layout/fragment_main_track_onboarding" />
+        <include layout="@layout/track_onboarding" />
 
         <!-- TRACK MANAGEMENT -->
-        <include layout="@layout/fragment_main_track_management" />
+        <include layout="@layout/track_management" />
 
     </RelativeLayout>
 
@@ -44,7 +44,7 @@
             android:layout_height="match_parent">
 
             <!-- STATISTICS -->
-            <include layout="@layout/fragment_main_track_statistics" />
+            <include layout="@layout/track_statistics" />
 
         </ScrollView>
 
