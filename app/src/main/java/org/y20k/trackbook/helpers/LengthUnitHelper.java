@@ -36,20 +36,47 @@ public final class LengthUnitHelper implements TrackbookKeys {
 
     /* Converts for the given uni System a distance value to a readable string */
     public static String convertDistanceToString(double distance, int unitSystem) {
-        // check for locale and set unit system accordingly
         String unit;
+        NumberFormat numberFormat =  NumberFormat.getNumberInstance();
+
+        // check for locale and set unit system accordingly
         if (unitSystem == IMPERIAL) {
-            // convert distance to feet
-            distance = distance * 3.28084f;
-            // set measurement unit
-            unit = "ft";
+            // miles and feet
+            if (distance > 1610) {
+                // convert distance to miles
+                distance = distance * 0.000621371192;
+                // set measurement unit
+                unit = "mi";
+                // set number precision
+                numberFormat.setMaximumFractionDigits(2);
+            } else {
+                // convert distance to feet
+                distance = distance * 3.28084f;
+                // set measurement unit
+                unit = "ft";
+                // set number precision
+                numberFormat.setMaximumFractionDigits(0);
+            }
+
+
         } else {
-            // set measurement unit
-            unit = "m";
+            // kilometer and meter
+            if (distance >= 1000) {
+                // convert distance to kilometer
+                distance = distance * 0.001f;
+                // set measurement unit
+                unit = "km";
+                // set number precision
+                numberFormat.setMaximumFractionDigits(2);
+            } else {
+                // set measurement unit
+                unit = "m";
+                // set number precision
+                numberFormat.setMaximumFractionDigits(0);
+            }
+
         }
         // format distance according to current locale
-        NumberFormat numberFormat =  NumberFormat.getNumberInstance();
-        numberFormat.setMaximumFractionDigits(0);
         return numberFormat.format(distance) + " " + unit;
     }
 

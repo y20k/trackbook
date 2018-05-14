@@ -253,7 +253,7 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
         attachTapListenerToStatisticHeaderViews();
 
         // attach listener for taps on statistics - for US and other states plagued by Imperial units
-        if (LengthUnitHelper.getUnitSystem() == IMPERIAL) {
+        if (LengthUnitHelper.getUnitSystem() == IMPERIAL || Locale.getDefault().getCountry().equals("GB")) {
             attachTapListenerToStatisticsSheet();
         }
 

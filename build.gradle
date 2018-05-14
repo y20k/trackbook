@@ -30,7 +30,7 @@ allprojects {
         constraintLayoutVersion = '1.1.0-beta5'
 
         osmdroidVersion = '6.0.1'
-        gsonVersion = '2.8.2'
+        gsonVersion = '2.8.4'
     }
 }
 
