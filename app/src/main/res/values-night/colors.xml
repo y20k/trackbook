@@ -9,8 +9,8 @@
     <color name="fab_button_card_text">@color/trackbook_white</color>
     <color name="fab_button_card_background">@color/trackbook_grey_dark</color>
 
-    <color name="location_buttom_icon">@color/trackbook_white</color>
-    <color name="location_buttom_background">@color/trackbook_grey_dark</color>
+    <color name="location_button_icon">@color/trackbook_white</color>
+    <color name="location_button_background">@color/trackbook_grey_dark</color>
 
     <color name="track_management_text">@color/trackbook_white</color>
     <color name="track_management_icons">@color/trackbook_white</color>

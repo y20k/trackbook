@@ -287,6 +287,9 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
         // change notification
         displayNotification(false);
 
+        // reset resume flag
+        mResumedFlag = false;
+
         // remove listeners
         stopFindingLocation();
         mSensorManager.unregisterListener(this);

@@ -27,10 +27,10 @@ allprojects {
         targetSdkVersion = 27
         buildToolsVersion = '27.0.3'
         supportLibraryVersion = '27.1.1'
-        constraintLayoutVersion = '1.1.0-beta5'
+        constraintLayoutVersion = '1.1.0-beta6'
 
         osmdroidVersion = '6.0.1'
-        gsonVersion = '2.8.4'
+        gsonVersion = '2.8.5'
     }
 }
 

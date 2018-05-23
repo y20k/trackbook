@@ -23,7 +23,7 @@
             android:clickable="true"
             android:contentDescription="@string/descr_fab_my_location"
             android:focusable="true"
-            app:backgroundTint="@color/location_buttom_background"
+            app:backgroundTint="@color/location_button_background"
             app:fabSize="mini"
             app:layout_constraintBottom_toBottomOf="@+id/fabMainButton"
             app:layout_constraintStart_toStartOf="parent"

@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     private int mFloatingActionButtonState;
     private int mSelectedTab;
 
-    boolean mBound = false;
+    private boolean mBound = false;
 
 
     @Override
