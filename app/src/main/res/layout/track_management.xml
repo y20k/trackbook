@@ -17,9 +17,20 @@
         android:layout_marginTop="4dp"
         android:contentDescription="@string/descr_track_selector"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/export_button"
+        app:layout_constraintEnd_toStartOf="@+id/share_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/share_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="@color/trackbook_transparent"
+        app:layout_constraintBottom_toBottomOf="@+id/track_selector"
+        app:layout_constraintEnd_toStartOf="@+id/export_button"
+        app:layout_constraintTop_toTopOf="@+id/track_selector"
+        app:srcCompat="@drawable/ic_share_24dp" />
 
     <ImageButton
         android:id="@+id/export_button"
@@ -28,9 +39,9 @@
         android:layout_marginEnd="8dp"
         android:backgroundTint="@color/trackbook_transparent"
         android:contentDescription="@string/descr_export_button"
-        app:layout_constraintBottom_toBottomOf="@+id/track_selector"
+        app:layout_constraintBottom_toBottomOf="@+id/share_button"
         app:layout_constraintEnd_toStartOf="@+id/delete_button"
-        app:layout_constraintTop_toTopOf="@+id/track_selector"
+        app:layout_constraintTop_toTopOf="@+id/share_button"
         app:srcCompat="@drawable/ic_file_download_24dp" />
 
     <ImageButton
@@ -44,5 +55,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/export_button"
         app:srcCompat="@drawable/ic_delete_forever_24dp" />
+
 
 </android.support.constraint.ConstraintLayout>

@@ -17,8 +17,10 @@
 package org.y20k.trackbook.helpers;
 
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.os.Environment;
+import android.support.v4.content.FileProvider;
 import android.widget.Toast;
 
 import org.y20k.trackbook.R;
@@ -38,7 +40,7 @@ import java.util.TimeZone;
 /**
  * ExportHelper class
  */
-public final class ExportHelper implements TrackbookKeys {
+public final class ExportHelper extends FileProvider implements TrackbookKeys {
 
     /* Define log tag */
     private static final String LOG_TAG = ExportHelper.class.getSimpleName();
@@ -53,17 +55,8 @@ public final class ExportHelper implements TrackbookKeys {
 
     /* Exports given track to GPX */
     public static boolean exportToGpx(Context context, Track track) {
-        // get "Download" folder
-        File folder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-
-        // create "Download" folder if necessary
-        if (folder != null && !folder.exists()) {
-            LogHelper.v(LOG_TAG, "Creating new folder: " + folder.toString());
-            folder.mkdirs();
-        }
-
         // get file for given track
-        File gpxFile = createFile(track, folder);
+        File gpxFile = createFile(track, getDownloadFolder());
 
         // get GPX string representation for given track
         String gpxString = createGpxString(track);
@@ -78,6 +71,46 @@ public final class ExportHelper implements TrackbookKeys {
             Toast.makeText(context, toastMessage, Toast.LENGTH_LONG).show();
             return false;
         }
+    }
+
+
+    /* Creates Intent used to bring up an Android share sheet */
+    public static Intent getGpxFileIntent(Context context, Track track) {
+
+        // get file for given track
+        File gpxFile = createFile(track, getDownloadFolder()); // todo use cache folder
+
+        // get GPX string representation for given track
+        String gpxString = createGpxString(track);
+
+        // write GPX file
+        if (writeGpxToFile(gpxString, gpxFile)) {
+            String toastMessage = context.getResources().getString(R.string.toast_message_export_success) + " " + gpxFile.toString();
+            Toast.makeText(context, toastMessage, Toast.LENGTH_LONG).show();
+        } else {
+            String toastMessage = context.getResources().getString(R.string.toast_message_export_fail) + " " + gpxFile.toString();
+            Toast.makeText(context, toastMessage, Toast.LENGTH_LONG).show();
+        }
+
+        // create intent
+        String authority = "org.y20k.trackbook.exporthelper.provider";
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_SEND);
+        intent.setType("application/gpx+xml");
+        intent.setData(FileProvider.getUriForFile(context, authority, gpxFile));
+
+        return intent;
+    }
+
+
+    /* Get "Download" folder */
+    private static File getDownloadFolder() {
+        File folder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        if (folder != null && !folder.exists()) {
+            LogHelper.v(LOG_TAG, "Creating new folder: " + folder.toString());
+            folder.mkdirs();
+        }
+        return folder;
     }
 
 

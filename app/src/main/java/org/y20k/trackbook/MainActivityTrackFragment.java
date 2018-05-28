@@ -205,8 +205,10 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
         mDropdown = (Spinner) mRootView.findViewById(R.id.track_selector);
 
         // attach listeners to export and delete buttons
+        ImageButton shareButton = (ImageButton) mRootView.findViewById(R.id.share_button);
         ImageButton exportButton = (ImageButton) mRootView.findViewById(R.id.export_button);
         ImageButton deleteButton = (ImageButton) mRootView.findViewById(R.id.delete_button);
+        shareButton.setOnClickListener(getShareButtonListener());
         exportButton.setOnClickListener(getExportButtonListener());
         deleteButton.setOnClickListener(getDeleteButtonListener());
 
@@ -343,7 +345,7 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
                 break;
             case RESULT_EXPORT_DIALOG:
                 if (resultCode == Activity.RESULT_OK) {
-                    // User chose EXPORT
+                    // user chose EXPORT
                     ExportHelper.exportToGpx(mActivity, mTrack);
                 } else if (resultCode == Activity.RESULT_CANCELED){
                     // User chose CANCEL
@@ -525,23 +527,21 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
     }
 
 
-    /* Creates OnClickListener for the delete button - needed in onCreateView */
-    private View.OnClickListener getDeleteButtonListener() {
+    /* Creates OnClickListener for the export button - needed in onCreateView */
+    private View.OnClickListener getShareButtonListener() {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // get text elements for delete dialog
-                int dialogTitle = R.string.dialog_delete_title;
-                int dialogPositiveButton = R.string.dialog_delete_action_delete;
-                int dialogNegativeButton = R.string.dialog_default_action_cancel;
-                DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault());
-                String recordingStartDate = df.format(mTrack.getRecordingStart());
-                String dialogMessage = getString(R.string.dialog_delete_content) + " " + recordingStartDate + " | " + LengthUnitHelper.convertDistanceToString(mTrack.getTrackDistance());
-
-                // show delete dialog - results are handles by onActivityResult
-                DialogFragment dialogFragment = DialogHelper.newInstance(dialogTitle, dialogMessage, dialogPositiveButton, dialogNegativeButton);
-                dialogFragment.setTargetFragment(MainActivityTrackFragment.this, RESULT_DELETE_DIALOG);
-                dialogFragment.show(mActivity.getSupportFragmentManager(), "DeleteDialog");
+                Intent intent = ExportHelper.getGpxFileIntent(mActivity, mTrack);
+                // create intent to show chooser
+                String title = "Share GPX file with"; // todo replace with Resource
+//                String title = getResources().getString(R.string.chooser_title);
+                Intent chooser = Intent.createChooser(intent, title);
+                if (intent.resolveActivity(mActivity.getPackageManager()) != null) {
+                    startActivity(chooser);
+                } else {
+                    // todo TOAST
+                }
             }
         };
     }
@@ -579,6 +579,28 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
                 DialogFragment dialogFragment = DialogHelper.newInstance(dialogTitle, dialogMessage, dialogPositiveButton, dialogNegativeButton);
                 dialogFragment.setTargetFragment(MainActivityTrackFragment.this, RESULT_EXPORT_DIALOG);
                 dialogFragment.show(mActivity.getSupportFragmentManager(), "ExportDialog");
+            }
+        };
+    }
+
+
+    /* Creates OnClickListener for the delete button - needed in onCreateView */
+    private View.OnClickListener getDeleteButtonListener() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // get text elements for delete dialog
+                int dialogTitle = R.string.dialog_delete_title;
+                int dialogPositiveButton = R.string.dialog_delete_action_delete;
+                int dialogNegativeButton = R.string.dialog_default_action_cancel;
+                DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault());
+                String recordingStartDate = df.format(mTrack.getRecordingStart());
+                String dialogMessage = getString(R.string.dialog_delete_content) + " " + recordingStartDate + " | " + LengthUnitHelper.convertDistanceToString(mTrack.getTrackDistance());
+
+                // show delete dialog - results are handles by onActivityResult
+                DialogFragment dialogFragment = DialogHelper.newInstance(dialogTitle, dialogMessage, dialogPositiveButton, dialogNegativeButton);
+                dialogFragment.setTargetFragment(MainActivityTrackFragment.this, RESULT_DELETE_DIALOG);
+                dialogFragment.show(mActivity.getSupportFragmentManager(), "DeleteDialog");
             }
         };
     }
