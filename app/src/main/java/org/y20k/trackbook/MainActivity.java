@@ -56,6 +56,7 @@ import android.widget.Toast;
 
 import org.osmdroid.config.Configuration;
 import org.y20k.trackbook.helpers.DialogHelper;
+import org.y20k.trackbook.helpers.ExportHelper;
 import org.y20k.trackbook.helpers.LogHelper;
 import org.y20k.trackbook.helpers.NightModeHelper;
 import org.y20k.trackbook.helpers.TrackbookKeys;
@@ -107,6 +108,9 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
 
         // check state of External Storage
         checkExternalStorageState();
+
+        // empty cache
+        ExportHelper.emptyCacheDirectory(this);
 
         // load saved state of app
         loadFloatingActionButtonState(this);

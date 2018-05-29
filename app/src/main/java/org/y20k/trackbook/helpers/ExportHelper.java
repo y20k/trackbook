@@ -77,8 +77,8 @@ public final class ExportHelper extends FileProvider implements TrackbookKeys {
     /* Creates Intent used to bring up an Android share sheet */
     public static Intent getGpxFileIntent(Context context, Track track) {
 
-        // get file for given track
-        File gpxFile = createFile(track, getDownloadFolder()); // todo use cache folder
+        // create file in Cache directory for given track
+        File gpxFile = createFile(track, context.getCacheDir());
 
         // get GPX string representation for given track
         String gpxString = createGpxString(track);
@@ -97,9 +97,20 @@ public final class ExportHelper extends FileProvider implements TrackbookKeys {
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_SEND);
         intent.setType("application/gpx+xml");
+        intent.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(context, authority, gpxFile));
         intent.setData(FileProvider.getUriForFile(context, authority, gpxFile));
 
         return intent;
+    }
+
+
+    /* Empties the internal chache directory */
+    public static void emptyCacheDirectory(Context context) {
+        // todo implement a date check - delete only stuff that is a week old
+        File[] cacheFiles = context.getCacheDir().listFiles();
+        for (File file: cacheFiles) {
+            file.delete();
+        }
     }
 
 
@@ -118,11 +129,12 @@ public final class ExportHelper extends FileProvider implements TrackbookKeys {
     private static File createFile(Track track, File folder) {
         Date recordingStart = track.getRecordingStart();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss", Locale.US);
+
         return new File(folder, dateFormat.format(recordingStart) + FILE_TYPE_GPX_EXTENSION);
     }
 
 
-    /* Writes given GPX string to Download folder */
+    /* Writes given GPX string to given file */
     private static boolean writeGpxToFile (String gpxString, File gpxFile) {
         // write track
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(gpxFile))) {
