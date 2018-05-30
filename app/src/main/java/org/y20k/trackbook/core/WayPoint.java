@@ -72,7 +72,7 @@ public class WayPoint implements Parcelable {
     };
 
 
-    /* Getter for mIsStopOver */
+    /* Getter for mLocation */
     public Location getLocation() {
         return mLocation;
     }
