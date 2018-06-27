@@ -527,7 +527,7 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
         mFloatingActionButtonLocation.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                longPressFeedback(R.string.toastmessage_long_press_night_mode_switch);
+                longPressFeedback(R.string.toast_message_long_press_night_mode_switch);
                 NightModeHelper.switchToOpposite(MainActivity.this);
                 recreate();
                 return true;

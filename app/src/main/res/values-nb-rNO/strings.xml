@@ -44,6 +44,7 @@
     <string name="dialog_export_title_overwrite">Exporter og overskriv?</string>
     <string name="dialog_export_content_overwrite">Fila finnes allerede. Eksporter og overskriv dette opptaket som en GPX-tur.</string>
     <string name="dialog_export_action_overwrite">Eksporter og overskriv</string>
+    <string name="dialog_share_gpx">Share GPX file with</string>
 
     <!-- toast messages -->
     <string name="toast_message_permissions_granted">Tilgang gitt.</string>
@@ -59,7 +60,8 @@
     <string name="toast_message_export_success">GPX-eksportering vellykket:</string>
     <string name="toast_message_export_fail">GPX-eksportering mislyktes:</string>
     <string name="toast_message_elevation_info">Hint: Høydedataens nøyaktighet avhenger av enheten din. Opp og ned-stigningen for hele ruten måles.</string>
-    <string name="toastmessage_long_press_night_mode_switch">Nattmodusveksling (langt trykk oppdaget)</string>
+    <string name="toast_message_long_press_night_mode_switch">Nattmodusveksling (langt trykk oppdaget)</string>
+    <string name="toast_message_install_file_helper">Please install a file manager or a GPX track viewer first.</string>
 
     <!-- map markers -->
     <string name="marker_description_source">Kilde</string>

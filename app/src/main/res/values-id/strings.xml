@@ -44,6 +44,7 @@
     <string name="dialog_export_title_overwrite">Export and Overwrite?</string>
     <string name="dialog_export_content_overwrite">File already exists. Export and overwrite this recording as GPX track.</string>
     <string name="dialog_export_action_overwrite">Export and Overwrite</string>
+    <string name="dialog_share_gpx">Share GPX file with</string>
 
     <!-- toast messages -->
     <string name="toast_message_permissions_granted">Permissions granted.</string>
@@ -59,7 +60,8 @@
     <string name="toast_message_export_success">GPX export successful:</string>
     <string name="toast_message_export_fail">GPX export failed:</string>
     <string name="toast_message_elevation_info">Hint: The accuracy of elevation data depends on your device. The uphill and downhill elevation of the whole route is measured.</string>
-    <string name="toastmessage_long_press_night_mode_switch">Night mode switch (long press detected)</string>
+    <string name="toast_message_long_press_night_mode_switch">Night mode switch (long press detected)</string>
+    <string name="toast_message_install_file_helper">Please install a file manager or a GPX track viewer first.</string>
 
     <!-- map markers -->
     <string name="marker_description_source">Source</string>

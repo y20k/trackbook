@@ -534,13 +534,13 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
             public void onClick(View view) {
                 Intent intent = ExportHelper.getGpxFileIntent(mActivity, mTrack);
                 // create intent to show chooser
-                String title = "Share GPX file with"; // todo replace with Resource
+                String title = getString(R.string.dialog_share_gpx);
 //                String title = getResources().getString(R.string.chooser_title);
                 Intent chooser = Intent.createChooser(intent, title);
                 if (intent.resolveActivity(mActivity.getPackageManager()) != null) {
                     startActivity(chooser);
                 } else {
-                    // todo TOAST
+                    Toast.makeText(mActivity, R.string.toast_message_install_file_helper, Toast.LENGTH_LONG).show();
                 }
             }
         };
