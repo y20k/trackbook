@@ -19,7 +19,6 @@ package org.y20k.trackbook.core;
 import android.location.Location;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.Nullable;
 
 import org.y20k.trackbook.helpers.LocationHelper;
 import org.y20k.trackbook.helpers.TrackbookKeys;
@@ -28,6 +27,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+
+import androidx.annotation.Nullable;
 
 
 /**

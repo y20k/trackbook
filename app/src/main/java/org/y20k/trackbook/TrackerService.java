@@ -37,8 +37,6 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.LocalBroadcastManager;
 import android.widget.Toast;
 
 import org.y20k.trackbook.core.Track;
@@ -49,6 +47,9 @@ import org.y20k.trackbook.helpers.StorageHelper;
 import org.y20k.trackbook.helpers.TrackbookKeys;
 
 import java.util.List;
+
+import androidx.core.app.NotificationCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import static android.hardware.Sensor.TYPE_STEP_COUNTER;
 
@@ -397,9 +398,11 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
         int trackSize = mTrack.getWayPoints().size();
 
         if (trackSize == 0) {
-            // add first location to track
-            success = mTrack.addWayPoint(previousLocation, mCurrentBestLocation);
-
+            // if accurate AND current
+            if (LocationHelper.isAccurate(mCurrentBestLocation) && LocationHelper.isCurrent(mCurrentBestLocation)) {
+                // add first location to track
+                success = mTrack.addWayPoint(previousLocation, mCurrentBestLocation);
+            }
         } else {
             // get location of previous WayPoint
             previousLocation = mTrack.getWayPointLocation(trackSize - 1);
@@ -415,8 +418,9 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
                 averageSpeed = distance / ((float) timeDifference / ONE_SECOND_IN_NANOSECOND);
             }
 
-            if (LocationHelper.isNewWayPoint(previousLocation, mCurrentBestLocation, averageSpeed)) {
-                // if new, add current best location to track
+            // if accurate AND new
+            if (LocationHelper.isAccurate(mCurrentBestLocation) && LocationHelper.isNewWayPoint(previousLocation, mCurrentBestLocation, averageSpeed)) {
+                // add current best location to track
                 success = mTrack.addWayPoint(previousLocation, mCurrentBestLocation);
             }
         }

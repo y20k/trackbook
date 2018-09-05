@@ -19,7 +19,6 @@ package org.y20k.trackbook.helpers;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
-import android.support.v4.content.ContextCompat;
 import android.widget.Toast;
 
 import org.osmdroid.util.GeoPoint;
@@ -33,6 +32,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import androidx.core.content.ContextCompat;
 
 /**
  * MapHelper class

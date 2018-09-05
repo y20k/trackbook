@@ -26,14 +26,15 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.os.Build;
-import android.support.graphics.drawable.VectorDrawableCompat;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.TaskStackBuilder;
 
 import org.y20k.trackbook.MainActivity;
 import org.y20k.trackbook.R;
 import org.y20k.trackbook.TrackerService;
 import org.y20k.trackbook.core.Track;
+
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.TaskStackBuilder;
+import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 
 
 /**

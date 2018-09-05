@@ -31,14 +31,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
@@ -55,6 +53,10 @@ import org.y20k.trackbook.helpers.StorageHelper;
 import org.y20k.trackbook.helpers.TrackbookKeys;
 
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 
 /**
@@ -124,7 +126,7 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
         if (savedInstanceState != null) {
             Location savedLocation = savedInstanceState.getParcelable(INSTANCE_CURRENT_LOCATION);
             // check if saved location is still current
-            if (LocationHelper.isNewLocation(savedLocation)) {
+            if (LocationHelper.isCurrent(savedLocation)) {
                 mCurrentBestLocation = savedLocation;
             } else {
                 mCurrentBestLocation = null;
@@ -207,7 +209,7 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
 
         // mark user's location on map
         if (mCurrentBestLocation != null && !mTrackerServiceRunning) {
-            mMyLocationOverlay = MapHelper.createMyLocationOverlay(mActivity, mCurrentBestLocation, LocationHelper.isNewLocation(mCurrentBestLocation));
+            mMyLocationOverlay = MapHelper.createMyLocationOverlay(mActivity, mCurrentBestLocation, LocationHelper.isCurrent(mCurrentBestLocation));
             mMapView.getOverlays().add(mMyLocationOverlay);
         }
 
@@ -508,7 +510,7 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
         mMapView.getOverlays().remove(mMyLocationOverlay);
         // only update while not tracking
         if (!mTrackerServiceRunning) {
-            mMyLocationOverlay = MapHelper.createMyLocationOverlay(mActivity, mCurrentBestLocation, LocationHelper.isNewLocation(mCurrentBestLocation));
+            mMyLocationOverlay = MapHelper.createMyLocationOverlay(mActivity, mCurrentBestLocation, LocationHelper.isCurrent(mCurrentBestLocation));
             mMapView.getOverlays().add(mMyLocationOverlay);
         }
     }

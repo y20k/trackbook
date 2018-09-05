@@ -92,6 +92,7 @@ public interface TrackbookKeys {
     long FIVE_MINUTES_IN_NANOSECONDS = 5L * 60000000000L; // determines a stop over
     long TWO_MINUTES_IN_NANOSECONDS = 2L * 60000000000L; // defines an old location
     int MAXIMUM_TRACK_FILES = 25;
+    int FIFTY_METER_RADIUS = 50;
 
     /* FILE */
     String FILE_TYPE_GPX_EXTENSION = ".gpx";

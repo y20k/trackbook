@@ -22,11 +22,12 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.SystemClock;
 import android.provider.Settings;
-import android.support.annotation.Nullable;
 
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
+
+import androidx.annotation.Nullable;
 
 
 /**
@@ -125,8 +126,14 @@ public final class LocationHelper implements TrackbookKeys {
     }
 
 
+    /* Checks accuracy of given location */
+    public static boolean isAccurate(Location location) {
+        return location.getAccuracy() < FIFTY_METER_RADIUS;
+    }
+
+
     /* Checks if given location is newer than two minutes */
-    public static boolean isNewLocation(Location location) {
+    public static boolean isCurrent(Location location) {
         if (location == null) {
             return false;
         } else {
