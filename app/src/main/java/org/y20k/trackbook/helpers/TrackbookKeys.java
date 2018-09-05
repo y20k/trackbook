@@ -75,10 +75,6 @@ public interface TrackbookKeys {
     int FRAGMENT_ID_MAP = 0;
     int FRAGMENT_ID_TRACKS = 1;
 
-    String FRAGMENT_TAG_MAP = "fragmentTagMap";
-    String FRAGMENT_TAG_TRACKS = "fragmentTagTracks";
-
-
     /* RESULTS */
     int RESULT_SAVE_DIALOG = 1;
     int RESULT_CLEAR_DIALOG = 2;
@@ -90,7 +86,7 @@ public interface TrackbookKeys {
     long EIGHT_HOURS_IN_MILLISECONDS = 43200000; // maximum tracking duration
     long FIFTEEN_SECONDS_IN_MILLISECONDS = 15000; // timer interval for tracking
     long FIVE_MINUTES_IN_NANOSECONDS = 5L * 60000000000L; // determines a stop over
-    long TWO_MINUTES_IN_NANOSECONDS = 2L * 60000000000L; // defines an old location
+    long ONE_MINUTE_IN_NANOSECONDS = 1L * 60000000000L; // defines an old location
     int MAXIMUM_TRACK_FILES = 25;
     int FIFTY_METER_RADIUS = 50;
 

@@ -209,7 +209,7 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
 
         // mark user's location on map
         if (mCurrentBestLocation != null && !mTrackerServiceRunning) {
-            mMyLocationOverlay = MapHelper.createMyLocationOverlay(mActivity, mCurrentBestLocation, LocationHelper.isCurrent(mCurrentBestLocation));
+            mMyLocationOverlay = MapHelper.createMyLocationOverlay(mActivity, mCurrentBestLocation, LocationHelper.isCurrent(mCurrentBestLocation), false);
             mMapView.getOverlays().add(mMyLocationOverlay);
         }
 
@@ -510,7 +510,7 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
         mMapView.getOverlays().remove(mMyLocationOverlay);
         // only update while not tracking
         if (!mTrackerServiceRunning) {
-            mMyLocationOverlay = MapHelper.createMyLocationOverlay(mActivity, mCurrentBestLocation, LocationHelper.isCurrent(mCurrentBestLocation));
+            mMyLocationOverlay = MapHelper.createMyLocationOverlay(mActivity, mCurrentBestLocation, LocationHelper.isCurrent(mCurrentBestLocation), false);
             mMapView.getOverlays().add(mMyLocationOverlay);
         }
     }
@@ -520,11 +520,16 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
     private void drawTrackOverlay(Track track) {
         mMapView.getOverlays().remove(mTrackOverlay);
         mTrackOverlay = null;
-        if (track != null) {
+        if (track == null || track.getSize() == 0) {
+            LogHelper.i(LOG_TAG, "Waiting for a track. Showing preliminary location.");
+            mTrackOverlay = MapHelper.createMyLocationOverlay(mActivity, mCurrentBestLocation, false, mTrackerServiceRunning);
+            Toast.makeText(mActivity, mActivity.getString(R.string.toast_message_acquiring_location), Toast.LENGTH_LONG).show();
+        } else {
             LogHelper.v(LOG_TAG, "Drawing track overlay.");
             mTrackOverlay = MapHelper.createTrackOverlay(mActivity, track, mTrackerServiceRunning);
-            mMapView.getOverlays().add(mTrackOverlay);
         }
+        mMapView.getOverlays().add(mTrackOverlay);
+
     }
 
 

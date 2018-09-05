@@ -402,6 +402,9 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
             if (LocationHelper.isAccurate(mCurrentBestLocation) && LocationHelper.isCurrent(mCurrentBestLocation)) {
                 // add first location to track
                 success = mTrack.addWayPoint(previousLocation, mCurrentBestLocation);
+            } else {
+                // just send a broadcast indicating that current location fix not not suited
+                broadcastTrackUpdate();
             }
         } else {
             // get location of previous WayPoint

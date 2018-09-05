@@ -276,7 +276,12 @@ public class Track implements TrackbookKeys, Parcelable {
 
     /* Getter recorded distance */
     public Double getTrackDistance() {
-        return (double) mWayPoints.get(mWayPoints.size()-1).getDistanceToStartingPoint();
+        int size = mWayPoints.size();
+        if (size > 0) {
+            return (double)mWayPoints.get(size - 1).getDistanceToStartingPoint();
+        } else {
+            return (double)0f;
+        }
     }
 
 

@@ -94,8 +94,8 @@ public final class LocationHelper implements TrackbookKeys {
 
         // check whether the new location fix is newer or older
         long timeDelta = location.getElapsedRealtimeNanos() - currentBestLocation.getElapsedRealtimeNanos();
-        boolean isSignificantlyNewer = timeDelta > TWO_MINUTES_IN_NANOSECONDS;
-        boolean isSignificantlyOlder = timeDelta < -TWO_MINUTES_IN_NANOSECONDS;
+        boolean isSignificantlyNewer = timeDelta > ONE_MINUTE_IN_NANOSECONDS;
+        boolean isSignificantlyOlder = timeDelta < -ONE_MINUTE_IN_NANOSECONDS;
         boolean isNewer = timeDelta > 0;
 
         // if it's been more than two minutes since the current location, use the new location because the user has likely moved
@@ -138,7 +138,7 @@ public final class LocationHelper implements TrackbookKeys {
             return false;
         } else {
             long locationAge = SystemClock.elapsedRealtimeNanos() - location.getElapsedRealtimeNanos();
-            return locationAge < TWO_MINUTES_IN_NANOSECONDS;
+            return locationAge < ONE_MINUTE_IN_NANOSECONDS;
         }
     }
 
