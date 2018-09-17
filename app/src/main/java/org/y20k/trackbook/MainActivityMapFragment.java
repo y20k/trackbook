@@ -309,11 +309,17 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
         switch(requestCode) {
             case RESULT_SAVE_DIALOG:
                 if (resultCode == Activity.RESULT_OK) {
-                    // user chose SAVE - clear map AND save track
-                    clearMap(true);
-                    // FloatingActionButton state is already being handled in MainActivity
-                    ((MainActivity)mActivity).onFloatingActionButtonResult(requestCode, resultCode);
-                    LogHelper.v(LOG_TAG, "Save dialog result: SAVE");
+                    // user chose SAVE
+                    if (mTrack.getSize() > 0) {
+                        // Track is not empty - clear map AND save track
+                        clearMap(true);
+                        // FloatingActionButton state is already being handled in MainActivity
+                        ((MainActivity)mActivity).onFloatingActionButtonResult(requestCode, resultCode);
+                        LogHelper.v(LOG_TAG, "Save dialog result: SAVE");
+                    } else {
+                        // track is empty
+                        handleEmptyRecordingSaveRequest();
+                    }
                 } else if (resultCode == Activity.RESULT_CANCELED){
                     LogHelper.v(LOG_TAG, "Save dialog result: CANCEL");
                 }
@@ -443,6 +449,16 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
             mStorageHelper.deleteTempFile();
         }
 
+    }
+
+
+    /* Handles case when user chose to save recording with zero waypoints */ // todo implement
+    private void handleEmptyRecordingSaveRequest() {
+        // todo ask user what to do
+        Toast.makeText(mActivity, " Error. Empty recording. Clearing Map.", Toast.LENGTH_LONG).show(); // todo user alert (clear track?)
+        // todo change (solution for now: insta-clear)
+        clearMap(false);
+        ((MainActivity)mActivity).onFloatingActionButtonResult(RESULT_CLEAR_DIALOG, Activity.RESULT_OK);
     }
 
 
