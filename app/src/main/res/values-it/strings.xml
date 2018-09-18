@@ -45,6 +45,9 @@
     <string name="dialog_export_content_overwrite">Il file esiste già. Esportare e sovrascrivere questa registrazione come traccia GPX.</string>
     <string name="dialog_export_action_overwrite">Esporta e sovrascrivi</string>
     <string name="dialog_share_gpx">Share GPX file with</string>
+    <string name="dialog_error_empty_recording_title">Unable to save</string>
+    <string name="dialog_error_empty_recording_content">Trackbook did not record any waypoints so far.</string>
+    <string name="dialog_error_empty_recording_action_resume">Resume Recording</string>
 
     <!-- toast messages -->
     <string name="toast_message_permissions_granted">Permessi acquisiti.</string>

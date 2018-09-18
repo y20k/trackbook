@@ -46,6 +46,7 @@ import org.osmdroid.views.overlay.ItemizedIconOverlay;
 import org.osmdroid.views.overlay.compass.CompassOverlay;
 import org.osmdroid.views.overlay.compass.InternalCompassOrientationProvider;
 import org.y20k.trackbook.core.Track;
+import org.y20k.trackbook.helpers.DialogHelper;
 import org.y20k.trackbook.helpers.LocationHelper;
 import org.y20k.trackbook.helpers.LogHelper;
 import org.y20k.trackbook.helpers.MapHelper;
@@ -55,6 +56,8 @@ import org.y20k.trackbook.helpers.TrackbookKeys;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
@@ -326,13 +329,22 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
                 break;
             case RESULT_CLEAR_DIALOG:
                 if (resultCode == Activity.RESULT_OK) {
-                    // User chose CLEAR - clear map, DO NOT save track
+                    // User chose CLEAR
+                    if (mTrack.getSize() > 0) {
+                        // Track is not empty - notify user
+                        Toast.makeText(mActivity, getString(R.string.toast_message_track_clear), Toast.LENGTH_LONG).show();
+                    }
+                    // clear map, DO NOT save track
                     clearMap(false);
                     // handle FloatingActionButton state in MainActivity
                     ((MainActivity)mActivity).onFloatingActionButtonResult(requestCode, resultCode);
                 } else if (resultCode == Activity.RESULT_CANCELED){
                     LogHelper.v(LOG_TAG, "Clear dialog result: CANCEL");
                 }
+                break;
+            case RESULT_EMPTY_RECORDING_DIALOG:
+                // handle FloatingActionButton state and possible Resume-Action in MainActivity
+                ((MainActivity)mActivity).onFloatingActionButtonResult(requestCode, resultCode);
                 break;
         }
     }
@@ -454,11 +466,16 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
 
     /* Handles case when user chose to save recording with zero waypoints */ // todo implement
     private void handleEmptyRecordingSaveRequest() {
-        // todo ask user what to do
-        Toast.makeText(mActivity, " Error. Empty recording. Clearing Map.", Toast.LENGTH_LONG).show(); // todo user alert (clear track?)
-        // todo change (solution for now: insta-clear)
-        clearMap(false);
-        ((MainActivity)mActivity).onFloatingActionButtonResult(RESULT_CLEAR_DIALOG, Activity.RESULT_OK);
+        // prepare empty recording dialog ("Unable to save")
+        int dialogTitle = R.string.dialog_error_empty_recording_title;
+        String dialogMessage = getString(R.string.dialog_error_empty_recording_content);
+        int dialogPositiveButton = R.string.dialog_error_empty_recording_action_resume;
+        int dialogNegativeButton = R.string.dialog_default_action_cancel;
+        // show  empty recording dialog
+        DialogFragment dialogFragment = DialogHelper.newInstance(dialogTitle, dialogMessage, dialogPositiveButton, dialogNegativeButton);
+        dialogFragment.setTargetFragment(this, RESULT_EMPTY_RECORDING_DIALOG);
+        dialogFragment.show(((AppCompatActivity)mActivity).getSupportFragmentManager(), "EmptyRecordingDialog");
+        // results of dialog are handled by onActivityResult
     }
 
 

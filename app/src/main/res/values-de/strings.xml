@@ -45,6 +45,9 @@
     <string name="dialog_export_content_overwrite">Datei existiert bereits. Exportieren und überschreiben Sie diese Aufzeichnung als GPX-Strecke.</string>
     <string name="dialog_export_action_overwrite">Exportieren und überschreiben</string>
     <string name="dialog_share_gpx">GPX-Datei öffnen mit</string>
+    <string name="dialog_error_empty_recording_title">Speichern nicht möglich</string>
+    <string name="dialog_error_empty_recording_content">Trackbook hat noch keine Wegpunkte aufgezeichnet.</string>
+    <string name="dialog_error_empty_recording_action_resume">Aufzeichnung fortsetzen</string>
 
     <!-- toast messages -->
     <string name="toast_message_permissions_granted">Berechtigungen erteilt.</string>

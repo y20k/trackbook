@@ -80,6 +80,7 @@ public interface TrackbookKeys {
     int RESULT_CLEAR_DIALOG = 2;
     int RESULT_DELETE_DIALOG = 3;
     int RESULT_EXPORT_DIALOG = 4;
+    int RESULT_EMPTY_RECORDING_DIALOG = 5;
 
     /* CONSTANTS */
     long ONE_SECOND_IN_NANOSECOND = 1000000000L;

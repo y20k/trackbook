@@ -266,9 +266,20 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
                 if (resultCode == Activity.RESULT_OK) {
                     // user chose CLEAR
                     handleStateAfterClear();
-                    LogHelper.v(LOG_TAG, "Save dialog result: CLEAR");
+                    LogHelper.v(LOG_TAG, "Clear map dialog result: CLEAR");
                 } else if (resultCode == Activity.RESULT_CANCELED){
-                    LogHelper.v(LOG_TAG, "Clear map: User chose CANCEL.");
+                    LogHelper.v(LOG_TAG, "Clear map dialog result: User chose CANCEL.");
+                }
+                break;
+            case RESULT_EMPTY_RECORDING_DIALOG:
+                if (resultCode == Activity.RESULT_OK) {
+                    // User chose RESUME RECORDING
+                    handleResumeButtonClick((View)mFloatingActionButtonMain);
+                    LogHelper.v(LOG_TAG, "Empty recording dialog result: RESUME");
+                } else if (resultCode == Activity.RESULT_CANCELED){
+                    // User chose CANCEL - do nothing just hide the sub menu
+                    showFloatingActionButtonMenu(false);
+                    LogHelper.v(LOG_TAG, "Empty recording dialog result: CANCEL");
                 }
                 break;
         }
@@ -341,9 +352,6 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
 
     /* Handles the visual state after a save action */
     private void handleStateAfterClear() {
-        // notify user
-        Toast.makeText(this, getString(R.string.toast_message_track_clear), Toast.LENGTH_LONG).show();
-
         // dismiss notification
         dismissNotification();
 
