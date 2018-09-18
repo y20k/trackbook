@@ -395,7 +395,7 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
 
         boolean success = false;
         Location previousLocation = null;
-        int trackSize = mTrack.getWayPoints().size();
+        int trackSize = mTrack.getSize();
 
         if (trackSize == 0) {
             // if accurate AND current
@@ -430,9 +430,11 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
 
         if (success) {
             if (mResumedFlag) {
-                // mark last location as stop over
-                int lastWayPoint = mTrack.getWayPoints().size() - 2;
-                mTrack.getWayPoints().get(lastWayPoint).setIsStopOver(true);
+                int lastWayPoint = mTrack.getSize() - 2;
+                if (lastWayPoint >= 0) {
+                    // mark last location as stop over
+                    mTrack.getWayPoints().get(lastWayPoint).setIsStopOver(true);
+                }
                 mResumedFlag = false;
             } else {
                 // update distance, if not resumed
