@@ -234,7 +234,7 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
                 // load temp track file
                 mTrack = storageHelper.loadTrack(FILE_TEMP_TRACK);
                 // try to mark last waypoint as stopover
-                int lastWayPoint = mTrack.getWayPoints().size() - 1;
+                int lastWayPoint = mTrack.getSize() - 1;
                 if (lastWayPoint >= 0) {
                     mTrack.getWayPoints().get(lastWayPoint).setIsStopOver(true);
                 }

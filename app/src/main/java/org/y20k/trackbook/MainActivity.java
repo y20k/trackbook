@@ -596,22 +596,22 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
             case FAB_STATE_DEFAULT:
                 mFloatingActionButtonMain.hide(); // workaround todo remove asap
                 mFloatingActionButtonMain.setImageResource(R.drawable.ic_fiber_manual_record_white_24dp);
-                mFloatingActionButtonMain.show(); // workaround todo remove asap
+                if (mSelectedTab == FRAGMENT_ID_MAP) mFloatingActionButtonMain.show(); // workaround todo remove asap
                 break;
             case FAB_STATE_RECORDING:
                 mFloatingActionButtonMain.hide(); // workaround todo remove asap
                 mFloatingActionButtonMain.setImageResource(R.drawable.ic_fiber_manual_record_red_24dp);
-                mFloatingActionButtonMain.show(); // workaround todo remove asap
+                if (mSelectedTab == FRAGMENT_ID_MAP) mFloatingActionButtonMain.show(); // workaround todo remove asap
                 break;
             case FAB_STATE_SAVE:
                 mFloatingActionButtonMain.hide(); // workaround todo remove asap
                 mFloatingActionButtonMain.setImageResource(R.drawable.ic_save_white_24dp);
-                mFloatingActionButtonMain.show(); // workaround todo remove asap
+                if (mSelectedTab == FRAGMENT_ID_MAP) mFloatingActionButtonMain.show(); // workaround todo remove asap
                 break;
             default:
                 mFloatingActionButtonMain.hide(); // workaround todo remove asap
                 mFloatingActionButtonMain.setImageResource(R.drawable.ic_fiber_manual_record_white_24dp);
-                mFloatingActionButtonMain.show(); // workaround todo remove asap
+                if (mSelectedTab == FRAGMENT_ID_MAP) mFloatingActionButtonMain.show(); // workaround todo remove asap
                 break;
         }
     }
