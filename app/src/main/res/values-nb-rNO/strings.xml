@@ -134,5 +134,6 @@
     <string name="descr_track_selector">Nedtrekksmeny for ytterligere turer</string>
     <string name="descr_export_button">Tureksportknapp</string>
     <string name="descr_delete_button">Turslettingsknapp</string>
+    <string name="descr_share_button_gpx">Share button that offers to export as GPX</string>
 
 </resources>
