@@ -20,6 +20,8 @@ package org.y20k.trackbook.helpers;
 import android.app.Activity;
 import android.content.res.Resources;
 import android.database.DataSetObserver;
+import android.support.annotation.Nullable;
+import android.support.v7.widget.ThemedSpinnerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,9 +34,6 @@ import org.y20k.trackbook.core.TrackBundle;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.ThemedSpinnerAdapter;
 
 
 /**
@@ -176,9 +175,7 @@ public class DropdownAdapter extends BaseAdapter implements ThemedSpinnerAdapter
         // fill list with track bundles
         mTrackBundleList = new ArrayList<>();
         for (File file : files) {
-            if (file.getName().endsWith(FILE_TYPE_TRACKBOOK_EXTENSION)) {
-                mTrackBundleList.add(new TrackBundle(file));
-            }
+            mTrackBundleList.add(new TrackBundle(file));
         }
 
     }

@@ -45,9 +45,6 @@
     <string name="dialog_export_content_overwrite">File already exists. Export and overwrite this recording as GPX track.</string>
     <string name="dialog_export_action_overwrite">Export and Overwrite</string>
     <string name="dialog_share_gpx">Share GPX file with</string>
-    <string name="dialog_error_empty_recording_title">Unable to save</string>
-    <string name="dialog_error_empty_recording_content">Trackbook did not record any waypoints so far.</string>
-    <string name="dialog_error_empty_recording_action_resume">Resume Recording</string>
 
     <!-- toast messages -->
     <string name="toast_message_permissions_granted">Rechten verleend.</string>
@@ -134,6 +131,5 @@
     <string name="descr_track_selector">Uitrolmenu voor verdere banen</string>
     <string name="descr_export_button">Track export button</string>
     <string name="descr_delete_button">Baan - verwijderknop</string>
-    <string name="descr_share_button_gpx">Share button that offers to export as GPX</string>
 
 </resources>

@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Environment;
+import android.support.v4.content.FileProvider;
 import android.widget.Toast;
 
 import org.y20k.trackbook.R;
@@ -35,8 +36,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
-
-import androidx.core.content.FileProvider;
 
 /**
  * ExportHelper class

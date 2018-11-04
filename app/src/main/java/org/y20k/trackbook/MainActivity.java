@@ -34,16 +34,25 @@ import android.os.Environment;
 import android.os.IBinder;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.util.SparseArray;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import org.osmdroid.config.Configuration;
 import org.y20k.trackbook.helpers.DialogHelper;
@@ -58,17 +67,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 
 /**
@@ -266,20 +264,9 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
                 if (resultCode == Activity.RESULT_OK) {
                     // user chose CLEAR
                     handleStateAfterClear();
-                    LogHelper.v(LOG_TAG, "Clear map dialog result: CLEAR");
+                    LogHelper.v(LOG_TAG, "Save dialog result: CLEAR");
                 } else if (resultCode == Activity.RESULT_CANCELED){
-                    LogHelper.v(LOG_TAG, "Clear map dialog result: User chose CANCEL.");
-                }
-                break;
-            case RESULT_EMPTY_RECORDING_DIALOG:
-                if (resultCode == Activity.RESULT_OK) {
-                    // User chose RESUME RECORDING
-                    handleResumeButtonClick((View)mFloatingActionButtonMain);
-                    LogHelper.v(LOG_TAG, "Empty recording dialog result: RESUME");
-                } else if (resultCode == Activity.RESULT_CANCELED){
-                    // User chose CANCEL - do nothing just hide the sub menu
-                    showFloatingActionButtonMenu(false);
-                    LogHelper.v(LOG_TAG, "Empty recording dialog result: CANCEL");
+                    LogHelper.v(LOG_TAG, "Clear map: User chose CANCEL.");
                 }
                 break;
         }
@@ -352,6 +339,9 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
 
     /* Handles the visual state after a save action */
     private void handleStateAfterClear() {
+        // notify user
+        Toast.makeText(this, getString(R.string.toast_message_track_clear), Toast.LENGTH_LONG).show();
+
         // dismiss notification
         dismissNotification();
 
@@ -594,24 +584,16 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
 
         switch (mFloatingActionButtonState) {
             case FAB_STATE_DEFAULT:
-                mFloatingActionButtonMain.hide(); // workaround todo remove asap
                 mFloatingActionButtonMain.setImageResource(R.drawable.ic_fiber_manual_record_white_24dp);
-                if (mSelectedTab == FRAGMENT_ID_MAP) mFloatingActionButtonMain.show(); // workaround todo remove asap
                 break;
             case FAB_STATE_RECORDING:
-                mFloatingActionButtonMain.hide(); // workaround todo remove asap
                 mFloatingActionButtonMain.setImageResource(R.drawable.ic_fiber_manual_record_red_24dp);
-                if (mSelectedTab == FRAGMENT_ID_MAP) mFloatingActionButtonMain.show(); // workaround todo remove asap
                 break;
             case FAB_STATE_SAVE:
-                mFloatingActionButtonMain.hide(); // workaround todo remove asap
                 mFloatingActionButtonMain.setImageResource(R.drawable.ic_save_white_24dp);
-                if (mSelectedTab == FRAGMENT_ID_MAP) mFloatingActionButtonMain.show(); // workaround todo remove asap
                 break;
             default:
-                mFloatingActionButtonMain.hide(); // workaround todo remove asap
                 mFloatingActionButtonMain.setImageResource(R.drawable.ic_fiber_manual_record_white_24dp);
-                if (mSelectedTab == FRAGMENT_ID_MAP) mFloatingActionButtonMain.show(); // workaround todo remove asap
                 break;
         }
     }
@@ -620,20 +602,20 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
     /* Shows (and hides) the sub menu of the floating action button */
     private void showFloatingActionButtonMenu(boolean visible) {
         if (visible) {
-            mFloatingActionButtonSubResume.show();
+            mFloatingActionButtonSubResume.setVisibility(View.VISIBLE);
             mFloatingActionButtonSubResumeLabel.setVisibility(View.VISIBLE);
-            mFloatingActionButtonSubClear.show();
+            mFloatingActionButtonSubClear.setVisibility(View.VISIBLE);
             mFloatingActionButtonSubClearLabel.setVisibility(View.VISIBLE);
-            mFloatingActionButtonSubSave.show();
+            mFloatingActionButtonSubSave.setVisibility(View.VISIBLE);
             mFloatingActionButtonSubSaveLabel.setVisibility(View.VISIBLE);
             mFloatingActionButtonSubMenuVisible = true;
         } else {
-            mFloatingActionButtonSubResume.hide();
+            mFloatingActionButtonSubResume.setVisibility(View.INVISIBLE);
             mFloatingActionButtonSubResumeLabel.setVisibility(View.INVISIBLE);
-            mFloatingActionButtonSubClear.hide();
+            mFloatingActionButtonSubClear.setVisibility(View.INVISIBLE);
             mFloatingActionButtonSubClearLabel.setVisibility(View.INVISIBLE);
-            mFloatingActionButtonSubSave.hide();
             mFloatingActionButtonSubSaveLabel.setVisibility(View.INVISIBLE);
+            mFloatingActionButtonSubSave.setVisibility(View.INVISIBLE);
             mFloatingActionButtonSubMenuVisible = false;
         }
     }

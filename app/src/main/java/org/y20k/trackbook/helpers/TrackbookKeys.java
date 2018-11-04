@@ -75,21 +75,23 @@ public interface TrackbookKeys {
     int FRAGMENT_ID_MAP = 0;
     int FRAGMENT_ID_TRACKS = 1;
 
+    String FRAGMENT_TAG_MAP = "fragmentTagMap";
+    String FRAGMENT_TAG_TRACKS = "fragmentTagTracks";
+
+
     /* RESULTS */
     int RESULT_SAVE_DIALOG = 1;
     int RESULT_CLEAR_DIALOG = 2;
     int RESULT_DELETE_DIALOG = 3;
     int RESULT_EXPORT_DIALOG = 4;
-    int RESULT_EMPTY_RECORDING_DIALOG = 5;
 
     /* CONSTANTS */
     long ONE_SECOND_IN_NANOSECOND = 1000000000L;
     long EIGHT_HOURS_IN_MILLISECONDS = 43200000; // maximum tracking duration
     long FIFTEEN_SECONDS_IN_MILLISECONDS = 15000; // timer interval for tracking
     long FIVE_MINUTES_IN_NANOSECONDS = 5L * 60000000000L; // determines a stop over
-    long ONE_MINUTE_IN_NANOSECONDS = 1L * 60000000000L; // defines an old location
+    long TWO_MINUTES_IN_NANOSECONDS = 2L * 60000000000L; // defines an old location
     int MAXIMUM_TRACK_FILES = 25;
-    int FIFTY_METER_RADIUS = 50;
 
     /* FILE */
     String FILE_TYPE_GPX_EXTENSION = ".gpx";

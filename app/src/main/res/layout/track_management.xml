@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/track_management_layout"
     android:layout_width="@dimen/bottom_sheet_width"
@@ -27,7 +27,6 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:backgroundTint="@color/trackbook_transparent"
-        android:contentDescription="@string/descr_share_button_gpx"
         app:layout_constraintBottom_toBottomOf="@+id/track_selector"
         app:layout_constraintEnd_toStartOf="@+id/export_button"
         app:layout_constraintTop_toTopOf="@+id/track_selector"
@@ -58,4 +57,4 @@
         app:srcCompat="@drawable/ic_delete_forever_24dp" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</android.support.constraint.ConstraintLayout>

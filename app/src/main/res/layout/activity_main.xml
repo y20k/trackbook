@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,14 +8,14 @@
     tools:context="org.y20k.trackbook.MainActivity">
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <android.support.constraint.ConstraintLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
 
         <!-- BUTTON MY LOCATION -->
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <android.support.design.widget.FloatingActionButton
             android:id="@+id/fabLocationButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
 
 
         <!-- SAVE RESUME -->
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <android.support.design.widget.FloatingActionButton
             android:id="@+id/fabSubMenuButtonSave"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
             app:layout_constraintStart_toStartOf="@+id/fabSubMenuButtonClear"
             app:srcCompat="@drawable/ic_save_white_24dp" />
 
-        <androidx.cardview.widget.CardView
+        <android.support.v7.widget.CardView
             android:id="@+id/fabSubMenuLabelSave"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -75,11 +75,11 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textColor="@color/fab_button_card_text"
                 android:textStyle="bold" />
-        </androidx.cardview.widget.CardView>
+        </android.support.v7.widget.CardView>
 
 
         <!-- BUTTON CLEAR -->
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <android.support.design.widget.FloatingActionButton
             android:id="@+id/fabSubMenuButtonClear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -94,7 +94,7 @@
             app:layout_constraintStart_toStartOf="@+id/fabSubMenuButtonResume"
             app:srcCompat="@drawable/ic_clear_white_24dp" />
 
-        <androidx.cardview.widget.CardView
+        <android.support.v7.widget.CardView
             android:id="@+id/fabSubMenuLabelClear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -122,11 +122,11 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textColor="@color/fab_button_card_text"
                 android:textStyle="bold" />
-        </androidx.cardview.widget.CardView>
+        </android.support.v7.widget.CardView>
 
 
         <!-- BUTTON RESUME -->
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <android.support.design.widget.FloatingActionButton
             android:id="@+id/fabSubMenuButtonResume"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -141,7 +141,7 @@
             app:layout_constraintStart_toStartOf="@+id/fabMainButton"
             app:srcCompat="@drawable/ic_fiber_manual_record_white_24dp" />
 
-        <androidx.cardview.widget.CardView
+        <android.support.v7.widget.CardView
             android:id="@+id/fabSubMenuLabelResume"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -168,11 +168,11 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textColor="@color/fab_button_card_text"
                 android:textStyle="bold" />
-        </androidx.cardview.widget.CardView>
+        </android.support.v7.widget.CardView>
 
 
         <!-- MAIN BUTTON -->
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <android.support.design.widget.FloatingActionButton
             android:id="@+id/fabMainButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -189,7 +189,7 @@
 
 
         <!-- BOTTOM NAVIGATION -->
-        <com.google.android.material.bottomnavigation.BottomNavigationView
+        <android.support.design.widget.BottomNavigationView
             android:id="@+id/navigation"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -214,9 +214,9 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
 
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</android.support.design.widget.CoordinatorLayout>
 
 
