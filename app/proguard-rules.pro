@@ -15,3 +15,7 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
+# this was a test
+# https://github.com/y20k/trackbook/commit/a3457db5462d9b4ab50b3c38c5621eb992768b7c
+# -dontshrink

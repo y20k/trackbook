@@ -22,11 +22,12 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.SystemClock;
 import android.provider.Settings;
-import android.support.annotation.Nullable;
 
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
+
+import androidx.annotation.Nullable;
 
 
 /**
@@ -93,8 +94,8 @@ public final class LocationHelper implements TrackbookKeys {
 
         // check whether the new location fix is newer or older
         long timeDelta = location.getElapsedRealtimeNanos() - currentBestLocation.getElapsedRealtimeNanos();
-        boolean isSignificantlyNewer = timeDelta > TWO_MINUTES_IN_NANOSECONDS;
-        boolean isSignificantlyOlder = timeDelta < -TWO_MINUTES_IN_NANOSECONDS;
+        boolean isSignificantlyNewer = timeDelta > ONE_MINUTE_IN_NANOSECONDS;
+        boolean isSignificantlyOlder = timeDelta < -ONE_MINUTE_IN_NANOSECONDS;
         boolean isNewer = timeDelta > 0;
 
         // if it's been more than two minutes since the current location, use the new location because the user has likely moved
@@ -125,13 +126,19 @@ public final class LocationHelper implements TrackbookKeys {
     }
 
 
+    /* Checks accuracy of given location */
+    public static boolean isAccurate(Location location) {
+        return location.getAccuracy() < FIFTY_METER_RADIUS;
+    }
+
+
     /* Checks if given location is newer than two minutes */
-    public static boolean isNewLocation(Location location) {
+    public static boolean isCurrent(Location location) {
         if (location == null) {
             return false;
         } else {
             long locationAge = SystemClock.elapsedRealtimeNanos() - location.getElapsedRealtimeNanos();
-            return locationAge < TWO_MINUTES_IN_NANOSECONDS;
+            return locationAge < ONE_MINUTE_IN_NANOSECONDS;
         }
     }
 

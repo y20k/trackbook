@@ -31,14 +31,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
@@ -48,6 +46,7 @@ import org.osmdroid.views.overlay.ItemizedIconOverlay;
 import org.osmdroid.views.overlay.compass.CompassOverlay;
 import org.osmdroid.views.overlay.compass.InternalCompassOrientationProvider;
 import org.y20k.trackbook.core.Track;
+import org.y20k.trackbook.helpers.DialogHelper;
 import org.y20k.trackbook.helpers.LocationHelper;
 import org.y20k.trackbook.helpers.LogHelper;
 import org.y20k.trackbook.helpers.MapHelper;
@@ -55,6 +54,12 @@ import org.y20k.trackbook.helpers.StorageHelper;
 import org.y20k.trackbook.helpers.TrackbookKeys;
 
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 
 /**
@@ -124,7 +129,7 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
         if (savedInstanceState != null) {
             Location savedLocation = savedInstanceState.getParcelable(INSTANCE_CURRENT_LOCATION);
             // check if saved location is still current
-            if (LocationHelper.isNewLocation(savedLocation)) {
+            if (LocationHelper.isCurrent(savedLocation)) {
                 mCurrentBestLocation = savedLocation;
             } else {
                 mCurrentBestLocation = null;
@@ -207,7 +212,7 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
 
         // mark user's location on map
         if (mCurrentBestLocation != null && !mTrackerServiceRunning) {
-            mMyLocationOverlay = MapHelper.createMyLocationOverlay(mActivity, mCurrentBestLocation, LocationHelper.isNewLocation(mCurrentBestLocation));
+            mMyLocationOverlay = MapHelper.createMyLocationOverlay(mActivity, mCurrentBestLocation, LocationHelper.isCurrent(mCurrentBestLocation), false);
             mMapView.getOverlays().add(mMyLocationOverlay);
         }
 
@@ -307,24 +312,39 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
         switch(requestCode) {
             case RESULT_SAVE_DIALOG:
                 if (resultCode == Activity.RESULT_OK) {
-                    // user chose SAVE - clear map AND save track
-                    clearMap(true);
-                    // FloatingActionButton state is already being handled in MainActivity
-                    ((MainActivity)mActivity).onFloatingActionButtonResult(requestCode, resultCode);
-                    LogHelper.v(LOG_TAG, "Save dialog result: SAVE");
+                    // user chose SAVE
+                    if (mTrack.getSize() > 0) {
+                        // Track is not empty - clear map AND save track
+                        clearMap(true);
+                        // FloatingActionButton state is already being handled in MainActivity
+                        ((MainActivity)mActivity).onFloatingActionButtonResult(requestCode, resultCode);
+                        LogHelper.v(LOG_TAG, "Save dialog result: SAVE");
+                    } else {
+                        // track is empty
+                        handleEmptyRecordingSaveRequest();
+                    }
                 } else if (resultCode == Activity.RESULT_CANCELED){
                     LogHelper.v(LOG_TAG, "Save dialog result: CANCEL");
                 }
                 break;
             case RESULT_CLEAR_DIALOG:
                 if (resultCode == Activity.RESULT_OK) {
-                    // User chose CLEAR - clear map, DO NOT save track
+                    // User chose CLEAR
+                    if (mTrack.getSize() > 0) {
+                        // Track is not empty - notify user
+                        Toast.makeText(mActivity, getString(R.string.toast_message_track_clear), Toast.LENGTH_LONG).show();
+                    }
+                    // clear map, DO NOT save track
                     clearMap(false);
                     // handle FloatingActionButton state in MainActivity
                     ((MainActivity)mActivity).onFloatingActionButtonResult(requestCode, resultCode);
                 } else if (resultCode == Activity.RESULT_CANCELED){
                     LogHelper.v(LOG_TAG, "Clear dialog result: CANCEL");
                 }
+                break;
+            case RESULT_EMPTY_RECORDING_DIALOG:
+                // handle FloatingActionButton state and possible Resume-Action in MainActivity
+                ((MainActivity)mActivity).onFloatingActionButtonResult(requestCode, resultCode);
                 break;
         }
     }
@@ -444,6 +464,21 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
     }
 
 
+    /* Handles case when user chose to save recording with zero waypoints */ // todo implement
+    private void handleEmptyRecordingSaveRequest() {
+        // prepare empty recording dialog ("Unable to save")
+        int dialogTitle = R.string.dialog_error_empty_recording_title;
+        String dialogMessage = getString(R.string.dialog_error_empty_recording_content);
+        int dialogPositiveButton = R.string.dialog_error_empty_recording_action_resume;
+        int dialogNegativeButton = R.string.dialog_default_action_cancel;
+        // show  empty recording dialog
+        DialogFragment dialogFragment = DialogHelper.newInstance(dialogTitle, dialogMessage, dialogPositiveButton, dialogNegativeButton);
+        dialogFragment.setTargetFragment(this, RESULT_EMPTY_RECORDING_DIALOG);
+        dialogFragment.show(((AppCompatActivity)mActivity).getSupportFragmentManager(), "EmptyRecordingDialog");
+        // results of dialog are handled by onActivityResult
+    }
+
+
     /* Start preliminary tracking for map */
     private void startPreliminaryTracking() {
         if (mLocationSystemSetting && !mLocalTrackerRunning) {
@@ -508,7 +543,7 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
         mMapView.getOverlays().remove(mMyLocationOverlay);
         // only update while not tracking
         if (!mTrackerServiceRunning) {
-            mMyLocationOverlay = MapHelper.createMyLocationOverlay(mActivity, mCurrentBestLocation, LocationHelper.isNewLocation(mCurrentBestLocation));
+            mMyLocationOverlay = MapHelper.createMyLocationOverlay(mActivity, mCurrentBestLocation, LocationHelper.isCurrent(mCurrentBestLocation), false);
             mMapView.getOverlays().add(mMyLocationOverlay);
         }
     }
@@ -518,11 +553,16 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
     private void drawTrackOverlay(Track track) {
         mMapView.getOverlays().remove(mTrackOverlay);
         mTrackOverlay = null;
-        if (track != null) {
+        if (track == null || track.getSize() == 0) {
+            LogHelper.i(LOG_TAG, "Waiting for a track. Showing preliminary location.");
+            mTrackOverlay = MapHelper.createMyLocationOverlay(mActivity, mCurrentBestLocation, false, mTrackerServiceRunning);
+            Toast.makeText(mActivity, mActivity.getString(R.string.toast_message_acquiring_location), Toast.LENGTH_LONG).show();
+        } else {
             LogHelper.v(LOG_TAG, "Drawing track overlay.");
             mTrackOverlay = MapHelper.createTrackOverlay(mActivity, track, mTrackerServiceRunning);
-            mMapView.getOverlays().add(mTrackOverlay);
         }
+        mMapView.getOverlays().add(mTrackOverlay);
+
     }
 
 

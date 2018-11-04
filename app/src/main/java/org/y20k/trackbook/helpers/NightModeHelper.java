@@ -22,8 +22,9 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatDelegate;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatDelegate;
 
 
 /**

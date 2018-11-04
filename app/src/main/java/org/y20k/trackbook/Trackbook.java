@@ -18,10 +18,11 @@ package org.y20k.trackbook;
 
 import android.app.Application;
 import android.os.Build;
-import android.support.v7.app.AppCompatDelegate;
 
 import org.y20k.trackbook.helpers.LogHelper;
 import org.y20k.trackbook.helpers.NightModeHelper;
+
+import androidx.appcompat.app.AppCompatDelegate;
 
 
 /**

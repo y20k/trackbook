@@ -19,7 +19,6 @@ package org.y20k.trackbook.helpers;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
-import android.support.v4.content.ContextCompat;
 import android.widget.Toast;
 
 import org.osmdroid.util.GeoPoint;
@@ -34,6 +33,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import androidx.core.content.ContextCompat;
+
 /**
  * MapHelper class
  */
@@ -44,17 +45,20 @@ public final class MapHelper {
 
 
     /* Creates icon overlay for current position (used in MainActivity Fragment) */
-    public static ItemizedIconOverlay createMyLocationOverlay(final Context context, Location currentBestLocation, boolean locationIsNew) {
+    public static ItemizedIconOverlay createMyLocationOverlay(final Context context, Location currentBestLocation, boolean locationIsNew, boolean trackingActive) {
 
         final ArrayList<OverlayItem> overlayItems = new ArrayList<>();
 
         // create marker
         Drawable newMarker;
-        if (locationIsNew) {
+        if (locationIsNew && !trackingActive) {
             newMarker = ContextCompat.getDrawable(context, R.drawable.ic_my_location_dot_blue_24dp);
+        } else if (!locationIsNew && trackingActive) {
+            newMarker = ContextCompat.getDrawable(context, R.drawable.ic_my_location_dot_red_grey_24dp);
         } else {
-            newMarker = ContextCompat.getDrawable(context, R.drawable.ic_my_location_dot_grey_24dp);
+                newMarker = ContextCompat.getDrawable(context, R.drawable.ic_my_location_dot_blue_grey_24dp);
         }
+
         OverlayItem overlayItem = createOverlayItem(context, currentBestLocation);
         overlayItem.setMarker(newMarker);
 
@@ -83,13 +87,14 @@ public final class MapHelper {
     /* Creates icon overlay for track */
     public static ItemizedIconOverlay createTrackOverlay(final Context context, Track track, boolean trackingActive){
 
-        WayPoint wayPoint;
+        final ArrayList<OverlayItem> overlayItems = new ArrayList<>();
         boolean currentPosition;
         final int trackSize = track.getSize();
         final List<WayPoint> wayPoints = track.getWayPoints();
-        final ArrayList<OverlayItem> overlayItems = new ArrayList<>();
+        WayPoint wayPoint;
 
-        for (int i = 0 ; i < track.getSize() ; i++) {
+        for (int i = 0; i < track.getSize(); i++) {
+
             // get WayPoint and check if it is current position
             wayPoint = wayPoints.get(i);
             currentPosition = i == trackSize - 1;
@@ -112,7 +117,7 @@ public final class MapHelper {
             else if (trackingActive && currentPosition) {
                 if (wayPoint.getIsStopOver()) {
                     // stop over marker
-                    newMarker = ContextCompat.getDrawable(context, R.drawable.ic_my_location_dot_grey_24dp);
+                    newMarker = ContextCompat.getDrawable(context, R.drawable.ic_my_location_dot_blue_grey_24dp);
                 } else {
                     // default marker for this case
                     newMarker = ContextCompat.getDrawable(context, R.drawable.ic_my_location_dot_red_24dp);

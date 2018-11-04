@@ -45,6 +45,9 @@
     <string name="dialog_export_content_overwrite">Fila finnes allerede. Eksporter og overskriv dette opptaket som en GPX-tur.</string>
     <string name="dialog_export_action_overwrite">Eksporter og overskriv</string>
     <string name="dialog_share_gpx">Share GPX file with</string>
+    <string name="dialog_error_empty_recording_title">Unable to save</string>
+    <string name="dialog_error_empty_recording_content">Trackbook did not record any waypoints so far.</string>
+    <string name="dialog_error_empty_recording_action_resume">Resume Recording</string>
 
     <!-- toast messages -->
     <string name="toast_message_permissions_granted">Tilgang gitt.</string>
