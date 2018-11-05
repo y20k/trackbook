@@ -18,7 +18,7 @@ Japanese version: [naofum](https://github.com/naofum) | [weblate version history
 Norwegian version: [comradekingu](https://github.com/comradekingu) | [weblate version history](https://hosted.weblate.org/changes/?lang=nb_NO&project=trackbook)
 
 ### Testing
-Thanks for finding all those bugs: [collectorgeneral](https://github.com/collectorgeneral)
+Thanks for finding all those bugs: [collectorgeneral](https://github.com/collectorgeneral), [RJH](https://github.com/Hob111)
 
 ### Want to help?
 Please check out the notes in [CONTRIBUTE.md](https://github.com/y20k/trackbook/blob/master/CONTRIBUTE.md) first.
