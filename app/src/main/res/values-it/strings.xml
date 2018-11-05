@@ -134,5 +134,6 @@
     <string name="descr_track_selector">Elenco registrazioni</string>
     <string name="descr_export_button">Pulsante di esportazione della traccia</string>
     <string name="descr_delete_button">Pulsante di eliminazione della traccia</string>
+    <string name="descr_share_button_gpx">Share button that offers to export as GPX</string>
 
 </resources>

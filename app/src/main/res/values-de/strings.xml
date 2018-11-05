@@ -134,5 +134,6 @@
     <string name="descr_track_selector">Auswahl-Menü für weitere Aufzeichnungen</string>
     <string name="descr_export_button">Schaltfläche „Aufzeichnung exportieren”</string>
     <string name="descr_delete_button">Schaltfläche „Aufzeichnung löschen”</string>
+    <string name="descr_share_button_gpx">Share button that offers to export as GPX</string>
 
 </resources>
