@@ -406,7 +406,7 @@ public class MainActivityMapFragment extends Fragment implements TrackbookKeys {
         GeoPoint position;
 
         // get current position
-        if (mTrackerServiceRunning && mTrack != null) {
+        if (mTrackerServiceRunning && mTrack != null && mTrack.getSize() > 0) {
             // get current Location from tracker service
             mCurrentBestLocation = mTrack.getWayPointLocation(mTrack.getSize() - 1);
         } else if (mCurrentBestLocation == null) {
