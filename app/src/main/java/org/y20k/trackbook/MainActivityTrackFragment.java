@@ -362,7 +362,7 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
     private void displayTrack() {
         GeoPoint position;
 
-        if (mTrack != null) {
+        if (mTrack != null && mTrack.getSize() > 0) {
             // set end of track as position
             Location lastLocation = mTrack.getWayPointLocation(mTrack.getSize() -1);
             position = new GeoPoint(lastLocation.getLatitude(), lastLocation.getLongitude());

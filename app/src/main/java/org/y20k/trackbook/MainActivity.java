@@ -721,8 +721,10 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
         Toast.makeText(this, stringResource, Toast.LENGTH_LONG).show();
         // vibrate 50 milliseconds
         Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        v.vibrate(50);
+        if (v != null) {
+            v.vibrate(50);
 //            v.vibrate(VibrationEffect.createOneShot(50, DEFAULT_AMPLITUDE)); // todo check if there is a support library vibrator
+        }
     }
 
 
