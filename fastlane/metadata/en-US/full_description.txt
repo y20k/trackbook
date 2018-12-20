@@ -1,0 +1,53 @@
+Trackbook is a bare bones app for recording your movements. Trackbook is great for hiking, vacation or workout. Once started it traces your movements on a map. The map data is provided by OpenStreetMap (OSM).
+
+Trackbook is free software. It is published under the MIT open source license. Trackbook uses osmdroid to display the map, which is also free software published under the Apache License.
+
+
+HOW TO USE TRACKBOOK
+--------------------
+
+START RECORDING MOVEMENTS
+Press the big blue button to start recording your movements. Trackbook will continuously drop markers onto the map.
+
+STOP RECORDING MOVEMENTS
+To stop your recording press the big blue button again or use the stop button in the Trackbook's notification. You can look at the recorded movements on the map afterwards.
+
+SAVE LAST RECORDING
+Stop the recording and then tap again on the big blue button. It will offer an option to "Save and Clear". Trackbook stores saved recordings as plaintext JSON files in the directory /Android/data/org.y20k.trackbook/files/tracks.
+
+CLEAR MAIN MAP
+Stop the recording and then tap again on the big blue button. Chose the option "Clear", if you just want to clear the map without saving your recording.
+
+STATISTICS AND LAST TRACKS
+Peek into Trackbook's notification to see the distance and duration of your current recording. Switch to the "Last Tracks" view to review your last recordings - up to 25 tracks. Pull up the statistics to see distance and duration of that recording, as well as the steps taken.
+
+GPX EXPORT
+Saved recordings can be exported as GPX (GPS Exchange Format) from the "Last Tracks" view. Just tap the share icon next to the track selection menu.
+
+HOW DOES TRACKBOOK MEASURE DISTANCE?
+Trackbook calculates the distance between markers and adds them up.
+
+
+A WORD ON PRIVACY
+-----------------
+Trackbook begins to store location data on device as soon a user presses the record button. Those recordings are stored in the directory /Android/data/org.y20k.trackbook/files/tracks. They never leave the device. There is no web-service backing Trackbook.
+
+Trackook does not use Google Play Services to get its location data. It will however try to use data from the NETWORK_PROVIDER on your device to augment the location data it received via GPS. The NETWORK_PROVIDER is a system-wide service, that Trackbook has no control over whatsoever. This service will usually query an online database for the location of cell towers or Wi-Fi access points a device can see. You can prevent those kinds of requests on your device, if you set the location preferences system-wide to "Device Only".
+
+
+WHICH PERMISSIONS DOES TRACKBOOK NEED?
+--------------------------------------
+Permission "INTERNET"
+Trackbook needs to download map data from OpenStreetMap servers and therefore needs access to the internet.
+
+Permission "ACCESS\_NETWORK\_STATE" and "ACCESS\_WIFI\_STATE"
+Trackbook uses [osmdroid](https://github.com/osmdroid/osmdroid/) to draw its maps. osmdroid needs to know the current state of your device’s connectivity - see [Prerequisites](https://github.com/osmdroid/osmdroid/wiki/Prerequisites).
+
+Permission "ACCESS\_COARSE\_LOCATION" and "ACCESS\_FINE\_LOCATION"
+Trackbook needs accurate GPS location data to be able to record your movements. If the GPS data is not available or not accurate enough Trackbook uses location data from cell tower and WiFi triangulation.
+
+Permission "VIBRATE"
+Tapping and holding some controls will toggle a tiny vibration (force feedback).
+
+Permission "WRITE\_EXTERNAL\_STORAGE"
+Trackbook uses osmdroid, which caches map tiles on Android's external storage. You can find the map cache in the "osmdroid" folder on the top level of the user-facing file system.

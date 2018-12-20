@@ -41,7 +41,13 @@ Saved recordings can be exported as GPX ([GPS Exchange Format](https://en.wikipe
 ### How does Trackbook measure distance?
 Trackbook calculates the distance between markers and adds them up.
 
-Which Permissions does Trackbook need?
+A word on privacy
+-----------------
+Trackbook begins to store location data on device as soon a user presses the record button. Those recordings are stored in the directory `/Android/data/org.y20k.trackbook/files/tracks`. They never leave the device. There is no web-service backing Trackbook.
+
+Trackook does not use Google Play Services to get its location data. It will however try to use data from the [NETWORK_PROVIDER](https://developer.android.com/reference/android/location/LocationManager#NETWORK_PROVIDER) on your device to augment the location data it received via GPS. The NETWORK_PROVIDER is a system-wide service, that Trackbook has no control over whatsoever. This service will usually query an online database for the location of cell towers or Wi-Fi access points a device can see. You can prevent those kinds of requests on your device, if you set the location preferences system-wide to `Device Only`.
+
+Which permissions does Trackbook need?
 --------------------------------------
 ### Permission "INTERNET"
 Trackbook needs to download map data from OpenStreetMap servers and therefore needs access to the internet.
