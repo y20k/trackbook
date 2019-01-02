@@ -23,6 +23,9 @@ import android.content.res.Configuration;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.view.View;
+import android.widget.Toast;
+
+import org.y20k.trackbook.R;
 
 import androidx.appcompat.app.AppCompatDelegate;
 
@@ -36,23 +39,24 @@ public final class NightModeHelper implements TrackbookKeys {
     private static final String LOG_TAG = NightModeHelper.class.getSimpleName();
 
 
-    /* Switches to opposite theme */
-    public static void switchToOpposite(Activity activity) {
-        switch (getCurrentNightModeState(activity)) {
-            case Configuration.UI_MODE_NIGHT_NO:
-                // night mode is currently not active - turn on night mode
+    /* Switches between modes: day, night, undefined */
+    public static void switchMode(Activity activity) {
+        // SWITCH: undefined -> night / night -> day / day - undefined
+        switch (AppCompatDelegate.getDefaultNightMode()) {
+            case AppCompatDelegate.MODE_NIGHT_NO:
+                // currently: day mode -> switch to: follow system
                 displayDefaultStatusBar(activity); // necessary hack :-/
-                activateNightMode(activity);
+                activateFollowSystemMode(activity, true);
                 break;
-            case Configuration.UI_MODE_NIGHT_YES:
-                // night mode is currently active - turn off night mode
+            case AppCompatDelegate.MODE_NIGHT_YES:
+                // currently: night mode -> switch to: day mode
                 displayLightStatusBar(activity); // necessary hack :-/
-                deactivateNightMode(activity);
+                activateDayMode(activity, true);
                 break;
-            case Configuration.UI_MODE_NIGHT_UNDEFINED:
-                // don't know what mode is active - turn off night mode
+            default:
+                // currently: follow system / undefined -> switch to: day mode
                 displayLightStatusBar(activity); // necessary hack :-/
-                deactivateNightMode(activity);
+                activateNightMode(activity, true);
                 break;
         }
     }
@@ -61,20 +65,20 @@ public final class NightModeHelper implements TrackbookKeys {
     /* Sets night mode / dark theme */
     public static void restoreSavedState(Context context) {
         int savedNightModeState = loadNightModeState(context);
-        int currentNightModeState = getCurrentNightModeState(context);
-        if (savedNightModeState != -1 && savedNightModeState != currentNightModeState) {
+        int currentNightModeState = AppCompatDelegate.getDefaultNightMode();
+        if (savedNightModeState != currentNightModeState) {
             switch (savedNightModeState) {
-                case Configuration.UI_MODE_NIGHT_NO:
-                    // turn off night mode
-                    deactivateNightMode(context);
+                case AppCompatDelegate.MODE_NIGHT_NO:
+                    // turn on day mode
+                    activateDayMode(context, false);
                     break;
-                case Configuration.UI_MODE_NIGHT_YES:
+                case AppCompatDelegate.MODE_NIGHT_YES:
                     // turn on night mode
-                    activateNightMode(context);
+                    activateNightMode(context, false);
                     break;
-                case Configuration.UI_MODE_NIGHT_UNDEFINED:
-                    // turn off night mode
-                    deactivateNightMode(context);
+                default:
+                    // turn on mode "follow system"
+                    activateFollowSystemMode(context, false);
                     break;
             }
         }
@@ -88,21 +92,46 @@ public final class NightModeHelper implements TrackbookKeys {
 
 
     /* Activates Night Mode */
-    private static void activateNightMode(Context context) {
-        saveNightModeState(context, Configuration.UI_MODE_NIGHT_YES);
+    private static void activateNightMode(Context context, Boolean notifyUser) {
+        saveNightModeState(context, AppCompatDelegate.MODE_NIGHT_YES);
 
         // switch to Night Mode
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+
+        // notify user
+        if (notifyUser) {
+            Toast.makeText(context, context.getText(R.string.toast_message_theme_night), Toast.LENGTH_SHORT).show();
+        }
     }
 
 
-    /* Deactivates Night Mode */
-    private static void deactivateNightMode(Context context) {
+    /* Activates Day Mode */
+    private static void activateDayMode(Context context, Boolean notifyUser) {
         // save the new state
-        saveNightModeState(context, Configuration.UI_MODE_NIGHT_NO);
+        saveNightModeState(context, AppCompatDelegate.MODE_NIGHT_NO);
 
         // switch to Day Mode
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
+        // notify user
+        if (notifyUser) {
+            Toast.makeText(context, context.getText(R.string.toast_message_theme_day), Toast.LENGTH_LONG).show();
+        }
+    }
+
+
+    /* Activate Mode "Follow System" */
+    private static void activateFollowSystemMode(Context context, Boolean notifyUser) {
+        // save the new state
+        saveNightModeState(context, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+
+        // switch to Undefined Mode / Follow System
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+
+        // notify user
+        if (notifyUser) {
+            Toast.makeText(context, context.getText(R.string.toast_message_theme_follow_system), Toast.LENGTH_LONG).show();
+        }
     }
 
 
@@ -135,7 +164,7 @@ public final class NightModeHelper implements TrackbookKeys {
 
     /* Load state of Night Mode */
     private static int loadNightModeState(Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context).getInt(PREF_NIGHT_MODE_STATE, -1);
+        return PreferenceManager.getDefaultSharedPreferences(context).getInt(PREF_NIGHT_MODE_STATE, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
     }
 
 }

@@ -63,8 +63,10 @@
     <string name="toast_message_export_success">GPX-eksportering vellykket:</string>
     <string name="toast_message_export_fail">GPX-eksportering mislyktes:</string>
     <string name="toast_message_elevation_info">Hint: Høydedataens nøyaktighet avhenger av enheten din. Opp og ned-stigningen for hele ruten måles.</string>
-    <string name="toast_message_long_press_night_mode_switch">Nattmodusveksling (langt trykk oppdaget)</string>
     <string name="toast_message_install_file_helper">Please install a file manager or a GPX track viewer first.</string>
+    <string name="toast_message_theme_night">Switching to Night mode (long press detected)</string>
+    <string name="toast_message_theme_day">Switching to Day mode (long press detected)</string>
+    <string name="toast_message_theme_follow_system">Switching to Follow System Setting mode (long press detected)</string>
 
     <!-- map markers -->
     <string name="marker_description_source">Kilde</string>
