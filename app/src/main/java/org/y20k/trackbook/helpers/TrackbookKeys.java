@@ -114,8 +114,8 @@ public interface TrackbookKeys {
 
     /* MISC */
     int CURRENT_TRACK_FORMAT_VERSION = 2; // incremental version number to prevent issues in case the Track format evolves
-    double DEFAULT_LATITUDE = 49.41667; // latitude Nordkapp, Norway
-    double DEFAULT_LONGITUDE = 8.67201; // longitude Nordkapp, Norway
+    double DEFAULT_LATITUDE = 71.172500; // latitude Nordkapp, Norway
+    double DEFAULT_LONGITUDE = 25.784444; // longitude Nordkapp, Norway
     int MEASUREMENT_ERROR_THRESHOLD = 10; // altitude changes of 10 meter or more (per 15 seconds) are being discarded
     int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
 
