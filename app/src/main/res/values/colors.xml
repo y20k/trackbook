@@ -3,7 +3,8 @@
 
     <!-- DAY THEME COLORS -->
     <color name="status_bar_background">@color/trackbook_white</color>
-    <color name="bottom_navigation_background">@color/trackbook_red</color>
+    <color name="bottom_navigation_background">@color/trackbook_white</color>
+    <color name="bottom_navigation_element">@color/trackbook_grey</color>
     <color name="main_onboarding_text">@color/trackbook_grey</color>
 
     <color name="fab_button_card_text">@color/trackbook_grey_dark</color>
@@ -20,7 +21,7 @@
     <color name="statistic_sheet_text">@color/trackbook_grey_dark</color>
     <color name="statistic_sheet_icons">@color/trackbook_grey_dark</color>
     <color name="statistic_sheet_background_expanded">@color/trackbook_white_85percent</color>
-    <color name="statistic_sheet_background_collapsed">@color/trackbook_white</color>
+    <color name="statistic_sheet_background_collapsed">@color/trackbook_white_95percent</color>
 
 
     <!-- COLOR NAMES -->
@@ -38,8 +39,10 @@
 
     <color name="trackbook_white">#FFFFFFFF</color>
     <color name="trackbook_white_85percent">#D9FFFFFF</color>
+    <color name="trackbook_white_95percent">#F2FFFFFF</color>
     <color name="trackbook_black">#FF000000</color>
     <color name="trackbook_black_85percent">#D9000000</color>
+    <color name="trackbook_black_95percent">#F2000000</color>
 
     <color name="trackbook_grey_lighter">#FFD2D6DA</color>
     <color name="trackbook_grey_light">#FFBDC1C6</color>
