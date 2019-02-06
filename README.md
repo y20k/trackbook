@@ -66,8 +66,8 @@ Trackbook uses [osmdroid](https://github.com/osmdroid/osmdroid), which caches ma
 
 Screenshots (v1.1)
 ------------------
-[<img src="https://user-images.githubusercontent.com/9103935/34250760-22dd45e8-e63e-11e7-8e78-9d928470e92a.png" width="240">](https://user-images.githubusercontent.com/9103935/34250760-22dd45e8-e63e-11e7-8e78-9d928470e92a.png)
-[<img src="https://user-images.githubusercontent.com/9103935/34250761-22ff00b6-e63e-11e7-974a-47c238d477e0.png" width="240">](https://user-images.githubusercontent.com/9103935/34250761-22ff00b6-e63e-11e7-974a-47c238d477e0.png)
+[<img src="https://raw.githubusercontent.com/y20k/trackbook/master/fastlane/metadata/en-US/phoneScreenshots/p1.png" width="240">](https://raw.githubusercontent.com/y20k/trackbook/master/fastlane/metadata/en-US/phoneScreenshots/p1.png)
+[<img src="https://raw.githubusercontent.com/y20k/trackbook/master/fastlane/metadata/en-US/phoneScreenshots/p2.png" width="240">](https://raw.githubusercontent.com/y20k/trackbook/master/fastlane/metadata/en-US/phoneScreenshots/p2.png)
 
-[<img src="https://user-images.githubusercontent.com/9103935/34250762-2316aa90-e63e-11e7-9bcb-a230467fc192.png" width="240">](https://user-images.githubusercontent.com/9103935/34250762-2316aa90-e63e-11e7-9bcb-a230467fc192.png)
-[<img src="https://user-images.githubusercontent.com/9103935/34250763-232f7714-e63e-11e7-92bf-1fda9442e443.png" width="240">](https://user-images.githubusercontent.com/9103935/34250763-232f7714-e63e-11e7-92bf-1fda9442e443.png)
+[<img src="https://raw.githubusercontent.com/y20k/trackbook/master/fastlane/metadata/en-US/phoneScreenshots/p3.png" width="240">](https://raw.githubusercontent.com/y20k/trackbook/master/fastlane/metadata/en-US/phoneScreenshots/p3.png)
+[<img src="https://raw.githubusercontent.com/y20k/trackbook/master/fastlane/metadata/en-US/phoneScreenshots/p4.png" width="240">](https://raw.githubusercontent.com/y20k/trackbook/master/fastlane/metadata/en-US/phoneScreenshots/p4.png)
