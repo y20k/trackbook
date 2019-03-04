@@ -11,8 +11,6 @@
     <string name="notification_title_trackbook_running">Trackbook 実行中</string>
     <string name="notification_title_trackbook_not_running">Trackbook は実行していません</string>
     <string name="notification_stop">停止</string>
-    <string name="notification_clear">クリア</string>
-    <string name="notification_save">保存してクリア</string>
     <string name="notification_resume">再開</string>
     <string name="notification_show">表示</string>
     <string name="notification_content_duration">期間</string>
@@ -63,7 +61,6 @@
     <string name="toast_message_export_success">GPX のエクスポートが完了しました:</string>
     <string name="toast_message_export_fail">GPX のエクスポートに失敗しました:</string>
     <string name="toast_message_elevation_info">ヒント: 標高データの精度は、お使いのデバイスによって異なります。ルート全体の上り坂と下り坂の標高を測定します。</string>
-    <string name="toast_message_long_press_night_mode_switch">Night mode switch (long press detected)</string>
     <string name="toast_message_install_file_helper">先にファイルマネージャか GPX トレースビューアーをインストールしてください。</string>
 
     <!-- map markers -->
@@ -103,7 +100,6 @@
     <string name="track_tab_onboarding_h1_part_2">… ここに表示されます。</string>
 
     <!-- descriptions -->
-    <string name="descr_map_current_track">現在のトレースのマッピング</string>
     <string name="descr_map_last_track">最後のトレースのマッピング</string>
     <string name="descr_fab_my_location">自分の場所ボタン</string>
     <string name="descr_fab_main">メイン アクション ボタン</string>
@@ -138,4 +134,5 @@
     <string name="toast_message_theme_night">夜間モードに切り替えています (長押しを検出しました)</string>
     <string name="toast_message_theme_day">日中モードに切り替えています (長押しを検出しました)</string>
     <string name="toast_message_theme_follow_system">システム設定モードにしたがって切り替えています (長押しを検出しました)</string>
+
 </resources>

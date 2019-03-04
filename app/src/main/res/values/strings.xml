@@ -11,8 +11,6 @@
     <string name="notification_title_trackbook_running">Trackbook running</string>
     <string name="notification_title_trackbook_not_running">Trackbook not running</string>
     <string name="notification_stop">Stop</string>
-    <string name="notification_clear">Clear</string>
-    <string name="notification_save">Save</string>
     <string name="notification_resume">Resume</string>
     <string name="notification_show">Show</string>
     <string name="notification_content_duration">Duration</string>
@@ -105,7 +103,6 @@
     <string name="track_tab_onboarding_h1_part_2">… will show up here.</string>
 
     <!-- descriptions -->
-    <string name="descr_map_current_track">Mapping of current track</string>
     <string name="descr_map_last_track">Mapping of last track</string>
     <string name="descr_fab_my_location">My Location Button</string>
     <string name="descr_fab_main">Main Action Button</string>
