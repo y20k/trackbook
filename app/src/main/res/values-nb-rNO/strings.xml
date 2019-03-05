@@ -105,33 +105,17 @@
     <!-- descriptions -->
     <string name="descr_map_last_track">Kartlegging av forrige tur</string>
     <string name="descr_fab_my_location">Min plassering-knapp</string>
-    <string name="descr_fab_main">Hovedhandlingsknapp</string>
-    <string name="descr_fab_sub_menu_label_save">Etikett for Lagre- og Tøm-knapp</string>
+    <string name="descr_fab_main_start"></string>
+    <string name="descr_fab_main_stop"></string>
+    <string name="descr_fab_main_options"></string>
     <string name="descr_fab_sub_menu_button_save">liten Lagre- og Tøm-knapp</string>
-    <string name="descr_fab_sub_menu_label_clear">Etikett for Tøm-knappen</string>
     <string name="descr_fab_sub_menu_button_clear">liten Tøm-knapp</string>
-    <string name="descr_fab_sub_menu_label_resume">Etikett for Fortsett-knapp</string>
     <string name="descr_fab_sub_menu_button_resume">liten Fortsett-knapp</string>
     <string name="descr_statistics_sheet_headline">Overskrift for statistikkarket</string>
     <string name="descr_statistics_sheet_icon">Informasjonsikon</string>
-    <string name="descr_statistics_sheet_p_distance">Datapunkt: Distanse</string>
-    <string name="descr_statistics_sheet_p_steps">Datapunkter: Skritt</string>
-    <string name="descr_statistics_sheet_p_waypoints">Datapunkter: Veipunkter</string>
-    <string name="descr_statistics_sheet_p_duration">Datapunkt: Varighet</string>
-    <string name="descr_statistics_sheet_p_recording_start">Datapunkt: Opptaksstart</string>
-    <string name="descr_statistics_sheet_p_recording_end">Datapunkt: Opptaksslutt</string>
-    <string name="descr_statistics_sheet_p_distance_value">Verdi: Distanse</string>
-    <string name="descr_statistics_sheet_p_steps_value">Verdi: Steg</string>
-    <string name="descr_statistics_sheet_p_waypoints_value">Verdi: Veipunkter</string>
-    <string name="descr_statistics_sheet_p_duration_value">Verdi: Varighet</string>
-    <string name="descr_statistics_sheet_p_recording_start_value">Verdi: Opptaksstart</string>
-    <string name="descr_statistics_sheet_p_recording_end_value">Verdi: Opptaksslutt</string>
-    <string name="descr_statistics_sheet_p_max_altitude">Verdi: Høyeste veipunkt</string>
-    <string name="descr_statistics_sheet_p_min_altitude">Verdi: Laveste veipunkt</string>
-    <string name="descr_statistics_sheet_p_positive_elevation">Verdi: Stigning (oppoverbakke)</string>
-    <string name="descr_statistics_sheet_p_negative_elevation">Verdi: Nedstigning (nedoverbakke)</string>
     <string name="descr_track_selector">Nedtrekksmeny for ytterligere turer</string>
     <string name="descr_export_button">Tureksportknapp</string>
     <string name="descr_delete_button">Turslettingsknapp</string>
     <string name="descr_share_button_gpx"></string>
+
 </resources>

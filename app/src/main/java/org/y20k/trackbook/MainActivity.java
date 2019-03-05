@@ -601,21 +601,25 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
             case FAB_STATE_DEFAULT:
                 mFloatingActionButtonMain.hide(); // workaround todo remove asap
                 mFloatingActionButtonMain.setImageResource(R.drawable.ic_fiber_manual_record_white_24dp);
+                mFloatingActionButtonMain.setContentDescription(getString(R.string.descr_fab_main_start));
                 if (mSelectedTab == FRAGMENT_ID_MAP) mFloatingActionButtonMain.show(); // workaround todo remove asap
                 break;
             case FAB_STATE_RECORDING:
                 mFloatingActionButtonMain.hide(); // workaround todo remove asap
                 mFloatingActionButtonMain.setImageResource(R.drawable.ic_fiber_manual_record_red_24dp);
+                mFloatingActionButtonMain.setContentDescription(getString(R.string.descr_fab_main_stop));
                 if (mSelectedTab == FRAGMENT_ID_MAP) mFloatingActionButtonMain.show(); // workaround todo remove asap
                 break;
             case FAB_STATE_SAVE:
                 mFloatingActionButtonMain.hide(); // workaround todo remove asap
                 mFloatingActionButtonMain.setImageResource(R.drawable.ic_save_white_24dp);
+                mFloatingActionButtonMain.setContentDescription(getString(R.string.descr_fab_main_options));
                 if (mSelectedTab == FRAGMENT_ID_MAP) mFloatingActionButtonMain.show(); // workaround todo remove asap
                 break;
             default:
                 mFloatingActionButtonMain.hide(); // workaround todo remove asap
                 mFloatingActionButtonMain.setImageResource(R.drawable.ic_fiber_manual_record_white_24dp);
+                mFloatingActionButtonMain.setContentDescription(getString(R.string.descr_fab_main_start));
                 if (mSelectedTab == FRAGMENT_ID_MAP) mFloatingActionButtonMain.show(); // workaround todo remove asap
                 break;
         }

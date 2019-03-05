@@ -179,7 +179,7 @@
             android:layout_marginBottom="16dp"
             android:layout_marginEnd="16dp"
             android:clickable="true"
-            android:contentDescription="@string/descr_fab_main"
+            android:contentDescription="@string/descr_fab_main_start"
             android:focusable="true"
             app:backgroundTint="@color/trackbook_blue"
             app:fabSize="normal"
