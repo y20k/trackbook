@@ -103,6 +103,7 @@
     <string name="track_tab_onboarding_h1_part_2">… werden hier erscheinen.</string>
 
     <!-- descriptions -->
+    <string name="descr_map_current_track">Kartierung der aktuellen Aufzeichnung</string>
     <string name="descr_map_last_track">Kartierung der letzten Aufzeichnung</string>
     <string name="descr_fab_my_location">Mein-Standort-Button</string>
     <string name="descr_fab_main_start"></string>

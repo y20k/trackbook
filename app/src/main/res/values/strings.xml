@@ -103,6 +103,7 @@
     <string name="track_tab_onboarding_h1_part_2">… will show up here.</string>
 
     <!-- descriptions -->
+    <string name="descr_map_current_track">Mapping of current track</string>
     <string name="descr_map_last_track">Mapping of last track</string>
     <string name="descr_fab_my_location">My Location button</string>
     <string name="descr_fab_main_start">Start recording button</string>

@@ -100,6 +100,7 @@
     <string name="track_tab_onboarding_h1_part_2">… ここに表示されます。</string>
 
     <!-- descriptions -->
+    <string name="descr_map_current_track">現在のトレースのマッピング</string>
     <string name="descr_map_last_track">最後のトレースのマッピング</string>
     <string name="descr_fab_my_location">自分の場所ボタン</string>
     <string name="descr_fab_main_start"></string>

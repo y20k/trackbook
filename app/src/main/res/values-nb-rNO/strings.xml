@@ -103,6 +103,7 @@
     <string name="track_tab_onboarding_h1_part_2">… vil vises her.</string>
 
     <!-- descriptions -->
+    <string name="descr_map_current_track">Kartlegging av nåværende tur</string>
     <string name="descr_map_last_track">Kartlegging av forrige tur</string>
     <string name="descr_fab_my_location">Min plassering-knapp</string>
     <string name="descr_fab_main_start"></string>

@@ -103,6 +103,7 @@
     <string name="track_tab_onboarding_h1_part_2"></string>
 
     <!-- descriptions -->
+    <string name="descr_map_current_track"></string>
     <string name="descr_map_last_track"></string>
     <string name="descr_fab_my_location"></string>
     <string name="descr_fab_main_start"></string>
