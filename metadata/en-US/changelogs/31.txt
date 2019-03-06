@@ -1,0 +1,7 @@
+# v1.1.15 - Sheep
+
+**2019-03-06**
+
+- user interface: the bottom bar is now white instead of red
+- Swedish translation
+- minor bug fixes

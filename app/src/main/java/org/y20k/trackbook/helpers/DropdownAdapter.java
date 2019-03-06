@@ -176,7 +176,8 @@ public class DropdownAdapter extends BaseAdapter implements ThemedSpinnerAdapter
         // fill list with track bundles
         mTrackBundleList = new ArrayList<>();
         for (File file : files) {
-            if (file.getName().endsWith(FILE_TYPE_TRACKBOOK_EXTENSION)) {
+            String fileName = file.getName();
+            if (fileName.endsWith(FILE_TYPE_TRACKBOOK_EXTENSION) && !fileName.startsWith(FILE_NAME_TEMP)) {
                 mTrackBundleList.add(new TrackBundle(file));
             }
         }

@@ -1,0 +1,8 @@
+# v1.1.13 - Sheep
+
+**2018-11-10**
+
+- improved location accuracy at start of recordings
+- bug fixes
+
+

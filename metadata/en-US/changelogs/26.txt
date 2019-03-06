@@ -1,0 +1,5 @@
+# v1.1.10 - Sheep
+
+**2018-06-27**
+
+- option to open GPX recordings in other apps (replaces the "Save" feature)
