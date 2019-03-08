@@ -1,122 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- activities -->
-    <string name="app_name">Trackbook</string> <!-- please do not translate app_name - transcription into different alphabet types is fine though -->
-
+    <string name="app_name">Trackbook</string>
+    <!-- please do not translate app_name - transcription into different alphabet types is fine though -->
     <!-- tabs -->
     <string name="tab_map">Mappa</string>
     <string name="tab_last_tracks">Ultime Tracce</string>
-
     <!-- notification -->
     <string name="notification_title_trackbook_running">Trackbook in esecuzione</string>
     <string name="notification_title_trackbook_not_running">Trackbook non in esecuzione</string>
-    <string name="notification_stop">Stop</string>
-    <string name="notification_resume">Resume</string>
-    <string name="notification_show">Show</string>
+    <string name="notification_stop">Interrompi</string>
+    <string name="notification_resume">Riprendi</string>
+    <string name="notification_show">Mostra</string>
     <string name="notification_content_duration">Durata</string>
     <string name="notification_content_distance">Distanza</string>
-    <string name="notification_channel_recording_name">Stato registrazione</string>
-    <string name="notification_channel_recording_description"></string>
-
+    <string name="notification_channel_recording_name">Stato Registrazione Movimento</string>
+    <string name="notification_channel_recording_description">Visualizza durata e distanza. Opzione per interrompere la registrazione del movimento.</string>
     <!-- snackbar messages -->
     <string name="snackbar_message_tracking_stopped">Tracciamento interrotto</string>
     <string name="snackbar_message_tracking_started">Tracciamento avviato</string>
-    <string name="snackbar_message_tracking_resumed">Tracking resumed</string>
-    <string name="snackbar_message_location_offline">La posizione è disattivata. Trackbook non può funzionare.</string>
-
+    <string name="snackbar_message_tracking_resumed">Tracciamento ripreso</string>
+    <string name="snackbar_message_location_offline">La posizione è disattivata. Trackbook non funzionerà.</string>
     <!-- fab sub menu -->
     <string name="fab_sub_menu_clear">Cancella</string>
-    <string name="fab_sub_menu_save">Salva e ripristina la mappa</string>
-    <string name="fab_sub_menu_resume"></string>
-
+    <string name="fab_sub_menu_save">Salva</string>
+    <string name="fab_sub_menu_resume">Riprendi</string>
     <!-- dialogs -->
     <string name="dialog_default_action_cancel">Annulla</string>
-    <string name="dialog_clear_content">Cancella registrazione?</string>
+    <string name="dialog_clear_content">Cancellare la registrazione\?</string>
     <string name="dialog_clear_action_clear">Cancella</string>
-    <string name="dialog_delete_title">Elimina registrazione?</string>
+    <string name="dialog_delete_title">Eliminare la registrazione\?</string>
     <string name="dialog_delete_content">Eliminare questa registrazione:</string>
     <string name="dialog_delete_action_delete">Elimina</string>
-    <string name="dialog_export_title_export">Desideri esportare la registrazione come file GPX?</string>
-    <string name="dialog_export_content_export">Esportare questa registrazione come traccia GPX.</string>
+    <string name="dialog_export_title_export">Esportare la registrazione come file GPX\?</string>
+    <string name="dialog_export_content_export">Esporta questa registrazione come traccia GPX.</string>
     <string name="dialog_export_action_export">Esporta</string>
-    <string name="dialog_export_title_overwrite">Esporta e sovrascrivi?</string>
-    <string name="dialog_export_content_overwrite">Il file esiste già. Esportare e sovrascrivere questa registrazione come traccia GPX.</string>
+    <string name="dialog_export_title_overwrite">Esportare e sovrascrivere\?</string>
+    <string name="dialog_export_content_overwrite">Il file esiste già. Esporta e sovrascrivi questa registrazione come traccia GPX.</string>
     <string name="dialog_export_action_overwrite">Esporta e sovrascrivi</string>
-    <string name="dialog_share_gpx"></string>
-    <string name="dialog_error_empty_recording_title"></string>
-    <string name="dialog_error_empty_recording_content"></string>
-    <string name="dialog_error_empty_recording_action_resume"></string>
-
+    <string name="dialog_share_gpx">Condividi il file GPX con</string>
+    <string name="dialog_error_empty_recording_title">Impossibile salvare</string>
+    <string name="dialog_error_empty_recording_content">Trackbook non ha registrato nessun waypoint finora.</string>
+    <string name="dialog_error_empty_recording_action_resume">Riprendi la registrazione</string>
     <!-- toast messages -->
-    <string name="toast_message_permissions_granted">Permessi acquisiti.</string>
+    <string name="toast_message_permissions_granted">Autorizzazioni concesse.</string>
     <string name="toast_message_unable_to_start_app">Impossibile avviare Trackbook.</string>
-    <string name="toast_message_no_external_storage">Impossibile accedere allo storage.</string>
-    <string name="toast_message_location_offline">I servizi di posizione sono disattivati. Trackbook non può funzionare.</string>
-    <string name="toast_message_acquiring_location">Acquisire la posizione corrente.</string>
+    <string name="toast_message_no_external_storage">Impossibile accedere alla memoria esterna.</string>
+    <string name="toast_message_location_offline">La posizione è disattivata. Trackbook non funzionerà.</string>
+    <string name="toast_message_acquiring_location">Acquisizione della posizione attuale.</string>
     <string name="toast_message_location_services_not_ready">Servizi di localizzazione non pronti. Riprova.</string>
     <string name="toast_message_last_location">Ultima posizione:</string>
     <string name="toast_message_save_track">Salvataggio della traccia corrente.</string>
     <string name="toast_message_last_location_age_one_hour">più di un\'ora</string>
     <string name="toast_message_track_clear">Dati della traccia corrente rimossi.</string>
-    <string name="toast_message_export_success">L\'esportazione GPX è riuscita:</string>
-    <string name="toast_message_export_fail">L\'esportazione GPX non è riuscita:</string>
-    <string name="toast_message_elevation_info"></string>
-    <string name="toast_message_install_file_helper"></string>
-    <string name="toast_message_theme_night"></string>
-    <string name="toast_message_theme_day"></string>
-    <string name="toast_message_theme_follow_system"></string>
-
+    <string name="toast_message_export_success">Esportazione GPX riuscita:</string>
+    <string name="toast_message_export_fail">Esportazione GPX non riuscita:</string>
+    <string name="toast_message_elevation_info">Suggerimento: L\'accuratezza dei dati dell\'altitudine dipende dal tuo dispositivo. Sono misurate la salita e la discesa di tutto il percorso.</string>
+    <string name="toast_message_install_file_helper">Per favore installa prima un gestore di file o un visualizzatore di tracce GPX.</string>
+    <string name="toast_message_theme_night">Passaggio alla modalità notturna (pressione prolungata rilevata)</string>
+    <string name="toast_message_theme_day">Passaggio alla modalità diurna (pressione prolungata rilevata)</string>
+    <string name="toast_message_theme_follow_system">Passaggio alla modalità Segui Impostazione di Sistema (pressione prolungata rilevata)</string>
     <!-- map markers -->
     <string name="marker_description_source">Fonte</string>
     <string name="marker_description_time">Ora</string>
     <string name="marker_description_accuracy">Precisione</string>
-
     <!-- statistics sheet -->
     <string name="statistics_sheet_h1_statistics">Statistiche</string>
     <string name="statistics_sheet_p_default_data">dati mancanti</string>
     <string name="statistics_sheet_p_distance">Distanza totale:</string>
     <string name="statistics_sheet_p_steps">Passi:</string>
-    <string name="statistics_sheet_p_steps_no_pedometer"></string>
+    <string name="statistics_sheet_p_steps_no_pedometer">pedometro non disponibile</string>
     <string name="statistics_sheet_p_waypoints">Waypoint registrati:</string>
     <string name="statistics_sheet_p_duration">Durata totale:</string>
-    <string name="statistics_sheet_p_recording_start">Registrazione avviata il:</string>
-    <string name="statistics_sheet_p_recording_stop">Registrazione interrotta il:</string>
-    <string name="statistics_sheet_p_max_altitude"></string>
-    <string name="statistics_sheet_p_min_altitude"></string>
-    <string name="statistics_sheet_p_positive_elevation"></string>
-    <string name="statistics_sheet_p_negative_elevation"></string>
-
+    <string name="statistics_sheet_p_recording_start">Registrazione avviata:</string>
+    <string name="statistics_sheet_p_recording_stop">Registrazione interrotta:</string>
+    <string name="statistics_sheet_p_max_altitude">Waypoint più alto:</string>
+    <string name="statistics_sheet_p_min_altitude">Waypoint più basso:</string>
+    <string name="statistics_sheet_p_positive_elevation">Elevazione (in salita):</string>
+    <string name="statistics_sheet_p_negative_elevation">Elevazione (in discesa):</string>
     <!-- onboarding layout -->
     <string name="layout_onboarding_h1_welcome">Ciao</string>
     <string name="layout_onboarding_description_app_icon">Icona dell\'applicazione Trackbook</string>
     <string name="layout_onboarding_h2_app_name">Trackbook</string>
-    <string name="layout_onboarding_p_app_claim">Geolocalizzatore per Android</string>
+    <string name="layout_onboarding_p_app_claim">Registratore Movimento</string>
     <string name="layout_onboarding_h2_request_permissions">Trackbook non può funzionare senza queste autorizzazioni:</string>
-    <string name="layout_onboarding_h3_permission_location">LOCATION</string>
-    <string name="layout_onboarding_p_permission_location">Trackbook ha bisogno dei dati GPS precisi per poter registrare i tuoi movimenti. Se i dati GPS non sono disponibili o non sono abbastanza precisi, Trackbook utilizza i dati di posizione dalla triangolazione sulla cella telefonica e i dati sulle Wi-Fi.</string>
-    <string name="layout_onboarding_h3_permission_storage">STORAGE</string>
-    <string name="layout_onboarding_p_permission_storage">Trackbook usa osmdroid, questa tecnologia memorizza porzioni di mappa sull\'SD esterna di Android. È possibile trovare la cache della mappa nella cartella osmdroid sul file system.</string>
-    <string name="layout_onboarding_button_okay">Fatto!</string>
-
+    <string name="layout_onboarding_h3_permission_location">POSIZIONE</string>
+    <string name="layout_onboarding_p_permission_location">Trackbook ha bisogno di dati GPS precisi per poter registrare i tuoi movimenti. Se i dati GPS non sono disponibili o non sono abbastanza precisi, Trackbook utilizza i dati di posizione dalla triangolazione sulla cella telefonica e sul Wi-Fi.</string>
+    <string name="layout_onboarding_h3_permission_storage">MEMORIA</string>
+    <string name="layout_onboarding_p_permission_storage">Trackbook usa osmdroid, che memorizza porzioni di mappa sull\'SD esterna di Android. Puoi trovare la cache della mappa nella cartella osmdroid al livello più alto del file system accessibile all\'utente.</string>
+    <string name="layout_onboarding_button_okay">Capito!</string>
     <!-- track tab onboarding -->
-    <string name="track_tab_onboarding_h1_part_1">Le tue tracce</string>
-    <string name="track_tab_onboarding_h1_part_2">… appaririranno qui.</string>
-
+    <string name="track_tab_onboarding_h1_part_1">Le tue tracce registrate</string>
+    <string name="track_tab_onboarding_h1_part_2">… verranno mostrate qui.</string>
     <!-- descriptions -->
     <string name="descr_map_current_track">Mappatura della traccia corrente</string>
     <string name="descr_map_last_track">Mappatura dell\'ultima traccia</string>
-    <string name="descr_fab_my_location">My Location Button</string>
-    <string name="descr_fab_main_start"></string>
-    <string name="descr_fab_main_stop"></string>
-    <string name="descr_fab_main_options"></string>
-    <string name="descr_fab_sub_menu_button_save">piccolo pulsante Salva e ripristina la mappa</string>
-    <string name="descr_fab_sub_menu_button_clear">piccolo pulsante Cancella</string>
-    <string name="descr_fab_sub_menu_button_resume">small Resume button</string>
-    <string name="descr_statistics_sheet_headline">Titolo scheda statistiche</string>
-    <string name="descr_statistics_sheet_icon">Icona grafico a barre</string>
-    <string name="descr_track_selector">Elenco registrazioni</string>
-    <string name="descr_export_button">Pulsante di esportazione della traccia</string>
-    <string name="descr_delete_button">Pulsante di eliminazione della traccia</string>
-    <string name="descr_share_button_gpx"></string>
-
+    <string name="descr_fab_my_location">Pulsante Mia Posizione</string>
+    <string name="descr_fab_main_start">Pulsante Avvia registrazione</string>
+    <string name="descr_fab_main_stop">Pulsante Interrompi registrazione</string>
+    <string name="descr_fab_main_options">Pulsante Opzione di registrazione</string>
+    <string name="descr_fab_sub_menu_button_save">Pulsante Salva</string>
+    <string name="descr_fab_sub_menu_button_clear">Pulsante Cancella</string>
+    <string name="descr_fab_sub_menu_button_resume">Pulsante Riprendi</string>
+    <string name="descr_statistics_sheet_headline">Titolo della scheda delle statistiche</string>
+    <string name="descr_statistics_sheet_icon">Attiva/disattiva la visualizzazione dei dati di registrazione</string>
+    <string name="descr_track_selector">Menu a tendina per altre tracce</string>
+    <string name="descr_export_button">Pulsante Esporta traccia</string>
+    <string name="descr_delete_button">Pulsante Elimina traccia</string>
+    <string name="descr_share_button_gpx">Pulsante Condividi che permette di esportare come GPX</string>
 </resources>
