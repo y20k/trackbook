@@ -42,10 +42,10 @@
     <string name="dialog_export_title_overwrite">Exporter og overskriv?</string>
     <string name="dialog_export_content_overwrite">Fila finnes allerede. Eksporter og overskriv dette opptaket som en GPX-tur.</string>
     <string name="dialog_export_action_overwrite">Eksporter og overskriv</string>
-    <string name="dialog_share_gpx"></string>
-    <string name="dialog_error_empty_recording_title"></string>
-    <string name="dialog_error_empty_recording_content"></string>
-    <string name="dialog_error_empty_recording_action_resume"></string>
+    <!--<string name="dialog_share_gpx"></string>-->
+    <!--<string name="dialog_error_empty_recording_title"></string>-->
+    <!--<string name="dialog_error_empty_recording_content"></string>-->
+    <!--<string name="dialog_error_empty_recording_action_resume"></string>-->
 
     <!-- toast messages -->
     <string name="toast_message_permissions_granted">Tilgang gitt.</string>
@@ -61,10 +61,10 @@
     <string name="toast_message_export_success">GPX-eksportering vellykket:</string>
     <string name="toast_message_export_fail">GPX-eksportering mislyktes:</string>
     <string name="toast_message_elevation_info">Hint: Høydedataens nøyaktighet avhenger av enheten din. Opp og ned-stigningen for hele ruten måles.</string>
-    <string name="toast_message_install_file_helper"></string>
-    <string name="toast_message_theme_night"></string>
-    <string name="toast_message_theme_day"></string>
-    <string name="toast_message_theme_follow_system"></string>
+    <!--<string name="toast_message_install_file_helper"></string>-->
+    <!--<string name="toast_message_theme_night"></string>-->
+    <!--<string name="toast_message_theme_day"></string>-->
+    <!--<string name="toast_message_theme_follow_system"></string>-->
 
     <!-- map markers -->
     <string name="marker_description_source">Kilde</string>
@@ -106,9 +106,9 @@
     <string name="descr_map_current_track">Kartlegging av nåværende tur</string>
     <string name="descr_map_last_track">Kartlegging av forrige tur</string>
     <string name="descr_fab_my_location">Min plassering-knapp</string>
-    <string name="descr_fab_main_start"></string>
-    <string name="descr_fab_main_stop"></string>
-    <string name="descr_fab_main_options"></string>
+    <!--<string name="descr_fab_main_start"></string>-->
+    <!--<string name="descr_fab_main_stop"></string>-->
+    <!--<string name="descr_fab_main_options"></string>-->
     <string name="descr_fab_sub_menu_button_save">liten Lagre- og Tøm-knapp</string>
     <string name="descr_fab_sub_menu_button_clear">liten Tøm-knapp</string>
     <string name="descr_fab_sub_menu_button_resume">liten Fortsett-knapp</string>
@@ -117,6 +117,6 @@
     <string name="descr_track_selector">Nedtrekksmeny for ytterligere turer</string>
     <string name="descr_export_button">Tureksportknapp</string>
     <string name="descr_delete_button">Turslettingsknapp</string>
-    <string name="descr_share_button_gpx"></string>
+    <!--<string name="descr_share_button_gpx"></string>-->
 
 </resources>

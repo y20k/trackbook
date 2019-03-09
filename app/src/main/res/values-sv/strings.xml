@@ -5,7 +5,7 @@
 
     <!-- tabs -->
     <string name="tab_map">Karta</string>
-    <string name="tab_last_tracks"></string>
+    <!--<string name="tab_last_tracks"></string>-->
 
     <!-- notification -->
     <string name="notification_title_trackbook_running">Trackbook körs</string>
@@ -15,8 +15,8 @@
     <string name="notification_show">Visa</string>
     <string name="notification_content_duration">Varaktighet</string>
     <string name="notification_content_distance">Avstånd</string>
-    <string name="notification_channel_recording_name"></string>
-    <string name="notification_channel_recording_description"></string>
+    <!--<string name="notification_channel_recording_name"></string>-->
+    <!--<string name="notification_channel_recording_description"></string>-->
 
     <!-- snackbar messages -->
     <string name="snackbar_message_tracking_stopped">Spårningen stoppades</string>
@@ -48,75 +48,75 @@
     <string name="dialog_error_empty_recording_action_resume">Återuppta inspelning</string>
 
     <!-- toast messages -->
-    <string name="toast_message_permissions_granted"></string>
+    <!--<string name="toast_message_permissions_granted"></string>-->
     <string name="toast_message_unable_to_start_app">Kunde inte starta Trackbook.</string>
-    <string name="toast_message_no_external_storage"></string>
+    <!--<string name="toast_message_no_external_storage"></string>-->
     <string name="toast_message_location_offline">Plats är avstängt. Trackbook kommer inte fungera.</string>
     <string name="toast_message_acquiring_location">Hämtar nuvarande plats.</string>
     <string name="toast_message_location_services_not_ready">Platstjänsterna är inte redo. Vänligen försök igen.</string>
     <string name="toast_message_last_location">Senaste plats:</string>
     <string name="toast_message_save_track">Sparar nuvarande spåret.</string>
     <string name="toast_message_last_location_age_one_hour">över en timme</string>
-    <string name="toast_message_track_clear"></string>
+    <!--<string name="toast_message_track_clear"></string>-->
     <string name="toast_message_export_success">Exportering av GPX lyckades:</string>
-    <string name="toast_message_export_fail"></string>
-    <string name="toast_message_elevation_info"></string>
-    <string name="toast_message_install_file_helper"></string>
-    <string name="toast_message_theme_night"></string>
-    <string name="toast_message_theme_day"></string>
-    <string name="toast_message_theme_follow_system"></string>
+    <!--<string name="toast_message_export_fail"></string>-->
+    <!--<string name="toast_message_elevation_info"></string>-->
+    <!--<string name="toast_message_install_file_helper"></string>-->
+    <!--<string name="toast_message_theme_night"></string>-->
+    <!--<string name="toast_message_theme_day"></string>-->
+    <!--<string name="toast_message_theme_follow_system"></string>-->
 
     <!-- map markers -->
-    <string name="marker_description_source"></string>
-    <string name="marker_description_time"></string>
-    <string name="marker_description_accuracy"></string>
+    <!--<string name="marker_description_source"></string>-->
+    <!--<string name="marker_description_time"></string>-->
+    <!--<string name="marker_description_accuracy"></string>-->
 
     <!-- statistics sheet -->
-    <string name="statistics_sheet_h1_statistics"></string>
-    <string name="statistics_sheet_p_default_data"></string>
-    <string name="statistics_sheet_p_distance"></string>
-    <string name="statistics_sheet_p_steps"></string>
-    <string name="statistics_sheet_p_steps_no_pedometer"></string>
-    <string name="statistics_sheet_p_waypoints"></string>
-    <string name="statistics_sheet_p_duration"></string>
-    <string name="statistics_sheet_p_recording_start"></string>
-    <string name="statistics_sheet_p_recording_stop"></string>
-    <string name="statistics_sheet_p_max_altitude"></string>
-    <string name="statistics_sheet_p_min_altitude"></string>
-    <string name="statistics_sheet_p_positive_elevation"></string>
-    <string name="statistics_sheet_p_negative_elevation"></string>
+    <!--<string name="statistics_sheet_h1_statistics"></string>-->
+    <!--<string name="statistics_sheet_p_default_data"></string>-->
+    <!--<string name="statistics_sheet_p_distance"></string>-->
+    <!--<string name="statistics_sheet_p_steps"></string>-->
+    <!--<string name="statistics_sheet_p_steps_no_pedometer"></string>-->
+    <!--<string name="statistics_sheet_p_waypoints"></string>-->
+    <!--<string name="statistics_sheet_p_duration"></string>-->
+    <!--<string name="statistics_sheet_p_recording_start"></string>-->
+    <!--<string name="statistics_sheet_p_recording_stop"></string>-->
+    <!--<string name="statistics_sheet_p_max_altitude"></string>-->
+    <!--<string name="statistics_sheet_p_min_altitude"></string>-->
+    <!--<string name="statistics_sheet_p_positive_elevation"></string>-->
+    <!--<string name="statistics_sheet_p_negative_elevation"></string>-->
 
     <!-- onboarding layout -->
-    <string name="layout_onboarding_h1_welcome"></string>
-    <string name="layout_onboarding_description_app_icon"></string>
-    <string name="layout_onboarding_h2_app_name"></string>
-    <string name="layout_onboarding_p_app_claim"></string>
-    <string name="layout_onboarding_h2_request_permissions"></string>
-    <string name="layout_onboarding_h3_permission_location"></string>
-    <string name="layout_onboarding_p_permission_location"></string>
-    <string name="layout_onboarding_h3_permission_storage"></string>
-    <string name="layout_onboarding_p_permission_storage"></string>
-    <string name="layout_onboarding_button_okay"></string>
+    <!--<string name="layout_onboarding_h1_welcome"></string>-->
+    <!--<string name="layout_onboarding_description_app_icon"></string>-->
+    <!--<string name="layout_onboarding_h2_app_name"></string>-->
+    <!--<string name="layout_onboarding_p_app_claim"></string>-->
+    <!--<string name="layout_onboarding_h2_request_permissions"></string>-->
+    <!--<string name="layout_onboarding_h3_permission_location"></string>-->
+    <!--<string name="layout_onboarding_p_permission_location"></string>-->
+    <!--<string name="layout_onboarding_h3_permission_storage"></string>-->
+    <!--<string name="layout_onboarding_p_permission_storage"></string>-->
+    <!--<string name="layout_onboarding_button_okay"></string>-->
 
     <!-- track tab onboarding -->
-    <string name="track_tab_onboarding_h1_part_1"></string>
-    <string name="track_tab_onboarding_h1_part_2"></string>
+    <!--<string name="track_tab_onboarding_h1_part_1"></string>-->
+    <!--<string name="track_tab_onboarding_h1_part_2"></string>-->
 
     <!-- descriptions -->
-    <string name="descr_map_current_track"></string>
-    <string name="descr_map_last_track"></string>
-    <string name="descr_fab_my_location"></string>
-    <string name="descr_fab_main_start"></string>
-    <string name="descr_fab_main_stop"></string>
-    <string name="descr_fab_main_options"></string>
-    <string name="descr_fab_sub_menu_button_save"></string>
-    <string name="descr_fab_sub_menu_button_clear"></string>
-    <string name="descr_fab_sub_menu_button_resume"></string>
-    <string name="descr_statistics_sheet_headline"></string>
-    <string name="descr_statistics_sheet_icon"></string>
-    <string name="descr_track_selector"></string>
-    <string name="descr_export_button"></string>
-    <string name="descr_delete_button"></string>
-    <string name="descr_share_button_gpx"></string>
+    <!--<string name="descr_map_current_track"></string>-->
+    <!--<string name="descr_map_last_track"></string>-->
+    <!--<string name="descr_fab_my_location"></string>-->
+    <!--<string name="descr_fab_main_start"></string>-->
+    <!--<string name="descr_fab_main_stop"></string>-->
+    <!--<string name="descr_fab_main_options"></string>-->
+    <!--<string name="descr_fab_sub_menu_button_save"></string>-->
+    <!--<string name="descr_fab_sub_menu_button_clear"></string>-->
+    <!--<string name="descr_fab_sub_menu_button_resume"></string>-->
+    <!--<string name="descr_statistics_sheet_headline"></string>-->
+    <!--<string name="descr_statistics_sheet_icon"></string>-->
+    <!--<string name="descr_track_selector"></string>-->
+    <!--<string name="descr_export_button"></string>-->
+    <!--<string name="descr_delete_button"></string>-->
+    <!--<string name="descr_share_button_gpx"></string>-->
 
 </resources>

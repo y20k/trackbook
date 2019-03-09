@@ -103,9 +103,9 @@
     <string name="descr_map_current_track">現在のトレースのマッピング</string>
     <string name="descr_map_last_track">最後のトレースのマッピング</string>
     <string name="descr_fab_my_location">自分の場所ボタン</string>
-    <string name="descr_fab_main_start"></string>
-    <string name="descr_fab_main_stop"></string>
-    <string name="descr_fab_main_options"></string>
+    <!--<string name="descr_fab_main_start"></string>-->
+    <!--<string name="descr_fab_main_stop"></string>-->
+    <!--<string name="descr_fab_main_options"></string>-->
     <string name="descr_fab_sub_menu_button_save">小さな保存してクリア ボタン</string>
     <string name="descr_fab_sub_menu_button_clear">小さなクリア ボタン</string>
     <string name="descr_fab_sub_menu_button_resume">小さい再開ボタン</string>

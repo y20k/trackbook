@@ -1,0 +1,5 @@
+# v1.1.16 - Sheep
+
+**2019-03-09**
+
+- fixes a crash at startup in some languages
