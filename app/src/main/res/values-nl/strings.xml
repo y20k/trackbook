@@ -76,7 +76,7 @@
     <string name="statistics_sheet_p_default_data">baangegevens ontbreken</string>
     <string name="statistics_sheet_p_distance">Totale afstand:</string>
     <string name="statistics_sheet_p_steps">Gezette stappen:</string>
-    <string name="statistics_sheet_p_steps_no_pedometer">pedometer not available</string>
+    <string name="statistics_sheet_p_steps_no_pedometer">stappenteller niet beschikbaar</string>
     <string name="statistics_sheet_p_waypoints">Opgeslagen pauzelocaties:</string>
     <string name="statistics_sheet_p_duration">Totale duur:</string>
     <string name="statistics_sheet_p_recording_start">Bijhouden gestart:</string>
@@ -88,9 +88,9 @@
 
     <!-- onboarding layout -->
     <string name="layout_onboarding_h1_welcome">Hallo</string>
-    <string name="layout_onboarding_description_app_icon">Trackbook-app-pictogram</string>
+    <string name="layout_onboarding_description_app_icon">Trackbook Pictogram</string>
     <string name="layout_onboarding_h2_app_name">Trackbook</string>
-    <string name="layout_onboarding_p_app_claim">Bewegingsbijhouding voor Android</string>
+    <string name="layout_onboarding_p_app_claim">Bewegingsopname voor Android</string>
     <string name="layout_onboarding_h2_request_permissions">Trackbook kan niet werken zonder deze rechten:</string>
     <string name="layout_onboarding_h3_permission_location">LOCATIE</string>
     <string name="layout_onboarding_p_permission_location">Trackbook heeft nauwkeurige GPS-gegevens nodig om uw bewegingen te kunnen bijhouden. Als de GPS-gegevens niet beschikbaar of niet nauwkeurig genoeg zijn, dan zal Trackbook gegevens gebruiken van zendmasten en WiFi-triangulatie.</string>
@@ -109,14 +109,50 @@
     <!--<string name="descr_fab_main_start"></string>-->
     <!--<string name="descr_fab_main_stop"></string>-->
     <!--<string name="descr_fab_main_options"></string>-->
-    <string name="descr_fab_sub_menu_button_save">kleine Opslaan en wissen-knop</string>
-    <string name="descr_fab_sub_menu_button_clear">kleine Wissen-knop</string>
-    <string name="descr_fab_sub_menu_button_resume">small Resume button</string>
+    <string name="descr_fab_sub_menu_button_save">Opslaan en wissen-knop</string>
+    <string name="descr_fab_sub_menu_button_clear">Wissen-knop</string>
+    <string name="descr_fab_sub_menu_button_resume">Voortzetten knop</string>
     <string name="descr_statistics_sheet_headline">Kop van het statistiekenblad</string>
     <string name="descr_statistics_sheet_icon">Informatiepictogram</string>
     <string name="descr_track_selector">Uitrolmenu voor verdere banen</string>
-    <string name="descr_export_button">Track export button</string>
-    <string name="descr_delete_button">Baan - verwijderknop</string>
+    <string name="descr_export_button">Baan exporteerknop</string>
+    <string name="descr_delete_button">Baan verwijderknop</string>
+    <string name="dialog_default_action_cancel">Annuleren</string>
+    <string name="dialog_clear_content">Opname wissen?</string>
+    <string name="dialog_clear_action_clear">Wissen</string>
+    <string name="dialog_delete_title">Opname verwijderen?</string>
+    <string name="dialog_delete_action_delete">Verwijderen</string>
+    <string name="dialog_export_title_export">Exporteer opname als GPX?</string>
+    <string name="dialog_export_content_export">Exporteer deze opname als GPX-baan.</string>
+    <string name="dialog_export_action_export">Exporteer</string>
+    <string name="dialog_export_title_overwrite">Exporteren en overschrijven?</string>
+    <string name="dialog_export_content_overwrite">Dit bestand bestaat al. Exporteer en overschrijf als GPX-track.</string>
+    <string name="dialog_export_action_overwrite">Exporteren en overschijven</string>
+    <string name="dialog_share_gpx">Deel GPX bestand met</string>
+    <string name="dialog_error_empty_recording_title">Opslaan niet mogelijk</string>
+    <string name="dialog_error_empty_recording_action_resume">Opname voortzetten</string>
+    <string name="dialog_error_empty_recording_content">Trackbook heeft nog geen locaties opgenomen.</string>
+    <string name="toast_message_export_success">Exporteren naar GPX succesvol:</string>
+    <string name="toast_message_export_fail">Exporteren naar GPX mislukt:</string>
+    <string name="toast_message_elevation_info">Tip: de nauwkeurigheid van de hoogtegegevens hangt af van uw apparaat. Het gemiddelde van de gehele route wordt genomen.</string>
+    <string name="toast_message_install_file_helper">Installeer eerst een bestandsbeheerder of GPX-viewer.</string>
+    <string name="toast_message_theme_night">Nachtmodus geactiveerd (lange druk gedetecteerd)</string>
+    <string name="toast_message_theme_day">Dagmodus geactiveerd (lange druk gedetecteerd)</string>
+    <string name="toast_message_theme_follow_system">Systeeminstellingen worden toegepast (lange druk gedetecteerd)</string>
+    <string name="statistics_sheet_p_max_altitude">Hoogste locatie:</string>
+    <string name="statistics_sheet_p_min_altitude">Laagste locatie:</string>
+    <string name="statistics_sheet_p_positive_elevation">Hoogteverschil (omhoog):</string>
+    <string name="statistics_sheet_p_negative_elevation">Hoogteverschil (omlaag):</string>
+    <string name="track_tab_onboarding_h1_part_1">Opgenomen banen</string>
+    <string name="fab_sub_menu_resume">Voortzetten</string>
+    <string name="track_tab_onboarding_h1_part_2">... zal hier verschijnen.</string>
+    <string name="descr_fab_my_location">Mijn Locatie-knop</string>
+    <string name="descr_fab_main_start">Start opname-knop</string>
+    <string name="descr_fab_main_stop">Stop opname-knop</string>
+    <string name="descr_fab_main_options">Opnameinstellingen-knop</string>
+    <string name="descr_share_button_gpx">Deelknop met ondersteuning voor het exporteren naar GPX</string>
+    <string name="notification_channel_recording_name">Bewegingsopname status</string>
+    <string name="notification_channel_recording_description">Laat duur en afstand zien. Optie om de bewegingsopname te stoppen.</string>
     <!--<string name="descr_share_button_gpx"></string>-->
 
 </resources>
