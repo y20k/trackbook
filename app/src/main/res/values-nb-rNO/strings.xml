@@ -37,15 +37,15 @@
     <string name="dialog_delete_content">Slett dette opptaket:</string>
     <string name="dialog_delete_action_delete">Slett</string>
     <string name="dialog_export_title_export">Eksporter opptak som GPX?</string>
-    <string name="dialog_export_content_export">Eksporter dette opptaket som en GPX-tur.</string>
+    <string name="dialog_export_content_export">Eksporter dette opptaket som et GPX-spor.</string>
     <string name="dialog_export_action_export">Eksporter</string>
     <string name="dialog_export_title_overwrite">Exporter og overskriv?</string>
-    <string name="dialog_export_content_overwrite">Fila finnes allerede. Eksporter og overskriv dette opptaket som en GPX-tur.</string>
+    <string name="dialog_export_content_overwrite">Fila finnes allerede. Eksporter og overskriv dette opptaket som et GPX-spor.</string>
     <string name="dialog_export_action_overwrite">Eksporter og overskriv</string>
-    <!--<string name="dialog_share_gpx"></string>-->
-    <!--<string name="dialog_error_empty_recording_title"></string>-->
-    <!--<string name="dialog_error_empty_recording_content"></string>-->
-    <!--<string name="dialog_error_empty_recording_action_resume"></string>-->
+    <string name="dialog_share_gpx">Del GPX-fil med</string>
+    <string name="dialog_error_empty_recording_title">Kunne ikke lagre</string>
+    <string name="dialog_error_empty_recording_content">Trackbook har ikke registrert noen veipunkter så langt.</string>
+    <string name="dialog_error_empty_recording_action_resume">Gjenoppta opptak</string>
 
     <!-- toast messages -->
     <string name="toast_message_permissions_granted">Tilgang gitt.</string>
@@ -55,16 +55,16 @@
     <string name="toast_message_acquiring_location">Innhenter nåværende plassering.</string>
     <string name="toast_message_location_services_not_ready">Plasseringstjenester er ikke klare. Prøv igjen.</string>
     <string name="toast_message_last_location">Siste plassering:</string>
-    <string name="toast_message_save_track">Lagrer nåværende tur.</string>
+    <string name="toast_message_save_track">Lagrer nåværende spor.</string>
     <string name="toast_message_last_location_age_one_hour">over én time</string>
-    <string name="toast_message_track_clear">Nåværende turdata fjernet.</string>
+    <string name="toast_message_track_clear">Nåværende spordata fjernet.</string>
     <string name="toast_message_export_success">GPX-eksportering vellykket:</string>
     <string name="toast_message_export_fail">GPX-eksportering mislyktes:</string>
     <string name="toast_message_elevation_info">Hint: Høydedataens nøyaktighet avhenger av enheten din. Opp og ned-stigningen for hele ruten måles.</string>
-    <!--<string name="toast_message_install_file_helper"></string>-->
-    <!--<string name="toast_message_theme_night"></string>-->
-    <!--<string name="toast_message_theme_day"></string>-->
-    <!--<string name="toast_message_theme_follow_system"></string>-->
+    <string name="toast_message_install_file_helper">Installer en filbehandler eller en GPX-sporviser først.</string>
+    <string name="toast_message_theme_night">Bytter til nattmodus (oppdaget langt trykk)</string>
+    <string name="toast_message_theme_day">Bytter til dagmodus (oppdaget langt trykk)</string>
+    <string name="toast_message_theme_follow_system">Bytter til å følge systeminnstilling (oppdaget langt trykk)</string>
 
     <!-- map markers -->
     <string name="marker_description_source">Kilde</string>
@@ -103,20 +103,20 @@
     <string name="track_tab_onboarding_h1_part_2">… vil vises her.</string>
 
     <!-- descriptions -->
-    <string name="descr_map_current_track">Kartlegging av nåværende tur</string>
-    <string name="descr_map_last_track">Kartlegging av forrige tur</string>
+    <string name="descr_map_current_track">Kartlegging av nåværende spor</string>
+    <string name="descr_map_last_track">Kartlegging av forrige spor</string>
     <string name="descr_fab_my_location">Min plassering-knapp</string>
-    <!--<string name="descr_fab_main_start"></string>-->
-    <!--<string name="descr_fab_main_stop"></string>-->
-    <!--<string name="descr_fab_main_options"></string>-->
-    <string name="descr_fab_sub_menu_button_save">liten Lagre- og Tøm-knapp</string>
-    <string name="descr_fab_sub_menu_button_clear">liten Tøm-knapp</string>
-    <string name="descr_fab_sub_menu_button_resume">liten Fortsett-knapp</string>
+    <string name="descr_fab_main_start">Opptaksstart-knapp</string>
+    <string name="descr_fab_main_stop">Opptaksstopp-knapp</string>
+    <string name="descr_fab_main_options">Opptakgsvalg-knapp</string>
+    <string name="descr_fab_sub_menu_button_save">Lagringsknapp</string>
+    <string name="descr_fab_sub_menu_button_clear">Tøm-knapp</string>
+    <string name="descr_fab_sub_menu_button_resume">Fortsett-knapp</string>
     <string name="descr_statistics_sheet_headline">Overskrift for statistikkarket</string>
-    <string name="descr_statistics_sheet_icon">Informasjonsikon</string>
-    <string name="descr_track_selector">Nedtrekksmeny for ytterligere turer</string>
-    <string name="descr_export_button">Tureksportknapp</string>
-    <string name="descr_delete_button">Turslettingsknapp</string>
-    <!--<string name="descr_share_button_gpx"></string>-->
+    <string name="descr_statistics_sheet_icon">Veksle opptaksdatavisning</string>
+    <string name="descr_track_selector">Nedtrekksmeny for ytterligere spor</string>
+    <string name="descr_export_button">Sporeksport-knapp</string>
+    <string name="descr_delete_button">Sporslettingsknapp</string>
+    <string name="descr_share_button_gpx">Delingsknapp som muliggjør eksport som GPX</string>
 
 </resources>
