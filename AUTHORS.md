@@ -5,7 +5,7 @@ AUTHORS
 Trackbook is designed, developed and maintained by: [y20k](https://github.com/y20k)
 
 ### Translations
-Dutch version: [Heimen Stoffels](https://github.com/Vistaus) | [weblate version history](https://hosted.weblate.org/changes/?lang=nl&project=trackbook)
+Dutch version: [Heimen Stoffels](https://github.com/Vistaus), [hypothermic](https://github.com/hypothermic) | [weblate version history](https://hosted.weblate.org/changes/?lang=nl&project=trackbook)
 
 German version: [y20k](https://github.com/y20k) | [weblate version history](https://hosted.weblate.org/changes/?lang=de&project=trackbook)
 
