@@ -97,9 +97,9 @@ public final class ExportHelper extends FileProvider implements TrackbookKeys {
         String authority = "org.y20k.trackbook.exporthelper.provider";
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_SEND);
+        intent.setDataAndType(FileProvider.getUriForFile(context, authority, gpxFile), "application/gpx+xml");
         intent.setType("application/gpx+xml");
         intent.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(context, authority, gpxFile));
-        intent.setData(FileProvider.getUriForFile(context, authority, gpxFile));
 
         return intent;
     }
@@ -172,7 +172,7 @@ public final class ExportHelper extends FileProvider implements TrackbookKeys {
     /* Creates Track */
     private static String addTrack(Track track) {
         StringBuilder gpxTrack = new StringBuilder("");
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.US);
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US);
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
 
         // add opening track tag
