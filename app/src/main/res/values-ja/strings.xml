@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- activities -->
-    <string name="app_name">Trackbook</string>
-    <!-- please do not translate app_name - transcription into different alphabet types is fine though -->
+    <string name="app_name">Trackbook</string> <!-- please do not translate app_name - transcription into different alphabet types is fine though -->
+
     <!-- tabs -->
     <string name="tab_map">地図</string>
     <string name="tab_last_tracks">最後のトレース</string>
+
     <!-- notification -->
     <string name="notification_title_trackbook_running">Trackbook 実行中</string>
     <string name="notification_title_trackbook_not_running">Trackbook は実行していません</string>
@@ -16,15 +17,18 @@
     <string name="notification_content_distance">距離</string>
     <string name="notification_channel_recording_name">移動記録状態</string>
     <string name="notification_channel_recording_description">時間と距離を表示します。オプションで移動の記録を停止します。</string>
+
     <!-- snackbar messages -->
     <string name="snackbar_message_tracking_stopped">トレースを停止しました</string>
     <string name="snackbar_message_tracking_started">トレースを開始しました</string>
     <string name="snackbar_message_tracking_resumed">トレースを再開しました</string>
     <string name="snackbar_message_location_offline">位置情報がオフです。Trackbook は動作しません。</string>
+
     <!-- fab sub menu -->
     <string name="fab_sub_menu_clear">クリア</string>
     <string name="fab_sub_menu_save">保存してクリア</string>
     <string name="fab_sub_menu_resume">再開</string>
+
     <!-- dialogs -->
     <string name="dialog_default_action_cancel">キャンセル</string>
     <string name="dialog_clear_content">記録をクリアしますか?</string>
@@ -42,6 +46,7 @@
     <string name="dialog_error_empty_recording_title">保存できません</string>
     <string name="dialog_error_empty_recording_content">トラックブックはこれまでウェイポイントを記録していません。</string>
     <string name="dialog_error_empty_recording_action_resume">記録を再開</string>
+
     <!-- toast messages -->
     <string name="toast_message_permissions_granted">アクセス許可を付与しました。</string>
     <string name="toast_message_unable_to_start_app">Trackbook を起動できません。</string>
@@ -57,10 +62,12 @@
     <string name="toast_message_export_fail">GPX のエクスポートに失敗しました:</string>
     <string name="toast_message_elevation_info">ヒント: 標高データの精度は、お使いのデバイスによって異なります。ルート全体の上り坂と下り坂の標高を測定します。</string>
     <string name="toast_message_install_file_helper">先にファイルマネージャか GPX トレースビューアーをインストールしてください。</string>
+
     <!-- map markers -->
     <string name="marker_description_source">ソース</string>
     <string name="marker_description_time">時間</string>
     <string name="marker_description_accuracy">精度</string>
+
     <!-- statistics sheet -->
     <string name="statistics_sheet_h1_statistics">統計情報</string>
     <string name="statistics_sheet_p_default_data">トレースデータが見つかりません</string>
@@ -75,6 +82,7 @@
     <string name="statistics_sheet_p_min_altitude">最低のウェイポイント:</string>
     <string name="statistics_sheet_p_positive_elevation">標高 (上り):</string>
     <string name="statistics_sheet_p_negative_elevation">標高 (下り):</string>
+
     <!-- onboarding layout -->
     <string name="layout_onboarding_h1_welcome">こんにちは</string>
     <string name="layout_onboarding_description_app_icon">Trackbook アプリ アイコン</string>
@@ -86,9 +94,11 @@
     <string name="layout_onboarding_h3_permission_storage">ストレージ</string>
     <string name="layout_onboarding_p_permission_storage">Trackbook は、Android の外部ストレージに地図タイルをキャッシュする osmdroid を使用します。地図キャッシュは、ユーザー向けファイル・システムの最上位レベルの osmdroid フォルダーで見つけることができます。</string>
     <string name="layout_onboarding_button_okay">完了!</string>
+
     <!-- track tab onboarding -->
     <string name="track_tab_onboarding_h1_part_1">記録したトレース</string>
     <string name="track_tab_onboarding_h1_part_2">… ここに表示されます。</string>
+
     <!-- descriptions -->
     <string name="descr_map_current_track">現在のトレースのマッピング</string>
     <string name="descr_map_last_track">最後のトレースのマッピング</string>
@@ -108,4 +118,5 @@
     <string name="toast_message_theme_night">夜間モードに切り替えています (長押しを検出しました)</string>
     <string name="toast_message_theme_day">日中モードに切り替えています (長押しを検出しました)</string>
     <string name="toast_message_theme_follow_system">システム設定モードにしたがって切り替えています (長押しを検出しました)</string>
+
 </resources>

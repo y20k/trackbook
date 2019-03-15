@@ -1,11 +1,11 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- activities -->
     <string name="app_name">Trackbook</string> <!-- please do not translate app_name - transcription into different alphabet types is fine though -->
 
     <!-- tabs -->
     <string name="tab_map">Kart</string>
-    <string name="tab_last_tracks">Siste Turer</string>
+    <string name="tab_last_tracks">Siste spor</string>
 
     <!-- notification -->
     <string name="notification_title_trackbook_running">Trackbook kjører</string>
@@ -73,7 +73,7 @@
 
     <!-- statistics sheet -->
     <string name="statistics_sheet_h1_statistics">Statistikk</string>
-    <string name="statistics_sheet_p_default_data">turdata mangler</string>
+    <string name="statistics_sheet_p_default_data">spordata mangler</string>
     <string name="statistics_sheet_p_distance">Total distanse:</string>
     <string name="statistics_sheet_p_steps">Skritt:</string>
     <string name="statistics_sheet_p_steps_no_pedometer">pedometer ikke tilgjengelig</string>
@@ -99,7 +99,7 @@
     <string name="layout_onboarding_button_okay">Skjønner!</string>
 
     <!-- track tab onboarding -->
-    <string name="track_tab_onboarding_h1_part_1">Dine registrerte turer</string>
+    <string name="track_tab_onboarding_h1_part_1">Dine registrerte spor</string>
     <string name="track_tab_onboarding_h1_part_2">… vil vises her.</string>
 
     <!-- descriptions -->

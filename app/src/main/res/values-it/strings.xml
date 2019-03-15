@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- activities -->
-    <string name="app_name">Trackbook</string>
-    <!-- please do not translate app_name - transcription into different alphabet types is fine though -->
+    <string name="app_name">Trackbook</string> <!-- please do not translate app_name - transcription into different alphabet types is fine though -->
+
     <!-- tabs -->
     <string name="tab_map">Mappa</string>
     <string name="tab_last_tracks">Ultime Tracce</string>
+
     <!-- notification -->
     <string name="notification_title_trackbook_running">Trackbook in esecuzione</string>
     <string name="notification_title_trackbook_not_running">Trackbook non in esecuzione</string>
@@ -16,15 +17,18 @@
     <string name="notification_content_distance">Distanza</string>
     <string name="notification_channel_recording_name">Stato Registrazione Movimento</string>
     <string name="notification_channel_recording_description">Visualizza durata e distanza. Opzione per interrompere la registrazione del movimento.</string>
+
     <!-- snackbar messages -->
     <string name="snackbar_message_tracking_stopped">Tracciamento interrotto</string>
     <string name="snackbar_message_tracking_started">Tracciamento avviato</string>
     <string name="snackbar_message_tracking_resumed">Tracciamento ripreso</string>
     <string name="snackbar_message_location_offline">La posizione è disattivata. Trackbook non funzionerà.</string>
+
     <!-- fab sub menu -->
     <string name="fab_sub_menu_clear">Cancella</string>
     <string name="fab_sub_menu_save">Salva</string>
     <string name="fab_sub_menu_resume">Riprendi</string>
+
     <!-- dialogs -->
     <string name="dialog_default_action_cancel">Annulla</string>
     <string name="dialog_clear_content">Cancellare la registrazione\?</string>
@@ -42,6 +46,7 @@
     <string name="dialog_error_empty_recording_title">Impossibile salvare</string>
     <string name="dialog_error_empty_recording_content">Trackbook non ha registrato nessun waypoint finora.</string>
     <string name="dialog_error_empty_recording_action_resume">Riprendi la registrazione</string>
+
     <!-- toast messages -->
     <string name="toast_message_permissions_granted">Autorizzazioni concesse.</string>
     <string name="toast_message_unable_to_start_app">Impossibile avviare Trackbook.</string>
@@ -60,10 +65,12 @@
     <string name="toast_message_theme_night">Passaggio alla modalità notturna (pressione prolungata rilevata)</string>
     <string name="toast_message_theme_day">Passaggio alla modalità diurna (pressione prolungata rilevata)</string>
     <string name="toast_message_theme_follow_system">Passaggio alla modalità Segui Impostazione di Sistema (pressione prolungata rilevata)</string>
+
     <!-- map markers -->
     <string name="marker_description_source">Fonte</string>
     <string name="marker_description_time">Ora</string>
     <string name="marker_description_accuracy">Precisione</string>
+
     <!-- statistics sheet -->
     <string name="statistics_sheet_h1_statistics">Statistiche</string>
     <string name="statistics_sheet_p_default_data">dati mancanti</string>
@@ -78,6 +85,7 @@
     <string name="statistics_sheet_p_min_altitude">Waypoint più basso:</string>
     <string name="statistics_sheet_p_positive_elevation">Elevazione (in salita):</string>
     <string name="statistics_sheet_p_negative_elevation">Elevazione (in discesa):</string>
+
     <!-- onboarding layout -->
     <string name="layout_onboarding_h1_welcome">Ciao</string>
     <string name="layout_onboarding_description_app_icon">Icona dell\'applicazione Trackbook</string>
@@ -89,9 +97,11 @@
     <string name="layout_onboarding_h3_permission_storage">MEMORIA</string>
     <string name="layout_onboarding_p_permission_storage">Trackbook usa osmdroid, che memorizza porzioni di mappa sull\'SD esterna di Android. Puoi trovare la cache della mappa nella cartella osmdroid al livello più alto del file system accessibile all\'utente.</string>
     <string name="layout_onboarding_button_okay">Capito!</string>
+
     <!-- track tab onboarding -->
     <string name="track_tab_onboarding_h1_part_1">Le tue tracce registrate</string>
     <string name="track_tab_onboarding_h1_part_2">… verranno mostrate qui.</string>
+
     <!-- descriptions -->
     <string name="descr_map_current_track">Mappatura della traccia corrente</string>
     <string name="descr_map_last_track">Mappatura dell\'ultima traccia</string>
@@ -108,4 +118,5 @@
     <string name="descr_export_button">Pulsante Esporta traccia</string>
     <string name="descr_delete_button">Pulsante Elimina traccia</string>
     <string name="descr_share_button_gpx">Pulsante Condividi che permette di esportare come GPX</string>
+
 </resources>
