@@ -71,8 +71,7 @@ public class DialogHelper extends DialogFragment implements TrackbookKeys {
                         }
                     }
                 }
-        );
-        dialogBuilder.setNegativeButton(negativeButton,
+        );        dialogBuilder.setNegativeButton(negativeButton,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         Fragment target = getTargetFragment();
