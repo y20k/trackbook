@@ -1,0 +1,6 @@
+# v1.1.17 - Sheep
+
+**2019-03-19**
+
+- fixes a GPX export problem
+- updated translations
