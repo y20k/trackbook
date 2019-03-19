@@ -24,6 +24,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 
 
 /**
@@ -64,14 +65,20 @@ public class DialogHelper extends DialogFragment implements TrackbookKeys {
         dialogBuilder.setPositiveButton(positiveButton,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
-                        getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, getActivity().getIntent());
+                        Fragment target = getTargetFragment();
+                        if (target != null) {
+                            target.onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, getActivity().getIntent());
+                        }
                     }
                 }
         );
         dialogBuilder.setNegativeButton(negativeButton,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
-                        getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_CANCELED, getActivity().getIntent());
+                        Fragment target = getTargetFragment();
+                        if (target != null) {
+                            target.onActivityResult(getTargetRequestCode(), Activity.RESULT_CANCELED, getActivity().getIntent());
+                        }
                     }
                 }
         );
