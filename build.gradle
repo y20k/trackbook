@@ -24,8 +24,8 @@ allprojects {
 
     project.ext {
         applicationId = 'org.y20k.trackbook'
-        versionCode = 33
-        versionName = '1.1.17'
+        versionCode = 34
+        versionName = '1.1.18'
 
         compileSdkVersion = 28
         targetSdkVersion = 27
@@ -36,7 +36,7 @@ allprojects {
         appcompatVersion = '1.0.2'
         cardviewVersion = '1.0.0'
 
-        osmdroidVersion = '6.0.3'
+        osmdroidVersion = '6.1.0'
         gsonVersion = '2.8.5'
     }
 }
