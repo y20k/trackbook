@@ -1,0 +1,6 @@
+# v1.1.18 - San Tropez
+
+**2019-04-09**
+- new Danish language version
+- updated translations
+- updated icon

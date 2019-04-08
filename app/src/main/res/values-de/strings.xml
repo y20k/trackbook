@@ -2,11 +2,9 @@
 <resources>
     <!-- activities -->
     <string name="app_name">Trackbook</string> <!-- please do not translate app_name - transcription into different alphabet types is fine though -->
-
     <!-- tabs -->
     <string name="tab_map">Karte</string>
     <string name="tab_last_tracks">Letzte Aufzeichnungen</string>
-
     <!-- notification -->
     <string name="notification_title_trackbook_not_running">Trackbook ist inaktiv</string>
     <string name="notification_title_trackbook_running">Trackbook wird ausgeführt</string>
@@ -17,18 +15,15 @@
     <string name="notification_content_distance">Entfernung</string>
     <string name="notification_channel_recording_name">Status der Aufzeichnung</string>
     <string name="notification_channel_recording_description">Dauer- und Entfernungsanzeige. Option die Aufzeichnung von Standort-Bewegungen zu beenden.</string>
-
     <!-- snackbar messages -->
     <string name="snackbar_message_tracking_stopped">Aufzeichnung angehalten</string>
     <string name="snackbar_message_tracking_started">Aufzeichnung gestartet</string>
     <string name="snackbar_message_tracking_resumed">Aufzeichnung fortgesetzt</string>
     <string name="snackbar_message_location_offline">Standortdienste sind deaktiviert. Trackbook wird nicht funktionieren.</string>
-
     <!-- fab sub menu -->
     <string name="fab_sub_menu_clear">Zurücksetzen</string>
     <string name="fab_sub_menu_save">Speichern</string>
     <string name="fab_sub_menu_resume">Fortsetzen</string>
-
     <!-- dialogs -->
     <string name="dialog_default_action_cancel">Abbrechen</string>
     <string name="dialog_clear_content">Aufzeichnung zurücksetzen?</string>
@@ -46,7 +41,6 @@
     <string name="dialog_error_empty_recording_title">Speichern nicht möglich</string>
     <string name="dialog_error_empty_recording_content">Trackbook hat noch keine Wegpunkte aufgezeichnet.</string>
     <string name="dialog_error_empty_recording_action_resume">Aufzeichnung fortsetzen</string>
-
     <!-- toast messages -->
     <string name="toast_message_permissions_granted">Berechtigungen erteilt.</string>
     <string name="toast_message_unable_to_start_app">Trackbook konnte nicht gestartet werden.</string>
@@ -65,12 +59,10 @@
     <string name="toast_message_theme_night">Nachtmodus aktiviert (Längeres Drücken erkannt)</string>
     <string name="toast_message_theme_day">Tagmodus aktiviert (Längeres Drücken erkannt)</string>
     <string name="toast_message_theme_follow_system">Modus Systemeinstellung Beachten aktiviert (Längeres Drücken erkannt)</string>
-
     <!-- map markers -->
     <string name="marker_description_source">Quelle</string>
     <string name="marker_description_time">Uhrzeit</string>
     <string name="marker_description_accuracy">Genauigkeit</string>
-
     <!-- statistics sheet -->
     <string name="statistics_sheet_h1_statistics">Statistik</string>
     <string name="statistics_sheet_p_default_data">Steckendaten fehlen</string>
@@ -85,7 +77,6 @@
     <string name="statistics_sheet_p_min_altitude">Tiefster Wegpunkt:</string>
     <string name="statistics_sheet_p_positive_elevation">Höhenmeter (bergauf):</string>
     <string name="statistics_sheet_p_negative_elevation">Höhenmeter (bergab):</string>
-
     <!-- onboarding layout -->
     <string name="layout_onboarding_h1_welcome">Hallo</string>
     <string name="layout_onboarding_description_app_icon">Trackbook App-Symbol</string>
@@ -97,18 +88,16 @@
     <string name="layout_onboarding_h3_permission_storage">SPEICHER</string>
     <string name="layout_onboarding_p_permission_storage">Trackbook nutzt osmdroid; osmdroid speichert Kartendaten im Externen Speicher von Android. Der Karten-Cache befindet sich im Ordner osmdroid auf der obersten Ebene des für Nutzer sichtbaren Dateisystems.</string>
     <string name="layout_onboarding_button_okay">Alles klar!</string>
-
     <!-- track tab onboarding -->
     <string name="track_tab_onboarding_h1_part_1">Bewegungsaufzeichnungen</string>
     <string name="track_tab_onboarding_h1_part_2">… werden hier erscheinen.</string>
-
     <!-- descriptions -->
     <string name="descr_map_current_track">Kartierung der aktuellen Aufzeichnung</string>
     <string name="descr_map_last_track">Kartierung der letzten Aufzeichnung</string>
     <string name="descr_fab_my_location">Mein-Standort-Button</string>
-    <!--<string name="descr_fab_main_start"></string>-->
-    <!--<string name="descr_fab_main_stop"></string>-->
-    <!--<string name="descr_fab_main_options"></string>-->
+    <string name="descr_fab_main_start">Aufzeichnung-Starten-Button</string>
+    <string name="descr_fab_main_stop">Aufzeichnung-Beenden-Button</string>
+    <string name="descr_fab_main_options">Aufzeichnungsoptionen-Button</string>
     <string name="descr_fab_sub_menu_button_save">kleiner Speichern-Button</string>
     <string name="descr_fab_sub_menu_button_clear">kleiner Zurücksetzen-Button</string>
     <string name="descr_fab_sub_menu_button_resume">kleiner Fortsetzen-Button</string>
@@ -118,5 +107,4 @@
     <string name="descr_export_button">Schaltfläche „Aufzeichnung exportieren”</string>
     <string name="descr_delete_button">Schaltfläche „Aufzeichnung löschen”</string>
     <string name="descr_share_button_gpx">Share-Taste, die den Export als GPX anbietet</string>
-
 </resources>

@@ -2,11 +2,9 @@
 <resources>
     <!-- activities -->
     <string name="app_name">Trackbook</string> <!-- please do not translate app_name - transcription into different alphabet types is fine though -->
-
     <!-- tabs -->
     <string name="tab_map">Map</string>
     <string name="tab_last_tracks">Last Tracks</string>
-
     <!-- notification -->
     <string name="notification_title_trackbook_running">Trackbook running</string>
     <string name="notification_title_trackbook_not_running">Trackbook not running</string>
@@ -17,18 +15,15 @@
     <string name="notification_content_distance">Distance</string>
     <string name="notification_channel_recording_name">Movement Recording State</string>
     <string name="notification_channel_recording_description">Display duration and distance. Option to stop movement recording.</string>
-
     <!-- snackbar messages -->
     <string name="snackbar_message_tracking_stopped">Tracking stopped</string>
     <string name="snackbar_message_tracking_started">Tracking started</string>
     <string name="snackbar_message_tracking_resumed">Tracking resumed</string>
     <string name="snackbar_message_location_offline">Location is turned off. Trackbook will not work.</string>
-
     <!-- fab sub menu -->
     <string name="fab_sub_menu_clear">Clear</string>
     <string name="fab_sub_menu_save">Save</string>
     <string name="fab_sub_menu_resume">Resume</string>
-
     <!-- dialogs -->
     <string name="dialog_default_action_cancel">Cancel</string>
     <string name="dialog_clear_content">Clear Recording?</string>
@@ -46,7 +41,6 @@
     <string name="dialog_error_empty_recording_title">Unable to save</string>
     <string name="dialog_error_empty_recording_content">Trackbook did not record any waypoints so far.</string>
     <string name="dialog_error_empty_recording_action_resume">Resume Recording</string>
-
     <!-- toast messages -->
     <string name="toast_message_permissions_granted">Permissions granted.</string>
     <string name="toast_message_unable_to_start_app">Unable to start Trackbook.</string>
@@ -65,12 +59,10 @@
     <string name="toast_message_theme_night">Switching to Night mode (long press detected)</string>
     <string name="toast_message_theme_day">Switching to Day mode (long press detected)</string>
     <string name="toast_message_theme_follow_system">Switching to Follow System Setting mode (long press detected)</string>
-
     <!-- map markers -->
     <string name="marker_description_source">Source</string>
     <string name="marker_description_time">Time</string>
     <string name="marker_description_accuracy">Accuracy</string>
-
     <!-- statistics sheet -->
     <string name="statistics_sheet_h1_statistics">Statistics</string>
     <string name="statistics_sheet_p_default_data">track data missing</string>
@@ -85,7 +77,6 @@
     <string name="statistics_sheet_p_min_altitude">Lowest waypoint:</string>
     <string name="statistics_sheet_p_positive_elevation">Elevation (uphill):</string>
     <string name="statistics_sheet_p_negative_elevation">Elevation (downhill):</string>
-
     <!-- onboarding layout -->
     <string name="layout_onboarding_h1_welcome">Hello</string>
     <string name="layout_onboarding_description_app_icon">Trackbook App Icon</string>
@@ -97,11 +88,9 @@
     <string name="layout_onboarding_h3_permission_storage">STORAGE</string>
     <string name="layout_onboarding_p_permission_storage">Trackbook uses osmdroid, which caches map tiles on Android\'s external storage. You can find the map cache in the osmdroid folder on the top level of the user-facing file system.</string>
     <string name="layout_onboarding_button_okay">Got it!</string>
-
     <!-- track tab onboarding -->
     <string name="track_tab_onboarding_h1_part_1">Your recorded tracks</string>
     <string name="track_tab_onboarding_h1_part_2">… will show up here.</string>
-
     <!-- descriptions -->
     <string name="descr_map_current_track">Mapping of current track</string>
     <string name="descr_map_last_track">Mapping of last track</string>
@@ -118,5 +107,4 @@
     <string name="descr_export_button">Track export button</string>
     <string name="descr_delete_button">Track delete button</string>
     <string name="descr_share_button_gpx">Share button that offers to export as GPX</string>
-
 </resources>
