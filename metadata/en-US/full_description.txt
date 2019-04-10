@@ -40,14 +40,14 @@ WHICH PERMISSIONS DOES TRACKBOOK NEED?
 Permission "INTERNET"
 Trackbook needs to download map data from OpenStreetMap servers and therefore needs access to the internet.
 
-Permission "ACCESS\_NETWORK\_STATE" and "ACCESS\_WIFI\_STATE"
+Permission "ACCESS_NETWORK_STATE" and "ACCESS_WIFI_STATE"
 Trackbook uses [osmdroid](https://github.com/osmdroid/osmdroid/) to draw its maps. osmdroid needs to know the current state of your device’s connectivity - see [Prerequisites](https://github.com/osmdroid/osmdroid/wiki/Prerequisites).
 
-Permission "ACCESS\_COARSE\_LOCATION" and "ACCESS\_FINE\_LOCATION"
+Permission "ACCESS_COARSE_LOCATION" and "ACCESS_FINE_LOCATION"
 Trackbook needs accurate GPS location data to be able to record your movements. If the GPS data is not available or not accurate enough Trackbook uses location data from cell tower and WiFi triangulation.
 
 Permission "VIBRATE"
 Tapping and holding some controls will toggle a tiny vibration (force feedback).
 
-Permission "WRITE\_EXTERNAL\_STORAGE"
+Permission "WRITE_EXTERNAL_STORAGE"
 Trackbook uses osmdroid, which caches map tiles on Android's external storage. You can find the map cache in the "osmdroid" folder on the top level of the user-facing file system.
