@@ -63,8 +63,8 @@ Tapping and holding some controls will toggle a tiny vibration (force feedback).
 
 Screenshots (v1.1)
 ------------------
-[<img src="https://raw.githubusercontent.com/y20k/trackbook/master/fastlane/metadata/en-US/phoneScreenshots/p1.png" width="240">](https://raw.githubusercontent.com/y20k/trackbook/master/fastlane/metadata/en-US/phoneScreenshots/p1.png)
-[<img src="https://raw.githubusercontent.com/y20k/trackbook/master/fastlane/metadata/en-US/phoneScreenshots/p2.png" width="240">](https://raw.githubusercontent.com/y20k/trackbook/master/fastlane/metadata/en-US/phoneScreenshots/p2.png)
+[<img src="https://raw.githubusercontent.com/y20k/trackbook/master/metadata/en-US/phoneScreenshots/p1.png" width="240">](https://raw.githubusercontent.com/y20k/trackbook/master/metadata/en-US/phoneScreenshots/p1.png)
+[<img src="https://raw.githubusercontent.com/y20k/trackbook/master/metadata/en-US/phoneScreenshots/p2.png" width="240">](https://raw.githubusercontent.com/y20k/trackbook/master/metadata/en-US/phoneScreenshots/p2.png)
 
-[<img src="https://raw.githubusercontent.com/y20k/trackbook/master/fastlane/metadata/en-US/phoneScreenshots/p3.png" width="240">](https://raw.githubusercontent.com/y20k/trackbook/master/fastlane/metadata/en-US/phoneScreenshots/p3.png)
-[<img src="https://raw.githubusercontent.com/y20k/trackbook/master/fastlane/metadata/en-US/phoneScreenshots/p4.png" width="240">](https://raw.githubusercontent.com/y20k/trackbook/master/fastlane/metadata/en-US/phoneScreenshots/p4.png)
+[<img src="https://raw.githubusercontent.com/y20k/trackbook/master/metadata/en-US/phoneScreenshots/p3.png" width="240">](https://raw.githubusercontent.com/y20k/trackbook/master/metadata/en-US/phoneScreenshots/p3.png)
+[<img src="https://raw.githubusercontent.com/y20k/trackbook/master/metadata/en-US/phoneScreenshots/p4.png" width="240">](https://raw.githubusercontent.com/y20k/trackbook/master/metadata/en-US/phoneScreenshots/p4.png)
