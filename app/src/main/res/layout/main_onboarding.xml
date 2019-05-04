@@ -91,23 +91,6 @@
             android:text="@string/layout_onboarding_p_permission_location"
             android:id="@+id/p_permission_location" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:textColor="@color/main_onboarding_text"
-            android:textStyle="bold"
-            android:text="@string/layout_onboarding_h3_permission_storage"
-            android:id="@+id/h3_permission_storage"
-            android:layout_marginTop="@dimen/activity_vertical_margin" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:textColor="@color/main_onboarding_text"
-            android:text="@string/layout_onboarding_p_permission_storage"
-            android:id="@+id/p_permission_storage" />
-
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

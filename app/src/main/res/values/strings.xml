@@ -82,7 +82,7 @@
     <string name="layout_onboarding_description_app_icon">Trackbook App Icon</string>
     <string name="layout_onboarding_h2_app_name">Trackbook</string>
     <string name="layout_onboarding_p_app_claim">Movement Recorder</string>
-    <string name="layout_onboarding_h2_request_permissions">Trackbook cannot work without these permissions:</string>
+    <string name="layout_onboarding_h2_request_permissions">Trackbook cannot work without this permission:</string>
     <string name="layout_onboarding_h3_permission_location">LOCATION</string>
     <string name="layout_onboarding_p_permission_location">Trackbook needs accurate GPS data to be able to record your movements. If the GPS data is not available or not accurate enough, Trackbook uses location data from cell tower and Wi-Fi triangulation.</string>
     <string name="layout_onboarding_h3_permission_storage">STORAGE</string>

@@ -25,9 +25,9 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Toast;
 
-import org.y20k.trackbook.R;
-
 import androidx.appcompat.app.AppCompatDelegate;
+
+import org.y20k.trackbook.R;
 
 
 /**
@@ -82,6 +82,13 @@ public final class NightModeHelper implements TrackbookKeys {
                     break;
             }
         }
+    }
+
+
+    /* Return weather Night Mode is on, or not  */
+    public static Boolean getNightMode(Context context) {
+        int nightMode = context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        return nightMode == Configuration.UI_MODE_NIGHT_YES;
     }
 
 

@@ -61,9 +61,6 @@ Trackbook needs accurate GPS location data to be able to record your movements. 
 ### Permission "VIBRATE"
 Tapping and holding some controls will toggle a tiny vibration (force feedback).
 
-### Permission "WRITE\_EXTERNAL\_STORAGE"
-Trackbook uses [osmdroid](https://github.com/osmdroid/osmdroid), which caches map tiles on Android's external storage. You can find the map cache in the `osmdroid` folder on the top level of the user-facing file system.
-
 Screenshots (v1.1)
 ------------------
 [<img src="https://raw.githubusercontent.com/y20k/trackbook/master/fastlane/metadata/en-US/phoneScreenshots/p1.png" width="240">](https://raw.githubusercontent.com/y20k/trackbook/master/fastlane/metadata/en-US/phoneScreenshots/p1.png)

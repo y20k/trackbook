@@ -41,6 +41,17 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -58,17 +69,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 
 /**
@@ -142,6 +142,8 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
 
         // set user agent to prevent getting banned from the osm servers
         Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);
+        // set the path for osmdroid's files (e.g. tile cache)
+        Configuration.getInstance().setOsmdroidBasePath(this.getExternalFilesDir(null));
 
         // set up main layout
         setupLayout();
@@ -220,9 +222,9 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
 
                 // check for ACCESS_FINE_LOCATION and WRITE_EXTERNAL_STORAGE
                 Boolean location = perms.get(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
-                Boolean storage = perms.get(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+                // Boolean storage = perms.get(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
 
-                if (location && storage) {
+                if (location) {
                     // permissions granted - notify user
                     Toast.makeText(this, R.string.toast_message_permissions_granted, Toast.LENGTH_SHORT).show();
                     mPermissionsGranted = true;
@@ -748,11 +750,11 @@ public class MainActivity extends AppCompatActivity implements TrackbookKeys {
             permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
         }
 
-        // check for storage permission
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            // add missing permission
-            permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        }
+//        // check for storage permission
+//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+//            // add missing permission
+//            permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+//        }
 
         return permissions;
     }
