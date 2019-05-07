@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- activities -->
-    <string name="app_name">Trackbook</string> <!-- please do not translate app_name - transcription into different alphabet types is fine though -->
+    <string name="app_name">Trackbook</string>
+    <!-- please do not translate app_name - transcription into different alphabet types is fine though -->
     <!-- tabs -->
     <string name="tab_map">Karte</string>
     <string name="tab_last_tracks">Letzte Aufzeichnungen</string>
@@ -94,15 +95,15 @@
     <!-- descriptions -->
     <string name="descr_map_current_track">Kartierung der aktuellen Aufzeichnung</string>
     <string name="descr_map_last_track">Kartierung der letzten Aufzeichnung</string>
-    <string name="descr_fab_my_location">Mein-Standort-Button</string>
+    <string name="descr_fab_my_location">Mein-Standort-Knopf</string>
     <string name="descr_fab_main_start">Aufzeichnung-Starten-Button</string>
     <string name="descr_fab_main_stop">Aufzeichnung-Beenden-Button</string>
     <string name="descr_fab_main_options">Aufzeichnungsoptionen-Button</string>
-    <string name="descr_fab_sub_menu_button_save">kleiner Speichern-Button</string>
-    <string name="descr_fab_sub_menu_button_clear">kleiner Zurücksetzen-Button</string>
-    <string name="descr_fab_sub_menu_button_resume">kleiner Fortsetzen-Button</string>
+    <string name="descr_fab_sub_menu_button_save">Speichern-Knopf</string>
+    <string name="descr_fab_sub_menu_button_clear">Zurücksetzen-Knopf</string>
+    <string name="descr_fab_sub_menu_button_resume">Fortsetzen-Knopf</string>
     <string name="descr_statistics_sheet_headline">Überschrift der Statistik-Einblendung</string>
-    <string name="descr_statistics_sheet_icon">Informations-Icon</string>
+    <string name="descr_statistics_sheet_icon">Umschalten der Anzeige der Aufzeichnungsdaten</string>
     <string name="descr_track_selector">Auswahl-Menü für weitere Aufzeichnungen</string>
     <string name="descr_export_button">Schaltfläche „Aufzeichnung exportieren”</string>
     <string name="descr_delete_button">Schaltfläche „Aufzeichnung löschen”</string>
