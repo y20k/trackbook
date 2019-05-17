@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- activities -->
-    <string name="app_name">Trackbook</string> <!-- please do not translate app_name - transcription into different alphabet types is fine though -->
-
+    <string name="app_name">Trackbook</string>
+    <!-- please do not translate app_name - transcription into different alphabet types is fine though -->
     <!-- tabs -->
     <string name="tab_map">Kaart</string>
     <string name="tab_last_tracks">Laatste GPX-opnames</string>
-
     <!-- notification -->
     <string name="notification_title_trackbook_running">Trackbook is actief</string>
     <string name="notification_title_trackbook_not_running">Trackbook is niet actief</string>
@@ -17,18 +16,15 @@
     <string name="notification_content_distance">Afstand</string>
     <string name="notification_channel_recording_name">GPX-opname status</string>
     <string name="notification_channel_recording_description">Laat duur en afstand zien. Optie om de gpx-opname te stoppen.</string>
-
     <!-- snackbar messages -->
     <string name="snackbar_message_tracking_stopped">GPX-opname gestopt</string>
     <string name="snackbar_message_tracking_started">GPX-opname gestart</string>
     <string name="snackbar_message_tracking_resumed">GPX-opname hervat</string>
     <string name="snackbar_message_location_offline">Locatie is uitgeschakeld; Trackbook zal niet werken.</string>
-
     <!-- fab sub menu -->
     <string name="fab_sub_menu_clear">Wissen</string>
     <string name="fab_sub_menu_save">Opslaan en wissen</string>
     <string name="fab_sub_menu_resume">Hervatten</string>
-
     <!-- dialogs -->
     <string name="dialog_default_action_cancel">Annuleren</string>
     <string name="dialog_clear_content">Opname wissen?</string>
@@ -46,7 +42,6 @@
     <string name="dialog_error_empty_recording_title">Opslaan niet mogelijk</string>
     <string name="dialog_error_empty_recording_content">Trackbook heeft nog geen locaties opgenomen.</string>
     <string name="dialog_error_empty_recording_action_resume">Opname voortzetten</string>
-
     <!-- toast messages -->
     <string name="toast_message_permissions_granted">Rechten verleend.</string>
     <string name="toast_message_unable_to_start_app">Trackbook kan niet worden gestart.</string>
@@ -65,12 +60,10 @@
     <string name="toast_message_theme_night">Nachtmodus geactiveerd (lange druk gedetecteerd)</string>
     <string name="toast_message_theme_day">Dagmodus geactiveerd (lange druk gedetecteerd)</string>
     <string name="toast_message_theme_follow_system">Systeeminstellingen worden toegepast (lange druk gedetecteerd)</string>
-
     <!-- map markers -->
     <string name="marker_description_source">Bron</string>
     <string name="marker_description_time">Tijd</string>
     <string name="marker_description_accuracy">Nauwkeurigheid</string>
-
     <!-- statistics sheet -->
     <string name="statistics_sheet_h1_statistics">Statistieken</string>
     <string name="statistics_sheet_p_default_data">Track gegevens ontbreken</string>
@@ -85,23 +78,20 @@
     <string name="statistics_sheet_p_min_altitude">Laagste locatie:</string>
     <string name="statistics_sheet_p_positive_elevation">Hoogteverschil (omhoog):</string>
     <string name="statistics_sheet_p_negative_elevation">Hoogteverschil (omlaag):</string>
-
     <!-- onboarding layout -->
     <string name="layout_onboarding_h1_welcome">Hallo</string>
     <string name="layout_onboarding_description_app_icon">Trackbook Pictogram</string>
     <string name="layout_onboarding_h2_app_name">Trackbook</string>
-    <string name="layout_onboarding_p_app_claim">GPX-opname voor Android</string>
-    <string name="layout_onboarding_h2_request_permissions">Trackbook kan niet werken zonder deze rechten:</string>
+    <string name="layout_onboarding_p_app_claim">Bewegingsopname</string>
+    <string name="layout_onboarding_h2_request_permissions">Trackbook kan niet werken zonder deze machtiging:</string>
     <string name="layout_onboarding_h3_permission_location">LOCATIE</string>
     <string name="layout_onboarding_p_permission_location">Trackbook heeft nauwkeurige GPS-gegevens nodig om uw verplaatsingen te kunnen bijhouden. Als de GPS-gegevens niet beschikbaar of niet nauwkeurig genoeg zijn, dan zal Trackbook gegevens gebruiken van zendmasten en WiFi-triangulatie.</string>
     <string name="layout_onboarding_h3_permission_storage">OPSLAG</string>
     <string name="layout_onboarding_p_permission_storage">Trackbook gebruikt osmdroid. osmdroid slaat kaarttegels op in een cache op Android\'s externe opslag. U kunt de kaartcache vinden in de osmdroid-map op het hoogste niveau van het gebruikersbestandssysteem.</string>
     <string name="layout_onboarding_button_okay">Ik snap het!</string>
-
     <!-- track tab onboarding -->
     <string name="track_tab_onboarding_h1_part_1">Opgenomen tracks</string>
     <string name="track_tab_onboarding_h1_part_2">... zal hier verschijnen.</string>
-
     <!-- descriptions -->
     <string name="descr_map_current_track">Kaart van de huidige track</string>
     <string name="descr_map_last_track">Kaart van de laatste track</string>
@@ -109,14 +99,13 @@
     <string name="descr_fab_main_start">Start opname-knop</string>
     <string name="descr_fab_main_stop">Stop opname-knop</string>
     <string name="descr_fab_main_options">Opnameinstellingen-knop</string>
-    <string name="descr_fab_sub_menu_button_save">Opslaan en wissen-knop</string>
+    <string name="descr_fab_sub_menu_button_save">Opslaan-knop</string>
     <string name="descr_fab_sub_menu_button_clear">Wissen-knop</string>
-    <string name="descr_fab_sub_menu_button_resume">Voortzetten knop</string>
+    <string name="descr_fab_sub_menu_button_resume">Voortzetten-knop</string>
     <string name="descr_statistics_sheet_headline">Kop van het statistiekenblad</string>
-    <string name="descr_statistics_sheet_icon">Informatiepictogram</string>
+    <string name="descr_statistics_sheet_icon">Opnamegegevensweergave tonen/verbergen</string>
     <string name="descr_track_selector">Uitrolmenu voor verdere tracks</string>
     <string name="descr_export_button">Track exporteerknop</string>
     <string name="descr_delete_button">Track verwijderknop</string>
     <string name="descr_share_button_gpx">Deelknop met ondersteuning voor het exporteren naar GPX</string>
-
 </resources>
