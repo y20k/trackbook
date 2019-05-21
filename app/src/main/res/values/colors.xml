@@ -25,9 +25,10 @@
 
 
     <!-- COLOR NAMES -->
-    <color name="trackbook_red">#FFD93025</color>
-    <color name="trackbook_red_dark">#FFB31412</color>
-    <color name="trackbook_red_85percent">#D9D93025</color>
+    <color name="trackbook_red">#FFDC3D33</color>              <!-- Slightly muted variant of -> Material Design 2: Red 600 -->
+    <color name="trackbook_red_light">#FFE15950</color>
+    <color name="trackbook_red_dark">#FFCA2D23</color>
+    <color name="trackbook_red_darker">#FFAD261E</color>
 
     <color name="trackbook_gold">#FFE6BA64</color>
 
