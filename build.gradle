@@ -24,8 +24,8 @@ allprojects {
 
     project.ext {
         applicationId = 'org.y20k.trackbook'
-        versionCode = 35
-        versionName = '1.2.1'
+        versionCode = 36
+        versionName = '1.2.2'
 
         compileSdkVersion = 28
         targetSdkVersion = 27
