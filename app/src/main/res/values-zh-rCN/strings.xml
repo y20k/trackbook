@@ -76,7 +76,7 @@
     <string name="layout_onboarding_h3_permission_location">位置信息</string>
     <string name="layout_onboarding_p_permission_location">Trackbook需要准确的GPS数据才能记录您的运动。如果GPS数据不可用或不够准确，则Trackbook使用来自基站和Wi-Fi三角测量的位置数据（部分地区不可用）。</string>
     <string name="layout_onboarding_h3_permission_storage">存储</string>
-    <string name="layout_onboarding_p_permission_storage">Trackbook使用osmdroid，它在Android的外部存储上缓存地图图块。你可以在/storage/emulated/0/Android/data/org.mozilla.mozstumbler/cache/osmdroid 中找到地图缓存。</string>
+    <string name="layout_onboarding_p_permission_storage">Trackbook使用osmdroid，它在Android的外部存储上缓存地图图块。你可以在 /sdcard/Android/data/org.y20k.trackbook/files/tiles 中找到地图缓存。</string>
     <string name="layout_onboarding_button_okay">授权！</string>
     <string name="track_tab_onboarding_h1_part_1">你的运动记录</string>
     <string name="track_tab_onboarding_h1_part_2">... 会显示在这里。</string>
