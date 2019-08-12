@@ -54,36 +54,11 @@ public class Track implements TrackbookKeys, Parcelable {
     private double mMinAltitude;
     private double mPositiveElevation;
     private double mNegativeElevation;
+    private BoundingBox mBoundingBox;
 
-    private BoundingBox boundingBox;
-
-    /**
-     * Create a {@code BoundingBox} for the collection of
-     * {@code WayPoint}s, so that it would be possible to fit the map in
-     * such box and see the whole {@code Track} in the map without
-     * manual zooming.
-     *
-     * It computes the {@code BoundingBox} only once since it's possibly
-     * useless to compute it everytime.
-     *
-     * @return {@code BoundingBox} containing all {@code Waypoint}s
-     */
-    public BoundingBox getBoundingBox() {
-        if (null == boundingBox) {
-            final ArrayList<GeoPoint> geoPoints = new ArrayList<>(mWayPoints.size());
-
-            for (final WayPoint aWayPoint : mWayPoints) {
-                final GeoPoint aGeoPoint = new GeoPoint(aWayPoint.getLocation());
-                geoPoints.add(aGeoPoint);
-            }
-
-            boundingBox = BoundingBox.fromGeoPoints(geoPoints);
-        }
-        return boundingBox;
-    }
 
     /* Generic Constructor */
-    public Track(int trackFormatVersion, List<WayPoint> wayPoints, float trackLength, long duration, float stepCount, Date recordingStart, Date recordingStop, double maxAltitude, double minAltitude, double positiveElevation, double negativeElevation) {
+    public Track(int trackFormatVersion, List<WayPoint> wayPoints, float trackLength, long duration, float stepCount, Date recordingStart, Date recordingStop, double maxAltitude, double minAltitude, double positiveElevation, double negativeElevation, BoundingBox boundingBox) {
         mTrackFormatVersion = trackFormatVersion;
         mWayPoints = wayPoints;
         mTrackLength = trackLength;
@@ -95,12 +70,13 @@ public class Track implements TrackbookKeys, Parcelable {
         mMinAltitude = minAltitude;
         mPositiveElevation = positiveElevation;
         mNegativeElevation = negativeElevation;
+        mBoundingBox = boundingBox;
     }
 
 
     /* Copy Constructor */
     public Track(Track track) {
-        this(track.getTrackFormatVersion(), track.getWayPoints(), track.getTrackLength(), track.getTrackDuration(), track.getStepCount(), track.getRecordingStart(), track.getRecordingStop(), track.getMaxAltitude(), track.getMinAltitude(), track.getPositiveElevation(), track.getNegativeElevation());
+        this(track.getTrackFormatVersion(), track.getWayPoints(), track.getTrackLength(), track.getTrackDuration(), track.getStepCount(), track.getRecordingStart(), track.getRecordingStop(), track.getMaxAltitude(), track.getMinAltitude(), track.getPositiveElevation(), track.getNegativeElevation(), track.getBoundingBox());
     }
 
 
@@ -117,6 +93,7 @@ public class Track implements TrackbookKeys, Parcelable {
         mMinAltitude = 0f;
         mPositiveElevation = 0f;
         mNegativeElevation = 0f;
+        mBoundingBox = new BoundingBox();
     }
 
 
@@ -231,6 +208,12 @@ public class Track implements TrackbookKeys, Parcelable {
     }
 
 
+    /* Setter for this track's BoundingBox - a data structure describing the edge coordinates of a track */
+    public void setBoundingBox(BoundingBox boundingBox) {
+        mBoundingBox = boundingBox;
+    }
+
+
     /* Getter for file/track format version */
     public int getTrackFormatVersion() {
         return mTrackFormatVersion;
@@ -300,6 +283,10 @@ public class Track implements TrackbookKeys, Parcelable {
     public double getNegativeElevation() {
         return mNegativeElevation;
     }
+
+
+    /* Getter for this track's BoundingBox - a data structure describing the edge coordinates of a track */
+    public BoundingBox getBoundingBox() { return mBoundingBox; }
 
 
     /* Getter recorded distance */

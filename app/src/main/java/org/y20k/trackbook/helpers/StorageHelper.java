@@ -103,18 +103,20 @@ public class StorageHelper implements TrackbookKeys {
         }
 
         if (mFolder != null && mFolder.exists() && mFolder.isDirectory() && mFolder.canWrite() && recordingStart != null && track != null) {
-            // calculate elevation and store it in track
-            track = calculateElevation(track);
 
-            // create file object
+            // create file object and calculate bounding box and elevation, if necessary
             String fileName;
             if (fileType == FILE_TEMP_TRACK) {
-                // case: temp file
+                // get the temp file name
                 fileName = FILE_NAME_TEMP + FILE_TYPE_TRACKBOOK_EXTENSION;
             } else {
-                // case: regular file
+                // build a regular file name
                 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss", Locale.US);
                 fileName = dateFormat.format(recordingStart) + FILE_TYPE_TRACKBOOK_EXTENSION;
+                // calculate elevation and store it in track
+                track = MapHelper.calculateElevation(track);
+                // calculate bounding box and store it in track
+                track.setBoundingBox(MapHelper.calculateBoundingBox(track.getWayPoints()));
             }
             File file = new File(mFolder.toString() + "/" +  fileName);
 
@@ -357,70 +359,6 @@ public class StorageHelper implements TrackbookKeys {
         LogHelper.e(LOG_TAG, "Unable to access external storage.");
 
         return null;
-    }
-
-
-    /* Calculates positive and negative elevation of track */
-    private Track calculateElevation(@Nullable Track track) {
-        double maxAltitude = 0;
-        double minAltitude = 0;
-        double positiveElevation = 0;
-        double negativeElevation = 0;
-
-        if (track != null && track.getWayPoints().size() > 0) {
-            double previousLocationAltitude;
-            double currentLocationAltitude;
-            long previousTimeStamp;
-            long currentTimeStamp;
-
-            // initial values for max height and min height - first waypoint
-            maxAltitude = track.getWayPointLocation(0).getAltitude();
-            minAltitude = maxAltitude;
-
-            // apply filter & smooth data
-//            track = smoothTrack(track, 15f, 35f);
-
-            // iterate over track
-            for (int i = 1; i < track.getWayPoints().size(); i++ ) {
-
-                // get time difference
-                previousTimeStamp = track.getWayPointLocation(i -1).getTime();
-                currentTimeStamp = track.getWayPointLocation(i).getTime();
-                double timeDiff = (currentTimeStamp - previousTimeStamp);
-
-                // factor is bigger than 1 if the time stamp difference is larger than the movement recording interval (usually 15 seconds)
-                double timeDiffFactor = timeDiff / FIFTEEN_SECONDS_IN_MILLISECONDS;
-
-                // height of previous and current waypoints
-                previousLocationAltitude = track.getWayPointLocation(i -1).getAltitude();
-                currentLocationAltitude = track.getWayPointLocation(i).getAltitude();
-
-                // check for new min and max heights
-                if (currentLocationAltitude > maxAltitude) {
-                    maxAltitude = currentLocationAltitude;
-                }
-                if (minAltitude == 0 || currentLocationAltitude < minAltitude) {
-                    minAltitude = currentLocationAltitude;
-                }
-
-                // get elevation difference and sum it up
-                double altitudeDiff = currentLocationAltitude - previousLocationAltitude;
-                if (altitudeDiff > 0 && altitudeDiff < MEASUREMENT_ERROR_THRESHOLD * timeDiffFactor && currentLocationAltitude != 0) {
-                    positiveElevation = positiveElevation + altitudeDiff;
-                }
-                if (altitudeDiff < 0 && altitudeDiff > -MEASUREMENT_ERROR_THRESHOLD * timeDiffFactor && currentLocationAltitude != 0) {
-                    negativeElevation = negativeElevation + altitudeDiff;
-                }
-
-            }
-
-            // store elevation data in track
-            track.setMaxAltitude(maxAltitude);
-            track.setMinAltitude(minAltitude);
-            track.setPositiveElevation(positiveElevation);
-            track.setNegativeElevation(negativeElevation);
-        }
-        return track;
     }
 
 

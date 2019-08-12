@@ -24,6 +24,8 @@ import android.content.IntentFilter;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Vibrator;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -48,10 +50,12 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import org.osmdroid.api.IMapController;
+import org.osmdroid.events.MapEventsReceiver;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.ItemizedIconOverlay;
+import org.osmdroid.views.overlay.MapEventsOverlay;
 import org.osmdroid.views.overlay.TilesOverlay;
 import org.osmdroid.views.overlay.compass.CompassOverlay;
 import org.osmdroid.views.overlay.compass.InternalCompassOrientationProvider;
@@ -75,7 +79,7 @@ import java.util.Locale;
 /**
  * MainActivityTrackFragment class
  */
-public class MainActivityTrackFragment extends Fragment implements AdapterView.OnItemSelectedListener, TrackbookKeys {
+public class MainActivityTrackFragment extends Fragment implements AdapterView.OnItemSelectedListener, MapEventsReceiver, TrackbookKeys {
 
     /* Define log tag */
     private static final String LOG_TAG = MainActivityTrackFragment.class.getSimpleName();
@@ -268,6 +272,10 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
             attachTapListenerToStatisticsSheet();
         }
 
+        // enable additional gestures
+        MapEventsOverlay OverlayEventos = new MapEventsOverlay(this);
+        mMapView.getOverlays().add(OverlayEventos);
+
         return mRootView;
     }
 
@@ -365,6 +373,25 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
     }
 
 
+    @Override
+    public boolean singleTapConfirmedHelper(GeoPoint p) {
+        return false;
+    }
+
+
+    @Override
+    public boolean longPressHelper(GeoPoint p) {
+        if (mTrack != null) {
+            // vibrate 50 milliseconds
+            Vibrator vibrator = (Vibrator) mActivity.getSystemService(Context.VIBRATOR_SERVICE);
+            vibrator.vibrate(50);
+            // zoom to bounding box (= edge coordinates of map)
+            mMapView.zoomToBoundingBox(mTrack.getBoundingBox(), true);
+        }
+        return true;
+    }
+
+
     /* Displays map and statistics for track */
     private void displayTrack() {
         GeoPoint position;
@@ -405,7 +432,6 @@ public class MainActivityTrackFragment extends Fragment implements AdapterView.O
 
             // draw track on map
             drawTrackOverlay(mTrack);
-
         } else {
             position = new GeoPoint(DEFAULT_LATITUDE, DEFAULT_LONGITUDE);
         }
