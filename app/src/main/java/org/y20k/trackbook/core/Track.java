@@ -20,6 +20,10 @@ import android.location.Location;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.Nullable;
+
+import org.osmdroid.util.BoundingBox;
+import org.osmdroid.util.GeoPoint;
 import org.y20k.trackbook.helpers.LocationHelper;
 import org.y20k.trackbook.helpers.TrackbookKeys;
 
@@ -27,8 +31,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-
-import androidx.annotation.Nullable;
 
 
 /**
@@ -53,6 +55,32 @@ public class Track implements TrackbookKeys, Parcelable {
     private double mPositiveElevation;
     private double mNegativeElevation;
 
+    private BoundingBox boundingBox;
+
+    /**
+     * Create a {@code BoundingBox} for the collection of
+     * {@code WayPoint}s, so that it would be possible to fit the map in
+     * such box and see the whole {@code Track} in the map without
+     * manual zooming.
+     *
+     * It computes the {@code BoundingBox} only once since it's possibly
+     * useless to compute it everytime.
+     *
+     * @return {@code BoundingBox} containing all {@code Waypoint}s
+     */
+    public BoundingBox getBoundingBox() {
+        if (null == boundingBox) {
+            final ArrayList<GeoPoint> geoPoints = new ArrayList<>(mWayPoints.size());
+
+            for (final WayPoint aWayPoint : mWayPoints) {
+                final GeoPoint aGeoPoint = new GeoPoint(aWayPoint.getLocation());
+                geoPoints.add(aGeoPoint);
+            }
+
+            boundingBox = BoundingBox.fromGeoPoints(geoPoints);
+        }
+        return boundingBox;
+    }
 
     /* Generic Constructor */
     public Track(int trackFormatVersion, List<WayPoint> wayPoints, float trackLength, long duration, float stepCount, Date recordingStart, Date recordingStop, double maxAltitude, double minAltitude, double positiveElevation, double negativeElevation) {
