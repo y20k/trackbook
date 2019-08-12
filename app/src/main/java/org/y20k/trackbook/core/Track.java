@@ -78,6 +78,7 @@ public class Track implements TrackbookKeys, Parcelable {
             }
 
             boundingBox = BoundingBox.fromGeoPoints(geoPoints);
+            boundingBox.increaseByScale(1.05f);
         }
         return boundingBox;
     }
