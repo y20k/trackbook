@@ -201,7 +201,7 @@ public final class MapHelper implements TrackbookKeys {
             final GeoPoint aGeoPoint = new GeoPoint(aWayPoint.getLocation());
             geoPoints.add(aGeoPoint);
         }
-        return BoundingBox.fromGeoPoints(geoPoints);
+        return BoundingBox.fromGeoPoints(geoPoints).increaseByScale(1.15f);
     }
 
 
