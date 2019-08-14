@@ -23,7 +23,6 @@ import android.os.Parcelable;
 import androidx.annotation.Nullable;
 
 import org.osmdroid.util.BoundingBox;
-import org.osmdroid.util.GeoPoint;
 import org.y20k.trackbook.helpers.LocationHelper;
 import org.y20k.trackbook.helpers.TrackbookKeys;
 
@@ -110,6 +109,8 @@ public class Track implements TrackbookKeys, Parcelable {
         mMinAltitude = in.readDouble();
         mPositiveElevation = in.readDouble();
         mNegativeElevation = in.readDouble();
+        mBoundingBox = new BoundingBox(in.readDouble(), in.readDouble(),in.readDouble(),in.readDouble());
+        // BoundingBox(double north, double east, double south, double west)
     }
 
 
@@ -325,6 +326,11 @@ public class Track implements TrackbookKeys, Parcelable {
         parcel.writeDouble(mMinAltitude);
         parcel.writeDouble(mPositiveElevation);
         parcel.writeDouble(mNegativeElevation);
+        parcel.writeDouble(mBoundingBox.getLatNorth());
+        parcel.writeDouble(mBoundingBox.getLonEast());
+        parcel.writeDouble(mBoundingBox.getLatSouth());
+        parcel.writeDouble(mBoundingBox.getLonWest());
+        // BoundingBox(double north, double east, double south, double west)
     }
 
 
