@@ -5,16 +5,16 @@
     <!-- please do not translate app_name - transcription into different alphabet types is fine though -->
     <!-- tabs -->
     <string name="tab_map">Mappa</string>
-    <string name="tab_last_tracks">Ultime Tracce</string>
+    <string name="tab_last_tracks">Ultime tracce</string>
     <!-- notification -->
     <string name="notification_title_trackbook_running">Trackbook in esecuzione</string>
     <string name="notification_title_trackbook_not_running">Trackbook non in esecuzione</string>
-    <string name="notification_stop">Interrompi</string>
+    <string name="notification_stop">Ferma</string>
     <string name="notification_resume">Riprendi</string>
     <string name="notification_show">Mostra</string>
     <string name="notification_content_duration">Durata</string>
     <string name="notification_content_distance">Distanza</string>
-    <string name="notification_channel_recording_name">Stato Registrazione Movimento</string>
+    <string name="notification_channel_recording_name">Stato della registrazione del movimento</string>
     <string name="notification_channel_recording_description">Visualizza durata e distanza. Opzione per interrompere la registrazione del movimento.</string>
     <!-- snackbar messages -->
     <string name="snackbar_message_tracking_stopped">Tracciamento interrotto</string>
@@ -95,8 +95,8 @@
     <!-- descriptions -->
     <string name="descr_map_current_track">Mappatura della traccia corrente</string>
     <string name="descr_map_last_track">Mappatura dell\'ultima traccia</string>
-    <string name="descr_fab_my_location">Pulsante Mia Posizione</string>
-    <string name="descr_fab_main_start">Pulsante Avvia registrazione</string>
+    <string name="descr_fab_my_location">Pulsante «Mia posizione»</string>
+    <string name="descr_fab_main_start">Pulsante «Avvia registrazione»</string>
     <string name="descr_fab_main_stop">Pulsante Interrompi registrazione</string>
     <string name="descr_fab_main_options">Pulsante Opzione di registrazione</string>
     <string name="descr_fab_sub_menu_button_save">Pulsante Salva</string>
