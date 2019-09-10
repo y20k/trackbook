@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="org.y20k.trackbook">
 
     <!-- EXCLUDE NON-GPS DEVICES -->
@@ -23,7 +24,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/TrackbookAppTheme">
+        android:theme="@style/TrackbookAppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
 
         <!-- MAIN ACTIVITY -->
         <activity
@@ -42,6 +44,7 @@
         <!-- TRACKER SERVICE -->
         <service
             android:name=".TrackerService"
+            android:foregroundServiceType="location"
             android:exported="false">
             <intent-filter>
                 <action android:name="org.y20k.trackbook.action.START" />

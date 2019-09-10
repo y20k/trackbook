@@ -39,6 +39,9 @@ import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
 
+import androidx.core.app.NotificationCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 import org.y20k.trackbook.core.Track;
 import org.y20k.trackbook.helpers.LocationHelper;
 import org.y20k.trackbook.helpers.LogHelper;
@@ -47,9 +50,6 @@ import org.y20k.trackbook.helpers.StorageHelper;
 import org.y20k.trackbook.helpers.TrackbookKeys;
 
 import java.util.List;
-
-import androidx.core.app.NotificationCompat;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import static android.hardware.Sensor.TYPE_STEP_COUNTER;
 
@@ -414,7 +414,7 @@ public class TrackerService extends Service implements TrackbookKeys, SensorEven
             float averageSpeed = 0f;
 
             // compute average speed if new location came from network provider
-            if (trackSize > 1 && mCurrentBestLocation.getProvider().equals(LocationManager.NETWORK_PROVIDER)) {
+            if (trackSize > 1 && LocationManager.NETWORK_PROVIDER.equals(mCurrentBestLocation.getProvider())) {
                 Location firstWayPoint = mTrack.getWayPointLocation(0);
                 float distance = firstWayPoint.distanceTo(previousLocation);
                 long timeDifference = previousLocation.getElapsedRealtimeNanos() - firstWayPoint.getElapsedRealtimeNanos();
