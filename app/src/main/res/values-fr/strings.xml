@@ -21,7 +21,7 @@
     <string name="snackbar_message_tracking_resumed">Pistage repris</string>
     <string name="snackbar_message_tracking_started">Pistage démarré</string>
     <string name="snackbar_message_tracking_stopped">Pistage arrêté</string>
-    <!-- fab sub menu -->
+    <!-- fab sub menu_bottom_navigation -->
     <string name="fab_sub_menu_clear">Effacer</string>
     <string name="fab_sub_menu_resume">Poursuivre</string>
     <string name="fab_sub_menu_save">Sauvegarder</string>
@@ -33,7 +33,7 @@
     <string name="dialog_delete_content">Supprimer cet enregistrement :</string>
     <string name="dialog_delete_title">Supprimer l\'enregistrement \?</string>
     <string name="dialog_error_empty_recording_action_resume">Poursuivre l\'enregistrement</string>
-    <string name="dialog_error_empty_recording_content">Trackbook n\'a enregistré aucun point de parcours jusqu\'à présent.</string>
+    <string name="dialog_error_empty_recording_message">Trackbook n\'a enregistré aucun point de parcours jusqu\'à présent.</string>
     <string name="dialog_error_empty_recording_title">Sauvegarde impossible</string>
     <string name="dialog_export_action_export">Exporter</string>
     <string name="dialog_export_action_overwrite">Exporter et écraser</string>
@@ -90,11 +90,11 @@
     <string name="layout_onboarding_p_permission_location">Trackbook a besoin des données GPS précises pour enregistrer vos déplacements. Si les données GPS ne sont pas disponibles ou insuffisament précises, Trackbook utilisera la localisation à partir du réseau cellulaire et la triangulation Wi-Fi.</string>
     <string name="layout_onboarding_p_permission_storage">Trackbook utilise osmdroid, qui nécessite la conservation de tuiles cartographiques dans l\'espace de stockage Android. Vous pouvez retrouver ces tuiles cartographiques dans le dossier osmdroid au plus haut niveau du système de fichiers de l\'utilisateur.</string>
     <!-- track tab onboarding -->
-    <string name="track_tab_onboarding_h1_part_1">Vos parcours enregistrés</string>
-    <string name="track_tab_onboarding_h1_part_2">… seront affichés ici.</string>
+    <string name="track_list_onboarding_h1_part_1">Vos parcours enregistrés</string>
+    <string name="track_list_onboarding_h1_part_2">… seront affichés ici.</string>
     <!-- descriptions -->
-    <string name="descr_delete_button">Bouton « Supprimer le parcours »</string>
-    <string name="descr_export_button">Bouton « Exporter le parcours »</string>
+    <string name="descr_statistics_sheet_delete_button">Bouton « Supprimer le parcours »</string>
+    <string name="descr_export_icon">Bouton « Exporter le parcours »</string>
     <string name="descr_fab_main_options">Bouton « Enregistrement des paramètres »</string>
     <string name="descr_fab_main_start">Bouton « Démarrer l\'enregistrement »</string>
     <string name="descr_fab_main_stop">Bouton « Arrêter l\'enregistrement »</string>
@@ -104,8 +104,7 @@
     <string name="descr_fab_sub_menu_button_save">Bouton « Sauvegarder »</string>
     <string name="descr_map_current_track">Affichage du parcours actuel</string>
     <string name="descr_map_last_track">Affichage du dernier parcours</string>
-    <string name="descr_share_button_gpx">Bouton « Partager l\'export GPX »</string>
+    <string name="descr_statistics_sheet_share_button">Bouton « Partager l\'export GPX »</string>
     <string name="descr_statistics_sheet_headline">Entête de la page des statistiques</string>
-    <string name="descr_statistics_sheet_icon">Baculer l\'affichage de l\'enregistrement des déplacements</string>
     <string name="descr_track_selector">Liste déroulante pour la sélection d\'autres parcours</string>
 </resources>

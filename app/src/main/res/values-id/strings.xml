@@ -24,7 +24,7 @@
     <string name="snackbar_message_tracking_resumed">Tracking resumed</string>
     <!--<string name="snackbar_message_location_offline"></string>-->
 
-    <!-- fab sub menu -->
+    <!-- fab sub menu_bottom_navigation -->
     <!--<string name="fab_sub_menu_clear"></string>-->
     <!--<string name="fab_sub_menu_save"></string>-->
     <!--<string name="fab_sub_menu_resume"></string>-->

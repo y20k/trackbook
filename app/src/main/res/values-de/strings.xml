@@ -21,7 +21,7 @@
     <string name="snackbar_message_tracking_started">Aufzeichnung gestartet</string>
     <string name="snackbar_message_tracking_resumed">Aufzeichnung fortgesetzt</string>
     <string name="snackbar_message_location_offline">Standortdienste sind deaktiviert. Trackbook wird nicht funktionieren.</string>
-    <!-- fab sub menu -->
+    <!-- fab sub menu_bottom_navigation -->
     <string name="fab_sub_menu_clear">Zurücksetzen</string>
     <string name="fab_sub_menu_save">Speichern</string>
     <string name="fab_sub_menu_resume">Fortsetzen</string>
@@ -40,7 +40,7 @@
     <string name="dialog_export_action_overwrite">Exportieren und überschreiben</string>
     <string name="dialog_share_gpx">GPX-Datei öffnen mit</string>
     <string name="dialog_error_empty_recording_title">Speichern nicht möglich</string>
-    <string name="dialog_error_empty_recording_content">Trackbook hat noch keine Wegpunkte aufgezeichnet.</string>
+    <string name="dialog_error_empty_recording_message">Trackbook hat noch keine Wegpunkte aufgezeichnet.</string>
     <string name="dialog_error_empty_recording_action_resume">Aufzeichnung fortsetzen</string>
     <!-- toast messages -->
     <string name="toast_message_permissions_granted">Berechtigungen erteilt.</string>
@@ -90,8 +90,8 @@
     <string name="layout_onboarding_p_permission_storage">Trackbook nutzt osmdroid; osmdroid speichert Kartendaten im Externen Speicher von Android. Der Karten-Cache befindet sich im Ordner osmdroid auf der obersten Ebene des für Nutzer sichtbaren Dateisystems.</string>
     <string name="layout_onboarding_button_okay">Alles klar!</string>
     <!-- track tab onboarding -->
-    <string name="track_tab_onboarding_h1_part_1">Bewegungsaufzeichnungen</string>
-    <string name="track_tab_onboarding_h1_part_2">… werden hier erscheinen.</string>
+    <string name="track_list_onboarding_h1_part_1">Bewegungsaufzeichnungen</string>
+    <string name="track_list_onboarding_h1_part_2">… werden hier erscheinen.</string>
     <!-- descriptions -->
     <string name="descr_map_current_track">Kartierung der aktuellen Aufzeichnung</string>
     <string name="descr_map_last_track">Kartierung der letzten Aufzeichnung</string>
@@ -103,9 +103,8 @@
     <string name="descr_fab_sub_menu_button_clear">Zurücksetzen-Knopf</string>
     <string name="descr_fab_sub_menu_button_resume">Fortsetzen-Knopf</string>
     <string name="descr_statistics_sheet_headline">Überschrift der Statistik-Einblendung</string>
-    <string name="descr_statistics_sheet_icon">Umschalten der Anzeige der Aufzeichnungsdaten</string>
     <string name="descr_track_selector">Auswahl-Menü für weitere Aufzeichnungen</string>
-    <string name="descr_export_button">Schaltfläche „Aufzeichnung exportieren“</string>
-    <string name="descr_delete_button">Schaltfläche „Aufzeichnung löschen”</string>
-    <string name="descr_share_button_gpx">Share-Taste, die den Export als GPX anbietet</string>
+    <string name="descr_export_icon">Schaltfläche „Aufzeichnung exportieren“</string>
+    <string name="descr_statistics_sheet_delete_button">Schaltfläche „Aufzeichnung löschen”</string>
+    <string name="descr_statistics_sheet_share_button">Share-Taste, die den Export als GPX anbietet</string>
 </resources>

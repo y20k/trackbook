@@ -21,7 +21,7 @@
     <string name="snackbar_message_tracking_started">GPX-opname gestart</string>
     <string name="snackbar_message_tracking_resumed">GPX-opname hervat</string>
     <string name="snackbar_message_location_offline">Locatie is uitgeschakeld; Trackbook zal niet werken.</string>
-    <!-- fab sub menu -->
+    <!-- fab sub menu_bottom_navigation -->
     <string name="fab_sub_menu_clear">Wissen</string>
     <string name="fab_sub_menu_save">Opslaan en wissen</string>
     <string name="fab_sub_menu_resume">Hervatten</string>
@@ -40,7 +40,7 @@
     <string name="dialog_export_action_overwrite">Exporteren en overschijven</string>
     <string name="dialog_share_gpx">Deel GPX bestand met</string>
     <string name="dialog_error_empty_recording_title">Opslaan niet mogelijk</string>
-    <string name="dialog_error_empty_recording_content">Trackbook heeft nog geen locaties opgenomen.</string>
+    <string name="dialog_error_empty_recording_message">Trackbook heeft nog geen locaties opgenomen.</string>
     <string name="dialog_error_empty_recording_action_resume">Opname voortzetten</string>
     <!-- toast messages -->
     <string name="toast_message_permissions_granted">Rechten verleend.</string>
@@ -90,8 +90,8 @@
     <string name="layout_onboarding_p_permission_storage">Trackbook gebruikt osmdroid. osmdroid slaat kaarttegels op in een cache op Android\'s externe opslag. U kunt de kaartcache vinden in de osmdroid-map op het hoogste niveau van het gebruikersbestandssysteem.</string>
     <string name="layout_onboarding_button_okay">Ik snap het!</string>
     <!-- track tab onboarding -->
-    <string name="track_tab_onboarding_h1_part_1">Opgenomen tracks</string>
-    <string name="track_tab_onboarding_h1_part_2">... zal hier verschijnen.</string>
+    <string name="track_list_onboarding_h1_part_1">Opgenomen tracks</string>
+    <string name="track_list_onboarding_h1_part_2">... zal hier verschijnen.</string>
     <!-- descriptions -->
     <string name="descr_map_current_track">Kaart van de huidige track</string>
     <string name="descr_map_last_track">Kaart van de laatste track</string>
@@ -103,9 +103,8 @@
     <string name="descr_fab_sub_menu_button_clear">Wissen-knop</string>
     <string name="descr_fab_sub_menu_button_resume">Voortzetten-knop</string>
     <string name="descr_statistics_sheet_headline">Kop van het statistiekenblad</string>
-    <string name="descr_statistics_sheet_icon">Opnamegegevensweergave tonen/verbergen</string>
     <string name="descr_track_selector">Uitrolmenu voor verdere tracks</string>
-    <string name="descr_export_button">Track exporteerknop</string>
-    <string name="descr_delete_button">Track verwijderknop</string>
-    <string name="descr_share_button_gpx">Deelknop met ondersteuning voor het exporteren naar GPX</string>
+    <string name="descr_export_icon">Track exporteerknop</string>
+    <string name="descr_statistics_sheet_delete_button">Track verwijderknop</string>
+    <string name="descr_statistics_sheet_share_button">Deelknop met ondersteuning voor het exporteren naar GPX</string>
 </resources>

@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="@color/main_onboarding_text"
+            android:textColor="@color/text_lightweight"
             android:text="@string/layout_onboarding_h1_welcome"
             android:id="@+id/h1_welcome" />
 
@@ -49,7 +49,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/main_onboarding_text"
+                    android:textColor="@color/text_lightweight"
                     android:text="@string/layout_onboarding_h2_app_name"
                     android:id="@+id/h2_app_name" />
 
@@ -57,7 +57,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:textColor="@color/main_onboarding_text"
+                    android:textColor="@color/text_lightweight"
                     android:text="@string/layout_onboarding_p_app_claim"
                     android:id="@+id/p_app_claim" />
 
@@ -69,7 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@color/main_onboarding_text"
+            android:textColor="@color/text_lightweight"
             android:text="@string/layout_onboarding_h2_request_permissions"
             android:id="@+id/h2_request_permissions"
             android:layout_marginTop="@dimen/activity_vertical_margin"/>
@@ -78,7 +78,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:textColor="@color/main_onboarding_text"
+            android:textColor="@color/text_lightweight"
             android:textStyle="bold"
             android:text="@string/layout_onboarding_h3_permission_location"
             android:id="@+id/h3_permission_location"
@@ -87,7 +87,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:textColor="@color/main_onboarding_text"
+            android:textColor="@color/text_lightweight"
             android:text="@string/layout_onboarding_p_permission_location"
             android:id="@+id/p_permission_location" />
 

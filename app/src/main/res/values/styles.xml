@@ -2,18 +2,30 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="TrackbookAppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
 
         <!-- Set AppCompat’s colors -->
-        <item name="colorPrimary">@color/trackbook_grey</item>
-        <item name="colorPrimaryDark">@color/trackbook_grey_dark</item>
+        <item name="colorPrimary">@color/trackbook_grey_very_light</item>
+        <item name="colorPrimaryDark">@color/trackbook_white</item>
         <item name="colorAccent">@color/trackbook_blue</item>
 
+        <!-- Show white status bar -->
+        <item name="android:windowTranslucentStatus">true</item>
+
     </style>
 
-    <!-- Drop down theme -->
-    <style name="TrackbookAppTheme.PopupOverlay" parent="Theme.AppCompat.DayNight.NoActionBar">
-        <item name="android:colorControlNormal">@color/track_management_text</item>
+
+    <!-- Override button color in AlertDialog -->
+    <style name="AlertDialogTheme" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
+        <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
     </style>
+    <style name="NegativeButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/text_default</item>
+    </style>
+    <style name="PositiveButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/text_default</item>
+    </style>
+
 
 </resources>

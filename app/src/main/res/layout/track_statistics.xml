@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/statistics_view"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:clickable="true"
     android:focusable="true">
 
@@ -11,270 +12,299 @@
         android:id="@+id/elevation_data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="statistics_p_positive_elevation, statistics_data_positive_elevation, statistics_p_negative_elevation, statistics_data_negative_elevation, statistics_p_max_altitude, statistics_data_max_altitude, statistics_p_min_altitude, statistics_data_min_altitude" />
+        app:constraint_referenced_ids="statistics_p_positive_elevation,statistics_data_positive_elevation,statistics_p_negative_elevation,statistics_data_negative_elevation,statistics_p_max_altitude,statistics_data_max_altitude,statistics_p_min_altitude,statistics_data_min_altitude" />
 
     <androidx.constraintlayout.widget.Group
-        android:id="@+id/statistics_header"
+        android:id="@+id/management_icons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="statistics_headline, statistics_icon" />
+        android:visibility="gone"
+        app:constraint_referenced_ids="delete_button,edit_button" />
 
-    <TextView
-        android:id="@+id/statistics_headline"
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/statistics_track_name_headline"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginTop="16dp"
-        android:text="@string/statistics_sheet_h1_statistics"
+        android:ellipsize="end"
+        android:singleLine="true"
         android:textAllCaps="true"
-        android:textAppearance="@android:style/TextAppearance.Medium"
-        android:textColor="@color/statistic_sheet_text"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+        android:textColor="@color/text_default"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/statistics_icon"
+        app:layout_constraintEnd_toStartOf="@+id/edit_button"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/sample_text_track_name" />
 
-    <ImageView
-        android:id="@+id/statistics_icon"
+    <ImageButton
+        android:id="@+id/delete_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
         android:backgroundTint="@color/trackbook_transparent"
-        android:contentDescription="@string/descr_statistics_sheet_icon"
-        app:layout_constraintBottom_toBottomOf="@+id/statistics_headline"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/statistics_headline"
-        app:srcCompat="@drawable/ic_info_24dp" />
+        android:contentDescription="@string/descr_statistics_sheet_delete_button"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_button"
+        app:layout_constraintEnd_toStartOf="@+id/share_button"
+        app:layout_constraintTop_toTopOf="@+id/edit_button"
+        app:srcCompat="@drawable/ic_delete_24dp" />
 
-    <TextView
+    <ImageButton
+        android:id="@+id/edit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/trackbook_transparent"
+        android:contentDescription="@string/descr_statistics_sheet_edit_button"
+        app:layout_constraintBottom_toBottomOf="@+id/statistics_track_name_headline"
+        app:layout_constraintEnd_toStartOf="@+id/delete_button"
+        app:layout_constraintTop_toTopOf="@+id/statistics_track_name_headline"
+        app:srcCompat="@drawable/ic_edit_24dp" />
+
+    <ImageButton
+        android:id="@+id/share_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/trackbook_transparent"
+        android:contentDescription="@string/descr_statistics_sheet_share_button"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/statistics_track_name_headline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/statistics_track_name_headline"
+        app:srcCompat="@drawable/ic_share_24dp" />
+
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/statistics_p_distance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="@string/statistics_sheet_p_distance"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textColor="@color/statistic_sheet_text"
-        app:layout_constraintStart_toStartOf="@+id/statistics_headline"
-        app:layout_constraintTop_toBottomOf="@+id/statistics_headline" />
+        android:textAllCaps="false"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+        android:textColor="@color/text_lightweight"
+        app:layout_constraintStart_toStartOf="@+id/statistics_track_name_headline"
+        app:layout_constraintTop_toBottomOf="@+id/statistics_track_name_headline" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/statistics_data_distance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="@string/statistics_sheet_p_default_data"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@color/statistic_sheet_text"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+        android:textColor="@color/text_default"
         app:layout_constraintBottom_toBottomOf="@+id/statistics_p_distance"
         app:layout_constraintStart_toEndOf="@+id/statistics_p_distance"
-        app:layout_constraintTop_toTopOf="@+id/statistics_p_distance" />
+        app:layout_constraintTop_toTopOf="@+id/statistics_p_distance"
+        tools:text="@string/sample_text_default_data" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/statistics_p_steps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/statistics_sheet_p_steps"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textColor="@color/statistic_sheet_text"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+        android:textColor="@color/text_lightweight"
         app:layout_constraintStart_toStartOf="@+id/statistics_p_distance"
         app:layout_constraintTop_toBottomOf="@+id/statistics_p_distance" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/statistics_data_steps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="@string/statistics_sheet_p_default_data"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@color/statistic_sheet_text"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+        android:textColor="@color/text_default"
         app:layout_constraintBottom_toBottomOf="@+id/statistics_p_steps"
         app:layout_constraintStart_toEndOf="@+id/statistics_p_steps"
-        app:layout_constraintTop_toTopOf="@+id/statistics_p_steps" />
+        app:layout_constraintTop_toTopOf="@+id/statistics_p_steps"
+        tools:text="@string/sample_text_default_data" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/statistics_p_waypoints"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
         android:text="@string/statistics_sheet_p_waypoints"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textColor="@color/statistic_sheet_text"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+        android:textColor="@color/text_lightweight"
         app:layout_constraintStart_toStartOf="@+id/statistics_p_steps"
         app:layout_constraintTop_toBottomOf="@+id/statistics_p_steps" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/statistics_data_waypoints"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="@string/statistics_sheet_p_default_data"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@color/statistic_sheet_text"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+        android:textColor="@color/text_default"
         app:layout_constraintBottom_toBottomOf="@+id/statistics_p_waypoints"
         app:layout_constraintStart_toEndOf="@+id/statistics_p_waypoints"
-        app:layout_constraintTop_toTopOf="@+id/statistics_p_waypoints" />
+        app:layout_constraintTop_toTopOf="@+id/statistics_p_waypoints"
+        tools:text="@string/sample_text_default_data" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/statistics_p_duration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/statistics_sheet_p_duration"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textColor="@color/statistic_sheet_text"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+        android:textColor="@color/text_lightweight"
         app:layout_constraintStart_toStartOf="@+id/statistics_p_waypoints"
         app:layout_constraintTop_toBottomOf="@+id/statistics_p_waypoints" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/statistics_data_duration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="@string/statistics_sheet_p_default_data"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@color/statistic_sheet_text"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+        android:textColor="@color/text_default"
         app:layout_constraintBottom_toBottomOf="@+id/statistics_p_duration"
         app:layout_constraintStart_toEndOf="@+id/statistics_p_duration"
-        app:layout_constraintTop_toTopOf="@+id/statistics_p_duration" />
+        app:layout_constraintTop_toTopOf="@+id/statistics_p_duration"
+        tools:text="@string/sample_text_default_data" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/statistics_p_recording_start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/statistics_sheet_p_recording_start"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textColor="@color/statistic_sheet_text"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+        android:textColor="@color/text_lightweight"
         app:layout_constraintStart_toStartOf="@+id/statistics_p_duration"
         app:layout_constraintTop_toBottomOf="@+id/statistics_p_duration" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/statistics_data_recording_start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="@string/statistics_sheet_p_default_data"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@color/statistic_sheet_text"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+        android:textColor="@color/text_default"
         app:layout_constraintBottom_toBottomOf="@+id/statistics_p_recording_start"
         app:layout_constraintStart_toEndOf="@+id/statistics_p_recording_start"
-        app:layout_constraintTop_toTopOf="@+id/statistics_p_recording_start" />
+        app:layout_constraintTop_toTopOf="@+id/statistics_p_recording_start"
+        tools:text="@string/sample_text_default_data" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/statistics_p_recording_stop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/statistics_sheet_p_recording_stop"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textColor="@color/statistic_sheet_text"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+        android:textColor="@color/text_lightweight"
         app:layout_constraintStart_toStartOf="@+id/statistics_p_recording_start"
         app:layout_constraintTop_toBottomOf="@+id/statistics_p_recording_start" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/statistics_data_recording_stop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="@string/statistics_sheet_p_default_data"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@color/statistic_sheet_text"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+        android:textColor="@color/text_default"
         app:layout_constraintBottom_toBottomOf="@+id/statistics_p_recording_stop"
         app:layout_constraintStart_toEndOf="@+id/statistics_p_recording_stop"
-        app:layout_constraintTop_toTopOf="@+id/statistics_p_recording_stop" />
+        app:layout_constraintTop_toTopOf="@+id/statistics_p_recording_stop"
+        tools:text="@string/sample_text_default_data" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/statistics_p_positive_elevation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/statistics_sheet_p_positive_elevation"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textColor="@color/statistic_sheet_text"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+        android:textColor="@color/text_lightweight"
         app:layout_constraintStart_toStartOf="@+id/statistics_p_recording_stop"
         app:layout_constraintTop_toBottomOf="@+id/statistics_p_recording_stop" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/statistics_data_positive_elevation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="@string/statistics_sheet_p_default_data"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@color/statistic_sheet_text"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+        android:textColor="@color/text_default"
         app:layout_constraintBottom_toBottomOf="@+id/statistics_p_positive_elevation"
         app:layout_constraintStart_toEndOf="@+id/statistics_p_positive_elevation"
-        app:layout_constraintTop_toTopOf="@+id/statistics_p_positive_elevation" />
+        app:layout_constraintTop_toTopOf="@+id/statistics_p_positive_elevation"
+        tools:text="@string/sample_text_default_data" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/statistics_p_negative_elevation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/statistics_sheet_p_negative_elevation"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textColor="@color/statistic_sheet_text"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+        android:textColor="@color/text_lightweight"
         app:layout_constraintStart_toStartOf="@+id/statistics_p_positive_elevation"
         app:layout_constraintTop_toBottomOf="@+id/statistics_p_positive_elevation" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/statistics_data_negative_elevation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="@string/statistics_sheet_p_default_data"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@color/statistic_sheet_text"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+        android:textColor="@color/text_default"
         app:layout_constraintBottom_toBottomOf="@+id/statistics_p_negative_elevation"
         app:layout_constraintStart_toEndOf="@+id/statistics_p_negative_elevation"
-        app:layout_constraintTop_toTopOf="@+id/statistics_p_negative_elevation" />
+        app:layout_constraintTop_toTopOf="@+id/statistics_p_negative_elevation"
+        tools:text="@string/sample_text_default_data" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/statistics_p_max_altitude"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/statistics_sheet_p_max_altitude"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textColor="@color/statistic_sheet_text"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+        android:textColor="@color/text_lightweight"
         app:layout_constraintStart_toStartOf="@+id/statistics_p_negative_elevation"
         app:layout_constraintTop_toBottomOf="@+id/statistics_p_negative_elevation" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/statistics_data_max_altitude"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="@string/statistics_sheet_p_default_data"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@color/statistic_sheet_text"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+        android:textColor="@color/text_default"
         app:layout_constraintBottom_toBottomOf="@+id/statistics_p_max_altitude"
         app:layout_constraintStart_toEndOf="@+id/statistics_p_max_altitude"
-        app:layout_constraintTop_toTopOf="@+id/statistics_p_max_altitude" />
+        app:layout_constraintTop_toTopOf="@+id/statistics_p_max_altitude"
+        tools:text="@string/sample_text_default_data" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/statistics_p_min_altitude"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
         android:text="@string/statistics_sheet_p_min_altitude"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textColor="@color/statistic_sheet_text"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+        android:textColor="@color/text_lightweight"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/statistics_p_max_altitude"
         app:layout_constraintTop_toBottomOf="@+id/statistics_p_max_altitude" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/statistics_data_min_altitude"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="@string/statistics_sheet_p_default_data"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@color/statistic_sheet_text"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+        android:textColor="@color/text_default"
         app:layout_constraintBottom_toBottomOf="@+id/statistics_p_min_altitude"
         app:layout_constraintStart_toEndOf="@+id/statistics_p_min_altitude"
-        app:layout_constraintTop_toTopOf="@+id/statistics_p_min_altitude" />
+        app:layout_constraintTop_toTopOf="@+id/statistics_p_min_altitude"
+        tools:text="@string/sample_text_default_data" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,48 +1,89 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'androidx.navigation.safeargs.kotlin'
 
 android {
-
-    compileSdkVersion project.ext.compileSdkVersion
+    compileSdkVersion 29
     // buildToolsVersion is optional because the plugin uses a recommended version by default
 
     defaultConfig {
-        applicationId project.ext.applicationId
-        minSdkVersion project.ext.minSdkVersion
-        targetSdkVersion project.ext.targetSdkVersion
-        versionCode project.ext.versionCode
-        versionName project.ext.versionName
+        applicationId 'org.y20k.trackbook'
+        minSdkVersion 25
+        targetSdkVersion 27
+        versionCode 27
+        versionName '2.0.0'
+        resConfigs "en"
+    }
 
-        vectorDrawables.useSupportLibrary = true
-        resConfigs "en", "da", "de", "fr", "id", "it", "ja", "nb-rNO", "nl", "sv", "zh-rCN"
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    lintOptions{
+        disable 'MissingTranslation'
     }
 
     buildTypes {
-
         release {
+            // Enables code shrinking, obfuscation, and optimization for only
+            // your project's release build type.
             minifyEnabled true
+
+            // Enables resource shrinking, which is performed by the
+            // Android Gradle plugin.
             shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            // Includes the default ProGuard rules files that are packaged with
+            // the Android Gradle plugin. To learn more, go to the section about
+            // R8 configuration files.
+            proguardFiles getDefaultProguardFile(
+                    'proguard-android-optimize.txt'),
+                    'proguard-rules.pro'
         }
 
-    }
+        debug {
+            // Comment out the below lines if you do not need to test resource shrinking
+            //minifyEnabled true
+            //shrinkResources true
+            //proguardFiles getDefaultProguardFile(
+            //        'proguard-android-optimize.txt'),
+            //        'proguard-rules.pro'
+        }
 
-    lintOptions {
-        warning 'MissingTranslation'
     }
 
 }
 
 dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.2"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.2.2"
 
-    implementation "androidx.appcompat:appcompat:$appcompatVersion"
-    implementation "androidx.constraintlayout:constraintlayout:$constraintlayoutVersion"
-    implementation "androidx.cardview:cardview:$cardviewVersion"
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation "androidx.core:core-ktx:1.1.0"
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
+    implementation 'androidx.coordinatorlayout:coordinatorlayout:1.1.0'
+    implementation "androidx.preference:preference-ktx:1.1.0"
 
-    implementation "com.google.android.material:material:$materialVersion"
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.1.0'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.1.0'
 
-    implementation "org.osmdroid:osmdroid-android:$osmdroidVersion"
-    implementation "com.google.code.gson:gson:$gsonVersion"
 
+    implementation "com.google.android.material:material:1.1.0-beta01"
+    implementation "com.google.code.gson:gson:2.8.6"
+
+    implementation "org.osmdroid:osmdroid-android:6.1.5"
+}
+
+androidExtensions {
+    experimental = true
 }

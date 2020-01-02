@@ -20,7 +20,7 @@
     <string name="snackbar_message_tracking_started">Sporing startet</string>
     <string name="snackbar_message_tracking_resumed">Sporing genoptaget</string>
     <string name="snackbar_message_location_offline">Lokalisering er slået fra. Trackbook kan ikke virke.</string>
-    <!-- fab sub menu -->
+    <!-- fab sub menu_bottom_navigation -->
     <string name="fab_sub_menu_clear">Ryd</string>
     <string name="fab_sub_menu_save">Gem</string>
     <string name="fab_sub_menu_resume">Fortsæt</string>
@@ -39,7 +39,7 @@
     <string name="dialog_export_action_overwrite">Eksporter og overskriv</string>
     <string name="dialog_share_gpx">Del GPX fil med</string>
     <string name="dialog_error_empty_recording_title">Kan ikke gemme</string>
-    <string name="dialog_error_empty_recording_content">Trackbook har ingen rutepunkter endnu.</string>
+    <string name="dialog_error_empty_recording_message">Trackbook har ingen rutepunkter endnu.</string>
     <string name="dialog_error_empty_recording_action_resume">Fortsæt optagelse</string>
     <!-- toast messages -->
     <string name="toast_message_permissions_granted">Tilladelse givet.</string>
@@ -89,8 +89,8 @@
     <string name="layout_onboarding_p_permission_storage">"Trackbook bruger osmdroid, til at lagre kortfliser på Androids eksterne hukommelse. Du kan finde dem i osmdroid mappen i  roden af filsystemet."</string>
     <string name="layout_onboarding_button_okay">Forstået!</string>
     <!-- track tab onboarding -->
-    <string name="track_tab_onboarding_h1_part_1">Dine optagede ture</string>
-    <string name="track_tab_onboarding_h1_part_2">... vil dukke op her.</string>
+    <string name="track_list_onboarding_h1_part_1">Dine optagede ture</string>
+    <string name="track_list_onboarding_h1_part_2">... vil dukke op her.</string>
     <!-- descriptions -->
     <string name="descr_map_current_track">Kortlægning af nuværende tur</string>
     <string name="descr_map_last_track">Kortlægning af sidste tur</string>
@@ -102,9 +102,8 @@
     <string name="descr_fab_sub_menu_button_clear">Ryd knap</string>
     <string name="descr_fab_sub_menu_button_resume">Fortsæt knap</string>
     <string name="descr_statistics_sheet_headline">Overskrift for statistikker</string>
-    <string name="descr_statistics_sheet_icon">Skift mellem optagelse af data visning</string>
     <string name="descr_track_selector">Liste med yderligere ture</string>
-    <string name="descr_export_button">Eksporter tur knap</string>
-    <string name="descr_delete_button">Slet tur knap</string>
-    <string name="descr_share_button_gpx">Del eksport som GPX knap</string>
+    <string name="descr_export_icon">Eksporter tur knap</string>
+    <string name="descr_statistics_sheet_delete_button">Slet tur knap</string>
+    <string name="descr_statistics_sheet_share_button">Del eksport som GPX knap</string>
 </resources>

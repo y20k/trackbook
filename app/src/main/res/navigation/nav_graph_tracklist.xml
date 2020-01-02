@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/nav_graph_tracklist.xml"
+            app:startDestination="@id/fragment_track">
+
+    <fragment
+            android:id="@+id/fragment_track"
+            android:name="org.y20k.trackbook.TracklistFragment"
+            android:label="Tracks"
+            tools:layout="@layout/fragment_tracklist">
+        <action
+            android:id="@+id/action_fragment_collection_to_fragment_track"
+            app:destination="@id/fragment_track" />
+    </fragment>
+
+    <fragment
+            android:id="@+id/fragment_track"
+            android:name="org.y20k.trackbook.TrackFragment"
+            android:label="TRack"/>
+</navigation>

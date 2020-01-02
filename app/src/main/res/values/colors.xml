@@ -2,10 +2,14 @@
 <resources>
 
     <!-- DAY THEME COLORS -->
+
+    <color name="app_window_background">@color/trackbook_grey_very_light</color>
     <color name="status_bar_background">@color/trackbook_white</color>
+    <color name="action_bar_background">@color/trackbook_white</color>
     <color name="bottom_navigation_background">@color/trackbook_white</color>
-    <color name="bottom_navigation_element">@color/trackbook_grey</color>
-    <color name="main_onboarding_text">@color/trackbook_grey</color>
+
+    <color name="bottom_navigation_element">@color/trackbook_grey_light</color>
+    <color name="bottom_navigation_element_selected">@color/trackbook_blue</color>
 
     <color name="fab_button_card_text">@color/trackbook_grey_dark</color>
     <color name="fab_button_card_background">@color/trackbook_white</color>
@@ -13,22 +17,46 @@
     <color name="location_button_icon">@color/trackbook_grey</color>
     <color name="location_button_background">@color/trackbook_white</color>
 
+    <color name="text_default">@color/trackbook_grey_dark</color>
+    <color name="text_lightweight">@color/trackbook_grey</color>
+
+    <color name="icon_default">@color/trackbook_grey</color>
+    <color name="icon_lightweight">@color/trackbook_grey_light</color>
+    <color name="icon_very_lightweight">@color/trackbook_grey_lighter</color>
+    <color name="icon_star_selected">@color/trackbook_blue</color>
+
+    <color name="list_card_background">@color/trackbook_white</color>
+    <color name="list_card_delete_background">@color/trackbook_red</color>
+
     <color name="track_management_text">@color/trackbook_grey_dark</color>
     <color name="track_management_icons">@color/trackbook_grey_dark</color>
     <color name="track_management_background">@color/trackbook_white</color>
 
-    <color name="statistic_sheet_onboarding_text">@color/trackbook_grey</color>
     <color name="statistic_sheet_text">@color/trackbook_grey_dark</color>
     <color name="statistic_sheet_icons">@color/trackbook_grey_dark</color>
     <color name="statistic_sheet_background_expanded">@color/trackbook_white_85percent</color>
-    <color name="statistic_sheet_background_collapsed">@color/trackbook_white_95percent</color>
+    <color name="statistic_sheet_background_collapsed">@color/trackbook_white</color>
+    <color name="statistic_sheet_background_border">@color/trackbook_grey_lighter</color>
 
 
     <!-- COLOR NAMES -->
-    <color name="trackbook_red">#FFDC3D33</color>              <!-- Slightly muted variant of -> Material Design 2: Red 600 -->
+    <color name="trackbook_grey">#FF595959</color> <!-- derived from recommended dark theme surface color -->
+    <color name="trackbook_grey_light">#FF7D7D7D</color>
+    <color name="trackbook_grey_lighter">#FFDADADA</color>
+    <color name="trackbook_grey_very_light">#FFF2F2F2</color>
+    <color name="trackbook_grey_dark">#FF414141</color>
+    <color name="trackbook_grey_darker">#FF2D2D2D</color>
+
+    <color name="trackbook_red">#DC3D33</color> <!-- Slightly muted variant of -> Material Design 2: Red 600 -->
     <color name="trackbook_red_light">#FFE15950</color>
     <color name="trackbook_red_dark">#FFCA2D23</color>
     <color name="trackbook_red_darker">#FFAD261E</color>
+
+    <color name="trackbook_black">#FF121212</color> <!-- Material Design recommended dark theme surface color -->
+    <color name="trackbook_white">#FFFFFFFF</color>
+    <color name="trackbook_transparent">#00ffffff</color>
+
+
 
     <color name="trackbook_gold">#FFE6BA64</color>
 
@@ -38,20 +66,10 @@
 
     <color name="trackbook_green">#FF4CAF50</color>
 
-    <color name="trackbook_white">#FFFFFFFF</color>
     <color name="trackbook_white_85percent">#D9FFFFFF</color>
     <color name="trackbook_white_95percent">#F2FFFFFF</color>
-    <color name="trackbook_black">#FF000000</color>
-    <color name="trackbook_black_85percent">#D9000000</color>
-    <color name="trackbook_black_95percent">#F2000000</color>
-
-    <color name="trackbook_grey_lighter">#FFD2D6DA</color>
-    <color name="trackbook_grey_light">#FFBDC1C6</color>
-    <color name="trackbook_grey">#FF5F6368</color>
-    <color name="trackbook_grey_dark">#FF3C4043</color>
-    <color name="trackbook_grey_darker">#FF17181A</color>
-
-    <color name="trackbook_transparent">#00000000</color>
+    <color name="trackbook_black_85percent">#D9121212</color>
+    <color name="trackbook_black_95percent">#F2121212</color>
 
     <color name="trackbook_icon_background">#FF3C98DB</color>
 

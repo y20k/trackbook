@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="org.y20k.trackbook">
+        xmlns:tools="http://schemas.android.com/tools"
+        package="org.y20k.trackbook">
 
-    <!-- EXCLUDE NON-GPS DEVICES -->
+    <!-- USE GPS AND NETWORK - EXCLUDE NON-GPS DEVICES -->
     <uses-feature android:name="android.hardware.location.gps" android:required="true" />
+    <uses-feature android:name="android.hardware.location.network" />
 
     <!-- NORMAL PERMISSIONS, automatically granted -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
@@ -18,27 +19,19 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
-        android:name=".Trackbook"
-        android:allowBackup="true"
-        android:fullBackupContent="@xml/backupscheme"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:supportsRtl="true"
-        android:theme="@style/TrackbookAppTheme"
-        tools:ignore="GoogleAppIndexingWarning">
-
-        <!-- MAIN ACTIVITY -->
-        <activity
-            android:name=".MainActivity"
+            android:name=".Trackbook"
+            android:allowBackup="true"
+            android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
-            android:theme="@style/TrackbookAppTheme"
-            android:resizeableActivity="true"
-            android:launchMode="singleTop">
+            android:supportsRtl="true"
+            android:theme="@style/AppTheme"
+            tools:ignore="GoogleAppIndexingWarning">
+
+        <activity android:name=".MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-            <!-- TODO App is not indexable by Google Search; consider adding at least one Activity with an ACTION-VIEW intent filter. See issue explanation for more details. -->
         </activity>
 
         <!-- TRACKER SERVICE -->
@@ -53,17 +46,20 @@
             </intent-filter>
         </service>
 
-        <!-- EXPORT HELPER (FILE PROVIDER) -->
+
         <provider
-            android:name=".helpers.ExportHelper"
-            android:authorities="org.y20k.trackbook.exporthelper.provider"
-            android:exported="false"
-            android:grantUriPermissions="true">
+                android:name="androidx.core.content.FileProvider"
+                android:authorities="${applicationId}.provider"
+                android:exported="false"
+                android:grantUriPermissions="true">
             <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths"/>
+                    android:name="android.support.FILE_PROVIDER_PATHS"
+                    android:resource="@xml/provider_paths"/>
         </provider>
 
     </application>
+
+
+
 
 </manifest>

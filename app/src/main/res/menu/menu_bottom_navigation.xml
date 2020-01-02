@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/map_fragment"
+        android:icon="@drawable/ic_compass_needle_black_24dp"
+        android:title="@string/tab_map" />
+
+    <item
+        android:id="@+id/tracklist_fragment"
+        android:icon="@drawable/ic_notebook_black_24dp"
+        android:title="@string/tab_tracks" />
+
+    <item
+        android:id="@+id/settings_fragment"
+        android:icon="@drawable/ic_settings_black_24dp"
+        android:title="@string/tab_settings" />
+
+</menu>

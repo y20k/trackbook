@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <!-- OSM MAP -->
+
+    <!-- BOTTOM SHEET -->
+
+    <org.osmdroid.views.MapView
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:contentDescription="@string/descr_map_last_track"
+        app:layout_anchor="@+id/map"
+        app:layout_anchorGravity="center">
+
+    </org.osmdroid.views.MapView>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/statistics_sheet"
+        android:layout_width="@dimen/bottom_sheet_width"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/shape_statistics_background_collapsed"
+        app:behavior_hideable="false"
+        app:behavior_peekHeight="54dp"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!-- STATISTICS -->
+            <include layout="@layout/track_statistics" />
+
+        </ScrollView>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

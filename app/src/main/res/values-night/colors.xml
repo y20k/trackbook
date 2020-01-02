@@ -1,26 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- DAY THEME COLORS -->
+    <!-- NIGHT THEME COLORS -->
+
+    <color name="app_window_background">@color/trackbook_grey_darker</color>
     <color name="status_bar_background">@color/trackbook_black</color>
+    <color name="action_bar_background">@color/trackbook_black</color>
+
     <color name="bottom_navigation_background">@color/trackbook_black</color>
-    <color name="bottom_navigation_element">@color/trackbook_white</color>
-    <color name="main_onboarding_text">@color/trackbook_white</color>
+    <color name="bottom_navigation_element">@color/trackbook_grey_light</color>
+    <color name="bottom_navigation_element_selected">@color/trackbook_blue</color>
 
     <color name="fab_button_card_text">@color/trackbook_white</color>
     <color name="fab_button_card_background">@color/trackbook_grey_dark</color>
 
     <color name="location_button_icon">@color/trackbook_white</color>
-    <color name="location_button_background">@color/trackbook_grey_dark</color>
+    <color name="location_button_background">@color/trackbook_black</color>
+
+    <color name="text_default">@color/trackbook_white</color>
+    <color name="text_lightweight">@color/trackbook_grey_very_light</color>
+
+    <color name="icon_default">@color/trackbook_white</color>
+    <color name="icon_lightweight">@color/trackbook_grey_very_light</color>
+    <color name="icon_very_lightweight">@color/trackbook_grey_lighter</color>
+    <color name="icon_star_selected">@color/trackbook_blue</color>
+
+    <color name="list_card_background">@color/trackbook_grey_dark</color>
+    <color name="list_card_delete_background">@color/trackbook_red</color>
 
     <color name="track_management_text">@color/trackbook_white</color>
     <color name="track_management_icons">@color/trackbook_white</color>
     <color name="track_management_background">@color/trackbook_black</color>
 
-    <color name="statistic_sheet_onboarding_text">@color/trackbook_white</color>
     <color name="statistic_sheet_text">@color/trackbook_white</color>
     <color name="statistic_sheet_icons">@color/trackbook_white</color>
     <color name="statistic_sheet_background_expanded">@color/trackbook_black_85percent</color>
-    <color name="statistic_sheet_background_collapsed">@color/trackbook_black_95percent</color>
+    <color name="statistic_sheet_background_collapsed">@color/trackbook_black</color>
+    <color name="statistic_sheet_background_border">@color/trackbook_grey_dark</color>
 
 </resources>

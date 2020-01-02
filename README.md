@@ -4,7 +4,9 @@ README
 Trackbook - Movement Recorder for Android
 -----------------------------------------
 
-**Version 1.2.x ("San Tropez")**
+**Version 2.0.x ("Echoes")**
+
+**Please note: Trackbook is currently being completely re-written in Kotlin. No line of code is left unchanged. The process is not finished yet.**
 
 Trackbook is a bare bones app for recording your movements. Trackbook is great for hiking, vacation or workout. Once started it traces your movements on a map. The map data is provided by [OpenStreetMap (OSM)](https://www.openstreetmap.org/).
 
