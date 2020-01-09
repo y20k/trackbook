@@ -5,65 +5,32 @@
     <!-- please do not translate app_name - transcription into different alphabet types is fine though -->
     <!-- tabs -->
     <string name="tab_map">地図</string>
-    <string name="tab_last_tracks">最後のトレース</string>
     <!-- notification -->
     <string name="notification_title_trackbook_running">Trackbook 実行中</string>
     <string name="notification_title_trackbook_not_running">Trackbook は実行していません</string>
     <string name="notification_stop">停止</string>
     <string name="notification_resume">再開</string>
     <string name="notification_show">表示</string>
-    <string name="notification_content_duration">期間</string>
-    <string name="notification_content_distance">距離</string>
     <string name="notification_channel_recording_name">移動記録状態</string>
     <string name="notification_channel_recording_description">時間と距離を表示します。オプションで移動の記録を停止します。</string>
     <!-- snackbar messages -->
-    <string name="snackbar_message_tracking_stopped">トレースを停止しました</string>
-    <string name="snackbar_message_tracking_started">トレースを開始しました</string>
-    <string name="snackbar_message_tracking_resumed">トレースを再開しました</string>
     <string name="snackbar_message_location_offline">位置情報がオフです。Trackbook は動作しません。</string>
     <!-- fab sub menu_bottom_navigation -->
     <string name="fab_sub_menu_clear">クリア</string>
     <string name="fab_sub_menu_save">保存してクリア</string>
     <string name="fab_sub_menu_resume">再開</string>
     <!-- dialogs -->
-    <string name="dialog_default_action_cancel">キャンセル</string>
-    <string name="dialog_clear_content">記録をクリアしますか?</string>
-    <string name="dialog_clear_action_clear">クリア</string>
-    <string name="dialog_delete_title">記録を削除しますか?</string>
-    <string name="dialog_delete_content">この記録を削除:</string>
-    <string name="dialog_delete_action_delete">削除</string>
-    <string name="dialog_export_title_export">GPX として記録をエクスポートしますか?</string>
-    <string name="dialog_export_content_export">GPX トレースとしてこの記録をエクスポートします。</string>
-    <string name="dialog_export_action_export">Export</string>
-    <string name="dialog_export_title_overwrite">エクスポートを上書きしますか?</string>
-    <string name="dialog_export_content_overwrite">ファイルは既に存在します。エクスポートし、GPX トレースとしてこの記録を上書きします。</string>
-    <string name="dialog_export_action_overwrite">エクスポートして上書き</string>
     <string name="dialog_share_gpx">GPX ファイルを共有...</string>
     <string name="dialog_error_empty_recording_title">保存できません</string>
     <string name="dialog_error_empty_recording_message">トラックブックはこれまでウェイポイントを記録していません。</string>
     <string name="dialog_error_empty_recording_action_resume">記録を再開</string>
     <!-- toast messages -->
-    <string name="toast_message_permissions_granted">アクセス許可を付与しました。</string>
-    <string name="toast_message_unable_to_start_app">Trackbook を起動できません。</string>
-    <string name="toast_message_no_external_storage">外部ストレージにアクセスできません。</string>
-    <string name="toast_message_location_offline">位置情報はオフです。Trackbook は動作しません。</string>
-    <string name="toast_message_acquiring_location">現在の場所を取得します。</string>
-    <string name="toast_message_location_services_not_ready">位置情報サービスの準備ができていません。もう一度やり直してください。</string>
-    <string name="toast_message_last_location">最後の場所:</string>
-    <string name="toast_message_save_track">現在のトレースを保存しています。</string>
-    <string name="toast_message_last_location_age_one_hour">1 時間以上</string>
-    <string name="toast_message_track_clear">現在のトレース データを削除しました。</string>
-    <string name="toast_message_export_success">GPX のエクスポートが完了しました:</string>
-    <string name="toast_message_export_fail">GPX のエクスポートに失敗しました:</string>
     <string name="toast_message_elevation_info">ヒント: 標高データの精度は、お使いのデバイスによって異なります。ルート全体の上り坂と下り坂の標高を測定します。</string>
     <string name="toast_message_install_file_helper">先にファイルマネージャか GPX トレースビューアーをインストールしてください。</string>
     <!-- map markers -->
-    <string name="marker_description_source">ソース</string>
     <string name="marker_description_time">時間</string>
     <string name="marker_description_accuracy">精度</string>
     <!-- statistics sheet -->
-    <string name="statistics_sheet_h1_statistics">統計情報</string>
-    <string name="statistics_sheet_p_default_data">トレースデータが見つかりません</string>
     <string name="statistics_sheet_p_distance">総距離:</string>
     <string name="statistics_sheet_p_steps">歩数:</string>
     <string name="statistics_sheet_p_steps_no_pedometer">歩数計は使用できません</string>
@@ -76,32 +43,17 @@
     <string name="statistics_sheet_p_positive_elevation">標高 (上り):</string>
     <string name="statistics_sheet_p_negative_elevation">標高 (下り):</string>
     <!-- onboarding layout -->
-    <string name="layout_onboarding_h1_welcome">こんにちは</string>
     <string name="layout_onboarding_description_app_icon">Trackbook アプリ アイコン</string>
-    <string name="layout_onboarding_h2_app_name">Trackbook</string>
-    <string name="layout_onboarding_p_app_claim">移動レコーダー</string>
-    <string name="layout_onboarding_h2_request_permissions">Trackbook は、このアクセス許可がないと動作できません:</string>
-    <string name="layout_onboarding_h3_permission_location">場所</string>
-    <string name="layout_onboarding_p_permission_location">Trackbook は、移動を記録できるように、正確な GPS データが必要です。GPS データが利用できない、または正確ではない場合、Trackbook は基地局および WiFi の三角測量の場所データを使用します。</string>
-    <string name="layout_onboarding_h3_permission_storage">ストレージ</string>
-    <string name="layout_onboarding_p_permission_storage">Trackbook は、Android の外部ストレージに地図タイルをキャッシュする osmdroid を使用します。地図キャッシュは、ユーザー向けファイル・システムの最上位レベルの osmdroid フォルダーで見つけることができます。</string>
-    <string name="layout_onboarding_button_okay">完了!</string>
     <!-- track tab onboarding -->
     <string name="track_list_onboarding_h1_part_1">記録したトレース</string>
     <string name="track_list_onboarding_h1_part_2">… ここに表示されます。</string>
     <!-- descriptions -->
     <string name="descr_map_current_track">現在のトレースのマッピング</string>
     <string name="descr_map_last_track">最後のトレースのマッピング</string>
-    <string name="descr_fab_my_location">自分の場所ボタン</string>
     <string name="descr_fab_main_start">記録開始ボタン</string>
-    <string name="descr_fab_main_stop">記録停止ボタン</string>
-    <string name="descr_fab_main_options">記録オプションボタン</string>
     <string name="descr_fab_sub_menu_button_save">保存ボタン</string>
     <string name="descr_fab_sub_menu_button_clear">クリアボタン</string>
     <string name="descr_fab_sub_menu_button_resume">再開ボタン</string>
-    <string name="descr_statistics_sheet_headline">統計情報シートの見出し</string>
-    <string name="descr_track_selector">ドロップダウン メニューでさらにトレース</string>
-    <string name="descr_export_icon">トレースのエクスポート ボタン</string>
     <string name="descr_statistics_sheet_delete_button">トレース削除ボタン</string>
     <string name="descr_statistics_sheet_share_button">GPX としてエクスポートする共有ボタン</string>
     <string name="toast_message_theme_night">夜間モードに切り替えています (長押しを検出しました)</string>

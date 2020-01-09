@@ -2,8 +2,5 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <item name="custom_match_parent" type="dimen">-1</item> <!-- CUSTOM MATCH_PARENT - see https://developer.android.com/reference/android/view/ViewGroup.LayoutParams.html#MATCH_PARENT -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="fab_margin">16dp</dimen>
-    <dimen name="appbar_padding_top">8dp</dimen>
     <dimen name="bottom_sheet_width">@dimen/custom_match_parent</dimen>
 </resources>

@@ -13,15 +13,10 @@
     <string name="notification_stop">Stopp</string>
     <string name="notification_resume">Återuppta</string>
     <string name="notification_show">Visa</string>
-    <string name="notification_content_duration">Varaktighet</string>
-    <string name="notification_content_distance">Avstånd</string>
     <!--<string name="notification_channel_recording_name"></string>-->
     <!--<string name="notification_channel_recording_description"></string>-->
 
     <!-- snackbar messages -->
-    <string name="snackbar_message_tracking_stopped">Spårningen stoppades</string>
-    <string name="snackbar_message_tracking_started">Spårningen påbörjades</string>
-    <string name="snackbar_message_tracking_resumed">Spårningen återupptogs</string>
     <string name="snackbar_message_location_offline">Plats är avstängt. Trackbook kommer inte fungera.</string>
 
     <!-- fab sub menu_bottom_navigation -->
@@ -30,18 +25,6 @@
     <string name="fab_sub_menu_resume">Återuppta</string>
 
     <!-- dialogs -->
-    <string name="dialog_default_action_cancel">Avbryt</string>
-    <string name="dialog_clear_content">Rensa inspelning\?</string>
-    <string name="dialog_clear_action_clear">Rensa</string>
-    <string name="dialog_delete_title">Ta bort inspelning\?</string>
-    <string name="dialog_delete_content">Ta bort den här inspelningen:</string>
-    <string name="dialog_delete_action_delete">Ta bort</string>
-    <string name="dialog_export_title_export">Exportera inspelning som GPX\?</string>
-    <string name="dialog_export_content_export">Exportera den här inspelningen som GPX-spår.</string>
-    <string name="dialog_export_action_export">Exportera</string>
-    <string name="dialog_export_title_overwrite">Exportera och skriv över\?</string>
-    <string name="dialog_export_content_overwrite">Filen finns redan. Exportera och skriv över den här inspelningen som GPX-spår.</string>
-    <string name="dialog_export_action_overwrite">Exportera och skriv över</string>
     <string name="dialog_share_gpx">Dela GPX-fil med</string>
     <string name="dialog_error_empty_recording_title">Kunde inte spara</string>
     <string name="dialog_error_empty_recording_message">Trackbook spelade inte in några vägpunkter så här långt.</string>
@@ -49,16 +32,8 @@
 
     <!-- toast messages -->
     <!--<string name="toast_message_permissions_granted"></string>-->
-    <string name="toast_message_unable_to_start_app">Kunde inte starta Trackbook.</string>
     <!--<string name="toast_message_no_external_storage"></string>-->
-    <string name="toast_message_location_offline">Plats är avstängt. Trackbook kommer inte fungera.</string>
-    <string name="toast_message_acquiring_location">Hämtar nuvarande plats.</string>
-    <string name="toast_message_location_services_not_ready">Platstjänsterna är inte redo. Vänligen försök igen.</string>
-    <string name="toast_message_last_location">Senaste plats:</string>
-    <string name="toast_message_save_track">Sparar nuvarande spåret.</string>
-    <string name="toast_message_last_location_age_one_hour">över en timme</string>
     <!--<string name="toast_message_track_clear"></string>-->
-    <string name="toast_message_export_success">Exportering av GPX lyckades:</string>
     <!--<string name="toast_message_export_fail"></string>-->
     <!--<string name="toast_message_elevation_info"></string>-->
     <!--<string name="toast_message_install_file_helper"></string>-->

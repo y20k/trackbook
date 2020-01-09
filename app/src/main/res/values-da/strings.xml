@@ -4,68 +4,35 @@
     <string name="app_name">Trackbook</string> <!-- please do not translate app_name - transcription into different alphabet types is fine though -->
     <!-- tabs -->
     <string name="tab_map">Kort</string>
-    <string name="tab_last_tracks">Seneste ture</string>
     <!-- notification -->
     <string name="notification_title_trackbook_running">Trackbook kører</string>
     <string name="notification_title_trackbook_not_running">Trackbook kører ikke</string>
     <string name="notification_stop">Stop</string>
     <string name="notification_resume">Fortsæt</string>
     <string name="notification_show">Vis</string>
-    <string name="notification_content_duration">Varighed</string>
-    <string name="notification_content_distance">Distance</string>
     <string name="notification_channel_recording_name">Bevægelse optagelses tilstand</string>
     <string name="notification_channel_recording_description">Vis varighed og distance. Mulighed for at stoppe optagelse af bevægelse.</string>
     <!-- snackbar messages -->
-    <string name="snackbar_message_tracking_stopped">Sporing stoppet</string>
-    <string name="snackbar_message_tracking_started">Sporing startet</string>
-    <string name="snackbar_message_tracking_resumed">Sporing genoptaget</string>
     <string name="snackbar_message_location_offline">Lokalisering er slået fra. Trackbook kan ikke virke.</string>
     <!-- fab sub menu_bottom_navigation -->
     <string name="fab_sub_menu_clear">Ryd</string>
     <string name="fab_sub_menu_save">Gem</string>
     <string name="fab_sub_menu_resume">Fortsæt</string>
     <!-- dialogs -->
-    <string name="dialog_default_action_cancel">Afbryd</string>
-    <string name="dialog_clear_content">Ryd optagelse\?</string>
-    <string name="dialog_clear_action_clear">Ryd</string>
-    <string name="dialog_delete_title">Slet optagelse\?</string>
-    <string name="dialog_delete_content">Slet optagelsen:</string>
-    <string name="dialog_delete_action_delete">Slet</string>
-    <string name="dialog_export_title_export">Eksporter optagelse som GPX\?</string>
-    <string name="dialog_export_content_export">Eksporter denne optagelse som GPX.</string>
-    <string name="dialog_export_action_export">Eksporter</string>
-    <string name="dialog_export_title_overwrite">Eksporter og overskriv\?</string>
-    <string name="dialog_export_content_overwrite">Filen eksisterer allerede. Eksporter og overskriv denne optagelse som GPX.</string>
-    <string name="dialog_export_action_overwrite">Eksporter og overskriv</string>
     <string name="dialog_share_gpx">Del GPX fil med</string>
     <string name="dialog_error_empty_recording_title">Kan ikke gemme</string>
     <string name="dialog_error_empty_recording_message">Trackbook har ingen rutepunkter endnu.</string>
     <string name="dialog_error_empty_recording_action_resume">Fortsæt optagelse</string>
     <!-- toast messages -->
-    <string name="toast_message_permissions_granted">Tilladelse givet.</string>
-    <string name="toast_message_unable_to_start_app">Ude af stand til at starte Trackbook.</string>
-    <string name="toast_message_no_external_storage">Kan ikke tilgå ekstern hukommelse.</string>
-    <string name="toast_message_location_offline">Lokalisering er slået fra. Trackbook kan ikke fungere.</string>
-    <string name="toast_message_acquiring_location">Henter nuværende placering.</string>
-    <string name="toast_message_location_services_not_ready">Lokaliserings tjenesten er ikke klar. Prøv igen.</string>
-    <string name="toast_message_last_location">Sidste placering:</string>
-    <string name="toast_message_save_track">Gem nuværende tur.</string>
-    <string name="toast_message_last_location_age_one_hour">over en time</string>
-    <string name="toast_message_track_clear">Igangværende tur slettet.</string>
-    <string name="toast_message_export_success">Eksportering af GPX succesfuld:</string>
-    <string name="toast_message_export_fail">Eksportering af GPX fejlede:</string>
     <string name="toast_message_elevation_info">Tip: nøjagtigheden af højde målingerne afhænger af din enhed. Op ad og nedadgående højder på hele ruten måles.</string>
     <string name="toast_message_install_file_helper">Installer filhåndtering eller GPX læser først.</string>
     <string name="toast_message_theme_night">Skifter til nat tilstand (langt tryk genkendt)</string>
     <string name="toast_message_theme_day">Skifter til dag tilstand (langt tryk genkendt)</string>
     <string name="toast_message_theme_follow_system">Skifter til at følge telefonens indstillinger (langt tryk genkendt)</string>
     <!-- map markers -->
-    <string name="marker_description_source">Kilde</string>
     <string name="marker_description_time">Tid</string>
     <string name="marker_description_accuracy">Nøjagtighed</string>
     <!-- statistics sheet -->
-    <string name="statistics_sheet_h1_statistics">Statistik</string>
-    <string name="statistics_sheet_p_default_data">tur data mangler</string>
     <string name="statistics_sheet_p_distance">Samlet distance:</string>
     <string name="statistics_sheet_p_steps">Antal skridt:</string>
     <string name="statistics_sheet_p_steps_no_pedometer">skridttæller ikke tilgængelig</string>
@@ -78,32 +45,17 @@
     <string name="statistics_sheet_p_positive_elevation">Elevation (op ad bakke):</string>
     <string name="statistics_sheet_p_negative_elevation">Elevation (ned af bakke):</string>
     <!-- onboarding layout -->
-    <string name="layout_onboarding_h1_welcome">Hej</string>
     <string name="layout_onboarding_description_app_icon">Trackbook app ikon</string>
-    <string name="layout_onboarding_h2_app_name">Trackbook</string>
-    <string name="layout_onboarding_p_app_claim">Bevægelses optager</string>
-    <string name="layout_onboarding_h2_request_permissions">Trackbook kan ikke fungere uden disse tilladelser:</string>
-    <string name="layout_onboarding_h3_permission_location">LOKATION</string>
-    <string name="layout_onboarding_p_permission_location">Trackbook behøver præcis GPS data for at optage din færden. Hvis GPS ikke er tilgængelig eller upræcis, bruger Trackbook lokations data fra telefonmaster og Wi-Fi triangulering.</string>
-    <string name="layout_onboarding_h3_permission_storage">LAGRING</string>
-    <string name="layout_onboarding_p_permission_storage">"Trackbook bruger osmdroid, til at lagre kortfliser på Androids eksterne hukommelse. Du kan finde dem i osmdroid mappen i  roden af filsystemet."</string>
-    <string name="layout_onboarding_button_okay">Forstået!</string>
     <!-- track tab onboarding -->
     <string name="track_list_onboarding_h1_part_1">Dine optagede ture</string>
     <string name="track_list_onboarding_h1_part_2">... vil dukke op her.</string>
     <!-- descriptions -->
     <string name="descr_map_current_track">Kortlægning af nuværende tur</string>
     <string name="descr_map_last_track">Kortlægning af sidste tur</string>
-    <string name="descr_fab_my_location">Min position knap</string>
     <string name="descr_fab_main_start">Start optagelse knap</string>
-    <string name="descr_fab_main_stop">Stop optagelse knap</string>
-    <string name="descr_fab_main_options">Optagelses indstillinger knap</string>
     <string name="descr_fab_sub_menu_button_save">Gem knap</string>
     <string name="descr_fab_sub_menu_button_clear">Ryd knap</string>
     <string name="descr_fab_sub_menu_button_resume">Fortsæt knap</string>
-    <string name="descr_statistics_sheet_headline">Overskrift for statistikker</string>
-    <string name="descr_track_selector">Liste med yderligere ture</string>
-    <string name="descr_export_icon">Eksporter tur knap</string>
     <string name="descr_statistics_sheet_delete_button">Slet tur knap</string>
     <string name="descr_statistics_sheet_share_button">Del eksport som GPX knap</string>
 </resources>

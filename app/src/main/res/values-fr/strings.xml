@@ -5,12 +5,9 @@
     <!-- please do not translate app_name - transcription into different alphabet types is fine though -->
     <!-- tabs -->
     <string name="tab_map">Carte</string>
-    <string name="tab_last_tracks">Derniers parcours</string>
     <!-- notification -->
     <string name="notification_channel_recording_description">Affiche la durée et la distance. Possibilité d\'arrêter l\'enregistrement des déplacements.</string>
     <string name="notification_channel_recording_name">État de l\'enregistrement des déplacements</string>
-    <string name="notification_content_distance">Distance</string>
-    <string name="notification_content_duration">Durée</string>
     <string name="notification_resume">Reprendre</string>
     <string name="notification_show">Afficher</string>
     <string name="notification_stop">Arrêter</string>
@@ -18,55 +15,25 @@
     <string name="notification_title_trackbook_running">Suivi actif</string>
     <!-- snackbar messages -->
     <string name="snackbar_message_location_offline">Localisation désactivée. Le suivi ne fonctionnera pas.</string>
-    <string name="snackbar_message_tracking_resumed">Suivi repris</string>
-    <string name="snackbar_message_tracking_started">Suivi démarré</string>
-    <string name="snackbar_message_tracking_stopped">Suivi arrêté</string>
     <!-- fab sub menu_bottom_navigation -->
     <string name="fab_sub_menu_clear">Supprimer</string>
     <string name="fab_sub_menu_resume">Reprendre</string>
     <string name="fab_sub_menu_save">Sauvegarder</string>
     <!-- dialogs -->
-    <string name="dialog_clear_action_clear">Supprimer</string>
-    <string name="dialog_clear_content">Supprimer l\'enregistrement \?</string>
-    <string name="dialog_default_action_cancel">Annuler</string>
-    <string name="dialog_delete_action_delete">Supprimer</string>
-    <string name="dialog_delete_content">Supprimer cet enregistrement :</string>
-    <string name="dialog_delete_title">Supprimer l\'enregistrement \?</string>
     <string name="dialog_error_empty_recording_action_resume">Reprendre l\'enregistrement</string>
     <string name="dialog_error_empty_recording_message">Trackbook n\'a enregistré aucun point de parcours jusqu\'à présent.</string>
     <string name="dialog_error_empty_recording_title">Sauvegarde impossible</string>
-    <string name="dialog_export_action_export">Exporter</string>
-    <string name="dialog_export_action_overwrite">Exporter et écraser</string>
-    <string name="dialog_export_content_export">Exporter cet enregistrement comme itinéraire GPX.</string>
-    <string name="dialog_export_content_overwrite">Le fichier existe déjà. Exporter et écraser cet enregistrement comme itinéraire GPX.</string>
-    <string name="dialog_export_title_export">Exporter l\'enregistrement au format GPX \?</string>
-    <string name="dialog_export_title_overwrite">Exporter et écraser \?</string>
     <string name="dialog_share_gpx">Partager le fichier GPX avec</string>
     <!-- toast messages -->
-    <string name="toast_message_acquiring_location">Récupération de l\'emplacement actuel.</string>
     <string name="toast_message_elevation_info">Astuce : La précision des données d\'altitude dépend de votre appareil. La dénivellation globale du parcours est mesurée.</string>
-    <string name="toast_message_export_fail">Échec de l\'export GPX :</string>
-    <string name="toast_message_export_success">Export GPX réalisé avec succès :</string>
     <string name="toast_message_install_file_helper">Veuillez installer un gestionnaire de fichiers ou un visualiseur de fichier GPX.</string>
-    <string name="toast_message_last_location_age_one_hour">plus d\'une heure</string>
-    <string name="toast_message_last_location">Dernier emplacement :</string>
-    <string name="toast_message_location_offline">Localisation désactivée. Le suivi ne fonctionnera pas.</string>
-    <string name="toast_message_location_services_not_ready">Services de localisation indisponibles. Veuillez réessayer.</string>
-    <string name="toast_message_no_external_storage">Impossible d\'accéder à l\'espace de stockage.</string>
-    <string name="toast_message_permissions_granted">Permissions accordées.</string>
-    <string name="toast_message_save_track">Enregistrement du parcours actuel.</string>
     <string name="toast_message_theme_day">Passage au mode Jour (appui long détecté)</string>
     <string name="toast_message_theme_follow_system">Passage au mode Système (appui long détecté)</string>
     <string name="toast_message_theme_night">Passage au mode Nuit (appui long détecté)</string>
-    <string name="toast_message_track_clear">Parcours actuel supprimé.</string>
-    <string name="toast_message_unable_to_start_app">Impossible de démarrer Trackbook.</string>
     <!-- map markers -->
     <string name="marker_description_accuracy">Précision</string>
-    <string name="marker_description_source">Origine</string>
     <string name="marker_description_time">Heure</string>
     <!-- statistics sheet -->
-    <string name="statistics_sheet_h1_statistics">Statistiques</string>
-    <string name="statistics_sheet_p_default_data">pas de données de parcours</string>
     <string name="statistics_sheet_p_distance">Distance totale :</string>
     <string name="statistics_sheet_p_duration">Durée totale :</string>
     <string name="statistics_sheet_p_max_altitude">Point le plus haut :</string>
@@ -79,58 +46,30 @@
     <string name="statistics_sheet_p_steps">Nombre de pas :</string>
     <string name="statistics_sheet_p_waypoints">Points de parcours enregistrés :</string>
     <!-- onboarding layout -->
-    <string name="layout_onboarding_button_okay">C\'est noté !</string>
     <string name="layout_onboarding_description_app_icon">Icône de Trackbook</string>
-    <string name="layout_onboarding_h1_welcome">Bonjour</string>
-    <string name="layout_onboarding_h2_app_name">Trackbook</string>
-    <string name="layout_onboarding_h2_request_permissions">Trackbook ne peut pas fonctionner sans cette autorisation :</string>
-    <string name="layout_onboarding_h3_permission_location">LOCALISATION</string>
-    <string name="layout_onboarding_h3_permission_storage">STOCKAGE</string>
-    <string name="layout_onboarding_p_app_claim">Enregistrement de parcours</string>
-    <string name="layout_onboarding_p_permission_location">Trackbook a besoin des données GPS précises pour enregistrer vos déplacements. Si les données GPS ne sont pas disponibles ou insuffisamment précises, Trackbook utilisera la localisation à partir du réseau cellulaire et la triangulation Wi-Fi.</string>
-    <string name="layout_onboarding_p_permission_storage">Trackbook utilise osmdroid, qui nécessite la conservation de tuiles cartographiques dans l\'espace de stockage Android. Vous pouvez retrouver ces tuiles cartographiques dans le dossier osmdroid au plus haut niveau du système de fichiers de l\'utilisateur.</string>
     <!-- track tab onboarding -->
     <string name="track_list_onboarding_h1_part_1">Vos parcours enregistrés</string>
     <string name="track_list_onboarding_h1_part_2">… seront affichés ici.</string>
     <!-- descriptions -->
     <string name="descr_statistics_sheet_delete_button">Bouton « Supprimer le parcours »</string>
-    <string name="descr_export_icon">Bouton « Exporter le parcours »</string>
-    <string name="descr_fab_main_options">Bouton « Options d\'enregistrement »</string>
     <string name="descr_fab_main_start">Bouton « Démarrer l\'enregistrement »</string>
-    <string name="descr_fab_main_stop">Bouton « Arrêter l\'enregistrement »</string>
-    <string name="descr_fab_my_location">Bouton « Mon emplacement »</string>
     <string name="descr_fab_sub_menu_button_clear">Bouton « Supprimer »</string>
     <string name="descr_fab_sub_menu_button_resume">Bouton « Reprendre »</string>
     <string name="descr_fab_sub_menu_button_save">Bouton « Sauvegarder »</string>
     <string name="descr_map_current_track">Affichage du parcours actuel</string>
     <string name="descr_map_last_track">Affichage du dernier parcours</string>
     <string name="descr_statistics_sheet_share_button">Bouton « Partager au format GPX »</string>
-    <string name="descr_statistics_sheet_headline">Entête de la page des statistiques</string>
-    <string name="descr_track_selector">Liste déroulante pour la sélection des autres parcours</string>
-    <string name="placeholder_map">Carte</string>
-    <string name="placeholder_tracks">Itinéraires</string>
-    <string name="placeholder_track">Itinéraire</string>
-    <string name="placeholder_settings">Paramètres</string>
     <string name="tab_tracks">Itinéraires</string>
     <string name="tab_settings">Paramètres</string>
     <string name="snackbar_message_location_permission_denied">Permission manquante. Le suivi ne fonctionnera pas.</string>
     <string name="dialog_generic_button_cancel">Annuler</string>
     <string name="dialog_generic_button_okay">OK</string>
     <string name="dialog_generic_details_button">Afficher les informations</string>
-    <string name="dialog_generic_details_default">Aucune information disponible</string>
     <string name="dialog_rename_track_button">Renommer</string>
     <string name="dialog_rename_track_input_hint">Entrez un nouveau nom</string>
-    <string name="dialog_rename_track_title">Renommer l\'enregistrement</string>
-    <string name="dialog_yes_no_message_default">Êtes-vous sûr de vouloir effectuer cette action \?</string>
-    <string name="dialog_yes_no_negative_button_cancel">Annuler</string>
-    <string name="dialog_yes_no_negative_button_default">Non</string>
     <string name="dialog_yes_no_positive_button_default">Oui</string>
     <string name="dialog_yes_no_positive_button_remove_recording">Supprimer</string>
     <string name="dialog_yes_no_message_remove_recording">Supprimer cet enregistrement \?</string>
-    <string name="dialog_yes_no_title_default">Décider</string>
-    <string name="action_track_actionbar_delete">Supprimer</string>
-    <string name="action_track_actionbar_rename">Renommer</string>
-    <string name="action_track_actionbar_share">Partager</string>
     <string name="pref_accuracy_threshold_summary">Annuler les corrections d\'emplacement avec une précision supérieure à</string>
     <string name="pref_accuracy_threshold_title">Seuil de précision</string>
     <string name="pref_advanced_title">Avancé</string>

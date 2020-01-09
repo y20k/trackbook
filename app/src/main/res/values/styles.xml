@@ -5,8 +5,8 @@
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
 
         <!-- Set AppCompat’s colors -->
-        <item name="colorPrimary">@color/trackbook_grey_very_light</item>
-        <item name="colorPrimaryDark">@color/trackbook_white</item>
+        <item name="colorPrimary">@color/trackbook_grey_dark</item>
+        <item name="colorPrimaryDark">@color/trackbook_grey_darker</item>
         <item name="colorAccent">@color/trackbook_blue</item>
 
         <!-- Show white status bar -->

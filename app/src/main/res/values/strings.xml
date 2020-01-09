@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- placeholder text - todo remove -->
-    <string name="placeholder_map">Map</string>
-    <string name="placeholder_tracks">Tracks</string>
-    <string name="placeholder_track">Track</string>
-    <string name="placeholder_settings">Settings</string>
 
     <!-- App Name -->
     <string name="app_name">Trackbook</string> <!-- please do not translate app_name - transcription into different alphabet types is fine though -->
@@ -20,15 +16,10 @@
     <string name="notification_stop">Stop</string>
     <string name="notification_resume">Resume</string>
     <string name="notification_show">Show</string>
-    <string name="notification_content_duration">Duration</string>
-    <string name="notification_content_distance">Distance</string>
     <string name="notification_channel_recording_name">Movement Recording State</string>
     <string name="notification_channel_recording_description">Display duration and distance. Option to stop movement recording.</string>
 
     <!-- Snackbar Messages -->
-    <string name="snackbar_message_tracking_stopped">Tracking stopped</string>
-    <string name="snackbar_message_tracking_started">Tracking started</string>
-    <string name="snackbar_message_tracking_resumed">Tracking resumed</string>
     <string name="snackbar_message_location_offline">Location is turned off. Trackbook will not work.</string>
     <string name="snackbar_message_location_permission_denied">Location permission not granted. Trackbook will not work.</string>
 
@@ -41,48 +32,18 @@
     <string name="dialog_generic_button_cancel">Cancel</string>
     <string name="dialog_generic_button_okay">OK</string>
     <string name="dialog_generic_details_button">Show details</string>
-    <string name="dialog_generic_details_default">No details available</string>
-    <string name="dialog_default_action_cancel">Cancel</string>
-    <string name="dialog_clear_content">Clear Recording?</string>
-    <string name="dialog_clear_action_clear">Clear</string>
-    <string name="dialog_delete_title">Delete Recording?</string>
-    <string name="dialog_delete_content">Delete this recording:</string>
-    <string name="dialog_delete_action_delete">Delete</string>
     <string name="dialog_error_empty_recording_title">Unable to save</string>
     <string name="dialog_error_empty_recording_message">Trackbook did not record any waypoints so far.</string>
     <string name="dialog_error_empty_recording_action_resume">Resume Recording</string>
-    <string name="dialog_export_title_export">Export Recording as GPX?</string>
-    <string name="dialog_export_content_export">Export this recording as GPX track.</string>
-    <string name="dialog_export_action_export">Export</string>
-    <string name="dialog_export_title_overwrite">Export and Overwrite?</string>
-    <string name="dialog_export_content_overwrite">File already exists. Export and overwrite this recording as GPX track.</string>
-    <string name="dialog_export_action_overwrite">Export and Overwrite</string>
     <string name="dialog_rename_track_button">Rename</string>
     <string name="dialog_rename_track_input_hint">Enter a new name</string>
-    <string name="dialog_rename_track_title">Rename Recording</string>
     <string name="dialog_share_gpx">Share GPX file with</string>
-    <string name="dialog_yes_no_message_default">Do you really want to do this?</string>
-    <string name="dialog_yes_no_negative_button_cancel">Cancel</string>
-    <string name="dialog_yes_no_negative_button_default">No</string>
     <string name="dialog_yes_no_positive_button_default">Yes</string>
     <string name="dialog_yes_no_positive_button_remove_recording">Remove</string>
     <string name="dialog_yes_no_message_remove_recording">Remove this recording?</string>
-    <string name="dialog_yes_no_title_default">Decide</string>
 
 
     <!-- Toast Messages -->
-    <string name="toast_message_permissions_granted">Permissions granted.</string>
-    <string name="toast_message_unable_to_start_app">Unable to start Trackbook.</string>
-    <string name="toast_message_no_external_storage">Unable to access external storage.</string>
-    <string name="toast_message_location_offline">Location is turned off. Trackbook will not work.</string>
-    <string name="toast_message_acquiring_location">Acquiring current location.</string>
-    <string name="toast_message_location_services_not_ready">Location services not ready. Please retry.</string>
-    <string name="toast_message_last_location">Last location:</string>
-    <string name="toast_message_save_track">Saving current track.</string>
-    <string name="toast_message_last_location_age_one_hour">over one hour</string>
-    <string name="toast_message_track_clear">Current track data removed.</string>
-    <string name="toast_message_export_success">GPX export successful:</string>
-    <string name="toast_message_export_fail">GPX export failed:</string>
     <string name="toast_message_elevation_info">Hint: The accuracy of elevation data depends on your device. The uphill and downhill elevation of the whole route is measured.</string>
     <string name="toast_message_install_file_helper">Please install a file manager or a GPX track viewer first.</string>
     <string name="toast_message_theme_night">Switching to Night mode (long press detected)</string>
@@ -90,13 +51,10 @@
     <string name="toast_message_theme_follow_system">Switching to Follow System Setting mode (long press detected)</string>
 
     <!-- Map Markers -->
-    <string name="marker_description_source">Source</string>
     <string name="marker_description_time">Time</string>
     <string name="marker_description_accuracy">Accuracy</string>
 
     <!-- Statistics Sheet -->
-    <string name="statistics_sheet_h1_statistics">Statistics</string>
-    <string name="statistics_sheet_p_default_data">track data missing</string>
     <string name="statistics_sheet_p_distance">Total distance:</string>
     <string name="statistics_sheet_p_steps">Steps taken:</string>
     <string name="statistics_sheet_p_steps_no_pedometer">pedometer not available</string>
@@ -110,21 +68,9 @@
     <string name="statistics_sheet_p_negative_elevation">Elevation (downhill):</string>
 
     <!-- Menu Actions -->
-    <string name="action_track_actionbar_delete">Delete</string>
-    <string name="action_track_actionbar_rename">Rename</string>
-    <string name="action_track_actionbar_share">Share</string>
 
     <!-- Onboarding Layout -->
-    <string name="layout_onboarding_h1_welcome">Hello</string>
     <string name="layout_onboarding_description_app_icon">Trackbook App Icon</string>
-    <string name="layout_onboarding_h2_app_name">Trackbook</string>
-    <string name="layout_onboarding_p_app_claim">Movement Recorder</string>
-    <string name="layout_onboarding_h2_request_permissions">Trackbook cannot work without this permission:</string>
-    <string name="layout_onboarding_h3_permission_location">LOCATION</string>
-    <string name="layout_onboarding_p_permission_location">Trackbook needs accurate GPS data to be able to record your movements. If the GPS data is not available or not accurate enough, Trackbook uses location data from cell tower and Wi-Fi triangulation.</string>
-    <string name="layout_onboarding_h3_permission_storage">STORAGE</string>
-    <string name="layout_onboarding_p_permission_storage">Trackbook uses osmdroid, which caches map tiles on Android\'s external storage. You can find the map cache in the osmdroid folder on the top level of the user-facing file system.</string>
-    <string name="layout_onboarding_button_okay">Got it!</string>
 
     <!-- Track Tab Onboarding -->
     <string name="track_list_onboarding_h1_part_1">Your recorded tracks</string>
@@ -140,7 +86,7 @@
     <string name="pref_gps_only_summary_gps_only">Currently using only GPS for localization.</string>
     <string name="pref_imperial_measurement_units_summary_metric">Currently using metric units (Kilometer, Meter).</string>
     <string name="pref_imperial_measurement_units_summary_imperial">Currently using imperial units (Miles, Feet).</string>
-    <string name="pref_imperial_measurement_units_title">Enable Imperial Measurements</string>
+    <string name="pref_imperial_measurement_units_title">Use Imperial Measurements</string>
     <string name="pref_reset_advanced_summary">Set Advanced settings to their default values.</string>
     <string name="pref_reset_advanced_title">Reset</string>
 
@@ -152,20 +98,14 @@
     <!-- Descriptions -->
     <string name="descr_map_current_track">Mapping of current track</string>
     <string name="descr_map_last_track">Mapping of last track</string>
-    <string name="descr_fab_my_location">My Location button</string>
     <string name="descr_fab_main_start">Start recording button</string>
-    <string name="descr_fab_main_stop">Stop recording button</string>
-    <string name="descr_fab_main_options">Recording options Button</string>
     <string name="descr_fab_sub_menu_button_save">Save button</string>
     <string name="descr_fab_sub_menu_button_clear">Clear button</string>
     <string name="descr_fab_sub_menu_button_resume">Resume button</string>
     <string name="descr_mark_starred_button">Mark as starred button</string>
-    <string name="descr_export_icon">Track export button</string>
-    <string name="descr_statistics_sheet_headline">Headline of the statistics sheet</string>
     <string name="descr_statistics_sheet_delete_button">Track delete button</string>
     <string name="descr_statistics_sheet_edit_button">Track edit button</string>
     <string name="descr_statistics_sheet_share_button">Share as GPX button</string>
-    <string name="descr_track_selector">Dropdown menu for further tracks</string>
 
     <!-- Sample Text -->
     <string name="sample_text_track_data" translatable="false">23.0 km • 5 hrs 23 min 42 sec</string>

@@ -42,7 +42,6 @@
             app:tint="@color/trackbook_white" />
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/fab_sub_menu_label_save"
             style="@style/Widget.MaterialComponents.CardView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -91,7 +90,6 @@
             app:tint="@color/trackbook_white" />
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/fab_sub_menu_label_clear"
             style="@style/Widget.MaterialComponents.CardView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -139,7 +137,6 @@
             app:tint="@color/trackbook_white" />
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/fab_sub_menu_label_resume"
             style="@style/Widget.MaterialComponents.CardView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
