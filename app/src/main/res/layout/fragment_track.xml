@@ -8,9 +8,6 @@
     tools:context=".MainActivity">
 
     <!-- OSM MAP -->
-
-    <!-- BOTTOM SHEET -->
-
     <org.osmdroid.views.MapView
         android:id="@+id/map"
         android:layout_width="match_parent"
@@ -23,6 +20,7 @@
 
     </org.osmdroid.views.MapView>
 
+    <!-- BOTTOM SHEET -->
     <androidx.core.widget.NestedScrollView
         android:id="@+id/statistics_sheet"
         android:layout_width="@dimen/bottom_sheet_width"

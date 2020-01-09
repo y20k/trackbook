@@ -45,4 +45,3 @@
         app:layout_constraintTop_toBottomOf="@+id/trackbook_icon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-

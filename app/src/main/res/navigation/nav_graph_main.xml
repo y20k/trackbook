@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav_graph.xml"
     app:startDestination="@id/map_fragment">
 
     <!-- MAP -->
@@ -10,9 +11,14 @@
         android:name="org.y20k.trackbook.MapFragment"
         android:label="Map"
         tools:layout="@layout/fragment_map">
-        <action app:destination="@id/settings_fragment" />
-        <action app:destination="@id/tracklist_fragment" />
         <action
+            android:id="@+id/action_map_fragment_to_settings_fragment"
+            app:destination="@id/settings_fragment" />
+        <action
+            android:id="@+id/action_map_fragment_to_tracks_fragment"
+            app:destination="@id/tracklist_fragment" />
+        <action
+            android:id="@+id/action_map_fragment_to_fragment_track"
             app:destination="@id/fragment_track"
             app:popUpToInclusive="false" />
     </fragment>
@@ -29,7 +35,9 @@
         android:name="org.y20k.trackbook.TracklistFragment"
         android:label="Tracks"
         tools:layout="@layout/fragment_tracklist">
-        <action app:destination="@id/fragment_track" />
+        <action
+            android:id="@+id/action_tracks_fragment_to_fragment_track"
+            app:destination="@id/fragment_track" />
 
     </fragment>
 
