@@ -82,6 +82,9 @@ class TrackerService(): Service(), CoroutineScope, SensorEventListener {
     /* Overrides onCreate from Service */
     override fun onCreate() {
         super.onCreate()
+        gpsOnly = PreferencesHelper.loadGpsOnly(this)
+        useImperial = PreferencesHelper.loadUseImperialUnits(this)
+        locationAccuracyThreshold = PreferencesHelper.loadAccuracyThreshold(this)
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         sensorManager = this.getSystemService(Context.SENSOR_SERVICE) as SensorManager
         notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -90,8 +93,6 @@ class TrackerService(): Service(), CoroutineScope, SensorEventListener {
         networkProviderActive = LocationHelper.isNetworkEnabled(locationManager)
         gpsLocationListener = createLocationListener()
         networkLocationListener = createLocationListener()
-        useImperial = PreferencesHelper.loadUseImperialUnits(this)
-        locationAccuracyThreshold = PreferencesHelper.loadAccuracyThreshold(this)
         trackingState = PreferencesHelper.loadTrackingState(this)
         currentBestLocation = LocationHelper.getLastKnownLocation(this)
         track = FileHelper.readTrack(this, FileHelper.getTempFileUri(this))
@@ -127,7 +128,8 @@ class TrackerService(): Service(), CoroutineScope, SensorEventListener {
 
     /* Overrides onBind from Service */
     override fun onBind(p0: Intent?): IBinder? {
-        addLocationListeners()
+        addGpsLocationListener()
+        addNetworkLocationListener()
         return binder
     }
 
@@ -139,7 +141,8 @@ class TrackerService(): Service(), CoroutineScope, SensorEventListener {
         if (trackingState == Keys.STATE_TRACKING_ACTIVE) stopTracking()
         stopForeground(true)
         PreferenceManager.getDefaultSharedPreferences(this).unregisterOnSharedPreferenceChangeListener(sharedPreferenceChangeListener)
-        removeLocationListeners()
+        removeGpsLocationListener()
+        removeNetworkLocationListener()
         backgroundJob.cancel()
     }
 
@@ -265,14 +268,14 @@ class TrackerService(): Service(), CoroutineScope, SensorEventListener {
     }
 
 
-    /* Adds location listeners to location manager */
-    private fun addLocationListeners() {
+    /* Adds a GPS location listener to location manager */
+    private fun addGpsLocationListener() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             if (gpsProviderActive) {
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0f,gpsLocationListener)
-            }
-            if (networkProviderActive) {
-                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0f,networkLocationListener)
+                LogHelper.v(TAG, "Added GPS location listener.")
+            } else {
+                LogHelper.w(TAG, "Unable to add GPS location listener.")
             }
         } else {
             LogHelper.w(TAG, "Unable to request device location. Permission is not granted.")
@@ -280,10 +283,40 @@ class TrackerService(): Service(), CoroutineScope, SensorEventListener {
     }
 
 
-    /* Removes location listeners from location manager */
-    private fun removeLocationListeners() {
-        locationManager.removeUpdates(gpsLocationListener)
-        locationManager.removeUpdates(networkLocationListener)
+    /* Adds a Network location listener to location manager */
+    private fun addNetworkLocationListener() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            if (networkProviderActive && !gpsOnly) {
+                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0f,networkLocationListener)
+                LogHelper.v(TAG, "Added Network location listener.")
+            } else {
+                LogHelper.w(TAG, "Unable to add Network location listener.")
+            }
+        } else {
+            LogHelper.w(TAG, "Unable to request device location. Permission is not granted.")
+        }
+    }
+
+
+    /* Adds location listeners to location manager */
+    private fun removeGpsLocationListener() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            locationManager.removeUpdates(gpsLocationListener)
+            LogHelper.v(TAG, "Removed GPS location listener.")
+        } else {
+            LogHelper.w(TAG, "Unable to remove GPS location listener. Location permission is needed.")
+        }
+    }
+
+
+    /* Adds location listeners to location manager */
+    private fun removeNetworkLocationListener() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            locationManager.removeUpdates(gpsLocationListener)
+            LogHelper.v(TAG, "Removed Network location listener.")
+        } else {
+            LogHelper.w(TAG, "Unable to remove Network location listener. Location permission is needed.")
+        }
     }
 
 
@@ -308,15 +341,27 @@ class TrackerService(): Service(), CoroutineScope, SensorEventListener {
     /*
      * Defines the listener for changes in shared preferences
      */
-    val sharedPreferenceChangeListener = object : SharedPreferences.OnSharedPreferenceChangeListener {
-        override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
+    private val sharedPreferenceChangeListener = SharedPreferences.OnSharedPreferenceChangeListener { sharedPreferences, key ->
             when (key) {
-                Keys.PREF_GPS_ONLY -> gpsOnly = PreferencesHelper.loadGpsOnly(this@TrackerService)
-                Keys.PREF_USE_IMPERIAL_UNITS -> useImperial = PreferencesHelper.loadUseImperialUnits(this@TrackerService)
-                Keys.PREF_LOCATION_ACCURACY_THRESHOLD -> locationAccuracyThreshold = PreferencesHelper.loadAccuracyThreshold(this@TrackerService)
+
+                Keys.PREF_GPS_ONLY -> {
+                    gpsOnly = PreferencesHelper.loadGpsOnly(this@TrackerService)
+                    when (gpsOnly) {
+                        true -> removeNetworkLocationListener()
+                        false -> addNetworkLocationListener()
+                    }
+                }
+
+                Keys.PREF_USE_IMPERIAL_UNITS -> {
+                    useImperial = PreferencesHelper.loadUseImperialUnits(this@TrackerService)
+                }
+
+                Keys.PREF_LOCATION_ACCURACY_THRESHOLD -> {
+                    locationAccuracyThreshold = PreferencesHelper.loadAccuracyThreshold(this@TrackerService)
+                }
+
             }
         }
-    }
     /*
      * End of declaration
      */

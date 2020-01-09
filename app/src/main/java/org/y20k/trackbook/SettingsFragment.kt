@@ -52,14 +52,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val context = preferenceManager.context
         val screen = preferenceManager.createPreferenceScreen(context)
 
-        // set up "Enable Imperial Measurements" preference
-        val preferenceImperialMeasurementUnits: SwitchPreferenceCompat = SwitchPreferenceCompat(activity as Context)
-        preferenceImperialMeasurementUnits.title = getString(R.string.pref_imperial_measurement_units_title)
-        preferenceImperialMeasurementUnits.key = Keys.PREF_USE_IMPERIAL_UNITS
-        preferenceImperialMeasurementUnits.summaryOn = getString(R.string.pref_imperial_measurement_units_summary_imperial)
-        preferenceImperialMeasurementUnits.summaryOff = getString(R.string.pref_imperial_measurement_units_summary_metric)
-        preferenceImperialMeasurementUnits.setDefaultValue(LengthUnitHelper.useImperialUnits())
-
         // set up "Restrict to GPS" preference
         val preferenceGpsOnly: SwitchPreferenceCompat = SwitchPreferenceCompat(activity as Context)
         preferenceGpsOnly.title = getString(R.string.pref_gps_only_title)
@@ -67,6 +59,14 @@ class SettingsFragment : PreferenceFragmentCompat() {
         preferenceGpsOnly.summaryOn = getString(R.string.pref_gps_only_summary_gps_only)
         preferenceGpsOnly.summaryOff = getString(R.string.pref_gps_only_summary_gps_and_network)
         preferenceGpsOnly.setDefaultValue(false)
+
+        // set up "Use Imperial Measurements" preference
+        val preferenceImperialMeasurementUnits: SwitchPreferenceCompat = SwitchPreferenceCompat(activity as Context)
+        preferenceImperialMeasurementUnits.title = getString(R.string.pref_imperial_measurement_units_title)
+        preferenceImperialMeasurementUnits.key = Keys.PREF_USE_IMPERIAL_UNITS
+        preferenceImperialMeasurementUnits.summaryOn = getString(R.string.pref_imperial_measurement_units_summary_imperial)
+        preferenceImperialMeasurementUnits.summaryOff = getString(R.string.pref_imperial_measurement_units_summary_metric)
+        preferenceImperialMeasurementUnits.setDefaultValue(LengthUnitHelper.useImperialUnits())
 
         // set up "Accuracy Threshold" preference
         val preferenceAccuracyThreshold: SeekBarPreference = SeekBarPreference(activity as Context)
@@ -98,8 +98,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         // setup preference screen
         screen.addPreference(preferenceCategoryGeneral)
-        screen.addPreference(preferenceImperialMeasurementUnits)
         screen.addPreference(preferenceGpsOnly)
+        screen.addPreference(preferenceImperialMeasurementUnits)
         screen.addPreference(preferenceCategoryAdvanced)
         screen.addPreference(preferenceAccuracyThreshold)
         screen.addPreference(preferenceResetAdvanced)
