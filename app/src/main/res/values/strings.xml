@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- placeholder text - todo remove -->
-
     <!-- App Name -->
-    <string name="app_name">Trackbook</string> <!-- please do not translate app_name - transcription into different alphabet types is fine though -->
-
+    <string name="app_name">Trackbook</string>
+    <!-- please do not translate app_name - transcription into different alphabet types is fine though -->
     <!-- Tabs -->
     <string name="tab_map">Map</string>
     <string name="tab_tracks">Tracks</string>
     <string name="tab_settings">Settings</string>
-
     <!-- Notification -->
     <string name="notification_title_trackbook_running">Trackbook running</string>
     <string name="notification_title_trackbook_not_running">Trackbook not running</string>
@@ -18,16 +16,13 @@
     <string name="notification_show">Show</string>
     <string name="notification_channel_recording_name">Movement Recording State</string>
     <string name="notification_channel_recording_description">Display duration and distance. Option to stop movement recording.</string>
-
     <!-- Snackbar Messages -->
     <string name="snackbar_message_location_offline">Location is turned off. Trackbook will not work.</string>
     <string name="snackbar_message_location_permission_denied">Location permission not granted. Trackbook will not work.</string>
-
     <!-- FAB Sub Menu -->
     <string name="fab_sub_menu_clear">Clear</string>
     <string name="fab_sub_menu_save">Save</string>
     <string name="fab_sub_menu_resume">Resume</string>
-
     <!-- Dialogs -->
     <string name="dialog_generic_button_cancel">Cancel</string>
     <string name="dialog_generic_button_okay">OK</string>
@@ -41,19 +36,15 @@
     <string name="dialog_yes_no_positive_button_default">Yes</string>
     <string name="dialog_yes_no_positive_button_remove_recording">Remove</string>
     <string name="dialog_yes_no_message_remove_recording">Remove this recording?</string>
-
-
     <!-- Toast Messages -->
     <string name="toast_message_elevation_info">Hint: The accuracy of elevation data depends on your device. The uphill and downhill elevation of the whole route is measured.</string>
     <string name="toast_message_install_file_helper">Please install a file manager or a GPX track viewer first.</string>
     <string name="toast_message_theme_night">Switching to Night mode (long press detected)</string>
     <string name="toast_message_theme_day">Switching to Day mode (long press detected)</string>
     <string name="toast_message_theme_follow_system">Switching to Follow System Setting mode (long press detected)</string>
-
     <!-- Map Markers -->
     <string name="marker_description_time">Time</string>
     <string name="marker_description_accuracy">Accuracy</string>
-
     <!-- Statistics Sheet -->
     <string name="statistics_sheet_p_distance">Total distance:</string>
     <string name="statistics_sheet_p_steps">Steps taken:</string>
@@ -66,16 +57,12 @@
     <string name="statistics_sheet_p_min_altitude">Lowest waypoint:</string>
     <string name="statistics_sheet_p_positive_elevation">Elevation (uphill):</string>
     <string name="statistics_sheet_p_negative_elevation">Elevation (downhill):</string>
-
     <!-- Menu Actions -->
-
     <!-- Onboarding Layout -->
     <string name="layout_onboarding_description_app_icon">Trackbook App Icon</string>
-
     <!-- Track Tab Onboarding -->
     <string name="track_list_onboarding_h1_part_1">Your recorded tracks</string>
     <string name="track_list_onboarding_h1_part_2">… will show up here.</string>
-
     <!-- Settings -->
     <string name="pref_accuracy_threshold_summary">Discard location fixes with an accuracy larger than</string>
     <string name="pref_accuracy_threshold_title">Accuracy Threshold</string>
@@ -87,14 +74,12 @@
     <string name="pref_imperial_measurement_units_summary_metric">Currently using metric units (Kilometer, Meter).</string>
     <string name="pref_imperial_measurement_units_summary_imperial">Currently using imperial units (Miles, Feet).</string>
     <string name="pref_imperial_measurement_units_title">Use Imperial Measurements</string>
-    <string name="pref_reset_advanced_summary">Set Advanced settings to their default values.</string>
+    <string name="pref_reset_advanced_summary">Reset advanced settings to defaults.</string>
     <string name="pref_reset_advanced_title">Reset</string>
-
     <!-- Abbreviations -->
     <string name="abbreviation_hours">hrs</string>
     <string name="abbreviation_minutes">min</string>
     <string name="abbreviation_seconds">sec</string>
-
     <!-- Descriptions -->
     <string name="descr_map_current_track">Mapping of current track</string>
     <string name="descr_map_last_track">Mapping of last track</string>
@@ -106,10 +91,8 @@
     <string name="descr_statistics_sheet_delete_button">Track delete button</string>
     <string name="descr_statistics_sheet_edit_button">Track edit button</string>
     <string name="descr_statistics_sheet_share_button">Share as GPX button</string>
-
     <!-- Sample Text -->
     <string name="sample_text_track_data" translatable="false">23.0 km • 5 hrs 23 min 42 sec</string>
     <string name="sample_text_track_name" translatable="false">July 20, 1969</string>
     <string name="sample_text_default_data" translatable="false">track data missing</string>
-
 </resources>
