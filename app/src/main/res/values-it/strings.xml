@@ -79,8 +79,8 @@
     <string name="pref_gps_only_summary_gps_only">Attualmente utilizza solo il GPS per la localizzazione.</string>
     <string name="pref_imperial_measurement_units_summary_metric">Unità metriche attualmente in uso (chilometro, metro).</string>
     <string name="pref_imperial_measurement_units_summary_imperial">Unità imperiali attualmente in uso (miglia, piedi).</string>
-    <string name="pref_imperial_measurement_units_title">Abilita misure imperiali</string>
-    <string name="pref_reset_advanced_summary">Impostare le impostazioni avanzate ai loro valori predefiniti.</string>
+    <string name="pref_imperial_measurement_units_title">Usa le misure imperiali</string>
+    <string name="pref_reset_advanced_summary">Reimposta le impostazioni avanzate ai valori predefiniti.</string>
     <string name="pref_reset_advanced_title">Resetta</string>
     <string name="abbreviation_hours">h</string>
     <string name="abbreviation_minutes">min</string>
