@@ -19,10 +19,7 @@ package org.y20k.trackbook
 
 import YesNoDialog
 import android.Manifest
-import android.content.ComponentName
-import android.content.Context
-import android.content.Intent
-import android.content.ServiceConnection
+import android.content.*
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Build
@@ -35,6 +32,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.preference.PreferenceManager
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.y20k.trackbook.core.Track
@@ -236,6 +234,22 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener {
 
 
     /*
+     * Defines the listener for changes in shared preferences
+     */
+    private val sharedPreferenceChangeListener = SharedPreferences.OnSharedPreferenceChangeListener { sharedPreferences, key ->
+        when (key) {
+            Keys.PREF_TRACKING_STATE -> {
+                trackingState = PreferencesHelper.loadTrackingState(activity as Context)
+                layout.updateRecordingButton(trackingState)
+            }
+        }
+    }
+    /*
+     * End of declaration
+     */
+
+
+    /*
      * Defines callbacks for service binding, passed to bindService()
      */
     private val connection = object : ServiceConnection {
@@ -244,12 +258,16 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener {
             val binder = service as TrackerService.LocalBinder
             trackerService = binder.service
             bound = true
+            // register listener for changes in shared preferences
+            PreferenceManager.getDefaultSharedPreferences(activity as Context).registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener)
             // start listening for location updates
             handler.removeCallbacks(periodicLocationRequestRunnable)
             handler.postDelayed(periodicLocationRequestRunnable, 0)
         }
         override fun onServiceDisconnected(arg0: ComponentName) {
             bound = false
+            // unregister listener for changes in shared preferences
+            PreferenceManager.getDefaultSharedPreferences(activity as Context).unregisterOnSharedPreferenceChangeListener(sharedPreferenceChangeListener)
             // stop receiving location updates
             handler.removeCallbacks(periodicLocationRequestRunnable)
         }
