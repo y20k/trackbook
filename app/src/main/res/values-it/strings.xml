@@ -87,4 +87,9 @@
     <string name="abbreviation_seconds">s</string>
     <string name="descr_mark_starred_button">Pulsante Evidenzia come importante</string>
     <string name="descr_statistics_sheet_edit_button">Pulsante Modifica traccia</string>
+    <string name="quick_settings_tile_title_default">Registrazione in corso</string>
+    <string name="quick_settings_tile_title_start">Avvia registrazione</string>
+    <string name="quick_settings_tile_title_stop">Ferma registrazione</string>
+    <string name="descr_quick_settings_tile_title_start">Avvia registrazione</string>
+    <string name="descr_quick_settings_tile_title_stop">Ferma registrazione</string>
 </resources>
