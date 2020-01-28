@@ -53,7 +53,7 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener {
     /* Main class variables */
     private var bound: Boolean = false
     private val handler: Handler = Handler()
-    private var trackingState: Int = Keys.STATE_NOT_TRACKING
+    private var trackingState: Int = Keys.STATE_TRACKING_NOT
     private var gpsProviderActive: Boolean = false
     private var networkProviderActive: Boolean = false
     private var track: Track = Track()
@@ -191,7 +191,7 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener {
         when (trackingState) {
             Keys.STATE_TRACKING_STOPPED -> layout.toggleRecordingButtonSubMenu()
             Keys.STATE_TRACKING_ACTIVE -> trackerService.stopTracking()
-            Keys.STATE_NOT_TRACKING -> {
+            Keys.STATE_TRACKING_NOT -> {
                 // start service via intent so that it keeps running after unbind
                 startTrackerService()
                 trackerService.startTracking()
@@ -291,7 +291,6 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener {
             // update location and track
             layout.markCurrentPosition(currentBestLocation, trackingState)
             layout.overlayCurrentTrack(track, trackingState)
-            layout.updateRecordingButton(trackingState)
             // center map, if it had not been dragged/zoomed before
             if (!layout.userInteraction) { layout.centerMap(currentBestLocation, true)}
             // show error snackbar if necessary

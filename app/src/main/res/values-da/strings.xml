@@ -26,9 +26,6 @@
     <!-- toast messages -->
     <string name="toast_message_elevation_info">Tip: nøjagtigheden af højde målingerne afhænger af din enhed. Op ad og nedadgående højder på hele ruten måles.</string>
     <string name="toast_message_install_file_helper">Installer filhåndtering eller GPX læser først.</string>
-    <string name="toast_message_theme_night">Skifter til nat tilstand (langt tryk genkendt)</string>
-    <string name="toast_message_theme_day">Skifter til dag tilstand (langt tryk genkendt)</string>
-    <string name="toast_message_theme_follow_system">Skifter til at følge telefonens indstillinger (langt tryk genkendt)</string>
     <!-- map markers -->
     <string name="marker_description_time">Tid</string>
     <string name="marker_description_accuracy">Nøjagtighed</string>

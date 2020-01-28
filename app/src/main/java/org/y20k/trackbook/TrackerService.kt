@@ -55,7 +55,7 @@ class TrackerService(): Service(), CoroutineScope, SensorEventListener {
 
 
     /* Main class variables */
-    var trackingState: Int = Keys.STATE_NOT_TRACKING
+    var trackingState: Int = Keys.STATE_TRACKING_NOT
     var gpsProviderActive: Boolean = false
     var networkProviderActive: Boolean = false
     var useImperial: Boolean = false
@@ -215,7 +215,7 @@ class TrackerService(): Service(), CoroutineScope, SensorEventListener {
     fun clearTrack() {
         track = Track()
         FileHelper.deleteTempFile(this)
-        trackingState = Keys.STATE_NOT_TRACKING
+        trackingState = Keys.STATE_TRACKING_NOT
         PreferencesHelper.saveTrackingState(this, trackingState)
         stopForeground(true)
     }

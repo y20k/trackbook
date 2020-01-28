@@ -20,7 +20,6 @@ package org.y20k.trackbook.helpers
 import android.content.Context
 import android.location.Location
 import android.location.LocationManager
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceManager
 import org.y20k.trackbook.Keys
 import org.y20k.trackbook.extensions.getDouble
@@ -61,7 +60,7 @@ object PreferencesHelper {
         // get preferences
         val settings = PreferenceManager.getDefaultSharedPreferences(context)
         // load tracking state
-        return settings.getInt(Keys.PREF_TRACKING_STATE, Keys.STATE_NOT_TRACKING)
+        return settings.getInt(Keys.PREF_TRACKING_STATE, Keys.STATE_TRACKING_NOT)
     }
 
 
@@ -134,18 +133,9 @@ object PreferencesHelper {
     }
 
 
-    /* Load state of Night Mode */
-    fun loadNightModeState(context: Context): Int {
-        return PreferenceManager.getDefaultSharedPreferences(context).getInt(Keys.PREF_NIGHT_MODE_STATE, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-    }
-
-
-    /* Save state of night mode */
-    fun saveNightModeState(context: Context, currentState: Int) {
-        val settings = PreferenceManager.getDefaultSharedPreferences(context)
-        val editor = settings.edit()
-        editor.putInt(Keys.PREF_NIGHT_MODE_STATE, currentState)
-        editor.apply()
+    /* Load currently selected app theme */
+    fun loadThemeSelection(context: Context): String {
+        return PreferenceManager.getDefaultSharedPreferences(context).getString(Keys.PREF_THEME_SELECTION, Keys.STATE_THEME_FOLLOW_SYSTEM) ?: Keys.STATE_THEME_FOLLOW_SYSTEM
     }
 
 

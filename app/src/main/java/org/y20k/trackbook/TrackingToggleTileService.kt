@@ -38,7 +38,7 @@ class TrackingToggleTileService(): TileService() {
 
     /* Main class variables */
     private var bound: Boolean = false
-    private var trackingState: Int = Keys.STATE_NOT_TRACKING
+    private var trackingState: Int = Keys.STATE_TRACKING_NOT
     private lateinit var trackerService: TrackerService
 
 

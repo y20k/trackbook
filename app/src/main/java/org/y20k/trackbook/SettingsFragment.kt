@@ -22,6 +22,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.preference.*
+import org.y20k.trackbook.helpers.AppThemeHelper
 import org.y20k.trackbook.helpers.LengthUnitHelper
 import org.y20k.trackbook.helpers.LogHelper
 
@@ -68,6 +69,29 @@ class SettingsFragment : PreferenceFragmentCompat() {
         preferenceImperialMeasurementUnits.summaryOff = getString(R.string.pref_imperial_measurement_units_summary_metric)
         preferenceImperialMeasurementUnits.setDefaultValue(LengthUnitHelper.useImperialUnits())
 
+        // set up "App Theme" preference
+        val preferenceThemeSelection: ListPreference = ListPreference(activity as Context)
+        preferenceThemeSelection.title = getString(R.string.pref_theme_selection_title)
+        preferenceThemeSelection.key = Keys.PREF_THEME_SELECTION
+        preferenceThemeSelection.summary = "${getString(R.string.pref_theme_selection_summary)} ${AppThemeHelper.getCurrentTheme(activity as Context)}"
+        preferenceThemeSelection.entries = arrayOf(getString(R.string.pref_theme_selection_mode_device_default), getString(R.string.pref_theme_selection_mode_light), getString(R.string.pref_theme_selection_mode_dark))
+        preferenceThemeSelection.entryValues = arrayOf(Keys.STATE_THEME_FOLLOW_SYSTEM, Keys.STATE_THEME_LIGHT_MODE, Keys.STATE_THEME_DARK_MODE)
+        preferenceThemeSelection.setOnPreferenceChangeListener { preference, newValue ->
+            if (preference is ListPreference) {
+                val index: Int = preference.entryValues.indexOf(newValue)
+                preferenceThemeSelection.summary = "${getString(R.string.pref_theme_selection_summary)} ${preference.entries.get(index)}"
+                return@setOnPreferenceChangeListener true
+            } else {
+                return@setOnPreferenceChangeListener false
+            }
+        }
+//        preferenceThemeSelection.setOnPreferenceClickListener {
+//            preferenceThemeSelection.summary = "${getString(R.string.pref_theme_selection_theme_summary)} ${AppThemeHelper.getCurrentTheme(activity as Context)}"
+//            return@setOnPreferenceClickListener true
+//        }
+
+
+
         // set up "Accuracy Threshold" preference
         val preferenceAccuracyThreshold: SeekBarPreference = SeekBarPreference(activity as Context)
         preferenceAccuracyThreshold.title = getString(R.string.pref_accuracy_threshold_title)
@@ -100,6 +124,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         screen.addPreference(preferenceCategoryGeneral)
         screen.addPreference(preferenceGpsOnly)
         screen.addPreference(preferenceImperialMeasurementUnits)
+        screen.addPreference(preferenceThemeSelection)
         screen.addPreference(preferenceCategoryAdvanced)
         screen.addPreference(preferenceAccuracyThreshold)
         screen.addPreference(preferenceResetAdvanced)

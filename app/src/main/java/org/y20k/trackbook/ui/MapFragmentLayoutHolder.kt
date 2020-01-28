@@ -42,9 +42,9 @@ import org.osmdroid.views.overlay.compass.InternalCompassOrientationProvider
 import org.y20k.trackbook.Keys
 import org.y20k.trackbook.R
 import org.y20k.trackbook.core.Track
+import org.y20k.trackbook.helpers.AppThemeHelper
 import org.y20k.trackbook.helpers.LogHelper
 import org.y20k.trackbook.helpers.MapHelper
-import org.y20k.trackbook.helpers.NightModeHelper
 import org.y20k.trackbook.helpers.PreferencesHelper
 
 
@@ -97,7 +97,7 @@ data class MapFragmentLayoutHolder(var context: Context, var inflater: LayoutInf
         controller.setZoom(zoomLevel)
 
         // set dark map tiles, if necessary
-        if (NightModeHelper.isNightModeOn(context as Activity)) {
+        if (AppThemeHelper.isDarkModeOn(context as Activity)) {
             mapView.overlayManager.tilesOverlay.setColorFilter(TilesOverlay.INVERT_COLORS)
         }
 
@@ -118,9 +118,6 @@ data class MapFragmentLayoutHolder(var context: Context, var inflater: LayoutInf
 
         // initialize recording button state
         updateRecordingButton(trackingState)
-
-        // add touch listeners
-        addTouchListeners()
 
         // listen for user interaction
         addInteractionListener()
@@ -158,7 +155,7 @@ data class MapFragmentLayoutHolder(var context: Context, var inflater: LayoutInf
 
 
     /* Mark current position on map */
-    fun markCurrentPosition(location: Location, trackingState: Int = Keys.STATE_NOT_TRACKING) {
+    fun markCurrentPosition(location: Location, trackingState: Int = Keys.STATE_TRACKING_NOT) {
         mapView.overlays.remove(currentPositionOverlay)
         currentPositionOverlay = MapHelper.createMyLocationOverlay(context, location, trackingState)
         mapView.overlays.add(currentPositionOverlay)
@@ -180,7 +177,7 @@ data class MapFragmentLayoutHolder(var context: Context, var inflater: LayoutInf
     /* Toggles state of recording button and sub menu_bottom_navigation */
     fun updateRecordingButton(trackingState: Int) {
         when (trackingState) {
-            Keys.STATE_NOT_TRACKING -> {
+            Keys.STATE_TRACKING_NOT -> {
                 recordingButton.setImageResource(R.drawable.ic_fiber_manual_record_white_24dp)
                 recordingButtonSubMenu.visibility = View.GONE
             }
@@ -218,15 +215,6 @@ data class MapFragmentLayoutHolder(var context: Context, var inflater: LayoutInf
         } else if (locationErrorBar.isShown) {
             // CASE: Snackbar is visible but unnecessary
             locationErrorBar.dismiss()
-        }
-    }
-
-
-    /* Sets up views - adds touch listeners */
-    private fun addTouchListeners() {
-        currentLocationButton.setOnLongClickListener {
-            NightModeHelper.switchMode(context as Activity)
-            return@setOnLongClickListener true
         }
     }
 

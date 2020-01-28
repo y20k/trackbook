@@ -27,9 +27,6 @@
     <!-- toast messages -->
     <string name="toast_message_elevation_info">Hinweis: Die Genauogkeit der Höhenmeter-Werte ist geräteabhängig. Gemessen werden die Steigungen und Gefälle der Gesamtstrecke.</string>
     <string name="toast_message_install_file_helper">Bitte zunächst einen Dateimanager oder GPX-Betrachter installieren.</string>
-    <string name="toast_message_theme_night">Nachtmodus aktiviert (Längeres Drücken erkannt)</string>
-    <string name="toast_message_theme_day">Tagmodus aktiviert (Längeres Drücken erkannt)</string>
-    <string name="toast_message_theme_follow_system">Modus Systemeinstellung Beachten aktiviert (Längeres Drücken erkannt)</string>
     <!-- map markers -->
     <string name="marker_description_time">Uhrzeit</string>
     <string name="marker_description_accuracy">Genauigkeit</string>

@@ -39,10 +39,7 @@
   <!-- Toast Messages -->
   <string name="toast_message_elevation_info">提示：海拔数据的准确性取决于您的设备.测量整个路线的上坡和下坡海拔.</string>
   <string name="toast_message_install_file_helper">请先安装一个文件管理器或GPX轨迹查看器.</string>
-  <string name="toast_message_theme_night">切换到夜间模式(检测到长按)</string>
-  <string name="toast_message_theme_day">切换到白日模式(检测到长按)</string>
-  <string name="toast_message_theme_follow_system">切换到跟随系统设置模式(检测到长按)</string>
-  <!-- Map Markers -->
+    <!-- Map Markers -->
   <string name="marker_description_time">时间</string>
   <string name="marker_description_accuracy">误差</string>
   <!-- Statistics Sheet -->

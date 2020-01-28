@@ -126,8 +126,8 @@ data class TrackFragmentLayoutHolder(var context: Context, var inflater: LayoutI
         useImperialUnits = PreferencesHelper.loadUseImperialUnits(context)
 
         // set dark map tiles, if necessary
-        if (NightModeHelper.isNightModeOn(context as Activity)) {
-            mapView.getOverlayManager().getTilesOverlay().setColorFilter(TilesOverlay.INVERT_COLORS)
+        if (AppThemeHelper.isDarkModeOn(context as Activity)) {
+            mapView.overlayManager.tilesOverlay.setColorFilter(TilesOverlay.INVERT_COLORS)
         }
 
         // add compass to map
@@ -143,7 +143,7 @@ data class TrackFragmentLayoutHolder(var context: Context, var inflater: LayoutI
         } else {
             track = Track()
         }
-        trackOverlay = MapHelper.createTrackOverlay(context, track, Keys.STATE_NOT_TRACKING)
+        trackOverlay = MapHelper.createTrackOverlay(context, track, Keys.STATE_TRACKING_NOT)
         if (track.wayPoints.isNotEmpty()) {
             mapView.overlays.add(trackOverlay)
         }

@@ -39,9 +39,6 @@
     <!-- Toast Messages -->
     <string name="toast_message_elevation_info">Hint: The accuracy of elevation data depends on your device. The uphill and downhill elevation of the whole route is measured.</string>
     <string name="toast_message_install_file_helper">Please install a file manager or a GPX track viewer first.</string>
-    <string name="toast_message_theme_night">Switching to Night mode (long press detected)</string>
-    <string name="toast_message_theme_day">Switching to Day mode (long press detected)</string>
-    <string name="toast_message_theme_follow_system">Switching to Follow System Setting mode (long press detected)</string>
     <!-- Map Markers -->
     <string name="marker_description_time">Time</string>
     <string name="marker_description_accuracy">Accuracy</string>
@@ -79,6 +76,11 @@
     <string name="pref_imperial_measurement_units_title">Use Imperial Measurements</string>
     <string name="pref_reset_advanced_summary">Reset advanced settings to defaults.</string>
     <string name="pref_reset_advanced_title">Reset</string>
+    <string name="pref_theme_selection_mode_dark">Dark mode</string>
+    <string name="pref_theme_selection_mode_device_default">Same as device</string>
+    <string name="pref_theme_selection_mode_light">Light mode</string>
+    <string name="pref_theme_selection_summary">Current theme:</string>
+    <string name="pref_theme_selection_title">App Theme</string>
     <!-- Abbreviations -->
     <string name="abbreviation_hours">hrs</string>
     <string name="abbreviation_minutes">min</string>

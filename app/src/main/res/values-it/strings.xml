@@ -27,9 +27,6 @@
     <!-- toast messages -->
     <string name="toast_message_elevation_info">Suggerimento: L\'accuratezza dei dati dell\'altitudine dipende dal tuo dispositivo. Sono misurate la salita e la discesa di tutto il percorso.</string>
     <string name="toast_message_install_file_helper">Per favore installa prima un gestore di file o un visualizzatore di tracce GPX.</string>
-    <string name="toast_message_theme_night">Passaggio alla modalità notturna (pressione prolungata rilevata)</string>
-    <string name="toast_message_theme_day">Passaggio alla modalità diurna (pressione prolungata rilevata)</string>
-    <string name="toast_message_theme_follow_system">Passaggio alla modalità Segui Impostazione di Sistema (pressione prolungata rilevata)</string>
     <!-- map markers -->
     <string name="marker_description_time">Ora</string>
     <string name="marker_description_accuracy">Precisione</string>

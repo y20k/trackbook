@@ -51,7 +51,7 @@ object Keys {
 
     // preferences
     const val PREF_ONE_TIME_HOUSEKEEPING_NECESSARY = "ONE_TIME_HOUSEKEEPING_NECESSARY_VERSIONCODE_37" // increment to current app version code to trigger housekeeping that runs only once
-    const val PREF_NIGHT_MODE_STATE: String= "prefNightModeState"
+    const val PREF_THEME_SELECTION: String= "prefThemeSelection"
     const val PREF_CURRENT_BEST_LOCATION_PROVIDER: String = "prefCurrentBestLocationProvider"
     const val PREF_CURRENT_BEST_LOCATION_LATITUDE: String = "prefCurrentBestLocationLatitude"
     const val PREF_CURRENT_BEST_LOCATION_LONGITUDE: String = "prefCurrentBestLocationLongitude"
@@ -66,9 +66,12 @@ object Keys {
     const val PREF_LOCATION_AGE_THRESHOLD: String = "prefLocationAgeThreshold"
 
     // states
-    const val STATE_NOT_TRACKING: Int = 0
+    const val STATE_TRACKING_NOT: Int = 0
     const val STATE_TRACKING_ACTIVE: Int = 1
     const val STATE_TRACKING_STOPPED: Int = 2
+    const val STATE_THEME_FOLLOW_SYSTEM: String = "stateFollowSystem"
+    const val STATE_THEME_LIGHT_MODE: String = "stateLightMode"
+    const val STATE_THEME_DARK_MODE: String = "stateDarkMode"
 
     // dialog types
     const val DIALOG_EMPTY_RECORDING: Int = 0

@@ -27,9 +27,6 @@
     <!-- toast messages -->
     <string name="toast_message_elevation_info">Astuce : La précision des données d\'altitude dépend de votre appareil. La dénivellation globale du parcours est mesurée.</string>
     <string name="toast_message_install_file_helper">Veuillez installer un gestionnaire de fichiers ou un visualiseur de fichier GPX.</string>
-    <string name="toast_message_theme_day">Passage au mode Jour (appui long détecté)</string>
-    <string name="toast_message_theme_follow_system">Passage au mode Système (appui long détecté)</string>
-    <string name="toast_message_theme_night">Passage au mode Nuit (appui long détecté)</string>
     <!-- map markers -->
     <string name="marker_description_accuracy">Précision</string>
     <string name="marker_description_time">Heure</string>

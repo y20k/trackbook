@@ -19,8 +19,9 @@
 package org.y20k.trackbook
 
 import android.app.Application
+import org.y20k.trackbook.helpers.AppThemeHelper
 import org.y20k.trackbook.helpers.LogHelper
-import org.y20k.trackbook.helpers.NightModeHelper
+import org.y20k.trackbook.helpers.PreferencesHelper
 
 
 /*
@@ -38,7 +39,7 @@ class Trackbook: Application() {
         super.onCreate()
         LogHelper.v(TAG, "Trackbook application started.")
         // set Day / Night theme state
-        NightModeHelper.restoreSavedState(this)
+        AppThemeHelper.setTheme(PreferencesHelper.loadThemeSelection(this))
     }
 
 

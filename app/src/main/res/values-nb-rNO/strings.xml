@@ -27,9 +27,6 @@
     <!-- toast messages -->
     <string name="toast_message_elevation_info">Hint: Høydedataens nøyaktighet avhenger av enheten din. Opp og ned-stigningen for hele ruten måles.</string>
     <string name="toast_message_install_file_helper">Installer en filbehandler eller en GPX-sporviser først.</string>
-    <string name="toast_message_theme_night">Bytter til nattmodus (oppdaget langt trykk)</string>
-    <string name="toast_message_theme_day">Bytter til dagmodus (oppdaget langt trykk)</string>
-    <string name="toast_message_theme_follow_system">Bytter til å følge systeminnstilling (oppdaget langt trykk)</string>
     <!-- map markers -->
     <string name="marker_description_time">Tid</string>
     <string name="marker_description_accuracy">Nøyaktighet</string>

@@ -17,12 +17,16 @@
 
 package org.y20k.trackbook
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import androidx.preference.PreferenceManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.osmdroid.config.Configuration
+import org.y20k.trackbook.helpers.AppThemeHelper
 import org.y20k.trackbook.helpers.ImportHelper
 import org.y20k.trackbook.helpers.LogHelper
 import org.y20k.trackbook.helpers.PreferencesHelper
@@ -80,6 +84,29 @@ class MainActivity : AppCompatActivity() {
             PreferencesHelper.saveHouseKeepingNecessaryState(this)
         }
 
+        // register listener for changes in shared preferences
+        PreferenceManager.getDefaultSharedPreferences(this as Context).registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener)
     }
 
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // unregister listener for changes in shared preferences
+        PreferenceManager.getDefaultSharedPreferences(this as Context).unregisterOnSharedPreferenceChangeListener(sharedPreferenceChangeListener)
+    }
+
+
+    /*
+     * Defines the listener for changes in shared preferences
+     */
+    private val sharedPreferenceChangeListener = SharedPreferences.OnSharedPreferenceChangeListener { sharedPreferences, key ->
+        when (key) {
+            Keys.PREF_THEME_SELECTION -> {
+                AppThemeHelper.setTheme(PreferencesHelper.loadThemeSelection(this@MainActivity))
+            }
+        }
+    }
+    /*
+     * End of declaration
+     */
 }
