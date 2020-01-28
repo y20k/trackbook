@@ -89,4 +89,9 @@
     <string name="quick_settings_tile_title_stop">Ferma registrazione</string>
     <string name="descr_quick_settings_tile_title_start">Avvia registrazione</string>
     <string name="descr_quick_settings_tile_title_stop">Ferma registrazione</string>
+    <string name="pref_theme_selection_mode_dark">Modalità scura</string>
+    <string name="pref_theme_selection_mode_device_default">Come il dispositivo</string>
+    <string name="pref_theme_selection_mode_light">Modalità chiara</string>
+    <string name="pref_theme_selection_summary">Tema corrente:</string>
+    <string name="pref_theme_selection_title">Tema app</string>
 </resources>
