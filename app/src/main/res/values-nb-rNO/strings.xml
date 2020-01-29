@@ -84,4 +84,14 @@
     <string name="abbreviation_seconds">sek</string>
     <string name="descr_mark_starred_button">Stjernemerkingsknapp</string>
     <string name="descr_statistics_sheet_edit_button">Sporredigeringsknapp</string>
+    <string name="quick_settings_tile_title_default">Opptak</string>
+    <string name="quick_settings_tile_title_start">Start opptak</string>
+    <string name="quick_settings_tile_title_stop">Stopp opptak</string>
+    <string name="descr_quick_settings_tile_title_start">Start opptak</string>
+    <string name="descr_quick_settings_tile_title_stop">Stopp opptak</string>
+    <string name="pref_theme_selection_mode_dark">Mørkt modus</string>
+    <string name="pref_theme_selection_mode_device_default">Samme som enhet</string>
+    <string name="pref_theme_selection_mode_light">Lyst modus</string>
+    <string name="pref_theme_selection_summary">Nåværende drakt</string>
+    <string name="pref_theme_selection_title">Programdrakt</string>
 </resources>
