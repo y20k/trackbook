@@ -19,6 +19,7 @@ package org.y20k.trackbook
 
 import android.content.*
 import android.graphics.drawable.Icon
+import android.os.Build
 import android.os.IBinder
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
@@ -71,8 +72,22 @@ class TrackingToggleTileService(): TileService() {
                 trackerService.stopTracking()
             }
             else -> {
+                // start service via intent so that it keeps running after unbind
+                startTrackerService()
                 trackerService.startTracking(newTrack = false)
             }
+        }
+    }
+
+
+    /* Start tracker service */
+    private fun startTrackerService() {
+        val intent = Intent(application, TrackerService::class.java)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            // ... start service in foreground to prevent it being killed on Oreo
+            application.startForegroundService(intent)
+        } else {
+            application.startService(intent)
         }
     }
 
