@@ -84,4 +84,14 @@
     <string name="abbreviation_seconds">s</string>
     <string name="descr_mark_starred_button">Marquer comme bouton favori</string>
     <string name="descr_statistics_sheet_edit_button">Bouton « Modifier le parcours »</string>
+    <string name="quick_settings_tile_title_default">Enregistrement</string>
+    <string name="quick_settings_tile_title_start">Démarrer l\'enregistrement</string>
+    <string name="quick_settings_tile_title_stop">Arrêter l\'enregistrement</string>
+    <string name="descr_quick_settings_tile_title_start">Démarrer l\'enregistrement</string>
+    <string name="descr_quick_settings_tile_title_stop">Arrêter l\'enregistrement</string>
+    <string name="pref_theme_selection_mode_dark">Thème sombre</string>
+    <string name="pref_theme_selection_mode_device_default">Thème de l\'appareil</string>
+    <string name="pref_theme_selection_mode_light">Thème clair</string>
+    <string name="pref_theme_selection_summary">Thème actuel :</string>
+    <string name="pref_theme_selection_title">Thème de l\'application</string>
 </resources>
