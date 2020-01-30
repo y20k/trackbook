@@ -74,7 +74,7 @@ class TrackingToggleTileService(): TileService() {
             else -> {
                 // start service via intent so that it keeps running after unbind
                 startTrackerService()
-                trackerService.startTracking(newTrack = false)
+                trackerService.startTracking()
             }
         }
     }
@@ -103,7 +103,6 @@ class TrackingToggleTileService(): TileService() {
     /* Overrides onDestroy from Service */
     override fun onDestroy() {
         super.onDestroy()
-        if (bound) unbindService(connection)
     }
 
 
