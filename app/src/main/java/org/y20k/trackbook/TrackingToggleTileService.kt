@@ -17,10 +17,10 @@
 
 package org.y20k.trackbook
 
-import android.content.*
+import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.drawable.Icon
 import android.os.Build
-import android.os.IBinder
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
 import androidx.preference.PreferenceManager
@@ -48,6 +48,8 @@ class TrackingToggleTileService(): TileService() {
         super.onTileAdded()
         // get saved tracking state
         trackingState = PreferencesHelper.loadTrackingState(this)
+        // set up tile
+        updateTile()
     }
 
     /* Overrides onTileRemoved from TileService */
@@ -59,8 +61,8 @@ class TrackingToggleTileService(): TileService() {
     /* Overrides onStartListening from TileService */
     override fun onStartListening() {
         super.onStartListening()
-        // tile becomes visible - bind tracker service
-        bindService(Intent(this, TrackerService::class.java), connection, Context.BIND_AUTO_CREATE)
+        // tile becomes visible - register listener for changes in shared preferences
+        PreferenceManager.getDefaultSharedPreferences(this@TrackingToggleTileService).registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener)
     }
 
 
@@ -68,21 +70,16 @@ class TrackingToggleTileService(): TileService() {
     override fun onClick() {
         super.onClick()
         when (trackingState) {
-            Keys.STATE_TRACKING_ACTIVE -> {
-                trackerService.stopTracking()
-            }
-            else -> {
-                // start service via intent so that it keeps running after unbind
-                startTrackerService()
-                trackerService.startTracking()
-            }
+            Keys.STATE_TRACKING_ACTIVE -> stopTracking()
+            else -> startTracking()
         }
     }
 
 
-    /* Start tracker service */
-    private fun startTrackerService() {
+    /* Start tracking */
+    private fun startTracking() {
         val intent = Intent(application, TrackerService::class.java)
+        intent.action = Keys.ACTION_START
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             // ... start service in foreground to prevent it being killed on Oreo
             application.startForegroundService(intent)
@@ -92,11 +89,19 @@ class TrackingToggleTileService(): TileService() {
     }
 
 
+    /* Stop tracking */
+    private fun stopTracking() {
+        val intent = Intent(application, TrackerService::class.java)
+        intent.action = Keys.ACTION_STOP
+        application.startService(intent)
+    }
+
+
     /* Overrides onStopListening from TileService */
     override fun onStopListening() {
         super.onStopListening()
-        // tile no longer visible - unbind tracker service
-        unbindService(connection)
+        // tile no longer visible - unregister listener for changes in shared preferences
+        PreferenceManager.getDefaultSharedPreferences(this@TrackingToggleTileService).unregisterOnSharedPreferenceChangeListener(sharedPreferenceChangeListener)
     }
 
 
@@ -141,32 +146,6 @@ class TrackingToggleTileService(): TileService() {
      * End of declaration
      */
 
-
-    /*
-     * Defines callbacks for service binding, passed to bindService()
-     */
-    private val connection = object : ServiceConnection {
-        override fun onServiceConnected(className: ComponentName, service: IBinder) {
-            // We've bound to LocalService, cast the IBinder and get LocalService instance
-            val binder = service as TrackerService.LocalBinder
-            trackerService = binder.service
-            trackingState = trackerService.trackingState
-            bound = true
-            // update state of tile
-            updateTile()
-            // register listener for changes in shared preferences
-            PreferenceManager.getDefaultSharedPreferences(this@TrackingToggleTileService).registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener)
-
-        }
-        override fun onServiceDisconnected(arg0: ComponentName) {
-            bound = false
-            // unregister listener for changes in shared preferences
-            PreferenceManager.getDefaultSharedPreferences(this@TrackingToggleTileService).unregisterOnSharedPreferenceChangeListener(sharedPreferenceChangeListener)
-        }
-    }
-    /*
-     * End of declaration
-     */
 
 
 

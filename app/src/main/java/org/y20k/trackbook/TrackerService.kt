@@ -186,6 +186,7 @@ class TrackerService(): Service(), CoroutineScope, SensorEventListener {
     /* Start tracking location */
     fun startTracking(newTrack: Boolean = true) {
         if (newTrack) {
+            track = Track()
             track.recordingStart = GregorianCalendar.getInstance().time
             track.recordingStop = track.recordingStart
             track.name = DateTimeHelper.convertToReadableDate(track.recordingStart)

@@ -60,7 +60,6 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener {
     private lateinit var currentBestLocation: Location
     private lateinit var layout: MapFragmentLayoutHolder
     private lateinit var trackerService: TrackerService
-    private lateinit var sharedPreferenceChangeListener2:SharedPreferences.OnSharedPreferenceChangeListener
 
 
     /* Overrides onCreate from Fragment */
@@ -240,29 +239,16 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener {
     private val sharedPreferenceChangeListener = SharedPreferences.OnSharedPreferenceChangeListener { sharedPreferences, key ->
         when (key) {
             Keys.PREF_TRACKING_STATE -> {
-                trackingState = PreferencesHelper.loadTrackingState(activity as Context)
-                layout.updateRecordingButton(trackingState)
+                if (activity != null) {
+                    trackingState = PreferencesHelper.loadTrackingState(activity as Context)
+                    layout.updateRecordingButton(trackingState)
+                }
             }
         }
     }
     /*
      * End of declaration
      */
-
-
-    private fun createSharedPreferenceChangeListener(): SharedPreferences.OnSharedPreferenceChangeListener {
-        return SharedPreferences.OnSharedPreferenceChangeListener { sharedPreferences, key ->
-            when (key) {
-                Keys.PREF_TRACKING_STATE -> {
-                    if (isAdded) {
-                        trackingState = PreferencesHelper.loadTrackingState(activity as Context)
-                        layout.updateRecordingButton(trackingState)
-                    }
-                }
-            }
-        }
-    }
-
 
 
     /*
@@ -275,8 +261,7 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener {
             trackerService = binder.service
             bound = true
             // register listener for changes in shared preferences
-            sharedPreferenceChangeListener2 = createSharedPreferenceChangeListener()
-            PreferenceManager.getDefaultSharedPreferences(activity as Context).registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener2)
+            PreferenceManager.getDefaultSharedPreferences(activity as Context).registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener)
             // start listening for location updates
             handler.removeCallbacks(periodicLocationRequestRunnable)
             handler.postDelayed(periodicLocationRequestRunnable, 0)
@@ -284,7 +269,7 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener {
         override fun onServiceDisconnected(arg0: ComponentName) {
             bound = false
             // unregister listener for changes in shared preferences
-            PreferenceManager.getDefaultSharedPreferences(activity as Context).unregisterOnSharedPreferenceChangeListener(sharedPreferenceChangeListener2)
+            PreferenceManager.getDefaultSharedPreferences(activity as Context).unregisterOnSharedPreferenceChangeListener(sharedPreferenceChangeListener)
             // stop receiving location updates
             handler.removeCallbacks(periodicLocationRequestRunnable)
         }
