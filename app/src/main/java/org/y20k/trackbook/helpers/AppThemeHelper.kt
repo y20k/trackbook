@@ -1,7 +1,7 @@
 /*
  * AppThemeHelper.kt
  * Implements the AppThemeHelper object
- * A AppThemeHelper can set the differnt app themes: Light Mode, Dark Mode, Follow System
+ * A AppThemeHelper can set the different app themes: Light Mode, Dark Mode, Follow System
  *
  * This file is part of
  * TRACKBOOK - Movement Recorder for Android

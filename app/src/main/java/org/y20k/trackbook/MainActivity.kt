@@ -89,6 +89,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    /* Overrides onDestroy from AppCompatActivity */
     override fun onDestroy() {
         super.onDestroy()
         // unregister listener for changes in shared preferences

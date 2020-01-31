@@ -38,7 +38,7 @@ class Trackbook: Application() {
     override fun onCreate() {
         super.onCreate()
         LogHelper.v(TAG, "Trackbook application started.")
-        // set Day / Night theme state
+        // set Dark / Light theme state
         AppThemeHelper.setTheme(PreferencesHelper.loadThemeSelection(this))
     }
 
