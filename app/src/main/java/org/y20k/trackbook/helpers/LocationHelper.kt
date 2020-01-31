@@ -168,7 +168,6 @@ object LocationHelper {
         } else {
             distanceThreshold = Keys.DEFAULT_THRESHOLD_DISTANCE
         }
-        LogHelper.e(TAG, "distanceThreshold -> $distanceThreshold") // todo remove
         // location is different when far enough away from previous location
         return calculateDistance(previousLocation, location) > distanceThreshold
     }

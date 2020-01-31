@@ -115,10 +115,10 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener {
     /* Overrides onResume from Fragment */
     override fun onResume() {
         super.onResume()
-        // show hide the location error snackbar
-        layout.toggleLocationErrorBar(gpsProviderActive, networkProviderActive)
-        // set map center
-        layout.centerMap(currentBestLocation)
+//        if (bound) {
+//            trackerService.addGpsLocationListener()
+//            trackerService.addNetworkLocationListener()
+//        }
     }
 
 
@@ -126,6 +126,10 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener {
     override fun onPause() {
         super.onPause()
         layout.saveState(currentBestLocation)
+        if (bound && trackingState != Keys.STATE_TRACKING_ACTIVE) {
+            trackerService.removeGpsLocationListener()
+            trackerService.removeNetworkLocationListener()
+        }
     }
 
 
@@ -256,10 +260,13 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener {
      */
     private val connection = object : ServiceConnection {
         override fun onServiceConnected(className: ComponentName, service: IBinder) {
-            // We've bound to LocalService, cast the IBinder and get LocalService instance
+            bound = true
+            // get reference to tracker service
             val binder = service as TrackerService.LocalBinder
             trackerService = binder.service
-            bound = true
+            // get state of tracking and update button if necessary
+            trackingState = trackerService.trackingState
+            layout.updateRecordingButton(trackingState)
             // register listener for changes in shared preferences
             PreferenceManager.getDefaultSharedPreferences(activity as Context).registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener)
             // start listening for location updates
@@ -284,7 +291,7 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener {
      */
     private val periodicLocationRequestRunnable: Runnable = object : Runnable {
         override fun run() {
-            // pull values from service
+            // pull current state from service
             currentBestLocation = trackerService.currentBestLocation
             track = trackerService.track
             gpsProviderActive = trackerService.gpsProviderActive

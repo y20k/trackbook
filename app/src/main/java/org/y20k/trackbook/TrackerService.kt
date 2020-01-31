@@ -64,6 +64,8 @@ class TrackerService(): Service(), CoroutineScope, SensorEventListener {
     var currentBestLocation: Location = LocationHelper.getDefaultLocation()
     var stepCountOffset: Float = 0f
     var track: Track = Track()
+    var gpsLocationListenerRegistered: Boolean = false
+    var networkLocationListenerRegistered: Boolean = false
     private val binder = LocalBinder()
     private val handler: Handler = Handler()
     private lateinit var locationManager: LocationManager
@@ -108,21 +110,30 @@ class TrackerService(): Service(), CoroutineScope, SensorEventListener {
         if (intent == null) {
             if (trackingState == Keys.STATE_TRACKING_ACTIVE) {
                 LogHelper.w(TAG, "Trackbook has been killed by the operating system. Trying to resume recording.")
+                addGpsLocationListener()
+                addNetworkLocationListener()
                 resumeTracking()
             }
         // ACTION STOP
         } else if (Keys.ACTION_STOP == intent.action) {
+            // TODO - do not remove when app is in foreground
+            removeGpsLocationListener()
+            removeNetworkLocationListener()
             stopTracking()
         // ACTION START
         } else if (Keys.ACTION_START == intent.action) {
+            addGpsLocationListener()
+            addNetworkLocationListener()
             startTracking()
         // ACTION RESUME
         } else if (Keys.ACTION_RESUME == intent.action) {
+            addGpsLocationListener()
+            addNetworkLocationListener()
             resumeTracking()
         }
 
         // START_STICKY is used for services that are explicitly started and stopped as needed
-        return Service.START_STICKY
+        return START_STICKY
     }
 
 
@@ -270,10 +281,11 @@ class TrackerService(): Service(), CoroutineScope, SensorEventListener {
 
 
     /* Adds a GPS location listener to location manager */
-    private fun addGpsLocationListener() {
+    fun addGpsLocationListener() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            if (gpsProviderActive) {
+            if (gpsProviderActive && !gpsLocationListenerRegistered) {
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0f,gpsLocationListener)
+                gpsLocationListenerRegistered = true
                 LogHelper.v(TAG, "Added GPS location listener.")
             } else {
                 LogHelper.w(TAG, "Unable to add GPS location listener.")
@@ -285,10 +297,11 @@ class TrackerService(): Service(), CoroutineScope, SensorEventListener {
 
 
     /* Adds a Network location listener to location manager */
-    private fun addNetworkLocationListener() {
+    fun addNetworkLocationListener() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            if (networkProviderActive && !gpsOnly) {
+            if (networkProviderActive && !gpsOnly &&!networkLocationListenerRegistered) {
                 locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0f,networkLocationListener)
+                networkLocationListenerRegistered = true
                 LogHelper.v(TAG, "Added Network location listener.")
             } else {
                 LogHelper.w(TAG, "Unable to add Network location listener.")
@@ -300,9 +313,10 @@ class TrackerService(): Service(), CoroutineScope, SensorEventListener {
 
 
     /* Adds location listeners to location manager */
-    private fun removeGpsLocationListener() {
+    fun removeGpsLocationListener() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             locationManager.removeUpdates(gpsLocationListener)
+            gpsLocationListenerRegistered = false
             LogHelper.v(TAG, "Removed GPS location listener.")
         } else {
             LogHelper.w(TAG, "Unable to remove GPS location listener. Location permission is needed.")
@@ -311,9 +325,10 @@ class TrackerService(): Service(), CoroutineScope, SensorEventListener {
 
 
     /* Adds location listeners to location manager */
-    private fun removeNetworkLocationListener() {
+    fun removeNetworkLocationListener() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             locationManager.removeUpdates(gpsLocationListener)
+            networkLocationListenerRegistered = false
             LogHelper.v(TAG, "Removed Network location listener.")
         } else {
             LogHelper.w(TAG, "Unable to remove Network location listener. Location permission is needed.")

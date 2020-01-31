@@ -58,10 +58,14 @@ class TrackingToggleTileService(): TileService() {
     }
 
 
-    /* Overrides onStartListening from TileService */
+    /* Overrides onStartListening from TileService (tile becomes visible) */
     override fun onStartListening() {
         super.onStartListening()
-        // tile becomes visible - register listener for changes in shared preferences
+        // get saved tracking state
+        trackingState = PreferencesHelper.loadTrackingState(this)
+        // set up tile
+        updateTile()
+        // register listener for changes in shared preferences
         PreferenceManager.getDefaultSharedPreferences(this@TrackingToggleTileService).registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener)
     }
 
@@ -76,31 +80,10 @@ class TrackingToggleTileService(): TileService() {
     }
 
 
-    /* Start tracking */
-    private fun startTracking() {
-        val intent = Intent(application, TrackerService::class.java)
-        intent.action = Keys.ACTION_START
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            // ... start service in foreground to prevent it being killed on Oreo
-            application.startForegroundService(intent)
-        } else {
-            application.startService(intent)
-        }
-    }
-
-
-    /* Stop tracking */
-    private fun stopTracking() {
-        val intent = Intent(application, TrackerService::class.java)
-        intent.action = Keys.ACTION_STOP
-        application.startService(intent)
-    }
-
-
-    /* Overrides onStopListening from TileService */
+    /* Overrides onStopListening from TileService (tile no longer visible) */
     override fun onStopListening() {
         super.onStopListening()
-        // tile no longer visible - unregister listener for changes in shared preferences
+        // unregister listener for changes in shared preferences
         PreferenceManager.getDefaultSharedPreferences(this@TrackingToggleTileService).unregisterOnSharedPreferenceChangeListener(sharedPreferenceChangeListener)
     }
 
@@ -128,6 +111,27 @@ class TrackingToggleTileService(): TileService() {
             }
         }
         tile.updateTile()
+    }
+
+
+    /* Start tracking */
+    private fun startTracking() {
+        val intent = Intent(application, TrackerService::class.java)
+        intent.action = Keys.ACTION_START
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            // ... start service in foreground to prevent it being killed on Oreo
+            application.startForegroundService(intent)
+        } else {
+            application.startService(intent)
+        }
+    }
+
+
+    /* Stop tracking */
+    private fun stopTracking() {
+        val intent = Intent(application, TrackerService::class.java)
+        intent.action = Keys.ACTION_STOP
+        application.startService(intent)
     }
 
 
