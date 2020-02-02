@@ -84,4 +84,14 @@
     <string name="abbreviation_seconds">sec</string>
     <string name="descr_mark_starred_button">Knop \'Toev. aan favorieten\'</string>
     <string name="descr_statistics_sheet_edit_button">Knop \'Route aanpassen\'</string>
+    <string name="quick_settings_tile_title_default">Opname</string>
+    <string name="quick_settings_tile_title_start">Opname starten</string>
+    <string name="quick_settings_tile_title_stop">Opname stoppen</string>
+    <string name="descr_quick_settings_tile_title_start">Opname starten</string>
+    <string name="descr_quick_settings_tile_title_stop">Opname stoppen</string>
+    <string name="pref_theme_selection_mode_dark">Donker thema</string>
+    <string name="pref_theme_selection_mode_device_default">Ingesteld door batterijbesparing</string>
+    <string name="pref_theme_selection_mode_light">Licht thema</string>
+    <string name="pref_theme_selection_summary">Huidig thema:</string>
+    <string name="pref_theme_selection_title">App-thema</string>
 </resources>
