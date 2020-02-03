@@ -56,6 +56,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         // set up "Restrict to GPS" preference
         val preferenceGpsOnly: SwitchPreferenceCompat = SwitchPreferenceCompat(activity as Context)
         preferenceGpsOnly.title = getString(R.string.pref_gps_only_title)
+        preferenceGpsOnly.setIcon(R.drawable.ic_gps_24dp)
         preferenceGpsOnly.key = Keys.PREF_GPS_ONLY
         preferenceGpsOnly.summaryOn = getString(R.string.pref_gps_only_summary_gps_only)
         preferenceGpsOnly.summaryOff = getString(R.string.pref_gps_only_summary_gps_and_network)
@@ -64,6 +65,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         // set up "Use Imperial Measurements" preference
         val preferenceImperialMeasurementUnits: SwitchPreferenceCompat = SwitchPreferenceCompat(activity as Context)
         preferenceImperialMeasurementUnits.title = getString(R.string.pref_imperial_measurement_units_title)
+        preferenceImperialMeasurementUnits.setIcon(R.drawable.ic_square_foot_24px)
         preferenceImperialMeasurementUnits.key = Keys.PREF_USE_IMPERIAL_UNITS
         preferenceImperialMeasurementUnits.summaryOn = getString(R.string.pref_imperial_measurement_units_summary_imperial)
         preferenceImperialMeasurementUnits.summaryOff = getString(R.string.pref_imperial_measurement_units_summary_metric)
@@ -72,6 +74,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         // set up "App Theme" preference
         val preferenceThemeSelection: ListPreference = ListPreference(activity as Context)
         preferenceThemeSelection.title = getString(R.string.pref_theme_selection_title)
+        preferenceThemeSelection.setIcon(R.drawable.ic_smartphone_24dp)
         preferenceThemeSelection.key = Keys.PREF_THEME_SELECTION
         preferenceThemeSelection.summary = "${getString(R.string.pref_theme_selection_summary)} ${AppThemeHelper.getCurrentTheme(activity as Context)}"
         preferenceThemeSelection.entries = arrayOf(getString(R.string.pref_theme_selection_mode_device_default), getString(R.string.pref_theme_selection_mode_light), getString(R.string.pref_theme_selection_mode_dark))
@@ -95,6 +98,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         // set up "Accuracy Threshold" preference
         val preferenceAccuracyThreshold: SeekBarPreference = SeekBarPreference(activity as Context)
         preferenceAccuracyThreshold.title = getString(R.string.pref_accuracy_threshold_title)
+        preferenceAccuracyThreshold.setIcon(R.drawable.ic_timeline_24dp)
         preferenceAccuracyThreshold.key = Keys.PREF_LOCATION_ACCURACY_THRESHOLD
         preferenceAccuracyThreshold.summary = getString(R.string.pref_accuracy_threshold_summary)
         preferenceAccuracyThreshold.showSeekBarValue = true
@@ -104,6 +108,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         // set up "Reset" preference
         val preferenceResetAdvanced: Preference = Preference(activity as Context)
         preferenceResetAdvanced.title = getString(R.string.pref_reset_advanced_title)
+        preferenceResetAdvanced.setIcon(R.drawable.ic_undo_24dp)
         preferenceResetAdvanced.summary = getString(R.string.pref_reset_advanced_summary)
         preferenceResetAdvanced.setOnPreferenceClickListener{
             preferenceAccuracyThreshold.value = Keys.DEFAULT_THRESHOLD_LOCATION_ACCURACY
