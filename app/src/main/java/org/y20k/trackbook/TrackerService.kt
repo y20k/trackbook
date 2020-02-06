@@ -66,6 +66,7 @@ class TrackerService(): Service(), CoroutineScope, SensorEventListener {
     var track: Track = Track()
     var gpsLocationListenerRegistered: Boolean = false
     var networkLocationListenerRegistered: Boolean = false
+    var bound: Boolean = false
     private val binder = LocalBinder()
     private val handler: Handler = Handler()
     private lateinit var locationManager: LocationManager
@@ -110,25 +111,16 @@ class TrackerService(): Service(), CoroutineScope, SensorEventListener {
         if (intent == null) {
             if (trackingState == Keys.STATE_TRACKING_ACTIVE) {
                 LogHelper.w(TAG, "Trackbook has been killed by the operating system. Trying to resume recording.")
-                addGpsLocationListener()
-                addNetworkLocationListener()
                 resumeTracking()
             }
         // ACTION STOP
         } else if (Keys.ACTION_STOP == intent.action) {
-            // TODO - do not remove when app is in foreground
-            removeGpsLocationListener()
-            removeNetworkLocationListener()
             stopTracking()
         // ACTION START
         } else if (Keys.ACTION_START == intent.action) {
-            addGpsLocationListener()
-            addNetworkLocationListener()
             startTracking()
         // ACTION RESUME
         } else if (Keys.ACTION_RESUME == intent.action) {
-            addGpsLocationListener()
-            addNetworkLocationListener()
             resumeTracking()
         }
 
@@ -139,21 +131,53 @@ class TrackerService(): Service(), CoroutineScope, SensorEventListener {
 
     /* Overrides onBind from Service */
     override fun onBind(p0: Intent?): IBinder? {
+        LogHelper.e(TAG, "onBind called.") // todo remove
+        bound = true
+        // start receiving location updates
         addGpsLocationListener()
         addNetworkLocationListener()
+        // return reference to this service
         return binder
     }
 
+
+    /* Overrides onRebind from Service */
+    override fun onRebind(intent: Intent?) {
+        LogHelper.e(TAG, "onRebind called.") // todo remove
+        bound = true
+        // start receiving location updates
+        addGpsLocationListener()
+        addNetworkLocationListener()
+    }
+
+
+    /* Overrides onUnbind from Service */
+    override fun onUnbind(intent: Intent?): Boolean {
+        LogHelper.e(TAG, "onUnbind called.") // todo remove
+        bound = false
+        // stop receiving location updates - if not tracking
+        if (trackingState != Keys.STATE_TRACKING_ACTIVE) {
+            removeGpsLocationListener()
+            removeNetworkLocationListener()
+        }
+        // ensures onRebind is called
+        return true
+    }
 
     /* Overrides onDestroy from Service */
     override fun onDestroy() {
         super.onDestroy()
         LogHelper.i(TAG, "onDestroy called.")
+        // stop tracking
         if (trackingState == Keys.STATE_TRACKING_ACTIVE) stopTracking()
+        // remove notification
         stopForeground(true)
+        // stop listening for changes in shared preferences
         PreferenceManager.getDefaultSharedPreferences(this).unregisterOnSharedPreferenceChangeListener(sharedPreferenceChangeListener)
+        // stop receiving location updates
         removeGpsLocationListener()
         removeNetworkLocationListener()
+        // cancel background job
         backgroundJob.cancel()
     }
 
@@ -196,6 +220,10 @@ class TrackerService(): Service(), CoroutineScope, SensorEventListener {
 
     /* Start tracking location */
     fun startTracking(newTrack: Boolean = true) {
+        // start receiving location updates
+        addGpsLocationListener()
+        addNetworkLocationListener()
+        // set up new track
         if (newTrack) {
             track = Track()
             track.recordingStart = GregorianCalendar.getInstance().time
@@ -203,21 +231,32 @@ class TrackerService(): Service(), CoroutineScope, SensorEventListener {
             track.name = DateTimeHelper.convertToReadableDate(track.recordingStart)
             stepCountOffset = 0f
         }
+        // set state
         trackingState = Keys.STATE_TRACKING_ACTIVE
         PreferencesHelper.saveTrackingState(this, trackingState)
+        // start recording steps and location fixes
         startStepCounter()
         handler.postDelayed(periodicTrackUpdate, 0)
+        // show notification
         startForeground(Keys.TRACKER_SERVICE_NOTIFICATION_ID, displayNotification())
     }
 
 
     /* Stop tracking location */
     fun stopTracking() {
+        // stop receiving location updates - if app is not bound (= visible)
+        if (!bound) {
+            removeGpsLocationListener()
+            removeGpsLocationListener()
+        }
+        // save state
         track.recordingStop = GregorianCalendar.getInstance().time
         trackingState = Keys.STATE_TRACKING_STOPPED
         PreferencesHelper.saveTrackingState(this, trackingState)
+        // stop recording steps and location fixes
         sensorManager.unregisterListener(this)
         handler.removeCallbacks(periodicTrackUpdate)
+        // update notification
         displayNotification()
         stopForeground(false)
     }
@@ -281,33 +320,49 @@ class TrackerService(): Service(), CoroutineScope, SensorEventListener {
 
 
     /* Adds a GPS location listener to location manager */
-    fun addGpsLocationListener() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            if (gpsProviderActive && !gpsLocationListenerRegistered) {
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0f,gpsLocationListener)
-                gpsLocationListenerRegistered = true
-                LogHelper.v(TAG, "Added GPS location listener.")
+    private fun addGpsLocationListener() {
+        // check if already registered
+        if (!gpsLocationListenerRegistered) {
+            // check if Network provider is available
+            if (gpsProviderActive) {
+                // check for location permission
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                    // adds GPS location listener
+                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0f,gpsLocationListener)
+                    gpsLocationListenerRegistered = true
+                    LogHelper.v(TAG, "Added GPS location listener.")
+                } else {
+                    LogHelper.w(TAG, "Unable to add GPS location listener. Location permission is not granted.")
+                }
             } else {
                 LogHelper.w(TAG, "Unable to add GPS location listener.")
             }
         } else {
-            LogHelper.w(TAG, "Unable to request device location. Permission is not granted.")
+            LogHelper.v(TAG, "Skipping registration. GPS location listener has already been added.")
         }
     }
 
 
     /* Adds a Network location listener to location manager */
-    fun addNetworkLocationListener() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            if (networkProviderActive && !gpsOnly &&!networkLocationListenerRegistered) {
-                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0f,networkLocationListener)
-                networkLocationListenerRegistered = true
-                LogHelper.v(TAG, "Added Network location listener.")
+    private fun addNetworkLocationListener() {
+        // check if already registered
+        if (!networkLocationListenerRegistered) {
+            // check if Network provider is available
+            if (networkProviderActive && !gpsOnly) {
+                // check for location permission
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                    // adds Network location listener
+                    locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0f, networkLocationListener)
+                    networkLocationListenerRegistered = true
+                    LogHelper.v(TAG, "Added Network location listener.")
+                } else {
+                    LogHelper.w(TAG, "Unable to add Network location listener. Location permission is not granted.")
+                }
             } else {
                 LogHelper.w(TAG, "Unable to add Network location listener.")
             }
         } else {
-            LogHelper.w(TAG, "Unable to request device location. Permission is not granted.")
+            LogHelper.v(TAG, "Skipping registration. Network location listener has already been added.")
         }
     }
 
@@ -359,7 +414,7 @@ class TrackerService(): Service(), CoroutineScope, SensorEventListener {
      */
     private val sharedPreferenceChangeListener = SharedPreferences.OnSharedPreferenceChangeListener { sharedPreferences, key ->
             when (key) {
-
+                // preference "Restrict to GPS"
                 Keys.PREF_GPS_ONLY -> {
                     gpsOnly = PreferencesHelper.loadGpsOnly(this@TrackerService)
                     when (gpsOnly) {
@@ -367,15 +422,14 @@ class TrackerService(): Service(), CoroutineScope, SensorEventListener {
                         false -> addNetworkLocationListener()
                     }
                 }
-
+                // preference "Use Imperial Measurements"
                 Keys.PREF_USE_IMPERIAL_UNITS -> {
                     useImperial = PreferencesHelper.loadUseImperialUnits(this@TrackerService)
                 }
-
+                // preference "Accuracy Threshold"
                 Keys.PREF_LOCATION_ACCURACY_THRESHOLD -> {
                     locationAccuracyThreshold = PreferencesHelper.loadAccuracyThreshold(this@TrackerService)
                 }
-
             }
         }
     /*
