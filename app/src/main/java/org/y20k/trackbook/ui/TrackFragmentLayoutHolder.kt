@@ -19,8 +19,6 @@ package org.y20k.trackbook.ui
 
 import android.app.Activity
 import android.content.Context
-import android.net.Uri
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -52,7 +50,7 @@ import kotlin.math.roundToInt
 /*
  * TrackFragmentLayoutHolder class
  */
-data class TrackFragmentLayoutHolder(var context: Context, var inflater: LayoutInflater, var container: ViewGroup?, var arguments: Bundle?) {
+data class TrackFragmentLayoutHolder(var context: Context, var inflater: LayoutInflater, var container: ViewGroup?, var track: Track) {
 
     /* Define log tag */
     private val TAG: String = LogHelper.makeLogTag(TrackFragmentLayoutHolder::class.java)
@@ -60,7 +58,6 @@ data class TrackFragmentLayoutHolder(var context: Context, var inflater: LayoutI
 
     /* Main class variables */
     val rootView: View
-    val track: Track
     val shareButton: ImageButton
     val deleteButton: ImageButton
     val editButton: ImageButton
@@ -92,7 +89,7 @@ data class TrackFragmentLayoutHolder(var context: Context, var inflater: LayoutI
         // find views
         rootView = inflater.inflate(R.layout.fragment_track, container, false)
         mapView = rootView.findViewById(R.id.map)
-        shareButton = rootView.findViewById(R.id.share_button)
+        shareButton = rootView.findViewById(R.id.save_button)
         deleteButton = rootView.findViewById(R.id.delete_button)
         editButton = rootView.findViewById(R.id.edit_button)
         trackNameView = rootView.findViewById(R.id.statistics_track_name_headline)
@@ -136,13 +133,7 @@ data class TrackFragmentLayoutHolder(var context: Context, var inflater: LayoutI
         compassOverlay.setCompassCenter(36f, 60f)
         mapView.overlays.add(compassOverlay)
 
-        // get track and create map overlay
-        val fileUriString: String = arguments?.getString(Keys.ARG_TRACK_FILE_URI, String()) ?: String()
-        if (fileUriString.isNotBlank()) {
-            track = FileHelper.readTrack(context, Uri.parse(fileUriString))
-        } else {
-            track = Track()
-        }
+        // create map overlay
         trackOverlay = MapHelper.createTrackOverlay(context, track, Keys.STATE_TRACKING_NOT)
         if (track.wayPoints.isNotEmpty()) {
             mapView.overlays.add(trackOverlay)

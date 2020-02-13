@@ -87,7 +87,7 @@
   <string name="descr_mark_starred_button">加星按钮</string>
   <string name="descr_statistics_sheet_delete_button">删除记录按钮</string>
   <string name="descr_statistics_sheet_edit_button">记录编辑按钮</string>
-  <string name="descr_statistics_sheet_share_button">以GPX文件分享按钮</string>
+  <string name="descr_statistics_sheet_save_button">以GPX文件分享按钮</string>
   <!-- Sample Text -->
   <string name="sample_text_track_data" translatable="false">23.0 km • 5 时 23 分 42 秒</string>
   <string name="sample_text_track_name" translatable="false">1969年7月20日</string>

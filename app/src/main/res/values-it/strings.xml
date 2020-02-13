@@ -55,7 +55,7 @@
     <string name="descr_fab_sub_menu_button_clear">Pulsante Cancella</string>
     <string name="descr_fab_sub_menu_button_resume">Pulsante Riprendi</string>
     <string name="descr_statistics_sheet_delete_button">Pulsante Elimina traccia</string>
-    <string name="descr_statistics_sheet_share_button">Pulsante Condividi che permette di esportare come GPX</string>
+    <string name="descr_statistics_sheet_save_button">Pulsante Condividi che permette di esportare come GPX</string>
     <string name="tab_tracks">Tracce</string>
     <string name="tab_settings">Impostazioni</string>
     <string name="snackbar_message_location_permission_denied">Permesso alla posizione non concesso. Trackbook non funzionerà.</string>

@@ -55,7 +55,7 @@
     <string name="descr_fab_sub_menu_button_clear">Tøm-knapp</string>
     <string name="descr_fab_sub_menu_button_resume">Fortsett-knapp</string>
     <string name="descr_statistics_sheet_delete_button">Sporslettingsknapp</string>
-    <string name="descr_statistics_sheet_share_button">Delingsknapp som muliggjør eksport som GPX</string>
+    <string name="descr_statistics_sheet_save_button">Delingsknapp som muliggjør eksport som GPX</string>
     <string name="tab_tracks">Spor</string>
     <string name="tab_settings">Innstillinger</string>
     <string name="snackbar_message_location_permission_denied">Plasseringstilgang ikke innvilget. Trackbook vil ikke fungere.</string>

@@ -32,12 +32,6 @@ object Keys {
     const val CURRENT_TRACK_FORMAT_VERSION: Int = 4
     const val CURRENT_TRACKLIST_FORMAT_VERSION: Int = 0
 
-    // other values
-    const val MAXIMUM_TRACK_FILES: Int = 25
-    const val FIFTY_METER_RADIUS: Int = 50
-    const val UNIT_METRIC: Int = 1
-    const val UNIT_IMPERIAL: Int = -1
-
     // intent actions
     const val ACTION_START: String = "org.y20k.trackbooks.action.START"
     const val ACTION_STOP: String = "org.y20k.trackbooks.action.STOP"
@@ -78,14 +72,8 @@ object Keys {
     const val DIALOG_REMOVE_TRACK: Int = 1
 
     // dialog results
-    const val DIALOG_RESULT_DEFAULT: Int = -1
     const val DIALOG_EMPTY_PAYLOAD_STRING: String = ""
     const val DIALOG_EMPTY_PAYLOAD_INT: Int = -1
-    const val DIALOG_RESULT_SAVE_DIALOG: Int = 1
-    const val DIALOG_RESULT_CLEAR_DIALOG: Int = 2
-    const val DIALOG_RESULT_DELETE_DIALOG: Int = 3
-    const val DIALOG_RESULT_EXPORT_DIALOG: Int = 4
-    const val DIALOG_RESULT_EMPTY_RECORDING_DIALOG: Int = 5
 
     // folder names
     const val FOLDER_TEMP: String  = "temp"
@@ -93,16 +81,12 @@ object Keys {
     const val FOLDER_GPX: String = "gpx"
 
     // file names and extensions
+    const val MIME_TYPE_GPX: String = "application/gpx+xml"
     const val GPX_FILE_EXTENSION: String = ".gpx"
     const val TRACKBOOK_LEGACY_FILE_EXTENSION: String = ".trackbook"
     const val TRACKBOOK_FILE_EXTENSION: String = ".json"
     const val TEMP_FILE: String = "temp.json"
     const val TRACKLIST_FILE: String = "tracklist.json"
-    const val PODCAST_COVER_FILE: String = "cover.jpg"
-    const val PODCAST_SMALL_COVER_FILE: String = "cover-small.jpg"
-    const val DEBUG_LOG_FILE: String = "log-can-be-deleted.txt"
-    const val FILE_TYPE_TEMP: Int = 0
-    const val FILE_TYPE_TRACK: Int = 1
 
 
     // default values
@@ -127,11 +111,9 @@ object Keys {
     const val REQUEST_CODE_FOREGROUND = 42
 
     // requests
-
-    // results
+    const val REQUEST_SAVE_GPX: Int = 23
 
     // notification
     const val TRACKER_SERVICE_NOTIFICATION_ID: Int = 1
     const val NOTIFICATION_CHANNEL_RECORDING: String = "notificationChannelIdRecordingChannel"
-
 }

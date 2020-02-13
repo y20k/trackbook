@@ -19,11 +19,13 @@ package org.y20k.trackbook
 
 
 import YesNoDialog
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.os.Vibrator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,6 +38,7 @@ import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.y20k.trackbook.Keys.ARG_TRACK_ID
+import org.y20k.trackbook.core.Track
 import org.y20k.trackbook.dialogs.RenameTrackDialog
 import org.y20k.trackbook.helpers.FileHelper
 import org.y20k.trackbook.helpers.LogHelper
@@ -48,17 +51,37 @@ class TrackFragment : Fragment(), RenameTrackDialog.RenameTrackListener, YesNoDi
 
 
     /* Main class variables */
-    private lateinit var layout:TrackFragmentLayoutHolder
+    private lateinit var layout: TrackFragmentLayoutHolder
+    private lateinit var track: Track
+
+
+    /* Overrides onCreate from Fragment */
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        // get track
+        val fileUriString: String = arguments?.getString(Keys.ARG_TRACK_FILE_URI, String()) ?: String()
+        if (fileUriString.isNotBlank()) {
+            track = FileHelper.readTrack(activity as Context, Uri.parse(fileUriString))
+        } else {
+            track = Track()
+        }
+    }
 
 
     /* Overrides onCreateView from Fragment */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // initialize layout
-        layout = TrackFragmentLayoutHolder(activity as Context, inflater, container, arguments)
+        layout = TrackFragmentLayoutHolder(activity as Context, inflater, container, track)
 
         // set up share button
         layout.shareButton.setOnClickListener {
-            shareGpXTrack()
+            openSaveGpxDialog()
+        }
+        layout.shareButton.setOnLongClickListener {
+            val v = (activity as Context).getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+            v.vibrate(50)
+            shareGpxTrack()
+            return@setOnLongClickListener true
         }
         // set up delete button
         layout.deleteButton.setOnClickListener {
@@ -90,6 +113,27 @@ class TrackFragment : Fragment(), RenameTrackDialog.RenameTrackListener, YesNoDi
     }
 
 
+    /* Overrides onActivityResult from Fragment */
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when (requestCode) {
+            // save GPX file to result file location
+            Keys.REQUEST_SAVE_GPX -> {
+                if (resultCode == Activity.RESULT_OK && data != null) {
+                    val sourceUri: Uri = Uri.parse(track.gpxUriString)
+                    val targetUri: Uri? = data.data
+                    if (targetUri != null) {
+                        // copy file async (= fire & forget - no return value needed)
+                        GlobalScope.launch { FileHelper.saveCopyOfFileSuspended( activity as  Context, originalFileUri = sourceUri, targetFileUri = targetUri) }
+                        Toast.makeText(activity as Context, R.string.toast_message_save_gpx, Toast.LENGTH_LONG).show()
+                    }
+                }
+            }
+            // let activity handle result
+            else -> super.onActivityResult(requestCode, resultCode, data)
+        }
+    }
+
+
     /* Overrides onRenameTrackDialog from RenameTrackDialog */
     override fun onRenameTrackDialog(textInput: String) {
         // rename track async (= fire & forget - no return value needed)
@@ -118,17 +162,28 @@ class TrackFragment : Fragment(), RenameTrackDialog.RenameTrackListener, YesNoDi
     }
 
 
+    /* Opens up a file picker to select the save location */
+    private fun openSaveGpxDialog() {
+        val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
+            addCategory(Intent.CATEGORY_OPENABLE)
+            type = Keys.MIME_TYPE_GPX
+            putExtra(Intent.EXTRA_TITLE, FileHelper.getGpxFileName(track))
+        }
+        // file gets saved in onActivityResult
+        startActivityForResult(intent, Keys.REQUEST_SAVE_GPX)
+    }
+
+
     /* Share track as GPX via share sheet */
-    private fun shareGpXTrack() {
+    private fun shareGpxTrack() {
         val gpxFile = Uri.parse(layout.track.gpxUriString).toFile()
         val gpxShareUri = FileProvider.getUriForFile(this.activity as Context, "${activity!!.applicationContext.packageName}.provider", gpxFile)
         val shareIntent: Intent = Intent.createChooser(Intent().apply {
             action = Intent.ACTION_SEND
             data = gpxShareUri
-            type = "application/gpx+xml"
+            type = Keys.MIME_TYPE_GPX
             flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
             putExtra(Intent.EXTRA_STREAM, gpxShareUri)
-            putExtra(Intent.EXTRA_TITLE, getString(R.string.dialog_share_gpx))
         }, null)
 
         // show share sheet - if file helper is available

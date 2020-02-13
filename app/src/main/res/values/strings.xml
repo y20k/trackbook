@@ -39,6 +39,7 @@
     <!-- Toast Messages -->
     <string name="toast_message_elevation_info">Hint: The accuracy of elevation data depends on your device. The uphill and downhill elevation of the whole route is measured.</string>
     <string name="toast_message_install_file_helper">Please install a file manager or a GPX track viewer first.</string>
+    <string name="toast_message_save_gpx">Saving recording as GPX.</string>
     <!-- Map Markers -->
     <string name="marker_description_time">Time</string>
     <string name="marker_description_accuracy">Accuracy</string>
@@ -64,7 +65,7 @@
     <string name="track_list_onboarding_h1_part_1">Your recorded tracks</string>
     <string name="track_list_onboarding_h1_part_2">… will show up here.</string>
     <!-- Settings -->
-    <string name="pref_accuracy_threshold_summary">Discard location fixes with an accuracy larger than</string>
+    <string name="pref_accuracy_threshold_summary">Discard location fixes with an accuracy larger than:</string>
     <string name="pref_accuracy_threshold_title">Accuracy Threshold</string>
     <string name="pref_advanced_title">Advanced</string>
     <string name="pref_general_title">General</string>
@@ -97,7 +98,7 @@
     <string name="descr_quick_settings_tile_title_stop">Stop Recording</string>
     <string name="descr_statistics_sheet_delete_button">Track delete button</string>
     <string name="descr_statistics_sheet_edit_button">Track edit button</string>
-    <string name="descr_statistics_sheet_share_button">Share as GPX button</string>
+    <string name="descr_statistics_sheet_save_button">Save as GPX button</string>
     <!-- Sample Text -->
     <string name="sample_text_track_data" translatable="false">23.0 km • 5 hrs 23 min 42 sec</string>
     <string name="sample_text_track_name" translatable="false">July 20, 1969</string>

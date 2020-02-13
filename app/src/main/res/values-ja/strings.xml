@@ -55,5 +55,5 @@
     <string name="descr_fab_sub_menu_button_clear">クリアボタン</string>
     <string name="descr_fab_sub_menu_button_resume">再開ボタン</string>
     <string name="descr_statistics_sheet_delete_button">トレース削除ボタン</string>
-    <string name="descr_statistics_sheet_share_button">GPX としてエクスポートする共有ボタン</string>
+    <string name="descr_statistics_sheet_save_button">GPX としてエクスポートする共有ボタン</string>
 </resources>

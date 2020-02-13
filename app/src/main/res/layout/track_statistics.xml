@@ -46,7 +46,7 @@
         android:backgroundTint="@color/trackbook_transparent"
         android:contentDescription="@string/descr_statistics_sheet_delete_button"
         app:layout_constraintBottom_toBottomOf="@+id/edit_button"
-        app:layout_constraintEnd_toStartOf="@+id/share_button"
+        app:layout_constraintEnd_toStartOf="@+id/save_button"
         app:layout_constraintTop_toTopOf="@+id/edit_button"
         app:srcCompat="@drawable/ic_delete_24dp" />
 
@@ -62,16 +62,16 @@
         app:srcCompat="@drawable/ic_edit_24dp" />
 
     <ImageButton
-        android:id="@+id/share_button"
+        android:id="@+id/save_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/trackbook_transparent"
-        android:contentDescription="@string/descr_statistics_sheet_share_button"
+        android:contentDescription="@string/descr_statistics_sheet_save_button"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/statistics_track_name_headline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/statistics_track_name_headline"
-        app:srcCompat="@drawable/ic_share_24dp" />
+        app:srcCompat="@drawable/ic_save_24dp" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/statistics_p_distance"

@@ -55,7 +55,7 @@
     <string name="descr_fab_sub_menu_button_clear">Wissen-knop</string>
     <string name="descr_fab_sub_menu_button_resume">Voortzetten-knop</string>
     <string name="descr_statistics_sheet_delete_button">Track verwijderknop</string>
-    <string name="descr_statistics_sheet_share_button">Deelknop met ondersteuning voor het exporteren naar GPX</string>
+    <string name="descr_statistics_sheet_save_button">Deelknop met ondersteuning voor het exporteren naar GPX</string>
     <string name="tab_tracks">Routes</string>
     <string name="tab_settings">Instellingen</string>
     <string name="snackbar_message_location_permission_denied">Locatiemachtiging niet verleend. Trackbook zal niet werken.</string>

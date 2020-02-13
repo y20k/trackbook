@@ -125,8 +125,16 @@ class TracklistFragment : Fragment(), TracklistAdapter.TracklistAdapterListener,
     // toggle onboarding layout
     private fun toggleOnboardingLayout(trackCount: Int) {
         when (trackCount == 0) {
-            true -> tracklistOnboarding.visibility = View.VISIBLE // show onboarding layout
-            false -> tracklistOnboarding.visibility = View.GONE // hide onboarding layout
+            true -> {
+                // show onboarding layout
+                tracklistOnboarding.visibility = View.VISIBLE
+                trackElementList.visibility = View.GONE
+            }
+            false -> {
+                // hide onboarding layout
+                tracklistOnboarding.visibility = View.GONE
+                trackElementList.visibility = View.VISIBLE
+            }
         }
     }
 

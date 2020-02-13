@@ -154,10 +154,11 @@ object FileHelper {
 
 
     /* Creates Uri for Gpx file of a track */
-    fun getGpxFileUri(context: Context, track: Track): Uri {
-        val fileName: String = DateTimeHelper.convertToSortableDateString(track.recordingStart) + Keys.GPX_FILE_EXTENSION
-        return File(context.getExternalFilesDir(Keys.FOLDER_GPX), fileName).toUri()
-    }
+    fun getGpxFileUri(context: Context, track: Track): Uri = File(context.getExternalFilesDir(Keys.FOLDER_GPX), getGpxFileName(track)).toUri()
+
+
+    /* Creates file name for Gpx file of a track */
+    fun getGpxFileName(track: Track): String = DateTimeHelper.convertToSortableDateString(track.recordingStart) + Keys.GPX_FILE_EXTENSION
 
 
     /* Creates Uri for json track file */
@@ -232,9 +233,9 @@ object FileHelper {
 
 
     /* Suspend function: Wrapper for copyFile */
-    suspend fun saveCopyOfFileSuspended(context: Context, originalFileUri: Uri, targetFileUri: Uri) {
+    suspend fun saveCopyOfFileSuspended(context: Context, originalFileUri: Uri, targetFileUri: Uri, deleteOriginal: Boolean = false) {
         return suspendCoroutine { cont ->
-            cont.resume(copyFile(context, originalFileUri, targetFileUri, deleteOriginal = true))
+            cont.resume(copyFile(context, originalFileUri, targetFileUri, deleteOriginal))
         }
     }
 

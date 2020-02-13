@@ -55,5 +55,5 @@
     <string name="descr_fab_sub_menu_button_clear">Zurücksetzen-Knopf</string>
     <string name="descr_fab_sub_menu_button_resume">Fortsetzen-Knopf</string>
     <string name="descr_statistics_sheet_delete_button">Schaltfläche „Aufzeichnung löschen”</string>
-    <string name="descr_statistics_sheet_share_button">Share-Taste, die den Export als GPX anbietet</string>
+    <string name="descr_statistics_sheet_save_button">Share-Taste, die den Export als GPX anbietet</string>
 </resources>

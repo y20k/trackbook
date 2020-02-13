@@ -55,7 +55,7 @@
     <string name="descr_fab_sub_menu_button_save">Bouton « Sauvegarder »</string>
     <string name="descr_map_current_track">Affichage du parcours actuel</string>
     <string name="descr_map_last_track">Affichage du dernier parcours</string>
-    <string name="descr_statistics_sheet_share_button">Bouton « Partager au format GPX »</string>
+    <string name="descr_statistics_sheet_save_button">Bouton « Partager au format GPX »</string>
     <string name="tab_tracks">Itinéraires</string>
     <string name="tab_settings">Paramètres</string>
     <string name="snackbar_message_location_permission_denied">Permission manquante. Le suivi ne fonctionnera pas.</string>
