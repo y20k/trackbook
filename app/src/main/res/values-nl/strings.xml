@@ -67,7 +67,7 @@
     <string name="dialog_yes_no_positive_button_default">Ja</string>
     <string name="dialog_yes_no_positive_button_remove_recording">Verwijderen</string>
     <string name="dialog_yes_no_message_remove_recording">Wil je deze opname verwijderen\?</string>
-    <string name="pref_accuracy_threshold_summary">Locatie-aanpassingen verwerpen indien nauwkeurigheid hoger is dan</string>
+    <string name="pref_accuracy_threshold_summary">Locatie-aanpassingen verwerpen indien nauwkeurigheid hoger is dan:</string>
     <string name="pref_accuracy_threshold_title">Nauwkeurigheidsdrempelwaarde</string>
     <string name="pref_advanced_title">Geavanceerd</string>
     <string name="pref_general_title">Algemeen</string>
@@ -94,4 +94,5 @@
     <string name="pref_theme_selection_mode_light">Licht thema</string>
     <string name="pref_theme_selection_summary">Huidig thema:</string>
     <string name="pref_theme_selection_title">App-thema</string>
+    <string name="toast_message_save_gpx">Bezig met opslaan van opname als GPX.</string>
 </resources>
