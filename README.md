@@ -23,10 +23,10 @@ You can install it via Google Play and F-Droid - or you can go and grab the late
 You can start a recording without opening Trackbook. Just pull down the System's Quick Settings and tap on the Start Recording tile. You need to manually add Trackbook's Recording tile to Quick Settings first. You can find information on customizing Quick Settings [here](https://support.google.com/android/answer/9083864?hl=en) and [here](https://www.xda-developers.com/get-custom-quick-settings-tiles/)
 
 ### Save Recordings as GPX
-Recordings can be exported as GPX ([GPS Exchange Format](https://en.wikipedia.org/wiki/GPS_Exchange_Format)). Tap on the save button in the lower right corner when viewing a previously recorded track.
+Recordings can be exported as GPX ([GPS Exchange Format](https://en.wikipedia.org/wiki/GPS_Exchange_Format)). Tap on the save button in the lower right corner of a previously recorded track.
 
 ### Copy GPX Files Manually
-Trackbook automacally generates GPX files for every recording. You can find them in the folder `/Android/data/org.y20k.trackbook/files/gpx/` on your device's storage.
+Trackbook automatically generates GPX files for every recording. You can find them in the folder `/Android/data/org.y20k.trackbook/files/gpx/` on your device's storage.
 
 ### How Does Trackbook Measure Distance?
 Trackbook calculates the distance between markers and adds them up.
