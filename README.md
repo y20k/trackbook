@@ -23,7 +23,7 @@ You can install it via Google Play and F-Droid - or you can go and grab the late
 You can start a recording without opening Trackbook. Just pull down the System's Quick Settings and tap on the Start Recording tile. You need to manually add Trackbook's Recording tile to Quick Settings first. You can find information on customizing Quick Settings [here](https://support.google.com/android/answer/9083864?hl=en) and [here](https://www.xda-developers.com/get-custom-quick-settings-tiles/)
 
 ### Save Recordings as GPX
-Recordings can be exported as GPX ([GPS Exchange Format](https://en.wikipedia.org/wiki/GPS_Exchange_Format)). Tap on the save button in the lower right corner when viewing a previosly recorded track.
+Recordings can be exported as GPX ([GPS Exchange Format](https://en.wikipedia.org/wiki/GPS_Exchange_Format)). Tap on the save button in the lower right corner when viewing a previously recorded track.
 
 ### Copy GPX Files Manually
 Trackbook automacally generates GPX files for every recording. You can find them in the folder `/Android/data/org.y20k.trackbook/files/gpx/` on your device's storage.
@@ -40,7 +40,7 @@ Every location fix, that Trackbook receives, is associated with an accuracy esti
 ## A Word on Privacy
 Trackbook begins to store location data on device as soon a user presses the record button. Those recordings are stored in the directory `/Android/data/org.y20k.trackbook/files/`. They never leave the device. There is no web-service backing Trackbook.
 
-Trackbook does not use Google Play Services to get its location data. It will however try to use data from the [NETWORK_PROVIDER](https://developer.android.com/reference/android/location/LocationManager#NETWORK_PROVIDER) on your device to augment the location data it received via GPS. The NETWORK_PROVIDER is a system-wide service, that Trackbook has no control over. This service will usually query an online database for the location of cell towers or Wi-Fi access points a device can see. You can prevent those kinds of requests on your device, if you set the location preferences system-wide to `Device Only`. Additionally Trackbook has a Setting `Restrict to GPS`
+Trackbook does not use Google Play Services to get its location data. It will however try to use data from the [NETWORK_PROVIDER](https://developer.android.com/reference/android/location/LocationManager#NETWORK_PROVIDER) on your device to augment the location data it received via GPS. The NETWORK_PROVIDER is a system-wide service, that Trackbook has no control over. This service will usually query an online database for the location of cell towers or Wi-Fi access points a device can see. You can prevent those kinds of requests on your device, if you set the location preferences system-wide to `Device Only`. Additionally Trackbook offers a `Restrict to GPS` setting, that deactivates the NETWORK_PROVIDER just within the app.
 
 ## Screenshots (v1.1)
 [<img src="https://raw.githubusercontent.com/y20k/trackbook/master/metadata/en-US/phoneScreenshots/p1.png" width="240">](https://raw.githubusercontent.com/y20k/trackbook/master/metadata/en-US/phoneScreenshots/p1.png)

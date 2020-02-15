@@ -11,10 +11,10 @@ https://support.google.com/android/answer/9083864?hl=en
 https://www.xda-developers.com/get-custom-quick-settings-tiles/
 
 SAVE RECORDINGS AS GPX
-Recordings can be exported as GPX (GPS Exchange Format). Tap on the save button in the lower right corner when viewing a previosly recorded track.
+Recordings can be exported as GPX (GPS Exchange Format). Tap on the save button in the lower right corner of a previously recorded track.
 
 COPY GPX FILES MANUALLY
-Trackbook automacally generates GPX files for every recording. You can find them in the folder /Android/data/org.y20k.trackbook/files/gpx/ on your device's storage.
+Trackbook automatically generates GPX files for every recording. You can find them in the folder /Android/data/org.y20k.trackbook/files/gpx/ on your device's storage.
 
 HOW DOES TRACKBOOK MEASURE DISTANCE?
 Trackbook calculates the distance between markers and adds them up.
@@ -23,10 +23,10 @@ HOW DOES TRANSISTOR MEASURE ALTITUDE?
 Many devices have altitude sensors (of varying accuracy). Trackbook compares the altitude of each new marker with the previously stored altitude. The difference is added to either the uphill or downhill elevation value.
 
 WHAT DOES ACCURACY THRESHOLD MEAN?
-Every location fix, that Trackbook receives, is associated with an accuracy estimate. You can look up, how Android defines accuracy, in the [developer documentation](https://developer.android.com/reference/kotlin/android/location/Location.html#getaccuracy). `Accuracy Threshold` is the value, from which on location fixes are rejected. It can be adjusted in Trackbook's settings. You can increase the value, if your recordings tend to be incomplete. Trackbook will then also record less accurate location fixes.
+Every location fix, that Trackbook receives, is associated with an accuracy estimate. You can look up, how Android defines accuracy, in the developer documentation. "Accuracy Threshold" is the value, from which on location fixes are rejected. It can be adjusted in Trackbook's settings. You can increase the value, if your recordings tend to be incomplete. Trackbook will then also record less accurate location fixes.
 
 A WORD ON PRIVACY
 -----------------
 Trackbook begins to store location data on device as soon a user presses the record button. Those recordings are stored in the directory /Android/data/org.y20k.trackbook/files/. They never leave the device. There is no web-service backing Trackbook.
 
-Trackbook does not use Google Play Services to get its location data. It will however try to use data from the NETWORK_PROVIDER on your device to augment the location data it received via GPS. The NETWORK_PROVIDER is a system-wide service, that Trackbook has no control over. This service will usually query an online database for the location of cell towers or Wi-Fi access points a device can see. You can prevent those kinds of requests on your device, if you set the location preferences system-wide to `Device Only`. Additionally Trackbook has a Setting `Restrict to GPS`
+Trackbook does not use Google Play Services to get its location data. It will however try to use data from the NETWORK_PROVIDER on your device to augment the location data it received via GPS. The NETWORK_PROVIDER is a system-wide service, that Trackbook has no control over. This service will usually query an online database for the location of cell towers or Wi-Fi access points a device can see. You can prevent those kinds of requests on your device, if you set the location preferences system-wide to "Device Only". Additionally Trackbook offers a "Restrict to GPS" setting, that deactivates the NETWORK_PROVIDER just within the app.
