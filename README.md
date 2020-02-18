@@ -50,5 +50,8 @@ Trackbook does not use Google Play Services to get its location data. It will ho
 [<img src="https://raw.githubusercontent.com/y20k/trackbook/master/metadata/en-US/phoneScreenshots/01-map-recording-active.png" width="240">](https://raw.githubusercontent.com/y20k/trackbook/master/metadata/en-US/phoneScreenshots/01-map-recording-active.png)
 [<img src="https://raw.githubusercontent.com/y20k/trackbook/master/metadata/en-US/phoneScreenshots/02-map-context-menu.png" width="240">](https://raw.githubusercontent.com/y20k/trackbook/master/metadata/en-US/phoneScreenshots/02-map-context-menu.png)
 
-[<img src="https://raw.githubusercontent.com/y20k/trackbook/master/metadata/en-US/phoneScreenshots/03-track.png" width="240">](https://raw.githubusercontent.com/y20k/trackbook/master/metadata/en-US/phoneScreenshots/03-track.png)
-[<img src="https://raw.githubusercontent.com/y20k/trackbook/master/metadata/en-US/phoneScreenshots/04-settings.png" width="240">](https://raw.githubusercontent.com/y20k/trackbook/master/metadata/en-US/phoneScreenshots/04-settings.png)
+[<img src="https://raw.githubusercontent.com/y20k/trackbook/master/metadata/en-US/phoneScreenshots/03-track-list.png" width="240">](https://raw.githubusercontent.com/y20k/trackbook/master/metadata/en-US/phoneScreenshots/03-track-list.png)
+[<img src="https://raw.githubusercontent.com/y20k/trackbook/master/metadata/en-US/phoneScreenshots/04-track.png" width="240">](https://raw.githubusercontent.com/y20k/trackbook/master/metadata/en-US/phoneScreenshots/04-track.png)
+
+[<img src="https://raw.githubusercontent.com/y20k/trackbook/master/metadata/en-US/phoneScreenshots/05-settings.png" width="240">](https://raw.githubusercontent.com/y20k/trackbook/master/metadata/en-US/phoneScreenshots/05-settings.png)
+[<img src="https://raw.githubusercontent.com/y20k/trackbook/master/metadata/en-US/phoneScreenshots/06-quick-settings-tile.png" width="240">](https://raw.githubusercontent.com/y20k/trackbook/master/metadata/en-US/phoneScreenshots/06-quick-settings-tile.png)
