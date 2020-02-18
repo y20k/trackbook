@@ -36,6 +36,7 @@ data class Track (@Expose var trackFormatVersion: Int = Keys.CURRENT_TRACK_FORMA
                   @Expose val wayPoints: MutableList<WayPoint> = mutableListOf<WayPoint>(),
                   @Expose var length: Float = 0f,
                   @Expose var duration: Long = 0L,
+                  @Expose var recordingPaused: Long = 0L,
                   @Expose var stepCount: Float = 0f,
                   @Expose var recordingStart: Date = GregorianCalendar.getInstance().time,
                   @Expose var recordingStop: Date = recordingStart,

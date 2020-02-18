@@ -35,15 +35,13 @@ object TrackHelper {
 
 
     /* Returns unique ID for Track - currently the start date */
-    fun getTrackId(track: Track): Long {
-        return track.recordingStart.time
-    }
+    fun getTrackId(track: Track): Long =
+        track.recordingStart.time
 
 
     /* Returns unique ID for TracklistElement - currently the start date */
-    fun getTrackId(tracklistElement: TracklistElement): Long {
-        return tracklistElement.date.time
-    }
+    fun getTrackId(tracklistElement: TracklistElement): Long =
+        tracklistElement.date.time
 
 
     /* Adds given locatiom as waypoint to track */
@@ -118,6 +116,11 @@ object TrackHelper {
 
         return track
     }
+
+
+    /* Calculates time passed since last stop of recording */
+    fun calculateRecordingPaused(recordingStop: Date): Long =
+        GregorianCalendar.getInstance().time.time - recordingStop.time
 
 
     /* Creates GPX string for given track */

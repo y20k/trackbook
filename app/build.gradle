@@ -49,11 +49,11 @@ android {
 
         debug {
             // Comment out the below lines if you do not need to test resource shrinking
-            //minifyEnabled true
-            //shrinkResources true
-            //proguardFiles getDefaultProguardFile(
-            //        'proguard-android-optimize.txt'),
-            //        'proguard-rules.pro'
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile(
+                    'proguard-android-optimize.txt'),
+                    'proguard-rules.pro'
         }
 
     }

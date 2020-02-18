@@ -213,6 +213,9 @@ class TrackerService(): Service(), CoroutineScope, SensorEventListener {
             val lastWayPointIndex = track.wayPoints.size - 1
             track.wayPoints.get(lastWayPointIndex).isStopOver = true
         }
+        // calculate length of recording break
+        track.recordingPaused = TrackHelper.calculateRecordingPaused(track.recordingStop)
+        LogHelper.e(TAG, "We took a break for ${DateTimeHelper.convertToReadableTime(this, track.recordingPaused)}") // todo remove
         // start tracking
         startTracking(newTrack = false)
     }
