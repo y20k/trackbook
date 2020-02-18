@@ -20,7 +20,11 @@ You can install it via Google Play and F-Droid - or you can go and grab the late
 ## Good To Know
 
 ### Start Recording via Quick Settings Tile
+[<img src="https://user-images.githubusercontent.com/9103935/74753187-09a75f00-5270-11ea-82de-18c5b8737e2b.png" width="320">](https://user-images.githubusercontent.com/9103935/74753187-09a75f00-5270-11ea-82de-18c5b8737e2b.png)<br />
 You can start a recording without opening Trackbook. Just pull down the System's Quick Settings and tap on the Start Recording tile. You need to manually add Trackbook's Recording tile to Quick Settings first. You can find information on customizing Quick Settings [here](https://support.google.com/android/answer/9083864?hl=en) and [here](https://www.xda-developers.com/get-custom-quick-settings-tiles/)
+
+
+
 
 ### Save Recordings as GPX
 Recordings can be exported as GPX ([GPS Exchange Format](https://en.wikipedia.org/wiki/GPS_Exchange_Format)). Tap on the save button in the lower right corner of a previously recorded track.
@@ -42,9 +46,9 @@ Trackbook begins to store location data on device as soon a user presses the rec
 
 Trackbook does not use Google Play Services to get its location data. It will however try to use data from the [NETWORK_PROVIDER](https://developer.android.com/reference/android/location/LocationManager#NETWORK_PROVIDER) on your device to augment the location data it received via GPS. The NETWORK_PROVIDER is a system-wide service, that Trackbook has no control over. This service will usually query an online database for the location of cell towers or Wi-Fi access points a device can see. You can prevent those kinds of requests on your device, if you set the location preferences system-wide to `Device Only`. Additionally Trackbook offers a `Restrict to GPS` setting, that deactivates the NETWORK_PROVIDER just within the app.
 
-## Screenshots (v1.1)
-[<img src="https://raw.githubusercontent.com/y20k/trackbook/master/metadata/en-US/phoneScreenshots/p1.png" width="240">](https://raw.githubusercontent.com/y20k/trackbook/master/metadata/en-US/phoneScreenshots/p1.png)
-[<img src="https://raw.githubusercontent.com/y20k/trackbook/master/metadata/en-US/phoneScreenshots/p2.png" width="240">](https://raw.githubusercontent.com/y20k/trackbook/master/metadata/en-US/phoneScreenshots/p2.png)
+## Screenshots (v2.0)
+[<img src="https://raw.githubusercontent.com/y20k/trackbook/master/metadata/en-US/phoneScreenshots/01-map-recording-active.png" width="240">](https://raw.githubusercontent.com/y20k/trackbook/master/metadata/en-US/phoneScreenshots/01-map-recording-active.png)
+[<img src="https://raw.githubusercontent.com/y20k/trackbook/master/metadata/en-US/phoneScreenshots/02-map-context-menu.png" width="240">](https://raw.githubusercontent.com/y20k/trackbook/master/metadata/en-US/phoneScreenshots/02-map-context-menu.png)
 
-[<img src="https://raw.githubusercontent.com/y20k/trackbook/master/metadata/en-US/phoneScreenshots/p3.png" width="240">](https://raw.githubusercontent.com/y20k/trackbook/master/metadata/en-US/phoneScreenshots/p3.png)
-[<img src="https://raw.githubusercontent.com/y20k/trackbook/master/metadata/en-US/phoneScreenshots/p4.png" width="240">](https://raw.githubusercontent.com/y20k/trackbook/master/metadata/en-US/phoneScreenshots/p4.png)
+[<img src="https://raw.githubusercontent.com/y20k/trackbook/master/metadata/en-US/phoneScreenshots/03-track.png" width="240">](https://raw.githubusercontent.com/y20k/trackbook/master/metadata/en-US/phoneScreenshots/03-track.png)
+[<img src="https://raw.githubusercontent.com/y20k/trackbook/master/metadata/en-US/phoneScreenshots/04-settings.png" width="240">](https://raw.githubusercontent.com/y20k/trackbook/master/metadata/en-US/phoneScreenshots/04-settings.png)
