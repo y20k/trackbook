@@ -174,8 +174,8 @@
         android:text="@string/statistics_sheet_p_recording_start"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
         android:textColor="@color/text_lightweight"
-        app:layout_constraintStart_toStartOf="@+id/statistics_p_duration"
-        app:layout_constraintTop_toBottomOf="@+id/statistics_p_duration" />
+        app:layout_constraintStart_toStartOf="@+id/statistics_p_recording_paused"
+        app:layout_constraintTop_toBottomOf="@+id/statistics_p_recording_paused" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/statistics_data_recording_start"
@@ -211,6 +211,29 @@
         app:layout_constraintStart_toEndOf="@+id/statistics_p_recording_stop"
         app:layout_constraintTop_toTopOf="@+id/statistics_p_recording_stop"
         tools:text="@string/sample_text_default_data" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/statistics_data_recording_paused"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+        android:textColor="@color/text_default"
+        app:layout_constraintBottom_toBottomOf="@+id/statistics_p_recording_paused"
+        app:layout_constraintStart_toEndOf="@+id/statistics_p_recording_paused"
+        app:layout_constraintTop_toTopOf="@+id/statistics_p_recording_paused"
+        tools:text="@string/sample_text_default_data" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/statistics_p_recording_paused"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/statistics_sheet_p_recording_paused"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+        android:textColor="@color/text_lightweight"
+        app:layout_constraintStart_toStartOf="@+id/statistics_p_duration"
+        app:layout_constraintTop_toBottomOf="@+id/statistics_p_duration" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/statistics_p_positive_elevation"

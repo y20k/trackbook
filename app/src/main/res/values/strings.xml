@@ -49,6 +49,7 @@
     <string name="statistics_sheet_p_steps_no_pedometer">pedometer not available</string>
     <string name="statistics_sheet_p_waypoints">Recorded waypoints:</string>
     <string name="statistics_sheet_p_duration">Total duration:</string>
+    <string name="statistics_sheet_p_recording_paused">Recording paused:</string>
     <string name="statistics_sheet_p_recording_start">Recording started:</string>
     <string name="statistics_sheet_p_recording_stop">Recording stopped:</string>
     <string name="statistics_sheet_p_max_altitude">Highest waypoint:</string>

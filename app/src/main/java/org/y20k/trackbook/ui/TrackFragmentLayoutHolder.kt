@@ -75,6 +75,8 @@ data class TrackFragmentLayoutHolder(var context: Context, var inflater: LayoutI
     private val durationView: MaterialTextView
     private val recordingStartView: MaterialTextView
     private val recordingStopView: MaterialTextView
+    private val recordingPausedView: MaterialTextView
+    private val recordingPausedLabelView: MaterialTextView
     private val maxAltitudeView: MaterialTextView
     private val minAltitudeView: MaterialTextView
     private val positiveElevationView: MaterialTextView
@@ -112,6 +114,8 @@ data class TrackFragmentLayoutHolder(var context: Context, var inflater: LayoutI
         durationView = rootView.findViewById(R.id.statistics_data_duration)
         recordingStartView = rootView.findViewById(R.id.statistics_data_recording_start)
         recordingStopView = rootView.findViewById(R.id.statistics_data_recording_stop)
+        recordingPausedLabelView = rootView.findViewById(R.id.statistics_p_recording_paused)
+        recordingPausedView = rootView.findViewById(R.id.statistics_data_recording_paused)
         maxAltitudeView = rootView.findViewById(R.id.statistics_data_max_altitude)
         minAltitudeView = rootView.findViewById(R.id.statistics_data_min_altitude)
         positiveElevationView = rootView.findViewById(R.id.statistics_data_positive_elevation)
@@ -185,6 +189,16 @@ data class TrackFragmentLayoutHolder(var context: Context, var inflater: LayoutI
         minAltitudeView.text = LengthUnitHelper.convertDistanceToString(track.minAltitude, useImperialUnits)
         positiveElevationView.text = LengthUnitHelper.convertDistanceToString(track.positiveElevation, useImperialUnits)
         negativeElevationView.text = LengthUnitHelper.convertDistanceToString(track.negativeElevation, useImperialUnits)
+
+        // show / hide recording pause
+        if (track.recordingPaused != 0L) {
+            recordingPausedLabelView.visibility = View.VISIBLE
+            recordingPausedView.visibility = View.VISIBLE
+            recordingPausedView.text = DateTimeHelper.convertToReadableTime(context, track.recordingPaused)
+        } else {
+            recordingPausedLabelView.visibility = View.GONE
+            recordingPausedView.visibility = View.GONE
+        }
 
         // inform user about possible accuracy issues with altitude measurements
         elevationDataViews.referencedIds.forEach { id ->
