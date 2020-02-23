@@ -94,4 +94,6 @@
     <string name="pref_theme_selection_mode_light">Lyst modus</string>
     <string name="pref_theme_selection_summary">Nåværende drakt</string>
     <string name="pref_theme_selection_title">Programdrakt</string>
+    <string name="toast_message_save_gpx">Lagre opptak som GPX.</string>
+    <string name="statistics_sheet_p_recording_paused">Opptak satt på pause:</string>
 </resources>
