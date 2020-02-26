@@ -1,6 +1,6 @@
 # v1.2.1 - San Tropez
 
-**2019-04-10**
+**2019-06-05**
 - new French language version
 - improved Dark Mode
 - updated icon (again)

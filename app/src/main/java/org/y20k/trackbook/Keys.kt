@@ -44,7 +44,7 @@ object Keys {
     const val ARG_TRACK_ID: String = "ArgTrackId"
 
     // preferences
-    const val PREF_ONE_TIME_HOUSEKEEPING_NECESSARY = "ONE_TIME_HOUSEKEEPING_NECESSARY_VERSIONCODE_37" // increment to current app version code to trigger housekeeping that runs only once
+    const val PREF_ONE_TIME_HOUSEKEEPING_NECESSARY = "ONE_TIME_HOUSEKEEPING_NECESSARY_VERSIONCODE_38" // increment to current app version code to trigger housekeeping that runs only once
     const val PREF_THEME_SELECTION: String= "prefThemeSelection"
     const val PREF_CURRENT_BEST_LOCATION_PROVIDER: String = "prefCurrentBestLocationProvider"
     const val PREF_CURRENT_BEST_LOCATION_LATITUDE: String = "prefCurrentBestLocationLatitude"
