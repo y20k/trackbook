@@ -19,6 +19,7 @@ package org.y20k.trackbook.helpers
 
 import android.content.Context
 import android.location.Location
+import androidx.annotation.Keep
 import com.google.gson.GsonBuilder
 import com.google.gson.annotations.SerializedName
 import kotlinx.coroutines.GlobalScope
@@ -93,6 +94,7 @@ object ImportHelper {
      * Inner class: Legacy version of Track - used for one-time import only
      * Warning: Works only as long as targetSdkVersion < 28
      */
+    @Keep
     private data class LegacyTrack (
         @SerializedName("b") var mTrackFormatVersion: Int = 0,
         @SerializedName("c") var mWayPoints: List<LegacyWayPoint>,
@@ -150,11 +152,12 @@ object ImportHelper {
      * Inner class: Legacy version of WayPoint - used for one-time import only
      * Warning: Works only as long as targetSdkVersion < 28
      */
+    @Keep
     private data class LegacyWayPoint (
-        var mLocation: Location,
-        var mIsStopOver: Boolean = false,
-        var mDistanceToStartingPoint: Float = 0f,
-        var mNumberSatellites: Int = 0) {
+        @SerializedName("a") var mLocation: Location,
+        @SerializedName("b") var mIsStopOver: Boolean = false,
+        @SerializedName("c") var mDistanceToStartingPoint: Float = 0f,
+        @SerializedName("d") var mNumberSatellites: Int = 0) {
     }
     /*
      * End of inner class
