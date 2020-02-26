@@ -1,0 +1,7 @@
+# v2.0.0 - Echoes
+
+**2020-02-26**
+Although it might look, as if not much has changed, Trackbook has been re-written completely from scratch. Apart from resulting in better readable code for me, there are also a few new features in here:
+- a Quick Settings tile allows starting a recording with one tap from anywhere
+- the list of previous track allows you to mark your favorite recordings
+- a new Settings screen offers some basic choices, like miles or kilometers, or light mode or dark mode theme
