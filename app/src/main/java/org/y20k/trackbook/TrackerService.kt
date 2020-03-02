@@ -63,6 +63,7 @@ class TrackerService(): Service(), CoroutineScope, SensorEventListener {
     var locationAccuracyThreshold: Int = Keys.DEFAULT_THRESHOLD_LOCATION_ACCURACY
     var currentBestLocation: Location = LocationHelper.getDefaultLocation()
     var stepCountOffset: Float = 0f
+    var resumed: Boolean = false
     var track: Track = Track()
     var gpsLocationListenerRegistered: Boolean = false
     var networkLocationListenerRegistered: Boolean = false
@@ -213,6 +214,8 @@ class TrackerService(): Service(), CoroutineScope, SensorEventListener {
             val lastWayPointIndex = track.wayPoints.size - 1
             track.wayPoints.get(lastWayPointIndex).isStopOver = true
         }
+        // set resumed flag
+        resumed = true
         // calculate length of recording break
         track.recordingPaused = TrackHelper.calculateRecordingPaused(track.recordingStop)
         LogHelper.e(TAG, "We took a break for ${DateTimeHelper.convertToReadableTime(this, track.recordingPaused)}") // todo remove
@@ -457,7 +460,14 @@ class TrackerService(): Service(), CoroutineScope, SensorEventListener {
     private val periodicTrackUpdate: Runnable = object : Runnable {
         override fun run() {
             // add waypoint to track - step count is continuously updated in onSensorChanged
-            track = TrackHelper.addWayPointToTrack(track, currentBestLocation, locationAccuracyThreshold)
+            val result: Pair<Track, Boolean> = TrackHelper.addWayPointToTrack(track, currentBestLocation, locationAccuracyThreshold, resumed)
+            // get track from result
+            track = result.first
+            // check if waypoint was successfully added (= result.second)
+            if (resumed && result.second) {
+                // reset resumed flag, if necessary
+                resumed = false
+            }
             // update notification
             displayNotification()
             // save temp track using GlobalScope.launch = fire & forget (no return value from save)

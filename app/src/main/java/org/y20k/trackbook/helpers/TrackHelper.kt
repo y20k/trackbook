@@ -45,7 +45,7 @@ object TrackHelper {
 
 
     /* Adds given locatiom as waypoint to track */
-    fun addWayPointToTrack(track: Track, location: Location, locationAccuracyThreshold: Int): Track {
+    fun addWayPointToTrack(track: Track, location: Location, locationAccuracyThreshold: Int, resumed: Boolean): Pair<Track, Boolean> {
 
         // get previous location
         val previousLocation: Location?
@@ -69,8 +69,10 @@ object TrackHelper {
                 && LocationHelper.isDifferentEnough(previousLocation, location))
 
         if (shouldBeAdded) {
-            // update distance
-            track.length = track.length + LocationHelper.calculateDistance(previousLocation, location)
+            // update distance (do not update if resumed -> we do not want to add values calculated during a recording pause)
+            if (!resumed) {
+                track.length = track.length + LocationHelper.calculateDistance(previousLocation, location)
+            }
 
             if (location.altitude != 0.0) {
                 // update altitude values
@@ -78,16 +80,18 @@ object TrackHelper {
                     track.maxAltitude = location.altitude
                     track.minAltitude = location.altitude
                 } else {
-                    // calculate elevation values
+                    // calculate elevation values (upwards / downwards movements)
                     val elevationDifferences: Pair<Double, Double> = LocationHelper.calculateElevationDifferences(previousLocation, location, track)
-                    // check if significant differences were calculated
+                    // check if any differences were calculated
                     if (elevationDifferences != Pair(track.positiveElevation, track.negativeElevation)) {
                         // update altitude values
                         if (location.altitude > track.maxAltitude) track.maxAltitude = location.altitude
                         if (location.altitude < track.minAltitude) track.minAltitude = location.altitude
-                        // update elevation values
-                        track.positiveElevation = elevationDifferences.first
-                        track.negativeElevation = elevationDifferences.second
+                        // update elevation values (do not update if resumed -> we do not want to add values calculated during a recording pause)
+                        if (!resumed) {
+                            track.positiveElevation = elevationDifferences.first
+                            track.negativeElevation = elevationDifferences.second
+                        }
                     }
                 }
             }
@@ -114,7 +118,7 @@ object TrackHelper {
             track.wayPoints.add(WayPoint(location.provider, location.latitude, location.longitude, location.altitude, location.accuracy, location.time, track.length, numberOfSatellites))
         }
 
-        return track
+        return Pair(track, shouldBeAdded)
     }
 
 

@@ -40,7 +40,6 @@ class NotificationHelper(private val trackerService: TrackerService) {
     private val TAG: String = LogHelper.makeLogTag(NotificationHelper::class.java)
 
 
-
     /* Main class variables */
     private val notificationManager: NotificationManager = trackerService.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
