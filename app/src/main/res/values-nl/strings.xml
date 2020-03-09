@@ -96,4 +96,9 @@
     <string name="pref_theme_selection_title">App-thema</string>
     <string name="toast_message_save_gpx">Bezig met opslaan van opname als GPX.</string>
     <string name="statistics_sheet_p_recording_paused">Opname gepauzeerd:</string>
+    <string name="dialog_yes_no_positive_button_delete_non_starred">Verwijderen</string>
+    <string name="dialog_yes_no_message_delete_non_starred">Wil je alle niet-favoriete opnames verwijderen\? Dit kan niet ongedaan worden gemaakt.</string>
+    <string name="pref_delete_non_starred_summary">Verwijder alle opnames die niet gemarkeerd zijn als favoriet.</string>
+    <string name="pref_delete_non_starred_title">Alle niet-favoriete opnames verwijderen</string>
+    <string name="pref_maintenance_title">Beheer</string>
 </resources>
