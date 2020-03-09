@@ -77,8 +77,8 @@ class TracklistFragment : Fragment(), TracklistAdapter.TracklistAdapterListener,
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 // ask user
                 val adapterPosition: Int = viewHolder.adapterPosition
-                val dialogMessage: String = "${getString(R.string.dialog_yes_no_message_remove_recording)}\n\n- ${tracklistAdapter.getTrackName(adapterPosition)}"
-                YesNoDialog(this@TracklistFragment as YesNoDialog.YesNoDialogListener).show(context = activity as Context, type = Keys.DIALOG_REMOVE_TRACK, messageString = dialogMessage, yesButton = R.string.dialog_yes_no_positive_button_remove_recording, payload = adapterPosition)
+                val dialogMessage: String = "${getString(R.string.dialog_yes_no_message_delete_recording)}\n\n- ${tracklistAdapter.getTrackName(adapterPosition)}"
+                YesNoDialog(this@TracklistFragment as YesNoDialog.YesNoDialogListener).show(context = activity as Context, type = Keys.DIALOG_DELETE_TRACK, messageString = dialogMessage, yesButton = R.string.dialog_yes_no_positive_button_delete_recording, payload = adapterPosition)
             }
         }
         val itemTouchHelper = ItemTouchHelper(swipeHandler)
@@ -105,7 +105,7 @@ class TracklistFragment : Fragment(), TracklistAdapter.TracklistAdapterListener,
     /* Overrides onYesNoDialog from YesNoDialogListener */
     override fun onYesNoDialog(type: Int, dialogResult: Boolean, payload: Int, payloadString: String) {
         when (type) {
-            Keys.DIALOG_REMOVE_TRACK -> {
+            Keys.DIALOG_DELETE_TRACK -> {
                 when (dialogResult) {
                     // user tapped remove track
                     true -> {

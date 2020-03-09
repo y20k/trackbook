@@ -34,8 +34,10 @@
     <string name="dialog_rename_track_input_hint">Enter a new name</string>
     <string name="dialog_share_gpx">Share GPX file with</string>
     <string name="dialog_yes_no_positive_button_default">Yes</string>
-    <string name="dialog_yes_no_positive_button_remove_recording">Remove</string>
-    <string name="dialog_yes_no_message_remove_recording">Remove this recording?</string>
+    <string name="dialog_yes_no_positive_button_delete_recording">Delete</string>
+    <string name="dialog_yes_no_positive_button_delete_non_starred">Delete</string>
+    <string name="dialog_yes_no_message_delete_non_starred">Delete all non-starred recordings? This action cannot be undone.</string>
+    <string name="dialog_yes_no_message_delete_recording">Delete this recording?</string>
     <!-- Toast Messages -->
     <string name="toast_message_elevation_info">Hint: The accuracy of elevation data depends on your device. The uphill and downhill elevation of the whole route is measured.</string>
     <string name="toast_message_install_file_helper">Please install a file manager or a GPX track viewer first.</string>
@@ -69,7 +71,10 @@
     <string name="pref_accuracy_threshold_summary">Discard location fixes with an accuracy larger than:</string>
     <string name="pref_accuracy_threshold_title">Accuracy Threshold</string>
     <string name="pref_advanced_title">Advanced</string>
+    <string name="pref_delete_non_starred_summary">Delete all recordings in \"Tracks\" that are not starred.</string>
+    <string name="pref_delete_non_starred_title">Delete Non-Starred Recordings</string>
     <string name="pref_general_title">General</string>
+    <string name="pref_maintenance_title">Maintenance</string>
     <string name="pref_gps_only_title">Restrict to GPS</string>
     <string name="pref_gps_only_summary_gps_and_network">Currently using GPS and Network for localization.</string>
     <string name="pref_gps_only_summary_gps_only">Currently using only GPS for localization.</string>

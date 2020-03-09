@@ -34,8 +34,8 @@
   <string name="dialog_rename_track_input_hint">输入一个新名称</string>
   <string name="dialog_share_gpx">分享GPX文件到</string>
   <string name="dialog_yes_no_positive_button_default">是</string>
-  <string name="dialog_yes_no_positive_button_remove_recording">删除</string>
-  <string name="dialog_yes_no_message_remove_recording">删除此记录？</string>
+  <string name="dialog_yes_no_positive_button_delete_recording">删除</string>
+  <string name="dialog_yes_no_message_delete_recording">删除此记录？</string>
   <!-- Toast Messages -->
   <string name="toast_message_elevation_info">提示：海拔数据的准确性取决于您的设备.测量整个路线的上坡和下坡海拔.</string>
   <string name="toast_message_install_file_helper">请先安装一个文件管理器或GPX轨迹查看器.</string>

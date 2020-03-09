@@ -18,11 +18,15 @@
 package org.y20k.trackbook
 
 
+import YesNoDialog
 import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.preference.*
+import kotlinx.coroutines.*
+import org.y20k.trackbook.core.Tracklist
 import org.y20k.trackbook.helpers.AppThemeHelper
+import org.y20k.trackbook.helpers.FileHelper
 import org.y20k.trackbook.helpers.LengthUnitHelper
 import org.y20k.trackbook.helpers.LogHelper
 
@@ -30,7 +34,7 @@ import org.y20k.trackbook.helpers.LogHelper
 /*
  * SettingsFragment class
  */
-class SettingsFragment : PreferenceFragmentCompat() {
+class SettingsFragment : PreferenceFragmentCompat(), YesNoDialog.YesNoDialogListener {
 
     /* Define log tag */
     private val TAG: String = LogHelper.makeLogTag(SettingsFragment::class.java)
@@ -88,12 +92,16 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 return@setOnPreferenceChangeListener false
             }
         }
-//        preferenceThemeSelection.setOnPreferenceClickListener {
-//            preferenceThemeSelection.summary = "${getString(R.string.pref_theme_selection_theme_summary)} ${AppThemeHelper.getCurrentTheme(activity as Context)}"
-//            return@setOnPreferenceClickListener true
-//        }
 
-
+        // set up "Delete Non-Starred" preference
+        val preferenceDeleteNonStarred: Preference = Preference(activity as Context)
+        preferenceDeleteNonStarred.title = getString(R.string.pref_delete_non_starred_title)
+        preferenceDeleteNonStarred.setIcon(R.drawable.ic_delete_24dp)
+        preferenceDeleteNonStarred.summary = getString(R.string.pref_delete_non_starred_summary)
+        preferenceDeleteNonStarred.setOnPreferenceClickListener{
+            YesNoDialog(this as YesNoDialog.YesNoDialogListener).show(context = activity as Context, type = Keys.DIALOG_DELETE_NON_STARRED, message = R.string.dialog_yes_no_message_delete_non_starred, yesButton = R.string.dialog_yes_no_positive_button_delete_non_starred)
+            return@setOnPreferenceClickListener true
+        }
 
         // set up "Accuracy Threshold" preference
         val preferenceAccuracyThreshold: SeekBarPreference = SeekBarPreference(activity as Context)
@@ -120,6 +128,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
         preferenceCategoryGeneral.title = getString(R.string.pref_general_title)
         preferenceCategoryGeneral.contains(preferenceImperialMeasurementUnits)
         preferenceCategoryGeneral.contains(preferenceGpsOnly)
+        val preferenceCategoryMaintenance: PreferenceCategory = PreferenceCategory(activity as Context)
+        preferenceCategoryMaintenance.title = getString(R.string.pref_maintenance_title)
+        preferenceCategoryMaintenance.contains(preferenceDeleteNonStarred)
+
         val preferenceCategoryAdvanced: PreferenceCategory = PreferenceCategory(activity as Context)
         preferenceCategoryAdvanced.title = getString(R.string.pref_advanced_title)
         preferenceCategoryAdvanced.contains(preferenceAccuracyThreshold)
@@ -130,10 +142,45 @@ class SettingsFragment : PreferenceFragmentCompat() {
         screen.addPreference(preferenceGpsOnly)
         screen.addPreference(preferenceImperialMeasurementUnits)
         screen.addPreference(preferenceThemeSelection)
+        screen.addPreference(preferenceCategoryMaintenance)
+        screen.addPreference(preferenceDeleteNonStarred)
         screen.addPreference(preferenceCategoryAdvanced)
         screen.addPreference(preferenceAccuracyThreshold)
         screen.addPreference(preferenceResetAdvanced)
         preferenceScreen = screen
     }
+
+
+    /* Overrides onYesNoDialog from YesNoDialogListener */
+    override fun onYesNoDialog(type: Int, dialogResult: Boolean, payload: Int, payloadString: String) {
+        when (type) {
+            Keys.DIALOG_DELETE_NON_STARRED -> {
+                when (dialogResult) {
+                    // user tapped delete
+                    true -> {
+                        deleteNonStarred(activity as Context)
+                    }
+                }
+            }
+            else -> {
+                super.onYesNoDialog(type, dialogResult, payload, payloadString)
+            }
+        }
+    }
+
+
+    /* Removes track and track files for given position - used by TracklistFragment */
+    fun deleteNonStarred(context: Context) {
+        val backgroundJob = Job()
+        val uiScope = CoroutineScope(Dispatchers.Main + backgroundJob)
+        uiScope.launch {
+            var tracklist: Tracklist = FileHelper.readTracklist(context)
+            val deferred: Deferred<Tracklist> = async { FileHelper.deleteNonStarredSuspended(context, tracklist) }
+            // wait for result and store in tracklist
+            tracklist = deferred.await()
+            backgroundJob.cancel()
+        }
+    }
+
 
 }

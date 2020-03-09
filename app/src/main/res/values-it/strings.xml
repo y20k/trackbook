@@ -65,8 +65,8 @@
     <string name="dialog_rename_track_button">Rinomina</string>
     <string name="dialog_rename_track_input_hint">Inserisci un nuovo nome</string>
     <string name="dialog_yes_no_positive_button_default">Sì</string>
-    <string name="dialog_yes_no_positive_button_remove_recording">Rimuovi</string>
-    <string name="dialog_yes_no_message_remove_recording">Rimuovere questa registrazione\?</string>
+    <string name="dialog_yes_no_positive_button_delete_recording">Rimuovi</string>
+    <string name="dialog_yes_no_message_delete_recording">Rimuovere questa registrazione\?</string>
     <string name="pref_accuracy_threshold_summary">Elimina le correzioni di posizione con una precisione maggiore di:</string>
     <string name="pref_accuracy_threshold_title">Soglia della precisione</string>
     <string name="pref_advanced_title">Avanzate</string>

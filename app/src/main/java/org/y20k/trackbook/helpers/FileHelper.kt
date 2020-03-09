@@ -224,6 +224,20 @@ object FileHelper {
     }
 
 
+    /* Suspend function: Deletes tracks that are not starred using deleteTracks */
+    suspend fun deleteNonStarredSuspended(context: Context, tracklist: Tracklist): Tracklist {
+        return suspendCoroutine { cont ->
+            val tracklistElements = mutableListOf<TracklistElement>()
+            tracklist.tracklistElements.forEach { tracklistElement ->
+                if (!tracklistElement.starred) {
+                    tracklistElements.add(tracklistElement)
+                }
+            }
+            cont.resume(deleteTracks(context, tracklistElements, tracklist))
+        }
+    }
+
+
     /* Suspend function: Wrapper for readTracklist */
     suspend fun readTracklistSuspended(context: Context): Tracklist {
         return suspendCoroutine {cont ->
@@ -314,7 +328,20 @@ object FileHelper {
     }
 
 
-    /* Deletes track */
+    /* Deletes multiple tracks track */
+    private fun deleteTracks(context: Context, tracklistElements: MutableList<TracklistElement>, tracklist: Tracklist): Tracklist {
+        tracklistElements.forEach { tracklistElement ->
+            // delete track files
+            tracklistElement.trackUriString.toUri().toFile().delete()
+            tracklistElement.gpxUriString.toUri().toFile().delete()
+        }
+        tracklist.tracklistElements.removeAll{ tracklistElements.contains(it) }
+        saveTracklist(context, tracklist, GregorianCalendar.getInstance().time)
+        return tracklist
+    }
+
+
+    /* Deletes one track */
     private fun deleteTrack(context: Context, position: Int, tracklist: Tracklist): Tracklist {
         val tracklistElement: TracklistElement = tracklist.tracklistElements[position]
         // delete track files

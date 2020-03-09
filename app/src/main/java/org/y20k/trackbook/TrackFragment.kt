@@ -85,8 +85,8 @@ class TrackFragment : Fragment(), RenameTrackDialog.RenameTrackListener, YesNoDi
         }
         // set up delete button
         layout.deleteButton.setOnClickListener {
-            val dialogMessage: String = "${getString(R.string.dialog_yes_no_message_remove_recording)}\n\n- ${layout.trackNameView.text}"
-            YesNoDialog(this@TrackFragment as YesNoDialog.YesNoDialogListener).show(context = activity as Context, type = Keys.DIALOG_REMOVE_TRACK, messageString = dialogMessage, yesButton = R.string.dialog_yes_no_positive_button_remove_recording)
+            val dialogMessage: String = "${getString(R.string.dialog_yes_no_message_delete_recording)}\n\n- ${layout.trackNameView.text}"
+            YesNoDialog(this@TrackFragment as YesNoDialog.YesNoDialogListener).show(context = activity as Context, type = Keys.DIALOG_DELETE_TRACK, messageString = dialogMessage, yesButton = R.string.dialog_yes_no_positive_button_delete_recording)
         }
         // set up rename button
         layout.editButton.setOnClickListener {
@@ -147,7 +147,7 @@ class TrackFragment : Fragment(), RenameTrackDialog.RenameTrackListener, YesNoDi
     /* Overrides onYesNoDialog from YesNoDialogListener */
     override fun onYesNoDialog(type: Int, dialogResult: Boolean, payload: Int, payloadString: String) {
         when (type) {
-            Keys.DIALOG_REMOVE_TRACK -> {
+            Keys.DIALOG_DELETE_TRACK -> {
                 when (dialogResult) {
                     // user tapped remove track
                     true -> {

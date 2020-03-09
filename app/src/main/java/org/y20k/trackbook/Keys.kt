@@ -69,7 +69,8 @@ object Keys {
 
     // dialog types
     const val DIALOG_EMPTY_RECORDING: Int = 0
-    const val DIALOG_REMOVE_TRACK: Int = 1
+    const val DIALOG_DELETE_TRACK: Int = 1
+    const val DIALOG_DELETE_NON_STARRED: Int = 2
 
     // dialog results
     const val DIALOG_EMPTY_PAYLOAD_STRING: String = ""
