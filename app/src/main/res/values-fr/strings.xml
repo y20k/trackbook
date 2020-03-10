@@ -96,4 +96,9 @@
     <string name="pref_theme_selection_title">Thème de l\'application</string>
     <string name="toast_message_save_gpx">Sauvegarde des enregistrements au format GPX.</string>
     <string name="statistics_sheet_p_recording_paused">Suivi mis en pause :</string>
+    <string name="dialog_yes_no_positive_button_delete_non_starred">Supprimer</string>
+    <string name="dialog_yes_no_message_delete_non_starred">Supprimer tous les enregistrements non favoris \? Cette action ne peut pas être annulée.</string>
+    <string name="pref_delete_non_starred_summary">Supprimer tous les enregistrements dans « Enregistrements » pour ceux qui ne sont pas marqués comme favoris.</string>
+    <string name="pref_delete_non_starred_title">Suprimmer les enregistrements non marqués comme favoris</string>
+    <string name="pref_maintenance_title">Maintenance</string>
 </resources>
