@@ -96,4 +96,9 @@
     <string name="pref_theme_selection_title">Tema app</string>
     <string name="toast_message_save_gpx">Salvataggio registrazione come GPX.</string>
     <string name="statistics_sheet_p_recording_paused">Registrazione messa in pausa:</string>
+    <string name="dialog_yes_no_positive_button_delete_non_starred">Rimuovi</string>
+    <string name="dialog_yes_no_message_delete_non_starred">Rimuovere tutte le registrazioni senza la stellina\? Questa azione non può essere annullata.</string>
+    <string name="pref_delete_non_starred_summary">Rimuovi tutte le registrazioni in \"Tracce\" che non hanno la stellina.</string>
+    <string name="pref_delete_non_starred_title">Rimuovi le registrazioni senza stellina</string>
+    <string name="pref_maintenance_title">Manutenzione</string>
 </resources>
