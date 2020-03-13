@@ -132,7 +132,6 @@ class TrackerService(): Service(), CoroutineScope, SensorEventListener {
 
     /* Overrides onBind from Service */
     override fun onBind(p0: Intent?): IBinder? {
-        LogHelper.e(TAG, "onBind called.") // todo remove
         bound = true
         // start receiving location updates
         addGpsLocationListener()
@@ -144,7 +143,6 @@ class TrackerService(): Service(), CoroutineScope, SensorEventListener {
 
     /* Overrides onRebind from Service */
     override fun onRebind(intent: Intent?) {
-        LogHelper.e(TAG, "onRebind called.") // todo remove
         bound = true
         // start receiving location updates
         addGpsLocationListener()
@@ -154,7 +152,6 @@ class TrackerService(): Service(), CoroutineScope, SensorEventListener {
 
     /* Overrides onUnbind from Service */
     override fun onUnbind(intent: Intent?): Boolean {
-        LogHelper.e(TAG, "onUnbind called.") // todo remove
         bound = false
         // stop receiving location updates - if not tracking
         if (trackingState != Keys.STATE_TRACKING_ACTIVE) {
@@ -164,6 +161,7 @@ class TrackerService(): Service(), CoroutineScope, SensorEventListener {
         // ensures onRebind is called
         return true
     }
+
 
     /* Overrides onDestroy from Service */
     override fun onDestroy() {
@@ -218,7 +216,6 @@ class TrackerService(): Service(), CoroutineScope, SensorEventListener {
         resumed = true
         // calculate length of recording break
         track.recordingPaused = TrackHelper.calculateRecordingPaused(track.recordingStop)
-        LogHelper.e(TAG, "We took a break for ${DateTimeHelper.convertToReadableTime(this, track.recordingPaused)}") // todo remove
         // start tracking
         startTracking(newTrack = false)
     }
