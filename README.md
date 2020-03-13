@@ -23,9 +23,6 @@ You can install it via Google Play and F-Droid - or you can go and grab the late
 [<img src="https://user-images.githubusercontent.com/9103935/74753187-09a75f00-5270-11ea-82de-18c5b8737e2b.png" width="320">](https://user-images.githubusercontent.com/9103935/74753187-09a75f00-5270-11ea-82de-18c5b8737e2b.png)<br />
 You can start a recording without opening Trackbook. Just pull down the System's Quick Settings and tap on the Start Recording tile. You need to manually add Trackbook's Recording tile to Quick Settings first. You can find information on customizing Quick Settings [here](https://support.google.com/android/answer/9083864?hl=en) and [here](https://www.xda-developers.com/get-custom-quick-settings-tiles/)
 
-
-
-
 ### Save Recordings as GPX
 Recordings can be exported as GPX ([GPS Exchange Format](https://en.wikipedia.org/wiki/GPS_Exchange_Format)). Tap on the save button in the lower right corner of a previously recorded track.
 
@@ -40,6 +37,9 @@ Many devices have altitude sensors (of varying accuracy). Trackbook compares the
 
 ### What Does Accuracy Threshold Mean?
 Every location fix, that Trackbook receives, is associated with an accuracy estimate. You can look up, how Android defines accuracy, in the [developer documentation](https://developer.android.com/reference/kotlin/android/location/Location.html#getaccuracy). `Accuracy Threshold` is the value, from which on location fixes are rejected. It can be adjusted in Trackbook's settings. You can increase the value, if your recordings tend to be incomplete. Trackbook will then also record less accurate location fixes.
+
+## Where are my old recordings?
+The F-Droid version of Trackbook features an auto-importer for old recordings. Sadly I was not able to implement the auto-importer for the Play Store version of Trackbook due to SDK requirements / restrictions. That is partly my fault and I am very sorry. There is a (quite complicated) solution to get back your old recordings. Please head over to the [Wiki](https://github.com/y20k/trackbook/wiki) to find out how.
 
 ## A Word on Privacy
 Trackbook begins to store location data on device as soon a user presses the record button. Those recordings are stored in the directory `/Android/data/org.y20k.trackbook/files/`. They never leave the device. There is no web-service backing Trackbook.

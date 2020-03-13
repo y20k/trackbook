@@ -25,6 +25,10 @@ Many devices have altitude sensors (of varying accuracy). Trackbook compares the
 WHAT DOES ACCURACY THRESHOLD MEAN?
 Every location fix, that Trackbook receives, is associated with an accuracy estimate. You can look up, how Android defines accuracy, in the developer documentation. "Accuracy Threshold" is the value, from which on location fixes are rejected. It can be adjusted in Trackbook's settings. You can increase the value, if your recordings tend to be incomplete. Trackbook will then also record less accurate location fixes.
 
+WHERE ARE MY OLD RECORDINGS?
+----------------------------
+The F-Droid version of Trackbook features an auto-importer for old recordings. Sadly I was not able to implement the auto-importer for the Play Store version of Trackbook due to SDK requirements / restrictions. That is partly my fault and I am very sorry. There is a (quite complicated) solution to get back your old recordings. Please head over to the Wiki (https://github.com/y20k/trackbook/wiki) to find out how.
+
 A WORD ON PRIVACY
 -----------------
 Trackbook begins to store location data on device as soon a user presses the record button. Those recordings are stored in the directory /Android/data/org.y20k.trackbook/files/. They never leave the device. There is no web-service backing Trackbook.
