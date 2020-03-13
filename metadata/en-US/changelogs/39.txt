@@ -1,0 +1,5 @@
+# v2.0.2 - Echoes
+
+**2020-03-13**
+- fixes a bug with distance calculation after a recording pause
+- updated translation
