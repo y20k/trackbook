@@ -46,13 +46,22 @@ object TrackHelper {
 
     /* Adds given locatiom as waypoint to track */
     fun addWayPointToTrack(track: Track, location: Location, locationAccuracyThreshold: Int, resumed: Boolean): Pair<Track, Boolean> {
-
         // get previous location
         val previousLocation: Location?
-        val numberOfWayPoints: Int = track.wayPoints.size
+        var numberOfWayPoints: Int = track.wayPoints.size
+
+        // CASE: First location
         if (numberOfWayPoints == 0) {
             previousLocation = null
-        } else {
+        }
+        // CASE: Second location - check if first location was plausible & remove implausible location
+        else if (numberOfWayPoints == 1 && !LocationHelper.isFirstLocationPlausible(location, track)) {
+            previousLocation = null
+            numberOfWayPoints = 0
+            track.wayPoints.removeAt(0)
+        }
+        // CASE: Third location or second location (if first was plausible)
+        else {
             previousLocation = track.wayPoints.get(numberOfWayPoints - 1).toLocation()
         }
 

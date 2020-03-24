@@ -155,6 +155,26 @@ object LocationHelper {
     }
 
 
+    /* Checks if the first location of track is plausible */
+    fun isFirstLocationPlausible(secondLocation: Location, track: Track): Boolean {
+        // speed in km/h
+        val speed: Double = calculateSpeed(firstLocation = track.wayPoints[0].toLocation(), secondLocation = secondLocation, firstTimestamp = track.recordingStart.time, secondTimestamp = GregorianCalendar.getInstance().time.time)
+        // plausible = speed under 250 km/h
+        return speed < Keys.IMPLAUSIBLE_TRACK_START_SPEED
+    }
+
+
+    /* Calculates speed */
+    private fun calculateSpeed(firstLocation: Location, secondLocation: Location, firstTimestamp: Long, secondTimestamp: Long, useImperial: Boolean = false): Double {
+        // time difference in seconds
+        val timeDifference: Long = (secondTimestamp - firstTimestamp) / 1000L
+        // distance in meters
+        val distance: Float = calculateDistance(firstLocation, secondLocation)
+        // speed in either km/h (default) or mph
+        return LengthUnitHelper.convertMetersPerSecond(distance / timeDifference, useImperial)
+    }
+
+
     /* Checks if given location is different enough compared to previous location */
     fun isDifferentEnough(previousLocation: Location?, location: Location): Boolean {
         // check if previous location is (not) available
@@ -173,7 +193,7 @@ object LocationHelper {
     }
 
 
-    /* Calculates distance between two locations */
+    /* Calculates distance in meters between two locations */
     fun calculateDistance(previousLocation: Location?, location: Location): Float  {
         var distance: Float = 0f
         // two data points needed to calculate distance

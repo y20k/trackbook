@@ -92,4 +92,17 @@ object LengthUnitHelper {
         return imperialSystemCountries.contains(countryCode)
     }
 
+
+    /* Coverts meters per second to either km/h or mph */
+    fun convertMetersPerSecond(metersPerSecond: Float, useImperial: Boolean = false): Double {
+        if (useImperial) {
+            // mph
+            return metersPerSecond * 2.2369362920544
+        } else {
+            // km/h
+            return metersPerSecond * 3.6
+        }
+    }
+
+
 }

@@ -99,6 +99,7 @@ object Keys {
     const val ADD_WAYPOINT_TO_TRACK_INTERVAL: Long = 15000L                     // 15 seconds in milliseconds
     const val SIGNIFICANT_TIME_DIFFERENCE: Long = 120000L                       // 2 minutes in milliseconds
     const val STOP_OVER_THRESHOLD: Long = 300000L                               // 5 minutes in milliseconds
+    const val IMPLAUSIBLE_TRACK_START_SPEED: Double = 250.0                     // 250 km/h
     const val DEFAULT_LATITUDE: Double = 71.172500                              // latitude Nordkapp, Norway
     const val DEFAULT_LONGITUDE: Double = 25.784444                             // longitude Nordkapp, Norway
     const val DEFAULT_ACCURACY: Float = 300f                                    // in meters
