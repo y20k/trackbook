@@ -96,4 +96,9 @@
     <string name="pref_theme_selection_title">Programdrakt</string>
     <string name="toast_message_save_gpx">Lagre opptak som GPX.</string>
     <string name="statistics_sheet_p_recording_paused">Opptak satt på pause:</string>
+    <string name="pref_delete_non_starred_title">Slett alle ikke-stjernemerkede opptak</string>
+    <string name="pref_delete_non_starred_summary">Slett alle opptak i \"Spor\" som ikke er stjernemerket.</string>
+    <string name="dialog_yes_no_message_delete_non_starred">Slett alle opptak som ikke er stjernemerket\? Denne handlingen kan ikke angres.</string>
+    <string name="pref_maintenance_title">Vedlikehold</string>
+    <string name="dialog_yes_no_positive_button_delete_non_starred">Slett</string>
 </resources>
