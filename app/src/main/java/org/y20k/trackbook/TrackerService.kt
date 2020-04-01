@@ -457,7 +457,7 @@ class TrackerService(): Service(), CoroutineScope, SensorEventListener {
     private val periodicTrackUpdate: Runnable = object : Runnable {
         override fun run() {
             // add waypoint to track - step count is continuously updated in onSensorChanged
-            val result: Pair<Track, Boolean> = TrackHelper.addWayPointToTrack(track, currentBestLocation, locationAccuracyThreshold, resumed)
+            val result: Pair<Track, Boolean> = TrackHelper.addWayPointToTrack(this@TrackerService, track, currentBestLocation, locationAccuracyThreshold, resumed)
             // get track from result
             track = result.first
             // check if waypoint was successfully added (= result.second)

@@ -17,7 +17,9 @@
 
 package org.y20k.trackbook.helpers
 
+import android.content.Context
 import android.location.Location
+import android.widget.Toast
 import org.y20k.trackbook.core.Track
 import org.y20k.trackbook.core.TracklistElement
 import org.y20k.trackbook.core.WayPoint
@@ -45,24 +47,27 @@ object TrackHelper {
 
 
     /* Adds given locatiom as waypoint to track */
-    fun addWayPointToTrack(track: Track, location: Location, locationAccuracyThreshold: Int, resumed: Boolean): Pair<Track, Boolean> {
+    fun addWayPointToTrack(context: Context, track: Track, location: Location, locationAccuracyThreshold: Int, resumed: Boolean): Pair<Track, Boolean> {
         // get previous location
         val previousLocation: Location?
         var numberOfWayPoints: Int = track.wayPoints.size
 
         // CASE: First location
         if (numberOfWayPoints == 0) {
+            LogHelper.e(TAG, "First Location." ) // todo remove
             previousLocation = null
         }
         // CASE: Second location - check if first location was plausible & remove implausible location
         else if (numberOfWayPoints == 1 && !LocationHelper.isFirstLocationPlausible(location, track)) {
+            LogHelper.e(TAG, "Second Location not plausible.") // todo remove
             previousLocation = null
             numberOfWayPoints = 0
             track.wayPoints.removeAt(0)
         }
         // CASE: Third location or second location (if first was plausible)
         else {
-            previousLocation = track.wayPoints.get(numberOfWayPoints - 1).toLocation()
+            LogHelper.e(TAG, "Yay.") // todo remove
+            previousLocation = track.wayPoints[numberOfWayPoints - 1].toLocation()
         }
 
         // update duration
@@ -73,9 +78,24 @@ object TrackHelper {
 
         // add only if recent and accurate
         val shouldBeAdded: Boolean
-        shouldBeAdded = (LocationHelper.isRecentEnough(location)
-                && LocationHelper.isAccurateEnough(location, locationAccuracyThreshold)
-                && LocationHelper.isDifferentEnough(previousLocation, location))
+
+        // todo remove for production
+        val recentEnough: Boolean = LocationHelper.isRecentEnough(location)
+        val accurateEnough: Boolean = LocationHelper.isAccurateEnough(location, locationAccuracyThreshold)
+        val differentEnough: Boolean = LocationHelper.isDifferentEnough(previousLocation, location)
+
+        if (!recentEnough && accurateEnough && differentEnough) { Toast.makeText(context, "Debug: Not recent enough", Toast.LENGTH_LONG).show() }
+        else if (!accurateEnough && recentEnough && differentEnough) { Toast.makeText(context, "Debug: Not accurate enough", Toast.LENGTH_LONG).show() }
+        else if (!differentEnough && recentEnough && accurateEnough) { Toast.makeText(context, "Debug: Not different enough", Toast.LENGTH_LONG).show() }
+        else if (!recentEnough && !accurateEnough && differentEnough) { Toast.makeText(context, "Debug: Not recent and accurate enough", Toast.LENGTH_LONG).show() }
+        else if (!recentEnough && !differentEnough && accurateEnough) { Toast.makeText(context, "Debug: Not recent and different enough", Toast.LENGTH_LONG).show() }
+        else if (!accurateEnough && !differentEnough && recentEnough) { Toast.makeText(context, "Debug: Not accurate and different enough", Toast.LENGTH_LONG).show() }
+        else { Toast.makeText(context, "Debug: bad location.", Toast.LENGTH_LONG).show() }
+
+        shouldBeAdded = recentEnough && accurateEnough && differentEnough
+        //shouldBeAdded = (LocationHelper.isRecentEnough(location) &&
+        //                 LocationHelper.isAccurateEnough(location, locationAccuracyThreshold) &&
+        //                 LocationHelper.isDifferentEnough(previousLocation, location))
 
         if (shouldBeAdded) {
             // update distance (do not update if resumed -> we do not want to add values calculated during a recording pause)
@@ -124,7 +144,7 @@ object TrackHelper {
             track.longitude = location.longitude
 
             // add location as new waypoint
-            track.wayPoints.add(WayPoint(location.provider, location.latitude, location.longitude, location.altitude, location.accuracy, location.time, track.length, numberOfSatellites))
+            track.wayPoints.add(WayPoint(provider = location.provider, latitude = location.latitude, longitude = location.longitude, altitude = location.altitude, accuracy = location.accuracy, time = location.time, distanceToStartingPoint = track.length, numberSatellites = numberOfSatellites))
         }
 
         return Pair(track, shouldBeAdded)

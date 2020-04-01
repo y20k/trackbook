@@ -162,10 +162,12 @@ data class TrackFragmentLayoutHolder(var context: Context, var inflater: LayoutI
     /* Saves zoom level and center of this map */
     fun saveViewStateToTrack() {
         val center: IGeoPoint = mapView.mapCenter
-        track.latitude = center.latitude
-        track.longitude = center.longitude
-        track.zoomLevel = mapView.zoomLevelDouble
-        GlobalScope.launch { FileHelper.saveTrackSuspended(track, false) }
+        if (center.latitude != 0.0 && center.longitude != 0.0) {
+            track.latitude = center.latitude
+            track.longitude = center.longitude
+            track.zoomLevel = mapView.zoomLevelDouble
+            GlobalScope.launch { FileHelper.saveTrackSuspended(track, false) }
+        }
     }
 
 
