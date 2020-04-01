@@ -37,12 +37,12 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import org.y20k.trackbook.Keys.ARG_TRACK_ID
 import org.y20k.trackbook.core.Track
 import org.y20k.trackbook.dialogs.RenameTrackDialog
 import org.y20k.trackbook.helpers.FileHelper
 import org.y20k.trackbook.helpers.LogHelper
 import org.y20k.trackbook.ui.TrackFragmentLayoutHolder
+
 
 class TrackFragment : Fragment(), RenameTrackDialog.RenameTrackListener, YesNoDialog.YesNoDialogListener {
 
@@ -152,7 +152,7 @@ class TrackFragment : Fragment(), RenameTrackDialog.RenameTrackListener, YesNoDi
                     // user tapped remove track
                     true -> {
                         // switch to TracklistFragment and remove track there
-                        val trackId: Long = arguments?.getLong(ARG_TRACK_ID, -1L) ?: -1L
+                        val trackId: Long = arguments?.getLong(Keys.ARG_TRACK_ID, -1L) ?: -1L
                         val bundle: Bundle = bundleOf(Keys.ARG_TRACK_ID to trackId)
                         findNavController().navigate(R.id.tracklist_fragment, bundle)
                     }
@@ -170,7 +170,12 @@ class TrackFragment : Fragment(), RenameTrackDialog.RenameTrackListener, YesNoDi
             putExtra(Intent.EXTRA_TITLE, FileHelper.getGpxFileName(track))
         }
         // file gets saved in onActivityResult
-        startActivityForResult(intent, Keys.REQUEST_SAVE_GPX)
+        val packageManager: PackageManager? = activity?.packageManager
+        if (packageManager != null && intent.resolveActivity(packageManager) != null) {
+            startActivityForResult(intent, Keys.REQUEST_SAVE_GPX)
+        } else {
+            Toast.makeText(activity as Context, R.string.toast_message_install_file_helper, Toast.LENGTH_LONG).show()
+        }
     }
 
 

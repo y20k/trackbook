@@ -40,7 +40,7 @@
     <string name="dialog_yes_no_message_delete_recording">Delete this recording?</string>
     <!-- Toast Messages -->
     <string name="toast_message_elevation_info">Hint: The accuracy of elevation data depends on your device. The uphill and downhill elevation of the whole route is measured.</string>
-    <string name="toast_message_install_file_helper">Please install a file manager or a GPX track viewer first.</string>
+    <string name="toast_message_install_file_helper">Unable to save. Please install a file manager first.</string>
     <string name="toast_message_save_gpx">Saving recording as GPX.</string>
     <!-- Map Markers -->
     <string name="marker_description_time">Time</string>
