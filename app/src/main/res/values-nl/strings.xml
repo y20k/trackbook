@@ -26,7 +26,7 @@
     <string name="dialog_error_empty_recording_action_resume">Opname voortzetten</string>
     <!-- toast messages -->
     <string name="toast_message_elevation_info">Tip: de nauwkeurigheid van de hoogtegegevens hangt af van uw apparaat. Het gemiddelde van de gehele route wordt genomen.</string>
-    <string name="toast_message_install_file_helper">Installeer eerst een bestandsbeheerder of GPX-viewer.</string>
+    <string name="toast_message_install_file_helper">Opslaan mislukt. Installeer eerst een bestandsbeheerder.</string>
     <!-- map markers -->
     <string name="marker_description_time">Tijd</string>
     <string name="marker_description_accuracy">Nauwkeurigheid</string>
