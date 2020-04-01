@@ -26,7 +26,7 @@
     <string name="dialog_share_gpx">Partager le fichier GPX avec</string>
     <!-- toast messages -->
     <string name="toast_message_elevation_info">Astuce : La précision des données d\'altitude dépend de votre appareil. La dénivellation globale du parcours est mesurée.</string>
-    <string name="toast_message_install_file_helper">Veuillez installer un gestionnaire de fichiers ou un visualiseur de fichier GPX.</string>
+    <string name="toast_message_install_file_helper">Échec de l\'enregistrement. Veuillez d\'abord installer un gestionnaire de fichiers.</string>
     <!-- map markers -->
     <string name="marker_description_accuracy">Précision</string>
     <string name="marker_description_time">Heure</string>
