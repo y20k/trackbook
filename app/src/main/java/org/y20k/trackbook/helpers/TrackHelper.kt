@@ -19,7 +19,6 @@ package org.y20k.trackbook.helpers
 
 import android.content.Context
 import android.location.Location
-import android.widget.Toast
 import org.y20k.trackbook.core.Track
 import org.y20k.trackbook.core.TracklistElement
 import org.y20k.trackbook.core.WayPoint
@@ -54,19 +53,16 @@ object TrackHelper {
 
         // CASE: First location
         if (numberOfWayPoints == 0) {
-            LogHelper.e(TAG, "First Location." ) // todo remove
             previousLocation = null
         }
         // CASE: Second location - check if first location was plausible & remove implausible location
         else if (numberOfWayPoints == 1 && !LocationHelper.isFirstLocationPlausible(location, track)) {
-            LogHelper.e(TAG, "Second Location not plausible.") // todo remove
             previousLocation = null
             numberOfWayPoints = 0
             track.wayPoints.removeAt(0)
         }
         // CASE: Third location or second location (if first was plausible)
         else {
-            LogHelper.e(TAG, "Yay.") // todo remove
             previousLocation = track.wayPoints[numberOfWayPoints - 1].toLocation()
         }
 
@@ -76,26 +72,23 @@ object TrackHelper {
         track.duration = track.duration + difference
         track.recordingStop = now
 
-        // add only if recent and accurate
-        val shouldBeAdded: Boolean
+        // add only if recent and accurate and different
+        val shouldBeAdded: Boolean = (LocationHelper.isRecentEnough(location) &&
+                                      LocationHelper.isAccurateEnough(location, locationAccuracyThreshold) &&
+                                      LocationHelper.isDifferentEnough(previousLocation, location))
 
-        // todo remove for production
-        val recentEnough: Boolean = LocationHelper.isRecentEnough(location)
-        val accurateEnough: Boolean = LocationHelper.isAccurateEnough(location, locationAccuracyThreshold)
-        val differentEnough: Boolean = LocationHelper.isDifferentEnough(previousLocation, location)
-
-        if (!recentEnough && accurateEnough && differentEnough) { Toast.makeText(context, "Debug: Not recent enough", Toast.LENGTH_LONG).show() }
-        else if (!accurateEnough && recentEnough && differentEnough) { Toast.makeText(context, "Debug: Not accurate enough", Toast.LENGTH_LONG).show() }
-        else if (!differentEnough && recentEnough && accurateEnough) { Toast.makeText(context, "Debug: Not different enough", Toast.LENGTH_LONG).show() }
-        else if (!recentEnough && !accurateEnough && differentEnough) { Toast.makeText(context, "Debug: Not recent and accurate enough", Toast.LENGTH_LONG).show() }
-        else if (!recentEnough && !differentEnough && accurateEnough) { Toast.makeText(context, "Debug: Not recent and different enough", Toast.LENGTH_LONG).show() }
-        else if (!accurateEnough && !differentEnough && recentEnough) { Toast.makeText(context, "Debug: Not accurate and different enough", Toast.LENGTH_LONG).show() }
-        else { Toast.makeText(context, "Debug: bad location.", Toast.LENGTH_LONG).show() }
-
-        shouldBeAdded = recentEnough && accurateEnough && differentEnough
-        //shouldBeAdded = (LocationHelper.isRecentEnough(location) &&
-        //                 LocationHelper.isAccurateEnough(location, locationAccuracyThreshold) &&
-        //                 LocationHelper.isDifferentEnough(previousLocation, location))
+//        // Debugging for shouldBeAdded - remove for production
+//        val recentEnough: Boolean = LocationHelper.isRecentEnough(location)
+//        val accurateEnough: Boolean = LocationHelper.isAccurateEnough(location, locationAccuracyThreshold)
+//        val differentEnough: Boolean = LocationHelper.isDifferentEnough(previousLocation, location)
+//        val shouldBeAdded = recentEnough && accurateEnough && differentEnough
+//        if (!recentEnough && accurateEnough && differentEnough) { Toast.makeText(context, "Debug: Not recent enough", Toast.LENGTH_LONG).show() }
+//        else if (!accurateEnough && recentEnough && differentEnough) { Toast.makeText(context, "Debug: Not accurate enough", Toast.LENGTH_LONG).show() }
+//        else if (!differentEnough && recentEnough && accurateEnough) { Toast.makeText(context, "Debug: Not different enough", Toast.LENGTH_LONG).show() }
+//        else if (!recentEnough && !accurateEnough && differentEnough) { Toast.makeText(context, "Debug: Not recent and accurate enough", Toast.LENGTH_LONG).show() }
+//        else if (!recentEnough && !differentEnough && accurateEnough) { Toast.makeText(context, "Debug: Not recent and different enough", Toast.LENGTH_LONG).show() }
+//        else if (!accurateEnough && !differentEnough && recentEnough) { Toast.makeText(context, "Debug: Not accurate and different enough", Toast.LENGTH_LONG).show() }
+//        else { Toast.makeText(context, "Debug: bad location.", Toast.LENGTH_LONG).show() }
 
         if (shouldBeAdded) {
             // update distance (do not update if resumed -> we do not want to add values calculated during a recording pause)
