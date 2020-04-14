@@ -54,6 +54,15 @@
     <string name="descr_fab_sub_menu_button_save">Speichern-Knopf</string>
     <string name="descr_fab_sub_menu_button_clear">Zurücksetzen-Knopf</string>
     <string name="descr_fab_sub_menu_button_resume">Fortsetzen-Knopf</string>
-    <string name="descr_statistics_sheet_delete_button">Schaltfläche „Aufzeichnung löschen”</string>
+    <string name="descr_statistics_sheet_delete_button">Schaltfläche „Aufzeichnung löschen“</string>
     <string name="descr_statistics_sheet_save_button">Share-Taste, die den Export als GPX anbietet</string>
+    <string name="pref_theme_selection_mode_light">Heller Modus</string>
+    <string name="pref_theme_selection_mode_device_default">Gleich wie Gerät</string>
+    <string name="pref_theme_selection_mode_dark">Dunkler Modus</string>
+    <string name="abbreviation_seconds">Sek.</string>
+    <string name="abbreviation_minutes">Min.</string>
+    <string name="abbreviation_hours">Std.</string>
+    <string name="dialog_yes_no_positive_button_delete_non_starred">Löschen</string>
+    <string name="dialog_yes_no_positive_button_delete_recording">Löschen</string>
+    <string name="dialog_yes_no_positive_button_default">Ja</string>
 </resources>
