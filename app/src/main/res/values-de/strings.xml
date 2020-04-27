@@ -65,4 +65,12 @@
     <string name="dialog_yes_no_positive_button_delete_non_starred">Löschen</string>
     <string name="dialog_yes_no_positive_button_delete_recording">Löschen</string>
     <string name="dialog_yes_no_positive_button_default">Ja</string>
+    <string name="statistics_sheet_p_recording_paused">Aufnahme pausiert:</string>
+    <string name="dialog_yes_no_message_delete_recording">Diese Aufnahme löschen\?</string>
+    <string name="dialog_rename_track_input_hint">Einen neuen Namen eingeben</string>
+    <string name="dialog_rename_track_button">Umbenennen</string>
+    <string name="dialog_generic_details_button">Details anzeigen</string>
+    <string name="dialog_generic_button_okay">OK</string>
+    <string name="dialog_generic_button_cancel">Abbrechen</string>
+    <string name="tab_settings">Einstellungen</string>
 </resources>
