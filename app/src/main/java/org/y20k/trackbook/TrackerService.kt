@@ -215,7 +215,7 @@ class TrackerService(): Service(), CoroutineScope, SensorEventListener {
         // set resumed flag
         resumed = true
         // calculate length of recording break
-        track.recordingPaused = TrackHelper.calculateRecordingPaused(track.recordingStop)
+        track.recordingPaused = track.recordingPaused + TrackHelper.calculateDurationOfPause(track.recordingStop)
         // start tracking
         startTracking(newTrack = false)
     }

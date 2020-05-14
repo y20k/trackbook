@@ -75,7 +75,7 @@ object LocationHelper {
     }
 
 
-    /* Determines whether one Location reading is better than the current Location fix */
+    /* Determines whether one location reading is better than the current location fix */
     fun isBetterLocation(location: Location, currentBestLocation: Location?): Boolean {
         // Credit: https://developer.android.com/guide/topics/location/strategies.html#BestEstimate
 

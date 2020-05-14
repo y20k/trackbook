@@ -111,10 +111,10 @@ class TracklistAdapter(private val fragment: Fragment) : RecyclerView.Adapter<Re
         val backgroundJob = Job()
         val uiScope = CoroutineScope(Dispatchers.Main + backgroundJob)
         uiScope.launch {
-            notifyItemRemoved(position)
             val deferred: Deferred<Tracklist> = async { FileHelper.deleteTrackSuspended(context, position, tracklist) }
             // wait for result and store in tracklist
             tracklist = deferred.await()
+            notifyItemRemoved(position)
             backgroundJob.cancel()
         }
     }

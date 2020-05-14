@@ -145,7 +145,7 @@ object TrackHelper {
 
 
     /* Calculates time passed since last stop of recording */
-    fun calculateRecordingPaused(recordingStop: Date): Long =
+    fun calculateDurationOfPause(recordingStop: Date): Long =
         GregorianCalendar.getInstance().time.time - recordingStop.time
 
 

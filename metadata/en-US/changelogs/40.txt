@@ -1,5 +1,5 @@
 # v2.0.3 - Echoes
 
 **2020-03-13**
-- updated translation
+- updated translations
 - minor bug fixes (e.g. plausibility check for the first location)

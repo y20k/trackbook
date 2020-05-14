@@ -56,16 +56,22 @@ object DateTimeHelper {
     }
 
 
-    /* Create sortable string from date - used for filenames  */
+    /* Create sortable string for date - used for filenames  */
     fun convertToSortableDateString(date: Date): String {
         val dateFormat: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd-HH-mm-ss", Locale.US)
         return dateFormat.format(date)
     }
 
 
-    /* Creates a readable string from date - used in the UI */
+    /* Creates a readable string for date - used in the UI */
     fun convertToReadableDate(date: Date, dateStyle: Int = DateFormat.LONG): String {
         return DateFormat.getDateInstance(dateStyle, Locale.getDefault()).format(date)
+    }
+
+
+    /* Creates a readable string date and time - used in the UI */
+    fun convertToReadableDateAndTime(date: Date, dateStyle: Int = DateFormat.SHORT, timeStyle: Int = DateFormat.SHORT): String {
+        return "${DateFormat.getDateInstance(dateStyle, Locale.getDefault()).format(date)} ${DateFormat.getTimeInstance(timeStyle, Locale.getDefault()).format(date)}"
     }
 
 

@@ -20,7 +20,6 @@ package org.y20k.trackbook.dialogs
 import android.content.Context
 import android.text.InputType
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -51,7 +50,7 @@ class RenameTrackDialog (private var renameTrackListener: RenameTrackListener) {
         // get input field
         val inflater = LayoutInflater.from(context)
         val view = inflater.inflate(R.layout.dialog_rename_track, null)
-        val inputField = view.findViewById<View>(R.id.dialog_rename_track_input_edit_text) as EditText
+        val inputField = view.findViewById<EditText>(R.id.dialog_rename_track_input_edit_text)
 
         // pre-fill with current track name
         inputField.setText(trackName, TextView.BufferType.EDITABLE)

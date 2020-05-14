@@ -16,6 +16,7 @@
         android:layout_marginBottom="24dp"
         android:hint="@string/dialog_rename_track_input_hint"
         android:maxLines="1"
+        app:endIconMode="clear_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
