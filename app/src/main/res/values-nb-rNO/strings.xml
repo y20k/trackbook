@@ -26,7 +26,7 @@
     <string name="dialog_error_empty_recording_action_resume">Gjenoppta opptak</string>
     <!-- toast messages -->
     <string name="toast_message_elevation_info">Hint: Høydedataens nøyaktighet avhenger av enheten din. Opp og ned-stigningen for hele ruten måles.</string>
-    <string name="toast_message_install_file_helper">Installer en filbehandler eller en GPX-sporviser først.</string>
+    <string name="toast_message_install_file_helper">Klarte ikke å lagre. Installer en filbehandler først.</string>
     <!-- map markers -->
     <string name="marker_description_time">Tid</string>
     <string name="marker_description_accuracy">Nøyaktighet</string>
@@ -67,7 +67,7 @@
     <string name="dialog_yes_no_positive_button_default">Ja</string>
     <string name="dialog_yes_no_positive_button_delete_recording">Fjern</string>
     <string name="dialog_yes_no_message_delete_recording">Fjern dette opptaket\?</string>
-    <string name="pref_accuracy_threshold_summary">Forkast posisjonsendringer med nøyaktighet større enn</string>
+    <string name="pref_accuracy_threshold_summary">Forkast posisjonsendringer med nøyaktighet større enn:</string>
     <string name="pref_accuracy_threshold_title">Nøyaktighetsterskel</string>
     <string name="pref_advanced_title">Avansert</string>
     <string name="pref_general_title">Generelt</string>
@@ -92,13 +92,14 @@
     <string name="pref_theme_selection_mode_dark">Mørkt modus</string>
     <string name="pref_theme_selection_mode_device_default">Samme som enhet</string>
     <string name="pref_theme_selection_mode_light">Lyst modus</string>
-    <string name="pref_theme_selection_summary">Nåværende drakt</string>
+    <string name="pref_theme_selection_summary">Nåværende drakt:</string>
     <string name="pref_theme_selection_title">Programdrakt</string>
-    <string name="toast_message_save_gpx">Lagre opptak som GPX.</string>
+    <string name="toast_message_save_gpx">Lagrer opptak som GPX.</string>
     <string name="statistics_sheet_p_recording_paused">Opptak satt på pause:</string>
     <string name="pref_delete_non_starred_title">Slett alle ikke-stjernemerkede opptak</string>
     <string name="pref_delete_non_starred_summary">Slett alle opptak i \"Spor\" som ikke er stjernemerket.</string>
     <string name="dialog_yes_no_message_delete_non_starred">Slett alle opptak som ikke er stjernemerket\? Denne handlingen kan ikke angres.</string>
     <string name="pref_maintenance_title">Vedlikehold</string>
     <string name="dialog_yes_no_positive_button_delete_non_starred">Slett</string>
+    <string name="statistics_sheet_p_velocity">Gjennomsnittsfart:</string>
 </resources>
