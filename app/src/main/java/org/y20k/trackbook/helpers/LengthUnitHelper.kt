@@ -17,6 +17,8 @@
 
 package org.y20k.trackbook.helpers
 
+import java.math.BigDecimal
+import java.math.RoundingMode
 import java.text.NumberFormat
 import java.util.*
 
@@ -27,13 +29,13 @@ import java.util.*
 object LengthUnitHelper {
 
 
-    /* Converts for the given uni System a distance value to a readable string */
+    /* Converts for the given unit system a distance value to a readable string */
     fun convertDistanceToString(distance: Float, useImperial: Boolean = false): String {
         return convertDistanceToString(distance.toDouble(), useImperial)
     }
 
 
-    /* Converts for the given uni System a distance value to a readable string */
+    /* Converts for the given unit system a distance value to a readable string */
     fun convertDistanceToString(distance: Double, useImperial: Boolean = false): String {
         val readableDistance: Double
         val unit: String
@@ -90,6 +92,22 @@ object LengthUnitHelper {
         val imperialSystemCountries = Arrays.asList("US", "LR", "MM")
         val countryCode = Locale.getDefault().country
         return imperialSystemCountries.contains(countryCode)
+    }
+
+
+    /* Converts for the given unit System distance and duration values to a readable velocity string */
+    fun convertToVelocityString(trackDuration: Long, trackRecordingPause: Long, trackLength: Float, useImperialUnits: Boolean = false) : String {
+        // duration minus pause in seconds
+        val duration: Long = (trackDuration - trackRecordingPause) / 1000L
+        // speed in km/h / mph
+        val velocity: Double = convertMetersPerSecond((trackLength / duration), useImperialUnits)
+        // create readable speed string
+        var bd: BigDecimal = BigDecimal.valueOf(velocity)
+        bd = bd.setScale(1, RoundingMode.HALF_UP)
+        when (useImperialUnits) {
+            true -> return "${bd.toPlainString()} mph"
+            false -> return "${bd.toPlainString()} km/h"
+        }
     }
 
 

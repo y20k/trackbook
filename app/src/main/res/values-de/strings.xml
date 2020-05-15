@@ -42,6 +42,7 @@
     <string name="statistics_sheet_p_min_altitude">Tiefster Wegpunkt:</string>
     <string name="statistics_sheet_p_positive_elevation">Höhenmeter (bergauf):</string>
     <string name="statistics_sheet_p_negative_elevation">Höhenmeter (bergab):</string>
+    <string name="statistics_sheet_p_velocity">Durchschnittliche Geschwindigkeit:</string>
     <!-- onboarding layout -->
     <string name="layout_onboarding_description_app_icon">Trackbook App-Symbol</string>
     <!-- track tab onboarding -->

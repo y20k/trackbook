@@ -58,6 +58,7 @@
     <string name="statistics_sheet_p_min_altitude">Lowest waypoint:</string>
     <string name="statistics_sheet_p_positive_elevation">Elevation (uphill):</string>
     <string name="statistics_sheet_p_negative_elevation">Elevation (downhill):</string>
+    <string name="statistics_sheet_p_velocity">Average velocity:</string>
     <!-- Recording Quick Settings Tile -->
     <string name="quick_settings_tile_title_default">Recording</string>
     <string name="quick_settings_tile_title_start">Start Recording</string>

@@ -73,6 +73,7 @@ data class TrackFragmentLayoutHolder(var context: Context, var inflater: LayoutI
     private val stepsView: MaterialTextView
     private val waypointsView: MaterialTextView
     private val durationView: MaterialTextView
+    private val velocityView: MaterialTextView
     private val recordingStartView: MaterialTextView
     private val recordingStopView: MaterialTextView
     private val recordingPausedView: MaterialTextView
@@ -112,6 +113,7 @@ data class TrackFragmentLayoutHolder(var context: Context, var inflater: LayoutI
         stepsView = rootView.findViewById(R.id.statistics_data_steps)
         waypointsView = rootView.findViewById(R.id.statistics_data_waypoints)
         durationView = rootView.findViewById(R.id.statistics_data_duration)
+        velocityView = rootView.findViewById(R.id.statistics_data_velocity)
         recordingStartView = rootView.findViewById(R.id.statistics_data_recording_start)
         recordingStopView = rootView.findViewById(R.id.statistics_data_recording_stop)
         recordingPausedLabelView = rootView.findViewById(R.id.statistics_p_recording_paused)
@@ -185,6 +187,7 @@ data class TrackFragmentLayoutHolder(var context: Context, var inflater: LayoutI
         stepsView.text = steps
         waypointsView.text = track.wayPoints.size.toString()
         durationView.text = DateTimeHelper.convertToReadableTime(context, track.duration)
+        velocityView.text = LengthUnitHelper.convertToVelocityString(track.duration, track.recordingPaused, track.length, useImperialUnits)
         recordingStartView.text = DateTimeHelper.convertToReadableDateAndTime(track.recordingStart)
         recordingStopView.text = DateTimeHelper.convertToReadableDateAndTime(track.recordingStart)
         maxAltitudeView.text = LengthUnitHelper.convertDistanceToString(track.maxAltitude, useImperialUnits)
