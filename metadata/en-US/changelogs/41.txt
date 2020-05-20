@@ -1,0 +1,6 @@
+# v2.0.4 - Echoes
+
+**2020-05-20**
+- updated translations
+- average velocity in statistics sheet
+- minor bug fixes (e.g. better calculation of pauses)
