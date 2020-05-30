@@ -15,7 +15,7 @@
  */
 
 
-package org.y20k.escapepod.helpers
+package org.y20k.trackbook.helpers
 
 import android.content.Context
 import android.graphics.Canvas
@@ -29,7 +29,6 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import org.y20k.trackbook.R
-import org.y20k.trackbook.helpers.LogHelper
 
 
 /*
