@@ -32,7 +32,7 @@ Trackbook automatically generates GPX files for every recording. You can find th
 ### How Does Trackbook Measure Distance?
 Trackbook calculates the distance between markers and adds them up.
 
-### How Does Transistor Measure Altitude?
+### How Does Trackbook Measure Altitude?
 Many devices have altitude sensors (of varying accuracy). Trackbook compares the altitude of each new marker with the previously stored altitude. The difference is added to either the uphill or downhill elevation value.
 
 ### What Does Accuracy Threshold Mean?

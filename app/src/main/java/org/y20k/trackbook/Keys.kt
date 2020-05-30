@@ -33,9 +33,9 @@ object Keys {
     const val CURRENT_TRACKLIST_FORMAT_VERSION: Int = 0
 
     // intent actions
-    const val ACTION_START: String = "org.y20k.trackbooks.action.START"
-    const val ACTION_STOP: String = "org.y20k.trackbooks.action.STOP"
-    const val ACTION_RESUME: String = "org.y20k.transistors.action.RESUME"
+    const val ACTION_START: String = "org.y20k.trackbook.action.START"
+    const val ACTION_STOP: String = "org.y20k.trackbook.action.STOP"
+    const val ACTION_RESUME: String = "org.y20k.trackbook.action.RESUME"
 
     // args
     const val ARG_TRACK_TITLE: String = "ArgTrackTitle"
