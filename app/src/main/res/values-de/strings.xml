@@ -7,12 +7,12 @@
     <string name="tab_map">Karte</string>
     <!-- notification -->
     <string name="notification_title_trackbook_not_running">Trackbook ist inaktiv</string>
-    <string name="notification_title_trackbook_running">Trackbook wird ausgeführt</string>
-    <string name="notification_stop">Stopp</string>
+    <string name="notification_title_trackbook_running">Trackbook ist aktiv</string>
+    <string name="notification_stop">Stoppen</string>
     <string name="notification_resume">Fortsetzen</string>
     <string name="notification_show">Anzeigen</string>
-    <string name="notification_channel_recording_name">Status der Aufzeichnung</string>
-    <string name="notification_channel_recording_description">Dauer- und Entfernungsanzeige. Option die Aufzeichnung von Standort-Bewegungen zu beenden.</string>
+    <string name="notification_channel_recording_name">Status der Aufnahme</string>
+    <string name="notification_channel_recording_description">Dauer und Entfernung anzeigen. Option, um die Aufnahme zu beenden.</string>
     <!-- snackbar messages -->
     <string name="snackbar_message_location_offline">Standortdienste sind deaktiviert. Trackbook wird nicht funktionieren.</string>
     <!-- fab sub menu_bottom_navigation -->
@@ -20,24 +20,24 @@
     <string name="fab_sub_menu_save">Speichern</string>
     <string name="fab_sub_menu_resume">Fortsetzen</string>
     <!-- dialogs -->
-    <string name="dialog_share_gpx">GPX-Datei öffnen mit</string>
+    <string name="dialog_share_gpx">GPX-Datei teilen mit</string>
     <string name="dialog_error_empty_recording_title">Speichern nicht möglich</string>
-    <string name="dialog_error_empty_recording_message">Trackbook hat noch keine Wegpunkte aufgezeichnet.</string>
-    <string name="dialog_error_empty_recording_action_resume">Aufzeichnung fortsetzen</string>
+    <string name="dialog_error_empty_recording_message">Trackbook hat noch keine Wegpunkte aufgenommen.</string>
+    <string name="dialog_error_empty_recording_action_resume">Aufnahme fortsetzen</string>
     <!-- toast messages -->
-    <string name="toast_message_elevation_info">Hinweis: Die Genauogkeit der Höhenmeter-Werte ist geräteabhängig. Gemessen werden die Steigungen und Gefälle der Gesamtstrecke.</string>
-    <string name="toast_message_install_file_helper">Bitte zunächst einen Dateimanager oder GPX-Betrachter installieren.</string>
+    <string name="toast_message_elevation_info">Hinweis: Die Genauigkeit der Höhenmeter-Werte ist geräteabhängig. Gemessen werden Steigungen und Gefälle der Gesamtstrecke.</string>
+    <string name="toast_message_install_file_helper">Speichern nicht möglich. Bitte zunächst einen Dateimanager installieren.</string>
     <!-- map markers -->
     <string name="marker_description_time">Uhrzeit</string>
     <string name="marker_description_accuracy">Genauigkeit</string>
     <!-- statistics sheet -->
-    <string name="statistics_sheet_p_distance">Distanz (gesamt):</string>
+    <string name="statistics_sheet_p_distance">Entfernung gesamt:</string>
     <string name="statistics_sheet_p_steps">Schrittzähler:</string>
     <string name="statistics_sheet_p_steps_no_pedometer">Schrittzähler nicht verfügbar</string>
-    <string name="statistics_sheet_p_waypoints">Aufgezeichnete Wegpunkte:</string>
-    <string name="statistics_sheet_p_duration">Dauer (gesamt):</string>
-    <string name="statistics_sheet_p_recording_start">Start der Aufzeichnung:</string>
-    <string name="statistics_sheet_p_recording_stop">Ende der Aufzeichnung:</string>
+    <string name="statistics_sheet_p_waypoints">Aufgenommene Wegpunkte:</string>
+    <string name="statistics_sheet_p_duration">Dauer gesamt:</string>
+    <string name="statistics_sheet_p_recording_start">Aufnahme gestartet:</string>
+    <string name="statistics_sheet_p_recording_stop">Aufnahme gestoppt:</string>
     <string name="statistics_sheet_p_max_altitude">Höchster Wegpunkt:</string>
     <string name="statistics_sheet_p_min_altitude">Tiefster Wegpunkt:</string>
     <string name="statistics_sheet_p_positive_elevation">Höhenmeter (bergauf):</string>
@@ -46,23 +46,23 @@
     <!-- onboarding layout -->
     <string name="layout_onboarding_description_app_icon">Trackbook App-Symbol</string>
     <!-- track tab onboarding -->
-    <string name="track_list_onboarding_h1_part_1">Bewegungsaufzeichnungen</string>
+    <string name="track_list_onboarding_h1_part_1">Aufgenommene Strecken</string>
     <string name="track_list_onboarding_h1_part_2">… werden hier erscheinen.</string>
     <!-- descriptions -->
-    <string name="descr_map_current_track">Kartierung der aktuellen Aufzeichnung</string>
-    <string name="descr_map_last_track">Kartierung der letzten Aufzeichnung</string>
-    <string name="descr_fab_main_start">Aufzeichnung-Starten-Button</string>
-    <string name="descr_fab_sub_menu_button_save">Speichern-Knopf</string>
-    <string name="descr_fab_sub_menu_button_clear">Zurücksetzen-Knopf</string>
-    <string name="descr_fab_sub_menu_button_resume">Fortsetzen-Knopf</string>
-    <string name="descr_statistics_sheet_delete_button">Schaltfläche „Aufzeichnung löschen“</string>
-    <string name="descr_statistics_sheet_save_button">Share-Taste, die den Export als GPX anbietet</string>
+    <string name="descr_map_current_track">Kartierung der aktuellen Strecken</string>
+    <string name="descr_map_last_track">Kartierung der letzten Strecke</string>
+    <string name="descr_fab_main_start">Taste für „Aufnahme starten“</string>
+    <string name="descr_fab_sub_menu_button_save">Taste für „Speichern“</string>
+    <string name="descr_fab_sub_menu_button_clear">Taste für „Zurücksetzen“</string>
+    <string name="descr_fab_sub_menu_button_resume">Taste für „Fortsetzen“</string>
+    <string name="descr_statistics_sheet_delete_button">Taste für „Strecke löschen“</string>
+    <string name="descr_statistics_sheet_save_button">Taste für „Als GPX speichern“</string>
     <string name="pref_theme_selection_mode_light">Heller Modus</string>
     <string name="pref_theme_selection_mode_device_default">Gleich wie Gerät</string>
     <string name="pref_theme_selection_mode_dark">Dunkler Modus</string>
-    <string name="abbreviation_seconds">Sek.</string>
-    <string name="abbreviation_minutes">Min.</string>
-    <string name="abbreviation_hours">Std.</string>
+    <string name="abbreviation_seconds">s</string>
+    <string name="abbreviation_minutes">min</string>
+    <string name="abbreviation_hours">h</string>
     <string name="dialog_yes_no_positive_button_delete_non_starred">Löschen</string>
     <string name="dialog_yes_no_positive_button_delete_recording">Löschen</string>
     <string name="dialog_yes_no_positive_button_default">Ja</string>
@@ -74,4 +74,32 @@
     <string name="dialog_generic_button_okay">OK</string>
     <string name="dialog_generic_button_cancel">Abbrechen</string>
     <string name="tab_settings">Einstellungen</string>
+    <string name="descr_statistics_sheet_edit_button">Taste für „Strecke bearbeiten“</string>
+    <string name="descr_mark_starred_button">Taste für „Markieren“</string>
+    <string name="pref_delete_non_starred_summary">Alle Aufnahmen in „Strecken“ löschen, die nicht markiert sind.</string>
+    <string name="toast_message_save_gpx">Aufnahme wird als GPX gepeichert.</string>
+    <string name="dialog_yes_no_message_delete_non_starred">Alle nicht markierten Aufnahmen löschen\? Dies kann nicht rückgängig gemacht werden.</string>
+    <string name="pref_delete_non_starred_title">Lösche alle nicht markierten Aufnahmen</string>
+    <string name="pref_gps_only_summary_gps_only">Zur Ortung wird derzeit nur GPS verwendet.</string>
+    <string name="pref_gps_only_summary_gps_and_network">Zur Ortung werden derzeit GPS und Netzwerk verwendet.</string>
+    <string name="pref_theme_selection_title">Design der Anwendung</string>
+    <string name="pref_theme_selection_summary">Aktuelles Design:</string>
+    <string name="pref_reset_advanced_title">Zurücksetzen</string>
+    <string name="pref_reset_advanced_summary">Erweiterte Einstellungen auf Standardwerte zurücksetzen.</string>
+    <string name="pref_imperial_measurement_units_title">Imperiale Maße verwenden</string>
+    <string name="pref_imperial_measurement_units_summary_imperial">Derzeit werden imperiale Einheiten (Meilen, Fuß) verwendet.</string>
+    <string name="pref_imperial_measurement_units_summary_metric">Derzeit werden metrische Einheiten (Kilometer, Meter) verwendet.</string>
+    <string name="pref_gps_only_title">Auf GPS beschränken</string>
+    <string name="pref_maintenance_title">Instandhaltung</string>
+    <string name="pref_general_title">Generell</string>
+    <string name="pref_advanced_title">Erweitert</string>
+    <string name="pref_accuracy_threshold_title">Genauigkeits-Schwellenwert</string>
+    <string name="pref_accuracy_threshold_summary">Ortsfixierungen verwerfen, mit einer Genauigkeit größer als:</string>
+    <string name="descr_quick_settings_tile_title_stop">Aufnahme stoppen</string>
+    <string name="quick_settings_tile_title_stop">Aufnahme stoppen</string>
+    <string name="snackbar_message_location_permission_denied">Genehmigung für Standortdienste nicht erteilt. Trackbook wird nicht funktionieren.</string>
+    <string name="tab_tracks">Strecken</string>
+    <string name="descr_quick_settings_tile_title_start">Aufnahme starten</string>
+    <string name="quick_settings_tile_title_start">Aufnahme starten</string>
+    <string name="quick_settings_tile_title_default">Aufnahme</string>
 </resources>
