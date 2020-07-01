@@ -25,6 +25,7 @@
     <string name="dialog_error_empty_recording_message">Trackbook hat noch keine Wegpunkte aufgenommen.</string>
     <string name="dialog_error_empty_recording_action_resume">Aufnahme fortsetzen</string>
     <!-- toast messages -->
+    <string name="toast_message_copied_to_clipboard">In die Zwischenablage kopiert.</string>
     <string name="toast_message_elevation_info">Hinweis: Die Genauigkeit der Höhenmeter-Werte ist geräteabhängig. Gemessen werden Steigungen und Gefälle der Gesamtstrecke.</string>
     <string name="toast_message_install_file_helper">Speichern nicht möglich. Bitte zunächst einen Dateimanager installieren.</string>
     <!-- map markers -->

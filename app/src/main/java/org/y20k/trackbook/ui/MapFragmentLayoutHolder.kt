@@ -90,6 +90,7 @@ data class MapFragmentLayoutHolder(var context: Context, var inflater: LayoutInf
         // basic map setup
         controller = mapView.controller
         mapView.isTilesScaledToDpi = true
+        mapView.setTilesScaledToDpi(true)
         mapView.setTileSource(TileSourceFactory.MAPNIK)
         mapView.setMultiTouchControls(true)
         mapView.zoomController.setVisibility(org.osmdroid.views.CustomZoomButtonsController.Visibility.NEVER)

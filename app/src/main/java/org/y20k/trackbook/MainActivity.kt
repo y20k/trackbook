@@ -19,7 +19,10 @@ package org.y20k.trackbook
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.os.Build
 import android.os.Bundle
+import android.os.StrictMode
+import android.os.StrictMode.VmPolicy
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -49,6 +52,16 @@ class MainActivity : AppCompatActivity() {
     /* Overrides onCreate from AppCompatActivity */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // todo remove after testing finished
+        if (BuildConfig.DEBUG && Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            StrictMode.setVmPolicy(
+                VmPolicy.Builder()
+                    .detectNonSdkApiUsage()
+                    .penaltyLog()
+                    .build()
+            )
+        }
 
         // set user agent to prevent getting banned from the osm servers
         Configuration.getInstance().userAgentValue = BuildConfig.APPLICATION_ID

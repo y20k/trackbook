@@ -29,6 +29,7 @@
         android:background="@drawable/shape_statistics_background_collapsed"
         app:behavior_hideable="false"
         app:behavior_peekHeight="54dp"
+        app:gestureInsetBottomIgnored="true"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
         <ScrollView
