@@ -102,4 +102,10 @@
     <string name="pref_delete_non_starred_title">Suprimmer les enregistrements non marqués comme favoris</string>
     <string name="pref_maintenance_title">Maintenance</string>
     <string name="statistics_sheet_p_velocity">Vitesse moyenne :</string>
+    <string name="pref_report_issue_title">Signaler un problème</string>
+    <string name="pref_report_issue_summary">Signalez des problèmes ou proposez des améliorations sur GitHub.</string>
+    <string name="pref_app_version_title">Version de l\'application</string>
+    <string name="pref_app_version_summary">Version</string>
+    <string name="pref_about_title">À propos</string>
+    <string name="toast_message_copied_to_clipboard">Copié dans le presse-papiers.</string>
 </resources>
