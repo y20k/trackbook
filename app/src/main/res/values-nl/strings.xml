@@ -102,4 +102,10 @@
     <string name="pref_delete_non_starred_title">Alle niet-favoriete opnames verwijderen</string>
     <string name="pref_maintenance_title">Beheer</string>
     <string name="statistics_sheet_p_velocity">Gemiddelde snelheid:</string>
+    <string name="pref_report_issue_title">Probleem melden</string>
+    <string name="pref_report_issue_summary">Meld bugs en deel je ideeën op GitHub.</string>
+    <string name="pref_app_version_title">Appversie</string>
+    <string name="pref_app_version_summary">Versie</string>
+    <string name="pref_about_title">Over</string>
+    <string name="toast_message_copied_to_clipboard">Gekopieerd naar klembord.</string>
 </resources>
