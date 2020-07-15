@@ -12,7 +12,7 @@
     <string name="descr_statistics_sheet_edit_button">Gumb za uređivanje puta</string>
     <string name="statistics_sheet_p_positive_elevation">Visinska razlika (uzbrdo):</string>
     <string name="statistics_sheet_p_negative_elevation">Visinska razlika (nizbrdo):</string>
-    <string name="pref_theme_selection_mode_light">Svijetla tema</string>
+    <string name="pref_theme_selection_mode_light">Svijetli modus</string>
     <string name="dialog_yes_no_positive_button_delete_recording">Izbriši</string>
     <string name="notification_stop">Prekini</string>
     <string name="fab_sub_menu_clear">Poništi</string>
@@ -43,7 +43,7 @@
     <string name="pref_reset_advanced_summary">Vrati sve napredne postavke na standardne vrijednosti.</string>
     <string name="pref_gps_only_summary_gps_and_network">Za određivanje lokacije trenutačno se koristi GPS i mreža.</string>
     <string name="quick_settings_tile_title_default">Snima se</string>
-    <string name="pref_theme_selection_mode_device_default">Ista kao i uređaj</string>
+    <string name="pref_theme_selection_mode_device_default">Isto kao uređaj</string>
     <string name="tab_map">Karta</string>
     <string name="marker_description_accuracy">Točnost</string>
     <string name="snackbar_message_location_offline">Lokaliziranje je isključeno. Trackbook neće raditi.</string>
@@ -73,7 +73,7 @@
     <string name="pref_reset_advanced_title">Vrati na standardne vrijednosti</string>
     <string name="notification_title_trackbook_not_running">Trackbook ne radi</string>
     <string name="statistics_sheet_p_recording_paused">Snimanje zaustavljeno:</string>
-    <string name="pref_theme_selection_mode_dark">Tamna tema</string>
+    <string name="pref_theme_selection_mode_dark">Tamni modus</string>
     <string name="descr_statistics_sheet_save_button">Gumb za spremanje u GPX formatu</string>
     <string name="pref_delete_non_starred_summary">Izbriši sve snimke u „Rute”, koje nisu označene.</string>
     <string name="dialog_yes_no_positive_button_default">Da</string>
