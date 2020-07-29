@@ -328,7 +328,7 @@ object FileHelper {
     }
 
 
-    /* Deletes multiple tracks track */
+    /* Deletes multiple tracks */
     private fun deleteTracks(context: Context, tracklistElements: MutableList<TracklistElement>, tracklist: Tracklist): Tracklist {
         tracklistElements.forEach { tracklistElement ->
             // delete track files
