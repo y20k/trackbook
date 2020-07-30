@@ -102,4 +102,12 @@
     <string name="pref_maintenance_title">Vedlikehold</string>
     <string name="dialog_yes_no_positive_button_delete_non_starred">Slett</string>
     <string name="statistics_sheet_p_velocity">Gjennomsnittsfart:</string>
+    <string name="pref_report_issue_title">Innrapporter problem</string>
+    <string name="pref_report_issue_summary">Innrapporter feil og foreslå forbedringer på GitHub.</string>
+    <string name="pref_app_version_title">Programversjon</string>
+    <string name="pref_app_version_summary">Versjon</string>
+    <string name="pref_about_title">Om</string>
+    <string name="toast_message_poi_added">Interessepunktmarkør lagt til.</string>
+    <string name="toast_message_poi_removed">Interessepunktmarkør fjernet.</string>
+    <string name="toast_message_copied_to_clipboard">Kopiert til utklippstavle.</string>
 </resources>
