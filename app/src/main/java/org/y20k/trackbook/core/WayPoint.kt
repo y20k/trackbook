@@ -37,7 +37,8 @@ data class WayPoint(@Expose val provider: String,
                     @Expose val time: Long,
                     @Expose val distanceToStartingPoint: Float = 0f,
                     @Expose val numberSatellites: Int = 0,
-                    @Expose var isStopOver: Boolean = false): Parcelable {
+                    @Expose var isStopOver: Boolean = false,
+                    @Expose var starred: Boolean = false): Parcelable {
 
 
     /* Converts WayPoint into Location */

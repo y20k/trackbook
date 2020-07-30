@@ -43,6 +43,8 @@
     <string name="toast_message_copied_to_clipboard">Copied to clipboard.</string>
     <string name="toast_message_elevation_info">Hint: The accuracy of elevation data depends on your device. The uphill and downhill elevation of the whole route is measured.</string>
     <string name="toast_message_install_file_helper">Unable to save. Please install a file manager first.</string>
+    <string name="toast_message_poi_added">Point of interest marker added.</string>
+    <string name="toast_message_poi_removed">Point of interest marker removed.</string>
     <string name="toast_message_save_gpx">Saving recording as GPX.</string>
     <!-- Map Markers -->
     <string name="marker_description_time">Time</string>

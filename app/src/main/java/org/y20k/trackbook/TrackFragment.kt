@@ -41,10 +41,12 @@ import org.y20k.trackbook.core.Track
 import org.y20k.trackbook.dialogs.RenameTrackDialog
 import org.y20k.trackbook.helpers.FileHelper
 import org.y20k.trackbook.helpers.LogHelper
+import org.y20k.trackbook.helpers.MapOverlay
+import org.y20k.trackbook.helpers.TrackHelper
 import org.y20k.trackbook.ui.TrackFragmentLayoutHolder
 
 
-class TrackFragment : Fragment(), RenameTrackDialog.RenameTrackListener, YesNoDialog.YesNoDialogListener {
+class TrackFragment : Fragment(), RenameTrackDialog.RenameTrackListener, YesNoDialog.YesNoDialogListener, MapOverlay.MarkerListener {
 
     /* Define log tag */
     private val TAG: String = LogHelper.makeLogTag(TrackFragment::class.java)
@@ -71,7 +73,7 @@ class TrackFragment : Fragment(), RenameTrackDialog.RenameTrackListener, YesNoDi
     /* Overrides onCreateView from Fragment */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // initialize layout
-        layout = TrackFragmentLayoutHolder(activity as Context, inflater, container, track)
+        layout = TrackFragmentLayoutHolder(activity as Context, this as MapOverlay.MarkerListener, inflater, container, track)
 
         // set up share button
         layout.shareButton.setOnClickListener {
@@ -162,6 +164,19 @@ class TrackFragment : Fragment(), RenameTrackDialog.RenameTrackListener, YesNoDi
     }
 
 
+    /* Overrides onMarkerTapped from MarkerListener */
+    override fun onMarkerTapped(latitude: Double, longitude: Double) {
+        super.onMarkerTapped(latitude, longitude)
+        // update track display
+        track = TrackHelper.toggleStarred(activity as Context, track, latitude, longitude)
+        layout.updateTrackOverlay(track)
+        // save track
+        GlobalScope.launch {
+            FileHelper.saveTrackSuspended(track, true)
+        }
+    }
+
+
     /* Opens up a file picker to select the save location */
     private fun openSaveGpxDialog() {
         val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
@@ -182,7 +197,7 @@ class TrackFragment : Fragment(), RenameTrackDialog.RenameTrackListener, YesNoDi
     /* Share track as GPX via share sheet */
     private fun shareGpxTrack() {
         val gpxFile = Uri.parse(layout.track.gpxUriString).toFile()
-        val gpxShareUri = FileProvider.getUriForFile(this.activity as Context, "${activity!!.applicationContext.packageName}.provider", gpxFile)
+        val gpxShareUri = FileProvider.getUriForFile(this.activity as Context, "${requireActivity().applicationContext.packageName}.provider", gpxFile)
         val shareIntent: Intent = Intent.createChooser(Intent().apply {
             action = Intent.ACTION_SEND
             data = gpxShareUri

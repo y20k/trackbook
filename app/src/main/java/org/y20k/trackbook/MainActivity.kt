@@ -30,7 +30,6 @@ import androidx.preference.PreferenceManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.osmdroid.config.Configuration
 import org.y20k.trackbook.helpers.AppThemeHelper
-import org.y20k.trackbook.helpers.ImportHelper
 import org.y20k.trackbook.helpers.LogHelper
 import org.y20k.trackbook.helpers.PreferencesHelper
 
@@ -89,12 +88,6 @@ class MainActivity : AppCompatActivity() {
                     // do nothing
                 }
             }
-        }
-
-        // convert old tracks (one-time import)
-        if (PreferencesHelper.isHouseKeepingNecessary(this)) {
-            ImportHelper.convertOldTracks(this)
-            PreferencesHelper.saveHouseKeepingNecessaryState(this)
         }
 
         // register listener for changes in shared preferences

@@ -57,7 +57,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_star_border_24dp" />
+            app:srcCompat="@drawable/ic_star_outline_24dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

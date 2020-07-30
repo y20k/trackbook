@@ -36,12 +36,18 @@ import java.util.*
 
 
 /*
- * MapHelper object
+ * MapHelper class
  */
-object MapHelper {
+class MapOverlay (private var markerListener: MarkerListener)  {
+
+    /* Interface used to communicate back to activity/fragment */
+    interface MarkerListener {
+        fun onMarkerTapped(latitude: Double, longitude: Double) {
+        }
+    }
 
     /* Define log tag */
-    private val LOG_TAG = MapHelper::class.java.simpleName
+    private val TAG = MapOverlay::class.java.simpleName
 
 
     /* Creates icon overlay for current position (used in MapFragment) */
@@ -93,16 +99,22 @@ object MapHelper {
             when (trackingState) {
                 // CASE: Recording is active
                 Keys.STATE_TRACKING_ACTIVE -> {
-                    when (wayPoint.isStopOver) {
-                        true -> newMarker = ContextCompat.getDrawable(context, R.drawable.ic_marker_track_location_grey_24dp)!!
-                        false -> newMarker = ContextCompat.getDrawable(context, R.drawable.ic_marker_track_location_red_24dp)!!
+                    if (wayPoint.starred) {
+                        newMarker = ContextCompat.getDrawable(context, R.drawable.ic_star_red_24dp)!!
+                    } else if (wayPoint.isStopOver) {
+                        newMarker = ContextCompat.getDrawable(context, R.drawable.ic_marker_track_location_grey_24dp)!!
+                    } else {
+                        newMarker = ContextCompat.getDrawable(context, R.drawable.ic_marker_track_location_red_24dp)!!
                     }
                 }
                 // CASE: Recording is paused/stopped
                 else -> {
-                    when (wayPoint.isStopOver) {
-                        true -> newMarker = ContextCompat.getDrawable(context, R.drawable.ic_marker_track_location_grey_24dp)!!
-                        false -> newMarker = ContextCompat.getDrawable(context, R.drawable.ic_marker_track_location_blue_24dp)!!
+                    if (wayPoint.starred) {
+                        newMarker = ContextCompat.getDrawable(context, R.drawable.ic_star_blue_24dp)!!
+                    } else if (wayPoint.isStopOver) {
+                        newMarker = ContextCompat.getDrawable(context, R.drawable.ic_marker_track_location_grey_24dp)!!
+                    } else {
+                        newMarker = ContextCompat.getDrawable(context, R.drawable.ic_marker_track_location_blue_24dp)!!
                     }
                 }
             }
@@ -121,7 +133,8 @@ object MapHelper {
     /* Creates a marker overlay item */
     private fun createOverlayItem(context: Context, latitude: Double, longitude: Double, accuracy: Float, provider: String, time: Long): OverlayItem {
         val title: String = "${context.getString(R.string.marker_description_time)}: ${SimpleDateFormat.getTimeInstance(SimpleDateFormat.MEDIUM, Locale.getDefault()).format(time)}"
-        val description: String = "${context.getString(R.string.marker_description_accuracy)}: ${DecimalFormat("#0.00").format(accuracy)} (${provider})"
+        //val description: String = "${context.getString(R.string.marker_description_accuracy)}: ${DecimalFormat("#0.00").format(accuracy)} (${provider})"
+        val description: String = "${context.getString(R.string.marker_description_time)}: ${SimpleDateFormat.getTimeInstance(SimpleDateFormat.MEDIUM, Locale.getDefault()).format(time)} | ${context.getString(R.string.marker_description_accuracy)}: ${DecimalFormat("#0.00").format(accuracy)} (${provider})"
         val position: GeoPoint = GeoPoint(latitude, longitude)
         return OverlayItem(title, description, position)
     }
@@ -129,10 +142,10 @@ object MapHelper {
 
     /* Creates an overlay */
     private fun createOverlay(context: Context, overlayItems: ArrayList<OverlayItem>): ItemizedIconOverlay<OverlayItem> {
-        return ItemizedIconOverlay(overlayItems,
+        return ItemizedIconOverlay<OverlayItem>(context, overlayItems,
             object : ItemizedIconOverlay.OnItemGestureListener<OverlayItem> {
                 override fun onItemSingleTapUp(index: Int, item: OverlayItem): Boolean {
-                    Toast.makeText(context, item.title, Toast.LENGTH_LONG).show()
+                    markerListener.onMarkerTapped(item.point.latitude, item.point.longitude)
                     return true
                 }
                 override fun onItemLongPress(index: Int, item: OverlayItem): Boolean {
@@ -141,8 +154,7 @@ object MapHelper {
                     Toast.makeText(context, item.snippet, Toast.LENGTH_LONG).show()
                     return true
                 }
-            }, context)
+            })
     }
-
 
 }

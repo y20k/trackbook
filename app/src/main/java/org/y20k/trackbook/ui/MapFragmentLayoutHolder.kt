@@ -44,14 +44,14 @@ import org.y20k.trackbook.R
 import org.y20k.trackbook.core.Track
 import org.y20k.trackbook.helpers.AppThemeHelper
 import org.y20k.trackbook.helpers.LogHelper
-import org.y20k.trackbook.helpers.MapHelper
+import org.y20k.trackbook.helpers.MapOverlay
 import org.y20k.trackbook.helpers.PreferencesHelper
 
 
 /*
  * MapFragmentLayoutHolder class
  */
-data class MapFragmentLayoutHolder(var context: Context, var inflater: LayoutInflater, var container: ViewGroup?, val startLocation: Location, val trackingState: Int) {
+data class MapFragmentLayoutHolder(private var context: Context, private var markerListener: MapOverlay.MarkerListener, private var inflater: LayoutInflater, private var container: ViewGroup?, private val startLocation: Location, private val trackingState: Int) {
 
     /* Define log tag */
     private val TAG: String = LogHelper.makeLogTag(MapFragmentLayoutHolder::class.java)
@@ -109,7 +109,7 @@ data class MapFragmentLayoutHolder(var context: Context, var inflater: LayoutInf
         mapView.overlays.add(compassOverlay)
 
         // add my location overlay
-        currentPositionOverlay = MapHelper.createMyLocationOverlay(context, startLocation, trackingState)
+        currentPositionOverlay = MapOverlay(markerListener).createMyLocationOverlay(context, startLocation, trackingState)
         mapView.overlays.add(currentPositionOverlay)
         centerMap(startLocation)
 
@@ -157,7 +157,7 @@ data class MapFragmentLayoutHolder(var context: Context, var inflater: LayoutInf
     /* Mark current position on map */
     fun markCurrentPosition(location: Location, trackingState: Int = Keys.STATE_TRACKING_NOT) {
         mapView.overlays.remove(currentPositionOverlay)
-        currentPositionOverlay = MapHelper.createMyLocationOverlay(context, location, trackingState)
+        currentPositionOverlay = MapOverlay(markerListener).createMyLocationOverlay(context, location, trackingState)
         mapView.overlays.add(currentPositionOverlay)
     }
 
@@ -168,7 +168,7 @@ data class MapFragmentLayoutHolder(var context: Context, var inflater: LayoutInf
             mapView.overlays.remove(currentTrackOverlay)
         }
         if (track.wayPoints.isNotEmpty()) {
-            currentTrackOverlay = MapHelper.createTrackOverlay(context, track, trackingState)
+            currentTrackOverlay = MapOverlay(markerListener).createTrackOverlay(context, track, trackingState)
             mapView.overlays.add(currentTrackOverlay)
         }
     }

@@ -10,7 +10,7 @@ android {
     defaultConfig {
         applicationId 'org.y20k.trackbook'
         minSdkVersion 25
-        targetSdkVersion 27
+        targetSdkVersion 29
         versionCode 42
         versionName '2.0.5'
         resConfigs "en", "da", "de", "fr", "hr", "id", "it", "ja", "nb-rNO", "nl", "sv", "zh-rCN"

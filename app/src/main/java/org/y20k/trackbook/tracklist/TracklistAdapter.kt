@@ -88,8 +88,8 @@ class TracklistAdapter(private val fragment: Fragment) : RecyclerView.Adapter<Re
         trackElementViewHolder.trackNameView.text = tracklist.tracklistElements[position].name
         trackElementViewHolder.trackDataView.text = createTrackDataString(position)
         when (tracklist.tracklistElements[position].starred) {
-            true -> trackElementViewHolder.starButton.setImageDrawable(context.getDrawable(R.drawable.ic_star_24dp))
-            false -> trackElementViewHolder.starButton.setImageDrawable(context.getDrawable(R.drawable.ic_star_border_24dp))
+            true -> trackElementViewHolder.starButton.setImageDrawable(context.getDrawable(R.drawable.ic_star_filled_24dp))
+            false -> trackElementViewHolder.starButton.setImageDrawable(context.getDrawable(R.drawable.ic_star_outline_24dp))
         }
         trackElementViewHolder.trackElement.setOnClickListener {
             tracklistListener.onTrackElementTapped(tracklist.tracklistElements[position])
@@ -134,11 +134,11 @@ class TracklistAdapter(private val fragment: Fragment) : RecyclerView.Adapter<Re
         val starButton: ImageButton = view as ImageButton
         when (tracklist.tracklistElements[position].starred) {
             true -> {
-                starButton.setImageDrawable(context.getDrawable(R.drawable.ic_star_border_24dp))
+                starButton.setImageDrawable(context.getDrawable(R.drawable.ic_star_outline_24dp))
                 tracklist.tracklistElements[position].starred = false
             }
             false -> {
-                starButton.setImageDrawable(context.getDrawable(R.drawable.ic_star_24dp))
+                starButton.setImageDrawable(context.getDrawable(R.drawable.ic_star_filled_24dp))
                 tracklist.tracklistElements[position].starred = true
             }
         }

@@ -106,7 +106,6 @@ object LengthUnitHelper {
             // speed in km/h / mph
             val velocity: Double = convertMetersPerSecond((trackLength / duration), useImperialUnits)
             // create readable speed string
-            LogHelper.e("TAG", "duration = $duration velocity = $velocity")
             var bd: BigDecimal = BigDecimal.valueOf(velocity)
             bd = bd.setScale(1, RoundingMode.HALF_UP)
             speed = bd.toPlainString()
