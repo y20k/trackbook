@@ -95,4 +95,6 @@
     <string name="pref_app_version_summary">Verzija</string>
     <string name="pref_about_title">Informacije</string>
     <string name="toast_message_copied_to_clipboard">Kopirano u međuspremnik.</string>
+    <string name="toast_message_poi_removed">Oznaka točke interesa uklonjena.</string>
+    <string name="toast_message_poi_added">Oznaka točke interesa dodana.</string>
 </resources>
