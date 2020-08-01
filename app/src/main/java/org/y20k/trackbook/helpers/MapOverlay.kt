@@ -21,6 +21,8 @@ package org.y20k.trackbook.helpers
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.location.Location
+import android.os.Build
+import android.os.VibrationEffect
 import android.os.Vibrator
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -226,7 +228,15 @@ class MapOverlay(private var markerListener: MarkerListener) {
 
                 override fun onItemLongPress(index: Int, item: OverlayItem): Boolean {
                     val v = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-                    v.vibrate(50)
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        v.vibrate(
+                            VibrationEffect.createOneShot(
+                                50, VibrationEffect.DEFAULT_AMPLITUDE
+                            )
+                        )
+                    } else {
+                        v.vibrate(50)
+                    }
                     Toast.makeText(context, item.snippet, Toast.LENGTH_LONG).show()
                     return true
                 }

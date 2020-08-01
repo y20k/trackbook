@@ -24,7 +24,9 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.VibrationEffect
 import android.os.Vibrator
 import android.view.LayoutInflater
 import android.view.View
@@ -93,7 +95,11 @@ class TrackFragment : Fragment(), RenameTrackDialog.RenameTrackListener,
         }
         layout.shareButton.setOnLongClickListener {
             val v = (activity as Context).getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-            v.vibrate(50)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                v.vibrate(VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE))
+            } else {
+                v.vibrate(50)
+            }
             shareGpxTrack()
             return@setOnLongClickListener true
         }
