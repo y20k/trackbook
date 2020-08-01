@@ -1,17 +1,17 @@
-Trackbook is a bare bones app for recording your movements. Trackbook is great for hiking, vacation or workout. Once started it traces your movements on a map. The map data is provided by OpenStreetMap (OSM).
+Trackbook is a bare-bones app for recording your movements. Trackbook is great for hiking, vacationing, or working out. Once started, it traces your movements on a map. The map data is provided by OpenStreetMap (OSM).
 
-Trackbook is free software. It is published under the MIT open source license. Trackbook uses osmdroid to display the map, which is also free software published under the Apache License.
+Trackbook is free software. It is published under the MIT open-source license. Trackbook uses osmdroid to display the map, which is also free software published under the Apache License.
 
 GOOD TO KNOW
 ------------
 
 START RECORDING VIA QUICK SETTINGS TILE
-You can start a recording without opening Trackbook. Just pull down the System's Quick Settings and tap on the Start Recording tile. You need to manually add Trackbook's Recording tile to Quick Settings first. Information on customizing Quick Settings:
-https://support.google.com/android/answer/9083864?hl=en
+You can start a recording without opening Trackbook. Just pull down the System's Quick Settings and tap on the Start Recording tile. You'll need to manually add Trackbook's Recording tile to Quick Settings first. Information on customizing Quick Settings:
+https://support.google.com/android/answer/9083864
 https://www.xda-developers.com/get-custom-quick-settings-tiles/
 
 SAVE RECORDINGS AS GPX
-Recordings can be exported as GPX (GPS Exchange Format). Tap on the save button in the lower right corner of a previously recorded track.
+Recordings can be exported as GPX (GPS Exchange Format). Tap on the save button in the lower-right corner of a previously recorded track.
 
 COPY GPX FILES MANUALLY
 Trackbook automatically generates GPX files for every recording. You can find them in the folder /Android/data/org.y20k.trackbook/files/gpx/ on your device's storage.
@@ -23,7 +23,7 @@ HOW DOES TRACKBOOK MEASURE ALTITUDE?
 Many devices have altitude sensors (of varying accuracy). Trackbook compares the altitude of each new marker with the previously stored altitude. The difference is added to either the uphill or downhill elevation value.
 
 WHAT DOES ACCURACY THRESHOLD MEAN?
-Every location fix, that Trackbook receives, is associated with an accuracy estimate. You can look up, how Android defines accuracy, in the developer documentation. "Accuracy Threshold" is the value, from which on location fixes are rejected. It can be adjusted in Trackbook's settings. You can increase the value, if your recordings tend to be incomplete. Trackbook will then also record less accurate location fixes.
+Every location fix that Trackbook receives is associated with an accuracy estimate. You can look up how Android defines accuracy in the developer documentation. "Accuracy Threshold" is the value from which location fixes are rejected. It can be adjusted in Trackbook's settings. You can increase the value if your recordings tend to be incomplete. Trackbook will then also record less accurate location fixes.
 
 WHERE ARE MY OLD RECORDINGS?
 ----------------------------
@@ -31,6 +31,6 @@ The F-Droid version of Trackbook features an auto-importer for old recordings. S
 
 A WORD ON PRIVACY
 -----------------
-Trackbook begins to store location data on device as soon a user presses the record button. Those recordings are stored in the directory /Android/data/org.y20k.trackbook/files/. They never leave the device. There is no web-service backing Trackbook.
+Trackbook begins to store location data on a device as soon as a user presses the record button. Those recordings are stored in the directory /Android/data/org.y20k.trackbook/files/. They never leave the device. There is no web-service backing Trackbook.
 
-Trackbook does not use Google Play Services to get its location data. It will however try to use data from the NETWORK_PROVIDER on your device to augment the location data it received via GPS. The NETWORK_PROVIDER is a system-wide service, that Trackbook has no control over. This service will usually query an online database for the location of cell towers or Wi-Fi access points a device can see. You can prevent those kinds of requests on your device, if you set the location preferences system-wide to "Device Only". Additionally Trackbook offers a "Restrict to GPS" setting, that deactivates the NETWORK_PROVIDER just within the app.
+Trackbook does not use Google Play Services to get its location data. It will, however, try to use data from the NETWORK_PROVIDER on your device to augment the location data it received via GPS. The NETWORK_PROVIDER is a system-wide service that Trackbook has no control over. This service will usually query an online database for the location of cell towers or Wi-Fi access points a device can see. You can prevent those kinds of requests on your device if you set the location preferences system-wide to "Device Only". Additionally, Trackbook offers a "Restrict to GPS" setting that deactivates the NETWORK_PROVIDER just within the app.
