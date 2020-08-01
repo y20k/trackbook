@@ -29,6 +29,10 @@ android {
         disable 'MissingTranslation', 'GoogleAppIndexingWarning'
     }
 
+    packagingOptions {
+        exclude 'META-INF/*'
+    }
+
     buildTypes {
         release {
             minifyEnabled true
