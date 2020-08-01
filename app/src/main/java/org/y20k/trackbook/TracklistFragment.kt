@@ -82,7 +82,7 @@ class TracklistFragment : Fragment(), TracklistAdapter.TracklistAdapterListener,
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 // ask user
                 val adapterPosition: Int = viewHolder.adapterPosition
-                val dialogMessage: String =
+                val dialogMessage =
                     "${getString(R.string.dialog_yes_no_message_delete_recording)}\n\n- ${tracklistAdapter.getTrackName(
                         adapterPosition
                     )}"
@@ -107,7 +107,7 @@ class TracklistFragment : Fragment(), TracklistAdapter.TracklistAdapterListener,
 
     /* Overrides onTrackElementTapped from TracklistElementAdapterListener */
     override fun onTrackElementTapped(tracklistElement: TracklistElement) {
-        val bundle: Bundle = Bundle()
+        val bundle = Bundle()
         bundle.putString(Keys.ARG_TRACK_TITLE, tracklistElement.name)
         bundle.putString(Keys.ARG_TRACK_FILE_URI, tracklistElement.trackUriString)
         bundle.putString(Keys.ARG_GPX_FILE_URI, tracklistElement.gpxUriString)

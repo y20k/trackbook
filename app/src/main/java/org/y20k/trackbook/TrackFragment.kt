@@ -64,10 +64,10 @@ class TrackFragment : Fragment(), RenameTrackDialog.RenameTrackListener,
         // get track
         val fileUriString: String =
             arguments?.getString(Keys.ARG_TRACK_FILE_URI, String()) ?: String()
-        if (fileUriString.isNotBlank()) {
-            track = FileHelper.readTrack(activity as Context, Uri.parse(fileUriString))
+        track = if (fileUriString.isNotBlank()) {
+            FileHelper.readTrack(Uri.parse(fileUriString))
         } else {
-            track = Track()
+            Track()
         }
     }
 
@@ -99,7 +99,7 @@ class TrackFragment : Fragment(), RenameTrackDialog.RenameTrackListener,
         }
         // set up delete button
         layout.deleteButton.setOnClickListener {
-            val dialogMessage: String =
+            val dialogMessage =
                 "${getString(R.string.dialog_yes_no_message_delete_recording)}\n\n- ${layout.trackNameView.text}"
             YesNoDialog(this@TrackFragment as YesNoDialog.YesNoDialogListener).show(
                 context = activity as Context,

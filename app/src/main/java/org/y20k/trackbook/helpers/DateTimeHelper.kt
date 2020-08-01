@@ -34,7 +34,7 @@ object DateTimeHelper {
 
     /* Converts milliseconds to mm:ss or hh:mm:ss */
     fun convertToReadableTime(context: Context, milliseconds: Long): String {
-        var timeString: String = String()
+        val timeString: String
         val hours: Long = TimeUnit.MILLISECONDS.toHours(milliseconds)
         val minutes: Long =
             TimeUnit.MILLISECONDS.toMinutes(milliseconds) % TimeUnit.HOURS.toMinutes(1)
@@ -44,14 +44,14 @@ object DateTimeHelper {
         val m: String = context.getString(R.string.abbreviation_minutes)
         val s: String = context.getString(R.string.abbreviation_seconds)
 
-        when (milliseconds >= Keys.ONE_HOUR_IN_MILLISECONDS) {
+        timeString = when (milliseconds >= Keys.ONE_HOUR_IN_MILLISECONDS) {
             // CASE: format hh:mm:ss
             true -> {
-                timeString = "$hours $h $minutes $m $seconds $s"
+                "$hours $h $minutes $m $seconds $s"
             }
             // CASE: format mm:ss
             false -> {
-                timeString = "$minutes $m $seconds $s"
+                "$minutes $m $seconds $s"
             }
         }
         return timeString
@@ -60,7 +60,7 @@ object DateTimeHelper {
 
     /* Create sortable string for date - used for filenames  */
     fun convertToSortableDateString(date: Date): String {
-        val dateFormat: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd-HH-mm-ss", Locale.US)
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd-HH-mm-ss", Locale.US)
         return dateFormat.format(date)
     }
 
@@ -85,7 +85,7 @@ object DateTimeHelper {
 
     /* Calculates time difference between two locations */
     fun calculateTimeDistance(previousLocation: Location?, location: Location): Long {
-        var timeDifference: Long = 0L
+        var timeDifference = 0L
         // two data points needed to calculate time difference
         if (previousLocation != null) {
             // get time difference

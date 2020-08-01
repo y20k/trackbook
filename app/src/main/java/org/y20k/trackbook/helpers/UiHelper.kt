@@ -41,7 +41,7 @@ object UiHelper {
 
 
     /* Sets layout margins for given view in DP */
-    fun setViewMargins(
+    private fun setViewMargins(
         context: Context,
         view: View,
         left: Int = 0,

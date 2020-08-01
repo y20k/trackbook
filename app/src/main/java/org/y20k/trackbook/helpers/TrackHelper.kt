@@ -47,9 +47,8 @@ object TrackHelper {
         tracklistElement.date.time
 
 
-    /* Adds given locatiom as waypoint to track */
+    /* Adds given location as waypoint to track */
     fun addWayPointToTrack(
-        context: Context,
         track: Track,
         location: Location,
         locationAccuracyThreshold: Int,
@@ -151,10 +150,10 @@ object TrackHelper {
             // save number of satellites
             val numberOfSatellites: Int
             val extras = location.extras
-            if (extras != null && extras.containsKey("satellites")) {
-                numberOfSatellites = extras.getInt("satellites", 0)
+            numberOfSatellites = if (extras != null && extras.containsKey("satellites")) {
+                extras.getInt("satellites", 0)
             } else {
-                numberOfSatellites = 0
+                0
             }
 
             // add current location as point to center on for later display
@@ -187,10 +186,9 @@ object TrackHelper {
 
     /* Creates GPX string for given track */
     fun createGpxString(track: Track): String {
-        var gpxString: String
 
         // add header
-        gpxString = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?>\n" +
+        var gpxString: String = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?>\n" +
                 "<gpx version=\"1.1\" creator=\"Trackbook App (Android)\"\n" +
                 "     xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
                 "     xsi:schemaLocation=\"http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd\">\n"

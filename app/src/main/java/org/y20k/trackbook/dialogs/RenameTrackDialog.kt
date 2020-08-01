@@ -45,7 +45,7 @@ class RenameTrackDialog(private var renameTrackListener: RenameTrackListener) {
     /* Construct and show dialog */
     fun show(context: Context, trackName: String) {
         // prepare dialog builder
-        val builder: MaterialAlertDialogBuilder = MaterialAlertDialogBuilder(context)
+        val builder = MaterialAlertDialogBuilder(context)
 
         // get input field
         val inflater = LayoutInflater.from(context)

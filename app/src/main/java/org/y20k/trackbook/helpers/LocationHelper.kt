@@ -40,7 +40,7 @@ object LocationHelper {
 
     /* Get default location */
     fun getDefaultLocation(): Location {
-        val defaultLocation: Location = Location(LocationManager.NETWORK_PROVIDER)
+        val defaultLocation = Location(LocationManager.NETWORK_PROVIDER)
         defaultLocation.latitude = Keys.DEFAULT_LATITUDE
         defaultLocation.longitude = Keys.DEFAULT_LONGITUDE
         defaultLocation.accuracy = Keys.DEFAULT_ACCURACY
@@ -75,10 +75,11 @@ object LocationHelper {
             val lastKnownLocationNetwork: Location =
                 locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
                     ?: lastKnownLocation
-            when (isBetterLocation(lastKnownLocationGps, lastKnownLocationNetwork)) {
-                true -> lastKnownLocation = lastKnownLocationGps
-                false -> lastKnownLocation = lastKnownLocationNetwork
-            }
+            lastKnownLocation =
+                when (isBetterLocation(lastKnownLocationGps, lastKnownLocationNetwork)) {
+                    true -> lastKnownLocationGps
+                    false -> lastKnownLocationNetwork
+                }
         }
         return lastKnownLocation
     }
@@ -127,20 +128,20 @@ object LocationHelper {
 
     /* Checks if GPS location provider is available and enabled */
     fun isGpsEnabled(locationManager: LocationManager): Boolean {
-        if (locationManager.allProviders.contains(LocationManager.GPS_PROVIDER)) {
-            return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+        return if (locationManager.allProviders.contains(LocationManager.GPS_PROVIDER)) {
+            locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
         } else {
-            return false
+            false
         }
     }
 
 
     /* Checks if Network location provider is available and enabled */
     fun isNetworkEnabled(locationManager: LocationManager): Boolean {
-        if (locationManager.allProviders.contains(LocationManager.NETWORK_PROVIDER)) {
-            return locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+        return if (locationManager.allProviders.contains(LocationManager.NETWORK_PROVIDER)) {
+            locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
         } else {
-            return false
+            false
         }
     }
 
@@ -154,14 +155,10 @@ object LocationHelper {
 
     /* Checks if given location is accurate */
     fun isAccurateEnough(location: Location, locationAccuracyThreshold: Int): Boolean {
-        val isAccurate: Boolean
-        when (location.provider) {
-            LocationManager.GPS_PROVIDER -> isAccurate =
-                location.accuracy < locationAccuracyThreshold
-            else -> isAccurate =
-                location.accuracy < locationAccuracyThreshold + 10 // a bit more relaxed when location comes from network provider
+        return when (location.provider) {
+            LocationManager.GPS_PROVIDER -> location.accuracy < locationAccuracyThreshold
+            else -> location.accuracy < locationAccuracyThreshold + 10 // a bit more relaxed when location comes from network provider
         }
-        return isAccurate
     }
 
 
@@ -204,10 +201,10 @@ object LocationHelper {
         val distanceThreshold: Float
         val averageAccuracy: Float = (previousLocation.accuracy + location.accuracy) / 2
         // increase the distance threshold if one or both locations are
-        if (averageAccuracy > Keys.DEFAULT_THRESHOLD_DISTANCE) {
-            distanceThreshold = averageAccuracy
+        distanceThreshold = if (averageAccuracy > Keys.DEFAULT_THRESHOLD_DISTANCE) {
+            averageAccuracy
         } else {
-            distanceThreshold = Keys.DEFAULT_THRESHOLD_DISTANCE
+            Keys.DEFAULT_THRESHOLD_DISTANCE
         }
         // location is different when far enough away from previous location
         return calculateDistance(previousLocation, location) > distanceThreshold
@@ -216,7 +213,7 @@ object LocationHelper {
 
     /* Calculates distance in meters between two locations */
     fun calculateDistance(previousLocation: Location?, location: Location): Float {
-        var distance: Float = 0f
+        var distance = 0f
         // two data points needed to calculate distance
         if (previousLocation != null) {
             // add up distance

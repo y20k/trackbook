@@ -63,7 +63,7 @@ data class TrackFragmentLayoutHolder(
 
 
     /* Main class variables */
-    val rootView: View
+    val rootView: View = inflater.inflate(R.layout.fragment_track, container, false)
     val shareButton: ImageButton
     val deleteButton: ImageButton
     val editButton: ImageButton
@@ -96,7 +96,6 @@ data class TrackFragmentLayoutHolder(
     /* Init block */
     init {
         // find views
-        rootView = inflater.inflate(R.layout.fragment_track, container, false)
         mapView = rootView.findViewById(R.id.map)
         shareButton = rootView.findViewById(R.id.save_button)
         deleteButton = rootView.findViewById(R.id.delete_button)
@@ -202,10 +201,9 @@ data class TrackFragmentLayoutHolder(
     private fun setupStatisticsViews() {
 
         // get step count string
-        val steps: String
-        if (track.stepCount == -1f) steps =
-            context.getString(R.string.statistics_sheet_p_steps_no_pedometer)
-        else steps = track.stepCount.roundToInt().toString()
+        val steps: String =
+            if (track.stepCount == -1f) context.getString(R.string.statistics_sheet_p_steps_no_pedometer)
+            else track.stepCount.roundToInt().toString()
 
         // populate views
         trackNameView.text = track.name

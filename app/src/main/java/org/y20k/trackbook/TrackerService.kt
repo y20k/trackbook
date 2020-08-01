@@ -48,7 +48,7 @@ import kotlin.coroutines.CoroutineContext
 /*
  * TrackerService class
  */
-class TrackerService() : Service(), CoroutineScope, SensorEventListener {
+class TrackerService : Service(), CoroutineScope, SensorEventListener {
 
     /* Define log tag */
     private val TAG: String = LogHelper.makeLogTag(TrackerService::class.java)
@@ -58,16 +58,16 @@ class TrackerService() : Service(), CoroutineScope, SensorEventListener {
     var trackingState: Int = Keys.STATE_TRACKING_NOT
     var gpsProviderActive: Boolean = false
     var networkProviderActive: Boolean = false
-    var useImperial: Boolean = false
-    var gpsOnly: Boolean = false
+    private var useImperial: Boolean = false
+    private var gpsOnly: Boolean = false
     var locationAccuracyThreshold: Int = Keys.DEFAULT_THRESHOLD_LOCATION_ACCURACY
     var currentBestLocation: Location = LocationHelper.getDefaultLocation()
-    var stepCountOffset: Float = 0f
+    private var stepCountOffset: Float = 0f
     var resumed: Boolean = false
     var track: Track = Track()
-    var gpsLocationListenerRegistered: Boolean = false
-    var networkLocationListenerRegistered: Boolean = false
-    var bound: Boolean = false
+    private var gpsLocationListenerRegistered: Boolean = false
+    private var networkLocationListenerRegistered: Boolean = false
+    private var bound: Boolean = false
     private val binder = LocalBinder()
     private val handler: Handler = Handler()
     private lateinit var locationManager: LocationManager
@@ -99,7 +99,7 @@ class TrackerService() : Service(), CoroutineScope, SensorEventListener {
         networkLocationListener = createLocationListener()
         trackingState = PreferencesHelper.loadTrackingState(this)
         currentBestLocation = LocationHelper.getLastKnownLocation(this)
-        track = FileHelper.readTrack(this, FileHelper.getTempFileUri(this))
+        track = FileHelper.readTrack(FileHelper.getTempFileUri(this))
         backgroundJob = Job()
         PreferenceManager.getDefaultSharedPreferences(this)
             .registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener)
@@ -194,7 +194,7 @@ class TrackerService() : Service(), CoroutineScope, SensorEventListener {
 
     /* Overrides onSensorChanged from SensorEventListener */
     override fun onSensorChanged(sensorEvent: SensorEvent?) {
-        var steps: Float = 0f
+        var steps = 0f
         if (sensorEvent != null) {
             if (stepCountOffset == 0f) {
                 // store steps previously recorded by the system
@@ -212,11 +212,11 @@ class TrackerService() : Service(), CoroutineScope, SensorEventListener {
     /* Resume tracking after stop/pause */
     fun resumeTracking() {
         // load temp track - returns an empty track if not available
-        track = FileHelper.readTrack(this, FileHelper.getTempFileUri(this))
+        track = FileHelper.readTrack(FileHelper.getTempFileUri(this))
         // try to mark last waypoint as stopover
         if (track.wayPoints.size > 0) {
             val lastWayPointIndex = track.wayPoints.size - 1
-            track.wayPoints.get(lastWayPointIndex).isStopOver = true
+            track.wayPoints[lastWayPointIndex].isStopOver = true
         }
         // set resumed flag
         resumed = true
@@ -480,7 +480,7 @@ class TrackerService() : Service(), CoroutineScope, SensorEventListener {
      * Defines the listener for changes in shared preferences
      */
     private val sharedPreferenceChangeListener =
-        SharedPreferences.OnSharedPreferenceChangeListener { sharedPreferences, key ->
+        SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
             when (key) {
                 // preference "Restrict to GPS"
                 Keys.PREF_GPS_ONLY -> {
@@ -524,7 +524,6 @@ class TrackerService() : Service(), CoroutineScope, SensorEventListener {
         override fun run() {
             // add waypoint to track - step count is continuously updated in onSensorChanged
             val result: Pair<Track, Boolean> = TrackHelper.addWayPointToTrack(
-                this@TrackerService,
                 track,
                 currentBestLocation,
                 locationAccuracyThreshold,

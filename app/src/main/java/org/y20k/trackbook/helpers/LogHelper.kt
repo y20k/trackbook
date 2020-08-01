@@ -78,9 +78,9 @@ object LogHelper {
 
     private fun log(tag: String, level: Int, t: Throwable?, vararg messages: Any) {
         val message: String
-        if (t == null && messages.size == 1) {
+        message = if (t == null && messages.size == 1) {
             // handle this common case without the extra cost of creating a stringbuffer:
-            message = messages[0].toString()
+            messages[0].toString()
         } else {
             val sb = StringBuilder()
             for (m in messages) {
@@ -89,7 +89,7 @@ object LogHelper {
             if (t != null) {
                 sb.append("\n").append(Log.getStackTraceString(t))
             }
-            message = sb.toString()
+            sb.toString()
         }
         Log.println(level, tag, message)
 

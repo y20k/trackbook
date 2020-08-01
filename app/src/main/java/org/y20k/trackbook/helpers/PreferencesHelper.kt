@@ -116,7 +116,7 @@ object PreferencesHelper {
             LocationManager.NETWORK_PROVIDER
         ) ?: LocationManager.NETWORK_PROVIDER
         // create location
-        val currentBestLocation: Location = Location(provider)
+        val currentBestLocation = Location(provider)
         // load location attributes
         currentBestLocation.latitude =
             settings.getDouble(Keys.PREF_CURRENT_BEST_LOCATION_LATITUDE, Keys.DEFAULT_LATITUDE)

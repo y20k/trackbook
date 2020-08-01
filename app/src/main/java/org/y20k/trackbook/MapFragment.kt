@@ -281,7 +281,7 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener, MapOverlay.Mark
 
     /* Opens a track in TrackFragment */
     private fun openTrack(tracklistElement: TracklistElement) {
-        val bundle: Bundle = Bundle()
+        val bundle = Bundle()
         bundle.putString(Keys.ARG_TRACK_TITLE, tracklistElement.name)
         bundle.putString(Keys.ARG_TRACK_FILE_URI, tracklistElement.trackUriString)
         bundle.putString(Keys.ARG_GPX_FILE_URI, tracklistElement.gpxUriString)
@@ -294,7 +294,7 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener, MapOverlay.Mark
      * Defines the listener for changes in shared preferences
      */
     private val sharedPreferenceChangeListener =
-        SharedPreferences.OnSharedPreferenceChangeListener { sharedPreferences, key ->
+        SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
             when (key) {
                 Keys.PREF_TRACKING_STATE -> {
                     if (activity != null) {

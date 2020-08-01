@@ -75,8 +75,7 @@ class YesNoDialog(private var yesNoDialogListener: YesNoDialogListener) {
     ) {
 
         // prepare dialog builder
-        val builder: MaterialAlertDialogBuilder =
-            MaterialAlertDialogBuilder(context, R.style.AlertDialogTheme)
+        val builder = MaterialAlertDialogBuilder(context, R.style.AlertDialogTheme)
 
         // set title and message
         builder.setMessage(messageString)
@@ -98,7 +97,7 @@ class YesNoDialog(private var yesNoDialogListener: YesNoDialogListener) {
         }
 
         // handle outside-click as "no"
-        builder.setOnCancelListener() {
+        builder.setOnCancelListener {
             yesNoDialogListener.onYesNoDialog(type, false, payload, payloadString)
         }
 

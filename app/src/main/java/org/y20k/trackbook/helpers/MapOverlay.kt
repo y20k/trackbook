@@ -65,23 +65,25 @@ class MapOverlay(private var markerListener: MarkerListener) {
         when (trackingState) {
             // CASE: Tracking active
             Keys.STATE_TRACKING_ACTIVE -> {
-                when (locationIsOld) {
-                    true -> newMarker = ContextCompat.getDrawable(
+                newMarker = when (locationIsOld) {
+                    true -> ContextCompat.getDrawable(
                         context,
                         R.drawable.ic_marker_location_red_grey_24dp
                     )!!
-                    false -> newMarker =
-                        ContextCompat.getDrawable(context, R.drawable.ic_marker_location_red_24dp)!!
+                    false -> ContextCompat.getDrawable(
+                        context,
+                        R.drawable.ic_marker_location_red_24dp
+                    )!!
                 }
             }
             // CASE. Tracking is NOT active
             else -> {
-                when (locationIsOld) {
-                    true -> newMarker = ContextCompat.getDrawable(
+                newMarker = when (locationIsOld) {
+                    true -> ContextCompat.getDrawable(
                         context,
                         R.drawable.ic_marker_location_blue_grey_24dp
                     )!!
-                    false -> newMarker = ContextCompat.getDrawable(
+                    false -> ContextCompat.getDrawable(
                         context,
                         R.drawable.ic_marker_location_blue_24dp
                     )!!
@@ -124,36 +126,42 @@ class MapOverlay(private var markerListener: MarkerListener) {
             when (trackingState) {
                 // CASE: Recording is active
                 Keys.STATE_TRACKING_ACTIVE -> {
-                    if (wayPoint.starred) {
-                        newMarker =
+                    newMarker = when {
+                        wayPoint.starred -> {
                             ContextCompat.getDrawable(context, R.drawable.ic_star_red_24dp)!!
-                    } else if (wayPoint.isStopOver) {
-                        newMarker = ContextCompat.getDrawable(
-                            context,
-                            R.drawable.ic_marker_track_location_grey_24dp
-                        )!!
-                    } else {
-                        newMarker = ContextCompat.getDrawable(
-                            context,
-                            R.drawable.ic_marker_track_location_red_24dp
-                        )!!
+                        }
+                        wayPoint.isStopOver -> {
+                            ContextCompat.getDrawable(
+                                context,
+                                R.drawable.ic_marker_track_location_grey_24dp
+                            )!!
+                        }
+                        else -> {
+                            ContextCompat.getDrawable(
+                                context,
+                                R.drawable.ic_marker_track_location_red_24dp
+                            )!!
+                        }
                     }
                 }
                 // CASE: Recording is paused/stopped
                 else -> {
-                    if (wayPoint.starred) {
-                        newMarker =
+                    newMarker = when {
+                        wayPoint.starred -> {
                             ContextCompat.getDrawable(context, R.drawable.ic_star_blue_24dp)!!
-                    } else if (wayPoint.isStopOver) {
-                        newMarker = ContextCompat.getDrawable(
-                            context,
-                            R.drawable.ic_marker_track_location_grey_24dp
-                        )!!
-                    } else {
-                        newMarker = ContextCompat.getDrawable(
-                            context,
-                            R.drawable.ic_marker_track_location_blue_24dp
-                        )!!
+                        }
+                        wayPoint.isStopOver -> {
+                            ContextCompat.getDrawable(
+                                context,
+                                R.drawable.ic_marker_track_location_grey_24dp
+                            )!!
+                        }
+                        else -> {
+                            ContextCompat.getDrawable(
+                                context,
+                                R.drawable.ic_marker_track_location_blue_24dp
+                            )!!
+                        }
                     }
                 }
             }
@@ -185,13 +193,13 @@ class MapOverlay(private var markerListener: MarkerListener) {
         provider: String,
         time: Long
     ): OverlayItem {
-        val title: String =
+        val title =
             "${context.getString(R.string.marker_description_time)}: ${SimpleDateFormat.getTimeInstance(
                 SimpleDateFormat.MEDIUM,
                 Locale.getDefault()
             ).format(time)}"
         //val description: String = "${context.getString(R.string.marker_description_accuracy)}: ${DecimalFormat("#0.00").format(accuracy)} (${provider})"
-        val description: String =
+        val description =
             "${context.getString(R.string.marker_description_time)}: ${SimpleDateFormat.getTimeInstance(
                 SimpleDateFormat.MEDIUM,
                 Locale.getDefault()
@@ -199,7 +207,7 @@ class MapOverlay(private var markerListener: MarkerListener) {
                 .format(time)} | ${context.getString(R.string.marker_description_accuracy)}: ${DecimalFormat(
                 "#0.00"
             ).format(accuracy)} (${provider})"
-        val position: GeoPoint = GeoPoint(latitude, longitude)
+        val position = GeoPoint(latitude, longitude)
         return OverlayItem(title, description, position)
     }
 

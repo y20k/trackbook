@@ -18,7 +18,6 @@
 package org.y20k.trackbook.dialogs
 
 import android.content.Context
-import android.content.DialogInterface
 import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
@@ -45,8 +44,7 @@ object ErrorDialog {
         errorDetails: String = String()
     ) {
         // prepare dialog builder
-        val builder: MaterialAlertDialogBuilder =
-            MaterialAlertDialogBuilder(context, R.style.AlertDialogTheme)
+        val builder = MaterialAlertDialogBuilder(context, R.style.AlertDialogTheme)
 
         // set title
         builder.setTitle(context.getString(errorTitle))
@@ -88,11 +86,11 @@ object ErrorDialog {
 
         // add okay button
         builder.setPositiveButton(
-            R.string.dialog_generic_button_okay,
-            DialogInterface.OnClickListener { _, _ ->
-                // listen for click on okay button
-                // do nothing
-            })
+            R.string.dialog_generic_button_okay
+        ) { _, _ ->
+            // listen for click on okay button
+            // do nothing
+        }
 
         // display error dialog
         builder.show()

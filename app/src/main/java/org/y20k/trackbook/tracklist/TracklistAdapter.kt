@@ -158,18 +158,17 @@ class TracklistAdapter(private val fragment: Fragment) :
     private fun createTrackDataString(position: Int): String {
         val tracklistElement: TracklistElement = tracklist.tracklistElements[position]
         val trackDataString: String
-        when (tracklistElement.name == tracklistElement.dateString) {
+        trackDataString = when (tracklistElement.name == tracklistElement.dateString) {
             // CASE: no individual name set - exclude date
-            true -> trackDataString = "${LengthUnitHelper.convertDistanceToString(
+            true -> "${LengthUnitHelper.convertDistanceToString(
                 tracklistElement.length,
                 useImperial
             )} • ${tracklistElement.durationString}"
             // CASE: no individual name set - include date
-            false -> trackDataString =
-                "${tracklistElement.dateString} • ${LengthUnitHelper.convertDistanceToString(
-                    tracklistElement.length,
-                    useImperial
-                )} • ${tracklistElement.durationString}"
+            false -> "${tracklistElement.dateString} • ${LengthUnitHelper.convertDistanceToString(
+                tracklistElement.length,
+                useImperial
+            )} • ${tracklistElement.durationString}"
         }
         return trackDataString
     }

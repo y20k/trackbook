@@ -65,11 +65,11 @@ data class MapFragmentLayoutHolder(
 
 
     /* Main class variables */
-    val rootView: View
-    val mapView: MapView
+    val rootView: View = inflater.inflate(R.layout.fragment_map, container, false)
+    private val mapView: MapView
     val currentLocationButton: FloatingActionButton
     val recordingButton: FloatingActionButton
-    val recordingButtonSubMenu: Group
+    private val recordingButtonSubMenu: Group
     val saveButton: FloatingActionButton
     val clearButton: FloatingActionButton
     val resumeButton: FloatingActionButton
@@ -84,7 +84,6 @@ data class MapFragmentLayoutHolder(
     /* Init block */
     init {
         // find views
-        rootView = inflater.inflate(R.layout.fragment_map, container, false)
         mapView = rootView.findViewById(R.id.map)
         currentLocationButton = rootView.findViewById(R.id.fab_location_button)
         recordingButton = rootView.findViewById(R.id.fab_main_button)
@@ -139,7 +138,7 @@ data class MapFragmentLayoutHolder(
     /* Listen for user interaction */
     @SuppressLint("ClickableViewAccessibility")
     private fun addInteractionListener() {
-        mapView.setOnTouchListener { v, event ->
+        mapView.setOnTouchListener { _, _ ->
             userInteraction = true
             false
         }
@@ -160,7 +159,7 @@ data class MapFragmentLayoutHolder(
     /* Save current best location and state of map to shared preferences */
     fun saveState(currentBestLocation: Location) {
         PreferencesHelper.saveCurrentBestLocation(context, currentBestLocation)
-        PreferencesHelper.saveZoomLevel(context, mapView.getZoomLevelDouble())
+        PreferencesHelper.saveZoomLevel(context, mapView.zoomLevelDouble)
         // reset user interaction state
         userInteraction = false
     }

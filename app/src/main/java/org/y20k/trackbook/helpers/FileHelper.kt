@@ -35,6 +35,8 @@ import java.text.NumberFormat
 import java.util.*
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
+import kotlin.math.ln
+import kotlin.math.pow
 
 
 /*
@@ -61,14 +63,14 @@ object FileHelper {
     /* Get file size for given Uri */
     fun getFileSize(context: Context, uri: Uri): Long {
         val cursor: Cursor? = context.contentResolver.query(uri, null, null, null, null)
-        if (cursor != null) {
+        return if (cursor != null) {
             val sizeIndex: Int = cursor.getColumnIndex(OpenableColumns.SIZE)
             cursor.moveToFirst()
             val size: Long = cursor.getLong(sizeIndex)
             cursor.close()
-            return size
+            size
         } else {
-            return 0L
+            0L
         }
     }
 
@@ -76,14 +78,14 @@ object FileHelper {
     /* Get file name for given Uri */
     fun getFileName(context: Context, uri: Uri): String {
         val cursor: Cursor? = context.contentResolver.query(uri, null, null, null, null)
-        if (cursor != null) {
+        return if (cursor != null) {
             val nameIndex: Int = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
             cursor.moveToFirst()
             val name: String = cursor.getString(nameIndex)
             cursor.close()
-            return name
+            name
         } else {
-            return String()
+            String()
         }
     }
 
@@ -110,8 +112,8 @@ object FileHelper {
     fun readTracklist(context: Context): Tracklist {
         LogHelper.v(TAG, "Reading Tracklist - Thread: ${Thread.currentThread().name}")
         // get JSON from text file
-        val json: String = readTextFile(context, getTracklistFileUri(context))
-        var tracklist: Tracklist = Tracklist()
+        val json: String = readTextFile(getTracklistFileUri(context))
+        var tracklist = Tracklist()
         when (json.isNotBlank()) {
             // convert JSON and return as tracklist
             true -> try {
@@ -125,10 +127,10 @@ object FileHelper {
 
 
     /* Reads track from storage using GSON */
-    fun readTrack(context: Context, fileUri: Uri): Track {
+    fun readTrack(fileUri: Uri): Track {
         // get JSON from text file
-        val json: String = readTextFile(context, fileUri)
-        var track: Track = Track()
+        val json: String = readTextFile(fileUri)
+        var track = Track()
         when (json.isNotEmpty()) {
             // convert JSON and return as track
             true -> try {
@@ -305,7 +307,7 @@ object FileHelper {
         tracklist.modificationDate = modificationDate
         // convert to JSON
         val gson: Gson = getCustomGson()
-        var json: String = String()
+        var json = String()
         try {
             json = gson.toJson(tracklist)
         } catch (e: Exception) {
@@ -328,7 +330,7 @@ object FileHelper {
     private fun renameTrack(context: Context, track: Track, newName: String) {
         // search track in tracklist
         val tracklist: Tracklist = readTracklist(context)
-        var trackUriString: String = String()
+        var trackUriString = String()
         tracklist.tracklistElements.forEach { tracklistElement ->
             if (tracklistElement.getTrackId() == track.getTrackId()) {
                 // rename tracklist element
@@ -402,7 +404,7 @@ object FileHelper {
     /* Converts track to JSON */
     private fun getTrackJsonString(track: Track): String {
         val gson: Gson = getCustomGson()
-        var json: String = String()
+        var json = String()
         try {
             json = gson.toJson(track)
         } catch (e: Exception) {
@@ -432,13 +434,13 @@ object FileHelper {
         if (bytes < unit) return "$bytes B"
 
         // calculate exp
-        val exp: Int = (Math.log(bytes.toDouble()) / Math.log(unit.toDouble())).toInt()
+        val exp: Int = (ln(bytes.toDouble()) / ln(unit.toDouble())).toInt()
 
         // determine prefix symbol
         val prefix: String = ((if (si) "kMGTPE" else "KMGTPE")[exp - 1] + if (si) "" else "i")
 
         // calculate result and set number format
-        val result: Double = bytes / Math.pow(unit.toDouble(), exp.toDouble())
+        val result: Double = bytes / unit.toDouble().pow(exp.toDouble())
         val numberFormat = NumberFormat.getNumberInstance()
         numberFormat.maximumFractionDigits = 1
 
@@ -447,7 +449,7 @@ object FileHelper {
 
 
     /* Reads InputStream from file uri and returns it as String */
-    private fun readTextFile(context: Context, fileUri: Uri): String {
+    private fun readTextFile(fileUri: Uri): String {
         // todo read https://commonsware.com/blog/2016/03/15/how-consume-content-uri.html
         // https://developer.android.com/training/secure-file-sharing/retrieve-info
         val file: File = fileUri.toFile()
@@ -457,7 +459,7 @@ object FileHelper {
         }
         // read until last line reached
         val stream: InputStream = file.inputStream()
-        val reader: BufferedReader = BufferedReader(InputStreamReader(stream))
+        val reader = BufferedReader(InputStreamReader(stream))
         val builder: StringBuilder = StringBuilder()
         reader.forEachLine {
             builder.append(it)
@@ -477,7 +479,6 @@ object FileHelper {
 
     /* Writes given bitmap as image file to storage */
     private fun writeImageFile(
-        context: Context,
         bitmap: Bitmap,
         file: File,
         format: Bitmap.CompressFormat = Bitmap.CompressFormat.JPEG,

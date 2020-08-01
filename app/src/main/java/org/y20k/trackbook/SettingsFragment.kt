@@ -63,7 +63,7 @@ class SettingsFragment : PreferenceFragmentCompat(), YesNoDialog.YesNoDialogList
         val screen = preferenceManager.createPreferenceScreen(context)
 
         // set up "Restrict to GPS" preference
-        val preferenceGpsOnly: SwitchPreferenceCompat = SwitchPreferenceCompat(activity as Context)
+        val preferenceGpsOnly = SwitchPreferenceCompat(activity as Context)
         preferenceGpsOnly.title = getString(R.string.pref_gps_only_title)
         preferenceGpsOnly.setIcon(R.drawable.ic_gps_24dp)
         preferenceGpsOnly.key = Keys.PREF_GPS_ONLY
@@ -72,8 +72,7 @@ class SettingsFragment : PreferenceFragmentCompat(), YesNoDialog.YesNoDialogList
         preferenceGpsOnly.setDefaultValue(false)
 
         // set up "Use Imperial Measurements" preference
-        val preferenceImperialMeasurementUnits: SwitchPreferenceCompat =
-            SwitchPreferenceCompat(activity as Context)
+        val preferenceImperialMeasurementUnits = SwitchPreferenceCompat(activity as Context)
         preferenceImperialMeasurementUnits.title =
             getString(R.string.pref_imperial_measurement_units_title)
         preferenceImperialMeasurementUnits.setIcon(R.drawable.ic_square_foot_24px)
@@ -85,7 +84,7 @@ class SettingsFragment : PreferenceFragmentCompat(), YesNoDialog.YesNoDialogList
         preferenceImperialMeasurementUnits.setDefaultValue(LengthUnitHelper.useImperialUnits())
 
         // set up "App Theme" preference
-        val preferenceThemeSelection: ListPreference = ListPreference(activity as Context)
+        val preferenceThemeSelection = ListPreference(activity as Context)
         preferenceThemeSelection.title = getString(R.string.pref_theme_selection_title)
         preferenceThemeSelection.setIcon(R.drawable.ic_smartphone_24dp)
         preferenceThemeSelection.key = Keys.PREF_THEME_SELECTION
@@ -107,9 +106,7 @@ class SettingsFragment : PreferenceFragmentCompat(), YesNoDialog.YesNoDialogList
             if (preference is ListPreference) {
                 val index: Int = preference.entryValues.indexOf(newValue)
                 preferenceThemeSelection.summary =
-                    "${getString(R.string.pref_theme_selection_summary)} ${preference.entries.get(
-                        index
-                    )}"
+                    "${getString(R.string.pref_theme_selection_summary)} ${preference.entries[index]}"
                 return@setOnPreferenceChangeListener true
             } else {
                 return@setOnPreferenceChangeListener false
@@ -117,7 +114,7 @@ class SettingsFragment : PreferenceFragmentCompat(), YesNoDialog.YesNoDialogList
         }
 
         // set up "Delete Non-Starred" preference
-        val preferenceDeleteNonStarred: Preference = Preference(activity as Context)
+        val preferenceDeleteNonStarred = Preference(activity as Context)
         preferenceDeleteNonStarred.title = getString(R.string.pref_delete_non_starred_title)
         preferenceDeleteNonStarred.setIcon(R.drawable.ic_delete_24dp)
         preferenceDeleteNonStarred.summary = getString(R.string.pref_delete_non_starred_summary)
@@ -132,7 +129,7 @@ class SettingsFragment : PreferenceFragmentCompat(), YesNoDialog.YesNoDialogList
         }
 
         // set up "Accuracy Threshold" preference
-        val preferenceAccuracyThreshold: SeekBarPreference = SeekBarPreference(activity as Context)
+        val preferenceAccuracyThreshold = SeekBarPreference(activity as Context)
         preferenceAccuracyThreshold.title = getString(R.string.pref_accuracy_threshold_title)
         preferenceAccuracyThreshold.setIcon(R.drawable.ic_timeline_24dp)
         preferenceAccuracyThreshold.key = Keys.PREF_LOCATION_ACCURACY_THRESHOLD
@@ -142,7 +139,7 @@ class SettingsFragment : PreferenceFragmentCompat(), YesNoDialog.YesNoDialogList
         preferenceAccuracyThreshold.setDefaultValue(Keys.DEFAULT_THRESHOLD_LOCATION_ACCURACY)
 
         // set up "Reset" preference
-        val preferenceResetAdvanced: Preference = Preference(activity as Context)
+        val preferenceResetAdvanced = Preference(activity as Context)
         preferenceResetAdvanced.title = getString(R.string.pref_reset_advanced_title)
         preferenceResetAdvanced.setIcon(R.drawable.ic_undo_24dp)
         preferenceResetAdvanced.summary = getString(R.string.pref_reset_advanced_summary)
@@ -152,7 +149,7 @@ class SettingsFragment : PreferenceFragmentCompat(), YesNoDialog.YesNoDialogList
         }
 
         // set up "App Version" preference
-        val preferenceAppVersion: Preference = Preference(context)
+        val preferenceAppVersion = Preference(context)
         preferenceAppVersion.title = getString(R.string.pref_app_version_title)
         preferenceAppVersion.setIcon(R.drawable.ic_info_24dp)
         preferenceAppVersion.summary =
@@ -174,7 +171,7 @@ class SettingsFragment : PreferenceFragmentCompat(), YesNoDialog.YesNoDialogList
         }
 
         // set up "Report Issue" preference
-        val preferenceReportIssue: Preference = Preference(context)
+        val preferenceReportIssue = Preference(context)
         preferenceReportIssue.title = getString(R.string.pref_report_issue_title)
         preferenceReportIssue.setIcon(R.drawable.ic_bug_report_24dp)
         preferenceReportIssue.summary = getString(R.string.pref_report_issue_summary)
@@ -189,21 +186,21 @@ class SettingsFragment : PreferenceFragmentCompat(), YesNoDialog.YesNoDialogList
         }
 
         // set preference categories
-        val preferenceCategoryGeneral: PreferenceCategory = PreferenceCategory(activity as Context)
+        val preferenceCategoryGeneral = PreferenceCategory(activity as Context)
         preferenceCategoryGeneral.title = getString(R.string.pref_general_title)
         preferenceCategoryGeneral.contains(preferenceImperialMeasurementUnits)
         preferenceCategoryGeneral.contains(preferenceGpsOnly)
-        val preferenceCategoryMaintenance: PreferenceCategory =
+        val preferenceCategoryMaintenance =
             PreferenceCategory(activity as Context)
         preferenceCategoryMaintenance.title = getString(R.string.pref_maintenance_title)
         preferenceCategoryMaintenance.contains(preferenceDeleteNonStarred)
 
-        val preferenceCategoryAdvanced: PreferenceCategory = PreferenceCategory(activity as Context)
+        val preferenceCategoryAdvanced = PreferenceCategory(activity as Context)
         preferenceCategoryAdvanced.title = getString(R.string.pref_advanced_title)
         preferenceCategoryAdvanced.contains(preferenceAccuracyThreshold)
         preferenceCategoryAdvanced.contains(preferenceResetAdvanced)
 
-        val preferenceCategoryAbout: PreferenceCategory = PreferenceCategory(context)
+        val preferenceCategoryAbout = PreferenceCategory(context)
         preferenceCategoryAbout.title = getString(R.string.pref_about_title)
         preferenceCategoryAbout.contains(preferenceAppVersion)
         preferenceCategoryAbout.contains(preferenceReportIssue)
@@ -249,7 +246,7 @@ class SettingsFragment : PreferenceFragmentCompat(), YesNoDialog.YesNoDialogList
 
 
     /* Removes track and track files for given position - used by TracklistFragment */
-    fun deleteNonStarred(context: Context) {
+    private fun deleteNonStarred(context: Context) {
         val backgroundJob = Job()
         val uiScope = CoroutineScope(Dispatchers.Main + backgroundJob)
         uiScope.launch {
