@@ -62,10 +62,19 @@ object LocationHelper {
         // get last location that Trackbook has stored
         var lastKnownLocation: Location = PreferencesHelper.loadCurrentBestLocation(context)
         // try to get the last location the system has stored - it is probably more recent
-        if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            val locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-            val lastKnownLocationGps: Location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER) ?: lastKnownLocation
-            val lastKnownLocationNetwork: Location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER) ?: lastKnownLocation
+        if (ContextCompat.checkSelfPermission(
+                context,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            val locationManager =
+                context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+            val lastKnownLocationGps: Location =
+                locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+                    ?: lastKnownLocation
+            val lastKnownLocationNetwork: Location =
+                locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+                    ?: lastKnownLocation
             when (isBetterLocation(lastKnownLocationGps, lastKnownLocationNetwork)) {
                 true -> lastKnownLocation = lastKnownLocationGps
                 false -> lastKnownLocation = lastKnownLocationNetwork
@@ -87,7 +96,7 @@ object LocationHelper {
         // check whether the new location fix is newer or older
         val timeDelta: Long = location.time - currentBestLocation.time
         val isSignificantlyNewer: Boolean = timeDelta > Keys.SIGNIFICANT_TIME_DIFFERENCE
-        val isSignificantlyOlder:Boolean = timeDelta < -Keys.SIGNIFICANT_TIME_DIFFERENCE
+        val isSignificantlyOlder: Boolean = timeDelta < -Keys.SIGNIFICANT_TIME_DIFFERENCE
 
         when {
             // if it's been more than two minutes since the current location, use the new location because the user has likely moved
@@ -136,7 +145,6 @@ object LocationHelper {
     }
 
 
-
     /* Checks if given location is new */
     fun isRecentEnough(location: Location): Boolean {
         val locationAge: Long = SystemClock.elapsedRealtimeNanos() - location.elapsedRealtimeNanos
@@ -148,8 +156,10 @@ object LocationHelper {
     fun isAccurateEnough(location: Location, locationAccuracyThreshold: Int): Boolean {
         val isAccurate: Boolean
         when (location.provider) {
-            LocationManager.GPS_PROVIDER -> isAccurate = location.accuracy < locationAccuracyThreshold
-            else -> isAccurate = location.accuracy < locationAccuracyThreshold + 10 // a bit more relaxed when location comes from network provider
+            LocationManager.GPS_PROVIDER -> isAccurate =
+                location.accuracy < locationAccuracyThreshold
+            else -> isAccurate =
+                location.accuracy < locationAccuracyThreshold + 10 // a bit more relaxed when location comes from network provider
         }
         return isAccurate
     }
@@ -158,14 +168,25 @@ object LocationHelper {
     /* Checks if the first location of track is plausible */
     fun isFirstLocationPlausible(secondLocation: Location, track: Track): Boolean {
         // speed in km/h
-        val speed: Double = calculateSpeed(firstLocation = track.wayPoints[0].toLocation(), secondLocation = secondLocation, firstTimestamp = track.recordingStart.time, secondTimestamp = GregorianCalendar.getInstance().time.time)
+        val speed: Double = calculateSpeed(
+            firstLocation = track.wayPoints[0].toLocation(),
+            secondLocation = secondLocation,
+            firstTimestamp = track.recordingStart.time,
+            secondTimestamp = GregorianCalendar.getInstance().time.time
+        )
         // plausible = speed under 250 km/h
         return speed < Keys.IMPLAUSIBLE_TRACK_START_SPEED
     }
 
 
     /* Calculates speed */
-    private fun calculateSpeed(firstLocation: Location, secondLocation: Location, firstTimestamp: Long, secondTimestamp: Long, useImperial: Boolean = false): Double {
+    private fun calculateSpeed(
+        firstLocation: Location,
+        secondLocation: Location,
+        firstTimestamp: Long,
+        secondTimestamp: Long,
+        useImperial: Boolean = false
+    ): Double {
         // time difference in seconds
         val timeDifference: Long = (secondTimestamp - firstTimestamp) / 1000L
         // distance in meters
@@ -194,7 +215,7 @@ object LocationHelper {
 
 
     /* Calculates distance in meters between two locations */
-    fun calculateDistance(previousLocation: Location?, location: Location): Float  {
+    fun calculateDistance(previousLocation: Location?, location: Location): Float {
         var distance: Float = 0f
         // two data points needed to calculate distance
         if (previousLocation != null) {
@@ -206,20 +227,26 @@ object LocationHelper {
 
 
     /* Calculate elevation differences */
-    fun calculateElevationDifferences(previousLocation: Location?, location: Location, track: Track): Pair<Double, Double> {
+    fun calculateElevationDifferences(
+        previousLocation: Location?,
+        location: Location,
+        track: Track
+    ): Pair<Double, Double> {
         // store current values
         var positiveElevation: Double = track.positiveElevation
         var negativeElevation: Double = track.negativeElevation
         if (previousLocation != null) {
             // factor is bigger than 1 if the time stamp difference is larger than the movement recording interval
-            val timeDifferenceFactor: Long = (location.time - previousLocation.time) / Keys.ADD_WAYPOINT_TO_TRACK_INTERVAL
+            val timeDifferenceFactor: Long =
+                (location.time - previousLocation.time) / Keys.ADD_WAYPOINT_TO_TRACK_INTERVAL
             // get elevation difference and sum it up
             val altitudeDifference: Double = location.altitude - previousLocation.altitude
             if (altitudeDifference > 0 && altitudeDifference < Keys.ALTITUDE_MEASUREMENT_ERROR_THRESHOLD * timeDifferenceFactor && location.altitude != Keys.DEFAULT_ALTITUDE) {
                 positiveElevation = track.positiveElevation + altitudeDifference // upwards movement
             }
             if (altitudeDifference < 0 && altitudeDifference > -Keys.ALTITUDE_MEASUREMENT_ERROR_THRESHOLD * timeDifferenceFactor && location.altitude != Keys.DEFAULT_ALTITUDE) {
-                negativeElevation = track.negativeElevation + altitudeDifference // downwards movement
+                negativeElevation =
+                    track.negativeElevation + altitudeDifference // downwards movement
             }
         }
         return Pair(positiveElevation, negativeElevation)

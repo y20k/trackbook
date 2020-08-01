@@ -69,7 +69,8 @@ class MainActivity : AppCompatActivity() {
 
         // set up views
         setContentView(R.layout.activity_main)
-        navHostFragment  = supportFragmentManager.findFragmentById(R.id.main_container) as NavHostFragment
+        navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.main_container) as NavHostFragment
         bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation_view)
         bottomNavigationView.setupWithNavController(navController = navHostFragment.navController)
 
@@ -77,10 +78,11 @@ class MainActivity : AppCompatActivity() {
         navHostFragment.navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.fragment_track -> {
-                    runOnUiThread( Runnable() {
-                        run(){
+                    runOnUiThread(Runnable() {
+                        run() {
                             // mark menu item "Tracks" as checked
-                            bottomNavigationView.menu.findItem(R.id.tracklist_fragment).setChecked(true)
+                            bottomNavigationView.menu.findItem(R.id.tracklist_fragment)
+                                .setChecked(true)
                         }
                     })
                 }
@@ -91,7 +93,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         // register listener for changes in shared preferences
-        PreferenceManager.getDefaultSharedPreferences(this as Context).registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener)
+        PreferenceManager.getDefaultSharedPreferences(this as Context)
+            .registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener)
     }
 
 
@@ -99,20 +102,22 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         // unregister listener for changes in shared preferences
-        PreferenceManager.getDefaultSharedPreferences(this as Context).unregisterOnSharedPreferenceChangeListener(sharedPreferenceChangeListener)
+        PreferenceManager.getDefaultSharedPreferences(this as Context)
+            .unregisterOnSharedPreferenceChangeListener(sharedPreferenceChangeListener)
     }
 
 
     /*
      * Defines the listener for changes in shared preferences
      */
-    private val sharedPreferenceChangeListener = SharedPreferences.OnSharedPreferenceChangeListener { sharedPreferences, key ->
-        when (key) {
-            Keys.PREF_THEME_SELECTION -> {
-                AppThemeHelper.setTheme(PreferencesHelper.loadThemeSelection(this@MainActivity))
+    private val sharedPreferenceChangeListener =
+        SharedPreferences.OnSharedPreferenceChangeListener { sharedPreferences, key ->
+            when (key) {
+                Keys.PREF_THEME_SELECTION -> {
+                    AppThemeHelper.setTheme(PreferencesHelper.loadThemeSelection(this@MainActivity))
+                }
             }
         }
-    }
     /*
      * End of declaration
      */

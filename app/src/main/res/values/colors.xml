@@ -31,17 +31,21 @@
 
 
     <!-- COLOR NAMES -->
-    <color name="trackbook_grey">#FF595959</color> <!-- derived from recommended dark theme surface color -->
+
+    <!-- derived from recommended dark theme surface color -->
+    <color name="trackbook_grey">#FF595959</color>
     <color name="trackbook_grey_light">#FF7D7D7D</color>
     <color name="trackbook_grey_lighter">#FFDADADA</color>
     <color name="trackbook_grey_very_light">#FFF2F2F2</color>
     <color name="trackbook_grey_dark">#FF414141</color>
     <color name="trackbook_grey_darker">#FF2D2D2D</color>
 
-    <color name="trackbook_red">#DC3D33</color> <!-- Slightly muted variant of -> Material Design 2: Red 600 -->
+    <!-- Slightly muted variant of -> Material Design 2: Red 600 -->
+    <color name="trackbook_red">#DC3D33</color>
     <color name="trackbook_red_dark">#FFCA2D23</color>
 
-    <color name="trackbook_black">#FF121212</color> <!-- Material Design recommended dark theme surface color -->
+    <!-- Material Design recommended dark theme surface color -->
+    <color name="trackbook_black">#FF121212</color>
     <color name="trackbook_white">#FFFFFFFF</color>
     <color name="trackbook_transparent">#00ffffff</color>
 

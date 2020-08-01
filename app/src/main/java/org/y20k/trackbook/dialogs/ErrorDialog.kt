@@ -38,9 +38,15 @@ object ErrorDialog {
 
 
     /* Construct and show dialog */
-    fun show(context: Context, errorTitle: Int, errorMessage: Int, errorDetails: String = String()) {
+    fun show(
+        context: Context,
+        errorTitle: Int,
+        errorMessage: Int,
+        errorDetails: String = String()
+    ) {
         // prepare dialog builder
-        val builder: MaterialAlertDialogBuilder = MaterialAlertDialogBuilder(context, R.style.AlertDialogTheme)
+        val builder: MaterialAlertDialogBuilder =
+            MaterialAlertDialogBuilder(context, R.style.AlertDialogTheme)
 
         // set title
         builder.setTitle(context.getString(errorTitle))
@@ -81,10 +87,12 @@ object ErrorDialog {
         errorMessageView.text = context.getString(errorMessage)
 
         // add okay button
-        builder.setPositiveButton(R.string.dialog_generic_button_okay, DialogInterface.OnClickListener { _, _ ->
-            // listen for click on okay button
-            // do nothing
-        })
+        builder.setPositiveButton(
+            R.string.dialog_generic_button_okay,
+            DialogInterface.OnClickListener { _, _ ->
+                // listen for click on okay button
+                // do nothing
+            })
 
         // display error dialog
         builder.show()

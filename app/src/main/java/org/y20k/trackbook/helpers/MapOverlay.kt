@@ -38,7 +38,7 @@ import java.util.*
 /*
  * MapHelper class
  */
-class MapOverlay (private var markerListener: MarkerListener)  {
+class MapOverlay(private var markerListener: MarkerListener) {
 
     /* Interface used to communicate back to activity/fragment */
     interface MarkerListener {
@@ -51,7 +51,11 @@ class MapOverlay (private var markerListener: MarkerListener)  {
 
 
     /* Creates icon overlay for current position (used in MapFragment) */
-    fun createMyLocationOverlay(context: Context, location: Location, trackingState: Int): ItemizedIconOverlay<OverlayItem> {
+    fun createMyLocationOverlay(
+        context: Context,
+        location: Location,
+        trackingState: Int
+    ): ItemizedIconOverlay<OverlayItem> {
 
         val overlayItems = ArrayList<OverlayItem>()
         val locationIsOld = LocationHelper.isOldLocation(location)
@@ -62,21 +66,38 @@ class MapOverlay (private var markerListener: MarkerListener)  {
             // CASE: Tracking active
             Keys.STATE_TRACKING_ACTIVE -> {
                 when (locationIsOld) {
-                    true -> newMarker = ContextCompat.getDrawable(context, R.drawable.ic_marker_location_red_grey_24dp)!!
-                    false -> newMarker = ContextCompat.getDrawable(context, R.drawable.ic_marker_location_red_24dp)!!
+                    true -> newMarker = ContextCompat.getDrawable(
+                        context,
+                        R.drawable.ic_marker_location_red_grey_24dp
+                    )!!
+                    false -> newMarker =
+                        ContextCompat.getDrawable(context, R.drawable.ic_marker_location_red_24dp)!!
                 }
             }
             // CASE. Tracking is NOT active
             else -> {
                 when (locationIsOld) {
-                    true -> newMarker = ContextCompat.getDrawable(context, R.drawable.ic_marker_location_blue_grey_24dp)!!
-                    false -> newMarker = ContextCompat.getDrawable(context, R.drawable.ic_marker_location_blue_24dp)!!
+                    true -> newMarker = ContextCompat.getDrawable(
+                        context,
+                        R.drawable.ic_marker_location_blue_grey_24dp
+                    )!!
+                    false -> newMarker = ContextCompat.getDrawable(
+                        context,
+                        R.drawable.ic_marker_location_blue_24dp
+                    )!!
                 }
             }
         }
 
         // add marker to list of overlay items
-        val overlayItem = createOverlayItem(context, location.latitude, location.longitude, location.accuracy, location.provider, location.time)
+        val overlayItem = createOverlayItem(
+            context,
+            location.latitude,
+            location.longitude,
+            location.accuracy,
+            location.provider,
+            location.time
+        )
         overlayItem.setMarker(newMarker)
         overlayItems.add(overlayItem)
 
@@ -86,7 +107,11 @@ class MapOverlay (private var markerListener: MarkerListener)  {
 
 
     /* Creates icon overlay for track */
-    fun createTrackOverlay(context: Context, track: Track, trackingState: Int): ItemizedIconOverlay<OverlayItem> {
+    fun createTrackOverlay(
+        context: Context,
+        track: Track,
+        trackingState: Int
+    ): ItemizedIconOverlay<OverlayItem> {
 
         val overlayItems = ArrayList<OverlayItem>()
         val wayPoints = track.wayPoints
@@ -100,27 +125,48 @@ class MapOverlay (private var markerListener: MarkerListener)  {
                 // CASE: Recording is active
                 Keys.STATE_TRACKING_ACTIVE -> {
                     if (wayPoint.starred) {
-                        newMarker = ContextCompat.getDrawable(context, R.drawable.ic_star_red_24dp)!!
+                        newMarker =
+                            ContextCompat.getDrawable(context, R.drawable.ic_star_red_24dp)!!
                     } else if (wayPoint.isStopOver) {
-                        newMarker = ContextCompat.getDrawable(context, R.drawable.ic_marker_track_location_grey_24dp)!!
+                        newMarker = ContextCompat.getDrawable(
+                            context,
+                            R.drawable.ic_marker_track_location_grey_24dp
+                        )!!
                     } else {
-                        newMarker = ContextCompat.getDrawable(context, R.drawable.ic_marker_track_location_red_24dp)!!
+                        newMarker = ContextCompat.getDrawable(
+                            context,
+                            R.drawable.ic_marker_track_location_red_24dp
+                        )!!
                     }
                 }
                 // CASE: Recording is paused/stopped
                 else -> {
                     if (wayPoint.starred) {
-                        newMarker = ContextCompat.getDrawable(context, R.drawable.ic_star_blue_24dp)!!
+                        newMarker =
+                            ContextCompat.getDrawable(context, R.drawable.ic_star_blue_24dp)!!
                     } else if (wayPoint.isStopOver) {
-                        newMarker = ContextCompat.getDrawable(context, R.drawable.ic_marker_track_location_grey_24dp)!!
+                        newMarker = ContextCompat.getDrawable(
+                            context,
+                            R.drawable.ic_marker_track_location_grey_24dp
+                        )!!
                     } else {
-                        newMarker = ContextCompat.getDrawable(context, R.drawable.ic_marker_track_location_blue_24dp)!!
+                        newMarker = ContextCompat.getDrawable(
+                            context,
+                            R.drawable.ic_marker_track_location_blue_24dp
+                        )!!
                     }
                 }
             }
 
             // create overlay item and add to list of overlay items
-            val overlayItem = createOverlayItem(context, wayPoint.latitude, wayPoint.longitude, wayPoint.accuracy, wayPoint.provider, wayPoint.time)
+            val overlayItem = createOverlayItem(
+                context,
+                wayPoint.latitude,
+                wayPoint.longitude,
+                wayPoint.accuracy,
+                wayPoint.provider,
+                wayPoint.time
+            )
             overlayItem.setMarker(newMarker)
             overlayItems.add(overlayItem)
         }
@@ -131,23 +177,45 @@ class MapOverlay (private var markerListener: MarkerListener)  {
 
 
     /* Creates a marker overlay item */
-    private fun createOverlayItem(context: Context, latitude: Double, longitude: Double, accuracy: Float, provider: String, time: Long): OverlayItem {
-        val title: String = "${context.getString(R.string.marker_description_time)}: ${SimpleDateFormat.getTimeInstance(SimpleDateFormat.MEDIUM, Locale.getDefault()).format(time)}"
+    private fun createOverlayItem(
+        context: Context,
+        latitude: Double,
+        longitude: Double,
+        accuracy: Float,
+        provider: String,
+        time: Long
+    ): OverlayItem {
+        val title: String =
+            "${context.getString(R.string.marker_description_time)}: ${SimpleDateFormat.getTimeInstance(
+                SimpleDateFormat.MEDIUM,
+                Locale.getDefault()
+            ).format(time)}"
         //val description: String = "${context.getString(R.string.marker_description_accuracy)}: ${DecimalFormat("#0.00").format(accuracy)} (${provider})"
-        val description: String = "${context.getString(R.string.marker_description_time)}: ${SimpleDateFormat.getTimeInstance(SimpleDateFormat.MEDIUM, Locale.getDefault()).format(time)} | ${context.getString(R.string.marker_description_accuracy)}: ${DecimalFormat("#0.00").format(accuracy)} (${provider})"
+        val description: String =
+            "${context.getString(R.string.marker_description_time)}: ${SimpleDateFormat.getTimeInstance(
+                SimpleDateFormat.MEDIUM,
+                Locale.getDefault()
+            )
+                .format(time)} | ${context.getString(R.string.marker_description_accuracy)}: ${DecimalFormat(
+                "#0.00"
+            ).format(accuracy)} (${provider})"
         val position: GeoPoint = GeoPoint(latitude, longitude)
         return OverlayItem(title, description, position)
     }
 
 
     /* Creates an overlay */
-    private fun createOverlay(context: Context, overlayItems: ArrayList<OverlayItem>): ItemizedIconOverlay<OverlayItem> {
+    private fun createOverlay(
+        context: Context,
+        overlayItems: ArrayList<OverlayItem>
+    ): ItemizedIconOverlay<OverlayItem> {
         return ItemizedIconOverlay<OverlayItem>(context, overlayItems,
             object : ItemizedIconOverlay.OnItemGestureListener<OverlayItem> {
                 override fun onItemSingleTapUp(index: Int, item: OverlayItem): Boolean {
                     markerListener.onMarkerTapped(item.point.latitude, item.point.longitude)
                     return true
                 }
+
                 override fun onItemLongPress(index: Int, item: OverlayItem): Boolean {
                     val v = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
                     v.vibrate(50)

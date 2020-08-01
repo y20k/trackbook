@@ -51,7 +51,14 @@ import org.y20k.trackbook.helpers.PreferencesHelper
 /*
  * MapFragmentLayoutHolder class
  */
-data class MapFragmentLayoutHolder(private var context: Context, private var markerListener: MapOverlay.MarkerListener, private var inflater: LayoutInflater, private var container: ViewGroup?, private val startLocation: Location, private val trackingState: Int) {
+data class MapFragmentLayoutHolder(
+    private var context: Context,
+    private var markerListener: MapOverlay.MarkerListener,
+    private var inflater: LayoutInflater,
+    private var container: ViewGroup?,
+    private val startLocation: Location,
+    private val trackingState: Int
+) {
 
     /* Define log tag */
     private val TAG: String = LogHelper.makeLogTag(MapFragmentLayoutHolder::class.java)
@@ -102,14 +109,19 @@ data class MapFragmentLayoutHolder(private var context: Context, private var mar
         }
 
         // add compass to map
-        val compassOverlay = CompassOverlay(context, InternalCompassOrientationProvider(context), mapView)
+        val compassOverlay =
+            CompassOverlay(context, InternalCompassOrientationProvider(context), mapView)
         compassOverlay.enableCompass()
         compassOverlay.setCompassCenter(36f, 60f)
 
         mapView.overlays.add(compassOverlay)
 
         // add my location overlay
-        currentPositionOverlay = MapOverlay(markerListener).createMyLocationOverlay(context, startLocation, trackingState)
+        currentPositionOverlay = MapOverlay(markerListener).createMyLocationOverlay(
+            context,
+            startLocation,
+            trackingState
+        )
         mapView.overlays.add(currentPositionOverlay)
         centerMap(startLocation)
 
@@ -157,7 +169,8 @@ data class MapFragmentLayoutHolder(private var context: Context, private var mar
     /* Mark current position on map */
     fun markCurrentPosition(location: Location, trackingState: Int = Keys.STATE_TRACKING_NOT) {
         mapView.overlays.remove(currentPositionOverlay)
-        currentPositionOverlay = MapOverlay(markerListener).createMyLocationOverlay(context, location, trackingState)
+        currentPositionOverlay =
+            MapOverlay(markerListener).createMyLocationOverlay(context, location, trackingState)
         mapView.overlays.add(currentPositionOverlay)
     }
 
@@ -168,7 +181,8 @@ data class MapFragmentLayoutHolder(private var context: Context, private var mar
             mapView.overlays.remove(currentTrackOverlay)
         }
         if (track.wayPoints.isNotEmpty()) {
-            currentTrackOverlay = MapOverlay(markerListener).createTrackOverlay(context, track, trackingState)
+            currentTrackOverlay =
+                MapOverlay(markerListener).createTrackOverlay(context, track, trackingState)
             mapView.overlays.add(currentTrackOverlay)
         }
     }
@@ -201,10 +215,13 @@ data class MapFragmentLayoutHolder(private var context: Context, private var mar
     }
 
 
-
     /* Toggles content and visibility of the location error snackbar */
     fun toggleLocationErrorBar(gpsProviderActive: Boolean, networkProviderActive: Boolean) {
-        if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED) {
+        if (ContextCompat.checkSelfPermission(
+                context,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_DENIED
+        ) {
             // CASE: Location permission not granted
             locationErrorBar.setText(R.string.snackbar_message_location_permission_denied)
             locationErrorBar.show()

@@ -31,7 +31,7 @@ import org.y20k.trackbook.helpers.PreferencesHelper
 /*
  * TrackingToggleTileService class
  */
-class TrackingToggleTileService(): TileService() {
+class TrackingToggleTileService() : TileService() {
 
     /* Define log tag */
     private val TAG: String = LogHelper.makeLogTag(TrackingToggleTileService::class.java)
@@ -66,7 +66,8 @@ class TrackingToggleTileService(): TileService() {
         // set up tile
         updateTile()
         // register listener for changes in shared preferences
-        PreferenceManager.getDefaultSharedPreferences(this@TrackingToggleTileService).registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener)
+        PreferenceManager.getDefaultSharedPreferences(this@TrackingToggleTileService)
+            .registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener)
     }
 
 
@@ -84,7 +85,8 @@ class TrackingToggleTileService(): TileService() {
     override fun onStopListening() {
         super.onStopListening()
         // unregister listener for changes in shared preferences
-        PreferenceManager.getDefaultSharedPreferences(this@TrackingToggleTileService).unregisterOnSharedPreferenceChangeListener(sharedPreferenceChangeListener)
+        PreferenceManager.getDefaultSharedPreferences(this@TrackingToggleTileService)
+            .unregisterOnSharedPreferenceChangeListener(sharedPreferenceChangeListener)
     }
 
 
@@ -138,19 +140,18 @@ class TrackingToggleTileService(): TileService() {
     /*
      * Defines the listener for changes in shared preferences
      */
-    private val sharedPreferenceChangeListener = SharedPreferences.OnSharedPreferenceChangeListener { sharedPreferences, key ->
-        when (key) {
-            Keys.PREF_TRACKING_STATE -> {
-                trackingState = PreferencesHelper.loadTrackingState(this)
-                updateTile()
+    private val sharedPreferenceChangeListener =
+        SharedPreferences.OnSharedPreferenceChangeListener { sharedPreferences, key ->
+            when (key) {
+                Keys.PREF_TRACKING_STATE -> {
+                    trackingState = PreferencesHelper.loadTrackingState(this)
+                    updateTile()
+                }
             }
         }
-    }
     /*
      * End of declaration
      */
-
-
 
 
 }

@@ -48,10 +48,10 @@ object FileHelper {
 
     /* Return an InputStream for given Uri */
     fun getTextFileStream(context: Context, uri: Uri): InputStream? {
-        var stream : InputStream? = null
+        var stream: InputStream? = null
         try {
             stream = context.contentResolver.openInputStream(uri)
-        } catch (e : Exception) {
+        } catch (e: Exception) {
             e.printStackTrace()
         }
         return stream
@@ -154,16 +154,19 @@ object FileHelper {
 
 
     /* Creates Uri for Gpx file of a track */
-    fun getGpxFileUri(context: Context, track: Track): Uri = File(context.getExternalFilesDir(Keys.FOLDER_GPX), getGpxFileName(track)).toUri()
+    fun getGpxFileUri(context: Context, track: Track): Uri =
+        File(context.getExternalFilesDir(Keys.FOLDER_GPX), getGpxFileName(track)).toUri()
 
 
     /* Creates file name for Gpx file of a track */
-    fun getGpxFileName(track: Track): String = DateTimeHelper.convertToSortableDateString(track.recordingStart) + Keys.GPX_FILE_EXTENSION
+    fun getGpxFileName(track: Track): String =
+        DateTimeHelper.convertToSortableDateString(track.recordingStart) + Keys.GPX_FILE_EXTENSION
 
 
     /* Creates Uri for json track file */
     fun getTrackFileUri(context: Context, track: Track): Uri {
-        val fileName: String = DateTimeHelper.convertToSortableDateString(track.recordingStart) + Keys.TRACKBOOK_FILE_EXTENSION
+        val fileName: String =
+            DateTimeHelper.convertToSortableDateString(track.recordingStart) + Keys.TRACKBOOK_FILE_EXTENSION
         return File(context.getExternalFilesDir(Keys.FOLDER_TRACKS), fileName).toUri()
     }
 
@@ -175,7 +178,11 @@ object FileHelper {
 
 
     /* Suspend function: Wrapper for saveTracklist */
-    suspend fun addTrackAndSaveTracklistSuspended(context: Context, track: Track, modificationDate: Date = track.recordingStop) {
+    suspend fun addTrackAndSaveTracklistSuspended(
+        context: Context,
+        track: Track,
+        modificationDate: Date = track.recordingStop
+    ) {
         return suspendCoroutine { cont ->
             val tracklist: Tracklist = readTracklist(context)
             tracklist.tracklistElements.add(track.toTracklistElement(context))
@@ -193,7 +200,11 @@ object FileHelper {
 
 
     /* Suspend function: Wrapper for saveTracklist */
-    suspend fun saveTracklistSuspended(context: Context, tracklist: Tracklist, modificationDate: Date) {
+    suspend fun saveTracklistSuspended(
+        context: Context,
+        tracklist: Tracklist,
+        modificationDate: Date
+    ) {
         return suspendCoroutine { cont ->
             cont.resume(saveTracklist(context, tracklist, modificationDate))
         }
@@ -217,7 +228,11 @@ object FileHelper {
 
 
     /* Suspend function: Wrapper for deleteTrack */
-    suspend fun deleteTrackSuspended(context: Context, position: Int, tracklist: Tracklist): Tracklist {
+    suspend fun deleteTrackSuspended(
+        context: Context,
+        position: Int,
+        tracklist: Tracklist
+    ): Tracklist {
         return suspendCoroutine { cont ->
             cont.resume(deleteTrack(context, position, tracklist))
         }
@@ -240,14 +255,19 @@ object FileHelper {
 
     /* Suspend function: Wrapper for readTracklist */
     suspend fun readTracklistSuspended(context: Context): Tracklist {
-        return suspendCoroutine {cont ->
+        return suspendCoroutine { cont ->
             cont.resume(readTracklist(context))
         }
     }
 
 
     /* Suspend function: Wrapper for copyFile */
-    suspend fun saveCopyOfFileSuspended(context: Context, originalFileUri: Uri, targetFileUri: Uri, deleteOriginal: Boolean = false) {
+    suspend fun saveCopyOfFileSuspended(
+        context: Context,
+        originalFileUri: Uri,
+        targetFileUri: Uri,
+        deleteOriginal: Boolean = false
+    ) {
         return suspendCoroutine { cont ->
             cont.resume(copyFile(context, originalFileUri, targetFileUri, deleteOriginal))
         }
@@ -304,7 +324,6 @@ object FileHelper {
     }
 
 
-
     /* Renames track */
     private fun renameTrack(context: Context, track: Track, newName: String) {
         // search track in tracklist
@@ -329,13 +348,17 @@ object FileHelper {
 
 
     /* Deletes multiple tracks */
-    private fun deleteTracks(context: Context, tracklistElements: MutableList<TracklistElement>, tracklist: Tracklist): Tracklist {
+    private fun deleteTracks(
+        context: Context,
+        tracklistElements: MutableList<TracklistElement>,
+        tracklist: Tracklist
+    ): Tracklist {
         tracklistElements.forEach { tracklistElement ->
             // delete track files
             tracklistElement.trackUriString.toUri().toFile().delete()
             tracklistElement.gpxUriString.toUri().toFile().delete()
         }
-        tracklist.tracklistElements.removeAll{ tracklistElements.contains(it) }
+        tracklist.tracklistElements.removeAll { tracklistElements.contains(it) }
         saveTracklist(context, tracklist, GregorianCalendar.getInstance().time)
         return tracklist
     }
@@ -348,14 +371,23 @@ object FileHelper {
         tracklistElement.trackUriString.toUri().toFile().delete()
         tracklistElement.gpxUriString.toUri().toFile().delete()
         // remove track element from list
-        tracklist.tracklistElements.removeIf { TrackHelper.getTrackId(it) == TrackHelper.getTrackId(tracklistElement) }
+        tracklist.tracklistElements.removeIf {
+            TrackHelper.getTrackId(it) == TrackHelper.getTrackId(
+                tracklistElement
+            )
+        }
         saveTracklist(context, tracklist, GregorianCalendar.getInstance().time)
         return tracklist
     }
 
 
     /* Copies file to specified target */
-    private fun copyFile(context: Context, originalFileUri: Uri, targetFileUri: Uri, deleteOriginal: Boolean = false) {
+    private fun copyFile(
+        context: Context,
+        originalFileUri: Uri,
+        targetFileUri: Uri,
+        deleteOriginal: Boolean = false
+    ) {
         val inputStream = context.contentResolver.openInputStream(originalFileUri)
         val outputStream = context.contentResolver.openOutputStream(targetFileUri)
         if (outputStream != null) {
@@ -387,7 +419,6 @@ object FileHelper {
         gsonBuilder.excludeFieldsWithoutExposeAnnotation()
         return gsonBuilder.create()
     }
-
 
 
     /* Converts byte value into a human readable format */
@@ -430,7 +461,8 @@ object FileHelper {
         val builder: StringBuilder = StringBuilder()
         reader.forEachLine {
             builder.append(it)
-            builder.append("\n") }
+            builder.append("\n")
+        }
         stream.close()
         return builder.toString()
     }
@@ -444,8 +476,14 @@ object FileHelper {
 
 
     /* Writes given bitmap as image file to storage */
-    private fun writeImageFile(context: Context, bitmap: Bitmap, file: File, format: Bitmap.CompressFormat = Bitmap.CompressFormat.JPEG, quality: Int = 75) {
-        if (file.exists()) file.delete ()
+    private fun writeImageFile(
+        context: Context,
+        bitmap: Bitmap,
+        file: File,
+        format: Bitmap.CompressFormat = Bitmap.CompressFormat.JPEG,
+        quality: Int = 75
+    ) {
+        if (file.exists()) file.delete()
         try {
             val out = FileOutputStream(file)
             bitmap.compress(format, quality, out)

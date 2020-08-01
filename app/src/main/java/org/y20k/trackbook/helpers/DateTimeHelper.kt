@@ -36,8 +36,10 @@ object DateTimeHelper {
     fun convertToReadableTime(context: Context, milliseconds: Long): String {
         var timeString: String = String()
         val hours: Long = TimeUnit.MILLISECONDS.toHours(milliseconds)
-        val minutes: Long = TimeUnit.MILLISECONDS.toMinutes(milliseconds) % TimeUnit.HOURS.toMinutes(1)
-        val seconds: Long = TimeUnit.MILLISECONDS.toSeconds(milliseconds) % TimeUnit.MINUTES.toSeconds(1)
+        val minutes: Long =
+            TimeUnit.MILLISECONDS.toMinutes(milliseconds) % TimeUnit.HOURS.toMinutes(1)
+        val seconds: Long =
+            TimeUnit.MILLISECONDS.toSeconds(milliseconds) % TimeUnit.MINUTES.toSeconds(1)
         val h: String = context.getString(R.string.abbreviation_hours)
         val m: String = context.getString(R.string.abbreviation_minutes)
         val s: String = context.getString(R.string.abbreviation_seconds)
@@ -70,13 +72,19 @@ object DateTimeHelper {
 
 
     /* Creates a readable string date and time - used in the UI */
-    fun convertToReadableDateAndTime(date: Date, dateStyle: Int = DateFormat.SHORT, timeStyle: Int = DateFormat.SHORT): String {
-        return "${DateFormat.getDateInstance(dateStyle, Locale.getDefault()).format(date)} ${DateFormat.getTimeInstance(timeStyle, Locale.getDefault()).format(date)}"
+    fun convertToReadableDateAndTime(
+        date: Date,
+        dateStyle: Int = DateFormat.SHORT,
+        timeStyle: Int = DateFormat.SHORT
+    ): String {
+        return "${DateFormat.getDateInstance(dateStyle, Locale.getDefault())
+            .format(date)} ${DateFormat.getTimeInstance(timeStyle, Locale.getDefault())
+            .format(date)}"
     }
 
 
     /* Calculates time difference between two locations */
-    fun calculateTimeDistance(previousLocation: Location?, location: Location): Long  {
+    fun calculateTimeDistance(previousLocation: Location?, location: Location): Long {
         var timeDifference: Long = 0L
         // two data points needed to calculate time difference
         if (previousLocation != null) {

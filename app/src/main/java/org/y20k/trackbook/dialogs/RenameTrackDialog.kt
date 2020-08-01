@@ -30,7 +30,7 @@ import org.y20k.trackbook.helpers.LogHelper
 /*
  * RenameTrackDialog class
  */
-class RenameTrackDialog (private var renameTrackListener: RenameTrackListener) {
+class RenameTrackDialog(private var renameTrackListener: RenameTrackListener) {
 
     /* Interface used to communicate back to activity */
     interface RenameTrackListener {

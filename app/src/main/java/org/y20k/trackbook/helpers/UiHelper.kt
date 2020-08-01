@@ -41,7 +41,14 @@ object UiHelper {
 
 
     /* Sets layout margins for given view in DP */
-    fun setViewMargins(context: Context, view: View, left: Int = 0, right: Int = 0, top: Int= 0, bottom: Int = 0) {
+    fun setViewMargins(
+        context: Context,
+        view: View,
+        left: Int = 0,
+        right: Int = 0,
+        top: Int = 0,
+        bottom: Int = 0
+    ) {
         val scalingFactor: Float = context.resources.displayMetrics.density
         val l: Int = (left * scalingFactor).toInt()
         val r: Int = (right * scalingFactor).toInt()
@@ -56,7 +63,16 @@ object UiHelper {
 
 
     /* Sets layout margins for given view in percent */
-    fun setViewMarginsPercentage(context: Context, view: View, height: Int, width: Int, left: Int = 0, right: Int = 0, top: Int= 0, bottom: Int = 0) {
+    fun setViewMarginsPercentage(
+        context: Context,
+        view: View,
+        height: Int,
+        width: Int,
+        left: Int = 0,
+        right: Int = 0,
+        top: Int = 0,
+        bottom: Int = 0
+    ) {
         val l: Int = ((width / 100.0f) * left).toInt()
         val r: Int = ((width / 100.0f) * right).toInt()
         val t: Int = ((height / 100.0f) * top).toInt()
@@ -69,28 +85,58 @@ object UiHelper {
      * Inner class: Callback that detects a left swipe
      * Credit: https://github.com/kitek/android-rv-swipe-delete/blob/master/app/src/main/java/pl/kitek/rvswipetodelete/SwipeToDeleteCallback.kt
      */
-    abstract class SwipeToDeleteCallback(context: Context): ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+    abstract class SwipeToDeleteCallback(context: Context) :
+        ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
 
-        private val deleteIcon = ContextCompat.getDrawable(context, R.drawable.ic_remove_circle_24dp)
+        private val deleteIcon =
+            ContextCompat.getDrawable(context, R.drawable.ic_remove_circle_24dp)
         private val intrinsicWidth: Int = deleteIcon?.intrinsicWidth ?: 0
         private val intrinsicHeight: Int = deleteIcon?.intrinsicHeight ?: 0
         private val background: ColorDrawable = ColorDrawable()
-        private val backgroundColor = context.resources.getColor(R.color.list_card_delete_background, null)
-        private val clearPaint: Paint = Paint().apply { xfermode = PorterDuffXfermode(PorterDuff.Mode.CLEAR) }
+        private val backgroundColor =
+            context.resources.getColor(R.color.list_card_delete_background, null)
+        private val clearPaint: Paint =
+            Paint().apply { xfermode = PorterDuffXfermode(PorterDuff.Mode.CLEAR) }
 
-        override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
+        override fun onMove(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder,
+            target: RecyclerView.ViewHolder
+        ): Boolean {
             // do nothing
             return false
         }
 
-        override fun onChildDraw(c: Canvas, recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean) {
+        override fun onChildDraw(
+            c: Canvas,
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder,
+            dX: Float,
+            dY: Float,
+            actionState: Int,
+            isCurrentlyActive: Boolean
+        ) {
             val itemView = viewHolder.itemView
             val itemHeight = itemView.bottom - itemView.top
             val isCanceled = dX == 0f && !isCurrentlyActive
 
             if (isCanceled) {
-                clearCanvas(c, itemView.right + dX, itemView.top.toFloat(), itemView.right.toFloat(), itemView.bottom.toFloat())
-                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+                clearCanvas(
+                    c,
+                    itemView.right + dX,
+                    itemView.top.toFloat(),
+                    itemView.right.toFloat(),
+                    itemView.bottom.toFloat()
+                )
+                super.onChildDraw(
+                    c,
+                    recyclerView,
+                    viewHolder,
+                    dX,
+                    dY,
+                    actionState,
+                    isCurrentlyActive
+                )
                 return
             }
 
