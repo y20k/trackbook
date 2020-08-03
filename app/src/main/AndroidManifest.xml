@@ -3,9 +3,7 @@
     package="org.y20k.trackbook">
 
     <!-- USE GPS AND NETWORK - EXCLUDE NON-GPS DEVICES -->
-    <uses-feature
-        android:name="android.hardware.location.gps"
-        android:required="true" />
+    <uses-feature android:name="android.hardware.location.gps" android:required="true" />
     <uses-feature android:name="android.hardware.location.network" />
 
     <!-- NORMAL PERMISSIONS, automatically granted -->
@@ -38,8 +36,8 @@
         <!-- TRACKER SERVICE -->
         <service
             android:name=".TrackerService"
-            android:exported="false"
-            android:foregroundServiceType="location">
+            android:foregroundServiceType="location"
+            android:exported="false">
             <intent-filter>
                 <action android:name="org.y20k.trackbook.action.START" />
                 <action android:name="org.y20k.trackbook.action.STOP" />
@@ -50,8 +48,8 @@
         <!-- TRACKING TOGGLE SERVICE SYSTEM QUICK SETTINGS -->
         <service
             android:name=".TrackingToggleTileService"
-            android:icon="@drawable/ic_notification_icon_small_24dp"
             android:label="@string/quick_settings_tile_title_default"
+            android:icon="@drawable/ic_notification_icon_small_24dp"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />

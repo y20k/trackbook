@@ -80,10 +80,7 @@ object PreferencesHelper {
         // get preferences
         val settings = PreferenceManager.getDefaultSharedPreferences(context)
         // load length unit system
-        return settings.getBoolean(
-            Keys.PREF_USE_IMPERIAL_UNITS,
-            LengthUnitHelper.useImperialUnits()
-        )
+        return settings.getBoolean(Keys.PREF_USE_IMPERIAL_UNITS, LengthUnitHelper.useImperialUnits())
     }
 
 
@@ -100,10 +97,7 @@ object PreferencesHelper {
         // get preferences
         val settings = PreferenceManager.getDefaultSharedPreferences(context)
         // load tracking state
-        return settings.getInt(
-            Keys.PREF_LOCATION_ACCURACY_THRESHOLD,
-            Keys.DEFAULT_THRESHOLD_LOCATION_ACCURACY
-        )
+        return settings.getInt(Keys.PREF_LOCATION_ACCURACY_THRESHOLD, Keys.DEFAULT_THRESHOLD_LOCATION_ACCURACY)
     }
 
 
@@ -111,23 +105,15 @@ object PreferencesHelper {
     fun loadCurrentBestLocation(context: Context): Location {
         // get preferences
         val settings = PreferenceManager.getDefaultSharedPreferences(context)
-        val provider: String = settings.getString(
-            Keys.PREF_CURRENT_BEST_LOCATION_PROVIDER,
-            LocationManager.NETWORK_PROVIDER
-        ) ?: LocationManager.NETWORK_PROVIDER
+        val provider: String = settings.getString(Keys.PREF_CURRENT_BEST_LOCATION_PROVIDER, LocationManager.NETWORK_PROVIDER) ?: LocationManager.NETWORK_PROVIDER
         // create location
         val currentBestLocation = Location(provider)
         // load location attributes
-        currentBestLocation.latitude =
-            settings.getDouble(Keys.PREF_CURRENT_BEST_LOCATION_LATITUDE, Keys.DEFAULT_LATITUDE)
-        currentBestLocation.longitude =
-            settings.getDouble(Keys.PREF_CURRENT_BEST_LOCATION_LONGITUDE, Keys.DEFAULT_LONGITUDE)
-        currentBestLocation.accuracy =
-            settings.getFloat(Keys.PREF_CURRENT_BEST_LOCATION_ACCURACY, Keys.DEFAULT_ACCURACY)
-        currentBestLocation.altitude =
-            settings.getDouble(Keys.PREF_CURRENT_BEST_LOCATION_ALTITUDE, Keys.DEFAULT_ALTITUDE)
-        currentBestLocation.time =
-            settings.getLong(Keys.PREF_CURRENT_BEST_LOCATION_TIME, Keys.DEFAULT_TIME)
+        currentBestLocation.latitude = settings.getDouble(Keys.PREF_CURRENT_BEST_LOCATION_LATITUDE, Keys.DEFAULT_LATITUDE)
+        currentBestLocation.longitude = settings.getDouble(Keys.PREF_CURRENT_BEST_LOCATION_LONGITUDE, Keys.DEFAULT_LONGITUDE)
+        currentBestLocation.accuracy = settings.getFloat(Keys.PREF_CURRENT_BEST_LOCATION_ACCURACY, Keys.DEFAULT_ACCURACY)
+        currentBestLocation.altitude = settings.getDouble(Keys.PREF_CURRENT_BEST_LOCATION_ALTITUDE, Keys.DEFAULT_ALTITUDE)
+        currentBestLocation.time = settings.getLong(Keys.PREF_CURRENT_BEST_LOCATION_TIME, Keys.DEFAULT_TIME)
         return currentBestLocation
     }
 
@@ -149,9 +135,7 @@ object PreferencesHelper {
 
     /* Load currently selected app theme */
     fun loadThemeSelection(context: Context): String {
-        return PreferenceManager.getDefaultSharedPreferences(context)
-            .getString(Keys.PREF_THEME_SELECTION, Keys.STATE_THEME_FOLLOW_SYSTEM)
-            ?: Keys.STATE_THEME_FOLLOW_SYSTEM
+        return PreferenceManager.getDefaultSharedPreferences(context).getString(Keys.PREF_THEME_SELECTION, Keys.STATE_THEME_FOLLOW_SYSTEM) ?: Keys.STATE_THEME_FOLLOW_SYSTEM
     }
 
 
