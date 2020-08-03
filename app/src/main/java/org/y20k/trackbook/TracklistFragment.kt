@@ -40,8 +40,7 @@ import org.y20k.trackbook.tracklist.TracklistAdapter
 /*
  * TracklistFragment class
  */
-class TracklistFragment : Fragment(), TracklistAdapter.TracklistAdapterListener,
-    YesNoDialog.YesNoDialogListener {
+class TracklistFragment : Fragment(), TracklistAdapter.TracklistAdapterListener, YesNoDialog.YesNoDialogListener {
 
     /* Define log tag */
     private val TAG: String = LogHelper.makeLogTag(TracklistFragment::class.java)
@@ -62,11 +61,7 @@ class TracklistFragment : Fragment(), TracklistAdapter.TracklistAdapterListener,
 
 
     /* Overrides onCreateView from Fragment */
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // find views
         val rootView = inflater.inflate(R.layout.fragment_tracklist, container, false)
         trackElementList = rootView.findViewById(R.id.track_element_list)
@@ -82,17 +77,8 @@ class TracklistFragment : Fragment(), TracklistAdapter.TracklistAdapterListener,
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 // ask user
                 val adapterPosition: Int = viewHolder.adapterPosition
-                val dialogMessage =
-                    "${getString(R.string.dialog_yes_no_message_delete_recording)}\n\n- ${tracklistAdapter.getTrackName(
-                        adapterPosition
-                    )}"
-                YesNoDialog(this@TracklistFragment as YesNoDialog.YesNoDialogListener).show(
-                    context = activity as Context,
-                    type = Keys.DIALOG_DELETE_TRACK,
-                    messageString = dialogMessage,
-                    yesButton = R.string.dialog_yes_no_positive_button_delete_recording,
-                    payload = adapterPosition
-                )
+                val dialogMessage: String = "${getString(R.string.dialog_yes_no_message_delete_recording)}\n\n- ${tracklistAdapter.getTrackName(adapterPosition)}"
+                YesNoDialog(this@TracklistFragment as YesNoDialog.YesNoDialogListener).show(context = activity as Context, type = Keys.DIALOG_DELETE_TRACK, messageString = dialogMessage, yesButton = R.string.dialog_yes_no_positive_button_delete_recording, payload = adapterPosition)
             }
         }
         val itemTouchHelper = ItemTouchHelper(swipeHandler)
@@ -107,7 +93,7 @@ class TracklistFragment : Fragment(), TracklistAdapter.TracklistAdapterListener,
 
     /* Overrides onTrackElementTapped from TracklistElementAdapterListener */
     override fun onTrackElementTapped(tracklistElement: TracklistElement) {
-        val bundle = Bundle()
+        val bundle: Bundle = Bundle()
         bundle.putString(Keys.ARG_TRACK_TITLE, tracklistElement.name)
         bundle.putString(Keys.ARG_TRACK_FILE_URI, tracklistElement.trackUriString)
         bundle.putString(Keys.ARG_GPX_FILE_URI, tracklistElement.gpxUriString)
@@ -117,18 +103,13 @@ class TracklistFragment : Fragment(), TracklistAdapter.TracklistAdapterListener,
 
 
     /* Overrides onYesNoDialog from YesNoDialogListener */
-    override fun onYesNoDialog(
-        type: Int,
-        dialogResult: Boolean,
-        payload: Int,
-        payloadString: String
-    ) {
+    override fun onYesNoDialog(type: Int, dialogResult: Boolean, payload: Int, payloadString: String) {
         when (type) {
             Keys.DIALOG_DELETE_TRACK -> {
                 when (dialogResult) {
                     // user tapped remove track
                     true -> {
-                        toggleOnboardingLayout(tracklistAdapter.itemCount - 1)
+                        toggleOnboardingLayout(tracklistAdapter.itemCount -1)
                         tracklistAdapter.removeTrack(activity as Context, payload)
                     }
                     // user tapped cancel
@@ -158,11 +139,11 @@ class TracklistFragment : Fragment(), TracklistAdapter.TracklistAdapterListener,
     }
 
 
+
     /*
      * Inner class: custom LinearLayoutManager that overrides onLayoutCompleted
      */
-    inner class CustomLinearLayoutManager(context: Context) :
-        LinearLayoutManager(context, VERTICAL, false) {
+    inner class CustomLinearLayoutManager(context: Context): LinearLayoutManager(context, VERTICAL, false) {
 
         override fun supportsPredictiveItemAnimations(): Boolean {
             return true
@@ -176,7 +157,7 @@ class TracklistFragment : Fragment(), TracklistAdapter.TracklistAdapterListener,
             if (deleteTrackId != -1L) {
                 val position: Int = tracklistAdapter.findPosition(deleteTrackId)
                 tracklistAdapter.removeTrack(this@TracklistFragment.activity as Context, position)
-                toggleOnboardingLayout(tracklistAdapter.itemCount - 1)
+                toggleOnboardingLayout(tracklistAdapter.itemCount -1)
             }
         }
 

@@ -63,7 +63,7 @@ class SettingsFragment : PreferenceFragmentCompat(), YesNoDialog.YesNoDialogList
         val screen = preferenceManager.createPreferenceScreen(context)
 
         // set up "Restrict to GPS" preference
-        val preferenceGpsOnly = SwitchPreferenceCompat(activity as Context)
+        val preferenceGpsOnly: SwitchPreferenceCompat = SwitchPreferenceCompat(activity as Context)
         preferenceGpsOnly.title = getString(R.string.pref_gps_only_title)
         preferenceGpsOnly.setIcon(R.drawable.ic_gps_24dp)
         preferenceGpsOnly.key = Keys.PREF_GPS_ONLY
@@ -72,41 +72,26 @@ class SettingsFragment : PreferenceFragmentCompat(), YesNoDialog.YesNoDialogList
         preferenceGpsOnly.setDefaultValue(false)
 
         // set up "Use Imperial Measurements" preference
-        val preferenceImperialMeasurementUnits = SwitchPreferenceCompat(activity as Context)
-        preferenceImperialMeasurementUnits.title =
-            getString(R.string.pref_imperial_measurement_units_title)
+        val preferenceImperialMeasurementUnits: SwitchPreferenceCompat = SwitchPreferenceCompat(activity as Context)
+        preferenceImperialMeasurementUnits.title = getString(R.string.pref_imperial_measurement_units_title)
         preferenceImperialMeasurementUnits.setIcon(R.drawable.ic_square_foot_24px)
         preferenceImperialMeasurementUnits.key = Keys.PREF_USE_IMPERIAL_UNITS
-        preferenceImperialMeasurementUnits.summaryOn =
-            getString(R.string.pref_imperial_measurement_units_summary_imperial)
-        preferenceImperialMeasurementUnits.summaryOff =
-            getString(R.string.pref_imperial_measurement_units_summary_metric)
+        preferenceImperialMeasurementUnits.summaryOn = getString(R.string.pref_imperial_measurement_units_summary_imperial)
+        preferenceImperialMeasurementUnits.summaryOff = getString(R.string.pref_imperial_measurement_units_summary_metric)
         preferenceImperialMeasurementUnits.setDefaultValue(LengthUnitHelper.useImperialUnits())
 
         // set up "App Theme" preference
-        val preferenceThemeSelection = ListPreference(activity as Context)
+        val preferenceThemeSelection: ListPreference = ListPreference(activity as Context)
         preferenceThemeSelection.title = getString(R.string.pref_theme_selection_title)
         preferenceThemeSelection.setIcon(R.drawable.ic_smartphone_24dp)
         preferenceThemeSelection.key = Keys.PREF_THEME_SELECTION
-        preferenceThemeSelection.summary =
-            "${getString(R.string.pref_theme_selection_summary)} ${AppThemeHelper.getCurrentTheme(
-                activity as Context
-            )}"
-        preferenceThemeSelection.entries = arrayOf(
-            getString(R.string.pref_theme_selection_mode_device_default),
-            getString(R.string.pref_theme_selection_mode_light),
-            getString(R.string.pref_theme_selection_mode_dark)
-        )
-        preferenceThemeSelection.entryValues = arrayOf(
-            Keys.STATE_THEME_FOLLOW_SYSTEM,
-            Keys.STATE_THEME_LIGHT_MODE,
-            Keys.STATE_THEME_DARK_MODE
-        )
+        preferenceThemeSelection.summary = "${getString(R.string.pref_theme_selection_summary)} ${AppThemeHelper.getCurrentTheme(activity as Context)}"
+        preferenceThemeSelection.entries = arrayOf(getString(R.string.pref_theme_selection_mode_device_default), getString(R.string.pref_theme_selection_mode_light), getString(R.string.pref_theme_selection_mode_dark))
+        preferenceThemeSelection.entryValues = arrayOf(Keys.STATE_THEME_FOLLOW_SYSTEM, Keys.STATE_THEME_LIGHT_MODE, Keys.STATE_THEME_DARK_MODE)
         preferenceThemeSelection.setOnPreferenceChangeListener { preference, newValue ->
             if (preference is ListPreference) {
                 val index: Int = preference.entryValues.indexOf(newValue)
-                preferenceThemeSelection.summary =
-                    "${getString(R.string.pref_theme_selection_summary)} ${preference.entries[index]}"
+                preferenceThemeSelection.summary = "${getString(R.string.pref_theme_selection_summary)} ${preference.entries.get(index)}"
                 return@setOnPreferenceChangeListener true
             } else {
                 return@setOnPreferenceChangeListener false
@@ -114,22 +99,17 @@ class SettingsFragment : PreferenceFragmentCompat(), YesNoDialog.YesNoDialogList
         }
 
         // set up "Delete Non-Starred" preference
-        val preferenceDeleteNonStarred = Preference(activity as Context)
+        val preferenceDeleteNonStarred: Preference = Preference(activity as Context)
         preferenceDeleteNonStarred.title = getString(R.string.pref_delete_non_starred_title)
         preferenceDeleteNonStarred.setIcon(R.drawable.ic_delete_24dp)
         preferenceDeleteNonStarred.summary = getString(R.string.pref_delete_non_starred_summary)
-        preferenceDeleteNonStarred.setOnPreferenceClickListener {
-            YesNoDialog(this as YesNoDialog.YesNoDialogListener).show(
-                context = activity as Context,
-                type = Keys.DIALOG_DELETE_NON_STARRED,
-                message = R.string.dialog_yes_no_message_delete_non_starred,
-                yesButton = R.string.dialog_yes_no_positive_button_delete_non_starred
-            )
+        preferenceDeleteNonStarred.setOnPreferenceClickListener{
+            YesNoDialog(this as YesNoDialog.YesNoDialogListener).show(context = activity as Context, type = Keys.DIALOG_DELETE_NON_STARRED, message = R.string.dialog_yes_no_message_delete_non_starred, yesButton = R.string.dialog_yes_no_positive_button_delete_non_starred)
             return@setOnPreferenceClickListener true
         }
 
         // set up "Accuracy Threshold" preference
-        val preferenceAccuracyThreshold = SeekBarPreference(activity as Context)
+        val preferenceAccuracyThreshold: SeekBarPreference = SeekBarPreference(activity as Context)
         preferenceAccuracyThreshold.title = getString(R.string.pref_accuracy_threshold_title)
         preferenceAccuracyThreshold.setIcon(R.drawable.ic_timeline_24dp)
         preferenceAccuracyThreshold.key = Keys.PREF_LOCATION_ACCURACY_THRESHOLD
@@ -139,39 +119,32 @@ class SettingsFragment : PreferenceFragmentCompat(), YesNoDialog.YesNoDialogList
         preferenceAccuracyThreshold.setDefaultValue(Keys.DEFAULT_THRESHOLD_LOCATION_ACCURACY)
 
         // set up "Reset" preference
-        val preferenceResetAdvanced = Preference(activity as Context)
+        val preferenceResetAdvanced: Preference = Preference(activity as Context)
         preferenceResetAdvanced.title = getString(R.string.pref_reset_advanced_title)
         preferenceResetAdvanced.setIcon(R.drawable.ic_undo_24dp)
         preferenceResetAdvanced.summary = getString(R.string.pref_reset_advanced_summary)
-        preferenceResetAdvanced.setOnPreferenceClickListener {
+        preferenceResetAdvanced.setOnPreferenceClickListener{
             preferenceAccuracyThreshold.value = Keys.DEFAULT_THRESHOLD_LOCATION_ACCURACY
             return@setOnPreferenceClickListener true
         }
 
         // set up "App Version" preference
-        val preferenceAppVersion = Preference(context)
+        val preferenceAppVersion: Preference = Preference(context)
         preferenceAppVersion.title = getString(R.string.pref_app_version_title)
         preferenceAppVersion.setIcon(R.drawable.ic_info_24dp)
-        preferenceAppVersion.summary =
-            "${getString(R.string.pref_app_version_summary)} ${BuildConfig.VERSION_NAME} (${getString(
-                R.string.app_version_name
-            )})"
+        preferenceAppVersion.summary = "${getString(R.string.pref_app_version_summary)} ${BuildConfig.VERSION_NAME} (${getString(
+            R.string.app_version_name)})"
         preferenceAppVersion.setOnPreferenceClickListener {
             // copy to clipboard
             val clip: ClipData = ClipData.newPlainText("simple text", preferenceAppVersion.summary)
-            val cm: ClipboardManager =
-                context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val cm: ClipboardManager = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             cm.setPrimaryClip(clip)
-            Toast.makeText(
-                activity as Context,
-                R.string.toast_message_copied_to_clipboard,
-                Toast.LENGTH_LONG
-            ).show()
+            Toast.makeText(activity as Context, R.string.toast_message_copied_to_clipboard, Toast.LENGTH_LONG).show()
             return@setOnPreferenceClickListener true
         }
 
         // set up "Report Issue" preference
-        val preferenceReportIssue = Preference(context)
+        val preferenceReportIssue: Preference = Preference(context)
         preferenceReportIssue.title = getString(R.string.pref_report_issue_title)
         preferenceReportIssue.setIcon(R.drawable.ic_bug_report_24dp)
         preferenceReportIssue.summary = getString(R.string.pref_report_issue_summary)
@@ -186,21 +159,20 @@ class SettingsFragment : PreferenceFragmentCompat(), YesNoDialog.YesNoDialogList
         }
 
         // set preference categories
-        val preferenceCategoryGeneral = PreferenceCategory(activity as Context)
+        val preferenceCategoryGeneral: PreferenceCategory = PreferenceCategory(activity as Context)
         preferenceCategoryGeneral.title = getString(R.string.pref_general_title)
         preferenceCategoryGeneral.contains(preferenceImperialMeasurementUnits)
         preferenceCategoryGeneral.contains(preferenceGpsOnly)
-        val preferenceCategoryMaintenance =
-            PreferenceCategory(activity as Context)
+        val preferenceCategoryMaintenance: PreferenceCategory = PreferenceCategory(activity as Context)
         preferenceCategoryMaintenance.title = getString(R.string.pref_maintenance_title)
         preferenceCategoryMaintenance.contains(preferenceDeleteNonStarred)
 
-        val preferenceCategoryAdvanced = PreferenceCategory(activity as Context)
+        val preferenceCategoryAdvanced: PreferenceCategory = PreferenceCategory(activity as Context)
         preferenceCategoryAdvanced.title = getString(R.string.pref_advanced_title)
         preferenceCategoryAdvanced.contains(preferenceAccuracyThreshold)
         preferenceCategoryAdvanced.contains(preferenceResetAdvanced)
 
-        val preferenceCategoryAbout = PreferenceCategory(context)
+        val preferenceCategoryAbout: PreferenceCategory = PreferenceCategory(context)
         preferenceCategoryAbout.title = getString(R.string.pref_about_title)
         preferenceCategoryAbout.contains(preferenceAppVersion)
         preferenceCategoryAbout.contains(preferenceReportIssue)
@@ -223,12 +195,7 @@ class SettingsFragment : PreferenceFragmentCompat(), YesNoDialog.YesNoDialogList
 
 
     /* Overrides onYesNoDialog from YesNoDialogListener */
-    override fun onYesNoDialog(
-        type: Int,
-        dialogResult: Boolean,
-        payload: Int,
-        payloadString: String
-    ) {
+    override fun onYesNoDialog(type: Int, dialogResult: Boolean, payload: Int, payloadString: String) {
         when (type) {
             Keys.DIALOG_DELETE_NON_STARRED -> {
                 when (dialogResult) {
@@ -246,13 +213,12 @@ class SettingsFragment : PreferenceFragmentCompat(), YesNoDialog.YesNoDialogList
 
 
     /* Removes track and track files for given position - used by TracklistFragment */
-    private fun deleteNonStarred(context: Context) {
+    fun deleteNonStarred(context: Context) {
         val backgroundJob = Job()
         val uiScope = CoroutineScope(Dispatchers.Main + backgroundJob)
         uiScope.launch {
             var tracklist: Tracklist = FileHelper.readTracklist(context)
-            val deferred: Deferred<Tracklist> =
-                async { FileHelper.deleteNonStarredSuspended(context, tracklist) }
+            val deferred: Deferred<Tracklist> = async { FileHelper.deleteNonStarredSuspended(context, tracklist) }
             // wait for result and store in tracklist
             tracklist = deferred.await()
             backgroundJob.cancel()

@@ -39,8 +39,7 @@ import java.util.*
 /*
  * TracklistAdapter class
  */
-class TracklistAdapter(private val fragment: Fragment) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class TracklistAdapter(private val fragment: Fragment) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     /* Define log tag */
     private val TAG: String = LogHelper.makeLogTag(TracklistAdapter::class.java)
@@ -55,7 +54,7 @@ class TracklistAdapter(private val fragment: Fragment) :
 
     /* Listener Interface */
     interface TracklistAdapterListener {
-        fun onTrackElementTapped(tracklistElement: TracklistElement) {}
+        fun onTrackElementTapped(tracklistElement: TracklistElement) {  }
         // fun onTrackElementStarred(trackId: Long, starred: Boolean)
     }
 
@@ -66,7 +65,7 @@ class TracklistAdapter(private val fragment: Fragment) :
         tracklistListener = fragment as TracklistAdapterListener
         // load tracklist
         tracklist = FileHelper.readTracklist(context)
-        tracklist.tracklistElements.sortByDescending { tracklistElement -> tracklistElement.date }
+        tracklist.tracklistElements.sortByDescending { tracklistElement -> tracklistElement.date  }
     }
 
 
@@ -112,8 +111,7 @@ class TracklistAdapter(private val fragment: Fragment) :
         val backgroundJob = Job()
         val uiScope = CoroutineScope(Dispatchers.Main + backgroundJob)
         uiScope.launch {
-            val deferred: Deferred<Tracklist> =
-                async { FileHelper.deleteTrackSuspended(context, position, tracklist) }
+            val deferred: Deferred<Tracklist> = async { FileHelper.deleteTrackSuspended(context, position, tracklist) }
             // wait for result and store in tracklist
             tracklist = deferred.await()
             notifyItemRemoved(position)
@@ -124,7 +122,7 @@ class TracklistAdapter(private val fragment: Fragment) :
 
     /* Finds current position of track element in adapter list */
     fun findPosition(trackId: Long): Int {
-        tracklist.tracklistElements.forEachIndexed { index, tracklistElement ->
+        tracklist.tracklistElements.forEachIndexed {index, tracklistElement ->
             if (tracklistElement.getTrackId() == trackId) return index
         }
         return -1
@@ -145,11 +143,7 @@ class TracklistAdapter(private val fragment: Fragment) :
             }
         }
         GlobalScope.launch {
-            FileHelper.saveTracklistSuspended(
-                context,
-                tracklist,
-                GregorianCalendar.getInstance().time
-            )
+            FileHelper.saveTracklistSuspended(context, tracklist, GregorianCalendar.getInstance().time)
         }
     }
 
@@ -158,17 +152,11 @@ class TracklistAdapter(private val fragment: Fragment) :
     private fun createTrackDataString(position: Int): String {
         val tracklistElement: TracklistElement = tracklist.tracklistElements[position]
         val trackDataString: String
-        trackDataString = when (tracklistElement.name == tracklistElement.dateString) {
+        when (tracklistElement.name == tracklistElement.dateString) {
             // CASE: no individual name set - exclude date
-            true -> "${LengthUnitHelper.convertDistanceToString(
-                tracklistElement.length,
-                useImperial
-            )} • ${tracklistElement.durationString}"
+            true -> trackDataString = "${LengthUnitHelper.convertDistanceToString(tracklistElement.length, useImperial)} • ${tracklistElement.durationString}"
             // CASE: no individual name set - include date
-            false -> "${tracklistElement.dateString} • ${LengthUnitHelper.convertDistanceToString(
-                tracklistElement.length,
-                useImperial
-            )} • ${tracklistElement.durationString}"
+            false -> trackDataString = "${tracklistElement.dateString} • ${LengthUnitHelper.convertDistanceToString(tracklistElement.length, useImperial)} • ${tracklistElement.durationString}"
         }
         return trackDataString
     }
@@ -177,8 +165,7 @@ class TracklistAdapter(private val fragment: Fragment) :
     /*
      * Inner class: DiffUtil.Callback that determines changes in data - improves list performance
      */
-    private inner class DiffCallback(val oldList: Tracklist, val newList: Tracklist) :
-        DiffUtil.Callback() {
+    private inner class DiffCallback(val oldList: Tracklist, val newList: Tracklist): DiffUtil.Callback() {
 
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
             val oldItem = oldList.tracklistElements[oldItemPosition]
@@ -208,8 +195,7 @@ class TracklistAdapter(private val fragment: Fragment) :
     /*
      * Inner class: ViewHolder for a track element
      */
-    private inner class TrackElementViewHolder(trackElementLayout: View) :
-        RecyclerView.ViewHolder(trackElementLayout) {
+    private inner class TrackElementViewHolder (trackElementLayout: View): RecyclerView.ViewHolder(trackElementLayout) {
         val trackElement: ConstraintLayout = trackElementLayout.findViewById(R.id.track_element)
         val trackNameView: TextView = trackElementLayout.findViewById(R.id.track_name)
         val trackDataView: TextView = trackElementLayout.findViewById(R.id.track_data)

@@ -35,8 +35,6 @@ import java.text.NumberFormat
 import java.util.*
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
-import kotlin.math.ln
-import kotlin.math.pow
 
 
 /*
@@ -50,10 +48,10 @@ object FileHelper {
 
     /* Return an InputStream for given Uri */
     fun getTextFileStream(context: Context, uri: Uri): InputStream? {
-        var stream: InputStream? = null
+        var stream : InputStream? = null
         try {
             stream = context.contentResolver.openInputStream(uri)
-        } catch (e: Exception) {
+        } catch (e : Exception) {
             e.printStackTrace()
         }
         return stream
@@ -63,14 +61,14 @@ object FileHelper {
     /* Get file size for given Uri */
     fun getFileSize(context: Context, uri: Uri): Long {
         val cursor: Cursor? = context.contentResolver.query(uri, null, null, null, null)
-        return if (cursor != null) {
+        if (cursor != null) {
             val sizeIndex: Int = cursor.getColumnIndex(OpenableColumns.SIZE)
             cursor.moveToFirst()
             val size: Long = cursor.getLong(sizeIndex)
             cursor.close()
-            size
+            return size
         } else {
-            0L
+            return 0L
         }
     }
 
@@ -78,14 +76,14 @@ object FileHelper {
     /* Get file name for given Uri */
     fun getFileName(context: Context, uri: Uri): String {
         val cursor: Cursor? = context.contentResolver.query(uri, null, null, null, null)
-        return if (cursor != null) {
+        if (cursor != null) {
             val nameIndex: Int = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
             cursor.moveToFirst()
             val name: String = cursor.getString(nameIndex)
             cursor.close()
-            name
+            return name
         } else {
-            String()
+            return String()
         }
     }
 
@@ -112,8 +110,8 @@ object FileHelper {
     fun readTracklist(context: Context): Tracklist {
         LogHelper.v(TAG, "Reading Tracklist - Thread: ${Thread.currentThread().name}")
         // get JSON from text file
-        val json: String = readTextFile(getTracklistFileUri(context))
-        var tracklist = Tracklist()
+        val json: String = readTextFile(context, getTracklistFileUri(context))
+        var tracklist: Tracklist = Tracklist()
         when (json.isNotBlank()) {
             // convert JSON and return as tracklist
             true -> try {
@@ -127,10 +125,10 @@ object FileHelper {
 
 
     /* Reads track from storage using GSON */
-    fun readTrack(fileUri: Uri): Track {
+    fun readTrack(context: Context, fileUri: Uri): Track {
         // get JSON from text file
-        val json: String = readTextFile(fileUri)
-        var track = Track()
+        val json: String = readTextFile(context, fileUri)
+        var track: Track = Track()
         when (json.isNotEmpty()) {
             // convert JSON and return as track
             true -> try {
@@ -156,19 +154,16 @@ object FileHelper {
 
 
     /* Creates Uri for Gpx file of a track */
-    fun getGpxFileUri(context: Context, track: Track): Uri =
-        File(context.getExternalFilesDir(Keys.FOLDER_GPX), getGpxFileName(track)).toUri()
+    fun getGpxFileUri(context: Context, track: Track): Uri = File(context.getExternalFilesDir(Keys.FOLDER_GPX), getGpxFileName(track)).toUri()
 
 
     /* Creates file name for Gpx file of a track */
-    fun getGpxFileName(track: Track): String =
-        DateTimeHelper.convertToSortableDateString(track.recordingStart) + Keys.GPX_FILE_EXTENSION
+    fun getGpxFileName(track: Track): String = DateTimeHelper.convertToSortableDateString(track.recordingStart) + Keys.GPX_FILE_EXTENSION
 
 
     /* Creates Uri for json track file */
     fun getTrackFileUri(context: Context, track: Track): Uri {
-        val fileName: String =
-            DateTimeHelper.convertToSortableDateString(track.recordingStart) + Keys.TRACKBOOK_FILE_EXTENSION
+        val fileName: String = DateTimeHelper.convertToSortableDateString(track.recordingStart) + Keys.TRACKBOOK_FILE_EXTENSION
         return File(context.getExternalFilesDir(Keys.FOLDER_TRACKS), fileName).toUri()
     }
 
@@ -180,11 +175,7 @@ object FileHelper {
 
 
     /* Suspend function: Wrapper for saveTracklist */
-    suspend fun addTrackAndSaveTracklistSuspended(
-        context: Context,
-        track: Track,
-        modificationDate: Date = track.recordingStop
-    ) {
+    suspend fun addTrackAndSaveTracklistSuspended(context: Context, track: Track, modificationDate: Date = track.recordingStop) {
         return suspendCoroutine { cont ->
             val tracklist: Tracklist = readTracklist(context)
             tracklist.tracklistElements.add(track.toTracklistElement(context))
@@ -202,11 +193,7 @@ object FileHelper {
 
 
     /* Suspend function: Wrapper for saveTracklist */
-    suspend fun saveTracklistSuspended(
-        context: Context,
-        tracklist: Tracklist,
-        modificationDate: Date
-    ) {
+    suspend fun saveTracklistSuspended(context: Context, tracklist: Tracklist, modificationDate: Date) {
         return suspendCoroutine { cont ->
             cont.resume(saveTracklist(context, tracklist, modificationDate))
         }
@@ -230,11 +217,7 @@ object FileHelper {
 
 
     /* Suspend function: Wrapper for deleteTrack */
-    suspend fun deleteTrackSuspended(
-        context: Context,
-        position: Int,
-        tracklist: Tracklist
-    ): Tracklist {
+    suspend fun deleteTrackSuspended(context: Context, position: Int, tracklist: Tracklist): Tracklist {
         return suspendCoroutine { cont ->
             cont.resume(deleteTrack(context, position, tracklist))
         }
@@ -257,19 +240,14 @@ object FileHelper {
 
     /* Suspend function: Wrapper for readTracklist */
     suspend fun readTracklistSuspended(context: Context): Tracklist {
-        return suspendCoroutine { cont ->
+        return suspendCoroutine {cont ->
             cont.resume(readTracklist(context))
         }
     }
 
 
     /* Suspend function: Wrapper for copyFile */
-    suspend fun saveCopyOfFileSuspended(
-        context: Context,
-        originalFileUri: Uri,
-        targetFileUri: Uri,
-        deleteOriginal: Boolean = false
-    ) {
+    suspend fun saveCopyOfFileSuspended(context: Context, originalFileUri: Uri, targetFileUri: Uri, deleteOriginal: Boolean = false) {
         return suspendCoroutine { cont ->
             cont.resume(copyFile(context, originalFileUri, targetFileUri, deleteOriginal))
         }
@@ -307,7 +285,7 @@ object FileHelper {
         tracklist.modificationDate = modificationDate
         // convert to JSON
         val gson: Gson = getCustomGson()
-        var json = String()
+        var json: String = String()
         try {
             json = gson.toJson(tracklist)
         } catch (e: Exception) {
@@ -326,11 +304,12 @@ object FileHelper {
     }
 
 
+
     /* Renames track */
     private fun renameTrack(context: Context, track: Track, newName: String) {
         // search track in tracklist
         val tracklist: Tracklist = readTracklist(context)
-        var trackUriString = String()
+        var trackUriString: String = String()
         tracklist.tracklistElements.forEach { tracklistElement ->
             if (tracklistElement.getTrackId() == track.getTrackId()) {
                 // rename tracklist element
@@ -350,17 +329,13 @@ object FileHelper {
 
 
     /* Deletes multiple tracks */
-    private fun deleteTracks(
-        context: Context,
-        tracklistElements: MutableList<TracklistElement>,
-        tracklist: Tracklist
-    ): Tracklist {
+    private fun deleteTracks(context: Context, tracklistElements: MutableList<TracklistElement>, tracklist: Tracklist): Tracklist {
         tracklistElements.forEach { tracklistElement ->
             // delete track files
             tracklistElement.trackUriString.toUri().toFile().delete()
             tracklistElement.gpxUriString.toUri().toFile().delete()
         }
-        tracklist.tracklistElements.removeAll { tracklistElements.contains(it) }
+        tracklist.tracklistElements.removeAll{ tracklistElements.contains(it) }
         saveTracklist(context, tracklist, GregorianCalendar.getInstance().time)
         return tracklist
     }
@@ -373,23 +348,14 @@ object FileHelper {
         tracklistElement.trackUriString.toUri().toFile().delete()
         tracklistElement.gpxUriString.toUri().toFile().delete()
         // remove track element from list
-        tracklist.tracklistElements.removeIf {
-            TrackHelper.getTrackId(it) == TrackHelper.getTrackId(
-                tracklistElement
-            )
-        }
+        tracklist.tracklistElements.removeIf { TrackHelper.getTrackId(it) == TrackHelper.getTrackId(tracklistElement) }
         saveTracklist(context, tracklist, GregorianCalendar.getInstance().time)
         return tracklist
     }
 
 
     /* Copies file to specified target */
-    private fun copyFile(
-        context: Context,
-        originalFileUri: Uri,
-        targetFileUri: Uri,
-        deleteOriginal: Boolean = false
-    ) {
+    private fun copyFile(context: Context, originalFileUri: Uri, targetFileUri: Uri, deleteOriginal: Boolean = false) {
         val inputStream = context.contentResolver.openInputStream(originalFileUri)
         val outputStream = context.contentResolver.openOutputStream(targetFileUri)
         if (outputStream != null) {
@@ -404,7 +370,7 @@ object FileHelper {
     /* Converts track to JSON */
     private fun getTrackJsonString(track: Track): String {
         val gson: Gson = getCustomGson()
-        var json = String()
+        var json: String = String()
         try {
             json = gson.toJson(track)
         } catch (e: Exception) {
@@ -423,6 +389,7 @@ object FileHelper {
     }
 
 
+
     /* Converts byte value into a human readable format */
     // Source: https://programming.guide/java/formatting-byte-size-to-human-readable-format.html
     fun getReadableByteCount(bytes: Long, si: Boolean = true): String {
@@ -434,13 +401,13 @@ object FileHelper {
         if (bytes < unit) return "$bytes B"
 
         // calculate exp
-        val exp: Int = (ln(bytes.toDouble()) / ln(unit.toDouble())).toInt()
+        val exp: Int = (Math.log(bytes.toDouble()) / Math.log(unit.toDouble())).toInt()
 
         // determine prefix symbol
         val prefix: String = ((if (si) "kMGTPE" else "KMGTPE")[exp - 1] + if (si) "" else "i")
 
         // calculate result and set number format
-        val result: Double = bytes / unit.toDouble().pow(exp.toDouble())
+        val result: Double = bytes / Math.pow(unit.toDouble(), exp.toDouble())
         val numberFormat = NumberFormat.getNumberInstance()
         numberFormat.maximumFractionDigits = 1
 
@@ -449,7 +416,7 @@ object FileHelper {
 
 
     /* Reads InputStream from file uri and returns it as String */
-    private fun readTextFile(fileUri: Uri): String {
+    private fun readTextFile(context: Context, fileUri: Uri): String {
         // todo read https://commonsware.com/blog/2016/03/15/how-consume-content-uri.html
         // https://developer.android.com/training/secure-file-sharing/retrieve-info
         val file: File = fileUri.toFile()
@@ -459,12 +426,11 @@ object FileHelper {
         }
         // read until last line reached
         val stream: InputStream = file.inputStream()
-        val reader = BufferedReader(InputStreamReader(stream))
+        val reader: BufferedReader = BufferedReader(InputStreamReader(stream))
         val builder: StringBuilder = StringBuilder()
         reader.forEachLine {
             builder.append(it)
-            builder.append("\n")
-        }
+            builder.append("\n") }
         stream.close()
         return builder.toString()
     }
@@ -478,13 +444,8 @@ object FileHelper {
 
 
     /* Writes given bitmap as image file to storage */
-    private fun writeImageFile(
-        bitmap: Bitmap,
-        file: File,
-        format: Bitmap.CompressFormat = Bitmap.CompressFormat.JPEG,
-        quality: Int = 75
-    ) {
-        if (file.exists()) file.delete()
+    private fun writeImageFile(context: Context, bitmap: Bitmap, file: File, format: Bitmap.CompressFormat = Bitmap.CompressFormat.JPEG, quality: Int = 75) {
+        if (file.exists()) file.delete ()
         try {
             val out = FileOutputStream(file)
             bitmap.compress(format, quality, out)

@@ -43,7 +43,7 @@ data class WayPoint(@Expose val provider: String,
 
     /* Converts WayPoint into Location */
     fun toLocation(): Location {
-        val location = Location(provider)
+        val location: Location = Location(provider)
         location.latitude = latitude
         location.longitude = longitude
         location.altitude = altitude

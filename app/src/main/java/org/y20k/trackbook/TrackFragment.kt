@@ -24,9 +24,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.os.VibrationEffect
 import android.os.Vibrator
 import android.view.LayoutInflater
 import android.view.View
@@ -48,8 +46,7 @@ import org.y20k.trackbook.helpers.TrackHelper
 import org.y20k.trackbook.ui.TrackFragmentLayoutHolder
 
 
-class TrackFragment : Fragment(), RenameTrackDialog.RenameTrackListener,
-    YesNoDialog.YesNoDialogListener, MapOverlay.MarkerListener {
+class TrackFragment : Fragment(), RenameTrackDialog.RenameTrackListener, YesNoDialog.YesNoDialogListener, MapOverlay.MarkerListener {
 
     /* Define log tag */
     private val TAG: String = LogHelper.makeLogTag(TrackFragment::class.java)
@@ -64,30 +61,19 @@ class TrackFragment : Fragment(), RenameTrackDialog.RenameTrackListener,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // get track
-        val fileUriString: String =
-            arguments?.getString(Keys.ARG_TRACK_FILE_URI, String()) ?: String()
-        track = if (fileUriString.isNotBlank()) {
-            FileHelper.readTrack(Uri.parse(fileUriString))
+        val fileUriString: String = arguments?.getString(Keys.ARG_TRACK_FILE_URI, String()) ?: String()
+        if (fileUriString.isNotBlank()) {
+            track = FileHelper.readTrack(activity as Context, Uri.parse(fileUriString))
         } else {
-            Track()
+            track = Track()
         }
     }
 
 
     /* Overrides onCreateView from Fragment */
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // initialize layout
-        layout = TrackFragmentLayoutHolder(
-            activity as Context,
-            this as MapOverlay.MarkerListener,
-            inflater,
-            container,
-            track
-        )
+        layout = TrackFragmentLayoutHolder(activity as Context, this as MapOverlay.MarkerListener, inflater, container, track)
 
         // set up share button
         layout.shareButton.setOnClickListener {
@@ -95,31 +81,18 @@ class TrackFragment : Fragment(), RenameTrackDialog.RenameTrackListener,
         }
         layout.shareButton.setOnLongClickListener {
             val v = (activity as Context).getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                v.vibrate(VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE))
-            } else {
-                v.vibrate(50)
-            }
+            v.vibrate(50)
             shareGpxTrack()
             return@setOnLongClickListener true
         }
         // set up delete button
         layout.deleteButton.setOnClickListener {
-            val dialogMessage =
-                "${getString(R.string.dialog_yes_no_message_delete_recording)}\n\n- ${layout.trackNameView.text}"
-            YesNoDialog(this@TrackFragment as YesNoDialog.YesNoDialogListener).show(
-                context = activity as Context,
-                type = Keys.DIALOG_DELETE_TRACK,
-                messageString = dialogMessage,
-                yesButton = R.string.dialog_yes_no_positive_button_delete_recording
-            )
+            val dialogMessage: String = "${getString(R.string.dialog_yes_no_message_delete_recording)}\n\n- ${layout.trackNameView.text}"
+            YesNoDialog(this@TrackFragment as YesNoDialog.YesNoDialogListener).show(context = activity as Context, type = Keys.DIALOG_DELETE_TRACK, messageString = dialogMessage, yesButton = R.string.dialog_yes_no_positive_button_delete_recording)
         }
         // set up rename button
         layout.editButton.setOnClickListener {
-            RenameTrackDialog(this as RenameTrackDialog.RenameTrackListener).show(
-                activity as Context,
-                layout.trackNameView.text.toString()
-            )
+            RenameTrackDialog(this as RenameTrackDialog.RenameTrackListener).show(activity as Context, layout.trackNameView.text.toString())
         }
 
         return layout.rootView
@@ -152,18 +125,8 @@ class TrackFragment : Fragment(), RenameTrackDialog.RenameTrackListener,
                     val targetUri: Uri? = data.data
                     if (targetUri != null) {
                         // copy file async (= fire & forget - no return value needed)
-                        GlobalScope.launch {
-                            FileHelper.saveCopyOfFileSuspended(
-                                activity as Context,
-                                originalFileUri = sourceUri,
-                                targetFileUri = targetUri
-                            )
-                        }
-                        Toast.makeText(
-                            activity as Context,
-                            R.string.toast_message_save_gpx,
-                            Toast.LENGTH_LONG
-                        ).show()
+                        GlobalScope.launch { FileHelper.saveCopyOfFileSuspended( activity as  Context, originalFileUri = sourceUri, targetFileUri = targetUri) }
+                        Toast.makeText(activity as Context, R.string.toast_message_save_gpx, Toast.LENGTH_LONG).show()
                     }
                 }
             }
@@ -176,13 +139,7 @@ class TrackFragment : Fragment(), RenameTrackDialog.RenameTrackListener,
     /* Overrides onRenameTrackDialog from RenameTrackDialog */
     override fun onRenameTrackDialog(textInput: String) {
         // rename track async (= fire & forget - no return value needed)
-        GlobalScope.launch {
-            FileHelper.renameTrackSuspended(
-                activity as Context,
-                layout.track,
-                textInput
-            )
-        }
+        GlobalScope.launch { FileHelper.renameTrackSuspended(activity as Context, layout.track, textInput) }
         // update name in layout
         layout.track.name = textInput
         layout.trackNameView.text = textInput
@@ -190,12 +147,7 @@ class TrackFragment : Fragment(), RenameTrackDialog.RenameTrackListener,
 
 
     /* Overrides onYesNoDialog from YesNoDialogListener */
-    override fun onYesNoDialog(
-        type: Int,
-        dialogResult: Boolean,
-        payload: Int,
-        payloadString: String
-    ) {
+    override fun onYesNoDialog(type: Int, dialogResult: Boolean, payload: Int, payloadString: String) {
         when (type) {
             Keys.DIALOG_DELETE_TRACK -> {
                 when (dialogResult) {
@@ -237,11 +189,7 @@ class TrackFragment : Fragment(), RenameTrackDialog.RenameTrackListener,
         if (packageManager != null && intent.resolveActivity(packageManager) != null) {
             startActivityForResult(intent, Keys.REQUEST_SAVE_GPX)
         } else {
-            Toast.makeText(
-                activity as Context,
-                R.string.toast_message_install_file_helper,
-                Toast.LENGTH_LONG
-            ).show()
+            Toast.makeText(activity as Context, R.string.toast_message_install_file_helper, Toast.LENGTH_LONG).show()
         }
     }
 
@@ -249,11 +197,7 @@ class TrackFragment : Fragment(), RenameTrackDialog.RenameTrackListener,
     /* Share track as GPX via share sheet */
     private fun shareGpxTrack() {
         val gpxFile = Uri.parse(layout.track.gpxUriString).toFile()
-        val gpxShareUri = FileProvider.getUriForFile(
-            this.activity as Context,
-            "${requireActivity().applicationContext.packageName}.provider",
-            gpxFile
-        )
+        val gpxShareUri = FileProvider.getUriForFile(this.activity as Context, "${requireActivity().applicationContext.packageName}.provider", gpxFile)
         val shareIntent: Intent = Intent.createChooser(Intent().apply {
             action = Intent.ACTION_SEND
             data = gpxShareUri
@@ -267,8 +211,7 @@ class TrackFragment : Fragment(), RenameTrackDialog.RenameTrackListener,
         if (packageManager != null && shareIntent.resolveActivity(packageManager) != null) {
             startActivity(shareIntent)
         } else {
-            Toast.makeText(activity, R.string.toast_message_install_file_helper, Toast.LENGTH_LONG)
-                .show()
+            Toast.makeText(activity, R.string.toast_message_install_file_helper, Toast.LENGTH_LONG).show()
         }
     }
 
