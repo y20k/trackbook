@@ -1,95 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- placeholder text - todo remove -->
-    <!-- App Name -->
-    <string name="app_name">Trackbook</string>
-    <!-- please do not translate app_name - transcription into different alphabet types is fine though -->
-    <!-- Tabs -->
-    <string name="tab_map">地图</string>
-    <string name="tab_tracks">记录</string>
-    <string name="tab_settings">设置</string>
-    <!-- Notification -->
-    <string name="notification_title_trackbook_running">Trackbook 正在运行</string>
-    <string name="notification_title_trackbook_not_running">Trackbook 已暂停</string>
-    <string name="notification_stop">暂停</string>
-    <string name="notification_resume">恢复</string>
-    <string name="notification_show">显示</string>
-    <string name="notification_channel_recording_name">运动记录状态</string>
-    <string name="notification_channel_recording_description">显示持续时间和距离.停止移动录制的选项.</string>
-    <!-- Snackbar Messages -->
-    <string name="snackbar_message_location_offline">位置服务已关闭，Trackbook 将不会运行.</string>
-    <string name="snackbar_message_location_permission_denied">位置权限未被授予 Trackbook 无法工作.</string>
-    <!-- FAB Sub Menu -->
-    <string name="fab_sub_menu_clear">删除</string>
-    <string name="fab_sub_menu_save">保存</string>
-    <string name="fab_sub_menu_resume">恢复</string>
-    <!-- Dialogs -->
-    <string name="dialog_generic_button_cancel">取消</string>
-    <string name="dialog_generic_button_okay">OK</string>
-    <string name="dialog_generic_details_button">显示详情</string>
-    <string name="dialog_error_empty_recording_title">无法保存</string>
-    <string name="dialog_error_empty_recording_message">Trackbook目前没有记录到任何航点.</string>
-    <string name="dialog_error_empty_recording_action_resume">恢复记录</string>
-    <string name="dialog_rename_track_button">重命名</string>
-    <string name="dialog_rename_track_input_hint">输入一个新名称</string>
-    <string name="dialog_share_gpx">分享GPX文件到</string>
-    <string name="dialog_yes_no_positive_button_default">是</string>
-    <string name="dialog_yes_no_positive_button_delete_recording">删除</string>
-    <string name="dialog_yes_no_message_delete_recording">删除此记录？</string>
-    <!-- Toast Messages -->
-    <string name="toast_message_elevation_info">提示：海拔数据的准确性取决于您的设备.测量整个路线的上坡和下坡海拔.</string>
-    <string name="toast_message_install_file_helper">请先安装一个文件管理器或GPX轨迹查看器.</string>
+  <!-- placeholder text - todo remove -->
+  <!-- App Name -->
+  <string name="app_name">Trackbook</string>
+  <!-- please do not translate app_name - transcription into different alphabet types is fine though -->
+  <!-- Tabs -->
+  <string name="tab_map">地图</string>
+  <string name="tab_tracks">记录</string>
+  <string name="tab_settings">设置</string>
+  <!-- Notification -->
+  <string name="notification_title_trackbook_running">Trackbook 正在运行</string>
+  <string name="notification_title_trackbook_not_running">Trackbook 已暂停</string>
+  <string name="notification_stop">暂停</string>
+  <string name="notification_resume">恢复</string>
+  <string name="notification_show">显示</string>
+  <string name="notification_channel_recording_name">运动记录状态</string>
+  <string name="notification_channel_recording_description">显示持续时间和距离.停止移动录制的选项.</string>
+  <!-- Snackbar Messages -->
+  <string name="snackbar_message_location_offline">位置服务已关闭，Trackbook 将不会运行.</string>
+  <string name="snackbar_message_location_permission_denied">位置权限未被授予 Trackbook 无法工作.</string>
+  <!-- FAB Sub Menu -->
+  <string name="fab_sub_menu_clear">删除</string>
+  <string name="fab_sub_menu_save">保存</string>
+  <string name="fab_sub_menu_resume">恢复</string>
+  <!-- Dialogs -->
+  <string name="dialog_generic_button_cancel">取消</string>
+  <string name="dialog_generic_button_okay">OK</string>
+  <string name="dialog_generic_details_button">显示详情</string>
+  <string name="dialog_error_empty_recording_title">无法保存</string>
+  <string name="dialog_error_empty_recording_message">Trackbook目前没有记录到任何航点.</string>
+  <string name="dialog_error_empty_recording_action_resume">恢复记录</string>
+  <string name="dialog_rename_track_button">重命名</string>
+  <string name="dialog_rename_track_input_hint">输入一个新名称</string>
+  <string name="dialog_share_gpx">分享GPX文件到</string>
+  <string name="dialog_yes_no_positive_button_default">是</string>
+  <string name="dialog_yes_no_positive_button_delete_recording">删除</string>
+  <string name="dialog_yes_no_message_delete_recording">删除此记录？</string>
+  <!-- Toast Messages -->
+  <string name="toast_message_elevation_info">提示：海拔数据的准确性取决于您的设备.测量整个路线的上坡和下坡海拔.</string>
+  <string name="toast_message_install_file_helper">请先安装一个文件管理器或GPX轨迹查看器.</string>
     <!-- Map Markers -->
-    <string name="marker_description_time">时间</string>
-    <string name="marker_description_accuracy">误差</string>
-    <!-- Statistics Sheet -->
-    <string name="statistics_sheet_p_distance">总里程:</string>
-    <string name="statistics_sheet_p_steps">步数:</string>
-    <string name="statistics_sheet_p_steps_no_pedometer">计步器不可用</string>
-    <string name="statistics_sheet_p_waypoints">航点数量:</string>
-    <string name="statistics_sheet_p_duration">用时:</string>
-    <string name="statistics_sheet_p_recording_start">追踪开始:</string>
-    <string name="statistics_sheet_p_recording_stop">追踪结束:</string>
-    <string name="statistics_sheet_p_max_altitude">最高航点:</string>
-    <string name="statistics_sheet_p_min_altitude">最低航点:</string>
-    <string name="statistics_sheet_p_positive_elevation">海拔(上坡):</string>
-    <string name="statistics_sheet_p_negative_elevation">海拔(下坡):</string>
-    <!-- Menu Actions -->
-    <!-- Onboarding Layout -->
-    <string name="layout_onboarding_description_app_icon">Trackbook 应用图标</string>
-    <!-- Track Tab Onboarding -->
-    <string name="track_list_onboarding_h1_part_1">你的运动记录</string>
-    <string name="track_list_onboarding_h1_part_2">... 会显示在这里.</string>
-    <!-- Settings -->
-    <string name="pref_accuracy_threshold_summary">丢弃误差大于</string>
-    <string name="pref_accuracy_threshold_title">误差的阈值</string>
-    <string name="pref_advanced_title">高级</string>
-    <string name="pref_general_title">一般</string>
-    <string name="pref_gps_only_title">仅限于GPS</string>
-    <string name="pref_gps_only_summary_gps_and_network">当前使用GPS和网络进行定位.</string>
-    <string name="pref_gps_only_summary_gps_only">当前使用GPS进行定位.</string>
-    <string name="pref_imperial_measurement_units_summary_metric">当前使用公制单位(千米,米).</string>
-    <string name="pref_imperial_measurement_units_summary_imperial">当前使用英制单位(英里,英尺).</string>
-    <string name="pref_imperial_measurement_units_title">使用英制</string>
-    <string name="pref_reset_advanced_summary">高级设置重置为默认值.</string>
-    <string name="pref_reset_advanced_title">重置</string>
-    <!-- Abbreviations -->
-    <string name="abbreviation_hours">时</string>
-    <string name="abbreviation_minutes">分</string>
-    <string name="abbreviation_seconds">秒</string>
-    <!-- Descriptions -->
-    <string name="descr_map_current_track">航迹图</string>
-    <string name="descr_map_last_track">最后一个轨迹的航迹图</string>
-    <string name="descr_fab_main_start">开始录制按钮</string>
-    <string name="descr_fab_sub_menu_button_save">保存按钮</string>
-    <string name="descr_fab_sub_menu_button_clear">删除按钮</string>
-    <string name="descr_fab_sub_menu_button_resume">恢复按钮</string>
-    <string name="descr_mark_starred_button">加星按钮</string>
-    <string name="descr_statistics_sheet_delete_button">删除记录按钮</string>
-    <string name="descr_statistics_sheet_edit_button">记录编辑按钮</string>
-    <string name="descr_statistics_sheet_save_button">以GPX文件分享按钮</string>
-    <!-- Sample Text -->
-    <string name="sample_text_track_data" translatable="false">23.0 km • 5 时 23 分 42 秒</string>
-    <string name="sample_text_track_name" translatable="false">1969年7月20日</string>
-    <string name="sample_text_default_data" translatable="false">轨迹数据丢失</string>
+  <string name="marker_description_time">时间</string>
+  <string name="marker_description_accuracy">误差</string>
+  <!-- Statistics Sheet -->
+  <string name="statistics_sheet_p_distance">总里程:</string>
+  <string name="statistics_sheet_p_steps">步数:</string>
+  <string name="statistics_sheet_p_steps_no_pedometer">计步器不可用</string>
+  <string name="statistics_sheet_p_waypoints">航点数量:</string>
+  <string name="statistics_sheet_p_duration">用时:</string>
+  <string name="statistics_sheet_p_recording_start">追踪开始:</string>
+  <string name="statistics_sheet_p_recording_stop">追踪结束:</string>
+  <string name="statistics_sheet_p_max_altitude">最高航点:</string>
+  <string name="statistics_sheet_p_min_altitude">最低航点:</string>
+  <string name="statistics_sheet_p_positive_elevation">海拔(上坡):</string>
+  <string name="statistics_sheet_p_negative_elevation">海拔(下坡):</string>
+  <!-- Menu Actions -->
+  <!-- Onboarding Layout -->
+  <string name="layout_onboarding_description_app_icon">Trackbook 应用图标</string>
+  <!-- Track Tab Onboarding -->
+  <string name="track_list_onboarding_h1_part_1">你的运动记录</string>
+  <string name="track_list_onboarding_h1_part_2">... 会显示在这里.</string>
+  <!-- Settings -->
+  <string name="pref_accuracy_threshold_summary">丢弃误差大于</string>
+  <string name="pref_accuracy_threshold_title">误差的阈值</string>
+  <string name="pref_advanced_title">高级</string>
+  <string name="pref_general_title">一般</string>
+  <string name="pref_gps_only_title">仅限于GPS</string>
+  <string name="pref_gps_only_summary_gps_and_network">当前使用GPS和网络进行定位.</string>
+  <string name="pref_gps_only_summary_gps_only">当前使用GPS进行定位.</string>
+  <string name="pref_imperial_measurement_units_summary_metric">当前使用公制单位(千米,米).</string>
+  <string name="pref_imperial_measurement_units_summary_imperial">当前使用英制单位(英里,英尺).</string>
+  <string name="pref_imperial_measurement_units_title">使用英制</string>
+  <string name="pref_reset_advanced_summary">高级设置重置为默认值.</string>
+  <string name="pref_reset_advanced_title">重置</string>
+  <!-- Abbreviations -->
+  <string name="abbreviation_hours">时</string>
+  <string name="abbreviation_minutes">分</string>
+  <string name="abbreviation_seconds">秒</string>
+  <!-- Descriptions -->
+  <string name="descr_map_current_track">航迹图</string>
+  <string name="descr_map_last_track">最后一个轨迹的航迹图</string>
+  <string name="descr_fab_main_start">开始录制按钮</string>
+  <string name="descr_fab_sub_menu_button_save">保存按钮</string>
+  <string name="descr_fab_sub_menu_button_clear">删除按钮</string>
+  <string name="descr_fab_sub_menu_button_resume">恢复按钮</string>
+  <string name="descr_mark_starred_button">加星按钮</string>
+  <string name="descr_statistics_sheet_delete_button">删除记录按钮</string>
+  <string name="descr_statistics_sheet_edit_button">记录编辑按钮</string>
+  <string name="descr_statistics_sheet_save_button">以GPX文件分享按钮</string>
+  <!-- Sample Text -->
+  <string name="sample_text_track_data" translatable="false">23.0 km • 5 时 23 分 42 秒</string>
+  <string name="sample_text_track_name" translatable="false">1969年7月20日</string>
+  <string name="sample_text_default_data" translatable="false">轨迹数据丢失</string>
 </resources>

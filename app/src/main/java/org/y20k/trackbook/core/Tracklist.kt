@@ -31,11 +31,9 @@ import java.util.*
  */
 @Keep
 @Parcelize
-data class Tracklist(
-    @Expose val tracklistFormatVersion: Int = Keys.CURRENT_TRACKLIST_FORMAT_VERSION,
-    @Expose val tracklistElements: MutableList<TracklistElement> = mutableListOf<TracklistElement>(),
-    @Expose var modificationDate: Date = Date()
-) : Parcelable {
+data class Tracklist (@Expose val tracklistFormatVersion: Int = Keys.CURRENT_TRACKLIST_FORMAT_VERSION,
+                      @Expose val tracklistElements: MutableList<TracklistElement> = mutableListOf<TracklistElement>(),
+                      @Expose var modificationDate: Date = Date()): Parcelable {
 
     /* Return trackelement for given track id */
     fun getTrackElement(trackId: Long): TracklistElement? {
@@ -49,11 +47,7 @@ data class Tracklist(
 
     /* Create a deep copy */
     fun deepCopy(): Tracklist {
-        return Tracklist(
-            tracklistFormatVersion,
-            mutableListOf<TracklistElement>().apply { addAll(tracklistElements) },
-            modificationDate
-        )
+        return Tracklist(tracklistFormatVersion, mutableListOf<TracklistElement>().apply { addAll(tracklistElements) }, modificationDate)
     }
 
 }

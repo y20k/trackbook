@@ -29,16 +29,14 @@ import java.util.*
  */
 @Keep
 @Parcelize
-data class TracklistElement(
-    @Expose var name: String,
-    @Expose val date: Date,
-    @Expose val dateString: String,
-    @Expose val durationString: String,
-    @Expose val length: Float,
-    @Expose val trackUriString: String,
-    @Expose val gpxUriString: String,
-    @Expose var starred: Boolean = false
-) : Parcelable {
+data class TracklistElement(@Expose var name: String,
+                            @Expose val date: Date,
+                            @Expose val dateString: String,
+                            @Expose val durationString: String,
+                            @Expose val length: Float,
+                            @Expose val trackUriString: String,
+                            @Expose val gpxUriString: String,
+                            @Expose var starred: Boolean = false): Parcelable {
 
     /* Returns unique ID for TracklistElement - currently the start date */
     fun getTrackId(): Long {
