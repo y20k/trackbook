@@ -30,7 +30,7 @@ import org.y20k.trackbook.helpers.LogHelper
 /*
  * RenameTrackDialog class
  */
-class RenameTrackDialog (private var renameTrackListener: RenameTrackListener) {
+class RenameTrackDialog(private var renameTrackListener: RenameTrackListener) {
 
     /* Interface used to communicate back to activity */
     interface RenameTrackListener {
@@ -45,7 +45,7 @@ class RenameTrackDialog (private var renameTrackListener: RenameTrackListener) {
     /* Construct and show dialog */
     fun show(context: Context, trackName: String) {
         // prepare dialog builder
-        val builder: MaterialAlertDialogBuilder = MaterialAlertDialogBuilder(context)
+        val builder = MaterialAlertDialogBuilder(context)
 
         // get input field
         val inflater = LayoutInflater.from(context)

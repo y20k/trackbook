@@ -27,7 +27,7 @@ import org.y20k.trackbook.helpers.PreferencesHelper
 /*
  * Trackbook.class
  */
-class Trackbook: Application() {
+class Trackbook : Application() {
 
 
     /* Define log tag */

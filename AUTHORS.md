@@ -2,7 +2,7 @@ AUTHORS
 =======
 
 ### Development
-Trackbook is designed, developed and maintained by: [y20k](https://github.com/y20k)
+Trackbook is designed, developed, and maintained by: [y20k](https://github.com/y20k)
 
 ### Translations
 Chinese version: [yzqzss](https://github.com/yzqzss) | [weblate version history](https://hosted.weblate.org/changes/?lang=zh_HANS-CN&project=trackbook)

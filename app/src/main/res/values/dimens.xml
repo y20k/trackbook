@@ -1,6 +1,9 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
-    <item name="custom_match_parent" type="dimen">-1</item> <!-- CUSTOM MATCH_PARENT - see https://developer.android.com/reference/android/view/ViewGroup.LayoutParams.html#MATCH_PARENT -->
+
+    <!-- CUSTOM MATCH_PARENT - see https://developer.android.com/reference/android/view/ViewGroup.LayoutParams.html#MATCH_PARENT -->
+    <item name="custom_match_parent" type="dimen">-1</item>
+
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="bottom_sheet_width">@dimen/custom_match_parent</dimen>
 </resources>

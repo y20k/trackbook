@@ -44,8 +44,9 @@ object Keys {
     const val ARG_TRACK_ID: String = "ArgTrackId"
 
     // preferences
-    const val PREF_ONE_TIME_HOUSEKEEPING_NECESSARY = "ONE_TIME_HOUSEKEEPING_NECESSARY_VERSIONCODE_38" // increment to current app version code to trigger housekeeping that runs only once
-    const val PREF_THEME_SELECTION: String= "prefThemeSelection"
+    const val PREF_ONE_TIME_HOUSEKEEPING_NECESSARY =
+        "ONE_TIME_HOUSEKEEPING_NECESSARY_VERSIONCODE_38" // increment to current app version code to trigger housekeeping that runs only once
+    const val PREF_THEME_SELECTION: String = "prefThemeSelection"
     const val PREF_CURRENT_BEST_LOCATION_PROVIDER: String = "prefCurrentBestLocationProvider"
     const val PREF_CURRENT_BEST_LOCATION_LATITUDE: String = "prefCurrentBestLocationLatitude"
     const val PREF_CURRENT_BEST_LOCATION_LONGITUDE: String = "prefCurrentBestLocationLongitude"
@@ -77,7 +78,7 @@ object Keys {
     const val DIALOG_EMPTY_PAYLOAD_INT: Int = -1
 
     // folder names
-    const val FOLDER_TEMP: String  = "temp"
+    const val FOLDER_TEMP: String = "temp"
     const val FOLDER_TRACKS: String = "tracks"
     const val FOLDER_GPX: String = "gpx"
 
@@ -95,21 +96,29 @@ object Keys {
     const val DEFAULT_RFC2822_DATE: String = "Thu, 01 Jan 1970 01:00:00 +0100"  // --> Date(0)
     const val ONE_HOUR_IN_MILLISECONDS: Int = 3600000
     const val EMPTY_STRING_RESOURCE: Int = 0
-    const val REQUEST_CURRENT_LOCATION_INTERVAL: Long = 1000L                   // 1 second in milliseconds
-    const val ADD_WAYPOINT_TO_TRACK_INTERVAL: Long = 15000L                     // 15 seconds in milliseconds
-    const val SIGNIFICANT_TIME_DIFFERENCE: Long = 120000L                       // 2 minutes in milliseconds
-    const val STOP_OVER_THRESHOLD: Long = 300000L                               // 5 minutes in milliseconds
+    const val REQUEST_CURRENT_LOCATION_INTERVAL: Long =
+        1000L                   // 1 second in milliseconds
+    const val ADD_WAYPOINT_TO_TRACK_INTERVAL: Long =
+        15000L                     // 15 seconds in milliseconds
+    const val SIGNIFICANT_TIME_DIFFERENCE: Long =
+        120000L                       // 2 minutes in milliseconds
+    const val STOP_OVER_THRESHOLD: Long =
+        300000L                               // 5 minutes in milliseconds
     const val IMPLAUSIBLE_TRACK_START_SPEED: Double = 250.0                     // 250 km/h
-    const val DEFAULT_LATITUDE: Double = 71.172500                              // latitude Nordkapp, Norway
-    const val DEFAULT_LONGITUDE: Double = 25.784444                             // longitude Nordkapp, Norway
+    const val DEFAULT_LATITUDE: Double =
+        71.172500                              // latitude Nordkapp, Norway
+    const val DEFAULT_LONGITUDE: Double =
+        25.784444                             // longitude Nordkapp, Norway
     const val DEFAULT_ACCURACY: Float = 300f                                    // in meters
     const val DEFAULT_ALTITUDE: Double = 0.0
     const val DEFAULT_TIME: Long = 0L
     const val DEFAULT_THRESHOLD_LOCATION_ACCURACY: Int = 30                     // 30 meters
-    const val DEFAULT_THRESHOLD_LOCATION_AGE: Long = 60000000000L               // one minute in nanoseconds
+    const val DEFAULT_THRESHOLD_LOCATION_AGE: Long =
+        60000000000L               // one minute in nanoseconds
     const val DEFAULT_THRESHOLD_DISTANCE: Float = 15f                           // 15 meters
     const val DEFAULT_ZOOM_LEVEL: Double = 16.0
-    const val ALTITUDE_MEASUREMENT_ERROR_THRESHOLD = 10 // altitude changes of 10 meter or more (per 15 seconds) are being discarded
+    const val ALTITUDE_MEASUREMENT_ERROR_THRESHOLD =
+        10 // altitude changes of 10 meter or more (per 15 seconds) are being discarded
     const val REQUEST_CODE_FOREGROUND = 42
 
     // requests

@@ -27,7 +27,7 @@
     <fragment
         android:id="@+id/settings_fragment"
         android:name="org.y20k.trackbook.SettingsFragment"
-        android:label="Settings"/>
+        android:label="Settings" />
 
     <!-- TRACKS (LIST OF TRACKS) -->
     <fragment
@@ -46,11 +46,11 @@
         android:id="@+id/fragment_track"
         android:name="org.y20k.trackbook.TrackFragment"
         android:label="Track"
-        tools:layout="@layout/fragment_track" >
+        tools:layout="@layout/fragment_track">
         <argument
             android:name="delete_track_id"
-            app:argType="long"
-            android:defaultValue="-1L" />
+            android:defaultValue="-1L"
+            app:argType="long" />
     </fragment>
 
 </navigation>

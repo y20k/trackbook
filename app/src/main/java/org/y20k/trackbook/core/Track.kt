@@ -32,24 +32,26 @@ import java.util.*
  */
 @Keep
 @Parcelize
-data class Track (@Expose var trackFormatVersion: Int = Keys.CURRENT_TRACK_FORMAT_VERSION,
-                  @Expose val wayPoints: MutableList<WayPoint> = mutableListOf<WayPoint>(),
-                  @Expose var length: Float = 0f,
-                  @Expose var duration: Long = 0L,
-                  @Expose var recordingPaused: Long = 0L,
-                  @Expose var stepCount: Float = 0f,
-                  @Expose var recordingStart: Date = GregorianCalendar.getInstance().time,
-                  @Expose var recordingStop: Date = recordingStart,
-                  @Expose var maxAltitude: Double = 0.0,
-                  @Expose var minAltitude: Double = 0.0,
-                  @Expose var positiveElevation: Double = 0.0,
-                  @Expose var negativeElevation: Double = 0.0,
-                  @Expose var trackUriString: String = String(),
-                  @Expose var gpxUriString: String = String(),
-                  @Expose var latitude: Double = Keys.DEFAULT_LATITUDE,
-                  @Expose var longitude: Double = Keys.DEFAULT_LONGITUDE,
-                  @Expose var zoomLevel: Double = Keys.DEFAULT_ZOOM_LEVEL,
-                  @Expose var name: String = String()): Parcelable {
+data class Track(
+    @Expose var trackFormatVersion: Int = Keys.CURRENT_TRACK_FORMAT_VERSION,
+    @Expose val wayPoints: MutableList<WayPoint> = mutableListOf<WayPoint>(),
+    @Expose var length: Float = 0f,
+    @Expose var duration: Long = 0L,
+    @Expose var recordingPaused: Long = 0L,
+    @Expose var stepCount: Float = 0f,
+    @Expose var recordingStart: Date = GregorianCalendar.getInstance().time,
+    @Expose var recordingStop: Date = recordingStart,
+    @Expose var maxAltitude: Double = 0.0,
+    @Expose var minAltitude: Double = 0.0,
+    @Expose var positiveElevation: Double = 0.0,
+    @Expose var negativeElevation: Double = 0.0,
+    @Expose var trackUriString: String = String(),
+    @Expose var gpxUriString: String = String(),
+    @Expose var latitude: Double = Keys.DEFAULT_LATITUDE,
+    @Expose var longitude: Double = Keys.DEFAULT_LONGITUDE,
+    @Expose var zoomLevel: Double = Keys.DEFAULT_ZOOM_LEVEL,
+    @Expose var name: String = String()
+) : Parcelable {
 
 
     /* Creates a TracklistElement */

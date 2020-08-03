@@ -89,43 +89,49 @@ object LengthUnitHelper {
     /* Determines which unit system the device is using (metric or imperial) */
     fun useImperialUnits(): Boolean {
         // America (US), Liberia (LR), Myanmar(MM) use the imperial system
-        val imperialSystemCountries = Arrays.asList("US", "LR", "MM")
+        val imperialSystemCountries = listOf("US", "LR", "MM")
         val countryCode = Locale.getDefault().country
         return imperialSystemCountries.contains(countryCode)
     }
 
 
     /* Converts for the given unit System distance and duration values to a readable velocity string */
-    fun convertToVelocityString(trackDuration: Long, trackRecordingPause: Long, trackLength: Float, useImperialUnits: Boolean = false) : String {
-        var speed: String = "0"
+    fun convertToVelocityString(
+        trackDuration: Long,
+        trackRecordingPause: Long,
+        trackLength: Float,
+        useImperialUnits: Boolean = false
+    ): String {
+        var speed = "0"
 
         // duration minus pause in seconds
         val duration: Long = (trackDuration - trackRecordingPause) / 1000L
 
         if (duration > 0L) {
             // speed in km/h / mph
-            val velocity: Double = convertMetersPerSecond((trackLength / duration), useImperialUnits)
+            val velocity: Double =
+                convertMetersPerSecond((trackLength / duration), useImperialUnits)
             // create readable speed string
             var bd: BigDecimal = BigDecimal.valueOf(velocity)
             bd = bd.setScale(1, RoundingMode.HALF_UP)
             speed = bd.toPlainString()
         }
 
-        when (useImperialUnits) {
-            true -> return "$speed mph"
-            false -> return "$speed km/h"
+        return when (useImperialUnits) {
+            true -> "$speed mph"
+            false -> "$speed km/h"
         }
     }
 
 
     /* Coverts meters per second to either km/h or mph */
     fun convertMetersPerSecond(metersPerSecond: Float, useImperial: Boolean = false): Double {
-        if (useImperial) {
+        return if (useImperial) {
             // mph
-            return metersPerSecond * 2.2369362920544
+            metersPerSecond * 2.2369362920544
         } else {
             // km/h
-            return metersPerSecond * 3.6
+            metersPerSecond * 3.6
         }
     }
 

@@ -19,11 +19,15 @@ package org.y20k.trackbook.extensions
 
 
 import android.content.SharedPreferences
+import java.lang.Double.doubleToRawLongBits
+import java.lang.Double.longBitsToDouble
 
 
 /* Puts a Double value in SharedPreferences */
-fun SharedPreferences.Editor.putDouble(key: String, double: Double) = putLong(key, java.lang.Double.doubleToRawLongBits(double))
+fun SharedPreferences.Editor.putDouble(key: String, double: Double) =
+    this.putLong(key, doubleToRawLongBits(double))
 
 
 /* gets a Double value from SharedPreferences */
-fun SharedPreferences.getDouble(key: String, default: Double) = java.lang.Double.longBitsToDouble(getLong(key, java.lang.Double.doubleToRawLongBits(default)))
+fun SharedPreferences.getDouble(key: String, default: Double) =
+    longBitsToDouble(getLong(key, doubleToRawLongBits(default)))

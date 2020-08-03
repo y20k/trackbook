@@ -47,8 +47,13 @@ object TrackHelper {
         tracklistElement.date.time
 
 
-    /* Adds given locatiom as waypoint to track */
-    fun addWayPointToTrack(context: Context, track: Track, location: Location, locationAccuracyThreshold: Int, resumed: Boolean): Pair<Track, Boolean> {
+    /* Adds given location as waypoint to track */
+    fun addWayPointToTrack(
+        track: Track,
+        location: Location,
+        locationAccuracyThreshold: Int,
+        resumed: Boolean
+    ): Pair<Track, Boolean> {
         // get previous location
         val previousLocation: Location?
         var numberOfWayPoints: Int = track.wayPoints.size
@@ -58,7 +63,11 @@ object TrackHelper {
             previousLocation = null
         }
         // CASE: Second location - check if first location was plausible & remove implausible location
-        else if (numberOfWayPoints == 1 && !LocationHelper.isFirstLocationPlausible(location, track)) {
+        else if (numberOfWayPoints == 1 && !LocationHelper.isFirstLocationPlausible(
+                location,
+                track
+            )
+        ) {
             previousLocation = null
             numberOfWayPoints = 0
             track.wayPoints.removeAt(0)
@@ -76,8 +85,8 @@ object TrackHelper {
 
         // add only if recent and accurate and different
         val shouldBeAdded: Boolean = (LocationHelper.isRecentEnough(location) &&
-                                      LocationHelper.isAccurateEnough(location, locationAccuracyThreshold) &&
-                                      LocationHelper.isDifferentEnough(previousLocation, location))
+                LocationHelper.isAccurateEnough(location, locationAccuracyThreshold) &&
+                LocationHelper.isDifferentEnough(previousLocation, location))
 
 //        // Debugging for shouldBeAdded - remove for production
 //        val recentEnough: Boolean = LocationHelper.isRecentEnough(location)
@@ -95,7 +104,8 @@ object TrackHelper {
         if (shouldBeAdded) {
             // update distance (do not update if resumed -> we do not want to add values calculated during a recording pause)
             if (!resumed) {
-                track.length = track.length + LocationHelper.calculateDistance(previousLocation, location)
+                track.length =
+                    track.length + LocationHelper.calculateDistance(previousLocation, location)
             }
 
             if (location.altitude != 0.0) {
@@ -105,12 +115,23 @@ object TrackHelper {
                     track.minAltitude = location.altitude
                 } else {
                     // calculate elevation values (upwards / downwards movements)
-                    val elevationDifferences: Pair<Double, Double> = LocationHelper.calculateElevationDifferences(previousLocation, location, track)
+                    val elevationDifferences: Pair<Double, Double> =
+                        LocationHelper.calculateElevationDifferences(
+                            previousLocation,
+                            location,
+                            track
+                        )
                     // check if any differences were calculated
-                    if (elevationDifferences != Pair(track.positiveElevation, track.negativeElevation)) {
+                    if (elevationDifferences != Pair(
+                            track.positiveElevation,
+                            track.negativeElevation
+                        )
+                    ) {
                         // update altitude values
-                        if (location.altitude > track.maxAltitude) track.maxAltitude = location.altitude
-                        if (location.altitude < track.minAltitude) track.minAltitude = location.altitude
+                        if (location.altitude > track.maxAltitude) track.maxAltitude =
+                            location.altitude
+                        if (location.altitude < track.minAltitude) track.minAltitude =
+                            location.altitude
                         // update elevation values (do not update if resumed -> we do not want to add values calculated during a recording pause)
                         if (!resumed) {
                             track.positiveElevation = elevationDifferences.first
@@ -122,16 +143,17 @@ object TrackHelper {
 
             // toggle stop over status, if necessary
             if (track.wayPoints.size < 0) {
-                track.wayPoints[track.wayPoints.size - 1].isStopOver = LocationHelper.isStopOver(previousLocation, location)
+                track.wayPoints[track.wayPoints.size - 1].isStopOver =
+                    LocationHelper.isStopOver(previousLocation, location)
             }
 
             // save number of satellites
             val numberOfSatellites: Int
             val extras = location.extras
-            if (extras != null && extras.containsKey("satellites")) {
-                numberOfSatellites = extras.getInt("satellites", 0)
+            numberOfSatellites = if (extras != null && extras.containsKey("satellites")) {
+                extras.getInt("satellites", 0)
             } else {
-                numberOfSatellites = 0
+                0
             }
 
             // add current location as point to center on for later display
@@ -139,7 +161,18 @@ object TrackHelper {
             track.longitude = location.longitude
 
             // add location as new waypoint
-            track.wayPoints.add(WayPoint(provider = location.provider, latitude = location.latitude, longitude = location.longitude, altitude = location.altitude, accuracy = location.accuracy, time = location.time, distanceToStartingPoint = track.length, numberSatellites = numberOfSatellites))
+            track.wayPoints.add(
+                WayPoint(
+                    provider = location.provider,
+                    latitude = location.latitude,
+                    longitude = location.longitude,
+                    altitude = location.altitude,
+                    accuracy = location.accuracy,
+                    time = location.time,
+                    distanceToStartingPoint = track.length,
+                    numberSatellites = numberOfSatellites
+                )
+            )
         }
 
         return Pair(track, shouldBeAdded)
@@ -153,13 +186,12 @@ object TrackHelper {
 
     /* Creates GPX string for given track */
     fun createGpxString(track: Track): String {
-        var gpxString: String
 
         // add header
-        gpxString = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?>\n" +
-                    "<gpx version=\"1.1\" creator=\"Trackbook App (Android)\"\n" +
-                    "     xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
-                    "     xsi:schemaLocation=\"http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd\">\n"
+        var gpxString: String = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?>\n" +
+                "<gpx version=\"1.1\" creator=\"Trackbook App (Android)\"\n" +
+                "     xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
+                "     xsi:schemaLocation=\"http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd\">\n"
 
         // add track
         gpxString += createGpxTrk(track)
@@ -227,8 +259,16 @@ object TrackHelper {
             if (waypoint.latitude == latitude && waypoint.longitude == longitude) {
                 waypoint.starred = !waypoint.starred
                 when (waypoint.starred) {
-                    true -> Toast.makeText(context, R.string.toast_message_poi_added, Toast.LENGTH_LONG).show()
-                    false -> Toast.makeText(context, R.string.toast_message_poi_removed, Toast.LENGTH_LONG).show()
+                    true -> Toast.makeText(
+                        context,
+                        R.string.toast_message_poi_added,
+                        Toast.LENGTH_LONG
+                    ).show()
+                    false -> Toast.makeText(
+                        context,
+                        R.string.toast_message_poi_removed,
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
         }

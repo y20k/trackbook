@@ -29,21 +29,23 @@ import kotlinx.android.parcel.Parcelize
  */
 @Keep
 @Parcelize
-data class WayPoint(@Expose val provider: String,
-                    @Expose val latitude: Double,
-                    @Expose val longitude: Double,
-                    @Expose val altitude: Double,
-                    @Expose val accuracy: Float,
-                    @Expose val time: Long,
-                    @Expose val distanceToStartingPoint: Float = 0f,
-                    @Expose val numberSatellites: Int = 0,
-                    @Expose var isStopOver: Boolean = false,
-                    @Expose var starred: Boolean = false): Parcelable {
+data class WayPoint(
+    @Expose val provider: String,
+    @Expose val latitude: Double,
+    @Expose val longitude: Double,
+    @Expose val altitude: Double,
+    @Expose val accuracy: Float,
+    @Expose val time: Long,
+    @Expose val distanceToStartingPoint: Float = 0f,
+    @Expose val numberSatellites: Int = 0,
+    @Expose var isStopOver: Boolean = false,
+    @Expose var starred: Boolean = false
+) : Parcelable {
 
 
     /* Converts WayPoint into Location */
     fun toLocation(): Location {
-        val location: Location = Location(provider)
+        val location = Location(provider)
         location.latitude = latitude
         location.longitude = longitude
         location.altitude = altitude

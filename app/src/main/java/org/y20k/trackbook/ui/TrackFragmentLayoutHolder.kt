@@ -50,14 +50,20 @@ import kotlin.math.roundToInt
 /*
  * TrackFragmentLayoutHolder class
  */
-data class TrackFragmentLayoutHolder(private var context: Context, private var markerListener: MapOverlay.MarkerListener, private var inflater: LayoutInflater, private var container: ViewGroup?, var track: Track) {
+data class TrackFragmentLayoutHolder(
+    private var context: Context,
+    private var markerListener: MapOverlay.MarkerListener,
+    private var inflater: LayoutInflater,
+    private var container: ViewGroup?,
+    var track: Track
+) {
 
     /* Define log tag */
     private val TAG: String = LogHelper.makeLogTag(TrackFragmentLayoutHolder::class.java)
 
 
     /* Main class variables */
-    val rootView: View
+    val rootView: View = inflater.inflate(R.layout.fragment_track, container, false)
     val shareButton: ImageButton
     val deleteButton: ImageButton
     val editButton: ImageButton
@@ -90,7 +96,6 @@ data class TrackFragmentLayoutHolder(private var context: Context, private var m
     /* Init block */
     init {
         // find views
-        rootView = inflater.inflate(R.layout.fragment_track, container, false)
         mapView = rootView.findViewById(R.id.map)
         shareButton = rootView.findViewById(R.id.save_button)
         deleteButton = rootView.findViewById(R.id.delete_button)
@@ -134,13 +139,15 @@ data class TrackFragmentLayoutHolder(private var context: Context, private var m
         }
 
         // add compass to map
-        val compassOverlay = CompassOverlay(context, InternalCompassOrientationProvider(context), mapView)
+        val compassOverlay =
+            CompassOverlay(context, InternalCompassOrientationProvider(context), mapView)
         compassOverlay.enableCompass()
         compassOverlay.setCompassCenter(36f, 60f)
         mapView.overlays.add(compassOverlay)
 
         // create map overlay
-        trackOverlay = MapOverlay(markerListener).createTrackOverlay(context, track, Keys.STATE_TRACKING_NOT)
+        trackOverlay =
+            MapOverlay(markerListener).createTrackOverlay(context, track, Keys.STATE_TRACKING_NOT)
         if (track.wayPoints.isNotEmpty()) {
             mapView.overlays.add(trackOverlay)
         }
@@ -168,7 +175,11 @@ data class TrackFragmentLayoutHolder(private var context: Context, private var m
             mapView.overlays.remove(trackOverlay)
         }
         if (track.wayPoints.isNotEmpty()) {
-            trackOverlay = MapOverlay(markerListener).createTrackOverlay(context, track, Keys.STATE_TRACKING_NOT)
+            trackOverlay = MapOverlay(markerListener).createTrackOverlay(
+                context,
+                track,
+                Keys.STATE_TRACKING_NOT
+            )
             mapView.overlays.add(trackOverlay)
         }
     }
@@ -190,9 +201,9 @@ data class TrackFragmentLayoutHolder(private var context: Context, private var m
     private fun setupStatisticsViews() {
 
         // get step count string
-        val steps: String
-        if (track.stepCount == -1f) steps = context.getString(R.string.statistics_sheet_p_steps_no_pedometer)
-        else steps = track.stepCount.roundToInt().toString()
+        val steps: String =
+            if (track.stepCount == -1f) context.getString(R.string.statistics_sheet_p_steps_no_pedometer)
+            else track.stepCount.roundToInt().toString()
 
         // populate views
         trackNameView.text = track.name
@@ -200,19 +211,29 @@ data class TrackFragmentLayoutHolder(private var context: Context, private var m
         stepsView.text = steps
         waypointsView.text = track.wayPoints.size.toString()
         durationView.text = DateTimeHelper.convertToReadableTime(context, track.duration)
-        velocityView.text = LengthUnitHelper.convertToVelocityString(track.duration, track.recordingPaused, track.length, useImperialUnits)
+        velocityView.text = LengthUnitHelper.convertToVelocityString(
+            track.duration,
+            track.recordingPaused,
+            track.length,
+            useImperialUnits
+        )
         recordingStartView.text = DateTimeHelper.convertToReadableDateAndTime(track.recordingStart)
         recordingStopView.text = DateTimeHelper.convertToReadableDateAndTime(track.recordingStart)
-        maxAltitudeView.text = LengthUnitHelper.convertDistanceToString(track.maxAltitude, useImperialUnits)
-        minAltitudeView.text = LengthUnitHelper.convertDistanceToString(track.minAltitude, useImperialUnits)
-        positiveElevationView.text = LengthUnitHelper.convertDistanceToString(track.positiveElevation, useImperialUnits)
-        negativeElevationView.text = LengthUnitHelper.convertDistanceToString(track.negativeElevation, useImperialUnits)
+        maxAltitudeView.text =
+            LengthUnitHelper.convertDistanceToString(track.maxAltitude, useImperialUnits)
+        minAltitudeView.text =
+            LengthUnitHelper.convertDistanceToString(track.minAltitude, useImperialUnits)
+        positiveElevationView.text =
+            LengthUnitHelper.convertDistanceToString(track.positiveElevation, useImperialUnits)
+        negativeElevationView.text =
+            LengthUnitHelper.convertDistanceToString(track.negativeElevation, useImperialUnits)
 
         // show / hide recording pause
         if (track.recordingPaused != 0L) {
             recordingPausedLabelView.visibility = View.VISIBLE
             recordingPausedView.visibility = View.VISIBLE
-            recordingPausedView.text = DateTimeHelper.convertToReadableTime(context, track.recordingPaused)
+            recordingPausedView.text =
+                DateTimeHelper.convertToReadableTime(context, track.recordingPaused)
         } else {
             recordingPausedLabelView.visibility = View.GONE
             recordingPausedView.visibility = View.GONE
@@ -220,8 +241,9 @@ data class TrackFragmentLayoutHolder(private var context: Context, private var m
 
         // inform user about possible accuracy issues with altitude measurements
         elevationDataViews.referencedIds.forEach { id ->
-            (rootView.findViewById(id) as View).setOnClickListener{
-                Toast.makeText(context, R.string.toast_message_elevation_info, Toast.LENGTH_LONG).show()
+            (rootView.findViewById(id) as View).setOnClickListener {
+                Toast.makeText(context, R.string.toast_message_elevation_info, Toast.LENGTH_LONG)
+                    .show()
             }
         }
         // make track name on statistics sheet clickable
@@ -234,7 +256,8 @@ data class TrackFragmentLayoutHolder(private var context: Context, private var m
     /* Shows/hides the statistics sheet */
     private fun toggleStatisticsSheetVisibility() {
         when (statisticsSheetBehavior.state) {
-            BottomSheetBehavior.STATE_EXPANDED -> statisticsSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            BottomSheetBehavior.STATE_EXPANDED -> statisticsSheetBehavior.state =
+                BottomSheetBehavior.STATE_COLLAPSED
             else -> statisticsSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
         }
     }
@@ -246,26 +269,31 @@ data class TrackFragmentLayoutHolder(private var context: Context, private var m
             override fun onStateChanged(bottomSheet: View, newState: Int) {
                 when (newState) {
                     BottomSheetBehavior.STATE_EXPANDED -> {
-                        statisticsSheet.background = context.getDrawable(R.drawable.shape_statistics_background_expanded)
+                        statisticsSheet.background =
+                            context.getDrawable(R.drawable.shape_statistics_background_expanded)
                         trackManagementViews.visibility = View.VISIBLE
                         shareButton.visibility = View.GONE
                         // bottomSheet.setPadding(0,24,0,0)
                     }
                     else -> {
-                        statisticsSheet.background = context.getDrawable(R.drawable.shape_statistics_background_collapsed)
+                        statisticsSheet.background =
+                            context.getDrawable(R.drawable.shape_statistics_background_collapsed)
                         trackManagementViews.visibility = View.GONE
                         shareButton.visibility = View.VISIBLE
                         // bottomSheet.setPadding(0,0,0,0)
                     }
                 }
             }
+
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
                 if (slideOffset < 0.125f) {
-                    statisticsSheet.background = context.getDrawable(R.drawable.shape_statistics_background_collapsed)
+                    statisticsSheet.background =
+                        context.getDrawable(R.drawable.shape_statistics_background_collapsed)
                     trackManagementViews.visibility = View.GONE
                     shareButton.visibility = View.VISIBLE
                 } else {
-                    statisticsSheet.background = context.getDrawable(R.drawable.shape_statistics_background_expanded)
+                    statisticsSheet.background =
+                        context.getDrawable(R.drawable.shape_statistics_background_expanded)
                     trackManagementViews.visibility = View.VISIBLE
                     shareButton.visibility = View.GONE
                 }
