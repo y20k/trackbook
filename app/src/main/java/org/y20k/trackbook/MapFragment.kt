@@ -44,7 +44,7 @@ import org.y20k.trackbook.ui.MapFragmentLayoutHolder
 /*
  * MapFragment class
  */
-class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener, MapOverlay.MarkerListener {
+class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener, MapOverlayHelper.MarkerListener {
 
     /* Define log tag */
     private val TAG: String = LogHelper.makeLogTag(MapFragment::class.java)
@@ -75,7 +75,7 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener, MapOverlay.Mark
     /* Overrides onStop from Fragment */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // initialize layout
-        layout = MapFragmentLayoutHolder(activity as Context, this as MapOverlay.MarkerListener, inflater, container, currentBestLocation, trackingState)
+        layout = MapFragmentLayoutHolder(activity as Context, this as MapOverlayHelper.MarkerListener, inflater, container, currentBestLocation, trackingState)
 
         // set up buttons
         layout.currentLocationButton.setOnClickListener {

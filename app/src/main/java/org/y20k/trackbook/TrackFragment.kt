@@ -41,12 +41,12 @@ import org.y20k.trackbook.core.Track
 import org.y20k.trackbook.dialogs.RenameTrackDialog
 import org.y20k.trackbook.helpers.FileHelper
 import org.y20k.trackbook.helpers.LogHelper
-import org.y20k.trackbook.helpers.MapOverlay
+import org.y20k.trackbook.helpers.MapOverlayHelper
 import org.y20k.trackbook.helpers.TrackHelper
 import org.y20k.trackbook.ui.TrackFragmentLayoutHolder
 
 
-class TrackFragment : Fragment(), RenameTrackDialog.RenameTrackListener, YesNoDialog.YesNoDialogListener, MapOverlay.MarkerListener {
+class TrackFragment : Fragment(), RenameTrackDialog.RenameTrackListener, YesNoDialog.YesNoDialogListener, MapOverlayHelper.MarkerListener {
 
     /* Define log tag */
     private val TAG: String = LogHelper.makeLogTag(TrackFragment::class.java)
@@ -73,7 +73,7 @@ class TrackFragment : Fragment(), RenameTrackDialog.RenameTrackListener, YesNoDi
     /* Overrides onCreateView from Fragment */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // initialize layout
-        layout = TrackFragmentLayoutHolder(activity as Context, this as MapOverlay.MarkerListener, inflater, container, track)
+        layout = TrackFragmentLayoutHolder(activity as Context, this as MapOverlayHelper.MarkerListener, inflater, container, track)
 
         // set up share button
         layout.shareButton.setOnClickListener {

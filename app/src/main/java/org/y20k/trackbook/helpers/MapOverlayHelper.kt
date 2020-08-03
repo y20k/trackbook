@@ -1,7 +1,7 @@
 /*
  * MapHelper.kt
- * Implements the MapHelper object
- * A MapHelper offers helper methods for manipulating osmdroid maps
+ * Implements the MapOverlayHelper class
+ * A MapOverlayHelper offers helper methods for creating osmdroid map overlays
  *
  * This file is part of
  * TRACKBOOK - Movement Recorder for Android
@@ -30,15 +30,17 @@ import org.osmdroid.views.overlay.OverlayItem
 import org.y20k.trackbook.Keys
 import org.y20k.trackbook.R
 import org.y20k.trackbook.core.Track
+import org.y20k.trackbook.core.WayPoint
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 /*
- * MapHelper class
+ * MapOverlayHelper class
  */
-class MapOverlay (private var markerListener: MarkerListener)  {
+class MapOverlayHelper (private var markerListener: MarkerListener)  {
 
     /* Interface used to communicate back to activity/fragment */
     interface MarkerListener {
@@ -47,14 +49,14 @@ class MapOverlay (private var markerListener: MarkerListener)  {
     }
 
     /* Define log tag */
-    private val TAG = MapOverlay::class.java.simpleName
+    private val TAG = MapOverlayHelper::class.java.simpleName
 
 
     /* Creates icon overlay for current position (used in MapFragment) */
     fun createMyLocationOverlay(context: Context, location: Location, trackingState: Int): ItemizedIconOverlay<OverlayItem> {
 
-        val overlayItems = ArrayList<OverlayItem>()
-        val locationIsOld = LocationHelper.isOldLocation(location)
+        val overlayItems: ArrayList<OverlayItem> = ArrayList<OverlayItem>()
+        val locationIsOld:Boolean = LocationHelper.isOldLocation(location)
 
         // create marker
         val newMarker: Drawable
@@ -76,7 +78,7 @@ class MapOverlay (private var markerListener: MarkerListener)  {
         }
 
         // add marker to list of overlay items
-        val overlayItem = createOverlayItem(context, location.latitude, location.longitude, location.accuracy, location.provider, location.time)
+        val overlayItem: OverlayItem = createOverlayItem(context, location.latitude, location.longitude, location.accuracy, location.provider, location.time)
         overlayItem.setMarker(newMarker)
         overlayItems.add(overlayItem)
 
@@ -88,8 +90,8 @@ class MapOverlay (private var markerListener: MarkerListener)  {
     /* Creates icon overlay for track */
     fun createTrackOverlay(context: Context, track: Track, trackingState: Int): ItemizedIconOverlay<OverlayItem> {
 
-        val overlayItems = ArrayList<OverlayItem>()
-        val wayPoints = track.wayPoints
+        val overlayItems: ArrayList<OverlayItem> = ArrayList<OverlayItem>()
+        val wayPoints: MutableList<WayPoint> = track.wayPoints
 
         wayPoints.forEach { wayPoint ->
             // create marker
@@ -120,7 +122,7 @@ class MapOverlay (private var markerListener: MarkerListener)  {
             }
 
             // create overlay item and add to list of overlay items
-            val overlayItem = createOverlayItem(context, wayPoint.latitude, wayPoint.longitude, wayPoint.accuracy, wayPoint.provider, wayPoint.time)
+            val overlayItem: OverlayItem = createOverlayItem(context, wayPoint.latitude, wayPoint.longitude, wayPoint.accuracy, wayPoint.provider, wayPoint.time)
             overlayItem.setMarker(newMarker)
             overlayItems.add(overlayItem)
         }

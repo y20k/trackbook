@@ -50,7 +50,7 @@ import kotlin.math.roundToInt
 /*
  * TrackFragmentLayoutHolder class
  */
-data class TrackFragmentLayoutHolder(private var context: Context, private var markerListener: MapOverlay.MarkerListener, private var inflater: LayoutInflater, private var container: ViewGroup?, var track: Track) {
+data class TrackFragmentLayoutHolder(private var context: Context, private var markerListener: MapOverlayHelper.MarkerListener, private var inflater: LayoutInflater, private var container: ViewGroup?, var track: Track) {
 
     /* Define log tag */
     private val TAG: String = LogHelper.makeLogTag(TrackFragmentLayoutHolder::class.java)
@@ -140,7 +140,7 @@ data class TrackFragmentLayoutHolder(private var context: Context, private var m
         mapView.overlays.add(compassOverlay)
 
         // create map overlay
-        trackOverlay = MapOverlay(markerListener).createTrackOverlay(context, track, Keys.STATE_TRACKING_NOT)
+        trackOverlay = MapOverlayHelper(markerListener).createTrackOverlay(context, track, Keys.STATE_TRACKING_NOT)
         if (track.wayPoints.isNotEmpty()) {
             mapView.overlays.add(trackOverlay)
         }
@@ -168,7 +168,7 @@ data class TrackFragmentLayoutHolder(private var context: Context, private var m
             mapView.overlays.remove(trackOverlay)
         }
         if (track.wayPoints.isNotEmpty()) {
-            trackOverlay = MapOverlay(markerListener).createTrackOverlay(context, track, Keys.STATE_TRACKING_NOT)
+            trackOverlay = MapOverlayHelper(markerListener).createTrackOverlay(context, track, Keys.STATE_TRACKING_NOT)
             mapView.overlays.add(trackOverlay)
         }
     }

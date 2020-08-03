@@ -161,6 +161,12 @@ object TrackHelper {
                     "     xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
                     "     xsi:schemaLocation=\"http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd\">\n"
 
+        // add name
+        gpxString += createGpxName(track)
+
+        // add POIs
+        gpxString += createGpxPois(track)
+
         // add track
         gpxString += createGpxTrk(track)
 
@@ -168,6 +174,44 @@ object TrackHelper {
         gpxString += "</gpx>\n"
 
         return gpxString
+    }
+
+
+    /* Creates name for GPX file */
+    private fun createGpxName(track: Track): String {
+        val gpxName = StringBuilder("")
+        gpxName.append("\t<name>")
+        gpxName.append("Trackbook Recording: ${track.name}")
+        gpxName.append("</name>\n")
+        return gpxName.toString()
+    }
+
+
+    /* Creates GPX formatted points of interest */
+    private fun createGpxPois(track: Track): String {
+        val gpxPois = StringBuilder("")
+        val poiList: List<WayPoint> =  track.wayPoints.filter { it.starred }
+        poiList.forEach { poi ->
+            gpxPois.append("\t<wpt lat=\"")
+            gpxPois.append(poi.latitude)
+            gpxPois.append("\" lon=\"")
+            gpxPois.append(poi.longitude)
+            gpxPois.append("\">\n")
+
+            // add name to waypoint
+            gpxPois.append("\t\t<name>")
+            gpxPois.append("Point of interest")
+            gpxPois.append("</name>\n")
+
+            // add altitude
+            gpxPois.append("\t\t<ele>")
+            gpxPois.append(poi.altitude)
+            gpxPois.append("</ele>\n")
+
+            // add closing tag
+            gpxPois.append("\t</wpt>\n")
+        }
+        return gpxPois.toString()
     }
 
 
@@ -182,7 +226,7 @@ object TrackHelper {
 
         // add name to track
         gpxTrack.append("\t\t<name>")
-        gpxTrack.append("Trackbook Recording: ${track.name}")
+        gpxTrack.append("Track")
         gpxTrack.append("</name>\n")
 
         // add opening track segment tag
