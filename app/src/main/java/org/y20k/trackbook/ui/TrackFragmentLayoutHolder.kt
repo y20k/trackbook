@@ -32,6 +32,9 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.osmdroid.api.IGeoPoint
 import org.osmdroid.api.IMapController
+import org.osmdroid.events.MapListener
+import org.osmdroid.events.ScrollEvent
+import org.osmdroid.events.ZoomEvent
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
@@ -50,7 +53,7 @@ import kotlin.math.roundToInt
 /*
  * TrackFragmentLayoutHolder class
  */
-data class TrackFragmentLayoutHolder(private var context: Context, private var markerListener: MapOverlayHelper.MarkerListener, private var inflater: LayoutInflater, private var container: ViewGroup?, var track: Track) {
+data class TrackFragmentLayoutHolder(private var context: Context, private var markerListener: MapOverlayHelper.MarkerListener, private var inflater: LayoutInflater, private var container: ViewGroup?, var track: Track): MapListener {
 
     /* Define log tag */
     private val TAG: String = LogHelper.makeLogTag(TrackFragmentLayoutHolder::class.java)
@@ -99,6 +102,7 @@ data class TrackFragmentLayoutHolder(private var context: Context, private var m
 
         // basic map setup
         controller = mapView.controller
+        mapView.addMapListener(this)
         mapView.isTilesScaledToDpi = true
         mapView.setTileSource(TileSourceFactory.MAPNIK)
         mapView.setMultiTouchControls(true)
@@ -176,11 +180,7 @@ data class TrackFragmentLayoutHolder(private var context: Context, private var m
 
     /* Saves zoom level and center of this map */
     fun saveViewStateToTrack() {
-        val center: IGeoPoint = mapView.mapCenter
-        if (center.latitude != 0.0 && center.longitude != 0.0) {
-            track.latitude = center.latitude
-            track.longitude = center.longitude
-            track.zoomLevel = mapView.zoomLevelDouble
+        if (track.latitude != 0.0 && track.longitude != 0.0) {
             GlobalScope.launch { FileHelper.saveTrackSuspended(track, false) }
         }
     }
@@ -274,4 +274,28 @@ data class TrackFragmentLayoutHolder(private var context: Context, private var m
     }
 
 
+    /* Overrides onZoom from MapListener */
+    override fun onZoom(event: ZoomEvent?): Boolean {
+        if (event == null) {
+            return false
+        } else {
+            track.zoomLevel = event.zoomLevel
+            return true
+        }
+    }
+
+
+    /* Overrides onScroll from MapListener */
+    override fun onScroll(event: ScrollEvent?): Boolean {
+        if (event == null) {
+            return false
+        } else {
+            val center: IGeoPoint = mapView.mapCenter
+            track.latitude = center.latitude
+            track.longitude = center.longitude
+            return true
+        }
+    }
+
 }
+
