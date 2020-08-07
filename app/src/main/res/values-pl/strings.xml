@@ -1,2 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="dialog_error_empty_recording_title">Błąd podczas zapisu</string>
+    <string name="dialog_generic_details_button">Pokaż szczegóły</string>
+    <string name="dialog_generic_button_okay">OK</string>
+    <string name="dialog_generic_button_cancel">Anuluj</string>
+    <string name="fab_sub_menu_resume">Kontynuuj</string>
+    <string name="fab_sub_menu_save">Zapisz</string>
+    <string name="fab_sub_menu_clear">Wyczyść</string>
+    <string name="snackbar_message_location_offline">Lokalizacja jest wyłączona. Trackbook nie będzie działać.</string>
+    <string name="notification_channel_recording_description">Pokaż czas oraz przebyty dystans. Opcja którą można zatrzymać zapisywanie ruchu.</string>
+    <string name="notification_channel_recording_name">Status Zapisywania Ruchu</string>
+    <string name="notification_show">Pokaż</string>
+    <string name="notification_resume">Kontynuuj</string>
+    <string name="notification_stop">Zatrzymaj</string>
+    <string name="notification_title_trackbook_not_running">Trackbook zatrzymany</string>
+    <string name="notification_title_trackbook_running">Trackbook uruchomiony</string>
+    <string name="tab_settings">Ustawienia</string>
+    <string name="tab_tracks">Trasy</string>
+    <string name="tab_map">Mapa</string>
+</resources>
