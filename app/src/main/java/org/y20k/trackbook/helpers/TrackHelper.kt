@@ -158,6 +158,7 @@ object TrackHelper {
         // add header
         gpxString = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?>\n" +
                     "<gpx version=\"1.1\" creator=\"Trackbook App (Android)\"\n" +
+                    "     xmlns=\"http://www.topografix.com/GPX/1/1\"\n" +
                     "     xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
                     "     xsi:schemaLocation=\"http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd\">\n"
 
@@ -180,9 +181,11 @@ object TrackHelper {
     /* Creates name for GPX file */
     private fun createGpxName(track: Track): String {
         val gpxName = StringBuilder("")
-        gpxName.append("\t<name>")
+        gpxName.append("\t<metadata>\n");
+        gpxName.append("\t\t<name>")
         gpxName.append("Trackbook Recording: ${track.name}")
         gpxName.append("</name>\n")
+        gpxName.append("\t</metadata>\n");
         return gpxName.toString()
     }
 
@@ -241,15 +244,15 @@ object TrackHelper {
             gpxTrack.append(wayPoint.longitude)
             gpxTrack.append("\">\n")
 
-            // add time
-            gpxTrack.append("\t\t\t\t<time>")
-            gpxTrack.append(dateFormat.format(Date(wayPoint.time)))
-            gpxTrack.append("</time>\n")
-
             // add altitude
             gpxTrack.append("\t\t\t\t<ele>")
             gpxTrack.append(wayPoint.altitude)
             gpxTrack.append("</ele>\n")
+
+            // add time
+            gpxTrack.append("\t\t\t\t<time>")
+            gpxTrack.append(dateFormat.format(Date(wayPoint.time)))
+            gpxTrack.append("</time>\n")
 
             // add closing tag
             gpxTrack.append("\t\t\t</trkpt>\n")
