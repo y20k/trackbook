@@ -138,6 +138,7 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener, MapOverlayHelpe
         super.onStop()
         // unbind from TrackerService
         activity?.unbindService(connection)
+        handleServiceUnbind()
     }
 
 
@@ -199,6 +200,17 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener, MapOverlayHelpe
             activity?.startService(intent)
         }
     }
+
+
+    /* Handles state when service is being unbound */
+    private fun handleServiceUnbind() {
+        bound = false
+        // unregister listener for changes in shared preferences
+        PreferenceManager.getDefaultSharedPreferences(activity as Context).unregisterOnSharedPreferenceChangeListener(sharedPreferenceChangeListener)
+        // stop receiving location updates
+        handler.removeCallbacks(periodicLocationRequestRunnable)
+    }
+
 
 
     /* Starts / pauses tracking and toggles the recording sub menu_bottom_navigation */
@@ -285,11 +297,8 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener, MapOverlayHelpe
             handler.postDelayed(periodicLocationRequestRunnable, 0)
         }
         override fun onServiceDisconnected(arg0: ComponentName) {
-            bound = false
-            // unregister listener for changes in shared preferences
-            PreferenceManager.getDefaultSharedPreferences(activity as Context).unregisterOnSharedPreferenceChangeListener(sharedPreferenceChangeListener)
-            // stop receiving location updates
-            handler.removeCallbacks(periodicLocationRequestRunnable)
+            // service has crashed, or was killed by the system
+            handleServiceUnbind()
         }
     }
     /*

@@ -207,14 +207,13 @@ data class MapFragmentLayoutHolder(private var context: Context, private var mar
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED) {
             // CASE: Location permission not granted
             locationErrorBar.setText(R.string.snackbar_message_location_permission_denied)
-            locationErrorBar.show()
+            if (!locationErrorBar.isShown) locationErrorBar.show()
         } else if (!gpsProviderActive && !networkProviderActive) {
             // CASE: Location setting is off
             locationErrorBar.setText(R.string.snackbar_message_location_offline)
-            locationErrorBar.show()
-        } else if (locationErrorBar.isShown) {
-            // CASE: Snackbar is visible but unnecessary
-            locationErrorBar.dismiss()
+            if (!locationErrorBar.isShown) locationErrorBar.show()
+        } else {
+            if (locationErrorBar.isShown) locationErrorBar.dismiss()
         }
     }
 

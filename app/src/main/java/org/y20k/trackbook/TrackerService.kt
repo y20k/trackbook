@@ -247,11 +247,6 @@ class TrackerService(): Service(), CoroutineScope, SensorEventListener {
 
     /* Stop tracking location */
     fun stopTracking() {
-        // stop receiving location updates - if app is not bound (= visible)
-        if (!bound) {
-            removeGpsLocationListener()
-            removeGpsLocationListener()
-        }
         // save state
         track.recordingStop = GregorianCalendar.getInstance().time
         trackingState = Keys.STATE_TRACKING_STOPPED
@@ -327,6 +322,7 @@ class TrackerService(): Service(), CoroutineScope, SensorEventListener {
         // check if already registered
         if (!gpsLocationListenerRegistered) {
             // check if Network provider is available
+            gpsProviderActive = LocationHelper.isGpsEnabled(locationManager)
             if (gpsProviderActive) {
                 // check for location permission
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
@@ -351,6 +347,7 @@ class TrackerService(): Service(), CoroutineScope, SensorEventListener {
         // check if already registered
         if (!networkLocationListenerRegistered) {
             // check if Network provider is available
+            networkProviderActive = LocationHelper.isNetworkEnabled(locationManager)
             if (networkProviderActive && !gpsOnly) {
                 // check for location permission
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
