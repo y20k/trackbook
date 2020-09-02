@@ -1,0 +1,8 @@
+# v2.0.6 - Echoes
+
+**2020-09-02**
+
+- a tap on a waypoint now marks it as a point of interest
+- updated translations
+- bug fixes
+- removes auto-import for Trackbook files in the old format
