@@ -438,8 +438,12 @@ object FileHelper {
 
     /* Writes given text to file on storage */
     private fun writeTextFile(text: String, fileUri: Uri) {
-        val file: File = fileUri.toFile()
-        file.writeText(text)
+        if (text.isNotEmpty()) {
+            val file: File = fileUri.toFile()
+            file.writeText(text)
+        } else {
+            LogHelper.w(TAG, "Writing text file $fileUri failed. Empty text string text was provided.")
+        }
     }
 
 
