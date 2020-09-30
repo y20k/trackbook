@@ -5,7 +5,7 @@ AUTHORS
 Trackbook is designed, developed, and maintained by: [y20k](https://github.com/y20k)
 
 ### Translations
-Chinese version: [yzqzss](https://github.com/yzqzss) | [weblate version history](https://hosted.weblate.org/changes/?lang=zh_HANS-CN&project=trackbook)
+Chinese version: [yzqzss](https://github.com/yzqzss) | [weblate version history](https://hosted.weblate.org/changes/?lang=pt_BR&project=trackbook)
 
 Croatian version: [milotype](https://github.com/milotype) | [weblate version history](https://hosted.weblate.org/changes/?lang=hr&project=trackbook)
 
@@ -24,6 +24,8 @@ Italian version: [Marco](https://github.com/marcoM32) | [weblate version history
 Japanese version: [naofum](https://github.com/naofum) | [weblate version history](https://hosted.weblate.org/changes/?lang=ja&project=trackbook)
 
 Norwegian version: [comradekingu](https://github.com/comradekingu) | [weblate version history](https://hosted.weblate.org/changes/?lang=nb_NO&project=trackbook)
+
+Portuguese (Brazilian) version: [Ivan A.](https://github.com/iraamaro) | [weblate version history](https://hosted.weblate.org/changes/?lang=pt_BR&project=trackbook)
 
 ### Testing
 Thanks for finding all those bugs: [collectorgeneral](https://github.com/collectorgeneral), [RJH](https://github.com/Hob111)
