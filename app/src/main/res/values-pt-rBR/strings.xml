@@ -115,8 +115,4 @@
     <string name="descr_statistics_sheet_delete_button">Botão apagar rota</string>
     <string name="descr_statistics_sheet_edit_button">Botão editar rota</string>
     <string name="descr_statistics_sheet_save_button">Botão salvar como GPX</string>
-    <!-- Sample Text -->
-    <string name="sample_text_track_data" translatable="false">23.0 km • 5 hrs 23 min 42 sec</string>
-    <string name="sample_text_track_name" translatable="false">July 20, 1969</string>
-    <string name="sample_text_default_data" translatable="false">track data missing</string>
 </resources>
