@@ -75,7 +75,8 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener, MapOverlayHelpe
     /* Overrides onStop from Fragment */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // initialize layout
-        layout = MapFragmentLayoutHolder(activity as Context, this as MapOverlayHelper.MarkerListener, inflater, container, currentBestLocation, trackingState)
+        val statusBarHeight: Int = UiHelper.getStatusBarHeight(activity as Context)
+        layout = MapFragmentLayoutHolder(activity as Context, this as MapOverlayHelper.MarkerListener, inflater, container, statusBarHeight, currentBestLocation, trackingState)
 
         // set up buttons
         layout.currentLocationButton.setOnClickListener {

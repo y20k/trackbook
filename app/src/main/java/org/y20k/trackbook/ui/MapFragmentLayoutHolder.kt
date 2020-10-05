@@ -42,16 +42,13 @@ import org.osmdroid.views.overlay.compass.InternalCompassOrientationProvider
 import org.y20k.trackbook.Keys
 import org.y20k.trackbook.R
 import org.y20k.trackbook.core.Track
-import org.y20k.trackbook.helpers.AppThemeHelper
-import org.y20k.trackbook.helpers.LogHelper
-import org.y20k.trackbook.helpers.MapOverlayHelper
-import org.y20k.trackbook.helpers.PreferencesHelper
+import org.y20k.trackbook.helpers.*
 
 
 /*
  * MapFragmentLayoutHolder class
  */
-data class MapFragmentLayoutHolder(private var context: Context, private var markerListener: MapOverlayHelper.MarkerListener, private var inflater: LayoutInflater, private var container: ViewGroup?, private val startLocation: Location, private val trackingState: Int) {
+data class MapFragmentLayoutHolder(private var context: Context, private var markerListener: MapOverlayHelper.MarkerListener, private var inflater: LayoutInflater, private var container: ViewGroup?, private var statusBarHeight: Int ,private val startLocation: Location, private val trackingState: Int) {
 
     /* Define log tag */
     private val TAG: String = LogHelper.makeLogTag(MapFragmentLayoutHolder::class.java)
@@ -104,7 +101,7 @@ data class MapFragmentLayoutHolder(private var context: Context, private var mar
         // add compass to map
         val compassOverlay = CompassOverlay(context, InternalCompassOrientationProvider(context), mapView)
         compassOverlay.enableCompass()
-        compassOverlay.setCompassCenter(36f, 60f)
+        compassOverlay.setCompassCenter(36f, 36f + (statusBarHeight / UiHelper.getDensityScalingFactor(context)))
 
         mapView.overlays.add(compassOverlay)
 

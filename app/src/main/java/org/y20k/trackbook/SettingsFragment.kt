@@ -30,10 +30,7 @@ import android.widget.Toast
 import androidx.preference.*
 import kotlinx.coroutines.*
 import org.y20k.trackbook.core.Tracklist
-import org.y20k.trackbook.helpers.AppThemeHelper
-import org.y20k.trackbook.helpers.FileHelper
-import org.y20k.trackbook.helpers.LengthUnitHelper
-import org.y20k.trackbook.helpers.LogHelper
+import org.y20k.trackbook.helpers.*
 
 
 /*
@@ -51,7 +48,7 @@ class SettingsFragment : PreferenceFragmentCompat(), YesNoDialog.YesNoDialogList
         // set the background color
         view.setBackgroundColor(resources.getColor(R.color.app_window_background, null))
         // add padding - necessary because translucent status bar is used
-        val topPadding = this.resources.displayMetrics.density * 24 // 24 dp * display density
+        val topPadding = UiHelper.getStatusBarHeight(activity as Context)
         view.setPadding(0, topPadding.toInt(), 0, 0)
     }
 
