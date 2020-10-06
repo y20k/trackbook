@@ -1,0 +1,6 @@
+# v2.0.7 - Echoes
+
+**2020-10-07**
+
+- improves layout for phones with a display cutout
+- updated translations
