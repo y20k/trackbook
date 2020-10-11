@@ -10,9 +10,9 @@ android {
         applicationId 'org.y20k.trackbook'
         minSdkVersion 25
         targetSdkVersion 30
-        versionCode 44
-        versionName '2.0.7'
-        resConfigs "en", "da", "de", "fr", "hr", "id", "it", "ja", "nb-rNO", "nl", "pt-rBR", "sv", "zh-rCN"
+        versionCode 45
+        versionName '2.0.8'
+        resConfigs "en", "da", "de", "fr", "hr", "id", "it", "ja", "nb-rNO", "nl", "pt-rBR", "sv", "tr", "zh-rCN"
     }
 
     kotlinOptions {
@@ -57,7 +57,7 @@ dependencies {
 
     // AndroidX
     implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
     implementation 'androidx.core:core-ktx:1.3.2'
     implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
     implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"

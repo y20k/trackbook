@@ -202,7 +202,7 @@ data class TrackFragmentLayoutHolder(private var context: Context, private var m
         durationView.text = DateTimeHelper.convertToReadableTime(context, track.duration)
         velocityView.text = LengthUnitHelper.convertToVelocityString(track.duration, track.recordingPaused, track.length, useImperialUnits)
         recordingStartView.text = DateTimeHelper.convertToReadableDateAndTime(track.recordingStart)
-        recordingStopView.text = DateTimeHelper.convertToReadableDateAndTime(track.recordingStart)
+        recordingStopView.text = DateTimeHelper.convertToReadableDateAndTime(track.recordingStop)
         maxAltitudeView.text = LengthUnitHelper.convertDistanceToString(track.maxAltitude, useImperialUnits)
         minAltitudeView.text = LengthUnitHelper.convertDistanceToString(track.minAltitude, useImperialUnits)
         positiveElevationView.text = LengthUnitHelper.convertDistanceToString(track.positiveElevation, useImperialUnits)

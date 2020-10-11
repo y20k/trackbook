@@ -1,0 +1,6 @@
+# v2.0.8 - Echoes
+
+**2020-10-11**
+
+- fixes a bug where the "Recording stopped" time was not displayed
+- Turkish translation

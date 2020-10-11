@@ -27,6 +27,8 @@ Norwegian version: [comradekingu](https://github.com/comradekingu) | [weblate ve
 
 Portuguese (Brazilian) version: [Ivan A.](https://github.com/iraamaro) | [weblate version history](https://hosted.weblate.org/changes/?lang=pt_BR&project=trackbook)
 
+Turkish version: [Oğuz Ersen](https://hosted.weblate.org/user/ersen/) | [weblate version history](https://hosted.weblate.org/changes/?lang=tr&project=trackbook)
+
 ### Testing
 Thanks for finding all those bugs: [collectorgeneral](https://github.com/collectorgeneral), [RJH](https://github.com/Hob111)
 
