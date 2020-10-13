@@ -10,8 +10,8 @@ android {
         applicationId 'org.y20k.trackbook'
         minSdkVersion 25
         targetSdkVersion 30
-        versionCode 45
-        versionName '2.0.8'
+        versionCode 46
+        versionName '2.0.9'
         resConfigs "en", "da", "de", "fr", "hr", "id", "it", "ja", "nb-rNO", "nl", "pt-rBR", "sv", "tr", "zh-rCN"
     }
 
