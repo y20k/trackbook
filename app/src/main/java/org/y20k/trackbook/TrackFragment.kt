@@ -25,7 +25,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.os.Vibrator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -77,12 +76,12 @@ class TrackFragment : Fragment(), RenameTrackDialog.RenameTrackListener, YesNoDi
         layout.shareButton.setOnClickListener {
             openSaveGpxDialog()
         }
-        layout.shareButton.setOnLongClickListener {
-            val v = (activity as Context).getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-            v.vibrate(50)
-            shareGpxTrack()
-            return@setOnLongClickListener true
-        }
+//        layout.shareButton.setOnLongClickListener {
+//            val v = (activity as Context).getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+//            v.vibrate(50)
+//            shareGpxTrack()
+//            return@setOnLongClickListener true
+//        }
         // set up delete button
         layout.deleteButton.setOnClickListener {
             val dialogMessage: String = "${getString(R.string.dialog_yes_no_message_delete_recording)}\n\n- ${layout.trackNameView.text}"
@@ -183,12 +182,7 @@ class TrackFragment : Fragment(), RenameTrackDialog.RenameTrackListener, YesNoDi
             putExtra(Intent.EXTRA_TITLE, FileHelper.getGpxFileName(track))
         }
         // file gets saved in onActivityResult
-        val packageManager: PackageManager? = activity?.packageManager
-        if (packageManager != null && intent.resolveActivity(packageManager) != null) {
-            startActivityForResult(intent, Keys.REQUEST_SAVE_GPX)
-        } else {
-            Toast.makeText(activity as Context, R.string.toast_message_install_file_helper, Toast.LENGTH_LONG).show()
-        }
+        startActivityForResult(intent, Keys.REQUEST_SAVE_GPX)
     }
 
 
