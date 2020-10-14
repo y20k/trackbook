@@ -182,7 +182,12 @@ class TrackFragment : Fragment(), RenameTrackDialog.RenameTrackListener, YesNoDi
             putExtra(Intent.EXTRA_TITLE, FileHelper.getGpxFileName(track))
         }
         // file gets saved in onActivityResult
-        startActivityForResult(intent, Keys.REQUEST_SAVE_GPX)
+        try {
+            startActivityForResult(intent, Keys.REQUEST_SAVE_GPX)
+        } catch (e: Exception) {
+            LogHelper.e(TAG, "Unable to save GPX. ")
+            Toast.makeText(activity as Context, R.string.toast_message_install_file_helper, Toast.LENGTH_LONG).show()
+        }
     }
 
 
