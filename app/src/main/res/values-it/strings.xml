@@ -4,7 +4,6 @@
     <!-- App Name -->
     <string name="app_name">Trackbook</string>
     <!-- please do not translate app_name - transcription into different alphabet types is fine though -->
-
     <!-- Tabs -->
     <string name="tab_map">Mappa</string>
     <string name="tab_tracks">Tracce</string>
@@ -29,7 +28,7 @@
     <string name="dialog_generic_button_okay">OK</string>
     <string name="dialog_generic_details_button">Dettagli</string>
     <string name="dialog_error_empty_recording_title">Impossibile salvare</string>
-    <string name="dialog_error_empty_recording_message">Trackbook non ha registrato nessun waypoint finora.</string>
+    <string name="dialog_error_empty_recording_message">Trackbook non ha registrato nessuna tappa intermedia finora.</string>
     <string name="dialog_error_empty_recording_action_resume">Riprendi la registrazione</string>
     <string name="dialog_rename_track_button">Rinomina</string>
     <string name="dialog_rename_track_input_hint">Inserisci un nuovo nome</string>
@@ -55,11 +54,11 @@
     <string name="statistics_sheet_p_steps_no_pedometer">pedometro non disponibile</string>
     <string name="statistics_sheet_p_waypoints">Waypoint registrati:</string>
     <string name="statistics_sheet_p_duration">Durata totale:</string>
-    <string name="statistics_sheet_p_recording_paused">Recording sospesa:</string>
+    <string name="statistics_sheet_p_recording_paused">Registrazione sospesa:</string>
     <string name="statistics_sheet_p_recording_start">Registrazione avviata:</string>
     <string name="statistics_sheet_p_recording_stop">Registrazione interrotta:</string>
-    <string name="statistics_sheet_p_max_altitude">Waypoint più alto:</string>
-    <string name="statistics_sheet_p_min_altitude">Waypoint più basso:</string>
+    <string name="statistics_sheet_p_max_altitude">Tappa intermedia più alta:</string>
+    <string name="statistics_sheet_p_min_altitude">Tappa intermedia più bassa:</string>
     <string name="statistics_sheet_p_positive_elevation">Elevazione (in salita):</string>
     <string name="statistics_sheet_p_negative_elevation">Elevazione (in discesa):</string>
     <string name="statistics_sheet_p_velocity">Velocità media:</string>
