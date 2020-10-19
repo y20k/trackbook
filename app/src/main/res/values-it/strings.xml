@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- activities -->
+    <!-- placeholder text - todo remove -->
+    <!-- App Name -->
     <string name="app_name">Trackbook</string>
     <!-- please do not translate app_name - transcription into different alphabet types is fine though -->
-    <!-- tabs -->
+
+    <!-- Tabs -->
     <string name="tab_map">Mappa</string>
-    <!-- notification -->
+    <string name="tab_tracks">Tracce</string>
+    <string name="tab_settings">Impostazioni</string>
+    <!-- Notification -->
     <string name="notification_title_trackbook_running">Trackbook in esecuzione</string>
     <string name="notification_title_trackbook_not_running">Trackbook non in esecuzione</string>
     <string name="notification_stop">Ferma</string>
@@ -13,92 +17,106 @@
     <string name="notification_show">Mostra</string>
     <string name="notification_channel_recording_name">Stato della registrazione del movimento</string>
     <string name="notification_channel_recording_description">Visualizza durata e distanza. Opzione per interrompere la registrazione del movimento.</string>
-    <!-- snackbar messages -->
+    <!-- Snackbar Messages -->
     <string name="snackbar_message_location_offline">La posizione è disattivata. Trackbook non funzionerà.</string>
-    <!-- fab sub menu_bottom_navigation -->
+    <string name="snackbar_message_location_permission_denied">Autorizzazione alla posizione non concessa. Trackbook non funzionerà.</string>
+    <!-- FAB Sub Menu -->
     <string name="fab_sub_menu_clear">Cancella</string>
     <string name="fab_sub_menu_save">Salva</string>
     <string name="fab_sub_menu_resume">Riprendi</string>
-    <!-- dialogs -->
-    <string name="dialog_share_gpx">Condividi il file GPX con</string>
+    <!-- Dialogs -->
+    <string name="dialog_generic_button_cancel">Annulla</string>
+    <string name="dialog_generic_button_okay">OK</string>
+    <string name="dialog_generic_details_button">Dettagli</string>
     <string name="dialog_error_empty_recording_title">Impossibile salvare</string>
     <string name="dialog_error_empty_recording_message">Trackbook non ha registrato nessun waypoint finora.</string>
     <string name="dialog_error_empty_recording_action_resume">Riprendi la registrazione</string>
-    <!-- toast messages -->
+    <string name="dialog_rename_track_button">Rinomina</string>
+    <string name="dialog_rename_track_input_hint">Inserisci un nuovo nome</string>
+    <string name="dialog_share_gpx">Condividi il file GPX con</string>
+    <string name="dialog_yes_no_positive_button_default">Sì</string>
+    <string name="dialog_yes_no_positive_button_delete_recording">Cancella</string>
+    <string name="dialog_yes_no_positive_button_delete_non_starred">Cancella</string>
+    <string name="dialog_yes_no_message_delete_non_starred">Cancella tutte le registrazioni non preferite? Questa azione non può essere annullata.</string>
+    <string name="dialog_yes_no_message_delete_recording">Cancella questa registrazione?</string>
+    <!-- Toast Messages -->
+    <string name="toast_message_copied_to_clipboard">Copiato negli appunti.</string>
     <string name="toast_message_elevation_info">Suggerimento: L\'accuratezza dei dati dell\'altitudine dipende dal tuo dispositivo. Sono misurate la salita e la discesa di tutto il percorso.</string>
-    <string name="toast_message_install_file_helper">Incapace di salvare. Si prega di installare prima un gestore di file.</string>
-    <!-- map markers -->
+    <string name="toast_message_install_file_helper">Impossibile salvare. Si prega di installare prima un gestore di file.</string>
+    <string name="toast_message_poi_added">Aggiunto segnaposto per punto di interesse.</string>
+    <string name="toast_message_poi_removed">Rimosso segnaposto per punto di interesse.</string>
+    <string name="toast_message_save_gpx">Salva registrazione come GPX.</string>
+    <!-- Map Markers -->
     <string name="marker_description_time">Ora</string>
     <string name="marker_description_accuracy">Precisione</string>
-    <!-- statistics sheet -->
+    <!-- Statistics Sheet -->
     <string name="statistics_sheet_p_distance">Distanza totale:</string>
     <string name="statistics_sheet_p_steps">Passi:</string>
     <string name="statistics_sheet_p_steps_no_pedometer">pedometro non disponibile</string>
     <string name="statistics_sheet_p_waypoints">Waypoint registrati:</string>
     <string name="statistics_sheet_p_duration">Durata totale:</string>
+    <string name="statistics_sheet_p_recording_paused">Recording sospesa:</string>
     <string name="statistics_sheet_p_recording_start">Registrazione avviata:</string>
     <string name="statistics_sheet_p_recording_stop">Registrazione interrotta:</string>
     <string name="statistics_sheet_p_max_altitude">Waypoint più alto:</string>
     <string name="statistics_sheet_p_min_altitude">Waypoint più basso:</string>
     <string name="statistics_sheet_p_positive_elevation">Elevazione (in salita):</string>
     <string name="statistics_sheet_p_negative_elevation">Elevazione (in discesa):</string>
-    <!-- onboarding layout -->
+    <string name="statistics_sheet_p_velocity">Velocità media:</string>
+    <!-- Recording Quick Settings Tile -->
+    <string name="quick_settings_tile_title_default">Registrazione</string>
+    <string name="quick_settings_tile_title_start">Avvia registrazione</string>
+    <string name="quick_settings_tile_title_stop">Ferma registrazione</string>
+    <!-- Onboarding Layout -->
     <string name="layout_onboarding_description_app_icon">Icona dell\'applicazione Trackbook</string>
-    <!-- track tab onboarding -->
+    <!-- Track Tab Onboarding -->
     <string name="track_list_onboarding_h1_part_1">Le tue tracce registrate</string>
     <string name="track_list_onboarding_h1_part_2">… verranno mostrate qui.</string>
-    <!-- descriptions -->
+    <!-- Settings -->
+    <string name="pref_about_title">Informazioni su</string>
+    <string name="pref_app_version_summary">Versione</string>
+    <string name="pref_app_version_title">Versione App</string>
+    <string name="pref_accuracy_threshold_summary">Scarta le posizioni con una precisione più grande di:</string>
+    <string name="pref_accuracy_threshold_title">Soglie di accuratezza</string>
+    <string name="pref_advanced_title">Avanzate</string>
+    <string name="pref_delete_non_starred_summary">Cancella tutte le registrazioni in \"Tracce\" che non sono marcate.</string>
+    <string name="pref_delete_non_starred_title">Cancella tutte le registrazioni non marcate</string>
+    <string name="pref_general_title">Generale</string>
+    <string name="pref_maintenance_title">Manutenzione</string>
+    <string name="pref_gps_only_title">Limita a GPS</string>
+    <string name="pref_gps_only_summary_gps_and_network">Sto usando GPS e rete per la localizzazione.</string>
+    <string name="pref_gps_only_summary_gps_only">Sto usando solo GPS per la localizzazione.</string>
+    <string name="pref_imperial_measurement_units_summary_metric">Sto usando il sistema metrico (kilometri, metri).</string>
+    <string name="pref_imperial_measurement_units_summary_imperial">Sto usando il sistema imperiale (miglia, piedi).</string>
+    <string name="pref_imperial_measurement_units_title">Usa il sistema imperiale</string>
+    <string name="pref_report_issue_summary">Segnala problemi e miglioramenti su GitHub.</string>
+    <string name="pref_report_issue_title">Segnala problema</string>
+    <string name="pref_reset_advanced_summary">Ripristina impostazioni avanzate ai valori di riferimento.</string>
+    <string name="pref_reset_advanced_title">Ripristina</string>
+    <string name="pref_theme_selection_mode_dark">Tema scuro</string>
+    <string name="pref_theme_selection_mode_device_default">Come da dispositivo</string>
+    <string name="pref_theme_selection_mode_light">Tema chiaro</string>
+    <string name="pref_theme_selection_summary">Tema corrente:</string>
+    <string name="pref_theme_selection_title">Tema app</string>
+    <!-- Abbreviations -->
+    <string name="abbreviation_hours">h</string>
+    <string name="abbreviation_minutes">min</string>
+    <string name="abbreviation_seconds">s</string>
+    <!-- Descriptions -->
     <string name="descr_map_current_track">Mappatura della traccia corrente</string>
     <string name="descr_map_last_track">Mappatura dell\'ultima traccia</string>
     <string name="descr_fab_main_start">Pulsante Avvia registrazione</string>
     <string name="descr_fab_sub_menu_button_save">Pulsante Salva</string>
     <string name="descr_fab_sub_menu_button_clear">Pulsante Cancella</string>
     <string name="descr_fab_sub_menu_button_resume">Pulsante Riprendi</string>
-    <string name="descr_statistics_sheet_delete_button">Pulsante Elimina traccia</string>
-    <string name="descr_statistics_sheet_save_button">Pulsante Condividi che permette di esportare come GPX</string>
-    <string name="tab_tracks">Tracce</string>
-    <string name="tab_settings">Impostazioni</string>
-    <string name="snackbar_message_location_permission_denied">Permesso alla posizione non concesso. Trackbook non funzionerà.</string>
-    <string name="dialog_generic_button_cancel">Annulla</string>
-    <string name="dialog_generic_button_okay">Ok</string>
-    <string name="dialog_generic_details_button">Mostra dettagli</string>
-    <string name="dialog_rename_track_button">Rinomina</string>
-    <string name="dialog_rename_track_input_hint">Inserisci un nuovo nome</string>
-    <string name="dialog_yes_no_positive_button_default">Sì</string>
-    <string name="dialog_yes_no_positive_button_delete_recording">Rimuovi</string>
-    <string name="dialog_yes_no_message_delete_recording">Rimuovere questa registrazione\?</string>
-    <string name="pref_accuracy_threshold_summary">Elimina le correzioni di posizione con una precisione maggiore di:</string>
-    <string name="pref_accuracy_threshold_title">Soglia della precisione</string>
-    <string name="pref_advanced_title">Avanzate</string>
-    <string name="pref_general_title">Generali</string>
-    <string name="pref_gps_only_title">Limita al GPS</string>
-    <string name="pref_gps_only_summary_gps_and_network">Attualmente utilizza GPS e rete per la localizzazione.</string>
-    <string name="pref_gps_only_summary_gps_only">Attualmente utilizza solo il GPS per la localizzazione.</string>
-    <string name="pref_imperial_measurement_units_summary_metric">Unità metriche attualmente in uso (chilometro, metro).</string>
-    <string name="pref_imperial_measurement_units_summary_imperial">Unità imperiali attualmente in uso (miglia, piedi).</string>
-    <string name="pref_imperial_measurement_units_title">Usa le misure imperiali</string>
-    <string name="pref_reset_advanced_summary">Reimposta le impostazioni avanzate ai valori predefiniti.</string>
-    <string name="pref_reset_advanced_title">Resetta</string>
-    <string name="abbreviation_hours">h</string>
-    <string name="abbreviation_minutes">min</string>
-    <string name="abbreviation_seconds">s</string>
-    <string name="descr_mark_starred_button">Pulsante Evidenzia come importante</string>
-    <string name="descr_statistics_sheet_edit_button">Pulsante Modifica traccia</string>
-    <string name="quick_settings_tile_title_default">Registrazione in corso</string>
-    <string name="quick_settings_tile_title_start">Avvia registrazione</string>
-    <string name="quick_settings_tile_title_stop">Ferma registrazione</string>
-    <string name="descr_quick_settings_tile_title_start">Avvia registrazione</string>
-    <string name="descr_quick_settings_tile_title_stop">Ferma registrazione</string>
-    <string name="pref_theme_selection_mode_dark">Modalità scura</string>
-    <string name="pref_theme_selection_mode_device_default">Come il dispositivo</string>
-    <string name="pref_theme_selection_mode_light">Modalità chiara</string>
-    <string name="pref_theme_selection_summary">Tema corrente:</string>
-    <string name="pref_theme_selection_title">Tema app</string>
-    <string name="toast_message_save_gpx">Salvataggio registrazione come GPX.</string>
-    <string name="statistics_sheet_p_recording_paused">Registrazione messa in pausa:</string>
-    <string name="dialog_yes_no_positive_button_delete_non_starred">Rimuovi</string>
-    <string name="dialog_yes_no_message_delete_non_starred">Rimuovere tutte le registrazioni senza la stellina\? Questa azione non può essere annullata.</string>
-    <string name="pref_delete_non_starred_summary">Rimuovi tutte le registrazioni in \"Tracce\" che non hanno la stellina.</string>
-    <string name="pref_delete_non_starred_title">Rimuovi le registrazioni senza stellina</string>
-    <string name="pref_maintenance_title">Manutenzione</string>
+    <string name="descr_mark_starred_button">Segna come preferito</string>
+    <string name="descr_quick_settings_tile_title_start">Inizia registrazione</string>
+    <string name="descr_quick_settings_tile_title_stop">Ferma Registrazione</string>
+    <string name="descr_statistics_sheet_delete_button">Tasto cancella traccia</string>
+    <string name="descr_statistics_sheet_edit_button">Tasto modifica traccia</string>
+    <string name="descr_statistics_sheet_save_button">Tasto salva come GPX</string>
+    <!-- Sample Text -->
+    <string name="sample_text_track_data" translatable="false">23.0 km • 5 hrs 23 min 42 sec</string>
+    <string name="sample_text_track_name" translatable="false">July 20, 1969</string>
+    <string name="sample_text_default_data" translatable="false">track data missing</string>
 </resources>
