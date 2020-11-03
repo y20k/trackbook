@@ -20,6 +20,7 @@ package org.y20k.trackbook.helpers
 import android.content.Context
 import android.location.Location
 import android.location.LocationManager
+import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import org.y20k.trackbook.Keys
 import org.y20k.trackbook.extensions.getDouble
@@ -48,10 +49,8 @@ object PreferencesHelper {
     fun saveZoomLevel(context: Context, zoomLevel: Double) {
         // get preferences
         val settings = PreferenceManager.getDefaultSharedPreferences(context)
-        val editor = settings.edit()
         // save zoom level
-        editor.putDouble(Keys.PREF_MAP_ZOOM_LEVEL, zoomLevel)
-        editor.apply()
+        settings.edit { putDouble(Keys.PREF_MAP_ZOOM_LEVEL, zoomLevel) }
     }
 
 
@@ -68,10 +67,8 @@ object PreferencesHelper {
     fun saveTrackingState(context: Context, trackingState: Int) {
         // get preferences
         val settings = PreferenceManager.getDefaultSharedPreferences(context)
-        val editor = settings.edit()
         // save tracking state
-        editor.putInt(Keys.PREF_TRACKING_STATE, trackingState)
-        editor.apply()
+        settings.edit { putInt(Keys.PREF_TRACKING_STATE, trackingState) }
     }
 
 
@@ -122,14 +119,14 @@ object PreferencesHelper {
     fun saveCurrentBestLocation(context: Context, currentBestLocation: Location) {
         // get preferences
         val settings = PreferenceManager.getDefaultSharedPreferences(context)
-        val editor = settings.edit()
-        // save location
-        editor.putDouble(Keys.PREF_CURRENT_BEST_LOCATION_LATITUDE, currentBestLocation.latitude)
-        editor.putDouble(Keys.PREF_CURRENT_BEST_LOCATION_LONGITUDE, currentBestLocation.longitude)
-        editor.putFloat(Keys.PREF_CURRENT_BEST_LOCATION_ACCURACY, currentBestLocation.accuracy)
-        editor.putDouble(Keys.PREF_CURRENT_BEST_LOCATION_ALTITUDE, currentBestLocation.altitude)
-        editor.putLong(Keys.PREF_CURRENT_BEST_LOCATION_TIME, currentBestLocation.time)
-        editor.apply()
+        settings.edit {
+            // save location
+            putDouble(Keys.PREF_CURRENT_BEST_LOCATION_LATITUDE, currentBestLocation.latitude)
+            putDouble(Keys.PREF_CURRENT_BEST_LOCATION_LONGITUDE, currentBestLocation.longitude)
+            putFloat(Keys.PREF_CURRENT_BEST_LOCATION_ACCURACY, currentBestLocation.accuracy)
+            putDouble(Keys.PREF_CURRENT_BEST_LOCATION_ALTITUDE, currentBestLocation.altitude)
+            putLong(Keys.PREF_CURRENT_BEST_LOCATION_TIME, currentBestLocation.time)
+        }
     }
 
 
@@ -149,9 +146,7 @@ object PreferencesHelper {
     /* Saves state of housekeeping */
     fun saveHouseKeepingNecessaryState(context: Context, state: Boolean = false) {
         val settings = PreferenceManager.getDefaultSharedPreferences(context)
-        val editor = settings.edit()
-        editor.putBoolean(Keys.PREF_ONE_TIME_HOUSEKEEPING_NECESSARY, state)
-        editor.apply()
+        settings.edit { putBoolean(Keys.PREF_ONE_TIME_HOUSEKEEPING_NECESSARY, state) }
     }
 
 }

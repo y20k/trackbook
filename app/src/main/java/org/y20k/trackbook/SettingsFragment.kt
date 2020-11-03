@@ -23,10 +23,10 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.net.toUri
 import androidx.preference.*
 import kotlinx.coroutines.*
 import org.y20k.trackbook.core.Tracklist
@@ -149,7 +149,7 @@ class SettingsFragment : PreferenceFragmentCompat(), YesNoDialog.YesNoDialogList
             // open web browser
             val intent = Intent().apply {
                 action = Intent.ACTION_VIEW
-                data = Uri.parse("https://github.com/y20k/trackbook/issues")
+                data = "https://github.com/y20k/trackbook/issues".toUri()
             }
             startActivity(intent)
             return@setOnPreferenceClickListener true

@@ -259,13 +259,13 @@ object FileHelper {
         val jsonString: String = getTrackJsonString(track)
         if (jsonString.isNotBlank()) {
             // write track file
-            writeTextFile(jsonString, Uri.parse(track.trackUriString))
+            writeTextFile(jsonString, track.trackUriString.toUri())
         }
         if (saveGpxToo) {
             val gpxString: String = TrackHelper.createGpxString(track)
             if (gpxString.isNotBlank()) {
                 // write GPX file
-                writeTextFile(gpxString, Uri.parse(track.gpxUriString))
+                writeTextFile(gpxString, track.gpxUriString.toUri())
             }
         }
     }

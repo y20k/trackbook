@@ -31,6 +31,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.FileProvider
 import androidx.core.net.toFile
+import androidx.core.net.toUri
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -59,7 +60,7 @@ class TrackFragment : Fragment(), RenameTrackDialog.RenameTrackListener, YesNoDi
         // get track
         val fileUriString: String = arguments?.getString(Keys.ARG_TRACK_FILE_URI, String()) ?: String()
         if (fileUriString.isNotBlank()) {
-            track = FileHelper.readTrack(activity as Context, Uri.parse(fileUriString))
+            track = FileHelper.readTrack(activity as Context, fileUriString.toUri())
         } else {
             track = Track()
         }
@@ -118,7 +119,7 @@ class TrackFragment : Fragment(), RenameTrackDialog.RenameTrackListener, YesNoDi
             // save GPX file to result file location
             Keys.REQUEST_SAVE_GPX -> {
                 if (resultCode == Activity.RESULT_OK && data != null) {
-                    val sourceUri: Uri = Uri.parse(track.gpxUriString)
+                    val sourceUri: Uri = track.gpxUriString.toUri()
                     val targetUri: Uri? = data.data
                     if (targetUri != null) {
                         // copy file async (= fire & forget - no return value needed)

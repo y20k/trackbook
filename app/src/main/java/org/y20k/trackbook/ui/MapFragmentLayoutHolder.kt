@@ -28,6 +28,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.Group
 import androidx.core.content.ContextCompat
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import org.osmdroid.api.IMapController
@@ -176,11 +178,11 @@ data class MapFragmentLayoutHolder(private var context: Context, private var mar
         when (trackingState) {
             Keys.STATE_TRACKING_NOT -> {
                 recordingButton.setImageResource(R.drawable.ic_fiber_manual_record_white_24dp)
-                recordingButtonSubMenu.visibility = View.GONE
+                recordingButtonSubMenu.isGone = true
             }
             Keys.STATE_TRACKING_ACTIVE -> {
                 recordingButton.setImageResource(R.drawable.ic_fiber_manual_record_red_24dp)
-                recordingButtonSubMenu.visibility = View.GONE
+                recordingButtonSubMenu.isGone = true
             }
             Keys.STATE_TRACKING_STOPPED -> {
                 recordingButton.setImageResource(R.drawable.ic_save_white_24dp)
@@ -192,8 +194,8 @@ data class MapFragmentLayoutHolder(private var context: Context, private var mar
     /* Toggles visibility of recording button sub menu_bottom_navigation */
     fun toggleRecordingButtonSubMenu() {
         when (recordingButtonSubMenu.visibility) {
-            View.VISIBLE -> recordingButtonSubMenu.visibility = View.GONE
-            else -> recordingButtonSubMenu.visibility = View.VISIBLE
+            View.VISIBLE -> recordingButtonSubMenu.isGone = true
+            else -> recordingButtonSubMenu.isVisible = true
         }
     }
 

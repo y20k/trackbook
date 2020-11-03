@@ -30,6 +30,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
@@ -252,11 +253,12 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener, MapOverlayHelpe
 
     /* Opens a track in TrackFragment */
     private fun openTrack(tracklistElement: TracklistElement) {
-        val bundle: Bundle = Bundle()
-        bundle.putString(Keys.ARG_TRACK_TITLE, tracklistElement.name)
-        bundle.putString(Keys.ARG_TRACK_FILE_URI, tracklistElement.trackUriString)
-        bundle.putString(Keys.ARG_GPX_FILE_URI, tracklistElement.gpxUriString)
-        bundle.putLong(Keys.ARG_TRACK_ID, TrackHelper.getTrackId(tracklistElement))
+        val bundle = bundleOf(
+            Keys.ARG_TRACK_TITLE to tracklistElement.name,
+            Keys.ARG_TRACK_FILE_URI to tracklistElement.trackUriString,
+            Keys.ARG_GPX_FILE_URI to tracklistElement.gpxUriString,
+            Keys.ARG_TRACK_ID to TrackHelper.getTrackId(tracklistElement)
+        )
         findNavController().navigate(R.id.fragment_track, bundle)
     }
 
