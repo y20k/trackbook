@@ -34,7 +34,7 @@ object DateTimeHelper {
 
     /* Converts milliseconds to mm:ss or hh:mm:ss */
     fun convertToReadableTime(context: Context, milliseconds: Long): String {
-        var timeString: String = String()
+        val timeString: String
         val hours: Long = TimeUnit.MILLISECONDS.toHours(milliseconds)
         val minutes: Long = TimeUnit.MILLISECONDS.toMinutes(milliseconds) % TimeUnit.HOURS.toMinutes(1)
         val seconds: Long = TimeUnit.MILLISECONDS.toSeconds(milliseconds) % TimeUnit.MINUTES.toSeconds(1)
@@ -42,16 +42,17 @@ object DateTimeHelper {
         val m: String = context.getString(R.string.abbreviation_minutes)
         val s: String = context.getString(R.string.abbreviation_seconds)
 
-        when (milliseconds >= Keys.ONE_HOUR_IN_MILLISECONDS) {
-            // CASE: format hh:mm:ss
-            true -> {
-                timeString = "$hours $h $minutes $m $seconds $s"
+        timeString =
+            when (milliseconds >= Keys.ONE_HOUR_IN_MILLISECONDS) {
+                // CASE: format hh:mm:ss
+                true -> {
+                    "$hours $h $minutes $m $seconds $s"
+                }
+                // CASE: format mm:ss
+                false -> {
+                    "$minutes $m $seconds $s"
+                }
             }
-            // CASE: format mm:ss
-            false -> {
-                timeString = "$minutes $m $seconds $s"
-            }
-        }
         return timeString
     }
 

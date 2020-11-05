@@ -126,7 +126,7 @@ data class MapFragmentLayoutHolder(private var context: Context, private var mar
     /* Listen for user interaction */
     @SuppressLint("ClickableViewAccessibility")
     private fun addInteractionListener() {
-        mapView.setOnTouchListener { v, event ->
+        mapView.setOnTouchListener { _, _ ->
             userInteraction = true
             false
         }
@@ -147,7 +147,7 @@ data class MapFragmentLayoutHolder(private var context: Context, private var mar
     /* Save current best location and state of map to shared preferences */
     fun saveState(currentBestLocation: Location) {
         PreferencesHelper.saveCurrentBestLocation(context, currentBestLocation)
-        PreferencesHelper.saveZoomLevel(context, mapView.getZoomLevelDouble())
+        PreferencesHelper.saveZoomLevel(context, mapView.zoomLevelDouble)
         // reset user interaction state
         userInteraction = false
     }

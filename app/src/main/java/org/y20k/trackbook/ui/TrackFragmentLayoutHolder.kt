@@ -192,9 +192,8 @@ data class TrackFragmentLayoutHolder(private var context: Context, private var m
     private fun setupStatisticsViews() {
 
         // get step count string
-        val steps: String
-        if (track.stepCount == -1f) steps = context.getString(R.string.statistics_sheet_p_steps_no_pedometer)
-        else steps = track.stepCount.roundToInt().toString()
+        val steps: String = if (track.stepCount == -1f) context.getString(R.string.statistics_sheet_p_steps_no_pedometer)
+        else track.stepCount.roundToInt().toString()
 
         // populate views
         trackNameView.text = track.name
@@ -275,24 +274,24 @@ data class TrackFragmentLayoutHolder(private var context: Context, private var m
 
     /* Overrides onZoom from MapListener */
     override fun onZoom(event: ZoomEvent?): Boolean {
-        if (event == null) {
-            return false
+        return if (event == null) {
+            false
         } else {
             track.zoomLevel = event.zoomLevel
-            return true
+            true
         }
     }
 
 
     /* Overrides onScroll from MapListener */
     override fun onScroll(event: ScrollEvent?): Boolean {
-        if (event == null) {
-            return false
+        return if (event == null) {
+            false
         } else {
             val center: IGeoPoint = mapView.mapCenter
             track.latitude = center.latitude
             track.longitude = center.longitude
-            return true
+            true
         }
     }
 

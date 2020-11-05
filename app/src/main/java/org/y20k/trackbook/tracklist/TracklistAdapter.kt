@@ -65,7 +65,7 @@ class TracklistAdapter(private val fragment: Fragment) : RecyclerView.Adapter<Re
         tracklistListener = fragment as TracklistAdapterListener
         // load tracklist
         tracklist = FileHelper.readTracklist(context)
-        tracklist.tracklistElements.sortByDescending { tracklistElement -> tracklistElement.date  }
+        tracklist.tracklistElements.sortByDescending(TracklistElement::date)
     }
 
 
@@ -152,11 +152,11 @@ class TracklistAdapter(private val fragment: Fragment) : RecyclerView.Adapter<Re
     private fun createTrackDataString(position: Int): String {
         val tracklistElement: TracklistElement = tracklist.tracklistElements[position]
         val trackDataString: String
-        when (tracklistElement.name == tracklistElement.dateString) {
+        trackDataString = when (tracklistElement.name == tracklistElement.dateString) {
             // CASE: no individual name set - exclude date
-            true -> trackDataString = "${LengthUnitHelper.convertDistanceToString(tracklistElement.length, useImperial)} • ${tracklistElement.durationString}"
+            true -> "${LengthUnitHelper.convertDistanceToString(tracklistElement.length, useImperial)} • ${tracklistElement.durationString}"
             // CASE: no individual name set - include date
-            false -> trackDataString = "${tracklistElement.dateString} • ${LengthUnitHelper.convertDistanceToString(tracklistElement.length, useImperial)} • ${tracklistElement.durationString}"
+            false -> "${tracklistElement.dateString} • ${LengthUnitHelper.convertDistanceToString(tracklistElement.length, useImperial)} • ${tracklistElement.durationString}"
         }
         return trackDataString
     }

@@ -59,10 +59,10 @@ class TrackFragment : Fragment(), RenameTrackDialog.RenameTrackListener, YesNoDi
         super.onCreate(savedInstanceState)
         // get track
         val fileUriString: String = arguments?.getString(Keys.ARG_TRACK_FILE_URI, String()) ?: String()
-        if (fileUriString.isNotBlank()) {
-            track = FileHelper.readTrack(activity as Context, fileUriString.toUri())
+        track = if (fileUriString.isNotBlank()) {
+            FileHelper.readTrack(activity as Context, fileUriString.toUri())
         } else {
-            track = Track()
+            Track()
         }
     }
 

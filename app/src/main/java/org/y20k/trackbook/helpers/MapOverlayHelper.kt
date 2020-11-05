@@ -63,16 +63,16 @@ class MapOverlayHelper (private var markerListener: MarkerListener)  {
         when (trackingState) {
             // CASE: Tracking active
             Keys.STATE_TRACKING_ACTIVE -> {
-                when (locationIsOld) {
-                    true -> newMarker = ContextCompat.getDrawable(context, R.drawable.ic_marker_location_red_grey_24dp)!!
-                    false -> newMarker = ContextCompat.getDrawable(context, R.drawable.ic_marker_location_red_24dp)!!
+                newMarker = when (locationIsOld) {
+                    true -> ContextCompat.getDrawable(context, R.drawable.ic_marker_location_red_grey_24dp)!!
+                    false -> ContextCompat.getDrawable(context, R.drawable.ic_marker_location_red_24dp)!!
                 }
             }
             // CASE. Tracking is NOT active
             else -> {
-                when (locationIsOld) {
-                    true -> newMarker = ContextCompat.getDrawable(context, R.drawable.ic_marker_location_blue_grey_24dp)!!
-                    false -> newMarker = ContextCompat.getDrawable(context, R.drawable.ic_marker_location_blue_24dp)!!
+                newMarker = when (locationIsOld) {
+                    true -> ContextCompat.getDrawable(context, R.drawable.ic_marker_location_blue_grey_24dp)!!
+                    false -> ContextCompat.getDrawable(context, R.drawable.ic_marker_location_blue_24dp)!!
                 }
             }
         }
@@ -93,7 +93,7 @@ class MapOverlayHelper (private var markerListener: MarkerListener)  {
         val overlayItems: ArrayList<OverlayItem> = ArrayList<OverlayItem>()
         val wayPoints: MutableList<WayPoint> = track.wayPoints
 
-        wayPoints.forEach { wayPoint ->
+        wayPoints.forEach { (provider, latitude, longitude, _, accuracy, time, _, _, isStopOver, starred) ->
             // create marker
             val newMarker: Drawable
 
@@ -101,28 +101,36 @@ class MapOverlayHelper (private var markerListener: MarkerListener)  {
             when (trackingState) {
                 // CASE: Recording is active
                 Keys.STATE_TRACKING_ACTIVE -> {
-                    if (wayPoint.starred) {
-                        newMarker = ContextCompat.getDrawable(context, R.drawable.ic_star_red_24dp)!!
-                    } else if (wayPoint.isStopOver) {
-                        newMarker = ContextCompat.getDrawable(context, R.drawable.ic_marker_track_location_grey_24dp)!!
-                    } else {
-                        newMarker = ContextCompat.getDrawable(context, R.drawable.ic_marker_track_location_red_24dp)!!
+                    newMarker = when {
+                        starred -> {
+                            ContextCompat.getDrawable(context, R.drawable.ic_star_red_24dp)!!
+                        }
+                        isStopOver -> {
+                            ContextCompat.getDrawable(context, R.drawable.ic_marker_track_location_grey_24dp)!!
+                        }
+                        else -> {
+                            ContextCompat.getDrawable(context, R.drawable.ic_marker_track_location_red_24dp)!!
+                        }
                     }
                 }
                 // CASE: Recording is paused/stopped
                 else -> {
-                    if (wayPoint.starred) {
-                        newMarker = ContextCompat.getDrawable(context, R.drawable.ic_star_blue_24dp)!!
-                    } else if (wayPoint.isStopOver) {
-                        newMarker = ContextCompat.getDrawable(context, R.drawable.ic_marker_track_location_grey_24dp)!!
-                    } else {
-                        newMarker = ContextCompat.getDrawable(context, R.drawable.ic_marker_track_location_blue_24dp)!!
+                    newMarker = when {
+                        starred -> {
+                            ContextCompat.getDrawable(context, R.drawable.ic_star_blue_24dp)!!
+                        }
+                        isStopOver -> {
+                            ContextCompat.getDrawable(context, R.drawable.ic_marker_track_location_grey_24dp)!!
+                        }
+                        else -> {
+                            ContextCompat.getDrawable(context, R.drawable.ic_marker_track_location_blue_24dp)!!
+                        }
                     }
                 }
             }
 
             // create overlay item and add to list of overlay items
-            val overlayItem: OverlayItem = createOverlayItem(context, wayPoint.latitude, wayPoint.longitude, wayPoint.accuracy, wayPoint.provider, wayPoint.time)
+            val overlayItem: OverlayItem = createOverlayItem(context, latitude, longitude, accuracy, provider, time)
             overlayItem.setMarker(newMarker)
             overlayItems.add(overlayItem)
         }

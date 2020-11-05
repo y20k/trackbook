@@ -72,7 +72,7 @@ class TracklistFragment : Fragment(), TracklistAdapter.TracklistAdapterListener,
 
         // add padding - necessary because translucent status bar is used
         val topPadding = UiHelper.getStatusBarHeight(activity as Context)
-        trackElementList.setPadding(0, topPadding.toInt(), 0, 0)
+        trackElementList.setPadding(0, topPadding, 0, 0)
 
         // set up recycler view
         trackElementList.layoutManager = CustomLinearLayoutManager(activity as Context)

@@ -66,10 +66,11 @@ object LocationHelper {
             val locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
             val lastKnownLocationGps: Location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER) ?: lastKnownLocation
             val lastKnownLocationNetwork: Location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER) ?: lastKnownLocation
-            when (isBetterLocation(lastKnownLocationGps, lastKnownLocationNetwork)) {
-                true -> lastKnownLocation = lastKnownLocationGps
-                false -> lastKnownLocation = lastKnownLocationNetwork
-            }
+            lastKnownLocation =
+                when (isBetterLocation(lastKnownLocationGps, lastKnownLocationNetwork)) {
+                    true -> lastKnownLocationGps
+                    false -> lastKnownLocationNetwork
+                }
         }
         return lastKnownLocation
     }
@@ -120,9 +121,8 @@ object LocationHelper {
     fun isGpsEnabled(locationManager: LocationManager): Boolean {
         if (locationManager.allProviders.contains(LocationManager.GPS_PROVIDER)) {
             return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
-        } else {
-            return false
         }
+        return false
     }
 
 
@@ -130,9 +130,8 @@ object LocationHelper {
     fun isNetworkEnabled(locationManager: LocationManager): Boolean {
         if (locationManager.allProviders.contains(LocationManager.NETWORK_PROVIDER)) {
             return locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
-        } else {
-            return false
         }
+        return false
     }
 
 
@@ -146,12 +145,10 @@ object LocationHelper {
 
     /* Checks if given location is accurate */
     fun isAccurateEnough(location: Location, locationAccuracyThreshold: Int): Boolean {
-        val isAccurate: Boolean
-        when (location.provider) {
-            LocationManager.GPS_PROVIDER -> isAccurate = location.accuracy < locationAccuracyThreshold
-            else -> isAccurate = location.accuracy < locationAccuracyThreshold + 10 // a bit more relaxed when location comes from network provider
+        return when (location.provider) {
+            LocationManager.GPS_PROVIDER -> location.accuracy < locationAccuracyThreshold
+            else -> location.accuracy < locationAccuracyThreshold + 10 // a bit more relaxed when location comes from network provider
         }
-        return isAccurate
     }
 
 
@@ -183,11 +180,12 @@ object LocationHelper {
         val distanceThreshold: Float
         val averageAccuracy: Float = (previousLocation.accuracy + location.accuracy) / 2
         // increase the distance threshold if one or both locations are
-        if (averageAccuracy > Keys.DEFAULT_THRESHOLD_DISTANCE) {
-            distanceThreshold = averageAccuracy
-        } else {
-            distanceThreshold = Keys.DEFAULT_THRESHOLD_DISTANCE
-        }
+        distanceThreshold =
+            if (averageAccuracy > Keys.DEFAULT_THRESHOLD_DISTANCE) {
+                averageAccuracy
+            } else {
+                Keys.DEFAULT_THRESHOLD_DISTANCE
+            }
         // location is different when far enough away from previous location
         return calculateDistance(previousLocation, location) > distanceThreshold
     }

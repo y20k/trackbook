@@ -48,7 +48,7 @@ import kotlin.coroutines.CoroutineContext
 /*
  * TrackerService class
  */
-class TrackerService(): Service(), CoroutineScope, SensorEventListener {
+class TrackerService : Service(), CoroutineScope, SensorEventListener {
 
     /* Define log tag */
     private val TAG: String = LogHelper.makeLogTag(TrackerService::class.java)
@@ -210,7 +210,7 @@ class TrackerService(): Service(), CoroutineScope, SensorEventListener {
         // try to mark last waypoint as stopover
         if (track.wayPoints.size > 0) {
             val lastWayPointIndex = track.wayPoints.size - 1
-            track.wayPoints.get(lastWayPointIndex).isStopOver = true
+            track.wayPoints[lastWayPointIndex].isStopOver = true
         }
         // set resumed flag
         resumed = true
@@ -412,7 +412,7 @@ class TrackerService(): Service(), CoroutineScope, SensorEventListener {
     /*
      * Defines the listener for changes in shared preferences
      */
-    private val sharedPreferenceChangeListener = SharedPreferences.OnSharedPreferenceChangeListener { sharedPreferences, key ->
+    private val sharedPreferenceChangeListener = SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
             when (key) {
                 // preference "Restrict to GPS"
                 Keys.PREF_GPS_ONLY -> {

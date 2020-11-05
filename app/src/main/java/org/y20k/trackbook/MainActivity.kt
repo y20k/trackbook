@@ -77,12 +77,12 @@ class MainActivity : AppCompatActivity() {
         navHostFragment.navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.fragment_track -> {
-                    runOnUiThread( Runnable() {
-                        run(){
+                    runOnUiThread {
+                        run {
                             // mark menu item "Tracks" as checked
-                            bottomNavigationView.menu.findItem(R.id.tracklist_fragment).setChecked(true)
+                            bottomNavigationView.menu.findItem(R.id.tracklist_fragment).isChecked = true
                         }
-                    })
+                    }
                 }
                 else -> {
                     // do nothing
@@ -106,7 +106,7 @@ class MainActivity : AppCompatActivity() {
     /*
      * Defines the listener for changes in shared preferences
      */
-    private val sharedPreferenceChangeListener = SharedPreferences.OnSharedPreferenceChangeListener { sharedPreferences, key ->
+    private val sharedPreferenceChangeListener = SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
         when (key) {
             Keys.PREF_THEME_SELECTION -> {
                 AppThemeHelper.setTheme(PreferencesHelper.loadThemeSelection(this@MainActivity))

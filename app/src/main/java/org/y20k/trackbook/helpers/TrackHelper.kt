@@ -128,11 +128,13 @@ object TrackHelper {
             // save number of satellites
             val numberOfSatellites: Int
             val extras = location.extras
-            if (extras != null && extras.containsKey("satellites")) {
-                numberOfSatellites = extras.getInt("satellites", 0)
-            } else {
-                numberOfSatellites = 0
-            }
+            numberOfSatellites =
+                if (extras != null && extras.containsKey("satellites")) {
+                extras.getInt("satellites", 0)
+                }
+                else {
+                    0
+                }
 
             // add current location as point to center on for later display
             track.latitude = location.latitude
@@ -153,10 +155,9 @@ object TrackHelper {
 
     /* Creates GPX string for given track */
     fun createGpxString(track: Track): String {
-        var gpxString: String
 
         // add header
-        gpxString = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?>\n" +
+        var gpxString: String = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?>\n" +
                     "<gpx version=\"1.1\" creator=\"Trackbook App (Android)\"\n" +
                     "     xmlns=\"http://www.topografix.com/GPX/1/1\"\n" +
                     "     xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
@@ -181,11 +182,11 @@ object TrackHelper {
     /* Creates name for GPX file */
     private fun createGpxName(track: Track): String {
         val gpxName = StringBuilder("")
-        gpxName.append("\t<metadata>\n");
+        gpxName.append("\t<metadata>\n")
         gpxName.append("\t\t<name>")
         gpxName.append("Trackbook Recording: ${track.name}")
         gpxName.append("</name>\n")
-        gpxName.append("\t</metadata>\n");
+        gpxName.append("\t</metadata>\n")
         return gpxName.toString()
     }
 
@@ -194,11 +195,11 @@ object TrackHelper {
     private fun createGpxPois(track: Track): String {
         val gpxPois = StringBuilder("")
         val poiList: List<WayPoint> =  track.wayPoints.filter { it.starred }
-        poiList.forEach { poi ->
+        poiList.forEach { (_, latitude, longitude, altitude) ->
             gpxPois.append("\t<wpt lat=\"")
-            gpxPois.append(poi.latitude)
+            gpxPois.append(latitude)
             gpxPois.append("\" lon=\"")
-            gpxPois.append(poi.longitude)
+            gpxPois.append(longitude)
             gpxPois.append("\">\n")
 
             // add name to waypoint
@@ -208,7 +209,7 @@ object TrackHelper {
 
             // add altitude
             gpxPois.append("\t\t<ele>")
-            gpxPois.append(poi.altitude)
+            gpxPois.append(altitude)
             gpxPois.append("</ele>\n")
 
             // add closing tag
@@ -236,22 +237,22 @@ object TrackHelper {
         gpxTrack.append("\t\t<trkseg>\n")
 
         // add route point
-        track.wayPoints.forEach { wayPoint ->
+        track.wayPoints.forEach { (_, latitude, longitude, altitude, _, time) ->
             // add longitude and latitude
             gpxTrack.append("\t\t\t<trkpt lat=\"")
-            gpxTrack.append(wayPoint.latitude)
+            gpxTrack.append(latitude)
             gpxTrack.append("\" lon=\"")
-            gpxTrack.append(wayPoint.longitude)
+            gpxTrack.append(longitude)
             gpxTrack.append("\">\n")
 
             // add altitude
             gpxTrack.append("\t\t\t\t<ele>")
-            gpxTrack.append(wayPoint.altitude)
+            gpxTrack.append(altitude)
             gpxTrack.append("</ele>\n")
 
             // add time
             gpxTrack.append("\t\t\t\t<time>")
-            gpxTrack.append(dateFormat.format(Date(wayPoint.time)))
+            gpxTrack.append(dateFormat.format(Date(time)))
             gpxTrack.append("</time>\n")
 
             // add closing tag
