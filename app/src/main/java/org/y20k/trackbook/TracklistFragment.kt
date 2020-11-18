@@ -24,6 +24,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -68,8 +69,8 @@ class TracklistFragment : Fragment(), TracklistAdapter.TracklistAdapterListener,
         tracklistOnboarding = rootView.findViewById(R.id.track_list_onboarding)
 
         // add padding - necessary because translucent status bar is used
-        val topPadding = UiHelper.getStatusBarHeight(activity as Context)
-        trackElementList.setPadding(0, topPadding.toInt(), 0, 0)
+        val topPadding: Int = UiHelper.getStatusBarHeight(activity as Context)
+        trackElementList.setPadding(0, topPadding, 0, 0)
 
         // set up recycler view
         trackElementList.layoutManager = CustomLinearLayoutManager(activity as Context)
@@ -97,11 +98,12 @@ class TracklistFragment : Fragment(), TracklistAdapter.TracklistAdapterListener,
 
     /* Overrides onTrackElementTapped from TracklistElementAdapterListener */
     override fun onTrackElementTapped(tracklistElement: TracklistElement) {
-        val bundle: Bundle = Bundle()
-        bundle.putString(Keys.ARG_TRACK_TITLE, tracklistElement.name)
-        bundle.putString(Keys.ARG_TRACK_FILE_URI, tracklistElement.trackUriString)
-        bundle.putString(Keys.ARG_GPX_FILE_URI, tracklistElement.gpxUriString)
-        bundle.putLong(Keys.ARG_TRACK_ID, TrackHelper.getTrackId(tracklistElement))
+        val bundle: Bundle = bundleOf(
+            Keys.ARG_TRACK_TITLE to tracklistElement.name,
+            Keys.ARG_TRACK_FILE_URI to tracklistElement.trackUriString,
+            Keys.ARG_GPX_FILE_URI to tracklistElement.gpxUriString,
+            Keys.ARG_TRACK_ID to TrackHelper.getTrackId(tracklistElement)
+        )
         findNavController().navigate(R.id.fragment_track, bundle)
     }
 

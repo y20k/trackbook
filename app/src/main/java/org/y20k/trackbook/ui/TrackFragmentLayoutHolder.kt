@@ -25,6 +25,8 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.constraintlayout.widget.Group
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.core.widget.NestedScrollView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.textview.MaterialTextView
@@ -210,12 +212,12 @@ data class TrackFragmentLayoutHolder(private var context: Context, private var m
 
         // show / hide recording pause
         if (track.recordingPaused != 0L) {
-            recordingPausedLabelView.visibility = View.VISIBLE
-            recordingPausedView.visibility = View.VISIBLE
+            recordingPausedLabelView.isVisible = true
+            recordingPausedView.isVisible = true
             recordingPausedView.text = DateTimeHelper.convertToReadableTime(context, track.recordingPaused)
         } else {
-            recordingPausedLabelView.visibility = View.GONE
-            recordingPausedView.visibility = View.GONE
+            recordingPausedLabelView.isGone = true
+            recordingPausedView.isGone = true
         }
 
         // inform user about possible accuracy issues with altitude measurements
@@ -247,14 +249,14 @@ data class TrackFragmentLayoutHolder(private var context: Context, private var m
                 when (newState) {
                     BottomSheetBehavior.STATE_EXPANDED -> {
                         statisticsSheet.background = context.getDrawable(R.drawable.shape_statistics_background_expanded)
-                        trackManagementViews.visibility = View.VISIBLE
-                        shareButton.visibility = View.GONE
+                        trackManagementViews.isVisible = true
+                        shareButton.isGone = true
                         // bottomSheet.setPadding(0,24,0,0)
                     }
                     else -> {
                         statisticsSheet.background = context.getDrawable(R.drawable.shape_statistics_background_collapsed)
-                        trackManagementViews.visibility = View.GONE
-                        shareButton.visibility = View.VISIBLE
+                        trackManagementViews.isGone = true
+                        shareButton.isVisible = true
                         // bottomSheet.setPadding(0,0,0,0)
                     }
                 }
@@ -262,12 +264,12 @@ data class TrackFragmentLayoutHolder(private var context: Context, private var m
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
                 if (slideOffset < 0.125f) {
                     statisticsSheet.background = context.getDrawable(R.drawable.shape_statistics_background_collapsed)
-                    trackManagementViews.visibility = View.GONE
-                    shareButton.visibility = View.VISIBLE
+                    trackManagementViews.isGone = true
+                    shareButton.isVisible = true
                 } else {
                     statisticsSheet.background = context.getDrawable(R.drawable.shape_statistics_background_expanded)
-                    trackManagementViews.visibility = View.VISIBLE
-                    shareButton.visibility = View.GONE
+                    trackManagementViews.isVisible = true
+                    shareButton.isGone = true
                 }
             }
         }

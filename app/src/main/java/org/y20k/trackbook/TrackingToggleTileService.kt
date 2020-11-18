@@ -31,7 +31,7 @@ import org.y20k.trackbook.helpers.PreferencesHelper
 /*
  * TrackingToggleTileService class
  */
-class TrackingToggleTileService(): TileService() {
+class TrackingToggleTileService: TileService() {
 
     /* Define log tag */
     private val TAG: String = LogHelper.makeLogTag(TrackingToggleTileService::class.java)

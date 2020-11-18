@@ -181,11 +181,11 @@ object TrackHelper {
     /* Creates name for GPX file */
     private fun createGpxName(track: Track): String {
         val gpxName = StringBuilder("")
-        gpxName.append("\t<metadata>\n");
+        gpxName.append("\t<metadata>\n")
         gpxName.append("\t\t<name>")
         gpxName.append("Trackbook Recording: ${track.name}")
         gpxName.append("</name>\n")
-        gpxName.append("\t</metadata>\n");
+        gpxName.append("\t</metadata>\n")
         return gpxName.toString()
     }
 

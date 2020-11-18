@@ -34,7 +34,7 @@ object DateTimeHelper {
 
     /* Converts milliseconds to mm:ss or hh:mm:ss */
     fun convertToReadableTime(context: Context, milliseconds: Long): String {
-        var timeString: String = String()
+        val timeString: String
         val hours: Long = TimeUnit.MILLISECONDS.toHours(milliseconds)
         val minutes: Long = TimeUnit.MILLISECONDS.toMinutes(milliseconds) % TimeUnit.HOURS.toMinutes(1)
         val seconds: Long = TimeUnit.MILLISECONDS.toSeconds(milliseconds) % TimeUnit.MINUTES.toSeconds(1)

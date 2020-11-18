@@ -48,8 +48,8 @@ class SettingsFragment : PreferenceFragmentCompat(), YesNoDialog.YesNoDialogList
         // set the background color
         view.setBackgroundColor(resources.getColor(R.color.app_window_background, null))
         // add padding - necessary because translucent status bar is used
-        val topPadding = UiHelper.getStatusBarHeight(activity as Context)
-        view.setPadding(0, topPadding.toInt(), 0, 0)
+        val topPadding: Int = UiHelper.getStatusBarHeight(activity as Context)
+        view.setPadding(0, topPadding, 0, 0)
     }
 
 
@@ -88,7 +88,7 @@ class SettingsFragment : PreferenceFragmentCompat(), YesNoDialog.YesNoDialogList
         preferenceThemeSelection.setOnPreferenceChangeListener { preference, newValue ->
             if (preference is ListPreference) {
                 val index: Int = preference.entryValues.indexOf(newValue)
-                preferenceThemeSelection.summary = "${getString(R.string.pref_theme_selection_summary)} ${preference.entries.get(index)}"
+                preferenceThemeSelection.summary = "${getString(R.string.pref_theme_selection_summary)} ${preference.entries[index]}"
                 return@setOnPreferenceChangeListener true
             } else {
                 return@setOnPreferenceChangeListener false
