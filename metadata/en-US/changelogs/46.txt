@@ -2,5 +2,4 @@
 
 **2020-10-14**
 
-- updated translations
-- bug fixes
+- fixes a bug where recordings could not be saved as GPX under Android 11
