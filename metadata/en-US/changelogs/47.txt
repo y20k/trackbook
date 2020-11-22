@@ -1,0 +1,5 @@
+# v2.0.10 - Echoes
+
+**2020-11-26**
+
+- fixes a bug where recordings could not be saved as GPX under Android 11
