@@ -1,6 +1,6 @@
 # v2.0.10 - Echoes
 
-**2020-11-26**
+**2020-11-25**
 
 - updated translations
 - bug fixes
