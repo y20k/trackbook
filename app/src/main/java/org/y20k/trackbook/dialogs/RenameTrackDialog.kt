@@ -64,7 +64,9 @@ class RenameTrackDialog (private var renameTrackListener: RenameTrackListener) {
         builder.setPositiveButton(R.string.dialog_rename_track_button) { _, _ ->
             // hand text over to initiating activity
             inputField.text?.let {
-                renameTrackListener.onRenameTrackDialog(it.toString())
+                var newStationName: String = it.toString()
+                if (newStationName.isEmpty()) newStationName = trackName
+                renameTrackListener.onRenameTrackDialog(newStationName)
             }
         }
 
