@@ -5,7 +5,7 @@ AUTHORS
 Trackbook is designed, developed, and maintained by: [y20k](https://github.com/y20k)
 
 ### Translations
-Chinese version: [yzqzss](https://github.com/yzqzss) | [weblate version history](https://hosted.weblate.org/changes/?lang=pt_BR&project=trackbook)
+Chinese version: [yzqzss](https://github.com/yzqzss) | [weblate version history](https://hosted.weblate.org/changes/?lang=zh_Hans&project=trackbook)
 
 Croatian version: [milotype](https://github.com/milotype) | [weblate version history](https://hosted.weblate.org/changes/?lang=hr&project=trackbook)
 
