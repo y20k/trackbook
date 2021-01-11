@@ -78,7 +78,7 @@
     <string name="pref_accuracy_threshold_summary">丢弃误差大于指定值的定位：</string>
     <string name="pref_accuracy_threshold_title">误差阈值</string>
     <string name="pref_advanced_title">高级</string>
-    <string name="pref_delete_non_starred_summary">删除所有\"轨迹\"中未加星的记录。</string>
+    <string name="pref_delete_non_starred_summary">删除所有“轨迹“中未加星的记录。</string>
     <string name="pref_delete_non_starred_title">删除未加星的记录</string>
     <string name="pref_general_title">常规</string>
     <string name="pref_maintenance_title">维护</string>
