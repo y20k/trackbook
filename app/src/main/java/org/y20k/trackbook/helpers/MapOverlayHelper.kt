@@ -92,8 +92,9 @@ class MapOverlayHelper (private var markerListener: MarkerListener)  {
 
         val overlayItems: ArrayList<OverlayItem> = ArrayList<OverlayItem>()
         val wayPoints: MutableList<WayPoint> = track.wayPoints
+        val maxIndex: Int = wayPoints.size - 1
 
-        wayPoints.forEach { wayPoint ->
+        wayPoints.forEachIndexed { index: Int, wayPoint: WayPoint ->
             // create marker
             val newMarker: Drawable
 
@@ -111,7 +112,14 @@ class MapOverlayHelper (private var markerListener: MarkerListener)  {
                 }
                 // CASE: Recording is paused/stopped
                 else -> {
-                    if (wayPoint.starred) {
+                    if (index == maxIndex) {
+                        if (wayPoint.starred) {
+                            newMarker = ContextCompat.getDrawable(context, R.drawable.ic_marker_track_end_starred_blue_36dp)!!
+                        } else {
+                            newMarker = ContextCompat.getDrawable(context, R.drawable.ic_marker_track_end_blue_36dp)!!
+                        }
+                    }
+                    else if (wayPoint.starred) {
                         newMarker = ContextCompat.getDrawable(context, R.drawable.ic_star_blue_24dp)!!
                     } else if (wayPoint.isStopOver) {
                         newMarker = ContextCompat.getDrawable(context, R.drawable.ic_marker_track_location_grey_24dp)!!
