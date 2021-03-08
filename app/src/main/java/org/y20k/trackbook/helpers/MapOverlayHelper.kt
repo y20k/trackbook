@@ -88,20 +88,18 @@ class MapOverlayHelper (private var markerListener: MarkerListener)  {
 
 
     /* Creates icon overlay for track */
-    fun createTrackOverlay(context: Context, track: Track, trackingState: Int): ItemizedIconOverlay<OverlayItem> {
+    fun createTrackOverlay(context: Context, track: Track, trackingState: Int, displayEndMarker: Boolean = false): ItemizedIconOverlay<OverlayItem> {
 
         val overlayItems: ArrayList<OverlayItem> = ArrayList<OverlayItem>()
         val wayPoints: MutableList<WayPoint> = track.wayPoints
         val maxIndex: Int = wayPoints.size - 1
 
-        wayPoints.forEachIndexed { index: Int, wayPoint: WayPoint ->
-            // create marker
-            val newMarker: Drawable
-
-            // get drawable
-            when (trackingState) {
-                // CASE: Recording is active
-                Keys.STATE_TRACKING_ACTIVE -> {
+        when (trackingState) {
+            // CASE: Recording is active
+            Keys.STATE_TRACKING_ACTIVE -> {
+                wayPoints.forEach { wayPoint: WayPoint ->
+                    // get drawable
+                    val newMarker: Drawable
                     if (wayPoint.starred) {
                         newMarker = ContextCompat.getDrawable(context, R.drawable.ic_star_red_24dp)!!
                     } else if (wayPoint.isStopOver) {
@@ -109,10 +107,18 @@ class MapOverlayHelper (private var markerListener: MarkerListener)  {
                     } else {
                         newMarker = ContextCompat.getDrawable(context, R.drawable.ic_marker_track_location_red_24dp)!!
                     }
+                    // create overlay item and add to list of overlay items
+                    val overlayItem: OverlayItem = createOverlayItem(context, wayPoint.latitude, wayPoint.longitude, wayPoint.accuracy, wayPoint.provider, wayPoint.time)
+                    overlayItem.setMarker(newMarker)
+                    overlayItems.add(overlayItem)
                 }
-                // CASE: Recording is paused/stopped
-                else -> {
-                    if (index == maxIndex) {
+            }
+            // CASE: Recording is paused/stopped
+            else -> {
+                wayPoints.forEachIndexed { index: Int, wayPoint: WayPoint ->
+                    // get drawable
+                    val newMarker: Drawable
+                    if (displayEndMarker && index == maxIndex) {
                         if (wayPoint.starred) {
                             newMarker = ContextCompat.getDrawable(context, R.drawable.ic_marker_track_end_starred_blue_36dp)!!
                         } else {
@@ -126,15 +132,13 @@ class MapOverlayHelper (private var markerListener: MarkerListener)  {
                     } else {
                         newMarker = ContextCompat.getDrawable(context, R.drawable.ic_marker_track_location_blue_24dp)!!
                     }
+                    // create overlay item and add to list of overlay items
+                    val overlayItem: OverlayItem = createOverlayItem(context, wayPoint.latitude, wayPoint.longitude, wayPoint.accuracy, wayPoint.provider, wayPoint.time)
+                    overlayItem.setMarker(newMarker)
+                    overlayItems.add(overlayItem)
                 }
             }
-
-            // create overlay item and add to list of overlay items
-            val overlayItem: OverlayItem = createOverlayItem(context, wayPoint.latitude, wayPoint.longitude, wayPoint.accuracy, wayPoint.provider, wayPoint.time)
-            overlayItem.setMarker(newMarker)
-            overlayItems.add(overlayItem)
         }
-
         // create and return overlay for current position
         return createOverlay(context, overlayItems)
     }

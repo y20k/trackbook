@@ -146,7 +146,7 @@ data class TrackFragmentLayoutHolder(private var context: Context, private var m
         mapView.overlays.add(compassOverlay)
 
         // create map overlay
-        trackOverlay = MapOverlayHelper(markerListener).createTrackOverlay(context, track, Keys.STATE_TRACKING_NOT)
+        trackOverlay = MapOverlayHelper(markerListener).createTrackOverlay(context, track, Keys.STATE_TRACKING_NOT, displayEndMarker = true)
         if (track.wayPoints.isNotEmpty()) {
             mapView.overlays.add(trackOverlay)
         }
