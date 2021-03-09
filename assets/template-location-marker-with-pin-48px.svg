@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+	xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" version="1.1" x="0px" y="0px" width="48"
+	height="48" viewBox="0 0 48 48" enable-background="new 0 0 96 96" xml:space="preserve" id="svg224"
+	sodipodi:docname="Location Marker with Pin 24px.svg" inkscape:version="1.0.2 (e86c870879, 2021-01-15)"
+	inkscape:label="Layer1"><metadata
+   id="metadata11"><rdf:RDF><cc:Work
+       rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs
+   id="defs228" /><sodipodi:namedview
+   id="namedview226"
+   pagecolor="#ffffff"
+   bordercolor="#666666"
+   borderopacity="1.0"
+   objecttolerance="10.0"
+   gridtolerance="10.0"
+   guidetolerance="10.0"
+   inkscape:pageshadow="2"
+   inkscape:pageopacity="0.0"
+   inkscape:pagecheckerboard="0"
+   showgrid="false"
+   units="px"
+   inkscape:zoom="9.09375"
+   inkscape:cx="-7.5326457"
+   inkscape:cy="28.591065"
+   inkscape:window-width="2033"
+   inkscape:window-height="1126"
+   inkscape:window-x="364"
+   inkscape:window-y="27"
+   inkscape:window-maximized="0"
+   inkscape:current-layer="svg224"
+   inkscape:document-units="pt"
+   inkscape:document-rotation="0" />
+
+<g
+   id="My_Location_Dot"
+   inkscape:label="Location Dot"
+   style="display:inline"
+   transform="translate(12,12)">
+	<circle
+   opacity="0.33"
+   fill="#2095f2"
+   cx="12"
+   cy="12"
+   id="circle217"
+   style="display:none;fill:#3c98db;fill-opacity:1;stroke-width:0.25"
+   r="12"
+   inkscape:label="Frame 24 px" />
+	<circle
+   fill="#2095f2"
+   cx="12"
+   cy="12"
+   id="circle220"
+   style="fill:#3c98db;fill-opacity:1;stroke-width:0.25"
+   r="6"
+   inkscape:label="Core 12 px" />
+</g>
+<path
+   d="M 24,28.3275 28.635,31.125 27.405,25.8525 31.5,22.305 26.1075,21.8475 24,16.875 21.8925,21.8475 16.5,22.305 l 4.095,3.5475 -1.23,5.2725 z"
+   id="path4-3"
+   style="display:none;fill:#3c98db;fill-opacity:1;stroke-width:0.75"
+   inkscape:label="Location Star 24 px"
+   sodipodi:insensitive="true" />
+<path
+   d="M 31.5,22.305 26.1075,21.84 24,16.875 21.8925,21.8475 16.5,22.305 20.595,25.8525 19.365,31.125 24,28.3275 28.635,31.125 27.4125,25.8525 Z m -7.5,4.62 -2.82,1.7025 0.75,-3.21 -2.49,-2.16 3.285,-0.285 L 24,19.95 l 1.2825,3.03 3.285,0.285 -2.49,2.16 0.75,3.21 z"
+   id="path831"
+   style="display:none;fill:#3c98db;fill-opacity:1;stroke-width:0.5625"
+   inkscape:label="Location Star Outline 24 px"
+   sodipodi:insensitive="true" /><path
+   d="M 24,0 C 19.356,0 15.6,3.756 15.6,8.4 15.6,14.7 24,24 24,24 24,24 32.4,14.7 32.4,8.4 32.4,3.756 28.644,0 24,0 Z m 0,11.4 c -1.656001,0 -3,-1.344 -3,-3 0,-1.656 1.344,-3 3,-3 1.656,0 3,1.344 3,3 0,1.656 -1.344,3 -3,3 z"
+   id="path28"
+   style="display:inline;fill:#dc3d33;fill-opacity:1;stroke-width:1.2"
+   inkscape:label="Pin" /></svg>

@@ -162,12 +162,12 @@ data class MapFragmentLayoutHolder(private var context: Context, private var mar
 
 
     /* Overlay current track on map */
-    fun overlayCurrentTrack(track: Track, trackingState: Int) {
+    fun overlayCurrentTrack(track: Track, trackingState: Int, displayStartEndMarker: Boolean) {
         if (currentTrackOverlay != null) {
             mapView.overlays.remove(currentTrackOverlay)
         }
         if (track.wayPoints.isNotEmpty()) {
-            currentTrackOverlay = MapOverlayHelper(markerListener).createTrackOverlay(context, track, trackingState)
+            currentTrackOverlay = MapOverlayHelper(markerListener).createTrackOverlay(context, track, trackingState, displayStartEndMarker)
             mapView.overlays.add(currentTrackOverlay)
         }
     }

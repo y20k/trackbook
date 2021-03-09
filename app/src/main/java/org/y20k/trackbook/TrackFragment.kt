@@ -162,11 +162,11 @@ class TrackFragment : Fragment(), RenameTrackDialog.RenameTrackListener, YesNoDi
 
 
     /* Overrides onMarkerTapped from MarkerListener */
-    override fun onMarkerTapped(latitude: Double, longitude: Double) {
-        super.onMarkerTapped(latitude, longitude)
+    override fun onMarkerTapped(latitude: Double, longitude: Double, displayStartEndMarker: Boolean) {
+        super.onMarkerTapped(latitude, longitude, displayStartEndMarker)
         // update track display
         track = TrackHelper.toggleStarred(activity as Context, track, latitude, longitude)
-        layout.updateTrackOverlay(track)
+        layout.updateTrackOverlay(track, displayStartEndMarker)
         // save track
         GlobalScope.launch {
             FileHelper.saveTrackSuspended(track, true)

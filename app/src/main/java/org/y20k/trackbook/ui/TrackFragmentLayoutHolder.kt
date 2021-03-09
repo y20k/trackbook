@@ -146,7 +146,7 @@ data class TrackFragmentLayoutHolder(private var context: Context, private var m
         mapView.overlays.add(compassOverlay)
 
         // create map overlay
-        trackOverlay = MapOverlayHelper(markerListener).createTrackOverlay(context, track, Keys.STATE_TRACKING_NOT, displayEndMarker = true)
+        trackOverlay = MapOverlayHelper(markerListener).createTrackOverlay(context, track, Keys.STATE_TRACKING_NOT, displayStartEndMarker = true)
         if (track.wayPoints.isNotEmpty()) {
             mapView.overlays.add(trackOverlay)
         }
@@ -168,13 +168,13 @@ data class TrackFragmentLayoutHolder(private var context: Context, private var m
 
 
     /* Updates map overlay */
-    fun updateTrackOverlay(newTrack: Track) {
+    fun updateTrackOverlay(newTrack: Track, displayStartEndMarker: Boolean) {
         track = newTrack
         if (trackOverlay != null) {
             mapView.overlays.remove(trackOverlay)
         }
         if (track.wayPoints.isNotEmpty()) {
-            trackOverlay = MapOverlayHelper(markerListener).createTrackOverlay(context, track, Keys.STATE_TRACKING_NOT)
+            trackOverlay = MapOverlayHelper(markerListener).createTrackOverlay(context, track, Keys.STATE_TRACKING_NOT, displayStartEndMarker)
             mapView.overlays.add(trackOverlay)
         }
     }
