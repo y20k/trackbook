@@ -38,7 +38,7 @@
     <color name="trackbook_grey_dark">#FF414141</color>
     <color name="trackbook_grey_darker">#FF2D2D2D</color>
 
-    <color name="trackbook_red">#DC3D33</color> <!-- Slightly muted variant of -> Material Design 2: Red 600 -->
+    <color name="trackbook_red">#FFDC3D33</color> <!-- Slightly muted variant of -> Material Design 2: Red 600 -->
     <color name="trackbook_red_dark">#FFCA2D23</color>
 
     <color name="trackbook_black">#FF121212</color> <!-- Material Design recommended dark theme surface color -->
