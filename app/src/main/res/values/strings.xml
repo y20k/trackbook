@@ -76,7 +76,7 @@
     <string name="pref_about_title">About</string>
     <string name="pref_app_version_summary">Version</string>
     <string name="pref_app_version_title">App Version</string>
-    <string name="pref_accuracy_threshold_summary">Discard location fixes with an accuracy larger than:</string>
+    <string name="pref_accuracy_threshold_summary">Discard location fixes with an accuracy larger than (meters):</string>
     <string name="pref_accuracy_threshold_title">Accuracy Threshold</string>
     <string name="pref_advanced_title">Advanced</string>
     <string name="pref_delete_non_starred_summary">Delete all recordings in \"Tracks\" that are not starred.</string>

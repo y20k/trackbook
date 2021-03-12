@@ -27,6 +27,7 @@ import androidx.core.content.ContextCompat
 import org.y20k.trackbook.Keys
 import org.y20k.trackbook.core.Track
 import java.util.*
+import kotlin.math.pow
 
 
 /*
@@ -179,17 +180,21 @@ object LocationHelper {
     fun isDifferentEnough(previousLocation: Location?, location: Location): Boolean {
         // check if previous location is (not) available
         if (previousLocation == null) return true
-        // check if distance between is large enough
-        val distanceThreshold: Float
-        val averageAccuracy: Float = (previousLocation.accuracy + location.accuracy) / 2
-        // increase the distance threshold if one or both locations are
-        if (averageAccuracy > Keys.DEFAULT_THRESHOLD_DISTANCE) {
-            distanceThreshold = averageAccuracy
-        } else {
-            distanceThreshold = Keys.DEFAULT_THRESHOLD_DISTANCE
-        }
-        // location is different when far enough away from previous location
-        return calculateDistance(previousLocation, location) > distanceThreshold
+
+        // location.accuracy is given as 1 standard deviation, with a 68% chance
+        // that the true position is within a circle of this radius.
+        // These formulas determine if the difference between the last point and
+        // new point is statistically significant.
+        val accuracy = if (location.accuracy != 0.0f) location.accuracy else Keys.DEFAULT_THRESHOLD_DISTANCE
+        val previousAccuracy = if (previousLocation.accuracy != 0.0f) previousLocation.accuracy else Keys.DEFAULT_THRESHOLD_DISTANCE
+        val accuracyDelta = Math.sqrt((accuracy.pow(2) + previousAccuracy.pow(2)).toDouble())
+
+        val distance = calculateDistance(previousLocation, location)
+
+        // With 1*accuracyDelta we have 68% confidence that the points are
+        // different. We can multiply this number to increase confidence but
+        // decrease point recording frequency if needed.
+        return distance > accuracyDelta
     }
 
 
