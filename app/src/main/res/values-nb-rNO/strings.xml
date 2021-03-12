@@ -76,7 +76,7 @@
     <string name="pref_gps_only_summary_gps_only">Bruker nå kun GPS for posisjonering</string>
     <string name="pref_imperial_measurement_units_summary_metric">Bruker nå kun metriske enheter (kilometer, meter).</string>
     <string name="pref_imperial_measurement_units_summary_imperial">Bruker nå imperiale måleenheter (mil, fot).</string>
-    <string name="pref_imperial_measurement_units_title">Bruk imperiale måleenheter</string>
+    <string name="pref_imperial_measurement_units_title">Bruk Britisk enhetssystem for mål og vekt</string>
     <string name="pref_reset_advanced_summary">Tilbakestill avanserte innstillinger til forvalg.</string>
     <string name="pref_reset_advanced_title">Tilbakestill</string>
     <string name="abbreviation_hours">t</string>
