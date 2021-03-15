@@ -97,6 +97,7 @@ object Keys {
     const val EMPTY_STRING_RESOURCE: Int = 0
     const val REQUEST_CURRENT_LOCATION_INTERVAL: Long = 1000L                   // 1 second in milliseconds
     const val ADD_WAYPOINT_TO_TRACK_INTERVAL: Long = 1000L                      // 1 second in milliseconds
+    const val SAVE_TEMP_TRACK_INTERVAL: Long = 9000L                            // 9 seconds in milliseconds
     const val SIGNIFICANT_TIME_DIFFERENCE: Long = 120000L                       // 2 minutes in milliseconds
     const val STOP_OVER_THRESHOLD: Long = 300000L                               // 5 minutes in milliseconds
     const val IMPLAUSIBLE_TRACK_START_SPEED: Double = 250.0                     // 250 km/h

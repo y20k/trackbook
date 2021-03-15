@@ -62,6 +62,7 @@ class TrackerService: Service(), CoroutineScope, SensorEventListener {
     var gpsOnly: Boolean = false
     var locationAccuracyThreshold: Int = Keys.DEFAULT_THRESHOLD_LOCATION_ACCURACY
     var currentBestLocation: Location = LocationHelper.getDefaultLocation()
+    var lastSave: Date = Keys.DEFAULT_DATE
     var stepCountOffset: Float = 0f
     var resumed: Boolean = false
     var track: Track = Track()
@@ -247,8 +248,10 @@ class TrackerService: Service(), CoroutineScope, SensorEventListener {
 
     /* Stop tracking location */
     fun stopTracking() {
-        // save state
+        // save temp track
         track.recordingStop = GregorianCalendar.getInstance().time
+        GlobalScope.launch { FileHelper.saveTempTrackSuspended(this@TrackerService, track) }
+        // save state
         trackingState = Keys.STATE_TRACKING_STOPPED
         PreferencesHelper.saveTrackingState(this, trackingState)
         // stop recording steps and location fixes
@@ -270,21 +273,21 @@ class TrackerService: Service(), CoroutineScope, SensorEventListener {
     }
 
 
-    /* Saves track recording to storage */
-    fun saveTrack() {
-        // save track using "deferred await"
-        launch {
-            // step 1: create and store filenames for json and gpx files
-            track.trackUriString = FileHelper.getTrackFileUri(this@TrackerService, track).toString()
-            track.gpxUriString = FileHelper.getGpxFileUri(this@TrackerService, track).toString()
-            // step 2: save track
-            FileHelper.saveTrackSuspended(track, saveGpxToo = true)
-            // step 3: save tracklist
-            FileHelper.addTrackAndSaveTracklistSuspended(this@TrackerService, track)
-            // step 3: clear track
-            clearTrack()
-        }
-    }
+//    /* Saves track recording to storage */ // todo remove
+//    fun saveTrack() {
+//        // save track using "deferred await"
+//        launch {
+//            // step 1: create and store filenames for json and gpx files
+//            track.trackUriString = FileHelper.getTrackFileUri(this@TrackerService, track).toString()
+//            track.gpxUriString = FileHelper.getGpxFileUri(this@TrackerService, track).toString()
+//            // step 2: save track
+//            FileHelper.saveTrackSuspended(track, saveGpxToo = true)
+//            // step 3: save tracklist
+//            FileHelper.addTrackAndSaveTracklistSuspended(this@TrackerService, track)
+//            // step 3: clear track
+//            clearTrack()
+//        }
+//    }
 
 
     /* Creates location listener */
@@ -462,11 +465,23 @@ class TrackerService: Service(), CoroutineScope, SensorEventListener {
                 // reset resumed flag, if necessary
                 resumed = false
             }
+            // check, if waypoint was added
+            if (result.second) {
+                // reset resumed flag, if necessary
+                if (resumed) {
+                    resumed = false
+                }
+                // save a temp track
+                val now: Date = GregorianCalendar.getInstance().time
+                if (now.time - lastSave.time > Keys.SAVE_TEMP_TRACK_INTERVAL) {
+                    lastSave = now
+                    GlobalScope.launch { FileHelper.saveTempTrackSuspended(this@TrackerService, track) }
+                    LogHelper.e(TAG, "TEMP SAVE: $lastSave")
+                }
+            }
             // update notification
             displayNotification()
-            // save temp track using GlobalScope.launch = fire & forget (no return value from save)
-            GlobalScope.launch { FileHelper.saveTempTrackSuspended(this@TrackerService, track) }
-            // re-run this in 10 seconds
+            // re-run this in set interval
             handler.postDelayed(this, Keys.ADD_WAYPOINT_TO_TRACK_INTERVAL)
         }
     }
