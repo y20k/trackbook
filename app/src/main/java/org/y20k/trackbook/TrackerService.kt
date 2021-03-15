@@ -476,7 +476,6 @@ class TrackerService: Service(), CoroutineScope, SensorEventListener {
                 if (now.time - lastSave.time > Keys.SAVE_TEMP_TRACK_INTERVAL) {
                     lastSave = now
                     GlobalScope.launch { FileHelper.saveTempTrackSuspended(this@TrackerService, track) }
-                    LogHelper.e(TAG, "TEMP SAVE: $lastSave")
                 }
             }
             // update notification

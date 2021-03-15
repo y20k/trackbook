@@ -41,6 +41,7 @@ import org.osmdroid.views.overlay.OverlayItem
 import org.osmdroid.views.overlay.TilesOverlay
 import org.osmdroid.views.overlay.compass.CompassOverlay
 import org.osmdroid.views.overlay.compass.InternalCompassOrientationProvider
+import org.osmdroid.views.overlay.simplefastpoint.SimpleFastPointOverlay
 import org.y20k.trackbook.Keys
 import org.y20k.trackbook.R
 import org.y20k.trackbook.core.Track
@@ -67,7 +68,8 @@ data class MapFragmentLayoutHolder(private var context: Context, private var mar
     val resumeButton: FloatingActionButton
     var userInteraction: Boolean = false
     private var currentPositionOverlay: ItemizedIconOverlay<OverlayItem>
-    private var currentTrackOverlay: ItemizedIconOverlay<OverlayItem>?
+    private var currentTrackOverlay: SimpleFastPointOverlay?
+    private var currentTrackSpecialMarkerOverlay: ItemizedIconOverlay<OverlayItem>?
     private var locationErrorBar: Snackbar
     private var controller: IMapController
     private var zoomLevel: Double
@@ -112,8 +114,9 @@ data class MapFragmentLayoutHolder(private var context: Context, private var mar
         mapView.overlays.add(currentPositionOverlay)
         centerMap(startLocation)
 
-        // initialize track overlay
+        // initialize track overlays
         currentTrackOverlay = null
+        currentTrackSpecialMarkerOverlay = null
 
         // initialize recording button state
         updateRecordingButton(trackingState)
@@ -162,13 +165,19 @@ data class MapFragmentLayoutHolder(private var context: Context, private var mar
 
 
     /* Overlay current track on map */
-    fun overlayCurrentTrack(track: Track, trackingState: Int, displayStartEndMarker: Boolean) {
+    fun overlayCurrentTrack(track: Track, trackingState: Int) {
         if (currentTrackOverlay != null) {
             mapView.overlays.remove(currentTrackOverlay)
         }
+        if (currentTrackSpecialMarkerOverlay != null) {
+            mapView.overlays.remove(currentTrackSpecialMarkerOverlay)
+        }
         if (track.wayPoints.isNotEmpty()) {
-            currentTrackOverlay = MapOverlayHelper(markerListener).createTrackOverlay(context, track, trackingState, displayStartEndMarker)
+            val mapOverlayHelper: MapOverlayHelper = MapOverlayHelper(markerListener)
+            currentTrackOverlay = mapOverlayHelper.createTrackOverlay(context, track, trackingState)
+            currentTrackSpecialMarkerOverlay = mapOverlayHelper.createSpecialMakersTrackOverlay(context, track, trackingState)
             mapView.overlays.add(currentTrackOverlay)
+            mapView.overlays.add(currentTrackSpecialMarkerOverlay)
         }
     }
 

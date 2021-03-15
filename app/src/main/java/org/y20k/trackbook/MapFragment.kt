@@ -181,11 +181,11 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener, MapOverlayHelpe
 
 
     /* Overrides onMarkerTapped from MarkerListener */
-    override fun onMarkerTapped(latitude: Double, longitude: Double, displayStartEndMarker: Boolean) {
-        super.onMarkerTapped(latitude, longitude, displayStartEndMarker)
+    override fun onMarkerTapped(latitude: Double, longitude: Double) {
+        super.onMarkerTapped(latitude, longitude)
         if (bound) {
             track = TrackHelper.toggleStarred(activity as Context, track, latitude, longitude)
-            layout.overlayCurrentTrack(track, trackingState, displayStartEndMarker)
+            layout.overlayCurrentTrack(track, trackingState)
             trackerService.track = track
         }
     }
@@ -320,7 +320,7 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener, MapOverlayHelpe
             trackingState = trackerService.trackingState
             // update location and track
             layout.markCurrentPosition(currentBestLocation, trackingState)
-            layout.overlayCurrentTrack(track, trackingState, displayStartEndMarker = false)
+            layout.overlayCurrentTrack(track, trackingState)
             // center map, if it had not been dragged/zoomed before
             if (!layout.userInteraction) { layout.centerMap(currentBestLocation, true)}
             // show error snackbar if necessary
