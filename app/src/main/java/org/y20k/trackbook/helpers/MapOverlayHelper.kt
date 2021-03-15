@@ -112,6 +112,7 @@ class MapOverlayHelper (private var markerListener: MarkerListener)  {
         val style: Paint = Paint()
         style.style = Paint.Style.FILL
         style.color = color
+        style.flags = Paint.ANTI_ALIAS_FLAG
         val scalingFactor: Float = UiHelper.getDensityScalingFactor(context)
         val overlayOptions: SimpleFastPointOverlayOptions = SimpleFastPointOverlayOptions.getDefaultStyle()
                 .setAlgorithm(SimpleFastPointOverlayOptions.RenderingAlgorithm.MAXIMUM_OPTIMIZATION)
