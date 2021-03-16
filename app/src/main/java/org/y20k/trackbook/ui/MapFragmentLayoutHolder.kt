@@ -176,8 +176,8 @@ data class MapFragmentLayoutHolder(private var context: Context, private var mar
             val mapOverlayHelper: MapOverlayHelper = MapOverlayHelper(markerListener)
             currentTrackOverlay = mapOverlayHelper.createTrackOverlay(context, track, trackingState)
             currentTrackSpecialMarkerOverlay = mapOverlayHelper.createSpecialMakersTrackOverlay(context, track, trackingState)
-            mapView.overlays.add(currentTrackOverlay)
             mapView.overlays.add(currentTrackSpecialMarkerOverlay)
+            mapView.overlays.add(currentTrackOverlay)
         }
     }
 

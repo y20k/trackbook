@@ -152,8 +152,8 @@ data class TrackFragmentLayoutHolder(private var context: Context, private var m
         trackOverlay = mapOverlayHelper.createTrackOverlay(context, track, Keys.STATE_TRACKING_NOT)
         trackSpecialMarkersOverlay = mapOverlayHelper.createSpecialMakersTrackOverlay(context, track, Keys.STATE_TRACKING_NOT, displayStartEndMarker = true)
         if (track.wayPoints.isNotEmpty()) {
-            mapView.overlays.add(trackOverlay)
             mapView.overlays.add(trackSpecialMarkersOverlay)
+            mapView.overlays.add(trackOverlay)
         }
 
         // set up and show statistics sheet
