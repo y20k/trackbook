@@ -23,7 +23,7 @@
     <string name="notification_channel_recording_name">Stanje snimanja kretanja</string>
     <string name="statistics_sheet_p_max_altitude">Najviša točka rute:</string>
     <string name="descr_fab_sub_menu_button_clear">Gumb za poništavanje</string>
-    <string name="pref_accuracy_threshold_summary">Odbaci određivanje mjesta s točnošću većom od:</string>
+    <string name="pref_accuracy_threshold_summary">Odbaci određivanje mjesta s točnošću većom od (u metrima):</string>
     <string name="dialog_yes_no_message_delete_recording">Ovo snimanje izbrisati\?</string>
     <string name="notification_title_trackbook_running">Trackbook radi</string>
     <string name="dialog_generic_button_cancel">Odustani</string>
