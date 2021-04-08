@@ -385,7 +385,7 @@ class TrackerService: Service(), CoroutineScope, SensorEventListener {
     /* Adds location listeners to location manager */
     fun removeNetworkLocationListener() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            locationManager.removeUpdates(gpsLocationListener)
+            locationManager.removeUpdates(networkLocationListener)
             networkLocationListenerRegistered = false
             LogHelper.v(TAG, "Removed Network location listener.")
         } else {
