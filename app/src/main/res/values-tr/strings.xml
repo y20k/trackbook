@@ -97,4 +97,9 @@
     <string name="tab_tracks">Yollar</string>
     <string name="tab_map">Harita</string>
     <string name="app_name">Trackbook</string>
+    <string name="pref_recording_accuracy_title">Kayıt Doğruluğu</string>
+    <string name="pref_recording_accuracy_summary_default">Öntanımlı doğruluk.</string>
+    <string name="pref_recording_accuracy_summary_high">Yüksek doğruluk. Daha az ara nokta kaydedilir.</string>
+    <string name="pref_altitude_smoothing_value_title">Rakım Düzeltme</string>
+    <string name="pref_altitude_smoothing_value_summary">Yükseklik eğrisini düzeltmek için kullanılan ara nokta sayısı.</string>
 </resources>
