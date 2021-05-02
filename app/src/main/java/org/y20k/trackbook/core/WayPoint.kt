@@ -40,6 +40,11 @@ data class WayPoint(@Expose val provider: String,
                     @Expose var isStopOver: Boolean = false,
                     @Expose var starred: Boolean = false): Parcelable {
 
+    /* Constructor using just Location */
+    constructor(location: Location) : this (location.provider, location.latitude, location.longitude, location. altitude, location.accuracy, location.time)
+
+    /* Constructor using Location plus distanceToStartingPoint and numberSatellites */
+    constructor(location: Location, distanceToStartingPoint: Float, numberSatellites: Int) : this (location.provider, location.latitude, location.longitude, location. altitude, location.accuracy, location.time, distanceToStartingPoint, numberSatellites)
 
     /* Converts WayPoint into Location */
     fun toLocation(): Location {

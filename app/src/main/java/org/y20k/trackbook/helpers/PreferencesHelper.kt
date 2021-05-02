@@ -98,6 +98,36 @@ object PreferencesHelper {
     }
 
 
+
+    /* Loads state of recording accuracy */
+    fun loadRecordingAccuracyHigh(context: Context): Boolean {
+        // get preferences
+        val settings = PreferenceManager.getDefaultSharedPreferences(context)
+        // load current setting
+        return settings.getBoolean(Keys.PREF_RECORDING_ACCURACY_HIGH, false)
+    }
+
+
+    /* Loads current accuracy multiplier */
+    fun loadAccuracyMultiplier(context: Context): Int {
+        // get preferences
+        val settings = PreferenceManager.getDefaultSharedPreferences(context)
+        // load current setting
+        val recordingAccuracyHigh: Boolean = settings.getBoolean(Keys.PREF_RECORDING_ACCURACY_HIGH, false)
+        // return multiplier based on state
+        return if (recordingAccuracyHigh) 2 else 1
+    }
+
+
+    /* Load altitude smoothing value */
+    fun loadAltitudeSmoothingValue(context: Context): Int {
+        // get preferences
+        val settings = PreferenceManager.getDefaultSharedPreferences(context)
+        // load current setting
+        return settings.getInt(Keys.PREF_ALTITUDE_SMOOTHING_VALUE, Keys.DEFAULT_ALTITUDE_SMOOTHING_VALUE)
+    }
+
+
     /* Loads the state of a map */
     fun loadCurrentBestLocation(context: Context): Location {
         // get preferences

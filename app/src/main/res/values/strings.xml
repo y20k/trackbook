@@ -78,6 +78,8 @@
     <string name="pref_app_version_title">App Version</string>
     <string name="pref_accuracy_threshold_summary">Discard location fixes with an accuracy larger than (meters):</string>
     <string name="pref_accuracy_threshold_title">Accuracy Threshold</string>
+    <string name="pref_altitude_smoothing_value_summary">Number of waypoints used to smooth the elevation curve.</string>
+    <string name="pref_altitude_smoothing_value_title">Altitude Smoothing</string>
     <string name="pref_advanced_title">Advanced</string>
     <string name="pref_delete_non_starred_summary">Delete all recordings in \"Tracks\" that are not starred.</string>
     <string name="pref_delete_non_starred_title">Delete Non-Starred Recordings</string>
@@ -89,6 +91,9 @@
     <string name="pref_imperial_measurement_units_summary_metric">Currently using metric units (Kilometer, Meter).</string>
     <string name="pref_imperial_measurement_units_summary_imperial">Currently using imperial units (Miles, Feet).</string>
     <string name="pref_imperial_measurement_units_title">Use Imperial Measurements</string>
+    <string name="pref_recording_accuracy_summary_high">High accuracy. Less waypoints are being recorded.</string>
+    <string name="pref_recording_accuracy_summary_default">Default accuracy.</string>
+    <string name="pref_recording_accuracy_title">Recording Accuracy</string>
     <string name="pref_report_issue_summary">Report bugs and suggest improvements on GitHub.</string>
     <string name="pref_report_issue_title">Report Issue</string>
     <string name="pref_reset_advanced_summary">Reset advanced settings to defaults.</string>

@@ -20,6 +20,7 @@ package org.y20k.trackbook.helpers
 import android.content.Context
 import android.location.Location
 import android.widget.Toast
+import org.y20k.trackbook.Keys
 import org.y20k.trackbook.R
 import org.y20k.trackbook.core.Track
 import org.y20k.trackbook.core.TracklistElement
@@ -48,7 +49,7 @@ object TrackHelper {
 
 
     /* Adds given locatiom as waypoint to track */
-    fun addWayPointToTrack(context: Context, track: Track, location: Location, locationAccuracyThreshold: Int, resumed: Boolean): Pair<Track, Boolean> {
+    fun addWayPointToTrack(context: Context, track: Track, location: Location, accuracyMultiplier: Int, altitudeSmoothingValue: Int, resumed: Boolean): Pair<Track, Boolean> {
         // get previous location
         val previousLocation: Location?
         var numberOfWayPoints: Int = track.wayPoints.size
@@ -76,8 +77,8 @@ object TrackHelper {
 
         // add only if recent and accurate and different
         val shouldBeAdded: Boolean = (LocationHelper.isRecentEnough(location) &&
-                                      LocationHelper.isAccurateEnough(location, locationAccuracyThreshold) &&
-                                      LocationHelper.isDifferentEnough(previousLocation, location))
+                                      LocationHelper.isAccurateEnough(location, Keys.DEFAULT_THRESHOLD_LOCATION_ACCURACY) &&
+                                      LocationHelper.isDifferentEnough(previousLocation, location, accuracyMultiplier))
 
 //        // Debugging for shouldBeAdded - remove for production
 //        val recentEnough: Boolean = LocationHelper.isRecentEnough(location)
@@ -98,25 +99,34 @@ object TrackHelper {
                 track.length = track.length + LocationHelper.calculateDistance(previousLocation, location)
             }
 
-            if (location.altitude != 0.0) {
-                // update altitude values
+            // update altitude values
+            val altitude: Double = location.altitude
+            if (altitude != 0.0) {
+
+                // CASE: First location
                 if (numberOfWayPoints == 0) {
-                    track.maxAltitude = location.altitude
-                    track.minAltitude = location.altitude
-                } else {
-                    // calculate elevation values (upwards / downwards movements)
-                    val elevationDifferences: Pair<Double, Double> = LocationHelper.calculateElevationDifferences(previousLocation, location, track)
+                    track.maxAltitude = altitude
+                    track.minAltitude = altitude
+                }
+
+                // CASE: Not first location
+                else {
+
+                    // Step 1: Update altitude values
+                    if (altitude > track.maxAltitude) track.maxAltitude = altitude
+                    if (altitude < track.minAltitude) track.minAltitude = altitude
+
+                    // Step 2: Calculate and update elevation values (upwards / downwards movements)
+                    val elevationDifferences: Pair<Double, Double> = LocationHelper.calculateElevationDifferences(previousLocation, location, track, altitudeSmoothingValue)
                     // check if any differences were calculated
                     if (elevationDifferences != Pair(track.positiveElevation, track.negativeElevation)) {
-                        // update altitude values
-                        if (location.altitude > track.maxAltitude) track.maxAltitude = location.altitude
-                        if (location.altitude < track.minAltitude) track.minAltitude = location.altitude
                         // update elevation values (do not update if resumed -> we do not want to add values calculated during a recording pause)
                         if (!resumed) {
                             track.positiveElevation = elevationDifferences.first
                             track.negativeElevation = elevationDifferences.second
                         }
                     }
+
                 }
             }
 
@@ -126,12 +136,12 @@ object TrackHelper {
             }
 
             // save number of satellites
-            val numberOfSatellites: Int
+            val numberSatellites: Int
             val extras = location.extras
             if (extras != null && extras.containsKey("satellites")) {
-                numberOfSatellites = extras.getInt("satellites", 0)
+                numberSatellites = extras.getInt("satellites", 0)
             } else {
-                numberOfSatellites = 0
+                numberSatellites = 0
             }
 
             // add current location as point to center on for later display
@@ -139,7 +149,7 @@ object TrackHelper {
             track.longitude = location.longitude
 
             // add location as new waypoint
-            track.wayPoints.add(WayPoint(provider = location.provider, latitude = location.latitude, longitude = location.longitude, altitude = location.altitude, accuracy = location.accuracy, time = location.time, distanceToStartingPoint = track.length, numberSatellites = numberOfSatellites))
+            track.wayPoints.add(WayPoint(location, distanceToStartingPoint = track.length, numberSatellites = numberSatellites))
         }
 
         return Pair(track, shouldBeAdded)
@@ -147,8 +157,7 @@ object TrackHelper {
 
 
     /* Calculates time passed since last stop of recording */
-    fun calculateDurationOfPause(recordingStop: Date): Long =
-        GregorianCalendar.getInstance().time.time - recordingStop.time
+    fun calculateDurationOfPause(recordingStop: Date): Long = GregorianCalendar.getInstance().time.time - recordingStop.time
 
 
     /* Creates GPX string for given track */

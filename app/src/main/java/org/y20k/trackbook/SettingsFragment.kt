@@ -105,15 +105,26 @@ class SettingsFragment : PreferenceFragmentCompat(), YesNoDialog.YesNoDialogList
             return@setOnPreferenceClickListener true
         }
 
-        // set up "Accuracy Threshold" preference
-        val preferenceAccuracyThreshold: SeekBarPreference = SeekBarPreference(activity as Context)
-        preferenceAccuracyThreshold.title = getString(R.string.pref_accuracy_threshold_title)
-        preferenceAccuracyThreshold.setIcon(R.drawable.ic_timeline_24dp)
-        preferenceAccuracyThreshold.key = Keys.PREF_LOCATION_ACCURACY_THRESHOLD
-        preferenceAccuracyThreshold.summary = getString(R.string.pref_accuracy_threshold_summary)
-        preferenceAccuracyThreshold.showSeekBarValue = true
-        preferenceAccuracyThreshold.max = 50
-        preferenceAccuracyThreshold.setDefaultValue(Keys.DEFAULT_THRESHOLD_LOCATION_ACCURACY)
+        // set up "Recording Accuracy" preference
+        val preferenceRecordingAccuracy: SwitchPreferenceCompat = SwitchPreferenceCompat(activity as Context)
+        preferenceRecordingAccuracy.title = getString(R.string.pref_recording_accuracy_title)
+        preferenceRecordingAccuracy.setIcon(R.drawable.ic_timeline_24dp)
+        preferenceRecordingAccuracy.key = Keys.PREF_RECORDING_ACCURACY_HIGH
+        preferenceRecordingAccuracy.summaryOn = getString(R.string.pref_recording_accuracy_summary_high)
+        preferenceRecordingAccuracy.summaryOff = getString(R.string.pref_recording_accuracy_summary_default)
+        preferenceRecordingAccuracy.setDefaultValue(false)
+
+        // set up "Altitude Smoothing" preference
+        val preferenceAltitudeSmoothingValue: SeekBarPreference = SeekBarPreference(activity as Context)
+        preferenceAltitudeSmoothingValue.title = getString(R.string.pref_altitude_smoothing_value_title)
+        preferenceAltitudeSmoothingValue.setIcon(R.drawable.ic_bar_chart_24)
+        preferenceAltitudeSmoothingValue.key = Keys.PREF_ALTITUDE_SMOOTHING_VALUE
+        preferenceAltitudeSmoothingValue.summary = getString(R.string.pref_altitude_smoothing_value_summary)
+        preferenceAltitudeSmoothingValue.showSeekBarValue = true
+        preferenceAltitudeSmoothingValue.min = 5
+        preferenceAltitudeSmoothingValue.max = 20
+        preferenceAltitudeSmoothingValue.setDefaultValue(Keys.DEFAULT_ALTITUDE_SMOOTHING_VALUE)
+
 
         // set up "Reset" preference
         val preferenceResetAdvanced: Preference = Preference(activity as Context)
@@ -121,7 +132,9 @@ class SettingsFragment : PreferenceFragmentCompat(), YesNoDialog.YesNoDialogList
         preferenceResetAdvanced.setIcon(R.drawable.ic_undo_24dp)
         preferenceResetAdvanced.summary = getString(R.string.pref_reset_advanced_summary)
         preferenceResetAdvanced.setOnPreferenceClickListener{
-            preferenceAccuracyThreshold.value = Keys.DEFAULT_THRESHOLD_LOCATION_ACCURACY
+            // reset "Recording Accuracy" preference
+            preferenceRecordingAccuracy.isChecked = false
+            preferenceAltitudeSmoothingValue.value = Keys.DEFAULT_ALTITUDE_SMOOTHING_VALUE
             return@setOnPreferenceClickListener true
         }
 
@@ -166,7 +179,8 @@ class SettingsFragment : PreferenceFragmentCompat(), YesNoDialog.YesNoDialogList
 
         val preferenceCategoryAdvanced: PreferenceCategory = PreferenceCategory(activity as Context)
         preferenceCategoryAdvanced.title = getString(R.string.pref_advanced_title)
-        preferenceCategoryAdvanced.contains(preferenceAccuracyThreshold)
+        preferenceCategoryAdvanced.contains(preferenceRecordingAccuracy)
+        preferenceCategoryAdvanced.contains(preferenceAltitudeSmoothingValue)
         preferenceCategoryAdvanced.contains(preferenceResetAdvanced)
 
         val preferenceCategoryAbout: PreferenceCategory = PreferenceCategory(context)
@@ -182,7 +196,8 @@ class SettingsFragment : PreferenceFragmentCompat(), YesNoDialog.YesNoDialogList
         screen.addPreference(preferenceCategoryMaintenance)
         screen.addPreference(preferenceDeleteNonStarred)
         screen.addPreference(preferenceCategoryAdvanced)
-        screen.addPreference(preferenceAccuracyThreshold)
+        screen.addPreference(preferenceRecordingAccuracy)
+        screen.addPreference(preferenceAltitudeSmoothingValue)
         screen.addPreference(preferenceResetAdvanced)
         screen.addPreference(preferenceCategoryAbout)
         screen.addPreference(preferenceAppVersion)

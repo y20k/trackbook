@@ -56,6 +56,8 @@ object Keys {
     const val PREF_TRACKING_STATE: String = "prefTrackingState"
     const val PREF_USE_IMPERIAL_UNITS: String = "prefUseImperialUnits"
     const val PREF_GPS_ONLY: String = "prefGpsOnly"
+    const val PREF_RECORDING_ACCURACY_HIGH: String = "prefRecordingAccuracyHigh"
+    const val PREF_ALTITUDE_SMOOTHING_VALUE: String = "prefAltitudeSmoothingValue"
     const val PREF_LOCATION_ACCURACY_THRESHOLD: String = "prefLocationAccuracyThreshold"
     const val PREF_LOCATION_AGE_THRESHOLD: String = "prefLocationAgeThreshold"
 
@@ -106,6 +108,7 @@ object Keys {
     const val DEFAULT_ACCURACY: Float = 300f                                    // in meters
     const val DEFAULT_ALTITUDE: Double = 0.0
     const val DEFAULT_TIME: Long = 0L
+    const val DEFAULT_ALTITUDE_SMOOTHING_VALUE: Int = 15
     const val DEFAULT_THRESHOLD_LOCATION_ACCURACY: Int = 30                     // 30 meters
     const val DEFAULT_THRESHOLD_LOCATION_AGE: Long = 60000000000L               // one minute in nanoseconds
     const val DEFAULT_THRESHOLD_DISTANCE: Float = 15f                           // 15 meters

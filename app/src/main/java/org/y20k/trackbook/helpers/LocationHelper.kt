@@ -26,6 +26,7 @@ import android.os.SystemClock
 import androidx.core.content.ContextCompat
 import org.y20k.trackbook.Keys
 import org.y20k.trackbook.core.Track
+import org.y20k.trackbook.core.WayPoint
 import java.util.*
 import kotlin.math.pow
 
@@ -177,7 +178,7 @@ object LocationHelper {
 
 
     /* Checks if given location is different enough compared to previous location */
-    fun isDifferentEnough(previousLocation: Location?, location: Location): Boolean {
+    fun isDifferentEnough(previousLocation: Location?, location: Location, accuracyMultiplier: Int): Boolean {
         // check if previous location is (not) available
         if (previousLocation == null) return true
 
@@ -185,16 +186,15 @@ object LocationHelper {
         // that the true position is within a circle of this radius.
         // These formulas determine if the difference between the last point and
         // new point is statistically significant.
-        val accuracy = if (location.accuracy != 0.0f) location.accuracy else Keys.DEFAULT_THRESHOLD_DISTANCE
-        val previousAccuracy = if (previousLocation.accuracy != 0.0f) previousLocation.accuracy else Keys.DEFAULT_THRESHOLD_DISTANCE
-        val accuracyDelta = Math.sqrt((accuracy.pow(2) + previousAccuracy.pow(2)).toDouble())
-
-        val distance = calculateDistance(previousLocation, location)
+        val accuracy: Float = if (location.accuracy != 0.0f) location.accuracy else Keys.DEFAULT_THRESHOLD_DISTANCE
+        val previousAccuracy: Float = if (previousLocation.accuracy != 0.0f) previousLocation.accuracy else Keys.DEFAULT_THRESHOLD_DISTANCE
+        val accuracyDelta: Double = Math.sqrt((accuracy.pow(2) + previousAccuracy.pow(2)).toDouble())
+        val distance: Float = calculateDistance(previousLocation, location)
 
         // With 1*accuracyDelta we have 68% confidence that the points are
         // different. We can multiply this number to increase confidence but
         // decrease point recording frequency if needed.
-        return distance > accuracyDelta
+        return distance > accuracyDelta * accuracyMultiplier
     }
 
 
@@ -211,7 +211,7 @@ object LocationHelper {
 
 
     /* Calculate elevation differences */
-    fun calculateElevationDifferences(previousLocation: Location?, location: Location, track: Track): Pair<Double, Double> {
+    fun calculateElevationDifferencesOld(previousLocation: Location?, location: Location, track: Track): Pair<Double, Double> {
         // store current values
         var positiveElevation: Double = track.positiveElevation
         var negativeElevation: Double = track.negativeElevation
@@ -231,12 +231,58 @@ object LocationHelper {
     }
 
 
+    /* Calculate elevation differences */
+    fun calculateElevationDifferences(previousLocation: Location?, location: Location, track: Track, altitudeSmoothingValue: Int): Pair<Double, Double> {
+        // store current values
+        var positiveElevation: Double = track.positiveElevation
+        var negativeElevation: Double = track.negativeElevation
+        if (previousLocation != null && location.altitude != Keys.DEFAULT_ALTITUDE) {
+            val locationAltitudeCorrected: Double = calculateCorrectedAltitude(location, track, altitudeSmoothingValue)
+            val previousLocationAltitudeCorrected: Double = calculateCorrectedAltitude(previousLocation, track, altitudeSmoothingValue)
+            // get elevation difference and sum it up
+            val altitudeDifference: Double = locationAltitudeCorrected - previousLocationAltitudeCorrected
+            if (altitudeDifference > 0) {
+                positiveElevation = track.positiveElevation + altitudeDifference // upwards movement
+            }
+            if (altitudeDifference < 0) {
+                negativeElevation = track.negativeElevation + altitudeDifference // downwards movement
+            }
+        }
+        return Pair(positiveElevation, negativeElevation)
+    }
+
+
     /* Checks if given location is a stop over */
     fun isStopOver(previousLocation: Location?, location: Location): Boolean {
         if (previousLocation == null) return false
         // check how many milliseconds the given locations are apart
         return location.time - previousLocation.time > Keys.STOP_OVER_THRESHOLD
     }
+
+
+    /* Calculate a moving average taking into account previously recorded altitude values */
+    private fun calculateCorrectedAltitude(location: Location, track: Track, altitudeSmoothingValue: Int): Double {
+        // add location to track
+        track.wayPoints.add(WayPoint(location))
+        // get size of track
+        val trackSize: Int = track.wayPoints.size
+        // skip calculation if less than two waypoints available
+        if (trackSize < 2) return location.altitude
+        // get number of locations to be used in calculating the moving average
+        val numberOfLocationsUsedForSmoothing: Int = if (trackSize < altitudeSmoothingValue) {
+            trackSize
+        } else {
+            altitudeSmoothingValue
+        }
+        // add altitude values in range and calculate average
+        val mostRecentWaypointIndex: Int = trackSize - 1
+        var altitudeSum: Double = 0.0
+        for (i in mostRecentWaypointIndex..(mostRecentWaypointIndex - numberOfLocationsUsedForSmoothing)) {
+            altitudeSum = altitudeSum + track.wayPoints[i].altitude
+        }
+        return altitudeSum / numberOfLocationsUsedForSmoothing
+    }
+
 
 
 }

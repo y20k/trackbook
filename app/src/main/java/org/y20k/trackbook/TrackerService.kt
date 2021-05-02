@@ -60,7 +60,8 @@ class TrackerService: Service(), CoroutineScope, SensorEventListener {
     var networkProviderActive: Boolean = false
     var useImperial: Boolean = false
     var gpsOnly: Boolean = false
-    var locationAccuracyThreshold: Int = Keys.DEFAULT_THRESHOLD_LOCATION_ACCURACY
+    var accuracyMultiplier: Int = 1
+    var altitudeSmoothingValue: Int = Keys.DEFAULT_ALTITUDE_SMOOTHING_VALUE
     var currentBestLocation: Location = LocationHelper.getDefaultLocation()
     var lastSave: Date = Keys.DEFAULT_DATE
     var stepCountOffset: Float = 0f
@@ -89,7 +90,8 @@ class TrackerService: Service(), CoroutineScope, SensorEventListener {
         super.onCreate()
         gpsOnly = PreferencesHelper.loadGpsOnly(this)
         useImperial = PreferencesHelper.loadUseImperialUnits(this)
-        locationAccuracyThreshold = PreferencesHelper.loadAccuracyThreshold(this)
+        accuracyMultiplier = PreferencesHelper.loadAccuracyMultiplier(this)
+        altitudeSmoothingValue = PreferencesHelper.loadAltitudeSmoothingValue(this)
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         sensorManager = this.getSystemService(Context.SENSOR_SERVICE) as SensorManager
         notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -429,9 +431,9 @@ class TrackerService: Service(), CoroutineScope, SensorEventListener {
                 Keys.PREF_USE_IMPERIAL_UNITS -> {
                     useImperial = PreferencesHelper.loadUseImperialUnits(this@TrackerService)
                 }
-                // preference "Accuracy Threshold"
-                Keys.PREF_LOCATION_ACCURACY_THRESHOLD -> {
-                    locationAccuracyThreshold = PreferencesHelper.loadAccuracyThreshold(this@TrackerService)
+                // preference "Recording Accuracy"
+                Keys.PREF_RECORDING_ACCURACY_HIGH -> {
+                    accuracyMultiplier = PreferencesHelper.loadAccuracyMultiplier(this@TrackerService)
                 }
             }
         }
@@ -457,7 +459,7 @@ class TrackerService: Service(), CoroutineScope, SensorEventListener {
     private val periodicTrackUpdate: Runnable = object : Runnable {
         override fun run() {
             // add waypoint to track - step count is continuously updated in onSensorChanged
-            val result: Pair<Track, Boolean> = TrackHelper.addWayPointToTrack(this@TrackerService, track, currentBestLocation, locationAccuracyThreshold, resumed)
+            val result: Pair<Track, Boolean> = TrackHelper.addWayPointToTrack(this@TrackerService, track, currentBestLocation, accuracyMultiplier, altitudeSmoothingValue, resumed)
             // get track from result
             track = result.first
             // check if waypoint was successfully added (= result.second)
