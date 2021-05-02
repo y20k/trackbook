@@ -22,11 +22,11 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
+import android.os.Bundle
 import android.os.SystemClock
 import androidx.core.content.ContextCompat
 import org.y20k.trackbook.Keys
 import org.y20k.trackbook.core.Track
-import org.y20k.trackbook.core.WayPoint
 import java.util.*
 import kotlin.math.pow
 
@@ -232,23 +232,17 @@ object LocationHelper {
 
 
     /* Calculate elevation differences */
-    fun calculateElevationDifferences(previousLocation: Location?, location: Location, track: Track, altitudeSmoothingValue: Int): Pair<Double, Double> {
-        // store current values
-        var positiveElevation: Double = track.positiveElevation
-        var negativeElevation: Double = track.negativeElevation
-        if (previousLocation != null && location.altitude != Keys.DEFAULT_ALTITUDE) {
-            val locationAltitudeCorrected: Double = calculateCorrectedAltitude(location, track, altitudeSmoothingValue)
-            val previousLocationAltitudeCorrected: Double = calculateCorrectedAltitude(previousLocation, track, altitudeSmoothingValue)
-            // get elevation difference and sum it up
-            val altitudeDifference: Double = locationAltitudeCorrected - previousLocationAltitudeCorrected
+    fun calculateElevationDifferences(currentAltitude: Double, previousAltitude: Double, track: Track): Track {
+        if (currentAltitude != Keys.DEFAULT_ALTITUDE || previousAltitude != Keys.DEFAULT_ALTITUDE) {
+            val altitudeDifference: Double = currentAltitude - previousAltitude
             if (altitudeDifference > 0) {
-                positiveElevation = track.positiveElevation + altitudeDifference // upwards movement
+                track.positiveElevation += altitudeDifference // upwards movement
             }
             if (altitudeDifference < 0) {
-                negativeElevation = track.negativeElevation + altitudeDifference // downwards movement
+                track.negativeElevation += altitudeDifference // downwards movement
             }
         }
-        return Pair(positiveElevation, negativeElevation)
+        return track
     }
 
 
@@ -260,29 +254,17 @@ object LocationHelper {
     }
 
 
-    /* Calculate a moving average taking into account previously recorded altitude values */
-    private fun calculateCorrectedAltitude(location: Location, track: Track, altitudeSmoothingValue: Int): Double {
-        // add location to track
-        track.wayPoints.add(WayPoint(location))
-        // get size of track
-        val trackSize: Int = track.wayPoints.size
-        // skip calculation if less than two waypoints available
-        if (trackSize < 2) return location.altitude
-        // get number of locations to be used in calculating the moving average
-        val numberOfLocationsUsedForSmoothing: Int = if (trackSize < altitudeSmoothingValue) {
-            trackSize
+    /* Get number of satellites from Location extras */
+    fun getNumberOfSatellites(location: Location): Int {
+        val numberOfSatellites: Int
+        val extras: Bundle? = location.extras
+        if (extras != null && extras.containsKey("satellites")) {
+            numberOfSatellites = extras.getInt("satellites", 0)
         } else {
-            altitudeSmoothingValue
+            numberOfSatellites = 0
         }
-        // add altitude values in range and calculate average
-        val mostRecentWaypointIndex: Int = trackSize - 1
-        var altitudeSum: Double = 0.0
-        for (i in mostRecentWaypointIndex..(mostRecentWaypointIndex - numberOfLocationsUsedForSmoothing)) {
-            altitudeSum = altitudeSum + track.wayPoints[i].altitude
-        }
-        return altitudeSum / numberOfLocationsUsedForSmoothing
+        return numberOfSatellites
     }
-
 
 
 }

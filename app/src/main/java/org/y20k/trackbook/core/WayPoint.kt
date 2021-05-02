@@ -22,6 +22,7 @@ import android.os.Parcelable
 import androidx.annotation.Keep
 import com.google.gson.annotations.Expose
 import kotlinx.parcelize.Parcelize
+import org.y20k.trackbook.helpers.LocationHelper
 
 
 /*
@@ -44,7 +45,7 @@ data class WayPoint(@Expose val provider: String,
     constructor(location: Location) : this (location.provider, location.latitude, location.longitude, location. altitude, location.accuracy, location.time)
 
     /* Constructor using Location plus distanceToStartingPoint and numberSatellites */
-    constructor(location: Location, distanceToStartingPoint: Float, numberSatellites: Int) : this (location.provider, location.latitude, location.longitude, location. altitude, location.accuracy, location.time, distanceToStartingPoint, numberSatellites)
+    constructor(location: Location, distanceToStartingPoint: Float) : this (location.provider, location.latitude, location.longitude, location. altitude, location.accuracy, location.time, distanceToStartingPoint, LocationHelper.getNumberOfSatellites(location))
 
     /* Converts WayPoint into Location */
     fun toLocation(): Location {

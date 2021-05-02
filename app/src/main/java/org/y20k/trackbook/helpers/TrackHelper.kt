@@ -49,8 +49,8 @@ object TrackHelper {
 
 
     /* Adds given locatiom as waypoint to track */
-    fun addWayPointToTrack(context: Context, track: Track, location: Location, accuracyMultiplier: Int, altitudeSmoothingValue: Int, resumed: Boolean): Pair<Track, Boolean> {
-        // get previous location
+    fun addWayPointToTrack(track: Track, location: Location, accuracyMultiplier: Int, resumed: Boolean): Pair<Boolean, Track> {
+        // Step 1: Get previous location
         val previousLocation: Location?
         var numberOfWayPoints: Int = track.wayPoints.size
 
@@ -69,90 +69,47 @@ object TrackHelper {
             previousLocation = track.wayPoints[numberOfWayPoints - 1].toLocation()
         }
 
-        // update duration
+        // Step 2: Update duration
         val now: Date = GregorianCalendar.getInstance().time
         val difference: Long = now.time - track.recordingStop.time
         track.duration = track.duration + difference
         track.recordingStop = now
 
-        // add only if recent and accurate and different
+        // Step 3: Add waypoint, ifrecent and accurate and different enough
         val shouldBeAdded: Boolean = (LocationHelper.isRecentEnough(location) &&
                                       LocationHelper.isAccurateEnough(location, Keys.DEFAULT_THRESHOLD_LOCATION_ACCURACY) &&
                                       LocationHelper.isDifferentEnough(previousLocation, location, accuracyMultiplier))
-
-//        // Debugging for shouldBeAdded - remove for production
-//        val recentEnough: Boolean = LocationHelper.isRecentEnough(location)
-//        val accurateEnough: Boolean = LocationHelper.isAccurateEnough(location, locationAccuracyThreshold)
-//        val differentEnough: Boolean = LocationHelper.isDifferentEnough(previousLocation, location)
-//        val shouldBeAdded = recentEnough && accurateEnough && differentEnough
-//        if (!recentEnough && accurateEnough && differentEnough) { Toast.makeText(context, "Debug: Not recent enough", Toast.LENGTH_LONG).show() }
-//        else if (!accurateEnough && recentEnough && differentEnough) { Toast.makeText(context, "Debug: Not accurate enough", Toast.LENGTH_LONG).show() }
-//        else if (!differentEnough && recentEnough && accurateEnough) { Toast.makeText(context, "Debug: Not different enough", Toast.LENGTH_LONG).show() }
-//        else if (!recentEnough && !accurateEnough && differentEnough) { Toast.makeText(context, "Debug: Not recent and accurate enough", Toast.LENGTH_LONG).show() }
-//        else if (!recentEnough && !differentEnough && accurateEnough) { Toast.makeText(context, "Debug: Not recent and different enough", Toast.LENGTH_LONG).show() }
-//        else if (!accurateEnough && !differentEnough && recentEnough) { Toast.makeText(context, "Debug: Not accurate and different enough", Toast.LENGTH_LONG).show() }
-//        else { Toast.makeText(context, "Debug: bad location.", Toast.LENGTH_LONG).show() }
-
         if (shouldBeAdded) {
-            // update distance (do not update if resumed -> we do not want to add values calculated during a recording pause)
+            // Step 3.1: Update distance (do not update if resumed -> we do not want to add values calculated during a recording pause)
             if (!resumed) {
                 track.length = track.length + LocationHelper.calculateDistance(previousLocation, location)
             }
-
-            // update altitude values
+            // Step 3.2: Update altitude values
             val altitude: Double = location.altitude
             if (altitude != 0.0) {
-
-                // CASE: First location
                 if (numberOfWayPoints == 0) {
                     track.maxAltitude = altitude
                     track.minAltitude = altitude
                 }
-
-                // CASE: Not first location
                 else {
-
-                    // Step 1: Update altitude values
                     if (altitude > track.maxAltitude) track.maxAltitude = altitude
                     if (altitude < track.minAltitude) track.minAltitude = altitude
-
-                    // Step 2: Calculate and update elevation values (upwards / downwards movements)
-                    val elevationDifferences: Pair<Double, Double> = LocationHelper.calculateElevationDifferences(previousLocation, location, track, altitudeSmoothingValue)
-                    // check if any differences were calculated
-                    if (elevationDifferences != Pair(track.positiveElevation, track.negativeElevation)) {
-                        // update elevation values (do not update if resumed -> we do not want to add values calculated during a recording pause)
-                        if (!resumed) {
-                            track.positiveElevation = elevationDifferences.first
-                            track.negativeElevation = elevationDifferences.second
-                        }
-                    }
-
                 }
             }
-
-            // toggle stop over status, if necessary
+            // Step 3.3: Toggle stop over status, if necessary
             if (track.wayPoints.size < 0) {
                 track.wayPoints[track.wayPoints.size - 1].isStopOver = LocationHelper.isStopOver(previousLocation, location)
             }
 
-            // save number of satellites
-            val numberSatellites: Int
-            val extras = location.extras
-            if (extras != null && extras.containsKey("satellites")) {
-                numberSatellites = extras.getInt("satellites", 0)
-            } else {
-                numberSatellites = 0
-            }
-
-            // add current location as point to center on for later display
+            // Step 3.4: Add current location as point to center on for later display
             track.latitude = location.latitude
             track.longitude = location.longitude
 
-            // add location as new waypoint
-            track.wayPoints.add(WayPoint(location, distanceToStartingPoint = track.length, numberSatellites = numberSatellites))
+            // Step 3.5: Add location as new waypoint
+            track.wayPoints.add(WayPoint(location = location, distanceToStartingPoint = track.length))
         }
 
-        return Pair(track, shouldBeAdded)
+        return Pair(shouldBeAdded, track)
     }
 
 
