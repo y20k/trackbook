@@ -529,11 +529,11 @@ class TrackerService: Service(), CoroutineScope, SensorEventListener {
                 }
 
                 // store previous smoothed altitude
-                val previousAltitude: Double = altitudeValues.average
+                val previousAltitude: Double = altitudeValues.getAverage()
                 // put current altitude into queue
                 altitudeValues.add(currentBestLocation.altitude)
                 // get current smoothed altitude
-                val currentAltitude: Double = altitudeValues.average
+                val currentAltitude: Double = altitudeValues.getAverage()
                 // calculate and store elevation differences
                 track = LocationHelper.calculateElevationDifferences(currentAltitude, previousAltitude, track)
 
@@ -562,16 +562,15 @@ class TrackerService: Service(), CoroutineScope, SensorEventListener {
     /* Credit: CircularQueue https://stackoverflow.com/a/51923797 */
     class SimpleMovingAverageQueue(var capacity: Int) : LinkedList<Double>() {
         private var sum: Double = 0.0
-        var average: Double = sum / capacity
         override fun add(element: Double): Boolean {
             if (this.size >= capacity) {
                 sum -= this.first
                 removeFirst()
-            } else {
-                sum += element
             }
+            sum += element
             return super.add(element)
         }
+        fun getAverage(): Double = sum / capacity
     }
 
 
