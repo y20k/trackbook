@@ -233,7 +233,7 @@ object LocationHelper {
 
     /* Calculate elevation differences */
     fun calculateElevationDifferences(currentAltitude: Double, previousAltitude: Double, track: Track): Track {
-        if (currentAltitude != Keys.DEFAULT_ALTITUDE || previousAltitude != Keys.DEFAULT_ALTITUDE) {
+        if (currentAltitude != Keys.DEFAULT_ALTITUDE && previousAltitude != Keys.DEFAULT_ALTITUDE) {
             val altitudeDifference: Double = currentAltitude - previousAltitude
             if (altitudeDifference > 0) {
                 track.positiveElevation += altitudeDifference // upwards movement

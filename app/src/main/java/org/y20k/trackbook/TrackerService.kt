@@ -532,10 +532,20 @@ class TrackerService: Service(), CoroutineScope, SensorEventListener {
                 val previousAltitude: Double = altitudeValues.getAverage()
                 // put current altitude into queue
                 altitudeValues.add(currentBestLocation.altitude)
+
+                // TODO remove
+                // uncomment to use test altitude values - useful if testing wirth an emulator
+                // altitudeValues.add(getTestAltitude()) // TODO remove
+                // TODO remove
+
                 // get current smoothed altitude
                 val currentAltitude: Double = altitudeValues.getAverage()
                 // calculate and store elevation differences
                 track = LocationHelper.calculateElevationDifferences(currentAltitude, previousAltitude, track)
+
+                // TODO remove
+                LogHelper.e(TAG, "prev = $previousAltitude | curr = $currentAltitude | pos = ${track.positiveElevation} | neg = ${track.negativeElevation}")
+                // TODO remove
 
                 // save a temp track
                 val now: Date = GregorianCalendar.getInstance().time
@@ -570,8 +580,20 @@ class TrackerService: Service(), CoroutineScope, SensorEventListener {
             sum += element
             return super.add(element)
         }
-        fun getAverage(): Double = sum / capacity
+        fun getAverage(): Double = sum / this.size
     }
+
+
+    // TODO remove
+    val testAltitudes: Array<Double> = arrayOf(352.4349365234375, 358.883544921875, 358.6827392578125, 357.31396484375, 354.27459716796875, 354.573486328125, 354.388916015625, 354.6697998046875, 356.534912109375, 355.2772216796875, 356.21246337890625, 352.3499755859375, 350.37646484375, 351.2098388671875, 350.5213623046875, 350.5145263671875, 350.1728515625, 350.9075927734375, 351.5965576171875, 349.55767822265625, 351.548583984375, 357.1195068359375, 362.18634033203125, 366.3153076171875, 366.2218017578125, 362.1046142578125, 357.48291015625, 356.78570556640625, 353.7734375, 352.53936767578125, 351.8125, 353.1099853515625, 354.93035888671875, 355.4337158203125, 354.83270263671875, 352.9859619140625, 352.3006591796875, 351.63470458984375, 350.2501220703125, 351.75726318359375, 350.87664794921875, 350.4185791015625, 350.51568603515625, 349.5537109375, 345.2874755859375, 345.57196044921875, 349.99658203125, 353.3822021484375, 355.19061279296875, 359.1099853515625, 361.74365234375, 363.313232421875, 362.026611328125, 363.20703125, 363.2508544921875, 362.5870361328125, 362.521240234375)
+    var testCounter: Int = 0
+    fun getTestAltitude(): Double {
+        if (testCounter >= testAltitudes.size) testCounter = 0
+        val testAltitude: Double = testAltitudes[testCounter]
+        testCounter ++
+        return testAltitude
+    }
+    // TODO remove
 
 
 }
