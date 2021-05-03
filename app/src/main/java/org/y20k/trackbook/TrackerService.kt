@@ -531,7 +531,8 @@ class TrackerService: Service(), CoroutineScope, SensorEventListener {
                 // store previous smoothed altitude
                 val previousAltitude: Double = altitudeValues.getAverage()
                 // put current altitude into queue
-                altitudeValues.add(currentBestLocation.altitude)
+                val currentBestLocationAltitude: Double = currentBestLocation.altitude
+                if (currentBestLocationAltitude != Keys.DEFAULT_ALTITUDE) altitudeValues.add(currentBestLocationAltitude)
 
                 // TODO remove
                 // uncomment to use test altitude values - useful if testing wirth an emulator
