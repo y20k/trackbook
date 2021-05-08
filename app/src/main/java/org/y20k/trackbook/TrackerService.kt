@@ -264,6 +264,8 @@ class TrackerService: Service(), CoroutineScope, SensorEventListener {
         // save state
         trackingState = Keys.STATE_TRACKING_STOPPED
         PreferencesHelper.saveTrackingState(this, trackingState)
+        // reset altitude values queue
+        altitudeValues.reset()
         // stop recording steps and location fixes
         sensorManager.unregisterListener(this)
         handler.removeCallbacks(periodicTrackUpdate)
@@ -533,20 +535,21 @@ class TrackerService: Service(), CoroutineScope, SensorEventListener {
                 // put current altitude into queue
                 val currentBestLocationAltitude: Double = currentBestLocation.altitude
                 if (currentBestLocationAltitude != Keys.DEFAULT_ALTITUDE) altitudeValues.add(currentBestLocationAltitude)
-
                 // TODO remove
                 // uncomment to use test altitude values - useful if testing wirth an emulator
-                // altitudeValues.add(getTestAltitude()) // TODO remove
+                //altitudeValues.add(getTestAltitude()) // TODO remove
                 // TODO remove
 
-                // get current smoothed altitude
-                val currentAltitude: Double = altitudeValues.getAverage()
-                // calculate and store elevation differences
-                track = LocationHelper.calculateElevationDifferences(currentAltitude, previousAltitude, track)
-
-                // TODO remove
-                LogHelper.e(TAG, "prev = $previousAltitude | curr = $currentAltitude | pos = ${track.positiveElevation} | neg = ${track.negativeElevation}")
-                // TODO remove
+                // only start calculating elevation differences, if enough data has been added to queue
+                if (altitudeValues.prepared) {
+                    // get current smoothed altitude
+                    val currentAltitude: Double = altitudeValues.getAverage()
+                    // calculate and store elevation differences
+                    track = LocationHelper.calculateElevationDifferences(currentAltitude, previousAltitude, track)
+                    // TODO remove
+                    LogHelper.d(TAG, "Elevation Calculation || prev = $previousAltitude | curr = $currentAltitude | pos = ${track.positiveElevation} | neg = ${track.negativeElevation}")
+                    // TODO remove
+                }
 
                 // save a temp track
                 val now: Date = GregorianCalendar.getInstance().time
@@ -572,8 +575,10 @@ class TrackerService: Service(), CoroutineScope, SensorEventListener {
     /* Simple queue that evicts older elements and holds an average */
     /* Credit: CircularQueue https://stackoverflow.com/a/51923797 */
     class SimpleMovingAverageQueue(var capacity: Int) : LinkedList<Double>() {
+        var prepared: Boolean = false
         private var sum: Double = 0.0
         override fun add(element: Double): Boolean {
+            prepared = this.size + 1 >= Keys.MIN_NUMBER_OF_WAYPOINTS_FOR_ELEVATION_CALCULATION
             if (this.size >= capacity) {
                 sum -= this.first
                 removeFirst()
@@ -582,6 +587,11 @@ class TrackerService: Service(), CoroutineScope, SensorEventListener {
             return super.add(element)
         }
         fun getAverage(): Double = sum / this.size
+        fun reset() {
+            this.clear()
+            prepared = false
+            sum = 0.0
+        }
     }
 
 

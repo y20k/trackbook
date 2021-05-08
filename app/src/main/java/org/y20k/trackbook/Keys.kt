@@ -113,6 +113,8 @@ object Keys {
     const val DEFAULT_THRESHOLD_LOCATION_AGE: Long = 60000000000L               // one minute in nanoseconds
     const val DEFAULT_THRESHOLD_DISTANCE: Float = 15f                           // 15 meters
     const val DEFAULT_ZOOM_LEVEL: Double = 16.0
+    const val MIN_NUMBER_OF_WAYPOINTS_FOR_ELEVATION_CALCULATION: Int = 5
+    const val MAX_NUMBER_OF_WAYPOINTS_FOR_ELEVATION_CALCULATION: Int = 20
     const val ALTITUDE_MEASUREMENT_ERROR_THRESHOLD = 10 // altitude changes of 10 meter or more (per 15 seconds) are being discarded
     const val REQUEST_CODE_FOREGROUND = 42
 

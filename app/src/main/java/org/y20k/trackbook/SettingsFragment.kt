@@ -121,8 +121,8 @@ class SettingsFragment : PreferenceFragmentCompat(), YesNoDialog.YesNoDialogList
         preferenceAltitudeSmoothingValue.key = Keys.PREF_ALTITUDE_SMOOTHING_VALUE
         preferenceAltitudeSmoothingValue.summary = getString(R.string.pref_altitude_smoothing_value_summary)
         preferenceAltitudeSmoothingValue.showSeekBarValue = true
-        preferenceAltitudeSmoothingValue.min = 5
-        preferenceAltitudeSmoothingValue.max = 20
+        preferenceAltitudeSmoothingValue.min = Keys.MIN_NUMBER_OF_WAYPOINTS_FOR_ELEVATION_CALCULATION
+        preferenceAltitudeSmoothingValue.max = Keys.MAX_NUMBER_OF_WAYPOINTS_FOR_ELEVATION_CALCULATION
         preferenceAltitudeSmoothingValue.setDefaultValue(Keys.DEFAULT_ALTITUDE_SMOOTHING_VALUE)
 
 
