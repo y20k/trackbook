@@ -110,4 +110,7 @@
     <string name="toast_message_copied_to_clipboard">Gekopieerd naar klembord.</string>
     <string name="toast_message_poi_removed">POI-indicatie verwijderd.</string>
     <string name="toast_message_poi_added">POI-indicatie toegevoegd.</string>
+    <string name="pref_recording_accuracy_title">Vastlegnauwkeurigheid</string>
+    <string name="pref_recording_accuracy_summary_default">Wegpunten hebben een lagere nauwkeurigheid, maar zijn vaker aanwezig.</string>
+    <string name="pref_recording_accuracy_summary_high">Wegpunten hebben een hogere nauwkeurigheid, maar zijn minder vaak aanwezig.</string>
 </resources>
