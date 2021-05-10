@@ -98,8 +98,6 @@
     <string name="toast_message_poi_removed">Oznaka točke interesa uklonjena.</string>
     <string name="toast_message_poi_added">Oznaka točke interesa dodana.</string>
     <string name="pref_recording_accuracy_summary_high">Visoka točnost. Snima se manje točaka rute.</string>
-    <string name="pref_altitude_smoothing_value_title">Zaglađivanje visina</string>
-    <string name="pref_altitude_smoothing_value_summary">Broj točaka rute koje se koriste za zaglađivanje krivulje visinske razlike.</string>
     <string name="pref_recording_accuracy_title">Točnost snimanja</string>
     <string name="pref_recording_accuracy_summary_default">Standardna točnost.</string>
 </resources>
