@@ -1,2 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="pref_general_title">Общие</string>
+    <string name="pref_advanced_title">Расширенный</string>
+    <string name="pref_app_version_title">Версия приложения</string>
+    <string name="pref_app_version_summary">Версия</string>
+    <string name="pref_about_title">О приложении</string>
+    <string name="track_list_onboarding_h1_part_1">Ваши записанные треки</string>
+    <string name="quick_settings_tile_title_default">Запись</string>
+    <string name="statistics_sheet_p_velocity">Средняя скорость:</string>
+    <string name="statistics_sheet_p_recording_stop">Запись остановлена:</string>
+    <string name="statistics_sheet_p_recording_start">Запись началась:</string>
+    <string name="statistics_sheet_p_recording_paused">Запись приостановлена:</string>
+    <string name="statistics_sheet_p_duration">Общая продолжительность:</string>
+    <string name="statistics_sheet_p_waypoints">Записанные путевые точки:</string>
+    <string name="statistics_sheet_p_steps_no_pedometer">шагомер недоступен</string>
+    <string name="statistics_sheet_p_distance">Общее расстояние:</string>
+    <string name="marker_description_accuracy">Точность</string>
+    <string name="marker_description_time">Время</string>
+    <string name="toast_message_save_gpx">Сохранение записи как GPX.</string>
+    <string name="toast_message_install_file_helper">Не удалось сохранить. Пожалуйста, сначала установите файловый менеджер.</string>
+    <string name="toast_message_elevation_info">Подсказка: Точность данных о высоте зависит от вашего устройства. Измеряется подъем и спуск на всем маршруте.</string>
+    <string name="toast_message_copied_to_clipboard">Скопировано в буфер обмена.</string>
+    <string name="dialog_yes_no_message_delete_recording">Удалить эту запись\?</string>
+    <string name="dialog_yes_no_positive_button_delete_non_starred">Удалить</string>
+    <string name="dialog_yes_no_positive_button_delete_recording">Удалить</string>
+    <string name="dialog_yes_no_positive_button_default">Да</string>
+    <string name="dialog_share_gpx">Поделиться файлом GPX через</string>
+    <string name="dialog_rename_track_input_hint">Введите новое имя</string>
+    <string name="dialog_rename_track_button">Переименовать</string>
+    <string name="dialog_error_empty_recording_action_resume">Возобновить запись</string>
+    <string name="dialog_error_empty_recording_message">В Trackbook пока что не записаны путевые точки.</string>
+    <string name="dialog_error_empty_recording_title">Не удалось сохранить</string>
+    <string name="dialog_generic_details_button">Показать подробности</string>
+    <string name="dialog_generic_button_okay">ОЕ</string>
+    <string name="dialog_generic_button_cancel">Отмена</string>
+    <string name="fab_sub_menu_resume">Продолжить</string>
+    <string name="fab_sub_menu_save">Сохранить</string>
+    <string name="fab_sub_menu_clear">Очистить</string>
+    <string name="snackbar_message_location_permission_denied">Разрешение на определение местоположения не предоставлено. Trackbook работать не будет.</string>
+    <string name="snackbar_message_location_offline">Местоположение отключено. Trackbook работать не будет.</string>
+    <string name="notification_channel_recording_description">Отображение продолжительности и расстояния. Возможность остановить запись движения.</string>
+    <string name="notification_channel_recording_name">Состояние записи движения</string>
+    <string name="notification_show">Показать</string>
+    <string name="notification_resume">Продолжить</string>
+    <string name="notification_stop">Остановить</string>
+    <string name="notification_title_trackbook_not_running">Trackbook не запущен</string>
+    <string name="notification_title_trackbook_running">Trackbook запущен</string>
+    <string name="tab_settings">Настройки</string>
+    <string name="tab_tracks">Треки</string>
+    <string name="tab_map">Карта</string>
+    <string name="app_name">Trackbook</string>
+</resources>
