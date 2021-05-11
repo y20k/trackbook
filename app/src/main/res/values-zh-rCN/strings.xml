@@ -88,6 +88,9 @@
     <string name="pref_imperial_measurement_units_summary_metric">当前正使用公制单位（千米，米）。</string>
     <string name="pref_imperial_measurement_units_summary_imperial">当前正使用英制单位（英里，英尺）。</string>
     <string name="pref_imperial_measurement_units_title">使用英制测量</string>
+    <string name="pref_recording_accuracy_summary_high">航点误差较小但记录频率较低。</string>
+    <string name="pref_recording_accuracy_summary_default">航点误差较大但记录频率较高。</string>
+    <string name="pref_recording_accuracy_title">记录误差</string>
     <string name="pref_report_issue_summary">在 Github 上报告漏洞并提出改进建议。</string>
     <string name="pref_report_issue_title">报告问题</string>
     <string name="pref_reset_advanced_summary">重置高级设置为默认值。</string>
