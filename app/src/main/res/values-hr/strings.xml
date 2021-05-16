@@ -97,7 +97,7 @@
     <string name="toast_message_copied_to_clipboard">Kopirano u međuspremnik.</string>
     <string name="toast_message_poi_removed">Oznaka točke interesa uklonjena.</string>
     <string name="toast_message_poi_added">Oznaka točke interesa dodana.</string>
-    <string name="pref_recording_accuracy_summary_high">Visoka točnost. Snima se manje točaka rute.</string>
+    <string name="pref_recording_accuracy_summary_high">Točke rute imaju veću točnost ali su rjeđe.</string>
     <string name="pref_recording_accuracy_title">Točnost snimanja</string>
-    <string name="pref_recording_accuracy_summary_default">Standardna točnost.</string>
+    <string name="pref_recording_accuracy_summary_default">Točke rute imaju manju točnost ali su češće.</string>
 </resources>
