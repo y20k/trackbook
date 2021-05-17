@@ -92,9 +92,7 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener, MapOverlayHelpe
             trackerService.clearTrack()
         }
         layout.resumeButton.setOnClickListener {
-            // start service via intent so that it keeps running after unbind
-            startTrackerService()
-            trackerService.resumeTracking()
+            resumeTracking()
         }
 
         return layout.rootView
@@ -106,7 +104,7 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener, MapOverlayHelpe
         super.onStart()
         // request location permission if denied
         if (ContextCompat.checkSelfPermission(activity as Context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED) {
-            this.requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), Keys.REQUEST_CODE_FOREGROUND)
+            this.requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), Keys.REQUEST_CODE_LOCATION)
         }
         // bind to TrackerService
         activity?.bindService(Intent(activity, TrackerService::class.java), connection, Context.BIND_AUTO_CREATE)
@@ -147,17 +145,41 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener, MapOverlayHelpe
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
-            Keys.REQUEST_CODE_FOREGROUND -> {
+            Keys.REQUEST_CODE_LOCATION -> {
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                     // permission was granted - re-bind service
                     activity?.unbindService(connection)
-                    activity?.bindService(Intent(activity, TrackerService::class.java), connection, Context.BIND_AUTO_CREATE)
+                    activity?.bindService(Intent(activity, TrackerService::class.java),  connection,  Context.BIND_AUTO_CREATE)
                     LogHelper.i(TAG, "Request result: Location permission has been granted.")
                 } else {
                     // permission denied - unbind service
                     activity?.unbindService(connection)
                 }
                 layout.toggleLocationErrorBar(gpsProviderActive, networkProviderActive)
+                return
+            }
+            Keys.REQUEST_CODE_ACTIVITY_START -> {
+                LogHelper.e(TAG, "permissions => ${grantResults.isEmpty()} ${permissions[0]}") // todo remove
+                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    LogHelper.i(TAG, "Request result: Activity Recognition permission has been granted.")
+                } else {
+                    LogHelper.i(TAG, "Request result: Activity Recognition permission has NOT been granted.")
+                }
+                // start service via intent so that it keeps running after unbind
+                startTrackerService()
+                trackerService.startTracking()
+                return
+            }
+            Keys.REQUEST_CODE_ACTIVITY_RESUME -> {
+                LogHelper.e(TAG, "permissions => ${grantResults.isEmpty()} ${permissions[0]}") // todo remove
+                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    LogHelper.i(TAG, "Request result: Activity Recognition permission has been granted.")
+                } else {
+                    LogHelper.i(TAG, "Request result: Activity Recognition permission has NOT been granted.")
+                }
+                // start service via intent so that it keeps running after unbind
+                startTrackerService()
+                trackerService.resumeTracking()
                 return
             }
         }
@@ -191,6 +213,34 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener, MapOverlayHelpe
     }
 
 
+    /* Start recording waypoints */
+    private fun startTracking() {
+        // request activity recognition permission on Android Q+ if denied
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && ContextCompat.checkSelfPermission(activity as Context, Manifest.permission.ACTIVITY_RECOGNITION) == PackageManager.PERMISSION_DENIED) {
+            LogHelper.e(TAG, "permissions resume DING") // todo remove
+            this.requestPermissions(arrayOf(Manifest.permission.ACTIVITY_RECOGNITION), Keys.REQUEST_CODE_ACTIVITY_START)
+        } else {
+            // start service via intent so that it keeps running after unbind
+            startTrackerService()
+            trackerService.startTracking()
+        }
+    }
+
+
+    /* Resume recording waypoints */
+    private fun resumeTracking() {
+        // request activity recognition permission on Android Q+ if denied
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && ContextCompat.checkSelfPermission(activity as Context, Manifest.permission.ACTIVITY_RECOGNITION) == PackageManager.PERMISSION_DENIED) {
+            LogHelper.e(TAG, "permissions resume DING") // todo remove
+            this.requestPermissions(arrayOf(Manifest.permission.ACTIVITY_RECOGNITION), Keys.REQUEST_CODE_ACTIVITY_RESUME)
+        } else {
+            // start service via intent so that it keeps running after unbind
+            startTrackerService()
+            trackerService.resumeTracking()
+        }
+    }
+
+
     /* Start tracker service */
     private fun startTrackerService() {
         val intent = Intent(activity, TrackerService::class.java)
@@ -219,11 +269,7 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener, MapOverlayHelpe
         when (trackingState) {
             Keys.STATE_TRACKING_STOPPED -> layout.toggleRecordingButtonSubMenu()
             Keys.STATE_TRACKING_ACTIVE -> trackerService.stopTracking()
-            Keys.STATE_TRACKING_NOT -> {
-                // start service via intent so that it keeps running after unbind
-                startTrackerService()
-                trackerService.startTracking()
-            }
+            Keys.STATE_TRACKING_NOT -> startTracking()
         }
     }
 

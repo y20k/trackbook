@@ -449,11 +449,7 @@ class TrackerService: Service(), CoroutineScope, SensorEventListener {
 
     /* Registers a step counter listener */
     private fun startStepCounter() {
-        val stepCounterAvailable = sensorManager.registerListener(
-            this, sensorManager.getDefaultSensor(
-                Sensor.TYPE_STEP_COUNTER
-            ), SensorManager.SENSOR_DELAY_UI
-        )
+        val stepCounterAvailable = sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER), SensorManager.SENSOR_DELAY_UI)
         if (!stepCounterAvailable) {
             LogHelper.w(TAG, "Pedometer sensor not available.")
             track.stepCount = -1f

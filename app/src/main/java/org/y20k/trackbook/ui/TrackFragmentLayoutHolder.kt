@@ -77,6 +77,7 @@ data class TrackFragmentLayoutHolder(private var context: Context, private var m
     private val statisticsSheet: NestedScrollView
     private val statisticsView: View
     private val distanceView: MaterialTextView
+    private val stepsTitleView: MaterialTextView
     private val stepsView: MaterialTextView
     private val waypointsView: MaterialTextView
     private val durationView: MaterialTextView
@@ -118,6 +119,7 @@ data class TrackFragmentLayoutHolder(private var context: Context, private var m
         statisticsSheet = rootView.findViewById(R.id.statistics_sheet)
         statisticsView = rootView.findViewById(R.id.statistics_view)
         distanceView = rootView.findViewById(R.id.statistics_data_distance)
+        stepsTitleView = rootView.findViewById(R.id.statistics_p_steps)
         stepsView = rootView.findViewById(R.id.statistics_data_steps)
         waypointsView = rootView.findViewById(R.id.statistics_data_waypoints)
         durationView = rootView.findViewById(R.id.statistics_data_duration)
@@ -202,10 +204,18 @@ data class TrackFragmentLayoutHolder(private var context: Context, private var m
     /* Sets up the statistics sheet */
     private fun setupStatisticsViews() {
 
-        // get step count string
+        // get step count string - hide step count if not available
         val steps: String
-        if (track.stepCount == -1f) steps = context.getString(R.string.statistics_sheet_p_steps_no_pedometer)
-        else steps = track.stepCount.roundToInt().toString()
+        if (track.stepCount == -1f) {
+            steps = context.getString(R.string.statistics_sheet_p_steps_no_pedometer)
+            stepsTitleView.isGone = true
+            stepsView.isGone = true
+        }
+        else {
+            steps = track.stepCount.roundToInt().toString()
+            stepsTitleView.isVisible = true
+            stepsView.isVisible = true
+        }
 
         // populate views
         trackNameView.text = track.name
