@@ -111,6 +111,6 @@
     <string name="toast_message_poi_removed">Marqueur de point d\'intérêt supprimé.</string>
     <string name="toast_message_poi_added">Marqueur de point d\'intérêt ajouté.</string>
     <string name="pref_recording_accuracy_title">Précision de l\'enregistrement</string>
-    <string name="pref_recording_accuracy_summary_default">Précision par défaut.</string>
-    <string name="pref_recording_accuracy_summary_high">Haute précision. Moins de points de cheminement sont enregistrés.</string>
+    <string name="pref_recording_accuracy_summary_default">Les points de cheminements ont une précision plus faible mais sont plus fréquents.</string>
+    <string name="pref_recording_accuracy_summary_high">Les points de cheminement ont une plus grande précision mais sont moins fréquents.</string>
 </resources>
