@@ -20,9 +20,14 @@ package org.y20k.trackbook.helpers
 import android.content.Context
 import android.location.Location
 import android.widget.Toast
+import androidx.core.net.toUri
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.launch
 import org.y20k.trackbook.Keys
 import org.y20k.trackbook.R
 import org.y20k.trackbook.core.Track
+import org.y20k.trackbook.core.Tracklist
 import org.y20k.trackbook.core.TracklistElement
 import org.y20k.trackbook.core.WayPoint
 import java.text.SimpleDateFormat
@@ -246,6 +251,29 @@ object TrackHelper {
             }
         }
         return track
+    }
+
+
+    /* Calculates total distance, duration and pause */
+    fun calculateAndSaveTrackTotals(context: Context, tracklist: Tracklist) {
+        CoroutineScope(IO).launch {
+            var totalDistanceAll: Float = 0f
+            var totalDurationAll: Long = 0L
+            var totalRecordingPausedAll: Long = 0L
+            var totalStepCountAll: Float = 0f
+            tracklist.tracklistElements.forEach { tracklistElement ->
+                val track: Track = FileHelper.readTrack(context, tracklistElement.trackUriString.toUri())
+                totalDistanceAll += track.length
+                totalDurationAll += track.duration
+                totalRecordingPausedAll += track.recordingPaused
+                totalStepCountAll += track.stepCount
+            }
+            tracklist.totalDistanceAll = totalDistanceAll
+            tracklist.totalDurationAll = totalDurationAll
+            tracklist.totalRecordingPausedAll = totalRecordingPausedAll
+            tracklist.totalStepCountAll = totalStepCountAll
+            FileHelper.saveTracklistSuspended(context, tracklist, GregorianCalendar.getInstance().time)
+        }
     }
 
 }

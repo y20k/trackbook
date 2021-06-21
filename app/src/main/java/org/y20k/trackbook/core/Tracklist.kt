@@ -33,7 +33,11 @@ import java.util.*
 @Parcelize
 data class Tracklist (@Expose val tracklistFormatVersion: Int = Keys.CURRENT_TRACKLIST_FORMAT_VERSION,
                       @Expose val tracklistElements: MutableList<TracklistElement> = mutableListOf<TracklistElement>(),
-                      @Expose var modificationDate: Date = Date()): Parcelable {
+                      @Expose var modificationDate: Date = Date(),
+                      @Expose var totalDistanceAll: Float = 0f,
+                      @Expose var totalDurationAll: Long = 0L,
+                      @Expose var totalRecordingPausedAll: Long = 0L,
+                      @Expose var totalStepCountAll: Float = 0f): Parcelable {
 
     /* Return trackelement for given track id */
     fun getTrackElement(trackId: Long): TracklistElement? {

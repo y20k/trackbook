@@ -181,6 +181,10 @@ object FileHelper {
         return suspendCoroutine { cont ->
             val tracklist: Tracklist = readTracklist(context)
             tracklist.tracklistElements.add(track.toTracklistElement(context))
+            tracklist.totalDistanceAll += track.length
+            tracklist.totalDurationAll += track.duration
+            tracklist.totalRecordingPausedAll += track.recordingPaused
+            tracklist.totalStepCountAll += track.stepCount
             cont.resume(saveTracklist(context, tracklist, modificationDate))
         }
     }

@@ -25,6 +25,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -66,6 +67,10 @@ class TracklistAdapter(private val fragment: Fragment) : RecyclerView.Adapter<Re
         // load tracklist
         tracklist = FileHelper.readTracklist(context)
         tracklist.tracklistElements.sortByDescending { tracklistElement -> tracklistElement.date  }
+        // calculate total duration and distance, if necessary
+        if (tracklist.tracklistElements.isNotEmpty() && tracklist.totalDurationAll == 0L) {
+            TrackHelper.calculateAndSaveTrackTotals(context, tracklist)
+        }
     }
 
 
@@ -88,8 +93,8 @@ class TracklistAdapter(private val fragment: Fragment) : RecyclerView.Adapter<Re
         trackElementViewHolder.trackNameView.text = tracklist.tracklistElements[position].name
         trackElementViewHolder.trackDataView.text = createTrackDataString(position)
         when (tracklist.tracklistElements[position].starred) {
-            true -> trackElementViewHolder.starButton.setImageDrawable(context.getDrawable(R.drawable.ic_star_filled_24dp))
-            false -> trackElementViewHolder.starButton.setImageDrawable(context.getDrawable(R.drawable.ic_star_outline_24dp))
+            true -> trackElementViewHolder.starButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star_filled_24dp))
+            false -> trackElementViewHolder.starButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star_outline_24dp))
         }
         trackElementViewHolder.trackElement.setOnClickListener {
             tracklistListener.onTrackElementTapped(tracklist.tracklistElements[position])
@@ -134,11 +139,11 @@ class TracklistAdapter(private val fragment: Fragment) : RecyclerView.Adapter<Re
         val starButton: ImageButton = view as ImageButton
         when (tracklist.tracklistElements[position].starred) {
             true -> {
-                starButton.setImageDrawable(context.getDrawable(R.drawable.ic_star_outline_24dp))
+                starButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star_outline_24dp))
                 tracklist.tracklistElements[position].starred = false
             }
             false -> {
-                starButton.setImageDrawable(context.getDrawable(R.drawable.ic_star_filled_24dp))
+                starButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star_filled_24dp))
                 tracklist.tracklistElements[position].starred = true
             }
         }
