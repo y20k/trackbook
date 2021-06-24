@@ -30,6 +30,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
 import org.y20k.trackbook.R
 import org.y20k.trackbook.core.Tracklist
 import org.y20k.trackbook.core.TracklistElement
@@ -113,14 +115,12 @@ class TracklistAdapter(private val fragment: Fragment) : RecyclerView.Adapter<Re
 
     /* Removes track and track files for given position - used by TracklistFragment */
     fun removeTrack(context: Context, position: Int) {
-        val backgroundJob = Job()
-        val uiScope = CoroutineScope(Dispatchers.Main + backgroundJob)
-        uiScope.launch {
+        CoroutineScope(IO).launch {
             val deferred: Deferred<Tracklist> = async { FileHelper.deleteTrackSuspended(context, position, tracklist) }
             // wait for result and store in tracklist
-            tracklist = deferred.await()
-            notifyItemRemoved(position)
-            backgroundJob.cancel()
+            withContext(Main) {
+                tracklist = deferred.await()
+                notifyItemRemoved(position) }
         }
     }
 
@@ -147,7 +147,7 @@ class TracklistAdapter(private val fragment: Fragment) : RecyclerView.Adapter<Re
                 tracklist.tracklistElements[position].starred = true
             }
         }
-        GlobalScope.launch {
+        CoroutineScope(Dispatchers.IO).launch {
             FileHelper.saveTracklistSuspended(context, tracklist, GregorianCalendar.getInstance().time)
         }
     }

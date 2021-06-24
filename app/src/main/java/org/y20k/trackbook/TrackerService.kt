@@ -39,16 +39,16 @@ import android.os.IBinder
 import androidx.core.content.ContextCompat
 import androidx.preference.PreferenceManager
 import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers.IO
 import org.y20k.trackbook.core.Track
 import org.y20k.trackbook.helpers.*
 import java.util.*
-import kotlin.coroutines.CoroutineContext
 
 
 /*
  * TrackerService class
  */
-class TrackerService: Service(), CoroutineScope, SensorEventListener {
+class TrackerService: Service(), SensorEventListener {
 
     /* Define log tag */
     private val TAG: String = LogHelper.makeLogTag(TrackerService::class.java)
@@ -78,11 +78,6 @@ class TrackerService: Service(), CoroutineScope, SensorEventListener {
     private lateinit var notificationHelper: NotificationHelper
     private lateinit var gpsLocationListener: LocationListener
     private lateinit var networkLocationListener: LocationListener
-    private lateinit var backgroundJob: Job
-
-
-    /* Overrides coroutineContext variable */
-    override val coroutineContext: CoroutineContext get() = backgroundJob + Dispatchers.Main
 
 
     /* Overrides onCreate from Service */
@@ -103,7 +98,6 @@ class TrackerService: Service(), CoroutineScope, SensorEventListener {
         trackingState = PreferencesHelper.loadTrackingState(this)
         currentBestLocation = LocationHelper.getLastKnownLocation(this)
         track = FileHelper.readTrack(this, FileHelper.getTempFileUri(this))
-        backgroundJob = Job()
         altitudeValues.capacity = PreferencesHelper.loadAltitudeSmoothingValue(this)
         PreferenceManager.getDefaultSharedPreferences(this).registerOnSharedPreferenceChangeListener(
             sharedPreferenceChangeListener
@@ -187,8 +181,6 @@ class TrackerService: Service(), CoroutineScope, SensorEventListener {
         // stop receiving location updates
         removeGpsLocationListener()
         removeNetworkLocationListener()
-        // cancel background job
-        backgroundJob.cancel()
     }
 
 
@@ -260,7 +252,7 @@ class TrackerService: Service(), CoroutineScope, SensorEventListener {
     fun stopTracking() {
         // save temp track
         track.recordingStop = GregorianCalendar.getInstance().time
-        GlobalScope.launch { FileHelper.saveTempTrackSuspended(this@TrackerService, track) }
+        CoroutineScope(IO).launch { FileHelper.saveTempTrackSuspended(this@TrackerService, track) }
         // save state
         trackingState = Keys.STATE_TRACKING_STOPPED
         PreferencesHelper.saveTrackingState(this, trackingState)
@@ -551,10 +543,7 @@ class TrackerService: Service(), CoroutineScope, SensorEventListener {
                 val now: Date = GregorianCalendar.getInstance().time
                 if (now.time - lastSave.time > Keys.SAVE_TEMP_TRACK_INTERVAL) {
                     lastSave = now
-                    GlobalScope.launch { FileHelper.saveTempTrackSuspended(
-                        this@TrackerService,
-                        track
-                    ) }
+                    CoroutineScope(IO).launch { FileHelper.saveTempTrackSuspended(this@TrackerService, track) }
                 }
             }
             // update notification

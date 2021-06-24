@@ -33,8 +33,11 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.y20k.trackbook.core.Track
 import org.y20k.trackbook.core.TracklistElement
 import org.y20k.trackbook.helpers.*
@@ -279,7 +282,7 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener, MapOverlayHelpe
         if (track.wayPoints.isEmpty()) {
             YesNoDialog(this as YesNoDialog.YesNoDialogListener).show(activity as Context, type = Keys.DIALOG_EMPTY_RECORDING, title = R.string.dialog_error_empty_recording_title, message = R.string.dialog_error_empty_recording_message, yesButton = R.string.dialog_error_empty_recording_action_resume)
         } else {
-            GlobalScope.launch {
+            CoroutineScope(IO).launch {
                 // step 1: create and store filenames for json and gpx files
                 track.trackUriString = FileHelper.getTrackFileUri(activity as Context, track).toString()
                 track.gpxUriString = FileHelper.getGpxFileUri(activity as Context, track).toString()
@@ -290,7 +293,9 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener, MapOverlayHelpe
                 // step 3: clear track
                 trackerService.clearTrack()
                 // step 4: open track in TrackFragement
-                openTrack(track.toTracklistElement(activity as Context))
+                withContext(Main) {
+                    openTrack(track.toTracklistElement(activity as Context))
+                }
             }
         }
     }

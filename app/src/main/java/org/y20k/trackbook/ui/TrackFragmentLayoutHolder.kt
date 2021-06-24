@@ -30,7 +30,8 @@ import androidx.core.view.isVisible
 import androidx.core.widget.NestedScrollView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.textview.MaterialTextView
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.osmdroid.api.IGeoPoint
 import org.osmdroid.api.IMapController
@@ -196,7 +197,7 @@ data class TrackFragmentLayoutHolder(private var context: Context, private var m
     /* Saves zoom level and center of this map */
     fun saveViewStateToTrack() {
         if (track.latitude != 0.0 && track.longitude != 0.0) {
-            GlobalScope.launch { FileHelper.saveTrackSuspended(track, false) }
+            CoroutineScope(Dispatchers.IO).launch { FileHelper.saveTrackSuspended(track, false) }
         }
     }
 

@@ -29,6 +29,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.preference.*
 import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers.IO
 import org.y20k.trackbook.core.Tracklist
 import org.y20k.trackbook.helpers.*
 
@@ -226,14 +227,11 @@ class SettingsFragment : PreferenceFragmentCompat(), YesNoDialog.YesNoDialogList
 
     /* Removes track and track files for given position - used by TracklistFragment */
     fun deleteNonStarred(context: Context) {
-        val backgroundJob = Job()
-        val uiScope = CoroutineScope(Dispatchers.Main + backgroundJob)
-        uiScope.launch {
+        CoroutineScope(IO).launch  {
             var tracklist: Tracklist = FileHelper.readTracklist(context)
             val deferred: Deferred<Tracklist> = async { FileHelper.deleteNonStarredSuspended(context, tracklist) }
             // wait for result and store in tracklist
             tracklist = deferred.await()
-            backgroundJob.cancel()
         }
     }
 

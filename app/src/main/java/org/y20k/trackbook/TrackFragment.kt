@@ -34,7 +34,8 @@ import androidx.core.net.toFile
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.y20k.trackbook.core.Track
 import org.y20k.trackbook.dialogs.RenameTrackDialog
@@ -122,7 +123,7 @@ class TrackFragment : Fragment(), RenameTrackDialog.RenameTrackListener, YesNoDi
                     val targetUri: Uri? = data.data
                     if (targetUri != null) {
                         // copy file async (= fire & forget - no return value needed)
-                        GlobalScope.launch { FileHelper.saveCopyOfFileSuspended( activity as  Context, originalFileUri = sourceUri, targetFileUri = targetUri) }
+                        CoroutineScope(Dispatchers.IO).launch { FileHelper.saveCopyOfFileSuspended( activity as  Context, originalFileUri = sourceUri, targetFileUri = targetUri) }
                         Toast.makeText(activity as Context, R.string.toast_message_save_gpx, Toast.LENGTH_LONG).show()
                     }
                 }
@@ -136,7 +137,7 @@ class TrackFragment : Fragment(), RenameTrackDialog.RenameTrackListener, YesNoDi
     /* Overrides onRenameTrackDialog from RenameTrackDialog */
     override fun onRenameTrackDialog(textInput: String) {
         // rename track async (= fire & forget - no return value needed)
-        GlobalScope.launch { FileHelper.renameTrackSuspended(activity as Context, layout.track, textInput) }
+        CoroutineScope(Dispatchers.IO).launch  { FileHelper.renameTrackSuspended(activity as Context, layout.track, textInput) }
         // update name in layout
         layout.track.name = textInput
         layout.trackNameView.text = textInput
@@ -168,9 +169,7 @@ class TrackFragment : Fragment(), RenameTrackDialog.RenameTrackListener, YesNoDi
         track = TrackHelper.toggleStarred(activity as Context, track, latitude, longitude)
         layout.updateTrackOverlay(track)
         // save track
-        GlobalScope.launch {
-            FileHelper.saveTrackSuspended(track, true)
-        }
+        CoroutineScope(Dispatchers.IO).launch { FileHelper.saveTrackSuspended(track, true) }
     }
 
 
