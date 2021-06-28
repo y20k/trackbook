@@ -31,6 +31,9 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.launch
 import org.y20k.trackbook.core.TracklistElement
 import org.y20k.trackbook.helpers.LogHelper
 import org.y20k.trackbook.helpers.TrackHelper
@@ -116,7 +119,7 @@ class TracklistFragment : Fragment(), TracklistAdapter.TracklistAdapterListener,
                     // user tapped remove track
                     true -> {
                         toggleOnboardingLayout(tracklistAdapter.itemCount -1)
-                        tracklistAdapter.removeTrack(activity as Context, payload)
+                        tracklistAdapter.removeTrackAtPosition(activity as Context, payload)
                     }
                     // user tapped cancel
                     false -> {
@@ -161,9 +164,10 @@ class TracklistFragment : Fragment(), TracklistAdapter.TracklistAdapterListener,
             val deleteTrackId: Long = arguments?.getLong(Keys.ARG_TRACK_ID, -1L) ?: -1L
             arguments?.putLong(Keys.ARG_TRACK_ID, -1L)
             if (deleteTrackId != -1L) {
-                val position: Int = tracklistAdapter.findPosition(deleteTrackId)
-                tracklistAdapter.removeTrack(this@TracklistFragment.activity as Context, position)
-                toggleOnboardingLayout(tracklistAdapter.itemCount -1)
+                CoroutineScope(Main). launch {
+                    tracklistAdapter.removeTrackById(this@TracklistFragment.activity as Context, deleteTrackId)
+                    toggleOnboardingLayout(tracklistAdapter.itemCount - 1)
+                }
             }
         }
 

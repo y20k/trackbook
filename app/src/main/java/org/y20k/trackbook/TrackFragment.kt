@@ -152,8 +152,7 @@ class TrackFragment : Fragment(), RenameTrackDialog.RenameTrackListener, YesNoDi
                     // user tapped remove track
                     true -> {
                         // switch to TracklistFragment and remove track there
-                        val trackId: Long = arguments?.getLong(Keys.ARG_TRACK_ID, -1L) ?: -1L
-                        val bundle: Bundle = bundleOf(Keys.ARG_TRACK_ID to trackId)
+                        val bundle: Bundle = bundleOf(Keys.ARG_TRACK_ID to track.getTrackId())
                         findNavController().navigate(R.id.tracklist_fragment, bundle)
                     }
                 }

@@ -114,7 +114,7 @@ class TracklistAdapter(private val fragment: Fragment) : RecyclerView.Adapter<Re
 
 
     /* Removes track and track files for given position - used by TracklistFragment */
-    fun removeTrack(context: Context, position: Int) {
+    fun removeTrackAtPosition(context: Context, position: Int) {
         CoroutineScope(IO).launch {
             val deferred: Deferred<Tracklist> = async { FileHelper.deleteTrackSuspended(context, position, tracklist) }
             // wait for result and store in tracklist
@@ -125,8 +125,23 @@ class TracklistAdapter(private val fragment: Fragment) : RecyclerView.Adapter<Re
     }
 
 
+    /* Removes track and track files for given track id - used by TracklistFragment */
+    fun removeTrackById(context: Context, trackId: Long) {
+        CoroutineScope(IO).launch {
+            // reload tracklist //todo check if necessary
+//            tracklist = FileHelper.readTracklist(context)
+            val position: Int = findPosition(trackId)
+            val deferred: Deferred<Tracklist> = async { FileHelper.deleteTrackSuspended(context, position, tracklist) }
+            // wait for result and store in tracklist
+            withContext(Main) {
+                tracklist = deferred.await()
+                notifyItemRemoved(position) }
+        }
+    }
+
+
     /* Finds current position of track element in adapter list */
-    fun findPosition(trackId: Long): Int {
+    private fun findPosition(trackId: Long): Int {
         tracklist.tracklistElements.forEachIndexed {index, tracklistElement ->
             if (tracklistElement.getTrackId() == trackId) return index
         }
