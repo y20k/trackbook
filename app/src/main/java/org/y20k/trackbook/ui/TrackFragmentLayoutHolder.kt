@@ -137,7 +137,7 @@ data class TrackFragmentLayoutHolder(private var context: Context, private var m
         trackManagementViews = rootView.findViewById(R.id.management_icons)
 
         // get measurement unit system
-        useImperialUnits = PreferencesHelper.loadUseImperialUnits(context)
+        useImperialUnits = PreferencesHelper.loadUseImperialUnits()
 
         // set dark map tiles, if necessary
         if (AppThemeHelper.isDarkModeOn(context as Activity)) {

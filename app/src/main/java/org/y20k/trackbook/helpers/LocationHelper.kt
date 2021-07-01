@@ -62,7 +62,7 @@ object LocationHelper {
     /* Tries to return the last location that the system has stored */
     fun getLastKnownLocation(context: Context): Location {
         // get last location that Trackbook has stored
-        var lastKnownLocation: Location = PreferencesHelper.loadCurrentBestLocation(context)
+        var lastKnownLocation: Location = PreferencesHelper.loadCurrentBestLocation()
         // try to get the last location the system has stored - it is probably more recent
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             val locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager

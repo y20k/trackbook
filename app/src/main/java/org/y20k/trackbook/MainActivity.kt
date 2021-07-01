@@ -17,7 +17,6 @@
 
 package org.y20k.trackbook
 
-import android.content.Context
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
@@ -26,7 +25,6 @@ import android.os.StrictMode.VmPolicy
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import androidx.preference.PreferenceManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.osmdroid.config.Configuration
 import org.y20k.trackbook.helpers.AppThemeHelper
@@ -91,7 +89,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         // register listener for changes in shared preferences
-        PreferenceManager.getDefaultSharedPreferences(this as Context).registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener)
+        PreferencesHelper.registerPreferenceChangeListener(sharedPreferenceChangeListener)
     }
 
 
@@ -99,7 +97,7 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         // unregister listener for changes in shared preferences
-        PreferenceManager.getDefaultSharedPreferences(this as Context).unregisterOnSharedPreferenceChangeListener(sharedPreferenceChangeListener)
+        PreferencesHelper.unregisterPreferenceChangeListener(sharedPreferenceChangeListener)
     }
 
 
@@ -109,7 +107,7 @@ class MainActivity : AppCompatActivity() {
     private val sharedPreferenceChangeListener = SharedPreferences.OnSharedPreferenceChangeListener { sharedPreferences, key ->
         when (key) {
             Keys.PREF_THEME_SELECTION -> {
-                AppThemeHelper.setTheme(PreferencesHelper.loadThemeSelection(this@MainActivity))
+                AppThemeHelper.setTheme(PreferencesHelper.loadThemeSelection())
             }
         }
     }

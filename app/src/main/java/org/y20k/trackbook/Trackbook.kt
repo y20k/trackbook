@@ -22,6 +22,7 @@ import android.app.Application
 import org.y20k.trackbook.helpers.AppThemeHelper
 import org.y20k.trackbook.helpers.LogHelper
 import org.y20k.trackbook.helpers.PreferencesHelper
+import org.y20k.trackbook.helpers.PreferencesHelper.initPreferences
 
 
 /*
@@ -38,8 +39,9 @@ class Trackbook: Application() {
     override fun onCreate() {
         super.onCreate()
         LogHelper.v(TAG, "Trackbook application started.")
+        initPreferences()
         // set Dark / Light theme state
-        AppThemeHelper.setTheme(PreferencesHelper.loadThemeSelection(this))
+        AppThemeHelper.setTheme(PreferencesHelper.loadThemeSelection())
     }
 
 

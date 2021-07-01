@@ -37,7 +37,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.IBinder
 import androidx.core.content.ContextCompat
-import androidx.preference.PreferenceManager
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
 import org.y20k.trackbook.core.Track
@@ -83,9 +82,9 @@ class TrackerService: Service(), SensorEventListener {
     /* Overrides onCreate from Service */
     override fun onCreate() {
         super.onCreate()
-        gpsOnly = PreferencesHelper.loadGpsOnly(this)
-        useImperial = PreferencesHelper.loadUseImperialUnits(this)
-        accuracyMultiplier = PreferencesHelper.loadAccuracyMultiplier(this)
+        gpsOnly = PreferencesHelper.loadGpsOnly()
+        useImperial = PreferencesHelper.loadUseImperialUnits()
+        accuracyMultiplier = PreferencesHelper.loadAccuracyMultiplier()
 
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         sensorManager = this.getSystemService(Context.SENSOR_SERVICE) as SensorManager
@@ -95,11 +94,11 @@ class TrackerService: Service(), SensorEventListener {
         networkProviderActive = LocationHelper.isNetworkEnabled(locationManager)
         gpsLocationListener = createLocationListener()
         networkLocationListener = createLocationListener()
-        trackingState = PreferencesHelper.loadTrackingState(this)
+        trackingState = PreferencesHelper.loadTrackingState()
         currentBestLocation = LocationHelper.getLastKnownLocation(this)
         track = FileHelper.readTrack(this, FileHelper.getTempFileUri(this))
-        altitudeValues.capacity = PreferencesHelper.loadAltitudeSmoothingValue(this)
-        PreferenceManager.getDefaultSharedPreferences(this).registerOnSharedPreferenceChangeListener(
+        altitudeValues.capacity = PreferencesHelper.loadAltitudeSmoothingValue()
+        PreferencesHelper.registerPreferenceChangeListener(
             sharedPreferenceChangeListener
         )
     }
@@ -175,7 +174,7 @@ class TrackerService: Service(), SensorEventListener {
         // remove notification
         stopForeground(true)
         // stop listening for changes in shared preferences
-        PreferenceManager.getDefaultSharedPreferences(this).unregisterOnSharedPreferenceChangeListener(
+        PreferencesHelper.unregisterPreferenceChangeListener(
             sharedPreferenceChangeListener
         )
         // stop receiving location updates
@@ -239,7 +238,7 @@ class TrackerService: Service(), SensorEventListener {
         }
         // set state
         trackingState = Keys.STATE_TRACKING_ACTIVE
-        PreferencesHelper.saveTrackingState(this, trackingState)
+        PreferencesHelper.saveTrackingState(trackingState)
         // start recording steps and location fixes
         startStepCounter()
         handler.postDelayed(periodicTrackUpdate, 0)
@@ -255,7 +254,7 @@ class TrackerService: Service(), SensorEventListener {
         CoroutineScope(IO).launch { FileHelper.saveTempTrackSuspended(this@TrackerService, track) }
         // save state
         trackingState = Keys.STATE_TRACKING_STOPPED
-        PreferencesHelper.saveTrackingState(this, trackingState)
+        PreferencesHelper.saveTrackingState(trackingState)
         // reset altitude values queue
         altitudeValues.reset()
         // stop recording steps and location fixes
@@ -272,7 +271,7 @@ class TrackerService: Service(), SensorEventListener {
         track = Track()
         FileHelper.deleteTempFile(this)
         trackingState = Keys.STATE_TRACKING_NOT
-        PreferencesHelper.saveTrackingState(this, trackingState)
+        PreferencesHelper.saveTrackingState(trackingState)
         stopForeground(true)
     }
 
@@ -469,7 +468,7 @@ class TrackerService: Service(), SensorEventListener {
             when (key) {
                 // preference "Restrict to GPS"
                 Keys.PREF_GPS_ONLY -> {
-                    gpsOnly = PreferencesHelper.loadGpsOnly(this@TrackerService)
+                    gpsOnly = PreferencesHelper.loadGpsOnly()
                     when (gpsOnly) {
                         true -> removeNetworkLocationListener()
                         false -> addNetworkLocationListener()
@@ -477,11 +476,11 @@ class TrackerService: Service(), SensorEventListener {
                 }
                 // preference "Use Imperial Measurements"
                 Keys.PREF_USE_IMPERIAL_UNITS -> {
-                    useImperial = PreferencesHelper.loadUseImperialUnits(this@TrackerService)
+                    useImperial = PreferencesHelper.loadUseImperialUnits()
                 }
                 // preference "Recording Accuracy"
                 Keys.PREF_RECORDING_ACCURACY_HIGH -> {
-                    accuracyMultiplier = PreferencesHelper.loadAccuracyMultiplier(this@TrackerService)
+                    accuracyMultiplier = PreferencesHelper.loadAccuracyMultiplier()
                 }
             }
         }
