@@ -29,6 +29,7 @@ import android.os.IBinder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -107,7 +108,7 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener, MapOverlayHelpe
         super.onStart()
         // request location permission if denied
         if (ContextCompat.checkSelfPermission(activity as Context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED) {
-            this.requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), Keys.REQUEST_CODE_LOCATION)
+            requestLocationPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
         }
         // bind to TrackerService
         activity?.bindService(Intent(activity, TrackerService::class.java), connection, Context.BIND_AUTO_CREATE)
@@ -143,51 +144,44 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener, MapOverlayHelpe
         handleServiceUnbind()
     }
 
-
-    /* Overrides onRequestPermissionsResult from Fragment */
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when (requestCode) {
-            Keys.REQUEST_CODE_LOCATION -> {
-                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                    // permission was granted - re-bind service
-                    activity?.unbindService(connection)
-                    activity?.bindService(Intent(activity, TrackerService::class.java),  connection,  Context.BIND_AUTO_CREATE)
-                    LogHelper.i(TAG, "Request result: Location permission has been granted.")
-                } else {
-                    // permission denied - unbind service
-                    activity?.unbindService(connection)
-                }
-                layout.toggleLocationErrorBar(gpsProviderActive, networkProviderActive)
-                return
-            }
-            Keys.REQUEST_CODE_ACTIVITY_START -> {
-                LogHelper.e(TAG, "permissions => ${grantResults.isEmpty()} ${permissions[0]}") // todo remove
-                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                    LogHelper.i(TAG, "Request result: Activity Recognition permission has been granted.")
-                } else {
-                    LogHelper.i(TAG, "Request result: Activity Recognition permission has NOT been granted.")
-                }
-                // start service via intent so that it keeps running after unbind
-                startTrackerService()
-                trackerService.startTracking()
-                return
-            }
-            Keys.REQUEST_CODE_ACTIVITY_RESUME -> {
-                LogHelper.e(TAG, "permissions => ${grantResults.isEmpty()} ${permissions[0]}") // todo remove
-                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                    LogHelper.i(TAG, "Request result: Activity Recognition permission has been granted.")
-                } else {
-                    LogHelper.i(TAG, "Request result: Activity Recognition permission has NOT been granted.")
-                }
-                // start service via intent so that it keeps running after unbind
-                startTrackerService()
-                trackerService.resumeTracking()
-                return
-            }
+    /* Register the permission launcher for requesting location */
+    private val requestLocationPermissionLauncher = registerForActivityResult(RequestPermission()) { isGranted: Boolean ->
+        if (isGranted) {
+            // permission was granted - re-bind service
+            activity?.unbindService(connection)
+            activity?.bindService(Intent(activity, TrackerService::class.java),  connection,  Context.BIND_AUTO_CREATE)
+            LogHelper.i(TAG, "Request result: Location permission has been granted.")
+        } else {
+            // permission denied - unbind service
+            activity?.unbindService(connection)
         }
+        layout.toggleLocationErrorBar(gpsProviderActive, networkProviderActive)
     }
 
+    /* Register the permission launcher for starting the tracking service */
+    private val startTrackingPermissionLauncher = registerForActivityResult(RequestPermission()) { isGranted: Boolean ->
+        logPermissionRequestResult(isGranted)
+        // start service via intent so that it keeps running after unbind
+        startTrackerService()
+        trackerService.startTracking()
+    }
+
+    /* Register the permission launcher for resuming the tracking service */
+    private val resumeTrackingPermissionLauncher = registerForActivityResult(RequestPermission()) { isGranted: Boolean ->
+        logPermissionRequestResult(isGranted)
+        // start service via intent so that it keeps running after unbind
+        startTrackerService()
+        trackerService.resumeTracking()
+    }
+
+    /* Logs the request result of the Activity Recognition permission launcher */
+    private fun logPermissionRequestResult(isGranted: Boolean) {
+        if (isGranted) {
+            LogHelper.i(TAG, "Request result: Activity Recognition permission has been granted.")
+        } else {
+            LogHelper.i(TAG, "Request result: Activity Recognition permission has NOT been granted.")
+        }
+    }
 
     /* Overrides onYesNoDialog from YesNoDialogListener */
     override fun onYesNoDialog(type: Int, dialogResult: Boolean, payload: Int, payloadString: String) {
@@ -221,7 +215,7 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener, MapOverlayHelpe
         // request activity recognition permission on Android Q+ if denied
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && ContextCompat.checkSelfPermission(activity as Context, Manifest.permission.ACTIVITY_RECOGNITION) == PackageManager.PERMISSION_DENIED) {
             LogHelper.e(TAG, "permissions resume DING") // todo remove
-            this.requestPermissions(arrayOf(Manifest.permission.ACTIVITY_RECOGNITION), Keys.REQUEST_CODE_ACTIVITY_START)
+            startTrackingPermissionLauncher.launch(Manifest.permission.ACTIVITY_RECOGNITION)
         } else {
             // start service via intent so that it keeps running after unbind
             startTrackerService()
@@ -235,7 +229,7 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener, MapOverlayHelpe
         // request activity recognition permission on Android Q+ if denied
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && ContextCompat.checkSelfPermission(activity as Context, Manifest.permission.ACTIVITY_RECOGNITION) == PackageManager.PERMISSION_DENIED) {
             LogHelper.e(TAG, "permissions resume DING") // todo remove
-            this.requestPermissions(arrayOf(Manifest.permission.ACTIVITY_RECOGNITION), Keys.REQUEST_CODE_ACTIVITY_RESUME)
+            resumeTrackingPermissionLauncher.launch(Manifest.permission.ACTIVITY_RECOGNITION)
         } else {
             // start service via intent so that it keeps running after unbind
             startTrackerService()
