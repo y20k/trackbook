@@ -71,7 +71,7 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener, MapOverlayHelpe
         // get current best location
         currentBestLocation = LocationHelper.getLastKnownLocation(activity as Context)
         // get saved tracking state
-        trackingState = PreferencesHelper.loadTrackingState(activity as Context)
+        trackingState = PreferencesHelper.loadTrackingState()
     }
 
 
@@ -319,7 +319,7 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener, MapOverlayHelpe
         when (key) {
             Keys.PREF_TRACKING_STATE -> {
                 if (activity != null) {
-                    trackingState = PreferencesHelper.loadTrackingState(activity as Context)
+                    trackingState = PreferencesHelper.loadTrackingState()
                     layout.updateRecordingButton(trackingState)
                 }
             }

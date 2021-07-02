@@ -18,6 +18,7 @@
 package org.y20k.trackbook.helpers
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.location.Location
 import android.location.LocationManager
 import androidx.core.content.edit
@@ -35,121 +36,104 @@ object PreferencesHelper {
     /* Define log tag */
     private val TAG: String = LogHelper.makeLogTag(PreferencesHelper::class.java)
 
+    /* The sharedPreferences object to be initialized */
+    private lateinit var sharedPreferences: SharedPreferences
 
+    
+    /* Initialize a single sharedPreferences object when the app is launched */
+    fun Context.initPreferences() {
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+    }
+
+    
     /* Loads zoom level of map */
-    fun loadZoomLevel(context: Context): Double {
-        // get preferences
-        val settings = PreferenceManager.getDefaultSharedPreferences(context)
-        // load zoom level
-        return settings.getDouble(Keys.PREF_MAP_ZOOM_LEVEL, Keys.DEFAULT_ZOOM_LEVEL)
+    fun loadZoomLevel(): Double {
+        return sharedPreferences.getDouble(Keys.PREF_MAP_ZOOM_LEVEL, Keys.DEFAULT_ZOOM_LEVEL)
     }
 
 
     /* Saves zoom level of map */
-    fun saveZoomLevel(context: Context, zoomLevel: Double) {
-        // get preferences
-        val settings = PreferenceManager.getDefaultSharedPreferences(context)
-        // save zoom level
-        settings.edit { putDouble(Keys.PREF_MAP_ZOOM_LEVEL, zoomLevel) }
+    fun saveZoomLevel(zoomLevel: Double) {
+        sharedPreferences.edit {
+            putDouble(Keys.PREF_MAP_ZOOM_LEVEL, zoomLevel) 
+        }
     }
 
 
     /* Loads tracking state */
-    fun loadTrackingState(context: Context): Int {
-        // get preferences
-        val settings = PreferenceManager.getDefaultSharedPreferences(context)
+    fun loadTrackingState(): Int {
         // load tracking state
-        return settings.getInt(Keys.PREF_TRACKING_STATE, Keys.STATE_TRACKING_NOT)
+        return sharedPreferences.getInt(Keys.PREF_TRACKING_STATE, Keys.STATE_TRACKING_NOT)
     }
 
 
     /* Saves tracking state */
-    fun saveTrackingState(context: Context, trackingState: Int) {
-        // get preferences
-        val settings = PreferenceManager.getDefaultSharedPreferences(context)
-        // save tracking state
-        settings.edit { putInt(Keys.PREF_TRACKING_STATE, trackingState) }
+    fun saveTrackingState(trackingState: Int) {
+        sharedPreferences.edit {
+            putInt(Keys.PREF_TRACKING_STATE, trackingState)
+        }
     }
 
 
     /* Loads length unit system - metric or imperial */
-    fun loadUseImperialUnits(context: Context): Boolean {
-        // get preferences
-        val settings = PreferenceManager.getDefaultSharedPreferences(context)
-        // load length unit system
-        return settings.getBoolean(Keys.PREF_USE_IMPERIAL_UNITS, LengthUnitHelper.useImperialUnits())
+    fun loadUseImperialUnits(): Boolean {
+        return sharedPreferences.getBoolean(Keys.PREF_USE_IMPERIAL_UNITS, LengthUnitHelper.useImperialUnits())
     }
 
 
     /* Loads length unit system - metric or imperial */
-    fun loadGpsOnly(context: Context): Boolean {
-        // get preferences
-        val settings = PreferenceManager.getDefaultSharedPreferences(context)
-        // load length unit system
-        return settings.getBoolean(Keys.PREF_GPS_ONLY, false)
+    fun loadGpsOnly(): Boolean {
+        return sharedPreferences.getBoolean(Keys.PREF_GPS_ONLY, false)
     }
 
     /* Loads accuracy threshold used to determine if location is good enough */
-    fun loadAccuracyThreshold(context: Context): Int {
+    fun loadAccuracyThreshold(): Int {
         // get preferences
-        val settings = PreferenceManager.getDefaultSharedPreferences(context)
+
         // load tracking state
-        return settings.getInt(Keys.PREF_LOCATION_ACCURACY_THRESHOLD, Keys.DEFAULT_THRESHOLD_LOCATION_ACCURACY)
+        return sharedPreferences.getInt(Keys.PREF_LOCATION_ACCURACY_THRESHOLD, Keys.DEFAULT_THRESHOLD_LOCATION_ACCURACY)
     }
 
 
 
     /* Loads state of recording accuracy */
-    fun loadRecordingAccuracyHigh(context: Context): Boolean {
-        // get preferences
-        val settings = PreferenceManager.getDefaultSharedPreferences(context)
-        // load current setting
-        return settings.getBoolean(Keys.PREF_RECORDING_ACCURACY_HIGH, false)
+    fun loadRecordingAccuracyHigh(): Boolean {
+        return sharedPreferences.getBoolean(Keys.PREF_RECORDING_ACCURACY_HIGH, false)
     }
 
 
     /* Loads current accuracy multiplier */
-    fun loadAccuracyMultiplier(context: Context): Int {
-        // get preferences
-        val settings = PreferenceManager.getDefaultSharedPreferences(context)
-        // load current setting
-        val recordingAccuracyHigh: Boolean = settings.getBoolean(Keys.PREF_RECORDING_ACCURACY_HIGH, false)
+    fun loadAccuracyMultiplier(): Int {
+        val recordingAccuracyHigh: Boolean = sharedPreferences.getBoolean(Keys.PREF_RECORDING_ACCURACY_HIGH, false)
         // return multiplier based on state
         return if (recordingAccuracyHigh) 2 else 1
     }
 
 
     /* Load altitude smoothing value */
-    fun loadAltitudeSmoothingValue(context: Context): Int {
-        // get preferences
-        val settings = PreferenceManager.getDefaultSharedPreferences(context)
-        // load current setting
-        return settings.getInt(Keys.PREF_ALTITUDE_SMOOTHING_VALUE, Keys.DEFAULT_ALTITUDE_SMOOTHING_VALUE)
+    fun loadAltitudeSmoothingValue(): Int {
+        return sharedPreferences.getInt(Keys.PREF_ALTITUDE_SMOOTHING_VALUE, Keys.DEFAULT_ALTITUDE_SMOOTHING_VALUE)
     }
 
 
     /* Loads the state of a map */
-    fun loadCurrentBestLocation(context: Context): Location {
-        // get preferences
-        val settings = PreferenceManager.getDefaultSharedPreferences(context)
-        val provider: String = settings.getString(Keys.PREF_CURRENT_BEST_LOCATION_PROVIDER, LocationManager.NETWORK_PROVIDER) ?: LocationManager.NETWORK_PROVIDER
+    fun loadCurrentBestLocation(): Location {
         // create location
+        val provider: String = sharedPreferences.getString(Keys.PREF_CURRENT_BEST_LOCATION_PROVIDER, LocationManager.NETWORK_PROVIDER) ?: LocationManager.NETWORK_PROVIDER
         val currentBestLocation: Location = Location(provider)
         // load location attributes
-        currentBestLocation.latitude = settings.getDouble(Keys.PREF_CURRENT_BEST_LOCATION_LATITUDE, Keys.DEFAULT_LATITUDE)
-        currentBestLocation.longitude = settings.getDouble(Keys.PREF_CURRENT_BEST_LOCATION_LONGITUDE, Keys.DEFAULT_LONGITUDE)
-        currentBestLocation.accuracy = settings.getFloat(Keys.PREF_CURRENT_BEST_LOCATION_ACCURACY, Keys.DEFAULT_ACCURACY)
-        currentBestLocation.altitude = settings.getDouble(Keys.PREF_CURRENT_BEST_LOCATION_ALTITUDE, Keys.DEFAULT_ALTITUDE)
-        currentBestLocation.time = settings.getLong(Keys.PREF_CURRENT_BEST_LOCATION_TIME, Keys.DEFAULT_TIME)
+        currentBestLocation.latitude = sharedPreferences.getDouble(Keys.PREF_CURRENT_BEST_LOCATION_LATITUDE, Keys.DEFAULT_LATITUDE)
+        currentBestLocation.longitude = sharedPreferences.getDouble(Keys.PREF_CURRENT_BEST_LOCATION_LONGITUDE, Keys.DEFAULT_LONGITUDE)
+        currentBestLocation.accuracy = sharedPreferences.getFloat(Keys.PREF_CURRENT_BEST_LOCATION_ACCURACY, Keys.DEFAULT_ACCURACY)
+        currentBestLocation.altitude = sharedPreferences.getDouble(Keys.PREF_CURRENT_BEST_LOCATION_ALTITUDE, Keys.DEFAULT_ALTITUDE)
+        currentBestLocation.time = sharedPreferences.getLong(Keys.PREF_CURRENT_BEST_LOCATION_TIME, Keys.DEFAULT_TIME)
         return currentBestLocation
     }
 
 
     /* Saves the state of a map */
-    fun saveCurrentBestLocation(context: Context, currentBestLocation: Location) {
-        // get preferences
-        val settings = PreferenceManager.getDefaultSharedPreferences(context)
-        settings.edit {
+    fun saveCurrentBestLocation(currentBestLocation: Location) {
+        sharedPreferences.edit {
             // save location
             putDouble(Keys.PREF_CURRENT_BEST_LOCATION_LATITUDE, currentBestLocation.latitude)
             putDouble(Keys.PREF_CURRENT_BEST_LOCATION_LONGITUDE, currentBestLocation.longitude)
@@ -161,22 +145,22 @@ object PreferencesHelper {
 
 
     /* Load currently selected app theme */
-    fun loadThemeSelection(context: Context): String {
-        return PreferenceManager.getDefaultSharedPreferences(context).getString(Keys.PREF_THEME_SELECTION, Keys.STATE_THEME_FOLLOW_SYSTEM) ?: Keys.STATE_THEME_FOLLOW_SYSTEM
+    fun loadThemeSelection(): String {
+        return sharedPreferences.getString(Keys.PREF_THEME_SELECTION, Keys.STATE_THEME_FOLLOW_SYSTEM) ?: Keys.STATE_THEME_FOLLOW_SYSTEM
     }
 
 
     /* Checks if housekeeping work needs to be done - used usually in DownloadWorker "REQUEST_UPDATE_COLLECTION" */
-    fun isHouseKeepingNecessary(context: Context): Boolean {
-        val settings = PreferenceManager.getDefaultSharedPreferences(context)
-        return settings.getBoolean(Keys.PREF_ONE_TIME_HOUSEKEEPING_NECESSARY, true)
+    fun isHouseKeepingNecessary(): Boolean {
+        return sharedPreferences.getBoolean(Keys.PREF_ONE_TIME_HOUSEKEEPING_NECESSARY, true)
     }
 
 
     /* Saves state of housekeeping */
-    fun saveHouseKeepingNecessaryState(context: Context, state: Boolean = false) {
-        val settings = PreferenceManager.getDefaultSharedPreferences(context)
-        settings.edit { putBoolean(Keys.PREF_ONE_TIME_HOUSEKEEPING_NECESSARY, state) }
+    fun saveHouseKeepingNecessaryState(state: Boolean = false) {
+        sharedPreferences.edit {
+            putBoolean(Keys.PREF_ONE_TIME_HOUSEKEEPING_NECESSARY, state) 
+        }
     }
 
 }

@@ -51,7 +51,7 @@ class TracklistAdapter(private val fragment: Fragment) : RecyclerView.Adapter<Re
     /* Main class variables */
     private val context: Context = fragment.activity as Context
     private lateinit var tracklistListener: TracklistAdapterListener
-    private var useImperial: Boolean = PreferencesHelper.loadUseImperialUnits(context)
+    private var useImperial: Boolean = PreferencesHelper.loadUseImperialUnits()
     private var tracklist: Tracklist = Tracklist()
 
 

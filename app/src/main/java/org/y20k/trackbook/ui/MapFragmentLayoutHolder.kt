@@ -94,7 +94,7 @@ data class MapFragmentLayoutHolder(private var context: Context, private var mar
         mapView.setTileSource(TileSourceFactory.MAPNIK)
         mapView.setMultiTouchControls(true)
         mapView.zoomController.setVisibility(org.osmdroid.views.CustomZoomButtonsController.Visibility.NEVER)
-        zoomLevel = PreferencesHelper.loadZoomLevel(context)
+        zoomLevel = PreferencesHelper.loadZoomLevel()
         controller.setZoom(zoomLevel)
 
         // set dark map tiles, if necessary
@@ -149,8 +149,8 @@ data class MapFragmentLayoutHolder(private var context: Context, private var mar
 
     /* Save current best location and state of map to shared preferences */
     fun saveState(currentBestLocation: Location) {
-        PreferencesHelper.saveCurrentBestLocation(context, currentBestLocation)
-        PreferencesHelper.saveZoomLevel(context, mapView.zoomLevelDouble)
+        PreferencesHelper.saveCurrentBestLocation(currentBestLocation)
+        PreferencesHelper.saveZoomLevel(mapView.zoomLevelDouble)
         // reset user interaction state
         userInteraction = false
     }

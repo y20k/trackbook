@@ -47,7 +47,7 @@ class TrackingToggleTileService: TileService() {
     override fun onTileAdded() {
         super.onTileAdded()
         // get saved tracking state
-        trackingState = PreferencesHelper.loadTrackingState(this)
+        trackingState = PreferencesHelper.loadTrackingState()
         // set up tile
         updateTile()
     }
@@ -62,7 +62,7 @@ class TrackingToggleTileService: TileService() {
     override fun onStartListening() {
         super.onStartListening()
         // get saved tracking state
-        trackingState = PreferencesHelper.loadTrackingState(this)
+        trackingState = PreferencesHelper.loadTrackingState()
         // set up tile
         updateTile()
         // register listener for changes in shared preferences
@@ -141,7 +141,7 @@ class TrackingToggleTileService: TileService() {
     private val sharedPreferenceChangeListener = SharedPreferences.OnSharedPreferenceChangeListener { sharedPreferences, key ->
         when (key) {
             Keys.PREF_TRACKING_STATE -> {
-                trackingState = PreferencesHelper.loadTrackingState(this)
+                trackingState = PreferencesHelper.loadTrackingState()
                 updateTile()
             }
         }

@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         // todo: remove after testing finished
-        if (BuildConfig.DEBUG && Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+        if (BuildConfig.DEBUG && Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             StrictMode.setVmPolicy(
                 VmPolicy.Builder()
                     .detectNonSdkApiUsage()
@@ -109,7 +109,7 @@ class MainActivity : AppCompatActivity() {
     private val sharedPreferenceChangeListener = SharedPreferences.OnSharedPreferenceChangeListener { sharedPreferences, key ->
         when (key) {
             Keys.PREF_THEME_SELECTION -> {
-                AppThemeHelper.setTheme(PreferencesHelper.loadThemeSelection(this@MainActivity))
+                AppThemeHelper.setTheme(PreferencesHelper.loadThemeSelection())
             }
         }
     }
