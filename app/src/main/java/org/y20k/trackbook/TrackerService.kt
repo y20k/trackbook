@@ -98,9 +98,7 @@ class TrackerService: Service(), SensorEventListener {
         currentBestLocation = LocationHelper.getLastKnownLocation(this)
         track = FileHelper.readTrack(this, FileHelper.getTempFileUri(this))
         altitudeValues.capacity = PreferencesHelper.loadAltitudeSmoothingValue()
-        PreferencesHelper.registerPreferenceChangeListener(
-            sharedPreferenceChangeListener
-        )
+        PreferencesHelper.registerPreferenceChangeListener(sharedPreferenceChangeListener)
     }
 
 

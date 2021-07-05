@@ -44,7 +44,16 @@ object PreferencesHelper {
     /* Define log tag */
     private val TAG: String = LogHelper.makeLogTag(PreferencesHelper::class.java)
 
+    /* The sharedPreferences object to be initialized */
+    private lateinit var sharedPreferences: SharedPreferences
 
+    
+    /* Initialize a single sharedPreferences object when the app is launched */
+    fun Context.initPreferences() {
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+    }
+
+    
     /* Loads zoom level of map */
     fun loadZoomLevel(): Double {
         // load zoom level
@@ -129,6 +138,7 @@ object PreferencesHelper {
             altitude = sharedPreferences.getDouble(Keys.PREF_CURRENT_BEST_LOCATION_ALTITUDE, Keys.DEFAULT_ALTITUDE)
             time = sharedPreferences.getLong(Keys.PREF_CURRENT_BEST_LOCATION_TIME, Keys.DEFAULT_TIME)
         }
+
     }
 
 
@@ -160,6 +170,7 @@ object PreferencesHelper {
     /* Saves state of housekeeping */
     fun saveHouseKeepingNecessaryState(state: Boolean = false) {
         sharedPreferences.edit { putBoolean(Keys.PREF_ONE_TIME_HOUSEKEEPING_NECESSARY, state) }
+
     }
 
     /* Start watching for changes in shared preferences - context must implement OnSharedPreferenceChangeListener */

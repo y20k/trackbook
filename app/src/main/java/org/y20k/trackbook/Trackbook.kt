@@ -39,6 +39,7 @@ class Trackbook: Application() {
     override fun onCreate() {
         super.onCreate()
         LogHelper.v(TAG, "Trackbook application started.")
+        // initialize single sharedPreferences object when app is launched
         initPreferences()
         // set Dark / Light theme state
         AppThemeHelper.setTheme(PreferencesHelper.loadThemeSelection())
