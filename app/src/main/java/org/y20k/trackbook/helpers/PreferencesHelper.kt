@@ -33,14 +33,6 @@ import org.y20k.trackbook.extensions.putDouble
  */
 object PreferencesHelper {
 
-    /* The sharedPreferences object to be initialized */
-    private lateinit var sharedPreferences: SharedPreferences
-
-    /* Initialize a single sharedPreferences object when the app is launched */
-    fun Context.initPreferences() {
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
-    }
-
     /* Define log tag */
     private val TAG: String = LogHelper.makeLogTag(PreferencesHelper::class.java)
 
