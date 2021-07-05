@@ -23,7 +23,6 @@ import android.graphics.drawable.Icon
 import android.os.Build
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
-import androidx.preference.PreferenceManager
 import org.y20k.trackbook.helpers.LogHelper
 import org.y20k.trackbook.helpers.PreferencesHelper
 
@@ -66,7 +65,7 @@ class TrackingToggleTileService: TileService() {
         // set up tile
         updateTile()
         // register listener for changes in shared preferences
-        PreferenceManager.getDefaultSharedPreferences(this@TrackingToggleTileService).registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener)
+        PreferencesHelper.registerPreferenceChangeListener(sharedPreferenceChangeListener)
     }
 
 
@@ -84,7 +83,7 @@ class TrackingToggleTileService: TileService() {
     override fun onStopListening() {
         super.onStopListening()
         // unregister listener for changes in shared preferences
-        PreferenceManager.getDefaultSharedPreferences(this@TrackingToggleTileService).unregisterOnSharedPreferenceChangeListener(sharedPreferenceChangeListener)
+        PreferencesHelper.unregisterPreferenceChangeListener(sharedPreferenceChangeListener)
     }
 
 

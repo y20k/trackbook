@@ -32,7 +32,6 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.preference.PreferenceManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
@@ -260,7 +259,7 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener, MapOverlayHelpe
     private fun handleServiceUnbind() {
         bound = false
         // unregister listener for changes in shared preferences
-        PreferenceManager.getDefaultSharedPreferences(activity as Context).unregisterOnSharedPreferenceChangeListener(sharedPreferenceChangeListener)
+        PreferencesHelper.unregisterPreferenceChangeListener(sharedPreferenceChangeListener)
         // stop receiving location updates
         handler.removeCallbacks(periodicLocationRequestRunnable)
     }
@@ -343,7 +342,7 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener, MapOverlayHelpe
             trackingState = trackerService.trackingState
             layout.updateRecordingButton(trackingState)
             // register listener for changes in shared preferences
-            PreferenceManager.getDefaultSharedPreferences(activity as Context).registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener)
+            PreferencesHelper.registerPreferenceChangeListener(sharedPreferenceChangeListener)
             // start listening for location updates
             handler.removeCallbacks(periodicLocationRequestRunnable)
             handler.postDelayed(periodicLocationRequestRunnable, 0)

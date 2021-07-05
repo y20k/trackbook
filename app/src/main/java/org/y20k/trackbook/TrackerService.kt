@@ -37,7 +37,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.IBinder
 import androidx.core.content.ContextCompat
-import androidx.preference.PreferenceManager
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
 import org.y20k.trackbook.core.Track
@@ -99,9 +98,7 @@ class TrackerService: Service(), SensorEventListener {
         currentBestLocation = LocationHelper.getLastKnownLocation(this)
         track = FileHelper.readTrack(this, FileHelper.getTempFileUri(this))
         altitudeValues.capacity = PreferencesHelper.loadAltitudeSmoothingValue()
-        PreferenceManager.getDefaultSharedPreferences(this).registerOnSharedPreferenceChangeListener(
-            sharedPreferenceChangeListener
-        )
+        PreferencesHelper.registerPreferenceChangeListener(sharedPreferenceChangeListener)
     }
 
 
@@ -175,7 +172,7 @@ class TrackerService: Service(), SensorEventListener {
         // remove notification
         stopForeground(true)
         // stop listening for changes in shared preferences
-        PreferenceManager.getDefaultSharedPreferences(this).unregisterOnSharedPreferenceChangeListener(
+        PreferencesHelper.unregisterPreferenceChangeListener(
             sharedPreferenceChangeListener
         )
         // stop receiving location updates
