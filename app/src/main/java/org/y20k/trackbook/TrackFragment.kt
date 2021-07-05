@@ -29,6 +29,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.core.content.FileProvider
 import androidx.core.net.toFile
 import androidx.core.os.bundleOf
@@ -112,24 +114,23 @@ class TrackFragment : Fragment(), RenameTrackDialog.RenameTrackListener, YesNoDi
         layout.saveViewStateToTrack()
     }
 
+    /* Register the ActivityResultLauncher for saving GPX */
+    private val requestSaveGpxLauncher =
+        registerForActivityResult(StartActivityForResult(), this::requestSaveGpxResult)
 
-    /* Overrides onActivityResult from Fragment */
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        when (requestCode) {
-            // save GPX file to result file location
-            Keys.REQUEST_SAVE_GPX -> {
-                if (resultCode == Activity.RESULT_OK && data != null) {
-                    val sourceUri: Uri = Uri.parse(track.gpxUriString)
-                    val targetUri: Uri? = data.data
-                    if (targetUri != null) {
-                        // copy file async (= fire & forget - no return value needed)
-                        CoroutineScope(Dispatchers.IO).launch { FileHelper.saveCopyOfFileSuspended( activity as  Context, originalFileUri = sourceUri, targetFileUri = targetUri) }
-                        Toast.makeText(activity as Context, R.string.toast_message_save_gpx, Toast.LENGTH_LONG).show()
-                    }
+    /* Pass the activity result */
+    private fun requestSaveGpxResult(result: ActivityResult) {
+        // save GPX file to result file location
+        if (result.resultCode == Activity.RESULT_OK && result.data != null) {
+            val sourceUri: Uri = Uri.parse(track.gpxUriString)
+            val targetUri: Uri? = result.data?.data
+            if (targetUri != null) {
+                // copy file async (= fire & forget - no return value needed)
+                CoroutineScope(Dispatchers.IO).launch {
+                    FileHelper.saveCopyOfFileSuspended(activity as  Context, originalFileUri = sourceUri, targetFileUri = targetUri)
                 }
+                Toast.makeText(activity as Context, R.string.toast_message_save_gpx, Toast.LENGTH_LONG).show()
             }
-            // let activity handle result
-            else -> super.onActivityResult(requestCode, resultCode, data)
         }
     }
 
@@ -179,9 +180,9 @@ class TrackFragment : Fragment(), RenameTrackDialog.RenameTrackListener, YesNoDi
             type = Keys.MIME_TYPE_GPX
             putExtra(Intent.EXTRA_TITLE, FileHelper.getGpxFileName(track))
         }
-        // file gets saved in onActivityResult
+        // file gets saved in the ActivityResult
         try {
-            startActivityForResult(intent, Keys.REQUEST_SAVE_GPX)
+            requestSaveGpxLauncher.launch(intent)
         } catch (e: Exception) {
             LogHelper.e(TAG, "Unable to save GPX.")
             Toast.makeText(activity as Context, R.string.toast_message_install_file_helper, Toast.LENGTH_LONG).show()
