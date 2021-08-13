@@ -114,4 +114,7 @@
     <string name="descr_statistics_sheet_delete_button">删除轨迹按钮</string>
     <string name="descr_statistics_sheet_edit_button">编辑轨迹按钮</string>
     <string name="descr_statistics_sheet_save_button">保存为 GPX 按钮</string>
+    <string name="pref_recording_accuracy_title">记录的精确度</string>
+    <string name="pref_recording_accuracy_summary_default">航点的精确度较低，但频率较高。</string>
+    <string name="pref_recording_accuracy_summary_high">航点的精确度较高，但频率较低。</string>
 </resources>
