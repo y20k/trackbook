@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- activities -->
-    <string name="app_name">Trackbook</string> <!-- please do not translate app_name - transcription into different alphabet types is fine though -->
-
+    <string name="app_name">Trackbook</string>
+    <!-- please do not translate app_name - transcription into different alphabet types is fine though -->
     <!-- tabs -->
     <string name="tab_map">Karta</string>
     <!--<string name="tab_last_tracks"></string>-->
-
     <!-- notification -->
     <string name="notification_title_trackbook_running">Trackbook körs</string>
     <string name="notification_title_trackbook_not_running">Trackbook körs inte</string>
@@ -15,21 +14,17 @@
     <string name="notification_show">Visa</string>
     <!--<string name="notification_channel_recording_name"></string>-->
     <!--<string name="notification_channel_recording_description"></string>-->
-
     <!-- snackbar messages -->
     <string name="snackbar_message_location_offline">Plats är avstängt. Trackbook kommer inte fungera.</string>
-
     <!-- fab sub menu_bottom_navigation -->
     <string name="fab_sub_menu_clear">Rensa</string>
     <string name="fab_sub_menu_save">Spara</string>
     <string name="fab_sub_menu_resume">Återuppta</string>
-
     <!-- dialogs -->
     <string name="dialog_share_gpx">Dela GPX-fil med</string>
     <string name="dialog_error_empty_recording_title">Kunde inte spara</string>
     <string name="dialog_error_empty_recording_message">Trackbook spelade inte in några vägpunkter så här långt.</string>
     <string name="dialog_error_empty_recording_action_resume">Återuppta inspelning</string>
-
     <!-- toast messages -->
     <!--<string name="toast_message_permissions_granted"></string>-->
     <!--<string name="toast_message_no_external_storage"></string>-->
@@ -40,12 +35,10 @@
     <!--<string name="toast_message_theme_night"></string>-->
     <!--<string name="toast_message_theme_day"></string>-->
     <!--<string name="toast_message_theme_follow_system"></string>-->
-
     <!-- map markers -->
     <!--<string name="marker_description_source"></string>-->
     <!--<string name="marker_description_time"></string>-->
     <!--<string name="marker_description_accuracy"></string>-->
-
     <!-- statistics sheet -->
     <!--<string name="statistics_sheet_h1_statistics"></string>-->
     <!--<string name="statistics_sheet_p_default_data"></string>-->
@@ -60,7 +53,6 @@
     <!--<string name="statistics_sheet_p_min_altitude"></string>-->
     <!--<string name="statistics_sheet_p_positive_elevation"></string>-->
     <!--<string name="statistics_sheet_p_negative_elevation"></string>-->
-
     <!-- onboarding layout -->
     <!--<string name="layout_onboarding_h1_welcome"></string>-->
     <!--<string name="layout_onboarding_description_app_icon"></string>-->
@@ -72,11 +64,9 @@
     <!--<string name="layout_onboarding_h3_permission_storage"></string>-->
     <!--<string name="layout_onboarding_p_permission_storage"></string>-->
     <!--<string name="layout_onboarding_button_okay"></string>-->
-
     <!-- track tab onboarding -->
     <!--<string name="track_tab_onboarding_h1_part_1"></string>-->
     <!--<string name="track_tab_onboarding_h1_part_2"></string>-->
-
     <!-- descriptions -->
     <!--<string name="descr_map_current_track"></string>-->
     <!--<string name="descr_map_last_track"></string>-->
@@ -93,5 +83,5 @@
     <!--<string name="descr_export_button"></string>-->
     <!--<string name="descr_delete_button"></string>-->
     <!--<string name="descr_share_button_gpx"></string>-->
-
+    <string name="tab_settings">Inställningar</string>
 </resources>
