@@ -193,4 +193,7 @@
     <string name="notification_show">Tampilkan</string>
     <string name="notification_resume">Lanjutkan</string>
     <string name="tab_settings">Pengaturan</string>
+    <string name="pref_recording_accuracy_summary_default">Waypoints memiliki akurasi yang lebih rendah tetapi lebih sering.</string>
+    <string name="pref_recording_accuracy_summary_high">Waypoints memiliki akurasi yang lebih tinggi tetapi lebih jarang.</string>
+    <string name="pref_recording_accuracy_title">Akurasi Perekaman</string>
 </resources>
