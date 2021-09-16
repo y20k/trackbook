@@ -117,4 +117,5 @@
     <string name="pref_recording_accuracy_title">记录的精确度</string>
     <string name="pref_recording_accuracy_summary_default">航点的精确度较低，但频率较高。</string>
     <string name="pref_recording_accuracy_summary_high">航点的精确度较高，但频率较低。</string>
+    <string name="track_list_p_element_statistics">已记录的总距离</string>
 </resources>
