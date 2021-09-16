@@ -32,10 +32,7 @@ import android.hardware.SensorManager
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
-import android.os.Binder
-import android.os.Bundle
-import android.os.Handler
-import android.os.IBinder
+import android.os.*
 import androidx.core.content.ContextCompat
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
@@ -69,7 +66,7 @@ class TrackerService: Service(), SensorEventListener {
     var networkLocationListenerRegistered: Boolean = false
     var bound: Boolean = false
     private val binder = LocalBinder()
-    private val handler: Handler = Handler()
+    private val handler: Handler = Handler(Looper.getMainLooper())
     private var altitudeValues: SimpleMovingAverageQueue = SimpleMovingAverageQueue(Keys.DEFAULT_ALTITUDE_SMOOTHING_VALUE)
     private lateinit var locationManager: LocationManager
     private lateinit var sensorManager: SensorManager
@@ -97,7 +94,7 @@ class TrackerService: Service(), SensorEventListener {
         trackingState = PreferencesHelper.loadTrackingState()
         currentBestLocation = LocationHelper.getLastKnownLocation(this)
         track = FileHelper.readTrack(this, FileHelper.getTempFileUri(this))
-        altitudeValues.capacity = PreferencesHelper.loadAltitudeSmoothingValue()
+//        altitudeValues.capacity = PreferencesHelper.loadAltitudeSmoothingValue()
         PreferencesHelper.registerPreferenceChangeListener(sharedPreferenceChangeListener)
     }
 
@@ -577,16 +574,16 @@ class TrackerService: Service(), SensorEventListener {
     }
 
 
-    // TODO remove
-    val testAltitudes: Array<Double> = arrayOf(352.4349365234375, 358.883544921875, 358.6827392578125, 357.31396484375, 354.27459716796875, 354.573486328125, 354.388916015625, 354.6697998046875, 356.534912109375, 355.2772216796875, 356.21246337890625, 352.3499755859375, 350.37646484375, 351.2098388671875, 350.5213623046875, 350.5145263671875, 350.1728515625, 350.9075927734375, 351.5965576171875, 349.55767822265625, 351.548583984375, 357.1195068359375, 362.18634033203125, 366.3153076171875, 366.2218017578125, 362.1046142578125, 357.48291015625, 356.78570556640625, 353.7734375, 352.53936767578125, 351.8125, 353.1099853515625, 354.93035888671875, 355.4337158203125, 354.83270263671875, 352.9859619140625, 352.3006591796875, 351.63470458984375, 350.2501220703125, 351.75726318359375, 350.87664794921875, 350.4185791015625, 350.51568603515625, 349.5537109375, 345.2874755859375, 345.57196044921875, 349.99658203125, 353.3822021484375, 355.19061279296875, 359.1099853515625, 361.74365234375, 363.313232421875, 362.026611328125, 363.20703125, 363.2508544921875, 362.5870361328125, 362.521240234375)
-    var testCounter: Int = 0
-    fun getTestAltitude(): Double {
-        if (testCounter >= testAltitudes.size) testCounter = 0
-        val testAltitude: Double = testAltitudes[testCounter]
-        testCounter ++
-        return testAltitude
-    }
-    // TODO remove
+//    // TODO remove
+//    val testAltitudes: Array<Double> = arrayOf(352.4349365234375, 358.883544921875, 358.6827392578125, 357.31396484375, 354.27459716796875, 354.573486328125, 354.388916015625, 354.6697998046875, 356.534912109375, 355.2772216796875, 356.21246337890625, 352.3499755859375, 350.37646484375, 351.2098388671875, 350.5213623046875, 350.5145263671875, 350.1728515625, 350.9075927734375, 351.5965576171875, 349.55767822265625, 351.548583984375, 357.1195068359375, 362.18634033203125, 366.3153076171875, 366.2218017578125, 362.1046142578125, 357.48291015625, 356.78570556640625, 353.7734375, 352.53936767578125, 351.8125, 353.1099853515625, 354.93035888671875, 355.4337158203125, 354.83270263671875, 352.9859619140625, 352.3006591796875, 351.63470458984375, 350.2501220703125, 351.75726318359375, 350.87664794921875, 350.4185791015625, 350.51568603515625, 349.5537109375, 345.2874755859375, 345.57196044921875, 349.99658203125, 353.3822021484375, 355.19061279296875, 359.1099853515625, 361.74365234375, 363.313232421875, 362.026611328125, 363.20703125, 363.2508544921875, 362.5870361328125, 362.521240234375)
+//    var testCounter: Int = 0
+//    fun getTestAltitude(): Double {
+//        if (testCounter >= testAltitudes.size) testCounter = 0
+//        val testAltitude: Double = testAltitudes[testCounter]
+//        testCounter ++
+//        return testAltitude
+//    }
+//    // TODO remove
 
 
 }

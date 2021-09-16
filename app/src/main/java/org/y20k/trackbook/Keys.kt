@@ -91,6 +91,9 @@ object Keys {
     const val TEMP_FILE: String = "temp.json"
     const val TRACKLIST_FILE: String = "tracklist.json"
 
+    // view types
+    const val VIEW_TYPE_STATISTICS: Int = 1
+    const val VIEW_TYPE_TRACK: Int = 2
 
     // default values
     val DEFAULT_DATE: Date = Date(0L)
@@ -108,7 +111,7 @@ object Keys {
     const val DEFAULT_ACCURACY: Float = 300f                                    // in meters
     const val DEFAULT_ALTITUDE: Double = 0.0
     const val DEFAULT_TIME: Long = 0L
-    const val DEFAULT_ALTITUDE_SMOOTHING_VALUE: Int = 10
+    const val DEFAULT_ALTITUDE_SMOOTHING_VALUE: Int = 13
     const val DEFAULT_THRESHOLD_LOCATION_ACCURACY: Int = 30                     // 30 meters
     const val DEFAULT_THRESHOLD_LOCATION_AGE: Long = 60000000000L               // one minute in nanoseconds
     const val DEFAULT_THRESHOLD_DISTANCE: Float = 15f                           // 15 meters

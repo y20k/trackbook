@@ -84,7 +84,7 @@ class TracklistFragment : Fragment(), TracklistAdapter.TracklistAdapterListener,
         val swipeHandler = object : UiHelper.SwipeToDeleteCallback(activity as Context) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 // ask user
-                val adapterPosition: Int = viewHolder.adapterPosition
+                val adapterPosition: Int = viewHolder.adapterPosition // first position in list is reserved for statistics
                 val dialogMessage: String = "${getString(R.string.dialog_yes_no_message_delete_recording)}\n\n- ${tracklistAdapter.getTrackName(adapterPosition)}"
                 YesNoDialog(this@TracklistFragment as YesNoDialog.YesNoDialogListener).show(context = activity as Context, type = Keys.DIALOG_DELETE_TRACK, messageString = dialogMessage, yesButton = R.string.dialog_yes_no_positive_button_delete_recording, payload = adapterPosition)
             }
@@ -93,7 +93,7 @@ class TracklistFragment : Fragment(), TracklistAdapter.TracklistAdapterListener,
         itemTouchHelper.attachToRecyclerView(rootView.findViewById(R.id.track_element_list))
 
         // toggle onboarding layout
-        toggleOnboardingLayout(tracklistAdapter.itemCount)
+        toggleOnboardingLayout()
 
         return rootView
     }
@@ -118,7 +118,7 @@ class TracklistFragment : Fragment(), TracklistAdapter.TracklistAdapterListener,
                 when (dialogResult) {
                     // user tapped remove track
                     true -> {
-                        toggleOnboardingLayout(tracklistAdapter.itemCount -1)
+                        toggleOnboardingLayout()
                         tracklistAdapter.removeTrackAtPosition(activity as Context, payload)
                     }
                     // user tapped cancel
@@ -132,8 +132,8 @@ class TracklistFragment : Fragment(), TracklistAdapter.TracklistAdapterListener,
 
 
     // toggle onboarding layout
-    private fun toggleOnboardingLayout(trackCount: Int) {
-        when (trackCount == 0) {
+    private fun toggleOnboardingLayout() {
+        when (tracklistAdapter.isEmpty()) {
             true -> {
                 // show onboarding layout
                 tracklistOnboarding.visibility = View.VISIBLE
@@ -166,7 +166,7 @@ class TracklistFragment : Fragment(), TracklistAdapter.TracklistAdapterListener,
             if (deleteTrackId != -1L) {
                 CoroutineScope(Main). launch {
                     tracklistAdapter.removeTrackById(this@TracklistFragment.activity as Context, deleteTrackId)
-                    toggleOnboardingLayout(tracklistAdapter.itemCount - 1)
+                    toggleOnboardingLayout()
                 }
             }
         }

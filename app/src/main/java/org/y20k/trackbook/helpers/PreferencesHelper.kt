@@ -87,19 +87,19 @@ object PreferencesHelper {
         return sharedPreferences.getBoolean(Keys.PREF_GPS_ONLY, false)
     }
 
-    /* Loads accuracy threshold used to determine if location is good enough */
-    fun loadAccuracyThreshold(): Int {
-        // load tracking state
-        return sharedPreferences.getInt(Keys.PREF_LOCATION_ACCURACY_THRESHOLD, Keys.DEFAULT_THRESHOLD_LOCATION_ACCURACY)
-    }
+//    /* Loads accuracy threshold used to determine if location is good enough */
+//    fun loadAccuracyThreshold(): Int {
+//        // load tracking state
+//        return sharedPreferences.getInt(Keys.PREF_LOCATION_ACCURACY_THRESHOLD, Keys.DEFAULT_THRESHOLD_LOCATION_ACCURACY)
+//    }
 
 
 
-    /* Loads state of recording accuracy */
-    fun loadRecordingAccuracyHigh(): Boolean {
-        // load current setting
-        return sharedPreferences.getBoolean(Keys.PREF_RECORDING_ACCURACY_HIGH, false)
-    }
+//    /* Loads state of recording accuracy */
+//    fun loadRecordingAccuracyHigh(): Boolean {
+//        // load current setting
+//        return sharedPreferences.getBoolean(Keys.PREF_RECORDING_ACCURACY_HIGH, false)
+//    }
 
 
     /* Loads current accuracy multiplier */
@@ -111,11 +111,11 @@ object PreferencesHelper {
     }
 
 
-    /* Load altitude smoothing value */
-    fun loadAltitudeSmoothingValue(): Int {
-        // load current setting
-        return sharedPreferences.getInt(Keys.PREF_ALTITUDE_SMOOTHING_VALUE, Keys.DEFAULT_ALTITUDE_SMOOTHING_VALUE)
-    }
+//    /* Load altitude smoothing value */
+//    fun loadAltitudeSmoothingValue(): Int {
+//        // load current setting
+//        return sharedPreferences.getInt(Keys.PREF_ALTITUDE_SMOOTHING_VALUE, Keys.DEFAULT_ALTITUDE_SMOOTHING_VALUE)
+//    }
 
 
     /* Loads the state of a map */

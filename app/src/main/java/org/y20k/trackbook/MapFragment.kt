@@ -22,10 +22,7 @@ import android.Manifest
 import android.content.*
 import android.content.pm.PackageManager
 import android.location.Location
-import android.os.Build
-import android.os.Bundle
-import android.os.Handler
-import android.os.IBinder
+import android.os.*
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -55,7 +52,7 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener, MapOverlayHelpe
 
     /* Main class variables */
     private var bound: Boolean = false
-    private val handler: Handler = Handler()
+    private val handler: Handler = Handler(Looper.getMainLooper())
     private var trackingState: Int = Keys.STATE_TRACKING_NOT
     private var gpsProviderActive: Boolean = false
     private var networkProviderActive: Boolean = false

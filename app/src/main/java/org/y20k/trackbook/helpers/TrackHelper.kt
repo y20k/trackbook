@@ -44,13 +44,11 @@ object TrackHelper {
 
 
     /* Returns unique ID for Track - currently the start date */
-    fun getTrackId(track: Track): Long =
-        track.recordingStart.time
+    fun getTrackId(track: Track): Long = track.recordingStart.time
 
 
     /* Returns unique ID for TracklistElement - currently the start date */
-    fun getTrackId(tracklistElement: TracklistElement): Long =
-        tracklistElement.date.time
+    fun getTrackId(tracklistElement: TracklistElement): Long = tracklistElement.date.time
 
 
     /* Adds given locatiom as waypoint to track */
@@ -258,20 +256,20 @@ object TrackHelper {
     fun calculateAndSaveTrackTotals(context: Context, tracklist: Tracklist) {
         CoroutineScope(IO).launch {
             var totalDistanceAll: Float = 0f
-            var totalDurationAll: Long = 0L
-            var totalRecordingPausedAll: Long = 0L
-            var totalStepCountAll: Float = 0f
+//            var totalDurationAll: Long = 0L
+//            var totalRecordingPausedAll: Long = 0L
+//            var totalStepCountAll: Float = 0f
             tracklist.tracklistElements.forEach { tracklistElement ->
                 val track: Track = FileHelper.readTrack(context, tracklistElement.trackUriString.toUri())
                 totalDistanceAll += track.length
-                totalDurationAll += track.duration
-                totalRecordingPausedAll += track.recordingPaused
-                totalStepCountAll += track.stepCount
+//                totalDurationAll += track.duration
+//                totalRecordingPausedAll += track.recordingPaused
+//                totalStepCountAll += track.stepCount
             }
             tracklist.totalDistanceAll = totalDistanceAll
-            tracklist.totalDurationAll = totalDurationAll
-            tracklist.totalRecordingPausedAll = totalRecordingPausedAll
-            tracklist.totalStepCountAll = totalStepCountAll
+//            tracklist.totalDurationAll = totalDurationAll
+//            tracklist.totalRecordingPausedAll = totalRecordingPausedAll
+//            tracklist.totalStepCountAll = totalStepCountAll
             FileHelper.saveTracklistSuspended(context, tracklist, GregorianCalendar.getInstance().time)
         }
     }

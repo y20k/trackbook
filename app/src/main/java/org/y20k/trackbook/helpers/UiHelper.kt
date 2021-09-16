@@ -29,6 +29,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import org.y20k.trackbook.R
+import org.y20k.trackbook.tracklist.TracklistAdapter
 
 
 /*
@@ -99,6 +100,12 @@ object UiHelper {
         override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
             // do nothing
             return false
+        }
+
+        override fun getSwipeDirs(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
+            // disable swipe for statistics element
+            if (viewHolder is TracklistAdapter.ElementStatisticsViewHolder) return 0
+            return super.getSwipeDirs(recyclerView, viewHolder)
         }
 
         override fun onChildDraw(c: Canvas, recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean) {

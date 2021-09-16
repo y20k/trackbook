@@ -72,6 +72,8 @@
     <!-- Track Tab Onboarding -->
     <string name="track_list_onboarding_h1_part_1">Your recorded tracks</string>
     <string name="track_list_onboarding_h1_part_2">… will show up here.</string>
+    <!-- Track List -->
+    <string name="track_list_p_element_statistics">Total Distance Recorded</string>
     <!-- Settings -->
     <string name="pref_about_title">About</string>
     <string name="pref_app_version_summary">Version</string>
@@ -124,4 +126,5 @@
     <string name="sample_text_track_data" translatable="false">23.0 km • 5 hrs 23 min 42 sec</string>
     <string name="sample_text_track_name" translatable="false">July 20, 1969</string>
     <string name="sample_text_default_data" translatable="false">track data missing</string>
+    <string name="sample_text_default_total_distance" translatable="false">6357.23 km</string>
 </resources>

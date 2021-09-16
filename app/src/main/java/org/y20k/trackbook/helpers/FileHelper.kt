@@ -182,9 +182,9 @@ object FileHelper {
             val tracklist: Tracklist = readTracklist(context)
             tracklist.tracklistElements.add(track.toTracklistElement(context))
             tracklist.totalDistanceAll += track.length
-            tracklist.totalDurationAll += track.duration
-            tracklist.totalRecordingPausedAll += track.recordingPaused
-            tracklist.totalStepCountAll += track.stepCount
+//            tracklist.totalDurationAll += track.duration // note: TracklistElement does not contain duration
+//            tracklist.totalRecordingPausedAll += track.recordingPaused // note: TracklistElement does not contain recordingPaused
+//            tracklist.totalStepCountAll += track.stepCount // note: TracklistElement does not contain stepCount
             cont.resume(saveTracklist(context, tracklist, modificationDate))
         }
     }
@@ -340,6 +340,8 @@ object FileHelper {
             // delete track files
             tracklistElement.trackUriString.toUri().toFile().delete()
             tracklistElement.gpxUriString.toUri().toFile().delete()
+            // subtract track length from total distance
+            tracklist.totalDistanceAll -= tracklistElement.length
         }
         tracklist.tracklistElements.removeAll{ tracklistElements.contains(it) }
         saveTracklist(context, tracklist, GregorianCalendar.getInstance().time)
@@ -353,6 +355,8 @@ object FileHelper {
         // delete track files
         tracklistElement.trackUriString.toUri().toFile().delete()
         tracklistElement.gpxUriString.toUri().toFile().delete()
+        // subtract track length from total distance
+        tracklist.totalDistanceAll -= tracklistElement.length
         // remove track element from list
         tracklist.tracklistElements.removeIf { TrackHelper.getTrackId(it) == TrackHelper.getTrackId(tracklistElement) }
         saveTracklist(context, tracklist, GregorianCalendar.getInstance().time)

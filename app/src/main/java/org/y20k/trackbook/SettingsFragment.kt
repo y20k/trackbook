@@ -116,15 +116,15 @@ class SettingsFragment : PreferenceFragmentCompat(), YesNoDialog.YesNoDialogList
         preferenceRecordingAccuracy.setDefaultValue(false)
 
         // set up "Altitude Smoothing" preference
-        val preferenceAltitudeSmoothingValue: SeekBarPreference = SeekBarPreference(activity as Context)
-        preferenceAltitudeSmoothingValue.title = getString(R.string.pref_altitude_smoothing_value_title)
-        preferenceAltitudeSmoothingValue.setIcon(R.drawable.ic_bar_chart_24)
-        preferenceAltitudeSmoothingValue.key = Keys.PREF_ALTITUDE_SMOOTHING_VALUE
-        preferenceAltitudeSmoothingValue.summary = getString(R.string.pref_altitude_smoothing_value_summary)
-        preferenceAltitudeSmoothingValue.showSeekBarValue = true
-        preferenceAltitudeSmoothingValue.min = Keys.MIN_NUMBER_OF_WAYPOINTS_FOR_ELEVATION_CALCULATION
-        preferenceAltitudeSmoothingValue.max = Keys.MAX_NUMBER_OF_WAYPOINTS_FOR_ELEVATION_CALCULATION
-        preferenceAltitudeSmoothingValue.setDefaultValue(Keys.DEFAULT_ALTITUDE_SMOOTHING_VALUE)
+//        val preferenceAltitudeSmoothingValue: SeekBarPreference = SeekBarPreference(activity as Context)
+//        preferenceAltitudeSmoothingValue.title = getString(R.string.pref_altitude_smoothing_value_title)
+//        preferenceAltitudeSmoothingValue.setIcon(R.drawable.ic_bar_chart_24)
+//        preferenceAltitudeSmoothingValue.key = Keys.PREF_ALTITUDE_SMOOTHING_VALUE
+//        preferenceAltitudeSmoothingValue.summary = getString(R.string.pref_altitude_smoothing_value_summary)
+//        preferenceAltitudeSmoothingValue.showSeekBarValue = true
+//        preferenceAltitudeSmoothingValue.min = Keys.MIN_NUMBER_OF_WAYPOINTS_FOR_ELEVATION_CALCULATION
+//        preferenceAltitudeSmoothingValue.max = Keys.MAX_NUMBER_OF_WAYPOINTS_FOR_ELEVATION_CALCULATION
+//        preferenceAltitudeSmoothingValue.setDefaultValue(Keys.DEFAULT_ALTITUDE_SMOOTHING_VALUE)
 
 
         // set up "Reset" preference
@@ -135,7 +135,7 @@ class SettingsFragment : PreferenceFragmentCompat(), YesNoDialog.YesNoDialogList
         preferenceResetAdvanced.setOnPreferenceClickListener{
             // reset "Recording Accuracy" preference
             preferenceRecordingAccuracy.isChecked = false
-            preferenceAltitudeSmoothingValue.value = Keys.DEFAULT_ALTITUDE_SMOOTHING_VALUE
+//            preferenceAltitudeSmoothingValue.value = Keys.DEFAULT_ALTITUDE_SMOOTHING_VALUE
             return@setOnPreferenceClickListener true
         }
 
@@ -181,7 +181,7 @@ class SettingsFragment : PreferenceFragmentCompat(), YesNoDialog.YesNoDialogList
         val preferenceCategoryAdvanced: PreferenceCategory = PreferenceCategory(activity as Context)
         preferenceCategoryAdvanced.title = getString(R.string.pref_advanced_title)
         preferenceCategoryAdvanced.contains(preferenceRecordingAccuracy)
-        preferenceCategoryAdvanced.contains(preferenceAltitudeSmoothingValue)
+//        preferenceCategoryAdvanced.contains(preferenceAltitudeSmoothingValue)
         preferenceCategoryAdvanced.contains(preferenceResetAdvanced)
 
         val preferenceCategoryAbout: PreferenceCategory = PreferenceCategory(context)
@@ -198,7 +198,7 @@ class SettingsFragment : PreferenceFragmentCompat(), YesNoDialog.YesNoDialogList
         screen.addPreference(preferenceDeleteNonStarred)
         screen.addPreference(preferenceCategoryAdvanced)
         screen.addPreference(preferenceRecordingAccuracy)
-        screen.addPreference(preferenceAltitudeSmoothingValue)
+//        screen.addPreference(preferenceAltitudeSmoothingValue)
         screen.addPreference(preferenceResetAdvanced)
         screen.addPreference(preferenceCategoryAbout)
         screen.addPreference(preferenceAppVersion)
