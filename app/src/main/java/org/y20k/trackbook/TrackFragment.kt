@@ -53,26 +53,26 @@ class TrackFragment : Fragment(), RenameTrackDialog.RenameTrackListener, YesNoDi
 
     /* Main class variables */
     private lateinit var layout: TrackFragmentLayoutHolder
-    private lateinit var track: Track
+    private lateinit var trackFileUriString: String
 
 
     /* Overrides onCreate from Fragment */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // get track
-        val fileUriString: String = arguments?.getString(Keys.ARG_TRACK_FILE_URI, String()) ?: String()
-        if (fileUriString.isNotBlank()) {
-            track = FileHelper.readTrack(activity as Context, Uri.parse(fileUriString))
-        } else {
-            track = Track()
-        }
+        trackFileUriString = arguments?.getString(Keys.ARG_TRACK_FILE_URI, String()) ?: String()
     }
 
 
     /* Overrides onCreateView from Fragment */
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         // initialize layout
         val statusBarHeight: Int = UiHelper.getStatusBarHeight(activity as Context)
+        val track: Track
+        if (this::trackFileUriString.isInitialized && trackFileUriString.isNotBlank()) {
+            track = FileHelper.readTrack(activity as Context, Uri.parse(trackFileUriString))
+        } else {
+            track = Track()
+        }
         layout = TrackFragmentLayoutHolder(activity as Context, this as MapOverlayHelper.MarkerListener, inflater, statusBarHeight, container, track)
 
         // set up share button
@@ -102,8 +102,6 @@ class TrackFragment : Fragment(), RenameTrackDialog.RenameTrackListener, YesNoDi
     /* Overrides onResume from Fragment */
     override fun onResume() {
         super.onResume()
-        // update zoom level and map center
-        layout.updateMapView()
     }
 
 
@@ -114,15 +112,16 @@ class TrackFragment : Fragment(), RenameTrackDialog.RenameTrackListener, YesNoDi
         layout.saveViewStateToTrack()
     }
 
+
     /* Register the ActivityResultLauncher for saving GPX */
-    private val requestSaveGpxLauncher =
-        registerForActivityResult(StartActivityForResult(), this::requestSaveGpxResult)
+    private val requestSaveGpxLauncher = registerForActivityResult(StartActivityForResult(), this::requestSaveGpxResult)
+
 
     /* Pass the activity result */
     private fun requestSaveGpxResult(result: ActivityResult) {
         // save GPX file to result file location
         if (result.resultCode == Activity.RESULT_OK && result.data != null) {
-            val sourceUri: Uri = Uri.parse(track.gpxUriString)
+            val sourceUri: Uri = Uri.parse(layout.track.gpxUriString)
             val targetUri: Uri? = result.data?.data
             if (targetUri != null) {
                 // copy file async (= fire & forget - no return value needed)
@@ -153,7 +152,7 @@ class TrackFragment : Fragment(), RenameTrackDialog.RenameTrackListener, YesNoDi
                     // user tapped remove track
                     true -> {
                         // switch to TracklistFragment and remove track there
-                        val bundle: Bundle = bundleOf(Keys.ARG_TRACK_ID to track.getTrackId())
+                        val bundle: Bundle = bundleOf(Keys.ARG_TRACK_ID to layout.track.getTrackId())
                         findNavController().navigate(R.id.tracklist_fragment, bundle)
                     }
                 }
@@ -166,10 +165,8 @@ class TrackFragment : Fragment(), RenameTrackDialog.RenameTrackListener, YesNoDi
     override fun onMarkerTapped(latitude: Double, longitude: Double) {
         super.onMarkerTapped(latitude, longitude)
         // update track display
-        track = TrackHelper.toggleStarred(activity as Context, track, latitude, longitude)
-        layout.updateTrackOverlay(track)
-        // save track
-        CoroutineScope(Dispatchers.IO).launch { FileHelper.saveTrackSuspended(track, true) }
+        layout.track = TrackHelper.toggleStarred(activity as Context, layout.track, latitude, longitude)
+        layout.updateTrackOverlay()
     }
 
 
@@ -178,7 +175,7 @@ class TrackFragment : Fragment(), RenameTrackDialog.RenameTrackListener, YesNoDi
         val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
             addCategory(Intent.CATEGORY_OPENABLE)
             type = Keys.MIME_TYPE_GPX
-            putExtra(Intent.EXTRA_TITLE, FileHelper.getGpxFileName(track))
+            putExtra(Intent.EXTRA_TITLE, FileHelper.getGpxFileName(layout.track))
         }
         // file gets saved in the ActivityResult
         try {

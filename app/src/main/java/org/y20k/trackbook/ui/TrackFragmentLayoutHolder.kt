@@ -73,7 +73,7 @@ data class TrackFragmentLayoutHolder(private var context: Context, private var m
     private var trackSpecialMarkersOverlay: ItemizedIconOverlay<OverlayItem>?
     private var trackOverlay: SimpleFastPointOverlay?
     private var controller: IMapController
-    private var zoomLevel: Double
+    //private var zoomLevel: Double
     private val statisticsSheetBehavior: BottomSheetBehavior<View>
     private val statisticsSheet: NestedScrollView
     private val statisticsView: View
@@ -113,8 +113,8 @@ data class TrackFragmentLayoutHolder(private var context: Context, private var m
         mapView.setTileSource(TileSourceFactory.MAPNIK)
         mapView.setMultiTouchControls(true)
         mapView.zoomController.setVisibility(org.osmdroid.views.CustomZoomButtonsController.Visibility.NEVER)
-        zoomLevel = Keys.DEFAULT_ZOOM_LEVEL
-        controller.setZoom(zoomLevel)
+        controller.setCenter(GeoPoint(track.latitude, track.longitude))
+        controller.setZoom(track.zoomLevel)
 
         // get views for statistics sheet
         statisticsSheet = rootView.findViewById(R.id.statistics_sheet)
@@ -167,17 +167,8 @@ data class TrackFragmentLayoutHolder(private var context: Context, private var m
     }
 
 
-    /* Updates zoom level and center of this map */
-    fun updateMapView() {
-        val position = GeoPoint(track.latitude, track.longitude)
-        controller.setCenter(position)
-        controller.setZoom(track.zoomLevel)
-    }
-
-
     /* Updates map overlay */
-    fun updateTrackOverlay(newTrack: Track) {
-        track = newTrack
+    fun updateTrackOverlay() {
         if (trackOverlay != null) {
             mapView.overlays.remove(trackOverlay)
         }
@@ -191,6 +182,8 @@ data class TrackFragmentLayoutHolder(private var context: Context, private var m
             mapView.overlays.add(trackOverlay)
             mapView.overlays.add(trackSpecialMarkersOverlay)
         }
+        // save track
+        CoroutineScope(Dispatchers.IO).launch { FileHelper.saveTrackSuspended(track, true) }
     }
 
 
