@@ -12,7 +12,7 @@ android {
         targetSdkVersion 30
         versionCode 48
         versionName '2.1.0'
-        resConfigs "en", "da", "de", "fr", "hr", "id", "it", "ja", "nb-rNO", "nl", "pt-rBR", "sv", "tr", "zh-rCN"
+        resConfigs "en", "da", "de", "fr", "hr", "id", "it", "ja", "nb-rNO", "nl", "pl", "pt-rBR", "ru", "sv", "tr", "zh-rCN"
     }
 
     kotlinOptions {
