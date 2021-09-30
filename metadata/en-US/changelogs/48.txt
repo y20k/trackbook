@@ -1,0 +1,9 @@
+# v2.1.0 - See Emily Play
+
+**2021-09-30**
+
+- hugely improved accuracy of the distance calculation
+- improved and more accurate processing of elevation data
+- step counter now works on Android 10+
+- updated translations
+- bug fixes
