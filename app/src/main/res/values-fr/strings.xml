@@ -113,4 +113,5 @@
     <string name="pref_recording_accuracy_title">Précision de l\'enregistrement</string>
     <string name="pref_recording_accuracy_summary_default">Les points de cheminements ont une précision plus faible mais sont plus fréquents.</string>
     <string name="pref_recording_accuracy_summary_high">Les points de cheminement ont une plus grande précision mais sont moins fréquents.</string>
+    <string name="track_list_p_element_statistics">Distance totale enregistrée</string>
 </resources>
