@@ -27,7 +27,9 @@
         android:theme="@style/AppTheme">
 
         <!-- MAIN ACTIVITY -->
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -51,8 +53,9 @@
             android:name=".TrackingToggleTileService"
             android:label="@string/quick_settings_tile_title_default"
             android:icon="@drawable/ic_notification_icon_small_24dp"
-            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
-            <intent-filter>
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
+            android:exported="true">
+        <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
             </intent-filter>
         </service>

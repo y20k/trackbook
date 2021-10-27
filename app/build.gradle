@@ -4,14 +4,14 @@ apply plugin: 'kotlin-parcelize'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
 
     defaultConfig {
         applicationId 'org.y20k.trackbook'
         minSdkVersion 25
-        targetSdkVersion 30
-        versionCode 48
-        versionName '2.1.0'
+        targetSdkVersion 31
+        versionCode 49
+        versionName '2.1.1'
         resConfigs "en", "da", "de", "fr", "hr", "id", "it", "ja", "nb-rNO", "nl", "pl", "pt-rBR", "ru", "sv", "tr", "zh-rCN"
     }
 
@@ -51,7 +51,7 @@ android {
 
 dependencies {
     // Kotlin
-    def coroutinesVersion = "1.5.0"
+    def coroutinesVersion = "1.5.2"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"

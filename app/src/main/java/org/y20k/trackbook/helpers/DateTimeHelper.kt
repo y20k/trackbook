@@ -58,7 +58,7 @@ object DateTimeHelper {
 
     /* Create sortable string for date - used for filenames  */
     fun convertToSortableDateString(date: Date): String {
-        val dateFormat: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd-HH-mm-ss", Locale.US)
+        val dateFormat: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd-HH-mm-ss-SSS", Locale.US)
         return dateFormat.format(date)
     }
 

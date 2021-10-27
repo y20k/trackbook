@@ -210,7 +210,6 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener, MapOverlayHelpe
     private fun startTracking() {
         // request activity recognition permission on Android Q+ if denied
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && ContextCompat.checkSelfPermission(activity as Context, Manifest.permission.ACTIVITY_RECOGNITION) == PackageManager.PERMISSION_DENIED) {
-            LogHelper.e(TAG, "permissions resume DING") // todo remove
             startTrackingPermissionLauncher.launch(Manifest.permission.ACTIVITY_RECOGNITION)
         } else {
             // start service via intent so that it keeps running after unbind

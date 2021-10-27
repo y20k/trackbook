@@ -107,13 +107,13 @@ class NotificationHelper(private val trackerService: TrackerService) {
     /* Notification pending intents */
     private val stopActionPendingIntent = PendingIntent.getService(
         trackerService,14,
-        Intent(trackerService, TrackerService::class.java).setAction(Keys.ACTION_STOP),0)
+        Intent(trackerService, TrackerService::class.java).setAction(Keys.ACTION_STOP),PendingIntent.FLAG_IMMUTABLE)
     private val resumeActionPendingIntent = PendingIntent.getService(
         trackerService, 16,
-        Intent(trackerService, TrackerService::class.java).setAction(Keys.ACTION_RESUME),0)
+        Intent(trackerService, TrackerService::class.java).setAction(Keys.ACTION_RESUME),PendingIntent.FLAG_IMMUTABLE)
     private val showActionPendingIntent: PendingIntent? = TaskStackBuilder.create(trackerService).run {
         addNextIntentWithParentStack(Intent(trackerService, MainActivity::class.java))
-        getPendingIntent(10, PendingIntent.FLAG_UPDATE_CURRENT)
+        getPendingIntent(10, PendingIntent.FLAG_IMMUTABLE)
     }
 
 
