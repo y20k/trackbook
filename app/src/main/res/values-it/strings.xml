@@ -118,4 +118,8 @@
     <string name="sample_text_track_data" translatable="false">23.0 km • 5 hrs 23 min 42 sec</string>
     <string name="sample_text_track_name" translatable="false">July 20, 1969</string>
     <string name="sample_text_default_data" translatable="false">track data missing</string>
+    <string name="pref_recording_accuracy_title">Precisione di registrazione</string>
+    <string name="pref_recording_accuracy_summary_high">I waypoint hanno una maggiore precisione ma sono meno frequenti.</string>
+    <string name="pref_recording_accuracy_summary_default">I waypoint hanno una precisione inferiore ma sono più frequenti.</string>
+    <string name="track_list_p_element_statistics">Distanza totale registrata</string>
 </resources>
