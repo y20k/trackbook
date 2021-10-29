@@ -196,4 +196,5 @@
     <string name="pref_recording_accuracy_summary_default">Waypoints memiliki akurasi yang lebih rendah tetapi lebih sering.</string>
     <string name="pref_recording_accuracy_summary_high">Waypoints memiliki akurasi yang lebih tinggi tetapi lebih jarang.</string>
     <string name="pref_recording_accuracy_title">Akurasi Perekaman</string>
+    <string name="track_list_p_element_statistics">Jarak Total Terekam</string>
 </resources>
