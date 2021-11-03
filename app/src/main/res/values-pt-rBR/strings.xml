@@ -76,7 +76,7 @@
     <string name="pref_about_title">Sobre</string>
     <string name="pref_app_version_summary">Versão</string>
     <string name="pref_app_version_title">Versão do app</string>
-    <string name="pref_accuracy_threshold_summary">Descartar correção de localização com precisão maior que:</string>
+    <string name="pref_accuracy_threshold_summary">As correções de local de descarte com uma precisão maior que (metros):</string>
     <string name="pref_accuracy_threshold_title">Limite de precisão</string>
     <string name="pref_advanced_title">Avançado</string>
     <string name="pref_delete_non_starred_summary">Apagar todas gravações em \"Tracks\" que não estão com estrela.</string>
@@ -115,4 +115,8 @@
     <string name="descr_statistics_sheet_delete_button">Botão apagar rota</string>
     <string name="descr_statistics_sheet_edit_button">Botão editar rota</string>
     <string name="descr_statistics_sheet_save_button">Botão salvar como GPX</string>
+    <string name="pref_recording_accuracy_summary_high">Os waypoints têm maior precisão, mas são menos freqüentes.</string>
+    <string name="pref_recording_accuracy_title">Precisão de Gravação</string>
+    <string name="track_list_p_element_statistics">Distância Total Registrada</string>
+    <string name="pref_recording_accuracy_summary_default">Os waypoints têm menor precisão, mas são mais freqüentes.</string>
 </resources>
