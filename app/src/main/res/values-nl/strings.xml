@@ -17,7 +17,7 @@
     <string name="snackbar_message_location_offline">Locatie is uitgeschakeld. Trackbook zal niet werken.</string>
     <!-- fab sub menu_bottom_navigation -->
     <string name="fab_sub_menu_clear">Wissen</string>
-    <string name="fab_sub_menu_save">Opslaan en wissen</string>
+    <string name="fab_sub_menu_save">Opslaan</string>
     <string name="fab_sub_menu_resume">Hervatten</string>
     <!-- dialogs -->
     <string name="dialog_share_gpx">GPX-bestand delen met</string>
@@ -48,14 +48,14 @@
     <string name="track_list_onboarding_h1_part_1">Opgenomen tracks</string>
     <string name="track_list_onboarding_h1_part_2">…verschijnen hier.</string>
     <!-- descriptions -->
-    <string name="descr_map_current_track">Kaartweergave van huidige track</string>
-    <string name="descr_map_last_track">Kaart van de laatste track</string>
+    <string name="descr_map_current_track">Kaartweergave van huidige route</string>
+    <string name="descr_map_last_track">Kaart van de laatste route</string>
     <string name="descr_fab_main_start">Start opname-knop</string>
     <string name="descr_fab_sub_menu_button_save">Opslaan-knop</string>
     <string name="descr_fab_sub_menu_button_clear">Wissen-knop</string>
     <string name="descr_fab_sub_menu_button_resume">Hervatten-knop</string>
-    <string name="descr_statistics_sheet_delete_button">Track verwijderen knop</string>
-    <string name="descr_statistics_sheet_save_button">Opslaan als GPX knop</string>
+    <string name="descr_statistics_sheet_delete_button">Route verwijderen-knop</string>
+    <string name="descr_statistics_sheet_save_button">Opslaan als GPX-knop</string>
     <string name="tab_tracks">Routes</string>
     <string name="tab_settings">Instellingen</string>
     <string name="snackbar_message_location_permission_denied">Locatie toestemming is niet gegeven. Trackbook zal niet werken.</string>
@@ -63,7 +63,7 @@
     <string name="dialog_generic_button_okay">OK</string>
     <string name="dialog_generic_details_button">Details tonen</string>
     <string name="dialog_rename_track_button">Hernoemen</string>
-    <string name="dialog_rename_track_input_hint">Voer een naam in</string>
+    <string name="dialog_rename_track_input_hint">Voer een nieuwe naam in</string>
     <string name="dialog_yes_no_positive_button_default">Ja</string>
     <string name="dialog_yes_no_positive_button_delete_recording">Verwijderen</string>
     <string name="dialog_yes_no_message_delete_recording">Deze opname verwijderen\?</string>
@@ -72,24 +72,24 @@
     <string name="pref_advanced_title">Extra</string>
     <string name="pref_general_title">Algemeen</string>
     <string name="pref_gps_only_title">Alleen GPS gebruiken</string>
-    <string name="pref_gps_only_summary_gps_and_network">Momenteel wordt GPS en Netwerk gebruikt.</string>
-    <string name="pref_gps_only_summary_gps_only">Momenteel wordt alleen GPS gebruikt.</string>
-    <string name="pref_imperial_measurement_units_summary_metric">Momenteel worden metrische eenheden gebruikt (kilometer, meter).</string>
-    <string name="pref_imperial_measurement_units_summary_imperial">Momenteel worden imperiale eenheden gebruikt (mijlen, voet).</string>
+    <string name="pref_gps_only_summary_gps_and_network">Lokaliseren gebeurt nu door GPS en Netwerk.</string>
+    <string name="pref_gps_only_summary_gps_only">Localiseren gebeurt nu alleen door GPS.</string>
+    <string name="pref_imperial_measurement_units_summary_metric">Nu worden metrische eenheden gebruikt (kilometer, meter).</string>
+    <string name="pref_imperial_measurement_units_summary_imperial">Nu worden imperiale eenheden gebruikt (mijlen, voet).</string>
     <string name="pref_imperial_measurement_units_title">Imperiale eenheden gebruiken</string>
     <string name="pref_reset_advanced_summary">Zet geavanceerde instellingen terug naar standaardwaarden.</string>
     <string name="pref_reset_advanced_title">Standaardwaarden</string>
     <string name="abbreviation_hours">uur</string>
     <string name="abbreviation_minutes">min</string>
-    <string name="abbreviation_seconds">sec.</string>
-    <string name="descr_mark_starred_button">Sterren toekennen knop</string>
+    <string name="abbreviation_seconds">sec</string>
+    <string name="descr_mark_starred_button">Sterren toekennen-knop</string>
     <string name="descr_statistics_sheet_edit_button">Route aanpassen knop</string>
     <string name="quick_settings_tile_title_default">Opname</string>
     <string name="quick_settings_tile_title_start">Opname starten</string>
     <string name="quick_settings_tile_title_stop">Opname stoppen</string>
     <string name="descr_quick_settings_tile_title_start">Opname starten</string>
     <string name="descr_quick_settings_tile_title_stop">Opname stoppen</string>
-    <string name="pref_theme_selection_mode_dark">Donker modus</string>
+    <string name="pref_theme_selection_mode_dark">Donkere modus</string>
     <string name="pref_theme_selection_mode_device_default">Zelfde als apparaat</string>
     <string name="pref_theme_selection_mode_light">Lichte modus</string>
     <string name="pref_theme_selection_summary">Huidig thema:</string>
@@ -100,7 +100,7 @@
     <string name="dialog_yes_no_message_delete_non_starred">Alle opnamen zonder sterren verwijderen\? Deze actie kan niet worden hersteld.</string>
     <string name="pref_delete_non_starred_summary">Verwijder alle opnames zonder sterren.</string>
     <string name="pref_delete_non_starred_title">Verwijder opnames zonder sterren</string>
-    <string name="pref_maintenance_title">Beheer</string>
+    <string name="pref_maintenance_title">Onderhoud</string>
     <string name="statistics_sheet_p_velocity">Gemiddelde snelheid:</string>
     <string name="pref_report_issue_title">Probleem melden</string>
     <string name="pref_report_issue_summary">Meld bugs en stel verbeteringen voor op GitHub.</string>
@@ -110,8 +110,8 @@
     <string name="toast_message_copied_to_clipboard">Gekopieerd naar klembord.</string>
     <string name="toast_message_poi_removed">POI-indicatie verwijderd.</string>
     <string name="toast_message_poi_added">POI-indicatie toegevoegd.</string>
-    <string name="pref_recording_accuracy_title">Vastlegnauwkeurigheid</string>
-    <string name="pref_recording_accuracy_summary_default">Wegpunten hebben een lagere nauwkeurigheid, maar zijn vaker aanwezig.</string>
-    <string name="pref_recording_accuracy_summary_high">Wegpunten hebben een hogere nauwkeurigheid, maar zijn minder vaak aanwezig.</string>
+    <string name="pref_recording_accuracy_title">Opname nauwkeurigheid</string>
+    <string name="pref_recording_accuracy_summary_default">Routepunten zijn minder nauwkeurig, maar frequenter.</string>
+    <string name="pref_recording_accuracy_summary_high">Routepunten zijn nauwkeuriger, maar minder frequent.</string>
     <string name="track_list_p_element_statistics">Totaal afgelegde afstand</string>
 </resources>
