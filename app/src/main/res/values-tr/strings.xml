@@ -6,11 +6,11 @@
     <string name="descr_quick_settings_tile_title_stop">Kaydı Durdur</string>
     <string name="descr_quick_settings_tile_title_start">Kaydı Başlat</string>
     <string name="descr_mark_starred_button">Yıldızlı olarak işaretle düğmesi</string>
-    <string name="descr_fab_sub_menu_button_resume">Devam ettir düğmesi</string>
+    <string name="descr_fab_sub_menu_button_resume">Kaydı devam ettir</string>
     <string name="notification_resume">Devam ettir</string>
     <string name="fab_sub_menu_resume">Devam ettir</string>
-    <string name="descr_fab_sub_menu_button_clear">Temizle düğmesi</string>
-    <string name="descr_fab_sub_menu_button_save">Kaydet düğmesi</string>
+    <string name="descr_fab_sub_menu_button_clear">Kaydı temizle</string>
+    <string name="descr_fab_sub_menu_button_save">Kaydı kaydet</string>
     <string name="descr_fab_main_start">Kaydı başlat düğmesi</string>
     <string name="descr_map_last_track">Son yolun haritalanması</string>
     <string name="descr_map_current_track">Geçerli yolun haritalanması</string>
@@ -101,4 +101,5 @@
     <string name="pref_recording_accuracy_summary_default">Ara noktalar daha düşük doğruluğa sahiptir ancak daha sıktır.</string>
     <string name="pref_recording_accuracy_summary_high">Ara noktalar daha yüksek doğruluğa sahiptir ancak daha az sıklıktadır.</string>
     <string name="track_list_p_element_statistics">Kaydedilen Toplam Mesafe</string>
+    <string name="descr_fab_location">Geçerli konuma ortala</string>
 </resources>
