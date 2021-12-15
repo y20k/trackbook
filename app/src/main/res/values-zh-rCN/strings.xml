@@ -105,9 +105,9 @@
     <string name="descr_map_current_track">当前轨迹的航迹图</string>
     <string name="descr_map_last_track">最后一个轨迹的航迹图</string>
     <string name="descr_fab_main_start">开始记录按钮</string>
-    <string name="descr_fab_sub_menu_button_save">保存按钮</string>
-    <string name="descr_fab_sub_menu_button_clear">清除按钮</string>
-    <string name="descr_fab_sub_menu_button_resume">恢复按钮</string>
+    <string name="descr_fab_sub_menu_button_save">保存录制</string>
+    <string name="descr_fab_sub_menu_button_clear">清除录制</string>
+    <string name="descr_fab_sub_menu_button_resume">恢复录制</string>
     <string name="descr_mark_starred_button">加星按钮</string>
     <string name="descr_quick_settings_tile_title_start">开始记录</string>
     <string name="descr_quick_settings_tile_title_stop">停止记录</string>
@@ -118,4 +118,5 @@
     <string name="pref_recording_accuracy_summary_default">航点的精确度较低，但频率较高。</string>
     <string name="pref_recording_accuracy_summary_high">航点的精确度较高，但频率较低。</string>
     <string name="track_list_p_element_statistics">已记录的总距离</string>
+    <string name="descr_fab_location">以当前位置为中心</string>
 </resources>
