@@ -51,9 +51,9 @@
     <string name="descr_map_current_track">Kaartweergave van huidige route</string>
     <string name="descr_map_last_track">Kaart van de laatste route</string>
     <string name="descr_fab_main_start">Start opname-knop</string>
-    <string name="descr_fab_sub_menu_button_save">Opslaan-knop</string>
-    <string name="descr_fab_sub_menu_button_clear">Wissen-knop</string>
-    <string name="descr_fab_sub_menu_button_resume">Hervatten-knop</string>
+    <string name="descr_fab_sub_menu_button_save">Opname opslaan</string>
+    <string name="descr_fab_sub_menu_button_clear">Opname wissen</string>
+    <string name="descr_fab_sub_menu_button_resume">Opname hervatten</string>
     <string name="descr_statistics_sheet_delete_button">Route verwijderen-knop</string>
     <string name="descr_statistics_sheet_save_button">Opslaan als GPX-knop</string>
     <string name="tab_tracks">Routes</string>
@@ -114,4 +114,5 @@
     <string name="pref_recording_accuracy_summary_default">Routepunten zijn minder nauwkeurig, maar frequenter.</string>
     <string name="pref_recording_accuracy_summary_high">Routepunten zijn nauwkeuriger, maar minder frequent.</string>
     <string name="track_list_p_element_statistics">Totaal afgelegde afstand</string>
+    <string name="descr_fab_location">Huidige locatie tonen</string>
 </resources>
