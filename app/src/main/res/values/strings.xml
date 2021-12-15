@@ -113,9 +113,10 @@
     <string name="descr_map_current_track">Mapping of current track</string>
     <string name="descr_map_last_track">Mapping of last track</string>
     <string name="descr_fab_main_start">Start recording button</string>
-    <string name="descr_fab_sub_menu_button_save">Save button</string>
-    <string name="descr_fab_sub_menu_button_clear">Clear button</string>
-    <string name="descr_fab_sub_menu_button_resume">Resume button</string>
+    <string name="descr_fab_sub_menu_button_save">Save recording</string>
+    <string name="descr_fab_sub_menu_button_clear">Clear recording</string>
+    <string name="descr_fab_sub_menu_button_resume">Resume recording</string>
+    <string name="descr_fab_location">Center on current location</string>
     <string name="descr_mark_starred_button">Mark as starred button</string>
     <string name="descr_quick_settings_tile_title_start">Start Recording</string>
     <string name="descr_quick_settings_tile_title_stop">Stop Recording</string>

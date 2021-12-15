@@ -19,6 +19,7 @@
 package org.y20k.trackbook
 
 import android.app.Application
+import com.google.android.material.color.DynamicColors
 import org.y20k.trackbook.helpers.AppThemeHelper
 import org.y20k.trackbook.helpers.LogHelper
 import org.y20k.trackbook.helpers.PreferencesHelper
@@ -39,6 +40,7 @@ class Trackbook: Application() {
     override fun onCreate() {
         super.onCreate()
         LogHelper.v(TAG, "Trackbook application started.")
+        DynamicColors.applyToActivitiesIfAvailable(this);
         // initialize single sharedPreferences object when app is launched
         initPreferences()
         // set Dark / Light theme state

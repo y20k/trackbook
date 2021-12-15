@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <fragment
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/main_container"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
@@ -22,10 +22,8 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation_view"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        app:itemBackground="@color/bottom_navigation_background"
-        app:itemIconTint="@drawable/selector_bottom_navigation"
-        app:itemTextColor="@drawable/selector_bottom_navigation"
+        android:layout_height="wrap_content"
+        android:background="@color/bottom_navigation_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

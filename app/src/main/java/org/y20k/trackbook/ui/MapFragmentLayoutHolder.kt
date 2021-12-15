@@ -186,15 +186,15 @@ data class MapFragmentLayoutHolder(private var context: Context, private var mar
     fun updateRecordingButton(trackingState: Int) {
         when (trackingState) {
             Keys.STATE_TRACKING_NOT -> {
-                recordingButton.setImageResource(R.drawable.ic_fiber_manual_record_white_24dp)
+                recordingButton.setImageResource(R.drawable.ic_fiber_manual_record_inactive_24dp)
                 recordingButtonSubMenu.isGone = true
             }
             Keys.STATE_TRACKING_ACTIVE -> {
-                recordingButton.setImageResource(R.drawable.ic_fiber_manual_record_red_24dp)
+                recordingButton.setImageResource(R.drawable.ic_fiber_manual_record_active_24dp)
                 recordingButtonSubMenu.isGone = true
             }
             Keys.STATE_TRACKING_STOPPED -> {
-                recordingButton.setImageResource(R.drawable.ic_save_white_24dp)
+                recordingButton.setImageResource(R.drawable.ic_save_24dp)
             }
         }
     }

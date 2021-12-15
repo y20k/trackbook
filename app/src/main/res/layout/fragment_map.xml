@@ -36,22 +36,23 @@
             app:layout_constraintBottom_toTopOf="@+id/fab_sub_menu_button_clear"
             app:layout_constraintEnd_toEndOf="@+id/fab_sub_menu_button_clear"
             app:layout_constraintStart_toStartOf="@+id/fab_sub_menu_button_clear"
-            app:srcCompat="@drawable/ic_save_white_24dp"
-            app:tint="@color/trackbook_white" />
+            app:srcCompat="@drawable/ic_save_24dp"
+            app:tint="@color/recording_button_icon" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/fab_sub_menu_label_save"
-            style="@style/Widget.MaterialComponents.CardView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="4dp"
             android:clickable="true"
             android:focusable="true"
+            android:visibility="gone"
             app:cardBackgroundColor="@color/fab_button_card_background"
             app:cardCornerRadius="2dp"
             app:cardElevation="4dp"
             app:cardUseCompatPadding="true"
+            app:strokeWidth="0dp"
             app:layout_constraintBottom_toBottomOf="@+id/fab_sub_menu_button_save"
             app:layout_constraintEnd_toStartOf="@+id/fab_sub_menu_button_save"
             app:layout_constraintTop_toTopOf="@+id/fab_sub_menu_button_save">
@@ -79,30 +80,29 @@
             android:clickable="true"
             android:contentDescription="@string/descr_fab_sub_menu_button_clear"
             android:focusable="true"
-            app:backgroundTint="@color/trackbook_blue"
+            app:backgroundTint="@color/recording_button_background"
             app:fabSize="mini"
             app:layout_constraintBottom_toTopOf="@+id/fab_sub_menu_button_resume"
             app:layout_constraintEnd_toEndOf="@+id/fab_sub_menu_button_resume"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/fab_sub_menu_button_resume"
-            app:srcCompat="@drawable/ic_clear_white_24dp"
-            app:tint="@color/trackbook_white" />
+            app:srcCompat="@drawable/ic_clear_24dp"
+            app:tint="@color/recording_button_icon" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/fab_sub_menu_label_clear"
-            style="@style/Widget.MaterialComponents.CardView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            android:layout_marginEnd="8dp"
             android:clickable="true"
             android:focusable="true"
             app:cardBackgroundColor="@color/fab_button_card_background"
             app:cardCornerRadius="2dp"
             app:cardElevation="4dp"
             app:cardUseCompatPadding="true"
+            app:strokeWidth="0dp"
             app:layout_constraintBottom_toBottomOf="@+id/fab_sub_menu_button_clear"
-            app:layout_constraintEnd_toStartOf="@+id/fab_sub_menu_button_clear"
+            app:layout_constraintEnd_toEndOf="@+id/fab_sub_menu_label_save"
             app:layout_constraintTop_toTopOf="@+id/fab_sub_menu_button_clear">
 
             <com.google.android.material.textview.MaterialTextView
@@ -128,28 +128,28 @@
             android:clickable="true"
             android:contentDescription="@string/descr_fab_sub_menu_button_resume"
             android:focusable="true"
-            app:backgroundTint="@color/trackbook_blue"
+            app:backgroundTint="@color/recording_button_background"
             app:fabSize="mini"
             app:layout_constraintBottom_toTopOf="@+id/fab_main_button"
             app:layout_constraintEnd_toEndOf="@+id/fab_main_button"
             app:layout_constraintStart_toStartOf="@+id/fab_main_button"
-            app:srcCompat="@drawable/ic_fiber_manual_record_white_24dp"
-            app:tint="@color/trackbook_white" />
+            app:srcCompat="@drawable/ic_fiber_manual_record_inactive_24dp"
+            app:tint="@color/recording_button_icon" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/fab_sub_menu_label_resume"
             style="@style/Widget.MaterialComponents.CardView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
             android:clickable="true"
             android:focusable="true"
             app:cardBackgroundColor="@color/fab_button_card_background"
             app:cardCornerRadius="2dp"
             app:cardElevation="4dp"
             app:cardUseCompatPadding="true"
+            app:strokeWidth="0dp"
             app:layout_constraintBottom_toBottomOf="@+id/fab_sub_menu_button_resume"
-            app:layout_constraintEnd_toStartOf="@+id/fab_sub_menu_button_resume"
+            app:layout_constraintEnd_toEndOf="@+id/fab_sub_menu_label_clear"
             app:layout_constraintTop_toTopOf="@+id/fab_sub_menu_button_resume">
 
             <com.google.android.material.textview.MaterialTextView
@@ -177,11 +177,10 @@
             android:clickable="true"
             android:contentDescription="@string/descr_fab_main_start"
             android:focusable="true"
-            app:backgroundTint="@color/trackbook_blue"
-            app:fabSize="normal"
+            app:backgroundTint="@color/recording_button_background"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/ic_fiber_manual_record_white_24dp"
+            app:srcCompat="@drawable/ic_fiber_manual_record_inactive_24dp"
             app:tint="@null" /> <!-- necessary hack: to be able to change icon color programmatically -->
 
         <!-- CURRENT LOCATION BUTTON -->
@@ -193,6 +192,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginBottom="16dp"
             android:clickable="true"
+            android:contentDescription="@string/descr_fab_location"
             android:focusable="true"
             android:src="@drawable/ic_current_location_24dp"
             app:backgroundTint="@color/location_button_background"

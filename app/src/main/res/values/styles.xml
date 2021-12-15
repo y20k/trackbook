@@ -2,29 +2,17 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-
-        <!-- Set AppCompat’s colors -->
-        <item name="colorPrimary">@color/trackbook_grey_dark</item>
-        <item name="colorPrimaryDark">@color/trackbook_grey_darker</item>
-        <item name="colorAccent">@color/trackbook_blue</item>
-
-        <!-- Show white status bar -->
+    <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Do not use primary colored elevation overlays to present a visual hierarchy - TO COLORFUL  -->
+        <item name="elevationOverlayEnabled">false</item>
+        <!-- Show transparent status bar -->
         <item name="android:windowTranslucentStatus">true</item>
 
     </style>
 
-
-    <!-- Override button color in AlertDialog -->
-    <style name="AlertDialogTheme" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
-        <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
-        <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
-    </style>
-    <style name="NegativeButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
-        <item name="android:textColor">@color/text_default</item>
-    </style>
-    <style name="PositiveButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
-        <item name="android:textColor">@color/text_default</item>
+    <!-- Override background color in AlertDialog -->
+    <style name="AlertDialogTheme" parent="ThemeOverlay.Material3.Dialog.Alert">
+        <item name="colorSurface">@color/dialog_background</item>
     </style>
 
 

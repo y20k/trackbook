@@ -5,6 +5,6 @@
         android:width="24dp">
 
     <path
-        android:fillColor="@color/trackbook_grey_light"
+        android:fillColor="@color/trackbook_neutral_medium_light"
         android:pathData="M48,48m-24,0a24,24 0,1 1,48 0a24,24 0,1 1,-48 0"/>
 </vector>

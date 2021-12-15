@@ -2,14 +2,9 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="Theme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme" parent="Theme.Material3.DayNight.NoActionBar">
 
-        <!-- Set AppCompat’s colors -->
-        <item name="colorPrimary">@color/trackbook_grey_very_light</item>
-        <item name="colorPrimaryDark">@color/trackbook_white</item>
-        <item name="colorAccent">@color/trackbook_blue</item>
-
-        <!-- Don't show white status bar -->
+        <!-- Show transparent status bar -->
         <item name="android:windowTranslucentStatus">true</item>
 
     </style>

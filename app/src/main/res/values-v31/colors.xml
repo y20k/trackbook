@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- DAY THEME COLORS -->
+
+    <!-- ADAPTIVE BASE COLORS - Android 12 - https://developer.android.com/reference/android/R.color#system_accent1_0 -->
+    <color name="trackbook_neutral_dark">@android:color/system_neutral1_600</color>
+    <color name="trackbook_neutral_darker">@android:color/system_neutral1_800</color>
+    <color name="trackbook_neutral_very_dark">@android:color/system_neutral1_900</color>
+
+    <color name="trackbook_neutral_medium_light">@android:color/system_neutral1_300</color>
+    <color name="trackbook_neutral_light">@android:color/system_neutral1_100</color>
+    <color name="trackbook_neutral_lighter">@android:color/system_neutral1_50</color>
+    <color name="trackbook_neutral_very_light">@android:color/system_neutral1_10</color>
+
+    <color name="trackbook_accent_intense">@android:color/system_accent1_100</color> <!-- colorPrimary - Light Theme -->
+    <color name="trackbook_accent_light">@android:color/system_accent1_50</color>
+    <color name="trackbook_accent_dimmed">@android:color/system_accent1_600</color> <!-- colorSecondary - Light Theme -->
+
+    <color name="trackbook_neutral_black">@android:color/system_neutral1_1000</color>
+    <color name="trackbook_neutral_white">@android:color/system_neutral1_0</color>
+
+</resources>

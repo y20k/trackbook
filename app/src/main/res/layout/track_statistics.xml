@@ -71,7 +71,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/statistics_track_name_headline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/statistics_track_name_headline"
-        app:srcCompat="@drawable/ic_save_24dp" />
+        app:srcCompat="@drawable/ic_save_to_storage_24dp" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/statistics_p_distance"

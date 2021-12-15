@@ -3,48 +3,58 @@
 
     <!-- DAY THEME COLORS -->
 
-    <color name="app_window_background">@color/trackbook_grey_very_light</color>
-    <color name="bottom_navigation_background">@color/trackbook_white</color>
+    <color name="app_window_background">@color/trackbook_neutral_very_light</color>
+    <color name="bottom_navigation_background">@color/trackbook_neutral_white</color>
+    <color name="dialog_background">@color/trackbook_neutral_very_light</color>
 
-    <color name="bottom_navigation_element">@color/trackbook_grey_light</color>
+    <color name="bottom_navigation_element">@color/trackbook_neutral_medium_light</color>
     <color name="bottom_navigation_element_selected">@color/trackbook_blue</color>
 
-    <color name="fab_button_card_text">@color/trackbook_grey_dark</color>
-    <color name="fab_button_card_background">@color/trackbook_white</color>
+    <color name="fab_button_card_text">@color/trackbook_neutral_darker</color>
+    <color name="fab_button_card_background">@color/trackbook_neutral_white</color>
 
-    <color name="location_button_icon">@color/trackbook_grey</color>
-    <color name="location_button_background">@color/trackbook_white</color>
+    <color name="location_button_icon">@color/trackbook_neutral_dark</color>
+    <color name="location_button_background">@color/trackbook_neutral_white</color>
 
-    <color name="text_default">@color/trackbook_grey_dark</color>
-    <color name="text_lightweight">@color/trackbook_grey</color>
+    <color name="text_default">@color/trackbook_neutral_darker</color>
+    <color name="text_lightweight">@color/trackbook_neutral_dark</color>
 
-    <color name="icon_default">@color/trackbook_grey</color>
-    <color name="icon_lightweight">@color/trackbook_grey_light</color>
+    <color name="icon_default">@color/trackbook_neutral_dark</color>
+    <color name="icon_lightweight">@color/trackbook_neutral_medium_light</color>
     <color name="icon_star_selected">@color/trackbook_blue</color>
 
-    <color name="list_card_background">@color/trackbook_white</color>
+    <color name="recording_button_background">@color/trackbook_accent_intense</color>
+    <color name="recording_button_icon">@color/trackbook_neutral_very_dark</color>
+
+    <color name="list_card_background">@color/trackbook_neutral_white</color>
     <color name="list_card_delete_background">@color/trackbook_red</color>
 
     <color name="statistic_sheet_background_expanded">@color/trackbook_white_85percent</color>
-    <color name="statistic_sheet_background_collapsed">@color/trackbook_white</color>
-    <color name="statistic_sheet_background_border">@color/trackbook_grey_lighter</color>
+    <color name="statistic_sheet_background_collapsed">@color/trackbook_neutral_white</color>
+    <color name="statistic_sheet_background_border">@color/trackbook_neutral_light</color>
 
 
-    <!-- COLOR NAMES -->
-    <color name="trackbook_grey">#FF595959</color> <!-- derived from recommended dark theme surface color -->
-    <color name="trackbook_grey_light">#FF7D7D7D</color>
-    <color name="trackbook_grey_lighter">#FFDADADA</color>
-    <color name="trackbook_grey_very_light">#FFF2F2F2</color>
-    <color name="trackbook_grey_dark">#FF414141</color>
-    <color name="trackbook_grey_darker">#FF2D2D2D</color>
+    <!-- BASE COLOR NAMES -->
+    <color name="trackbook_neutral_dark">#FF595959</color> <!-- derived from recommended dark theme surface color -->
+    <color name="trackbook_neutral_darker">#FF414141</color>
+    <color name="trackbook_neutral_very_dark">#FF2D2D2D</color>
+
+    <color name="trackbook_neutral_medium_light">#FF7D7D7D</color>
+    <color name="trackbook_neutral_light">#FFDADADA</color>
+    <color name="trackbook_neutral_lighter">#FFF2F2F2</color>
+    <color name="trackbook_neutral_very_light">#FFFAFAFA</color>
+
+    <color name="trackbook_accent_intense">#FFEADDFF</color> <!-- colorPrimary - Light Theme -->
+    <color name="trackbook_accent_light">#FFF4EEFF</color>
+    <color name="trackbook_accent_dimmed">#FF625b71</color> <!-- colorSecondary - Light Theme -->
+
+    <color name="trackbook_neutral_black">#FF121212</color> <!-- Material Design recommended dark theme surface color -->
+    <color name="trackbook_neutral_white">#FFFFFFFF</color>
 
     <color name="trackbook_red">#FFDC3D33</color> <!-- Slightly muted variant of -> Material Design 2: Red 600 -->
     <color name="trackbook_red_dark">#FFCA2D23</color>
 
-    <color name="trackbook_black">#FF121212</color> <!-- Material Design recommended dark theme surface color -->
-    <color name="trackbook_white">#FFFFFFFF</color>
     <color name="trackbook_transparent">#00ffffff</color>
-
 
     <color name="trackbook_blue">#FF3C98DB</color>
 

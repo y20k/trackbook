@@ -168,6 +168,7 @@ class TrackerService: Service(), SensorEventListener {
         if (trackingState == Keys.STATE_TRACKING_ACTIVE) stopTracking()
         // remove notification
         stopForeground(true)
+        notificationManager.cancel(Keys.TRACKER_SERVICE_NOTIFICATION_ID) // this call was not necessary prior to Android 12
         // stop listening for changes in shared preferences
         PreferencesHelper.unregisterPreferenceChangeListener(
             sharedPreferenceChangeListener
@@ -268,6 +269,7 @@ class TrackerService: Service(), SensorEventListener {
         trackingState = Keys.STATE_TRACKING_NOT
         PreferencesHelper.saveTrackingState(trackingState)
         stopForeground(true)
+        notificationManager.cancel(Keys.TRACKER_SERVICE_NOTIFICATION_ID) // this call was not necessary prior to Android 12
     }
 
 
