@@ -19,10 +19,10 @@
     <string name="notification_show">Prikaži</string>
     <string name="statistics_sheet_p_steps">Broj koraka:</string>
     <string name="descr_quick_settings_tile_title_start">Počni snimati</string>
-    <string name="descr_fab_sub_menu_button_save">Gumb za spremanje</string>
+    <string name="descr_fab_sub_menu_button_save">Spremi snimanje</string>
     <string name="notification_channel_recording_name">Stanje snimanja kretanja</string>
     <string name="statistics_sheet_p_max_altitude">Najviša točka rute:</string>
-    <string name="descr_fab_sub_menu_button_clear">Gumb za poništavanje</string>
+    <string name="descr_fab_sub_menu_button_clear">Izbriši snimanje</string>
     <string name="pref_accuracy_threshold_summary">Odbaci određivanje mjesta s točnošću većom od (u metrima):</string>
     <string name="dialog_yes_no_message_delete_recording">Ovo snimanje izbrisati\?</string>
     <string name="notification_title_trackbook_running">Trackbook radi</string>
@@ -68,7 +68,7 @@
     <string name="track_list_onboarding_h1_part_1">Tvoje snimljene rute</string>
     <string name="dialog_generic_button_okay">U redu</string>
     <string name="descr_quick_settings_tile_title_stop">Prekini snimati</string>
-    <string name="descr_fab_sub_menu_button_resume">Gumb za nastavljanje</string>
+    <string name="descr_fab_sub_menu_button_resume">Nastavi snimanje</string>
     <string name="descr_statistics_sheet_delete_button">Gumb za brisanje puta</string>
     <string name="pref_reset_advanced_title">Vrati na standardne vrijednosti</string>
     <string name="notification_title_trackbook_not_running">Trackbook ne radi</string>
@@ -101,4 +101,5 @@
     <string name="pref_recording_accuracy_title">Točnost snimanja</string>
     <string name="pref_recording_accuracy_summary_default">Točke rute imaju manju točnost ali su češće.</string>
     <string name="track_list_p_element_statistics">Ukupna udaljenost snimljena</string>
+    <string name="descr_fab_location">Centriraj na trenutačno mjesto</string>
 </resources>
