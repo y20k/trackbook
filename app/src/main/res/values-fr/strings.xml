@@ -50,9 +50,9 @@
     <!-- descriptions -->
     <string name="descr_statistics_sheet_delete_button">Bouton « Supprimer le parcours »</string>
     <string name="descr_fab_main_start">Bouton « Démarrer l\'enregistrement »</string>
-    <string name="descr_fab_sub_menu_button_clear">Bouton « Supprimer »</string>
-    <string name="descr_fab_sub_menu_button_resume">Bouton « Reprendre »</string>
-    <string name="descr_fab_sub_menu_button_save">Bouton « Sauvegarder »</string>
+    <string name="descr_fab_sub_menu_button_clear">Effacer l\'enregistrement</string>
+    <string name="descr_fab_sub_menu_button_resume">Reprendre l\'enregistrement</string>
+    <string name="descr_fab_sub_menu_button_save">Sauvegarder l\'enregistrement</string>
     <string name="descr_map_current_track">Affichage du parcours actuel</string>
     <string name="descr_map_last_track">Affichage du dernier parcours</string>
     <string name="descr_statistics_sheet_save_button">Bouton « Partager au format GPX »</string>
@@ -114,4 +114,5 @@
     <string name="pref_recording_accuracy_summary_default">Les points de cheminements ont une précision plus faible mais sont plus fréquents.</string>
     <string name="pref_recording_accuracy_summary_high">Les points de cheminement ont une plus grande précision mais sont moins fréquents.</string>
     <string name="track_list_p_element_statistics">Distance totale enregistrée</string>
+    <string name="descr_fab_location">Centrer sur la position actuelle</string>
 </resources>
