@@ -10,7 +10,7 @@
     <string name="pref_gps_only_summary_gps_only">Actualmente se usa solo GPS para la localización.</string>
     <string name="pref_imperial_measurement_units_summary_imperial">Actualmente se utilizan unidades imperiales (millas, pies).</string>
     <string name="pref_report_issue_summary">Informar errores y sugerir mejoras en GitHub.</string>
-    <string name="descr_fab_sub_menu_button_resume">Botón para resumir</string>
+    <string name="descr_fab_sub_menu_button_resume">Resumir grabación</string>
     <string name="track_list_p_element_statistics">Distancia total grabada</string>
     <string name="abbreviation_minutes">Minutos</string>
     <string name="app_name">Trackbook</string>
@@ -93,12 +93,13 @@
     <string name="descr_map_current_track">Mapeando la ruta actual</string>
     <string name="descr_map_last_track">Mapeo de la última ruta</string>
     <string name="descr_fab_main_start">Botón de inicio de grabación</string>
-    <string name="descr_fab_sub_menu_button_save">Botón para guardar</string>
-    <string name="descr_fab_sub_menu_button_clear">Botón para eliminar</string>
+    <string name="descr_fab_sub_menu_button_save">Guardar grabación</string>
+    <string name="descr_fab_sub_menu_button_clear">Eliminar grabación</string>
     <string name="descr_mark_starred_button">Marcar como botón destacado</string>
     <string name="descr_quick_settings_tile_title_start">Iniciar grabación</string>
     <string name="descr_quick_settings_tile_title_stop">Detener grabación</string>
     <string name="descr_statistics_sheet_delete_button">Botón de eliminar ruta</string>
     <string name="descr_statistics_sheet_edit_button">Botón de editar ruta</string>
     <string name="descr_statistics_sheet_save_button">Botón Guardar como GPX</string>
+    <string name="descr_fab_location">Centrar en la ubicación actual</string>
 </resources>
