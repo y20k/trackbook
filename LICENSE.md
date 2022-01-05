@@ -1,7 +1,7 @@
 The MIT License (MIT)
 =====================
 
-Copyright (c) 2016-20 - Y20K.org
+Copyright (c) 2016-22 - Y20K.org
 --------------------------------
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
