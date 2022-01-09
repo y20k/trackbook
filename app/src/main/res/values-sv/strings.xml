@@ -106,8 +106,8 @@
     <string name="pref_app_version_summary">Version</string>
     <string name="pref_about_title">Om</string>
     <string name="track_list_p_element_statistics">Totalt registrerat avstånd</string>
-    <string name="descr_fab_sub_menu_button_clear">Rensa knappen</string>
-    <string name="descr_fab_sub_menu_button_save">Spara-knappen</string>
+    <string name="descr_fab_sub_menu_button_clear">Rensa inspelning</string>
+    <string name="descr_fab_sub_menu_button_save">Spara inspelning</string>
     <string name="abbreviation_hours">timmar</string>
     <string name="pref_theme_selection_title">Tema för appen</string>
     <string name="pref_theme_selection_mode_light">Ljusläge</string>
@@ -156,7 +156,7 @@
     <string name="descr_statistics_sheet_save_button">Spara som GPX-knapp</string>
     <string name="descr_quick_settings_tile_title_stop">Stoppa inspelningen</string>
     <string name="descr_mark_starred_button">Markera som stjärnmärkt</string>
-    <string name="descr_fab_sub_menu_button_resume">Återuppta knappen</string>
+    <string name="descr_fab_sub_menu_button_resume">Återuppta inspelning</string>
     <string name="pref_recording_accuracy_summary_default">Vägpunkter har lägre noggrannhet men är mer frekventa.</string>
     <string name="statistics_sheet_p_duration">Total varaktighet:</string>
     <string name="pref_gps_only_summary_gps_only">För närvarande används endast GPS för lokalisering.</string>
@@ -169,4 +169,5 @@
     <string name="statistics_sheet_p_waypoints">Inspelade waypoints:</string>
     <string name="snackbar_message_location_permission_denied">Tillstånd för placering inte beviljat. Trackbook fungerar inte.</string>
     <string name="notification_channel_recording_description">Visa varaktighet och avstånd. Möjlighet att stoppa rörelseinspelningen.</string>
+    <string name="descr_fab_location">Centrera på aktuell plats</string>
 </resources>
