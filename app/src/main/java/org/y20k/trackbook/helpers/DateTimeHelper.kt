@@ -33,25 +33,51 @@ import java.util.concurrent.TimeUnit
 object DateTimeHelper {
 
     /* Converts milliseconds to mm:ss or hh:mm:ss */
-    fun convertToReadableTime(context: Context, milliseconds: Long): String {
-        val timeString: String
+    fun convertToReadableTime(context: Context, milliseconds: Long, compactFormat: Boolean = false): String {
         val hours: Long = TimeUnit.MILLISECONDS.toHours(milliseconds)
         val minutes: Long = TimeUnit.MILLISECONDS.toMinutes(milliseconds) % TimeUnit.HOURS.toMinutes(1)
         val seconds: Long = TimeUnit.MILLISECONDS.toSeconds(milliseconds) % TimeUnit.MINUTES.toSeconds(1)
-        val h: String = context.getString(R.string.abbreviation_hours)
-        val m: String = context.getString(R.string.abbreviation_minutes)
-        val s: String = context.getString(R.string.abbreviation_seconds)
+        val timeString: String
 
-        when (milliseconds >= Keys.ONE_HOUR_IN_MILLISECONDS) {
-            // CASE: format hh:mm:ss
+        when (compactFormat) {
+
+            // Compact tine format
             true -> {
-                timeString = "$hours $h $minutes $m $seconds $s"
+                if (milliseconds < Keys.ONE_HOUR_IN_MILLISECONDS) {
+                    // example: 23:45
+                    val minutesString: String = minutes.toString()
+                    val secondsString: String = seconds.toString().padStart(2, '0')
+                    timeString = "$minutesString:$secondsString"
+                } else {
+                    // example: 1:23
+                    val hoursString: String  = hours.toString()
+                    val minutesString: String = minutes.toString()
+                    timeString = "$hoursString:$minutesString"
+                }
             }
-            // CASE: format mm:ss
+
+            // Long time format
             false -> {
-                timeString = "$minutes $m $seconds $s"
+                if (milliseconds < Keys.ONE_HOUR_IN_MILLISECONDS) {
+                    // example: 23 min 45 sec
+                    val minutesString: String = minutes.toString()
+                    val secondsString: String = seconds.toString()
+                    val m: String = context.getString(R.string.abbreviation_minutes)
+                    val s: String = context.getString(R.string.abbreviation_seconds)
+                    timeString = "$minutesString $m $secondsString $s"
+                } else {
+                    // example: 1 hrs 23 min 45 sec
+                    val hoursString: String = hours.toString()
+                    val minutesString: String = minutes.toString()
+                    val secondsString: String = seconds.toString()
+                    val h: String = context.getString(R.string.abbreviation_hours)
+                    val m: String = context.getString(R.string.abbreviation_minutes)
+                    val s: String = context.getString(R.string.abbreviation_seconds)
+                    timeString = "$hoursString $h $minutesString $m $secondsString $s"
+                }
             }
         }
+
         return timeString
     }
 

@@ -18,6 +18,7 @@
 
     <color name="text_default">@color/trackbook_neutral_white</color>
     <color name="text_lightweight">@color/trackbook_neutral_very_light</color>
+    <color name="text_outline_default">@color/trackbook_neutral_darker</color>
 
     <color name="icon_default">@color/trackbook_neutral_white</color>
     <color name="icon_lightweight">@color/trackbook_neutral_very_light</color>

@@ -201,6 +201,50 @@
             app:layout_constraintStart_toStartOf="parent"
             app:tint="@color/location_button_icon" />
 
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/live_statistics_distance_outline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="textEnd"
+            android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+            android:textColor="@color/text_outline_default"
+            app:layout_constraintEnd_toEndOf="@+id/live_statistics_distance"
+            app:layout_constraintTop_toTopOf="@+id/live_statistics_distance" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/live_statistics_distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="64dp"
+            android:layout_marginEnd="16dp"
+            android:textAlignment="textEnd"
+            android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+            android:textColor="@color/text_default"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/sample_text_default_live_statistics_distance" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/live_statistics_duration_outline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="textEnd"
+            android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+            android:textColor="@color/text_outline_default"
+            app:layout_constraintEnd_toEndOf="@+id/live_statistics_duration"
+            app:layout_constraintTop_toTopOf="@+id/live_statistics_duration" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/live_statistics_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="textEnd"
+            android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+            android:textColor="@color/text_default"
+            app:layout_constraintEnd_toEndOf="@+id/live_statistics_distance"
+            app:layout_constraintTop_toBottomOf="@+id/live_statistics_distance"
+            tools:text="@string/sample_text_default_live_statistics_duration" />
+
         <!-- GROUPS -->
         <androidx.constraintlayout.widget.Group
             android:id="@+id/fab_sub_menu"

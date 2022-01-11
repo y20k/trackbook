@@ -128,4 +128,6 @@
     <string name="sample_text_track_name" translatable="false">July 20, 1969</string>
     <string name="sample_text_default_data" translatable="false">track data missing</string>
     <string name="sample_text_default_total_distance" translatable="false">6357.23 km</string>
+    <string name="sample_text_default_live_statistics_distance" translatable="false">23.0 km</string>
+    <string name="sample_text_default_live_statistics_duration" translatable="false">5:23</string>
 </resources>

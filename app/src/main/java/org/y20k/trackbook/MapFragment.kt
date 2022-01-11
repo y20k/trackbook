@@ -361,6 +361,7 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener, MapOverlayHelpe
             // update location and track
             layout.markCurrentPosition(currentBestLocation, trackingState)
             layout.overlayCurrentTrack(track, trackingState)
+            layout.updateLiveStatics(length = track.length, duration = track.duration, trackingState = trackingState)
             // center map, if it had not been dragged/zoomed before
             if (!layout.userInteraction) { layout.centerMap(currentBestLocation, true)}
             // show error snackbar if necessary
