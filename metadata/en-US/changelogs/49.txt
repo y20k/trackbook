@@ -1,0 +1,7 @@
+# v2.1.1 - See Emily Play
+
+**2022-01-14**
+
+- minor layout changes to better fit in with the "Material Design 3" theme introduced in Android 12
+- overlay distance and duration on the map while a recording is ongoing
+- updated translations
