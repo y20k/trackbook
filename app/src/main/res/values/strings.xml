@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- placeholder text - todo remove -->
     <!-- App Name -->
     <string name="app_name">Trackbook</string>
     <!-- please do not translate app_name - transcription into different alphabet types is fine though -->

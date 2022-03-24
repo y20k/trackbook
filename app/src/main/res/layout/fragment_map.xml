@@ -65,9 +65,8 @@
                 android:paddingRight="6dp"
                 android:paddingBottom="2dp"
                 android:text="@string/fab_sub_menu_save"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                android:textColor="@color/fab_button_card_text"
-                android:textStyle="bold" />
+                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                android:textColor="@color/fab_button_card_text" />
         </com.google.android.material.card.MaterialCardView>
 
         <!-- BUTTON CLEAR -->
@@ -113,9 +112,8 @@
                 android:paddingRight="6dp"
                 android:paddingBottom="2dp"
                 android:text="@string/fab_sub_menu_clear"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                android:textColor="@color/fab_button_card_text"
-                android:textStyle="bold" />
+                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                android:textColor="@color/fab_button_card_text" />
         </com.google.android.material.card.MaterialCardView>
 
         <!-- BUTTON RESUME -->
@@ -160,9 +158,8 @@
                 android:paddingRight="6dp"
                 android:paddingBottom="2dp"
                 android:text="@string/fab_sub_menu_resume"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                android:textColor="@color/fab_button_card_text"
-                android:textStyle="bold" />
+                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                android:textColor="@color/fab_button_card_text" />
         </com.google.android.material.card.MaterialCardView>
 
 

@@ -5,8 +5,10 @@
     <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Do not use primary colored elevation overlays to present a visual hierarchy - TO COLORFUL  -->
         <item name="elevationOverlayEnabled">false</item>
-        <!-- Show transparent status bar -->
-        <item name="android:windowTranslucentStatus">true</item>
+
+        <!-- Use "light" Status Bar -->
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:statusBarColor">@color/status_bar_background</item>
 
     </style>
 

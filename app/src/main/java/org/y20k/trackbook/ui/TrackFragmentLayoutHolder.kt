@@ -57,7 +57,8 @@ import kotlin.math.roundToInt
 /*
  * TrackFragmentLayoutHolder class
  */
-data class TrackFragmentLayoutHolder(private var context: Context, private var markerListener: MapOverlayHelper.MarkerListener, private var inflater: LayoutInflater, private var statusBarHeight: Int, private var container: ViewGroup?, var track: Track): MapListener {
+//data class TrackFragmentLayoutHolder(private var context: Context, private var markerListener: MapOverlayHelper.MarkerListener, private var inflater: LayoutInflater, private var statusBarHeight: Int, private var container: ViewGroup?, var track: Track): MapListener { TODO REMOVE
+data class TrackFragmentLayoutHolder(private var context: Context, private var markerListener: MapOverlayHelper.MarkerListener, private var inflater: LayoutInflater, private var container: ViewGroup?, var track: Track): MapListener {
 
     /* Define log tag */
     private val TAG: String = LogHelper.makeLogTag(TrackFragmentLayoutHolder::class.java)
@@ -147,7 +148,8 @@ data class TrackFragmentLayoutHolder(private var context: Context, private var m
         // add compass to map
         val compassOverlay = CompassOverlay(context, InternalCompassOrientationProvider(context), mapView)
         compassOverlay.enableCompass()
-        compassOverlay.setCompassCenter(36f, 36f + (statusBarHeight / UiHelper.getDensityScalingFactor(context)))
+        compassOverlay.setCompassCenter(36f, 36f)
+//        compassOverlay.setCompassCenter(36f, 36f + (statusBarHeight / UiHelper.getDensityScalingFactor(context))) TODO REMOVE
         mapView.overlays.add(compassOverlay)
 
         // create map overlay

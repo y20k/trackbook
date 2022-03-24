@@ -71,10 +71,6 @@ class TracklistFragment : Fragment(), TracklistAdapter.TracklistAdapterListener,
         trackElementList = rootView.findViewById(R.id.track_element_list)
         tracklistOnboarding = rootView.findViewById(R.id.track_list_onboarding)
 
-        // add padding - necessary because translucent status bar is used
-        val topPadding: Int = UiHelper.getStatusBarHeight(activity as Context)
-        trackElementList.setPadding(0, topPadding, 0, 0)
-
         // set up recycler view
         trackElementList.layoutManager = CustomLinearLayoutManager(activity as Context)
         trackElementList.itemAnimator = DefaultItemAnimator()
@@ -90,7 +86,7 @@ class TracklistFragment : Fragment(), TracklistAdapter.TracklistAdapterListener,
             }
         }
         val itemTouchHelper = ItemTouchHelper(swipeHandler)
-        itemTouchHelper.attachToRecyclerView(rootView.findViewById(R.id.track_element_list))
+        itemTouchHelper.attachToRecyclerView(trackElementList)
 
         // toggle onboarding layout
         toggleOnboardingLayout()

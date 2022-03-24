@@ -28,10 +28,16 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.preference.*
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import org.y20k.trackbook.core.Tracklist
-import org.y20k.trackbook.helpers.*
+import org.y20k.trackbook.helpers.AppThemeHelper
+import org.y20k.trackbook.helpers.FileHelper
+import org.y20k.trackbook.helpers.LengthUnitHelper
+import org.y20k.trackbook.helpers.LogHelper
 
 
 /*
@@ -48,9 +54,6 @@ class SettingsFragment : PreferenceFragmentCompat(), YesNoDialog.YesNoDialogList
         super.onViewCreated(view, savedInstanceState)
         // set the background color
         view.setBackgroundColor(resources.getColor(R.color.app_window_background, null))
-        // add padding - necessary because translucent status bar is used
-        val topPadding: Int = UiHelper.getStatusBarHeight(activity as Context)
-        view.setPadding(0, topPadding, 0, 0)
     }
 
 
@@ -226,7 +229,7 @@ class SettingsFragment : PreferenceFragmentCompat(), YesNoDialog.YesNoDialogList
 
 
     /* Removes track and track files for given position - used by TracklistFragment */
-    fun deleteNonStarred(context: Context) {
+    private fun deleteNonStarred(context: Context) {
         CoroutineScope(IO).launch  {
             var tracklist: Tracklist = FileHelper.readTracklist(context)
             val deferred: Deferred<Tracklist> = async { FileHelper.deleteNonStarredSuspended(context, tracklist) }

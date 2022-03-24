@@ -54,7 +54,7 @@ import org.y20k.trackbook.helpers.*
 /*
  * MapFragmentLayoutHolder class
  */
-data class MapFragmentLayoutHolder(private var context: Context, private var markerListener: MapOverlayHelper.MarkerListener, private var inflater: LayoutInflater, private var container: ViewGroup?, private var statusBarHeight: Int ,private val startLocation: Location, private val trackingState: Int) {
+data class MapFragmentLayoutHolder(private var context: Context, private var markerListener: MapOverlayHelper.MarkerListener, private var inflater: LayoutInflater, private var container: ViewGroup?, private var statusBarHeight: Int, private val startLocation: Location, private val trackingState: Int) {
 
     /* Define log tag */
     private val TAG: String = LogHelper.makeLogTag(MapFragmentLayoutHolder::class.java)
@@ -120,12 +120,14 @@ data class MapFragmentLayoutHolder(private var context: Context, private var mar
         // add compass to map
         val compassOverlay = CompassOverlay(context, InternalCompassOrientationProvider(context), mapView)
         compassOverlay.enableCompass()
-        compassOverlay.setCompassCenter(36f, 36f + (statusBarHeight / densityScalingFactor))
+//        compassOverlay.setCompassCenter(36f, 36f + (statusBarHeight / densityScalingFactor)) // TODO uncomment when transparent status bar is re-implemented
+        compassOverlay.setCompassCenter(36f, 36f)
         mapView.overlays.add(compassOverlay)
 
         // position the live statistics
         (liveStatisticsDistanceView.layoutParams as ConstraintLayout.LayoutParams).apply {
-            topMargin = (12 * densityScalingFactor).toInt() + statusBarHeight
+//            topMargin = (12 * densityScalingFactor).toInt() + statusBarHeight // TODO uncomment when transparent status bar is re-implemented
+            topMargin = (12 * densityScalingFactor).toInt()
         }
 
         // add my location overlay

@@ -41,7 +41,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.y20k.trackbook.core.Track
 import org.y20k.trackbook.dialogs.RenameTrackDialog
-import org.y20k.trackbook.helpers.*
+import org.y20k.trackbook.helpers.FileHelper
+import org.y20k.trackbook.helpers.LogHelper
+import org.y20k.trackbook.helpers.MapOverlayHelper
+import org.y20k.trackbook.helpers.TrackHelper
 import org.y20k.trackbook.ui.TrackFragmentLayoutHolder
 
 
@@ -66,14 +69,13 @@ class TrackFragment : Fragment(), RenameTrackDialog.RenameTrackListener, YesNoDi
     /* Overrides onCreateView from Fragment */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         // initialize layout
-        val statusBarHeight: Int = UiHelper.getStatusBarHeight(activity as Context)
         val track: Track
         if (this::trackFileUriString.isInitialized && trackFileUriString.isNotBlank()) {
             track = FileHelper.readTrack(activity as Context, Uri.parse(trackFileUriString))
         } else {
             track = Track()
         }
-        layout = TrackFragmentLayoutHolder(activity as Context, this as MapOverlayHelper.MarkerListener, inflater, statusBarHeight, container, track)
+        layout = TrackFragmentLayoutHolder(activity as Context, this as MapOverlayHelper.MarkerListener, inflater, container, track)
 
         // set up share button
         layout.shareButton.setOnClickListener {

@@ -5,6 +5,7 @@
 
     <color name="app_window_background">@color/trackbook_neutral_very_dark</color>
     <color name="bottom_navigation_background">@color/trackbook_neutral_black</color>
+    <color name="status_bar_background">@color/trackbook_neutral_black</color>
     <color name="dialog_background">@color/trackbook_neutral_darker</color>
 
     <color name="bottom_navigation_element">@color/trackbook_neutral_medium_light</color>

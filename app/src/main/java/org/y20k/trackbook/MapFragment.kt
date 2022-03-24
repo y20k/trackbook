@@ -65,6 +65,7 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener, MapOverlayHelpe
     /* Overrides onCreate from Fragment */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // TODO make only MapFragment's status bar transparent - see: https://gist.github.com/Dvik/a3de88d39da9d1d6d175025a56c5e797#file-viewextension-kt and https://proandroiddev.com/android-full-screen-ui-with-transparent-status-bar-ef52f3adde63
         // get current best location
         currentBestLocation = LocationHelper.getLastKnownLocation(activity as Context)
         // get saved tracking state
@@ -223,7 +224,6 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener, MapOverlayHelpe
     private fun resumeTracking() {
         // request activity recognition permission on Android Q+ if denied
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && ContextCompat.checkSelfPermission(activity as Context, Manifest.permission.ACTIVITY_RECOGNITION) == PackageManager.PERMISSION_DENIED) {
-            LogHelper.e(TAG, "permissions resume DING") // todo remove
             resumeTrackingPermissionLauncher.launch(Manifest.permission.ACTIVITY_RECOGNITION)
         } else {
             // start service via intent so that it keeps running after unbind
