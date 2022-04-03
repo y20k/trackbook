@@ -2,7 +2,7 @@
 <img src="https://raw.githubusercontent.com/y20k/trackbook/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png"
     width="192" />
 
-**Version 2.0.x ("Echoes")**
+**Version 2.1.x ("See Emily Play")**
 
 Trackbook is a bare-bones app for recording your movements.
 Trackbook is great for hiking, vacationing, or working out.
