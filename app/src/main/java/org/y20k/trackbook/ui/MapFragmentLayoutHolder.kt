@@ -68,7 +68,6 @@ data class MapFragmentLayoutHolder(private var context: Context, private var mar
     val recordingButtonSubMenu: Group
     val saveButton: FloatingActionButton
     val clearButton: FloatingActionButton
-    val resumeButton: FloatingActionButton
     var userInteraction: Boolean = false
     private var currentPositionOverlay: ItemizedIconOverlay<OverlayItem>
     private var currentTrackOverlay: SimpleFastPointOverlay?
@@ -93,7 +92,6 @@ data class MapFragmentLayoutHolder(private var context: Context, private var mar
         recordingButtonSubMenu = rootView.findViewById(R.id.fab_sub_menu)
         saveButton = rootView.findViewById(R.id.fab_sub_menu_button_save)
         clearButton = rootView.findViewById(R.id.fab_sub_menu_button_clear)
-        resumeButton = rootView.findViewById(R.id.fab_sub_menu_button_resume)
         liveStatisticsDistanceView = rootView.findViewById(R.id.live_statistics_distance)
         liveStatisticsDistanceOutlineView = rootView.findViewById(R.id.live_statistics_distance_outline)
         liveStatisticsDurationView = rootView.findViewById(R.id.live_statistics_duration)
@@ -236,7 +234,8 @@ data class MapFragmentLayoutHolder(private var context: Context, private var mar
                 recordingButtonSubMenu.isGone = true
             }
             Keys.STATE_TRACKING_STOPPED -> {
-                recordingButton.setImageResource(R.drawable.ic_save_24dp)
+                recordingButton.setImageResource(R.drawable.ic_fiber_manual_record_inactive_24dp)
+                recordingButtonSubMenu.isVisible = true
             }
         }
     }

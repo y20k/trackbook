@@ -92,9 +92,6 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener, MapOverlayHelpe
         layout.clearButton.setOnClickListener {
             trackerService.clearTrack()
         }
-        layout.resumeButton.setOnClickListener {
-            resumeTracking()
-        }
 
         return layout.rootView
     }
@@ -259,7 +256,7 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener, MapOverlayHelpe
     /* Starts / pauses tracking and toggles the recording sub menu_bottom_navigation */
     private fun handleTrackingManagementMenu() {
         when (trackingState) {
-            Keys.STATE_TRACKING_STOPPED -> layout.toggleRecordingButtonSubMenu()
+            Keys.STATE_TRACKING_STOPPED -> resumeTracking()
             Keys.STATE_TRACKING_ACTIVE -> trackerService.stopTracking()
             Keys.STATE_TRACKING_NOT -> startTracking()
         }
