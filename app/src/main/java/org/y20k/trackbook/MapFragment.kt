@@ -90,7 +90,15 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener, MapOverlayHelpe
             saveTrack()
         }
         layout.clearButton.setOnClickListener {
-            trackerService.clearTrack()
+            if (track.wayPoints.isNotEmpty()) {
+                YesNoDialog(this as YesNoDialog.YesNoDialogListener).show(
+                    context=activity as Context,
+                    type = Keys.DIALOG_CLEAR_RECORDING,
+                    title = R.string.dialog_clear_recording_title,
+                    message = R.string.dialog_clear_recording_message,
+                    yesButton = R.string.dialog_clear_recording_action_resume
+                )
+            }
         }
         layout.resumeButton.setOnClickListener {
             resumeTracking()
@@ -189,6 +197,13 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener, MapOverlayHelpe
                     // user tapped resume
                     true -> {
                         trackerService.resumeTracking()
+                    }
+                }
+            }
+            Keys.DIALOG_CLEAR_RECORDING -> {
+                when (dialogResult) {
+                    true -> {
+                        trackerService.clearTrack()
                     }
                 }
             }

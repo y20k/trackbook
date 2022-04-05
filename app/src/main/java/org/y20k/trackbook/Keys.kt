@@ -73,6 +73,7 @@ object Keys {
     const val DIALOG_EMPTY_RECORDING: Int = 0
     const val DIALOG_DELETE_TRACK: Int = 1
     const val DIALOG_DELETE_NON_STARRED: Int = 2
+    const val DIALOG_CLEAR_RECORDING: Int = 3
 
     // dialog results
     const val DIALOG_EMPTY_PAYLOAD_STRING: String = ""

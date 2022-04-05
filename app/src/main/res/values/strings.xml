@@ -24,6 +24,9 @@
     <string name="fab_sub_menu_save">Save</string>
     <string name="fab_sub_menu_resume">Resume</string>
     <!-- Dialogs -->
+    <string name="dialog_clear_recording_title">Clear recorded points?</string>
+    <string name="dialog_clear_recording_message">Clear all points and start a new track.</string>
+    <string name="dialog_clear_recording_action_resume">Clear</string>
     <string name="dialog_generic_button_cancel">Cancel</string>
     <string name="dialog_generic_button_okay">OK</string>
     <string name="dialog_generic_details_button">Show details</string>
