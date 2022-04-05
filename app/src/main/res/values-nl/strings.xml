@@ -8,7 +8,7 @@
     <!-- notification -->
     <string name="notification_title_trackbook_running">Trackbook is actief</string>
     <string name="notification_title_trackbook_not_running">Trackbook is niet actief</string>
-    <string name="notification_stop">Stoppen</string>
+    <string name="notification_pause">Stoppen</string>
     <string name="notification_resume">Hervatten</string>
     <string name="notification_show">Tonen</string>
     <string name="notification_channel_recording_name">Bewegingsopname status</string>
@@ -16,14 +16,13 @@
     <!-- snackbar messages -->
     <string name="snackbar_message_location_offline">Locatieservice is uitgeschakeld. Trackbook zal niet werken.</string>
     <!-- fab sub menu_bottom_navigation -->
-    <string name="fab_sub_menu_clear">Wissen</string>
-    <string name="fab_sub_menu_save">Opslaan</string>
-    <string name="fab_sub_menu_resume">Hervatten</string>
+    <string name="button_delete">Wissen</string>
+    <string name="button_save">Opslaan</string>
+    <string name="button_resume">Hervatten</string>
     <!-- dialogs -->
     <string name="dialog_share_gpx">GPX-bestand delen met</string>
-    <string name="dialog_error_empty_recording_title">Opslaan niet mogelijk</string>
     <string name="dialog_error_empty_recording_message">Trackbook heeft nog geen routepunten vastgelegd.</string>
-    <string name="dialog_error_empty_recording_action_resume">Opnemen hervatten</string>
+    <string name="dialog_error_empty_recording_button_resume">Opnemen hervatten</string>
     <!-- toast messages -->
     <string name="toast_message_elevation_info">Tip: De nauwkeurigheid van de hoogtemeter hangt af van uw toestel. De stijging en daling van de hele afstand wordt gemeten.</string>
     <string name="toast_message_install_file_helper">Kan niet opslaan. Installeer eerst een bestandsbeheerder.</string>
@@ -50,10 +49,10 @@
     <!-- descriptions -->
     <string name="descr_map_current_track">Kaartweergave van huidige route</string>
     <string name="descr_map_last_track">Kaart van de laatste route</string>
-    <string name="descr_fab_main_start">Start opname</string>
-    <string name="descr_fab_sub_menu_button_save">Opname opslaan</string>
-    <string name="descr_fab_sub_menu_button_clear">Opname wissen</string>
-    <string name="descr_fab_sub_menu_button_resume">Opname hervatten</string>
+    <string name="descr_button_start">Start opname</string>
+    <string name="descr_button_save">Opname opslaan</string>
+    <string name="descr_button_delete">Opname wissen</string>
+    <string name="descr_button_resume">Opname hervatten</string>
     <string name="descr_statistics_sheet_delete_button">Route verwijderen</string>
     <string name="descr_statistics_sheet_save_button">Opslaan als GPX</string>
     <string name="tab_tracks">Routes</string>
@@ -86,9 +85,9 @@
     <string name="descr_statistics_sheet_edit_button">Route aanpassen</string>
     <string name="quick_settings_tile_title_default">Opname</string>
     <string name="quick_settings_tile_title_start">Opname starten</string>
-    <string name="quick_settings_tile_title_stop">Opname stoppen</string>
+    <string name="quick_settings_tile_title_pause">Opname stoppen</string>
     <string name="descr_quick_settings_tile_title_start">Opname starten</string>
-    <string name="descr_quick_settings_tile_title_stop">Opname stoppen</string>
+    <string name="descr_quick_settings_tile_title_pause">Opname stoppen</string>
     <string name="pref_theme_selection_mode_dark">Donkere modus</string>
     <string name="pref_theme_selection_mode_device_default">Zelfde als toestel</string>
     <string name="pref_theme_selection_mode_light">Lichte modus</string>
@@ -114,5 +113,5 @@
     <string name="pref_recording_accuracy_summary_default">Routepunten zijn minder nauwkeurig, maar frequenter.</string>
     <string name="pref_recording_accuracy_summary_high">Routepunten zijn nauwkeuriger, maar minder frequent.</string>
     <string name="track_list_p_element_statistics">Totaal afgelegde afstand</string>
-    <string name="descr_fab_location">Centreren op huidige locatie</string>
+    <string name="descr_button_location">Centreren op huidige locatie</string>
 </resources>

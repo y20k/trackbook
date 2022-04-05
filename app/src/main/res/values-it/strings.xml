@@ -10,7 +10,7 @@
     <!-- Notification -->
     <string name="notification_title_trackbook_running">Trackbook in esecuzione</string>
     <string name="notification_title_trackbook_not_running">Trackbook non in esecuzione</string>
-    <string name="notification_stop">Ferma</string>
+    <string name="notification_pause">Ferma</string>
     <string name="notification_resume">Riprendi</string>
     <string name="notification_show">Mostra</string>
     <string name="notification_channel_recording_name">Stato della registrazione del movimento</string>
@@ -19,16 +19,15 @@
     <string name="snackbar_message_location_offline">La posizione è disattivata. Trackbook non funzionerà.</string>
     <string name="snackbar_message_location_permission_denied">Autorizzazione alla posizione non concessa. Trackbook non funzionerà.</string>
     <!-- FAB Sub Menu -->
-    <string name="fab_sub_menu_clear">Cancella</string>
-    <string name="fab_sub_menu_save">Salva</string>
-    <string name="fab_sub_menu_resume">Riprendi</string>
+    <string name="button_delete">Cancella</string>
+    <string name="button_save">Salva</string>
+    <string name="button_resume">Riprendi</string>
     <!-- Dialogs -->
     <string name="dialog_generic_button_cancel">Annulla</string>
     <string name="dialog_generic_button_okay">OK</string>
     <string name="dialog_generic_details_button">Dettagli</string>
-    <string name="dialog_error_empty_recording_title">Impossibile salvare</string>
     <string name="dialog_error_empty_recording_message">Trackbook non ha registrato nessuna tappa intermedia finora.</string>
-    <string name="dialog_error_empty_recording_action_resume">Riprendi la registrazione</string>
+    <string name="dialog_error_empty_recording_button_resume">Riprendi la registrazione</string>
     <string name="dialog_rename_track_button">Rinomina</string>
     <string name="dialog_rename_track_input_hint">Inserisci un nuovo nome</string>
     <string name="dialog_share_gpx">Condividi il file GPX con</string>
@@ -64,7 +63,7 @@
     <!-- Recording Quick Settings Tile -->
     <string name="quick_settings_tile_title_default">Registrazione</string>
     <string name="quick_settings_tile_title_start">Avvia registrazione</string>
-    <string name="quick_settings_tile_title_stop">Ferma registrazione</string>
+    <string name="quick_settings_tile_title_pause">Ferma registrazione</string>
     <!-- Onboarding Layout -->
     <string name="layout_onboarding_description_app_icon">Icona dell\'applicazione Trackbook</string>
     <!-- Track Tab Onboarding -->
@@ -103,13 +102,13 @@
     <!-- Descriptions -->
     <string name="descr_map_current_track">Mappatura della traccia corrente</string>
     <string name="descr_map_last_track">Mappatura dell\'ultima traccia</string>
-    <string name="descr_fab_main_start">Pulsante Avvia registrazione</string>
-    <string name="descr_fab_sub_menu_button_save">Pulsante Salva</string>
-    <string name="descr_fab_sub_menu_button_clear">Pulsante Cancella</string>
-    <string name="descr_fab_sub_menu_button_resume">Pulsante Riprendi</string>
+    <string name="descr_button_start">Pulsante Avvia registrazione</string>
+    <string name="descr_button_save">Pulsante Salva</string>
+    <string name="descr_button_delete">Pulsante Cancella</string>
+    <string name="descr_button_resume">Pulsante Riprendi</string>
     <string name="descr_mark_starred_button">Segna come preferito</string>
     <string name="descr_quick_settings_tile_title_start">Inizia registrazione</string>
-    <string name="descr_quick_settings_tile_title_stop">Ferma Registrazione</string>
+    <string name="descr_quick_settings_tile_title_pause">Ferma Registrazione</string>
     <string name="descr_statistics_sheet_delete_button">Tasto cancella traccia</string>
     <string name="descr_statistics_sheet_edit_button">Tasto modifica traccia</string>
     <string name="descr_statistics_sheet_save_button">Tasto salva come GPX</string>

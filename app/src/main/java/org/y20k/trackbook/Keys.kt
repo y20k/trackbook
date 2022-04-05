@@ -64,7 +64,7 @@ object Keys {
     // states
     const val STATE_TRACKING_NOT: Int = 0
     const val STATE_TRACKING_ACTIVE: Int = 1
-    const val STATE_TRACKING_STOPPED: Int = 2
+    const val STATE_TRACKING_PAUSED: Int = 2
     const val STATE_THEME_FOLLOW_SYSTEM: String = "stateFollowSystem"
     const val STATE_THEME_LIGHT_MODE: String = "stateLightMode"
     const val STATE_THEME_DARK_MODE: String = "stateDarkMode"
@@ -73,7 +73,7 @@ object Keys {
     const val DIALOG_EMPTY_RECORDING: Int = 0
     const val DIALOG_DELETE_TRACK: Int = 1
     const val DIALOG_DELETE_NON_STARRED: Int = 2
-    const val DIALOG_CLEAR_RECORDING: Int = 3
+    const val DIALOG_DELETE_CURRENT_RECORDING: Int = 3
 
     // dialog results
     const val DIALOG_EMPTY_PAYLOAD_STRING: String = ""

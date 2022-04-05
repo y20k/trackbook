@@ -11,28 +11,29 @@
     <!-- Notification -->
     <string name="notification_title_trackbook_running">Trackbook running</string>
     <string name="notification_title_trackbook_not_running">Trackbook not running</string>
-    <string name="notification_stop">Stop</string>
+    <string name="notification_pause">Pause</string>
     <string name="notification_resume">Resume</string>
     <string name="notification_show">Show</string>
     <string name="notification_channel_recording_name">Movement Recording State</string>
-    <string name="notification_channel_recording_description">Display duration and distance. Option to stop movement recording.</string>
+    <string name="notification_channel_recording_description">Display duration and distance. Option to pause movement recording.</string>
     <!-- Snackbar Messages -->
     <string name="snackbar_message_location_offline">Location is turned off. Trackbook will not work.</string>
     <string name="snackbar_message_location_permission_denied">Location permission not granted. Trackbook will not work.</string>
-    <!-- FAB Sub Menu -->
-    <string name="fab_sub_menu_clear">Clear</string>
-    <string name="fab_sub_menu_save">Save</string>
-    <string name="fab_sub_menu_resume">Resume</string>
+    <!-- Buttons -->
+
+    <string name="button_delete">Delete</string>
+    <string name="button_pause">Pause</string>
+    <string name="button_resume">Resume</string>
+    <string name="button_save">Save</string>
+    <string name="button_start">Start</string>
     <!-- Dialogs -->
-    <string name="dialog_clear_recording_title">Clear recorded points?</string>
-    <string name="dialog_clear_recording_message">Clear all points and start a new track.</string>
-    <string name="dialog_clear_recording_action_resume">Clear</string>
+    <string name="dialog_delete_current_recording_message">Discard the current recording?</string>
+    <string name="dialog_delete_current_recording_button_discard">Discard</string>
     <string name="dialog_generic_button_cancel">Cancel</string>
     <string name="dialog_generic_button_okay">OK</string>
     <string name="dialog_generic_details_button">Show details</string>
-    <string name="dialog_error_empty_recording_title">Unable to save</string>
-    <string name="dialog_error_empty_recording_message">Trackbook did not record any waypoints so far.</string>
-    <string name="dialog_error_empty_recording_action_resume">Resume Recording</string>
+    <string name="dialog_error_empty_recording_message">Unable to save. Trackbook did not record any waypoints so far.</string>
+    <string name="dialog_error_empty_recording_button_resume">Resume Recording</string>
     <string name="dialog_rename_track_button">Rename</string>
     <string name="dialog_rename_track_input_hint">Enter a new name</string>
     <string name="dialog_share_gpx">Share GPX file with</string>
@@ -68,7 +69,7 @@
     <!-- Recording Quick Settings Tile -->
     <string name="quick_settings_tile_title_default">Recording</string>
     <string name="quick_settings_tile_title_start">Start Recording</string>
-    <string name="quick_settings_tile_title_stop">Stop Recording</string>
+    <string name="quick_settings_tile_title_pause">Pause Recording</string>
     <!-- Onboarding Layout -->
     <string name="layout_onboarding_description_app_icon">Trackbook App Icon</string>
     <!-- Track Tab Onboarding -->
@@ -112,16 +113,17 @@
     <string name="abbreviation_minutes">min</string>
     <string name="abbreviation_seconds">sec</string>
     <!-- Descriptions -->
+    <string name="descr_button_delete">Discard recording</string>
+    <string name="descr_button_location">Center on current location</string>
+    <string name="descr_button_pause">Pause recording</string>
+    <string name="descr_button_resume">Resume recording</string>
+    <string name="descr_button_save">Save recording</string>
+    <string name="descr_button_start">Start recording</string>
     <string name="descr_map_current_track">Mapping of current track</string>
     <string name="descr_map_last_track">Mapping of last track</string>
-    <string name="descr_fab_main_start">Start recording button</string>
-    <string name="descr_fab_sub_menu_button_save">Save recording</string>
-    <string name="descr_fab_sub_menu_button_clear">Clear recording</string>
-    <string name="descr_fab_sub_menu_button_resume">Resume recording</string>
-    <string name="descr_fab_location">Center on current location</string>
     <string name="descr_mark_starred_button">Mark as starred button</string>
     <string name="descr_quick_settings_tile_title_start">Start Recording</string>
-    <string name="descr_quick_settings_tile_title_stop">Stop Recording</string>
+    <string name="descr_quick_settings_tile_title_pause">Pause Recording</string>
     <string name="descr_statistics_sheet_delete_button">Track delete button</string>
     <string name="descr_statistics_sheet_edit_button">Track edit button</string>
     <string name="descr_statistics_sheet_save_button">Save as GPX button</string>

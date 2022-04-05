@@ -8,7 +8,7 @@
     <!-- notification -->
     <string name="notification_title_trackbook_running">Trackbook kjører</string>
     <string name="notification_title_trackbook_not_running">Trackbook kjører ikke</string>
-    <string name="notification_stop">Stopp</string>
+    <string name="notification_pause">Stopp</string>
     <string name="notification_resume">Fortsett</string>
     <string name="notification_show">Vis</string>
     <string name="notification_channel_recording_name">Bevegelsesopptakstilstand</string>
@@ -16,14 +16,13 @@
     <!-- snackbar messages -->
     <string name="snackbar_message_location_offline">Plassering avskrudd. Trackbook bil ikke fungere.</string>
     <!-- fab sub menu_bottom_navigation -->
-    <string name="fab_sub_menu_clear">Tøm</string>
-    <string name="fab_sub_menu_save">Lagre og tøm</string>
-    <string name="fab_sub_menu_resume">Fortsett</string>
+    <string name="button_delete">Tøm</string>
+    <string name="button_save">Lagre og tøm</string>
+    <string name="button_resume">Fortsett</string>
     <!-- dialogs -->
     <string name="dialog_share_gpx">Del GPX-fil med</string>
-    <string name="dialog_error_empty_recording_title">Kunne ikke lagre</string>
     <string name="dialog_error_empty_recording_message">Trackbook har ikke registrert noen veipunkter så langt.</string>
-    <string name="dialog_error_empty_recording_action_resume">Gjenoppta opptak</string>
+    <string name="dialog_error_empty_recording_button_resume">Gjenoppta opptak</string>
     <!-- toast messages -->
     <string name="toast_message_elevation_info">Hint: Høydedataens nøyaktighet avhenger av enheten din. Opp og ned-stigningen for hele ruten måles.</string>
     <string name="toast_message_install_file_helper">Klarte ikke å lagre. Installer en filbehandler først.</string>
@@ -50,10 +49,10 @@
     <!-- descriptions -->
     <string name="descr_map_current_track">Kartlegging av nåværende spor</string>
     <string name="descr_map_last_track">Kartlegging av forrige spor</string>
-    <string name="descr_fab_main_start">Opptaksstart-knapp</string>
-    <string name="descr_fab_sub_menu_button_save">Lagre opptak</string>
-    <string name="descr_fab_sub_menu_button_clear">Fjern opptak</string>
-    <string name="descr_fab_sub_menu_button_resume">Fortsett opptak</string>
+    <string name="descr_button_start">Opptaksstart-knapp</string>
+    <string name="descr_button_save">Lagre opptak</string>
+    <string name="descr_button_delete">Fjern opptak</string>
+    <string name="descr_button_resume">Fortsett opptak</string>
     <string name="descr_statistics_sheet_delete_button">Sporslettingsknapp</string>
     <string name="descr_statistics_sheet_save_button">Delingsknapp som muliggjør eksport som GPX</string>
     <string name="tab_tracks">Spor</string>
@@ -86,9 +85,9 @@
     <string name="descr_statistics_sheet_edit_button">Sporredigeringsknapp</string>
     <string name="quick_settings_tile_title_default">Opptak</string>
     <string name="quick_settings_tile_title_start">Start opptak</string>
-    <string name="quick_settings_tile_title_stop">Stopp opptak</string>
+    <string name="quick_settings_tile_title_pause">Stopp opptak</string>
     <string name="descr_quick_settings_tile_title_start">Start opptak</string>
-    <string name="descr_quick_settings_tile_title_stop">Stopp opptak</string>
+    <string name="descr_quick_settings_tile_title_pause">Stopp opptak</string>
     <string name="pref_theme_selection_mode_dark">Mørkt modus</string>
     <string name="pref_theme_selection_mode_device_default">Samme som enhet</string>
     <string name="pref_theme_selection_mode_light">Lyst modus</string>
@@ -114,5 +113,5 @@
     <string name="track_list_p_element_statistics">Totalavstand registrert</string>
     <string name="pref_recording_accuracy_summary_default">Veipunkter har lavere nøyaktighet, men er hyppigere.</string>
     <string name="pref_recording_accuracy_title">Opptaksnøyaktighet</string>
-    <string name="descr_fab_location">Sentrer på nåværende sted</string>
+    <string name="descr_button_location">Sentrer på nåværende sted</string>
 </resources>

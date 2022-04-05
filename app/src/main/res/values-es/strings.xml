@@ -10,7 +10,7 @@
     <string name="pref_gps_only_summary_gps_only">Actualmente se usa solo GPS para la localización.</string>
     <string name="pref_imperial_measurement_units_summary_imperial">Actualmente se utilizan unidades imperiales (millas, pies).</string>
     <string name="pref_report_issue_summary">Informar errores y sugerir mejoras en GitHub.</string>
-    <string name="descr_fab_sub_menu_button_resume">Resumir grabación</string>
+    <string name="descr_button_resume">Resumir grabación</string>
     <string name="track_list_p_element_statistics">Distancia total grabada</string>
     <string name="abbreviation_minutes">Minutos</string>
     <string name="app_name">Trackbook</string>
@@ -18,7 +18,7 @@
     <string name="tab_settings">Ajustes</string>
     <string name="notification_title_trackbook_running">Trackbook en ejecución</string>
     <string name="notification_title_trackbook_not_running">Trackbook no se está ejecutando</string>
-    <string name="notification_stop">Detener</string>
+    <string name="notification_pause">Detener</string>
     <string name="tab_tracks">Rutas</string>
     <string name="notification_resume">Resumir</string>
     <string name="notification_show">Mostrar</string>
@@ -26,12 +26,11 @@
     <string name="notification_channel_recording_description">Muestra la duración y la distancia. Opción para detener la grabación de movimiento.</string>
     <string name="snackbar_message_location_offline">La ubicación está desactivada. Trackbook no funcionará.</string>
     <string name="snackbar_message_location_permission_denied">Permiso de ubicación no concedido. Trackbook no funcionará.</string>
-    <string name="fab_sub_menu_clear">Limpiar</string>
-    <string name="fab_sub_menu_save">Guardar</string>
-    <string name="fab_sub_menu_resume">Resumir</string>
+    <string name="button_delete">Limpiar</string>
+    <string name="button_save">Guardar</string>
+    <string name="button_resume">Resumir</string>
     <string name="dialog_generic_button_okay">OK</string>
     <string name="dialog_generic_details_button">Mostrar detalles</string>
-    <string name="dialog_error_empty_recording_title">No fue posible guardar cambios</string>
     <string name="dialog_error_empty_recording_message">Trackbook no registró ningún punto de referencia hasta el momento.</string>
     <string name="dialog_rename_track_input_hint">Introduce un nombre nuevo</string>
     <string name="dialog_share_gpx">Compartir el archivo GPX con</string>
@@ -41,7 +40,7 @@
     <string name="dialog_yes_no_message_delete_recording">¿Eliminar esta grabación\?</string>
     <string name="toast_message_copied_to_clipboard">Copiado al portapapeles.</string>
     <string name="toast_message_install_file_helper">No se puede guardar. Primero instala un administrador de archivos.</string>
-    <string name="dialog_error_empty_recording_action_resume">Continuar grabación</string>
+    <string name="dialog_error_empty_recording_button_resume">Continuar grabación</string>
     <string name="toast_message_poi_added">Se agregó un marcador de punto de interés.</string>
     <string name="toast_message_poi_removed">Se elimino un marcador de punto de interés.</string>
     <string name="toast_message_save_gpx">Guardando grabacion como GPX.</string>
@@ -59,7 +58,7 @@
     <string name="statistics_sheet_p_velocity">Velocidad promedio:</string>
     <string name="quick_settings_tile_title_default">Grabando</string>
     <string name="quick_settings_tile_title_start">Iniciar Grabación</string>
-    <string name="quick_settings_tile_title_stop">Detener Grabación</string>
+    <string name="quick_settings_tile_title_pause">Detener Grabación</string>
     <string name="layout_onboarding_description_app_icon">Icono de la aplicación Trackbook</string>
     <string name="track_list_onboarding_h1_part_1">Tus rutas grabadas</string>
     <string name="statistics_sheet_p_recording_paused">Grabación pausada:</string>
@@ -92,14 +91,14 @@
     <string name="abbreviation_hours">Horas</string>
     <string name="descr_map_current_track">Mapeando la ruta actual</string>
     <string name="descr_map_last_track">Mapeo de la última ruta</string>
-    <string name="descr_fab_main_start">Botón de inicio de grabación</string>
-    <string name="descr_fab_sub_menu_button_save">Guardar grabación</string>
-    <string name="descr_fab_sub_menu_button_clear">Eliminar grabación</string>
+    <string name="descr_button_start">Botón de inicio de grabación</string>
+    <string name="descr_button_save">Guardar grabación</string>
+    <string name="descr_button_delete">Eliminar grabación</string>
     <string name="descr_mark_starred_button">Marcar como botón destacado</string>
     <string name="descr_quick_settings_tile_title_start">Iniciar grabación</string>
-    <string name="descr_quick_settings_tile_title_stop">Detener grabación</string>
+    <string name="descr_quick_settings_tile_title_pause">Detener grabación</string>
     <string name="descr_statistics_sheet_delete_button">Botón de eliminar ruta</string>
     <string name="descr_statistics_sheet_edit_button">Botón de editar ruta</string>
     <string name="descr_statistics_sheet_save_button">Botón Guardar como GPX</string>
-    <string name="descr_fab_location">Centrar en la ubicación actual</string>
+    <string name="descr_button_location">Centrar en la ubicación actual</string>
 </resources>

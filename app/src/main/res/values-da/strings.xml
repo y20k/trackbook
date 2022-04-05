@@ -8,7 +8,7 @@
     <!-- notification -->
     <string name="notification_title_trackbook_running">Trackbook kører</string>
     <string name="notification_title_trackbook_not_running">Trackbook kører ikke</string>
-    <string name="notification_stop">Stop</string>
+    <string name="notification_pause">Stop</string>
     <string name="notification_resume">Fortsæt</string>
     <string name="notification_show">Vis</string>
     <string name="notification_channel_recording_name">Bevægelse optagelses tilstand</string>
@@ -16,14 +16,13 @@
     <!-- snackbar messages -->
     <string name="snackbar_message_location_offline">Lokalisering er slået fra. Trackbook kan ikke virke.</string>
     <!-- fab sub menu_bottom_navigation -->
-    <string name="fab_sub_menu_clear">Ryd</string>
-    <string name="fab_sub_menu_save">Gem</string>
-    <string name="fab_sub_menu_resume">Fortsæt</string>
+    <string name="button_delete">Ryd</string>
+    <string name="button_save">Gem</string>
+    <string name="button_resume">Fortsæt</string>
     <!-- dialogs -->
     <string name="dialog_share_gpx">Del GPX fil med</string>
-    <string name="dialog_error_empty_recording_title">Kan ikke gemme</string>
     <string name="dialog_error_empty_recording_message">Trackbook har ingen rutepunkter endnu.</string>
-    <string name="dialog_error_empty_recording_action_resume">Fortsæt optagelse</string>
+    <string name="dialog_error_empty_recording_button_resume">Fortsæt optagelse</string>
     <!-- toast messages -->
     <string name="toast_message_elevation_info">Tip: nøjagtigheden af højde målingerne afhænger af din enhed. Op ad og nedadgående højder på hele ruten måles.</string>
     <string name="toast_message_install_file_helper">Kan ikke gemme. Installer venligst en filhåndteringsprogram først.</string>
@@ -50,10 +49,10 @@
     <!-- descriptions -->
     <string name="descr_map_current_track">Kortlægning af nuværende tur</string>
     <string name="descr_map_last_track">Kortlægning af sidste tur</string>
-    <string name="descr_fab_main_start">Start optagelse knap</string>
-    <string name="descr_fab_sub_menu_button_save">Gem knap</string>
-    <string name="descr_fab_sub_menu_button_clear">Ryd knap</string>
-    <string name="descr_fab_sub_menu_button_resume">Fortsæt knap</string>
+    <string name="descr_button_start">Start optagelse knap</string>
+    <string name="descr_button_save">Gem knap</string>
+    <string name="descr_button_delete">Ryd knap</string>
+    <string name="descr_button_resume">Fortsæt knap</string>
     <string name="descr_statistics_sheet_delete_button">Slet tur knap</string>
     <string name="descr_statistics_sheet_save_button">Del eksport som GPX knap</string>
     <string name="pref_imperial_measurement_units_title">Brug britiske mål</string>
@@ -61,7 +60,7 @@
     <string name="pref_general_title">Generelt</string>
     <string name="pref_delete_non_starred_title">Slet optagelser uden stjerner</string>
     <string name="pref_delete_non_starred_summary">Slet alle optagelser i \"Tracks\", som ikke er stjernede.</string>
-    <string name="quick_settings_tile_title_stop">Stop optagelsen</string>
+    <string name="quick_settings_tile_title_pause">Stop optagelsen</string>
     <string name="quick_settings_tile_title_default">Optagelse</string>
     <string name="statistics_sheet_p_velocity">Gennemsnitlig hastighed:</string>
     <string name="toast_message_poi_added">Der er tilføjet et interessepunkt.</string>
@@ -108,7 +107,7 @@
     <string name="pref_theme_selection_summary">Aktuelt tema:</string>
     <string name="pref_theme_selection_mode_light">Lystilstand</string>
     <string name="descr_statistics_sheet_edit_button">Knap til at redigere spor</string>
-    <string name="descr_quick_settings_tile_title_stop">Stop optagelsen</string>
+    <string name="descr_quick_settings_tile_title_pause">Stop optagelsen</string>
     <string name="descr_quick_settings_tile_title_start">Start optagelse</string>
     <string name="statistics_sheet_p_recording_paused">Optagelse afbrudt:</string>
     <string name="toast_message_save_gpx">Gemmer optagelsen som GPX.</string>

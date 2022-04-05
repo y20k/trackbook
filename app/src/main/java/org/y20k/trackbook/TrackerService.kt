@@ -34,8 +34,10 @@ import android.location.LocationListener
 import android.location.LocationManager
 import android.os.*
 import androidx.core.content.ContextCompat
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Runnable
+import kotlinx.coroutines.launch
 import org.y20k.trackbook.core.Track
 import org.y20k.trackbook.helpers.*
 import java.util.*
@@ -249,7 +251,7 @@ class TrackerService: Service(), SensorEventListener {
         track.recordingStop = GregorianCalendar.getInstance().time
         CoroutineScope(IO).launch { FileHelper.saveTempTrackSuspended(this@TrackerService, track) }
         // save state
-        trackingState = Keys.STATE_TRACKING_STOPPED
+        trackingState = Keys.STATE_TRACKING_PAUSED
         PreferencesHelper.saveTrackingState(trackingState)
         // reset altitude values queue
         altitudeValues.reset()

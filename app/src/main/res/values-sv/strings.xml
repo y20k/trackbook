@@ -9,7 +9,7 @@
     <!-- notification -->
     <string name="notification_title_trackbook_running">Trackbook körs</string>
     <string name="notification_title_trackbook_not_running">Trackbook körs inte</string>
-    <string name="notification_stop">Stopp</string>
+    <string name="notification_pause">Stopp</string>
     <string name="notification_resume">Återuppta</string>
     <string name="notification_show">Visa</string>
     <!--<string name="notification_channel_recording_name"></string>-->
@@ -17,14 +17,13 @@
     <!-- snackbar messages -->
     <string name="snackbar_message_location_offline">Plats är avstängt. Trackbook kommer inte fungera.</string>
     <!-- fab sub menu_bottom_navigation -->
-    <string name="fab_sub_menu_clear">Rensa</string>
-    <string name="fab_sub_menu_save">Spara</string>
-    <string name="fab_sub_menu_resume">Återuppta</string>
+    <string name="button_delete">Rensa</string>
+    <string name="button_save">Spara</string>
+    <string name="button_resume">Återuppta</string>
     <!-- dialogs -->
     <string name="dialog_share_gpx">Dela GPX-fil med</string>
-    <string name="dialog_error_empty_recording_title">Kunde inte spara</string>
     <string name="dialog_error_empty_recording_message">Trackbook spelade inte in några vägpunkter så här långt.</string>
-    <string name="dialog_error_empty_recording_action_resume">Återuppta inspelning</string>
+    <string name="dialog_error_empty_recording_button_resume">Återuppta inspelning</string>
     <!-- toast messages -->
     <!--<string name="toast_message_permissions_granted"></string>-->
     <!--<string name="toast_message_no_external_storage"></string>-->
@@ -106,8 +105,8 @@
     <string name="pref_app_version_summary">Version</string>
     <string name="pref_about_title">Om</string>
     <string name="track_list_p_element_statistics">Totalt registrerat avstånd</string>
-    <string name="descr_fab_sub_menu_button_clear">Rensa inspelning</string>
-    <string name="descr_fab_sub_menu_button_save">Spara inspelning</string>
+    <string name="descr_button_delete">Rensa inspelning</string>
+    <string name="descr_button_save">Spara inspelning</string>
     <string name="abbreviation_hours">timmar</string>
     <string name="pref_theme_selection_title">Tema för appen</string>
     <string name="pref_theme_selection_mode_light">Ljusläge</string>
@@ -120,7 +119,7 @@
     <string name="track_list_onboarding_h1_part_2">... kommer att visas här.</string>
     <string name="track_list_onboarding_h1_part_1">Dina inspelade spår</string>
     <string name="layout_onboarding_description_app_icon">Ikon för Trackbook-appen</string>
-    <string name="quick_settings_tile_title_stop">Stoppa inspelningen</string>
+    <string name="quick_settings_tile_title_pause">Stoppa inspelningen</string>
     <string name="quick_settings_tile_title_start">Starta inspelning</string>
     <string name="quick_settings_tile_title_default">Inspelning</string>
     <string name="statistics_sheet_p_velocity">Genomsnittlig hastighet:</string>
@@ -154,14 +153,14 @@
     <string name="tab_tracks">Spår</string>
     <string name="descr_statistics_sheet_delete_button">Knapp för radering av spår</string>
     <string name="descr_statistics_sheet_save_button">Spara som GPX-knapp</string>
-    <string name="descr_quick_settings_tile_title_stop">Stoppa inspelningen</string>
+    <string name="descr_quick_settings_tile_title_pause">Stoppa inspelningen</string>
     <string name="descr_mark_starred_button">Markera som stjärnmärkt</string>
-    <string name="descr_fab_sub_menu_button_resume">Återuppta inspelning</string>
+    <string name="descr_button_resume">Återuppta inspelning</string>
     <string name="pref_recording_accuracy_summary_default">Vägpunkter har lägre noggrannhet men är mer frekventa.</string>
     <string name="statistics_sheet_p_duration">Total varaktighet:</string>
     <string name="pref_gps_only_summary_gps_only">För närvarande används endast GPS för lokalisering.</string>
     <string name="pref_delete_non_starred_summary">Ta bort alla inspelningar i \"Tracks\" som inte har stjärnor.</string>
-    <string name="descr_fab_main_start">Starta inspelning</string>
+    <string name="descr_button_start">Starta inspelning</string>
     <string name="pref_theme_selection_summary">Aktuellt tema:</string>
     <string name="statistics_sheet_p_steps_no_pedometer">Pedometer inte tillgänglig</string>
     <string name="pref_imperial_measurement_units_title">Använd brittiska mått</string>
@@ -169,5 +168,5 @@
     <string name="statistics_sheet_p_waypoints">Inspelade waypoints:</string>
     <string name="snackbar_message_location_permission_denied">Tillstånd för placering inte beviljat. Trackbook fungerar inte.</string>
     <string name="notification_channel_recording_description">Visa varaktighet och avstånd. Möjlighet att stoppa rörelseinspelningen.</string>
-    <string name="descr_fab_location">Centrera på aktuell plats</string>
+    <string name="descr_button_location">Centrera på aktuell plats</string>
 </resources>

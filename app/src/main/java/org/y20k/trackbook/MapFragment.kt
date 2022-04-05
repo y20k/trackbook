@@ -74,7 +74,7 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener, MapOverlayHelpe
 
 
     /* Overrides onStop from Fragment */
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         // initialize layout
         val statusBarHeight: Int = UiHelper.getStatusBarHeight(activity as Context)
         layout = MapFragmentLayoutHolder(activity as Context, this as MapOverlayHelper.MarkerListener, inflater, container, statusBarHeight, currentBestLocation, trackingState)
@@ -83,7 +83,7 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener, MapOverlayHelpe
         layout.currentLocationButton.setOnClickListener {
             layout.centerMap(currentBestLocation, animated = true)
         }
-        layout.recordingButton.setOnClickListener {
+        layout.mainButton.setOnClickListener {
             handleTrackingManagementMenu()
         }
         layout.saveButton.setOnClickListener {
@@ -91,17 +91,10 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener, MapOverlayHelpe
         }
         layout.clearButton.setOnClickListener {
             if (track.wayPoints.isNotEmpty()) {
-                YesNoDialog(this as YesNoDialog.YesNoDialogListener).show(
-                    context=activity as Context,
-                    type = Keys.DIALOG_CLEAR_RECORDING,
-                    title = R.string.dialog_clear_recording_title,
-                    message = R.string.dialog_clear_recording_message,
-                    yesButton = R.string.dialog_clear_recording_action_resume
-                )
+                YesNoDialog(this as YesNoDialog.YesNoDialogListener).show(context = activity as Context, type = Keys.DIALOG_DELETE_CURRENT_RECORDING, message = R.string.dialog_delete_current_recording_message, yesButton = R.string.dialog_delete_current_recording_button_discard)
+            } else {
+                trackerService.clearTrack()
             }
-        }
-        layout.resumeButton.setOnClickListener {
-            resumeTracking()
         }
 
         return layout.rootView
@@ -200,7 +193,7 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener, MapOverlayHelpe
                     }
                 }
             }
-            Keys.DIALOG_CLEAR_RECORDING -> {
+            Keys.DIALOG_DELETE_CURRENT_RECORDING -> {
                 when (dialogResult) {
                     true -> {
                         trackerService.clearTrack()
@@ -274,7 +267,7 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener, MapOverlayHelpe
     /* Starts / pauses tracking and toggles the recording sub menu_bottom_navigation */
     private fun handleTrackingManagementMenu() {
         when (trackingState) {
-            Keys.STATE_TRACKING_STOPPED -> layout.toggleRecordingButtonSubMenu()
+            Keys.STATE_TRACKING_PAUSED -> resumeTracking()
             Keys.STATE_TRACKING_ACTIVE -> trackerService.stopTracking()
             Keys.STATE_TRACKING_NOT -> startTracking()
         }
@@ -284,7 +277,7 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener, MapOverlayHelpe
     /* Saves track - shows dialog, if recording is still empty */
     private fun saveTrack() {
         if (track.wayPoints.isEmpty()) {
-            YesNoDialog(this as YesNoDialog.YesNoDialogListener).show(activity as Context, type = Keys.DIALOG_EMPTY_RECORDING, title = R.string.dialog_error_empty_recording_title, message = R.string.dialog_error_empty_recording_message, yesButton = R.string.dialog_error_empty_recording_action_resume)
+            YesNoDialog(this as YesNoDialog.YesNoDialogListener).show(context = activity as Context, type = Keys.DIALOG_EMPTY_RECORDING, message = R.string.dialog_error_empty_recording_message, yesButton = R.string.dialog_error_empty_recording_button_resume)
         } else {
             CoroutineScope(IO).launch {
                 // step 1: create and store filenames for json and gpx files
@@ -324,7 +317,7 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener, MapOverlayHelpe
             Keys.PREF_TRACKING_STATE -> {
                 if (activity != null) {
                     trackingState = PreferencesHelper.loadTrackingState()
-                    layout.updateRecordingButton(trackingState)
+                    layout.updateMainButton(trackingState)
                 }
             }
         }
@@ -345,7 +338,7 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener, MapOverlayHelpe
             trackerService = binder.service
             // get state of tracking and update button if necessary
             trackingState = trackerService.trackingState
-            layout.updateRecordingButton(trackingState)
+            layout.updateMainButton(trackingState)
             // register listener for changes in shared preferences
             PreferencesHelper.registerPreferenceChangeListener(sharedPreferenceChangeListener)
             // start listening for location updates

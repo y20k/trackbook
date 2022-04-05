@@ -99,8 +99,8 @@ class TrackingToggleTileService: TileService() {
         tile.icon = Icon.createWithResource(this, R.drawable.ic_notification_icon_small_24dp)
         when (trackingState) {
             Keys.STATE_TRACKING_ACTIVE -> {
-                tile.label = getString(R.string.quick_settings_tile_title_stop)
-                tile.contentDescription = getString(R.string.descr_quick_settings_tile_title_stop)
+                tile.label = getString(R.string.quick_settings_tile_title_pause)
+                tile.contentDescription = getString(R.string.descr_quick_settings_tile_title_pause)
                 tile.state = Tile.STATE_ACTIVE
             }
             else -> {

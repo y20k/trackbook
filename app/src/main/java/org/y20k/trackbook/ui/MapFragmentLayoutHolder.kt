@@ -32,6 +32,7 @@ import androidx.constraintlayout.widget.Group
 import androidx.core.content.ContextCompat
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textview.MaterialTextView
@@ -62,14 +63,13 @@ data class MapFragmentLayoutHolder(private var context: Context, private var mar
 
     /* Main class variables */
     val rootView: View
-    val mapView: MapView
+    var userInteraction: Boolean = false
     val currentLocationButton: FloatingActionButton
-    val recordingButton: FloatingActionButton
-    val recordingButtonSubMenu: Group
+    val mainButton: ExtendedFloatingActionButton
     val saveButton: FloatingActionButton
     val clearButton: FloatingActionButton
-    val resumeButton: FloatingActionButton
-    var userInteraction: Boolean = false
+    private val additionalButtons: Group
+    private val mapView: MapView
     private var currentPositionOverlay: ItemizedIconOverlay<OverlayItem>
     private var currentTrackOverlay: SimpleFastPointOverlay?
     private var currentTrackSpecialMarkerOverlay: ItemizedIconOverlay<OverlayItem>?
@@ -88,12 +88,11 @@ data class MapFragmentLayoutHolder(private var context: Context, private var mar
         // find views
         rootView = inflater.inflate(R.layout.fragment_map, container, false)
         mapView = rootView.findViewById(R.id.map)
-        currentLocationButton = rootView.findViewById(R.id.fab_location_button)
-        recordingButton = rootView.findViewById(R.id.fab_main_button)
-        recordingButtonSubMenu = rootView.findViewById(R.id.fab_sub_menu)
-        saveButton = rootView.findViewById(R.id.fab_sub_menu_button_save)
-        clearButton = rootView.findViewById(R.id.fab_sub_menu_button_clear)
-        resumeButton = rootView.findViewById(R.id.fab_sub_menu_button_resume)
+        currentLocationButton = rootView.findViewById(R.id.location_button)
+        mainButton = rootView.findViewById(R.id.main_button)
+        additionalButtons = rootView.findViewById(R.id.additional_buttons)
+        saveButton = rootView.findViewById(R.id.button_save)
+        clearButton = rootView.findViewById(R.id.button_clear)
         liveStatisticsDistanceView = rootView.findViewById(R.id.live_statistics_distance)
         liveStatisticsDistanceOutlineView = rootView.findViewById(R.id.live_statistics_distance_outline)
         liveStatisticsDurationView = rootView.findViewById(R.id.live_statistics_duration)
@@ -139,8 +138,8 @@ data class MapFragmentLayoutHolder(private var context: Context, private var mar
         currentTrackOverlay = null
         currentTrackSpecialMarkerOverlay = null
 
-        // initialize recording button state
-        updateRecordingButton(trackingState)
+        // initialize main button state
+        updateMainButton(trackingState)
 
         // listen for user interaction
         addInteractionListener()
@@ -224,32 +223,32 @@ data class MapFragmentLayoutHolder(private var context: Context, private var mar
     }
 
 
-    /* Toggles state of recording button and sub menu_bottom_navigation */
-    fun updateRecordingButton(trackingState: Int) {
+    /* Toggles state of main button and additional buttons (save & resume) */
+    fun updateMainButton(trackingState: Int) {
         when (trackingState) {
             Keys.STATE_TRACKING_NOT -> {
-                recordingButton.setImageResource(R.drawable.ic_fiber_manual_record_inactive_24dp)
-                recordingButtonSubMenu.isGone = true
+                mainButton.setIconResource(R.drawable.ic_fiber_manual_record_inactive_24dp)
+                mainButton.text = context.getString(R.string.button_start)
+                mainButton.contentDescription = context.getString(R.string.descr_button_start)
+                additionalButtons.isGone = true
+                currentLocationButton.isVisible = true
             }
             Keys.STATE_TRACKING_ACTIVE -> {
-                recordingButton.setImageResource(R.drawable.ic_fiber_manual_record_active_24dp)
-                recordingButtonSubMenu.isGone = true
+                mainButton.setIconResource(R.drawable.ic_pause_24dp)
+                mainButton.text = context.getString(R.string.button_pause)
+                mainButton.contentDescription = context.getString(R.string.descr_button_start)
+                additionalButtons.isGone = true
+                currentLocationButton.isVisible = true
             }
-            Keys.STATE_TRACKING_STOPPED -> {
-                recordingButton.setImageResource(R.drawable.ic_save_24dp)
+            Keys.STATE_TRACKING_PAUSED -> {
+                mainButton.setIconResource(R.drawable.ic_fiber_manual_record_inactive_24dp)
+                mainButton.text = context.getString(R.string.button_resume)
+                mainButton.contentDescription = context.getString(R.string.descr_button_resume)
+                additionalButtons.isVisible = true
+                currentLocationButton.isGone = true
             }
         }
     }
-
-
-    /* Toggles visibility of recording button sub menu_bottom_navigation */
-    fun toggleRecordingButtonSubMenu() {
-        when (recordingButtonSubMenu.visibility) {
-            View.VISIBLE -> recordingButtonSubMenu.isGone = true
-            else -> recordingButtonSubMenu.isVisible = true
-        }
-    }
-
 
 
     /* Toggles content and visibility of the location error snackbar */

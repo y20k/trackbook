@@ -10,19 +10,18 @@
     <string name="notification_channel_recording_name">État de l\'enregistrement des déplacements</string>
     <string name="notification_resume">Reprendre</string>
     <string name="notification_show">Afficher</string>
-    <string name="notification_stop">Arrêter</string>
+    <string name="notification_pause">Arrêter</string>
     <string name="notification_title_trackbook_not_running">Suivi inactif</string>
     <string name="notification_title_trackbook_running">Suivi actif</string>
     <!-- snackbar messages -->
     <string name="snackbar_message_location_offline">Localisation désactivée. Le suivi ne fonctionnera pas.</string>
     <!-- fab sub menu_bottom_navigation -->
-    <string name="fab_sub_menu_clear">Supprimer</string>
-    <string name="fab_sub_menu_resume">Reprendre</string>
-    <string name="fab_sub_menu_save">Sauvegarder</string>
+    <string name="button_delete">Supprimer</string>
+    <string name="button_resume">Reprendre</string>
+    <string name="button_save">Sauvegarder</string>
     <!-- dialogs -->
-    <string name="dialog_error_empty_recording_action_resume">Reprendre l\'enregistrement</string>
+    <string name="dialog_error_empty_recording_button_resume">Reprendre l\'enregistrement</string>
     <string name="dialog_error_empty_recording_message">Trackbook n\'a enregistré aucun point de parcours jusqu\'à présent.</string>
-    <string name="dialog_error_empty_recording_title">Sauvegarde impossible</string>
     <string name="dialog_share_gpx">Partager le fichier GPX avec</string>
     <!-- toast messages -->
     <string name="toast_message_elevation_info">Astuce : La précision des données d\'altitude dépend de votre appareil. La dénivellation globale du parcours est mesurée.</string>
@@ -49,10 +48,10 @@
     <string name="track_list_onboarding_h1_part_2">… seront affichés ici.</string>
     <!-- descriptions -->
     <string name="descr_statistics_sheet_delete_button">Bouton « Supprimer le parcours »</string>
-    <string name="descr_fab_main_start">Bouton « Démarrer l\'enregistrement »</string>
-    <string name="descr_fab_sub_menu_button_clear">Effacer l\'enregistrement</string>
-    <string name="descr_fab_sub_menu_button_resume">Reprendre l\'enregistrement</string>
-    <string name="descr_fab_sub_menu_button_save">Sauvegarder l\'enregistrement</string>
+    <string name="descr_button_start">Bouton « Démarrer l\'enregistrement »</string>
+    <string name="descr_button_delete">Effacer l\'enregistrement</string>
+    <string name="descr_button_resume">Reprendre l\'enregistrement</string>
+    <string name="descr_button_save">Sauvegarder l\'enregistrement</string>
     <string name="descr_map_current_track">Affichage du parcours actuel</string>
     <string name="descr_map_last_track">Affichage du dernier parcours</string>
     <string name="descr_statistics_sheet_save_button">Bouton « Partager au format GPX »</string>
@@ -86,9 +85,9 @@
     <string name="descr_statistics_sheet_edit_button">Bouton « Modifier le parcours »</string>
     <string name="quick_settings_tile_title_default">Enregistrement</string>
     <string name="quick_settings_tile_title_start">Démarrer l\'enregistrement</string>
-    <string name="quick_settings_tile_title_stop">Arrêter l\'enregistrement</string>
+    <string name="quick_settings_tile_title_pause">Arrêter l\'enregistrement</string>
     <string name="descr_quick_settings_tile_title_start">Démarrer l\'enregistrement</string>
-    <string name="descr_quick_settings_tile_title_stop">Arrêter l\'enregistrement</string>
+    <string name="descr_quick_settings_tile_title_pause">Arrêter l\'enregistrement</string>
     <string name="pref_theme_selection_mode_dark">Thème sombre</string>
     <string name="pref_theme_selection_mode_device_default">Thème de l\'appareil</string>
     <string name="pref_theme_selection_mode_light">Thème clair</string>
@@ -114,5 +113,5 @@
     <string name="pref_recording_accuracy_summary_default">Les points de cheminements ont une précision plus faible mais sont plus fréquents.</string>
     <string name="pref_recording_accuracy_summary_high">Les points de cheminement ont une plus grande précision mais sont moins fréquents.</string>
     <string name="track_list_p_element_statistics">Distance totale enregistrée</string>
-    <string name="descr_fab_location">Centrer sur la position actuelle</string>
+    <string name="descr_button_location">Centrer sur la position actuelle</string>
 </resources>

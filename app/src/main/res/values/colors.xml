@@ -26,8 +26,8 @@
     <color name="icon_lightweight">@color/trackbook_neutral_medium_light</color>
     <color name="icon_star_selected">@color/trackbook_blue</color>
 
-    <color name="recording_button_background">@color/trackbook_accent_intense</color>
-    <color name="recording_button_icon">@color/trackbook_neutral_very_dark</color>
+    <color name="recording_management_buttons_background">@color/trackbook_accent_intense</color>
+    <color name="recording_management_buttons_icon">@color/trackbook_neutral_very_dark</color>
 
     <color name="list_card_background">@color/trackbook_neutral_white</color>
     <color name="list_card_delete_background">@color/trackbook_red</color>

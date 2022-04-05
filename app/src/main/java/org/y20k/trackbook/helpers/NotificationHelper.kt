@@ -120,7 +120,7 @@ class NotificationHelper(private val trackerService: TrackerService) {
     /* Notification actions */
     private val stopAction = NotificationCompat.Action(
         R.drawable.ic_notification_action_stop_24dp,
-        trackerService.getString(R.string.notification_stop),
+        trackerService.getString(R.string.notification_pause),
         stopActionPendingIntent)
     private val resumeAction = NotificationCompat.Action(
         R.drawable.ic_notification_action_resume_36dp,

@@ -8,7 +8,7 @@
     <!-- notification -->
     <string name="notification_title_trackbook_running">Trackbook 実行中</string>
     <string name="notification_title_trackbook_not_running">Trackbook は実行していません</string>
-    <string name="notification_stop">停止</string>
+    <string name="notification_pause">停止</string>
     <string name="notification_resume">再開</string>
     <string name="notification_show">表示</string>
     <string name="notification_channel_recording_name">移動記録状態</string>
@@ -16,14 +16,13 @@
     <!-- snackbar messages -->
     <string name="snackbar_message_location_offline">位置情報がオフです。Trackbook は動作しません。</string>
     <!-- fab sub menu_bottom_navigation -->
-    <string name="fab_sub_menu_clear">クリア</string>
-    <string name="fab_sub_menu_save">保存してクリア</string>
-    <string name="fab_sub_menu_resume">再開</string>
+    <string name="button_delete">クリア</string>
+    <string name="button_save">保存してクリア</string>
+    <string name="button_resume">再開</string>
     <!-- dialogs -->
     <string name="dialog_share_gpx">GPX ファイルを共有...</string>
-    <string name="dialog_error_empty_recording_title">保存できません</string>
     <string name="dialog_error_empty_recording_message">トラックブックはこれまでウェイポイントを記録していません。</string>
-    <string name="dialog_error_empty_recording_action_resume">記録を再開</string>
+    <string name="dialog_error_empty_recording_button_resume">記録を再開</string>
     <!-- toast messages -->
     <string name="toast_message_elevation_info">ヒント: 標高データの精度は、お使いのデバイスによって異なります。ルート全体の上り坂と下り坂の標高を測定します。</string>
     <string name="toast_message_install_file_helper">先にファイルマネージャか GPX トレースビューアーをインストールしてください。</string>
@@ -50,10 +49,10 @@
     <!-- descriptions -->
     <string name="descr_map_current_track">現在のトレースのマッピング</string>
     <string name="descr_map_last_track">最後のトレースのマッピング</string>
-    <string name="descr_fab_main_start">記録開始ボタン</string>
-    <string name="descr_fab_sub_menu_button_save">保存ボタン</string>
-    <string name="descr_fab_sub_menu_button_clear">クリアボタン</string>
-    <string name="descr_fab_sub_menu_button_resume">再開ボタン</string>
+    <string name="descr_button_start">記録開始ボタン</string>
+    <string name="descr_button_save">保存ボタン</string>
+    <string name="descr_button_delete">クリアボタン</string>
+    <string name="descr_button_resume">再開ボタン</string>
     <string name="descr_statistics_sheet_delete_button">トレース削除ボタン</string>
     <string name="descr_statistics_sheet_save_button">GPX としてエクスポートする共有ボタン</string>
 </resources>

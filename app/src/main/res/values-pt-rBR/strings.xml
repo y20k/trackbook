@@ -11,7 +11,7 @@
     <!-- Notification -->
     <string name="notification_title_trackbook_running">Trackbook em execução</string>
     <string name="notification_title_trackbook_not_running">Trackbook parado</string>
-    <string name="notification_stop">Parar</string>
+    <string name="notification_pause">Parar</string>
     <string name="notification_resume">Retomar</string>
     <string name="notification_show">Mostrar</string>
     <string name="notification_channel_recording_name">Gravando Estado De Movimento</string>
@@ -20,16 +20,15 @@
     <string name="snackbar_message_location_offline">Localização está desligada. Trackbook não funcionará.</string>
     <string name="snackbar_message_location_permission_denied">Permissão de localização não liberada. Trackbook não funcionará.</string>
     <!-- FAB Sub Menu -->
-    <string name="fab_sub_menu_clear">Limpar</string>
-    <string name="fab_sub_menu_save">Salvar</string>
-    <string name="fab_sub_menu_resume">Retomar</string>
+    <string name="button_delete">Limpar</string>
+    <string name="button_save">Salvar</string>
+    <string name="button_resume">Retomar</string>
     <!-- Dialogs -->
     <string name="dialog_generic_button_cancel">Cancelar</string>
     <string name="dialog_generic_button_okay">OK</string>
     <string name="dialog_generic_details_button">Mostrar detalhes</string>
-    <string name="dialog_error_empty_recording_title">Incapaz de salvar</string>
     <string name="dialog_error_empty_recording_message">Trackbook não registrou nenhum ponto de passagem até agora.</string>
-    <string name="dialog_error_empty_recording_action_resume">Retomar gravação</string>
+    <string name="dialog_error_empty_recording_button_resume">Retomar gravação</string>
     <string name="dialog_rename_track_button">Renomear</string>
     <string name="dialog_rename_track_input_hint">Insira um novo nome</string>
     <string name="dialog_share_gpx">Compartilhar arquivo GPX com</string>
@@ -65,7 +64,7 @@
     <!-- Recording Quick Settings Tile -->
     <string name="quick_settings_tile_title_default">Gravação</string>
     <string name="quick_settings_tile_title_start">Iniciar gravação</string>
-    <string name="quick_settings_tile_title_stop">Parar gravação</string>
+    <string name="quick_settings_tile_title_pause">Parar gravação</string>
     <!-- Onboarding Layout -->
     <string name="layout_onboarding_description_app_icon">Trackbook ícone do aplicativo</string>
     <!-- Track Tab Onboarding -->
@@ -104,13 +103,13 @@
     <!-- Descriptions -->
     <string name="descr_map_current_track">Mapeamento da trilha atual</string>
     <string name="descr_map_last_track">Mapeamento da última trilha</string>
-    <string name="descr_fab_main_start">Botão para iniciar gravação</string>
-    <string name="descr_fab_sub_menu_button_save">Botão salvar</string>
-    <string name="descr_fab_sub_menu_button_clear">Bototão limpar</string>
-    <string name="descr_fab_sub_menu_button_resume">Botão retomar</string>
+    <string name="descr_button_start">Botão para iniciar gravação</string>
+    <string name="descr_button_save">Botão salvar</string>
+    <string name="descr_button_delete">Bototão limpar</string>
+    <string name="descr_button_resume">Botão retomar</string>
     <string name="descr_mark_starred_button">Botão marcar com estrela</string>
     <string name="descr_quick_settings_tile_title_start">Iniciar gravação</string>
-    <string name="descr_quick_settings_tile_title_stop">Parar gravação</string>
+    <string name="descr_quick_settings_tile_title_pause">Parar gravação</string>
     <string name="descr_statistics_sheet_delete_button">Botão apagar rota</string>
     <string name="descr_statistics_sheet_edit_button">Botão editar rota</string>
     <string name="descr_statistics_sheet_save_button">Botão salvar como GPX</string>

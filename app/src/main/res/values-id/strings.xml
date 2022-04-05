@@ -7,7 +7,7 @@
     <!-- notification -->
     <string name="notification_title_trackbook_running">Trackbook aktif</string>
     <string name="notification_title_trackbook_not_running">Trackbook tidak aktif</string>
-    <string name="notification_stop">Berhenti</string>
+    <string name="notification_pause">Berhenti</string>
     <!--<string name="notification_resume"></string>-->
     <!--<string name="notification_show"></string>-->
     <!--<string name="notification_channel_recording_name"></string>-->
@@ -105,13 +105,13 @@
     <string name="statistics_sheet_p_max_altitude">Titik arah tertinggi:</string>
     <string name="descr_statistics_sheet_edit_button">Tombol edit jalur</string>
     <string name="descr_statistics_sheet_delete_button">Tombol hapus jalur</string>
-    <string name="descr_quick_settings_tile_title_stop">Hentikan Perekaman</string>
+    <string name="descr_quick_settings_tile_title_pause">Hentikan Perekaman</string>
     <string name="descr_quick_settings_tile_title_start">Mulai Perekaman</string>
     <string name="descr_mark_starred_button">Tandai sebagai tombol berbintang</string>
-    <string name="descr_fab_sub_menu_button_resume">Tombol Lanjutkan</string>
-    <string name="descr_fab_sub_menu_button_clear">Tombol hapus</string>
-    <string name="descr_fab_sub_menu_button_save">Tombol simpan</string>
-    <string name="descr_fab_main_start">Tombol Mulai perekaman</string>
+    <string name="descr_button_resume">Tombol Lanjutkan</string>
+    <string name="descr_button_delete">Tombol hapus</string>
+    <string name="descr_button_save">Tombol simpan</string>
+    <string name="descr_button_start">Tombol Mulai perekaman</string>
     <string name="descr_map_last_track">Pemetaan jalur terakhir</string>
     <string name="descr_map_current_track">Pemetaan jalur saat ini</string>
     <string name="abbreviation_seconds">dtk</string>
@@ -145,7 +145,7 @@
     <string name="track_list_onboarding_h1_part_2">... akan muncul di sini.</string>
     <string name="track_list_onboarding_h1_part_1">Jalur rekaman Anda</string>
     <string name="layout_onboarding_description_app_icon">Ikon Aplikasi Trackbook</string>
-    <string name="quick_settings_tile_title_stop">Hentikan Perekaman</string>
+    <string name="quick_settings_tile_title_pause">Hentikan Perekaman</string>
     <string name="quick_settings_tile_title_start">Mulai Perekaman</string>
     <string name="quick_settings_tile_title_default">Rekaman</string>
     <string name="statistics_sheet_p_velocity">Kecepatan rata-rata:</string>
@@ -177,15 +177,14 @@
     <string name="dialog_share_gpx">Bagikan file GPX dengan</string>
     <string name="dialog_rename_track_input_hint">Masukkan nama baru</string>
     <string name="dialog_rename_track_button">Ubah nama</string>
-    <string name="dialog_error_empty_recording_action_resume">Lanjutkan Perekaman</string>
+    <string name="dialog_error_empty_recording_button_resume">Lanjutkan Perekaman</string>
     <string name="dialog_error_empty_recording_message">Trackbook tidak merekam titik arah sejauh ini.</string>
-    <string name="dialog_error_empty_recording_title">Tidak bisa menyimpan</string>
     <string name="dialog_generic_details_button">Tampilkan detil</string>
     <string name="dialog_generic_button_okay">Oke</string>
     <string name="dialog_generic_button_cancel">Batalkan</string>
-    <string name="fab_sub_menu_resume">Lanjutkan</string>
-    <string name="fab_sub_menu_save">Simpan</string>
-    <string name="fab_sub_menu_clear">Bersihkan</string>
+    <string name="button_resume">Lanjutkan</string>
+    <string name="button_save">Simpan</string>
+    <string name="button_delete">Bersihkan</string>
     <string name="snackbar_message_location_permission_denied">Izin lokasi tak diberikan. Trackbook tidak akan berfungsi.</string>
     <string name="snackbar_message_location_offline">Lokasi dimatikan. Trackbook tidak akan berfungsi.</string>
     <string name="notification_channel_recording_description">Tampilan durasi dan jarak. Opsi untuk menghentikan perekaman gerakan.</string>

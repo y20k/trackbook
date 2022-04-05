@@ -8,7 +8,7 @@
     <!-- notification -->
     <string name="notification_title_trackbook_not_running">Trackbook ist inaktiv</string>
     <string name="notification_title_trackbook_running">Trackbook ist aktiv</string>
-    <string name="notification_stop">Stoppen</string>
+    <string name="notification_pause">Stoppen</string>
     <string name="notification_resume">Fortsetzen</string>
     <string name="notification_show">Anzeigen</string>
     <string name="notification_channel_recording_name">Status der Aufnahme</string>
@@ -16,14 +16,13 @@
     <!-- snackbar messages -->
     <string name="snackbar_message_location_offline">Standortdienste sind deaktiviert. Trackbook wird nicht funktionieren.</string>
     <!-- fab sub menu_bottom_navigation -->
-    <string name="fab_sub_menu_clear">Zurücksetzen</string>
-    <string name="fab_sub_menu_save">Speichern</string>
-    <string name="fab_sub_menu_resume">Fortsetzen</string>
+    <string name="button_delete">Zurücksetzen</string>
+    <string name="button_save">Speichern</string>
+    <string name="button_resume">Fortsetzen</string>
     <!-- dialogs -->
     <string name="dialog_share_gpx">GPX-Datei teilen mit</string>
-    <string name="dialog_error_empty_recording_title">Speichern nicht möglich</string>
     <string name="dialog_error_empty_recording_message">Trackbook hat noch keine Wegpunkte aufgenommen.</string>
-    <string name="dialog_error_empty_recording_action_resume">Aufnahme fortsetzen</string>
+    <string name="dialog_error_empty_recording_button_resume">Aufnahme fortsetzen</string>
     <!-- toast messages -->
     <string name="toast_message_copied_to_clipboard">In die Zwischenablage kopiert.</string>
     <string name="toast_message_elevation_info">Hinweis: Die Genauigkeit der Höhenmeter-Werte ist geräteabhängig. Gemessen werden Steigungen und Gefälle der Gesamtstrecke.</string>
@@ -52,10 +51,10 @@
     <!-- descriptions -->
     <string name="descr_map_current_track">Kartierung der aktuellen Strecken</string>
     <string name="descr_map_last_track">Kartierung der letzten Strecke</string>
-    <string name="descr_fab_main_start">Taste für „Aufnahme starten“</string>
-    <string name="descr_fab_sub_menu_button_save">Taste für „Speichern“</string>
-    <string name="descr_fab_sub_menu_button_clear">Taste für „Zurücksetzen“</string>
-    <string name="descr_fab_sub_menu_button_resume">Taste für „Fortsetzen“</string>
+    <string name="descr_button_start">Taste für „Aufnahme starten“</string>
+    <string name="descr_button_save">Taste für „Speichern“</string>
+    <string name="descr_button_delete">Taste für „Zurücksetzen“</string>
+    <string name="descr_button_resume">Taste für „Fortsetzen“</string>
     <string name="descr_statistics_sheet_delete_button">Taste für „Strecke löschen“</string>
     <string name="descr_statistics_sheet_save_button">Taste für „Als GPX speichern“</string>
     <string name="pref_theme_selection_mode_light">Heller Modus</string>
@@ -96,8 +95,8 @@
     <string name="pref_advanced_title">Erweitert</string>
     <string name="pref_accuracy_threshold_title">Genauigkeits-Schwellenwert</string>
     <string name="pref_accuracy_threshold_summary">Ortsfixierungen verwerfen, mit einer Genauigkeit größer als (Meter):</string>
-    <string name="descr_quick_settings_tile_title_stop">Aufnahme stoppen</string>
-    <string name="quick_settings_tile_title_stop">Aufnahme stoppen</string>
+    <string name="descr_quick_settings_tile_title_pause">Aufnahme stoppen</string>
+    <string name="quick_settings_tile_title_pause">Aufnahme stoppen</string>
     <string name="snackbar_message_location_permission_denied">Genehmigung für Standortdienste nicht erteilt. Trackbook wird nicht funktionieren.</string>
     <string name="tab_tracks">Strecken</string>
     <string name="descr_quick_settings_tile_title_start">Aufnahme starten</string>
