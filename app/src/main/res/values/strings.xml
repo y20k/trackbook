@@ -20,14 +20,13 @@
     <string name="snackbar_message_location_offline">Location is turned off. Trackbook will not work.</string>
     <string name="snackbar_message_location_permission_denied">Location permission not granted. Trackbook will not work.</string>
     <!-- Buttons -->
-
     <string name="button_delete">Delete</string>
     <string name="button_pause">Pause</string>
     <string name="button_resume">Resume</string>
     <string name="button_save">Save</string>
     <string name="button_start">Start</string>
     <!-- Dialogs -->
-    <string name="dialog_delete_current_recording_message">Discard the current recording?</string>
+    <string name="dialog_delete_current_recording_message">Discard current recording?</string>
     <string name="dialog_delete_current_recording_button_discard">Discard</string>
     <string name="dialog_generic_button_cancel">Cancel</string>
     <string name="dialog_generic_button_okay">OK</string>
