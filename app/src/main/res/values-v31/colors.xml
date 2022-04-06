@@ -1,23 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <!-- DAY THEME COLORS -->
 
-    <!-- ADAPTIVE BASE COLORS - Android 12 - https://developer.android.com/reference/android/R.color#system_accent1_0 -->
-    <color name="trackbook_neutral_dark">@android:color/system_neutral1_600</color>
-    <color name="trackbook_neutral_darker">@android:color/system_neutral1_800</color>
-    <color name="trackbook_neutral_very_dark">@android:color/system_neutral1_900</color>
+    <!-- app colors -->
+    <color name="app_window_background">@android:color/system_neutral2_100</color> <!-- colorSurfaceVariant -->
+    <color name="status_bar_background">@android:color/system_neutral1_10</color> <!-- android:colorBackground / colorSurface -->
+    <color name="dialog_background">@android:color/system_neutral1_10</color> <!-- android:colorBackground / colorSurface -->
+    <color name="app_onboarding_icons">@android:color/system_neutral1_900</color> <!-- colorOnBackground / colorOnSurface-->
+    <color name="toolbar_background">@android:color/system_neutral1_10</color> <!-- android:colorBackground / colorSurface -->
 
-    <color name="trackbook_neutral_medium_light">@android:color/system_neutral1_300</color>
-    <color name="trackbook_neutral_light">@android:color/system_neutral1_100</color>
-    <color name="trackbook_neutral_lighter">@android:color/system_neutral1_50</color>
-    <color name="trackbook_neutral_very_light">@android:color/system_neutral1_10</color>
+    <!-- bottom navigation -->
+    <color name="bottom_navigation_background">@android:color/system_neutral1_10</color> <!-- android:colorBackground / colorSurface -->
+    <color name="bottom_navigation_element">@android:color/system_neutral2_700</color> <!-- colorOnSurfaceVariant -->
+    <color name="bottom_navigation_element_selected">@android:color/system_accent1_600</color> <!-- colorPrimary -->
 
-    <color name="trackbook_accent_intense">@android:color/system_accent1_100</color> <!-- colorPrimary - Light Theme -->
-    <color name="trackbook_accent_light">@android:color/system_accent1_50</color>
-    <color name="trackbook_accent_dimmed">@android:color/system_accent1_600</color> <!-- colorSecondary - Light Theme -->
+    <!-- text & icons -->
+    <color name="text_default">@android:color/system_neutral1_900</color> <!-- colorOnBackground / colorOnSurface-->
+    <color name="text_lightweight">@android:color/system_neutral2_700</color> <!-- colorOnSurfaceVariant -->
+    <color name="text_outline_default">@android:color/system_neutral1_10</color> <!-- android:colorBackground / colorSurface -->
+    <color name="icon_default">@android:color/system_neutral1_900</color> <!-- colorOnBackground / colorOnSurface-->
+    <color name="icon_lightweight">@android:color/system_neutral2_700</color> <!-- colorOnSurfaceVariant -->
+    <color name="icon_star_selected">@android:color/system_accent1_600</color> <!-- colorPrimary -->
+    <color name="location_button_icon">@android:color/system_neutral1_900</color> <!-- colorOnBackground / colorOnSurface-->
+    <color name="location_button_background">@android:color/system_neutral1_10</color> <!-- android:colorBackground / colorSurface -->
+    <color name="recording_management_buttons_background">@android:color/system_accent1_600</color> <!-- colorPrimary -->
+    <color name="recording_management_buttons_icon">@android:color/system_neutral1_0</color> <!-- colorOnPrimary-->
 
-    <color name="trackbook_neutral_black">@android:color/system_neutral1_1000</color>
-    <color name="trackbook_neutral_white">@android:color/system_neutral1_0</color>
+    <!-- list -->
+    <color name="list_card_background">@android:color/system_neutral1_10</color> <!-- android:colorBackground / colorSurface -->
+    <color name="list_card_delete_background">#ffb3261e</color> <!-- colorError -->
+
+    <!-- statistics sheet -->
+    <color name="statistic_sheet_background">@android:color/system_neutral1_10</color> <!-- android:colorBackground / colorSurface -->
+    <color name="statistic_sheet_background_border">@android:color/system_neutral2_100</color> <!-- colorSurfaceVariant -->
 
 </resources>

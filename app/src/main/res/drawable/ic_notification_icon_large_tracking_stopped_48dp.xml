@@ -4,9 +4,9 @@
     android:viewportWidth="192.0"
     android:width="48dp" >
     <path
-        android:fillColor="@color/trackbook_blue"
+        android:fillColor="@color/default_blue"
         android:pathData="M96,96m-96,0a96,96 0,1 1,192 0a96,96 0,1 1,-192 0"/>
     <path
-        android:fillColor="@color/trackbook_neutral_white"
+        android:fillColor="@color/default_neutral_white"
         android:pathData="M48,96a48,46.5 0,1 0,96 0a48,46.5 0,1 0,-96 0z"/>
 </vector>

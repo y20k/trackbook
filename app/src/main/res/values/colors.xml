@@ -1,69 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <!-- DAY THEME COLORS -->
 
-    <color name="app_window_background">@color/trackbook_neutral_very_light</color>
-    <color name="bottom_navigation_background">@color/trackbook_neutral_white</color>
-    <color name="status_bar_background">@color/trackbook_neutral_white</color>
-    <color name="dialog_background">@color/trackbook_neutral_very_light</color>
+    <!-- app colors -->
+    <color name="app_window_background">#ffe7e0ec</color> <!-- colorSurfaceVariant -->
+    <color name="status_bar_background">#fffffbfe</color> <!-- android:colorBackground / colorSurface -->
+    <color name="dialog_background">#fffffbfe</color> <!-- android:colorBackground / colorSurface -->
+    <color name="app_onboarding_icons">#ff1c1b1f</color> <!-- colorOnBackground / colorOnSurface-->
+    <color name="toolbar_background">#fffffbfe</color> <!-- android:colorBackground / colorSurface -->
 
-    <color name="bottom_navigation_element">@color/trackbook_neutral_medium_light</color>
-    <color name="bottom_navigation_element_selected">@color/trackbook_blue</color>
+    <!-- bottom navigation -->
+    <color name="bottom_navigation_background">#fffffbfe</color> <!-- android:colorBackground / colorSurface -->
+    <color name="bottom_navigation_element">#ff49454f</color> <!-- colorOnSurfaceVariant -->
+    <color name="bottom_navigation_element_selected">#ff6750a4</color> <!-- colorPrimary -->
 
-    <color name="fab_button_card_text">@color/trackbook_neutral_darker</color>
-    <color name="fab_button_card_background">@color/trackbook_neutral_white</color>
+    <!-- text & icons -->
+    <color name="text_default">#ff1c1b1f</color> <!-- colorOnBackground / colorOnSurface-->
+    <color name="text_lightweight">#ff49454f</color> <!-- colorOnSurfaceVariant -->
+    <color name="text_outline_default">#fffffbfe</color> <!-- android:colorBackground / colorSurface -->
+    <color name="icon_default">#ff1c1b1f</color> <!-- colorOnBackground / colorOnSurface-->
+    <color name="icon_lightweight">#ff49454f</color> <!-- colorOnSurfaceVariant -->
+    <color name="icon_star_selected">#ff6750a4</color> <!-- colorPrimary -->
+    <color name="location_button_icon">#ff1c1b1f</color> <!-- colorOnBackground / colorOnSurface-->
+    <color name="location_button_background">#fffffbfe</color> <!-- android:colorBackground / colorSurface -->
+    <color name="recording_management_buttons_background">#ff6750a4</color> <!-- colorPrimary -->
+    <color name="recording_management_buttons_icon">#ffffffff</color> <!-- colorOnPrimary-->
 
-    <color name="location_button_icon">@color/trackbook_neutral_dark</color>
-    <color name="location_button_background">@color/trackbook_neutral_white</color>
+    <!-- list -->
+    <color name="list_card_background">#fffffbfe</color> <!-- android:colorBackground / colorSurface -->
+    <color name="list_card_delete_background">#ffb3261e</color> <!-- colorError -->
 
-    <color name="text_default">@color/trackbook_neutral_darker</color>
-    <color name="text_lightweight">@color/trackbook_neutral_dark</color>
-    <color name="text_outline_default">@color/trackbook_neutral_white</color>
+    <!-- statistics sheet -->
+    <color name="statistic_sheet_background">#fffffbfe</color> <!-- android:colorBackground / colorSurface -->
+    <color name="statistic_sheet_background_border">#ffe7e0ec</color> <!-- colorSurfaceVariant -->
 
-
-    <color name="icon_default">@color/trackbook_neutral_dark</color>
-    <color name="icon_lightweight">@color/trackbook_neutral_medium_light</color>
-    <color name="icon_star_selected">@color/trackbook_blue</color>
-
-    <color name="recording_management_buttons_background">@color/trackbook_accent_intense</color>
-    <color name="recording_management_buttons_icon">@color/trackbook_neutral_very_dark</color>
-
-    <color name="list_card_background">@color/trackbook_neutral_white</color>
-    <color name="list_card_delete_background">@color/trackbook_red</color>
-
-    <color name="statistic_sheet_background_expanded">@color/trackbook_white_85percent</color>
-    <color name="statistic_sheet_background_collapsed">@color/trackbook_neutral_white</color>
-    <color name="statistic_sheet_background_border">@color/trackbook_neutral_light</color>
-
-
-    <!-- BASE COLOR NAMES -->
-    <color name="trackbook_neutral_dark">#FF595959</color> <!-- derived from recommended dark theme surface color -->
-    <color name="trackbook_neutral_darker">#FF414141</color>
-    <color name="trackbook_neutral_very_dark">#FF2D2D2D</color>
-
-    <color name="trackbook_neutral_medium_light">#FF7D7D7D</color>
-    <color name="trackbook_neutral_light">#FFDADADA</color>
-    <color name="trackbook_neutral_lighter">#FFF2F2F2</color>
-    <color name="trackbook_neutral_very_light">#FFFAFAFA</color>
-
-    <color name="trackbook_accent_intense">#FFEADDFF</color> <!-- colorPrimary - Light Theme -->
-    <color name="trackbook_accent_light">#FFF4EEFF</color>
-    <color name="trackbook_accent_dimmed">#FF625b71</color> <!-- colorSecondary - Light Theme -->
-
-    <color name="trackbook_neutral_black">#FF121212</color> <!-- Material Design recommended dark theme surface color -->
-    <color name="trackbook_neutral_white">#FFFFFFFF</color>
-
-    <color name="trackbook_red">#FFDC3D33</color> <!-- Slightly muted variant of -> Material Design 2: Red 600 -->
-    <color name="trackbook_red_dark">#FFCA2D23</color>
-
-    <color name="trackbook_transparent">#00ffffff</color>
-
-    <color name="trackbook_blue">#FF3C98DB</color>
-
-    <color name="trackbook_green">#FF4CAF50</color>
-
-    <color name="trackbook_white_85percent">#D9FFFFFF</color>
-    <color name="trackbook_black_85percent">#D9121212</color>
+    <!-- DEFAULT COLORS -->
+    <color name="default_neutral_white">#ffffffff</color> <!-- system_accent1_0 -->
+    <color name="default_neutral_lighter">#ffe6e1e5</color> <!-- system_neutral1_100 -->
+    <color name="default_neutral_medium_light">#ff7d7d7d</color> <!-- system_neutral1_300  todo check -->
+    <color name="default_neutral_dark">#ff595959</color> <!-- system_neutral1_600 todo check-->
+    <color name="default_neutral_darker">#ff1c1b1f</color> <!-- system_neutral1_900-->
+    <!-- transparency -->
+    <color name="default_neutral_lighter_85percent">#d9e6e1e5</color> <!-- 85% system_neutral1_100 -->
+    <color name="default_neutral_darker_85percent">#d91c1b1f</color> <!-- 85% system_neutral1_900 -->
+    <color name="default_transparent">#00ffffff</color>
+    <color name="default_red">#FFDC3D33</color> <!-- Slightly muted variant of -> Material Design 2: Red 600 -->
+    <color name="default_red_dark">#FFCA2D23</color>
+    <color name="default_blue">#FF3C98DB</color>
+    <color name="default_green">#FF4CAF50</color>
 
 </resources>

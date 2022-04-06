@@ -3,8 +3,8 @@
     android:width="36dp"
     android:viewportHeight="144"
     android:viewportWidth="144">
-    <path android:fillColor="@color/trackbook_blue"
+    <path android:fillColor="@color/default_blue"
         android:pathData="M72,95.08 L96.72,110 90.16,81.88 112,62.96 83.24,60.52 72,34 60.76,60.52 32,62.96 53.84,81.88 47.28,110Z" android:strokeWidth="16.9412"/>
-    <path android:fillColor="@color/trackbook_red"
+    <path android:fillColor="@color/default_red"
         android:pathData="M72.02,0C58.088,0 46.82,11.268 46.82,25.2 46.82,44.1 72.02,72 72.02,72c0,0 25.2,-27.9 25.2,-46.8C97.22,11.268 85.952,0 72.02,0ZM72.02,34.2c-4.968,0 -9,-4.032 -9,-9 0,-4.968 4.032,-9 9,-9 4.968,0 9,4.032 9,9 0,4.968 -4.032,9 -9,9z" android:strokeWidth="3.60001"/>
 </vector>

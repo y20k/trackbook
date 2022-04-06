@@ -265,13 +265,11 @@ data class TrackFragmentLayoutHolder(private var context: Context, private var m
             override fun onStateChanged(bottomSheet: View, newState: Int) {
                 when (newState) {
                     BottomSheetBehavior.STATE_EXPANDED -> {
-                        statisticsSheet.background = context.getDrawable(R.drawable.shape_statistics_background_expanded)
                         trackManagementViews.isVisible = true
                         shareButton.isGone = true
                         // bottomSheet.setPadding(0,24,0,0)
                     }
                     else -> {
-                        statisticsSheet.background = context.getDrawable(R.drawable.shape_statistics_background_collapsed)
                         trackManagementViews.isGone = true
                         shareButton.isVisible = true
                         // bottomSheet.setPadding(0,0,0,0)
@@ -280,11 +278,9 @@ data class TrackFragmentLayoutHolder(private var context: Context, private var m
             }
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
                 if (slideOffset < 0.125f) {
-                    statisticsSheet.background = context.getDrawable(R.drawable.shape_statistics_background_collapsed)
                     trackManagementViews.isGone = true
                     shareButton.isVisible = true
                 } else {
-                    statisticsSheet.background = context.getDrawable(R.drawable.shape_statistics_background_expanded)
                     trackManagementViews.isVisible = true
                     shareButton.isGone = true
                 }

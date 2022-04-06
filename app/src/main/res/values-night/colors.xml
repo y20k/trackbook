@@ -1,35 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <!-- NIGHT THEME COLORS -->
 
-    <color name="app_window_background">@color/trackbook_neutral_very_dark</color>
-    <color name="bottom_navigation_background">@color/trackbook_neutral_black</color>
-    <color name="status_bar_background">@color/trackbook_neutral_black</color>
-    <color name="dialog_background">@color/trackbook_neutral_darker</color>
+    <!-- app colors -->
+    <color name="app_window_background">#ff1c1b1f</color> <!-- android:colorBackground / colorSurface -->
+    <color name="status_bar_background">#ff1c1b1f</color> <!-- android:colorBackground / colorSurface -->
+    <color name="dialog_background">#ff49454f</color> <!-- colorSurfaceVariant -->
+    <color name="app_onboarding_icons">#ffe6e1e5</color> <!-- colorOnBackground / colorOnSurface-->
+    <color name="toolbar_background">#ff313033</color> <!-- colorSurfaceInverse, Light Theme-->
 
-    <color name="bottom_navigation_element">@color/trackbook_neutral_medium_light</color>
-    <color name="bottom_navigation_element_selected">@color/trackbook_blue</color>
+    <!-- bottom navigation -->
+    <color name="bottom_navigation_background">#ff1c1b1f</color> <!-- android:colorBackground / colorSurface -->
+    <color name="bottom_navigation_element">#ffcac4d0</color> <!-- colorOnSurfaceVariant -->
+    <color name="bottom_navigation_element_selected">#ffd0bcff</color> <!-- colorPrimary -->
 
-    <color name="fab_button_card_text">@color/trackbook_neutral_white</color>
-    <color name="fab_button_card_background">@color/trackbook_neutral_darker</color>
+    <!-- text & icons -->
+    <color name="text_default">#ffe6e1e5</color> <!-- colorOnBackground / colorOnSurface-->
+    <color name="text_lightweight">#ffcac4d0</color> <!-- colorOnSurfaceVariant -->
+    <color name="text_outline_default">#ff1c1b1f</color> <!-- android:colorBackground / colorSurface -->
+    <color name="icon_default">#ffe6e1e5</color> <!-- colorOnBackground / colorOnSurface-->
+    <color name="icon_lightweight">#ffcac4d0</color> <!-- colorOnSurfaceVariant -->
+    <color name="icon_star_selected">#ffd0bcff</color> <!-- colorPrimary -->
+    <color name="location_button_icon">#ffe6e1e5</color> <!-- colorOnBackground / colorOnSurface-->
+    <color name="location_button_background">#ff1c1b1f</color> <!-- android:colorBackground / colorSurface -->
+    <color name="recording_management_buttons_background">#ffd0bcff</color> <!-- colorPrimary -->
+    <color name="recording_management_buttons_icon">#ff381e72</color> <!-- colorOnPrimary -->
 
-    <color name="location_button_icon">@color/trackbook_neutral_white</color>
-    <color name="location_button_background">@color/trackbook_neutral_black</color>
+    <!-- list -->
+    <color name="list_card_background">#ff49454f</color> <!-- colorSurfaceVariant -->
+    <color name="list_card_delete_background">#fff2b8b5</color> <!-- colorError -->
 
-    <color name="text_default">@color/trackbook_neutral_white</color>
-    <color name="text_lightweight">@color/trackbook_neutral_very_light</color>
-    <color name="text_outline_default">@color/trackbook_neutral_darker</color>
-
-    <color name="icon_default">@color/trackbook_neutral_white</color>
-    <color name="icon_lightweight">@color/trackbook_neutral_very_light</color>
-    <color name="icon_star_selected">@color/trackbook_blue</color>
-
-    <color name="list_card_background">@color/trackbook_neutral_darker</color>
-    <color name="list_card_delete_background">@color/trackbook_red</color>
-
-    <color name="statistic_sheet_background_expanded">@color/trackbook_black_85percent</color>
-    <color name="statistic_sheet_background_collapsed">@color/trackbook_neutral_black</color>
-    <color name="statistic_sheet_background_border">@color/trackbook_neutral_darker</color>
-
+    <!-- statistics sheet -->
+    <color name="statistic_sheet_background">#ff1c1b1f</color> <!-- android:colorBackground / colorSurface -->
+    <color name="statistic_sheet_background_border">#ff49454f</color> <!-- colorSurfaceVariant -->
 </resources>

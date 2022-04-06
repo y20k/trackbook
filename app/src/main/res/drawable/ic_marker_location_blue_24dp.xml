@@ -5,9 +5,9 @@
         android:width="24dp">
     <path
         android:fillAlpha="0.33"
-        android:fillColor="@color/trackbook_blue"
+        android:fillColor="@color/default_blue"
         android:pathData="M48,48m-48,0a48,48 0,1 1,96 0a48,48 0,1 1,-96 0"/>
     <path
-        android:fillColor="@color/trackbook_blue"
+        android:fillColor="@color/default_blue"
         android:pathData="M48,48m-24,0a24,24 0,1 1,48 0a24,24 0,1 1,-48 0"/>
 </vector>

@@ -40,7 +40,6 @@ import org.y20k.trackbook.core.WayPoint
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 /*
@@ -96,8 +95,8 @@ class MapOverlayHelper (private var markerListener: MarkerListener)  {
     /* Creates icon overlay for track */
     fun createTrackOverlay(context: Context, track: Track, trackingState: Int): SimpleFastPointOverlay {
         // get marker color
-        val color = if (trackingState == Keys.STATE_TRACKING_ACTIVE) context.getColor(R.color.trackbook_red)
-        else context.getColor(R.color.trackbook_blue)
+        val color = if (trackingState == Keys.STATE_TRACKING_ACTIVE) context.getColor(R.color.default_red)
+        else context.getColor(R.color.default_blue)
         // gather points for overlay
         val points: MutableList<IGeoPoint> = mutableListOf()
         track.wayPoints.forEach { wayPoint ->

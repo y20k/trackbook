@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/descr_button_save"
-            app:backgroundTint="@color/trackbook_green"
+            app:backgroundTint="@color/recording_management_buttons_background"
             app:fabSize="mini"
             app:layout_constraintBottom_toBottomOf="@+id/main_button"
             app:layout_constraintEnd_toEndOf="parent"
@@ -36,7 +36,7 @@
             app:layout_constraintStart_toEndOf="@+id/main_button"
             app:layout_constraintTop_toTopOf="@+id/main_button"
             app:srcCompat="@drawable/ic_save_24dp"
-            app:tint="@null" />  <!-- necessary hack: to be able to change icon color programmatically -->
+            app:tint="@color/recording_management_buttons_icon" />
 
         <!-- BUTTON CLEAR -->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -53,7 +53,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/main_button"
             app:srcCompat="@drawable/ic_delete_24dp"
-            app:tint="@null" />  <!-- necessary hack: to be able to change icon color programmatically -->
+            app:tint="@color/recording_management_buttons_icon" />
 
         <!-- MAIN BUTTON -->
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -63,12 +63,13 @@
             android:layout_marginBottom="16dp"
             android:contentDescription="@string/descr_button_start"
             android:text="@string/button_start"
+            android:textColor="@color/recording_management_buttons_icon"
             app:backgroundTint="@color/recording_management_buttons_background"
             app:icon="@drawable/ic_fiber_manual_record_inactive_24dp"
+            app:iconTint="@color/recording_management_buttons_icon"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:tint="@null" /> <!-- necessary hack: to be able to change icon color programmatically -->
+            app:layout_constraintStart_toStartOf="parent" />
 
         <!-- CURRENT LOCATION BUTTON -->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
