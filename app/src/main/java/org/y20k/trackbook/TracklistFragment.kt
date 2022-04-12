@@ -103,7 +103,7 @@ class TracklistFragment : Fragment(), TracklistAdapter.TracklistAdapterListener,
             Keys.ARG_GPX_FILE_URI to tracklistElement.gpxUriString,
             Keys.ARG_TRACK_ID to TrackHelper.getTrackId(tracklistElement)
         )
-        findNavController().navigate(R.id.fragment_track, bundle)
+        findNavController().navigate(R.id.action_tracklist_fragment_to_track_fragment, bundle)
     }
 
 

@@ -125,6 +125,12 @@ data class MapFragmentLayoutHolder(private var context: Context, private var mar
 
         // position the live statistics
         (liveStatisticsDistanceView.layoutParams as ConstraintLayout.LayoutParams).apply {
+//            topMargin = (64 * densityScalingFactor).toInt() + statusBarHeight // TODO uncomment when transparent status bar is re-implemented
+            topMargin = (64 * densityScalingFactor).toInt()
+        }
+
+        // position the location button
+        (currentLocationButton.layoutParams as ConstraintLayout.LayoutParams).apply {
 //            topMargin = (12 * densityScalingFactor).toInt() + statusBarHeight // TODO uncomment when transparent status bar is re-implemented
             topMargin = (12 * densityScalingFactor).toInt()
         }
@@ -231,21 +237,18 @@ data class MapFragmentLayoutHolder(private var context: Context, private var mar
                 mainButton.text = context.getString(R.string.button_start)
                 mainButton.contentDescription = context.getString(R.string.descr_button_start)
                 additionalButtons.isGone = true
-                currentLocationButton.isVisible = true
             }
             Keys.STATE_TRACKING_ACTIVE -> {
                 mainButton.setIconResource(R.drawable.ic_pause_24dp)
                 mainButton.text = context.getString(R.string.button_pause)
                 mainButton.contentDescription = context.getString(R.string.descr_button_start)
                 additionalButtons.isGone = true
-                currentLocationButton.isVisible = true
             }
             Keys.STATE_TRACKING_PAUSED -> {
                 mainButton.setIconResource(R.drawable.ic_fiber_manual_record_inactive_24dp)
                 mainButton.text = context.getString(R.string.button_resume)
                 mainButton.contentDescription = context.getString(R.string.descr_button_resume)
                 additionalButtons.isVisible = true
-                currentLocationButton.isGone = true
             }
         }
     }

@@ -12,15 +12,11 @@
         android:label="Map"
         tools:layout="@layout/fragment_map">
         <action
-            android:id="@+id/action_map_fragment_to_settings_fragment"
-            app:destination="@id/settings_fragment" />
-        <action
-            android:id="@+id/action_map_fragment_to_tracks_fragment"
-            app:destination="@id/tracklist_fragment" />
-        <action
-            android:id="@+id/action_map_fragment_to_fragment_track"
-            app:destination="@id/fragment_track"
-            app:popUpToInclusive="false" />
+            android:id="@+id/action_map_fragment_to_track_fragment"
+            app:destination="@id/track_fragment"
+            app:popUpTo="@+id/map_fragment"
+            app:popUpToInclusive="true" />
+        <!-- popUpTo & popUpToInclusive ensure that tapping on Map in bottom navigation opens the map -->
     </fragment>
 
     <!-- SETTINGS -->
@@ -36,14 +32,16 @@
         android:label="Tracks"
         tools:layout="@layout/fragment_tracklist">
         <action
-            android:id="@+id/action_tracks_fragment_to_fragment_track"
-            app:destination="@id/fragment_track" />
-
+            android:id="@+id/action_tracklist_fragment_to_track_fragment"
+            app:destination="@id/track_fragment"
+            app:popUpTo="@+id/tracklist_fragment"
+            app:popUpToInclusive="true" />
+        <!-- popUpTo & popUpToInclusive ensure that tapping on Tracks in bottom navigation opens the track list -->
     </fragment>
 
     <!-- TRACK -->
     <fragment
-        android:id="@+id/fragment_track"
+        android:id="@+id/track_fragment"
         android:name="org.y20k.trackbook.TrackFragment"
         android:label="Track"
         tools:layout="@layout/fragment_track" >

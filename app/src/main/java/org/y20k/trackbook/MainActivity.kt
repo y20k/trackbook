@@ -23,7 +23,7 @@ import android.os.Bundle
 import android.os.StrictMode
 import android.os.StrictMode.VmPolicy
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.osmdroid.config.Configuration
@@ -42,9 +42,9 @@ class MainActivity : AppCompatActivity() {
 
 
     /* Main class variables */
-    private lateinit var navHostFragment: NavHostFragment
-    private lateinit var bottomNavigationView: BottomNavigationView
-
+////    private lateinit var navHostFragment: NavHostFragment
+//    private lateinit var bottomNavigationView: BottomNavigationView
+//    private lateinit var navController: NavController
 
     /* Overrides onCreate from AppCompatActivity */
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,14 +67,15 @@ class MainActivity : AppCompatActivity() {
 
         // set up views
         setContentView(R.layout.activity_main)
-        navHostFragment  = supportFragmentManager.findFragmentById(R.id.main_container) as NavHostFragment
-        bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation_view)
-        bottomNavigationView.setupWithNavController(navController = navHostFragment.navController)
+        //navHostFragment  = findViewById<BottomNavigationView>(R.id.main_container)
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation_view)
+        val navController = findNavController(R.id.main_container)
+        bottomNavigationView.setupWithNavController(navController = navController)
 
         // listen for navigation changes
-        navHostFragment.navController.addOnDestinationChangedListener { _, destination, _ ->
+        navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.fragment_track -> {
+                R.id.track_fragment -> {
                     runOnUiThread {
                         run {
                             // mark menu item "Tracks" as checked

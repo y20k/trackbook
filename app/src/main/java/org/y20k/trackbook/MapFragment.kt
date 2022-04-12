@@ -305,7 +305,7 @@ class MapFragment : Fragment(), YesNoDialog.YesNoDialogListener, MapOverlayHelpe
         bundle.putString(Keys.ARG_TRACK_FILE_URI, tracklistElement.trackUriString)
         bundle.putString(Keys.ARG_GPX_FILE_URI, tracklistElement.gpxUriString)
         bundle.putLong(Keys.ARG_TRACK_ID, TrackHelper.getTrackId(tracklistElement))
-        findNavController().navigate(R.id.fragment_track, bundle)
+        findNavController().navigate(R.id.action_map_fragment_to_track_fragment, bundle)
     }
 
 
