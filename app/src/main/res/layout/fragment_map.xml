@@ -77,15 +77,15 @@
             style="@style/Widget.MaterialComponents.FloatingActionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
             android:contentDescription="@string/descr_button_location"
             android:src="@drawable/ic_current_location_24dp"
-            app:backgroundTint="@color/location_button_background"
+            app:backgroundTint="@color/default_white_85percent"
             app:fabSize="mini"
-            app:layout_constraintBottom_toBottomOf="@+id/main_button"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/main_button"
-            app:tint="@color/location_button_icon" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/default_neutral_darker" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/live_statistics_distance_outline"
@@ -101,12 +101,12 @@
             android:id="@+id/live_statistics_distance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="64dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:textAlignment="textEnd"
             android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
             android:textColor="@color/text_default"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/sample_text_default_live_statistics_distance" />
 
@@ -127,7 +127,7 @@
             android:textAlignment="textEnd"
             android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
             android:textColor="@color/text_default"
-            app:layout_constraintEnd_toEndOf="@+id/live_statistics_distance"
+            app:layout_constraintStart_toStartOf="@+id/live_statistics_distance"
             app:layout_constraintTop_toBottomOf="@+id/live_statistics_distance"
             tools:text="@string/sample_text_default_live_statistics_duration" />
 
