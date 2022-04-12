@@ -10,7 +10,7 @@
     <!-- Notification -->
     <string name="notification_title_trackbook_running">Trackbook 正在运行</string>
     <string name="notification_title_trackbook_not_running">Trackbook 未在运行</string>
-    <string name="notification_pause">停止</string>
+    <string name="notification_pause">暂停</string>
     <string name="notification_resume">恢复</string>
     <string name="notification_show">显示</string>
     <string name="notification_channel_recording_name">运动记录状态</string>
@@ -18,11 +18,15 @@
     <!-- Snackbar Messages -->
     <string name="snackbar_message_location_offline">定位已关闭。Trackbook 将不会运行。</string>
     <string name="snackbar_message_location_permission_denied">未被授予定位权限。Trackbook 将不会运行。</string>
-    <!-- FAB Sub Menu -->
-    <string name="button_delete">清除</string>
-    <string name="button_save">保存</string>
+    <!-- Buttons -->
+    <string name="button_delete">删除</string>
+    <string name="button_pause">暂停</string>
     <string name="button_resume">恢复</string>
+    <string name="button_save">保存</string>
+    <string name="button_start">开始</string>
     <!-- Dialogs -->
+    <string name="dialog_delete_current_recording_message">丢弃当前记录吗？</string>
+    <string name="dialog_delete_current_recording_button_discard">丢弃</string>
     <string name="dialog_generic_button_cancel">取消</string>
     <string name="dialog_generic_button_okay">确定</string>
     <string name="dialog_generic_details_button">显示详情</string>
@@ -63,7 +67,7 @@
     <!-- Recording Quick Settings Tile -->
     <string name="quick_settings_tile_title_default">记录</string>
     <string name="quick_settings_tile_title_start">开始记录</string>
-    <string name="quick_settings_tile_title_pause">停止记录</string>
+    <string name="quick_settings_tile_title_pause">暂停记录</string>
     <!-- Onboarding Layout -->
     <string name="layout_onboarding_description_app_icon">Trackbook 程序图标</string>
     <!-- Track Tab Onboarding -->
@@ -105,16 +109,17 @@
     <string name="abbreviation_minutes">分</string>
     <string name="abbreviation_seconds">秒</string>
     <!-- Descriptions -->
+    <string name="descr_button_delete">丢弃记录</string>
+    <string name="descr_button_location">当前定位居中</string>
+    <string name="descr_button_pause">暂停记录</string>
+    <string name="descr_button_resume">恢复记录</string>
+    <string name="descr_button_save">保存记录</string>
+    <string name="descr_button_start">开始记录</string>
     <string name="descr_map_current_track">当前轨迹的航迹图</string>
     <string name="descr_map_last_track">最后一个轨迹的航迹图</string>
-    <string name="descr_button_start">开始记录按钮</string>
-    <string name="descr_button_save">保存录制</string>
-    <string name="descr_button_delete">清除录制</string>
-    <string name="descr_button_resume">恢复录制</string>
-    <string name="descr_button_location">以当前位置为中心</string>
     <string name="descr_mark_starred_button">加星按钮</string>
     <string name="descr_quick_settings_tile_title_start">开始记录</string>
-    <string name="descr_quick_settings_tile_title_pause">停止记录</string>
+    <string name="descr_quick_settings_tile_title_pause">暂停记录</string>
     <string name="descr_statistics_sheet_delete_button">删除轨迹按钮</string>
     <string name="descr_statistics_sheet_edit_button">编辑轨迹按钮</string>
     <string name="descr_statistics_sheet_save_button">保存为 GPX 按钮</string>
